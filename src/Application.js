@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
+import { Grid } from 'react-bootstrap';
 import Header from './Header';
-import Reviews from './Reviews';
 import ReviewForm from './ReviewForm';
 
 class Application extends Component {
   render() {
     return (
-      <div>
-        Application
+      <Grid>
         <Header />
-        <Reviews />
         <ReviewForm />
-      </div>
+      </Grid>
     );
   }
 }
