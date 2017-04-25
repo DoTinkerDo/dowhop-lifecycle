@@ -14,7 +14,7 @@ class Header extends Component {
     return (
       <Row>
         <Col xs={12} sm={6}>
-          <section style={headerImage} role="presentational">
+          <section style={headerImage}>
             <PageHeader className="text-right header-text">
               Brew Beer<br />
               <small>with Karl</small>

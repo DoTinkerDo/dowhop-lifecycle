@@ -1,12 +1,12 @@
 import firebase from 'firebase';
 
 const config = {
-  apiKey: 'AIzaSyCYyWsyROqPBBQaxoG4dSmB7rKEJjilf-o',
-  authDomain: 'dowhop-reviews.firebaseapp.com',
-  databaseURL: 'https://dowhop-reviews.firebaseio.com',
-  projectId: 'dowhop-reviews',
-  storageBucket: 'dowhop-reviews.appspot.com',
-  messagingSenderId: '811119881760'
+  apiKey: 'AIzaSyCLCQMuGEkyphG6XLnr2yTwX0pTc65bObA',
+  authDomain: 'donewhop-reviews-1367c.firebaseapp.com',
+  databaseURL: 'https://donewhop-reviews-1367c.firebaseio.com',
+  projectId: 'donewhop-reviews-1367c',
+  storageBucket: 'donewhop-reviews-1367c.appspot.com',
+  messagingSenderId: '221310152590'
 };
 
 firebase.initializeApp(config);

@@ -66,6 +66,8 @@ class ReviewForm extends Component {
 
   render() {
     const { reviewSelection, creatorComment, doerComment, doneWhopComment } = this.state;
+    const { user } = this.props;
+    console.log(user);
     return (
       <Row>
         <Row style={{ margin: "0px"}}>
@@ -89,7 +91,7 @@ class ReviewForm extends Component {
                   starColor="#ce453b"
                 />  
                 <br />
-                <Image src="http://www.fillmurray.com/40/40" alt="headshot" circle /><br />
+                <Image src={user.photoURL} alt={user.displayName} style={{ width: "45px", height: "45px" }} circle /><br />
                 <FormControl
                   type="text"
                   value={this.state.comment}
