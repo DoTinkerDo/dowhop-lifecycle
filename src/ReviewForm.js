@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { database } from './firebase';
-import Reviews from './Reviews';
 import SelectionButtons from './SelectionButtons';
 import { Col, Row, FormGroup, FormControl, Image } from 'react-bootstrap';
 import StarRatingComponent from 'react-star-rating-component';
 
-const form = {
+const formStyles = {
   border: '1px solid #333'
 };
 
@@ -16,22 +15,16 @@ class ReviewForm extends Component {
     this.state = {
       rating: 0,
       comment: '',
-      creatorComment: '',
-      doerComment: '',
-      doneWhopComment: '',
-      creatorRating: 0,
-      doerRating: 0,
-      doneWhopRating: 0,
       reviewSelection: 'doneWhop'
     };
 
     this.doWhopsRef = database.ref(`/dowhop/${this.props.doWhopName}/`);
 
+    this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.getValidationState = this.getValidationState.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.getValidationState = this.getValidationState.bind(this);
     this.onStarClick = this.onStarClick.bind(this);
-    this.handleButtonClick = this.handleButtonClick.bind(this);
   }
 
   handleButtonClick(reviewSelection) {
@@ -61,7 +54,7 @@ class ReviewForm extends Component {
     const doWhopName = this.props.doWhopName;
     database.ref(`/dowhop/${doWhopName}/${reviewSelection}`)
       .child('comment')
-      .child(user.uid)
+      // .child(user.uid)
       .child(user.displayName)
       .set(this.state.comment)
   }
@@ -69,7 +62,6 @@ class ReviewForm extends Component {
   onStarClick(nextValue, prevValue, name) {
     this.setState({ 
       rating: nextValue,
-      // [`${name}Rating`]: nextValue
     });
 
     const user = this.props.user;
@@ -77,26 +69,24 @@ class ReviewForm extends Component {
     const doWhopName = this.props.doWhopName;
     database.ref(`/dowhop/${doWhopName}/${reviewSelection}`)
       .child('rating')
-      .child(user.uid)
+      // .child(user.uid)
       .child(user.displayName)
       .set(nextValue)
   }
 
   render() {
-    const { reviewSelection, creatorComment, doerComment, doneWhopComment } = this.state;
+    const { reviewSelection } = this.state;
     const { user, creatorName } = this.props;
 
     return (
       <Row>
-        <Row style={{ margin: "0px"}}>
-          <Reviews creatorComment={creatorComment} doerComment={doerComment} doneWhopComment={doneWhopComment} />
-        </Row>
+
         <Col xs={12} sm={6}>
-          <form style={form} onSubmit={this.handleSubmit}>
+          <form style={formStyles} onSubmit={this.handleSubmit}>
             <FormGroup controlId="formBasicText" validationState={this.getValidationState()}>
               <SelectionButtons
                 user={user}
-                creator={creatorName}
+                creatorName={creatorName}
                 reviewSelection={reviewSelection}
                 handleButtonClick={this.handleButtonClick}
               />

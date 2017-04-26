@@ -4,8 +4,17 @@ import { Col, Row, Image } from 'react-bootstrap';
 
 class Reviews extends Component {
   render() {
-    const { creatorComment, doerComment, doneWhopComment } = this.props
+    const {
+      creatorRating,
+      doerRating,
+      doneWhopRating,
+      creatorComment,
+      doerComment,
+      doneWhopComment,
+    } = this.props;
+
     return (
+      <Row>
         <Col xs={12} sm={6}>
           <Row >
             <Col xs={4} className="review">
@@ -14,6 +23,8 @@ class Reviews extends Component {
               <StarRatingComponent
                 name="creator"
                 starColor="#ce453b"
+                editing={false}
+                value={creatorRating}
               />
               <p>{creatorComment}</p>
             </Col>
@@ -23,6 +34,8 @@ class Reviews extends Component {
               <StarRatingComponent
                 name="doer" 
                 starColor="#ce453b"
+                editing={false}
+                value={doerRating}
               />
               <p>{doerComment}</p>
             </Col>
@@ -32,11 +45,14 @@ class Reviews extends Component {
               <StarRatingComponent
                 name="doneWhop"
                 starColor="#ce453b"
+                editing={false}
+                value={doneWhopRating}
               />
               <p>{doneWhopComment}</p>
             </Col>
           </Row>
         </Col>
+      </Row>
     );
   }
 }
