@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { database } from './firebase';
 import Reviews from './Reviews';
-import { Col, Row, FormGroup, FormControl, ButtonGroup, Button, Image } from 'react-bootstrap';
+import SelectionButtons from './SelectionButtons';
+import { Col, Row, FormGroup, FormControl, Image } from 'react-bootstrap';
 import StarRatingComponent from 'react-star-rating-component';
 
 const form = {
@@ -12,23 +14,28 @@ class ReviewForm extends Component {
     super(props);
      
     this.state = {
-      // creator: false,
       rating: 0,
       comment: '',
       creatorComment: '',
       doerComment: '',
       doneWhopComment: '',
-      // creatorRating: 0,
-      // doerRating: 0,
-      // doneWhopRating: 0,
+      creatorRating: 0,
+      doerRating: 0,
+      doneWhopRating: 0,
       reviewSelection: 'doneWhop'
-    };  
+    };
+
+    this.doWhopsRef = database.ref(`/dowhop/${this.props.doWhopName}/`);
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getValidationState = this.getValidationState.bind(this);
     this.onStarClick = this.onStarClick.bind(this);
     this.handleButtonClick = this.handleButtonClick.bind(this);
+  }
+
+  handleButtonClick(reviewSelection) {
+    this.setState({ reviewSelection });
   }
 
   getValidationState() {
@@ -49,6 +56,14 @@ class ReviewForm extends Component {
       [`${this.state.reviewSelection}Comment`]: this.state.comment,
       comment: ''
     });
+    const user = this.props.user;
+    const reviewSelection = this.state.reviewSelection;
+    const doWhopName = this.props.doWhopName;
+    database.ref(`/dowhop/${doWhopName}/${reviewSelection}`)
+      .child('comment')
+      .child(user.uid)
+      .child(user.displayName)
+      .set(this.state.comment)
   }
 
   onStarClick(nextValue, prevValue, name) {
@@ -56,18 +71,21 @@ class ReviewForm extends Component {
       rating: nextValue,
       // [`${name}Rating`]: nextValue
     });
-  }
 
-  handleButtonClick(reviewSelection) {
-    this.setState({
-      reviewSelection,
-    });
+    const user = this.props.user;
+    const reviewSelection = this.state.reviewSelection;
+    const doWhopName = this.props.doWhopName;
+    database.ref(`/dowhop/${doWhopName}/${reviewSelection}`)
+      .child('rating')
+      .child(user.uid)
+      .child(user.displayName)
+      .set(nextValue)
   }
 
   render() {
     const { reviewSelection, creatorComment, doerComment, doneWhopComment } = this.state;
-    const { user } = this.props;
-    console.log(user);
+    const { user, creatorName } = this.props;
+
     return (
       <Row>
         <Row style={{ margin: "0px"}}>
@@ -76,11 +94,12 @@ class ReviewForm extends Component {
         <Col xs={12} sm={6}>
           <form style={form} onSubmit={this.handleSubmit}>
             <FormGroup controlId="formBasicText" validationState={this.getValidationState()}>
-              <ButtonGroup className="pull-right form-buttons">
-                <Button active={reviewSelection === 'creator'} onClick={() => this.handleButtonClick('creator')}>Creator</Button>
-                <Button active={reviewSelection === 'doer'} onClick={() => this.handleButtonClick('doer')}>Doer</Button>
-                <Button active={reviewSelection === 'doneWhop'} onClick={() => this.handleButtonClick('doneWhop')}>DoWop</Button>
-              </ButtonGroup>
+              <SelectionButtons
+                user={user}
+                creator={creatorName}
+                reviewSelection={reviewSelection}
+                handleButtonClick={this.handleButtonClick}
+              />
               <br />
               <div className="form-input">
                 <StarRatingComponent

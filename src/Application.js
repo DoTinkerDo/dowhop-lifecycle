@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Grid } from 'react-bootstrap';
 import { auth, database } from './firebase';
+import { Grid } from 'react-bootstrap';
+// import map from 'lodash/map';
 import CurrentUser from './CurrentUser';
 import SignIn from './SignIn';
 import Header from './Header';
@@ -10,17 +11,30 @@ class Application extends Component {
   constructor(props) {
     super(props);
     
-    this.state = { currentUser: null }
+    this.state = {
+      currentUser: null,
+      doWhops: null,
+      creatorName: 'Creator',
+      doWhopName: 'Brew Beer',
+    };
+
+    this.doWhopsRef = database.ref(`/dowhop/${this.state.doWhopName}`);
   }
 
   componentDidMount() {
     auth.onAuthStateChanged(currentUser => {
-      this.setState({ currentUser });
+      // if (currentUser) {
+        this.setState({ currentUser });
+      // }
+      this.doWhopsRef.on('value', (snapshot) => {
+        this.setState({ doWhops: snapshot.val() });
+      });
     });
   }
 
   render() {
-    const { currentUser } = this.state;
+    const { currentUser, doWhops, creatorName, doWhopName } = this.state;
+
     return (
       <Grid>
         {!currentUser && <SignIn />}
@@ -28,8 +42,16 @@ class Application extends Component {
           currentUser &&
           <div>
             <CurrentUser user={currentUser} />
-            <Header />
-            <ReviewForm user={currentUser} />
+            <Header
+              creatorName={creatorName}
+              doWhopName={doWhopName}
+            />
+            <ReviewForm
+              user={currentUser}
+              doWhops={doWhops}
+              creatorName={creatorName}
+              doWhopName={doWhopName}
+            />
           </div>
         }
       </Grid>
