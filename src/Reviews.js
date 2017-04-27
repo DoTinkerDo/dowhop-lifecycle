@@ -40,7 +40,7 @@ class Reviews extends Component {
               <p>{doerComment}</p>
             </Col>
             <Col xs={4} className="review">
-              <Image src="dowhopicon.gif" style={{ width: "35px", height: "35px" }} alt="icon" circle />
+              <Image src="dowhopicon.gif" style={{ width: "35px", height: "35px", marginBottom: "5px" }} alt="icon" circle />
               DoWhop<br />
               <StarRatingComponent
                 name="doneWhop"
