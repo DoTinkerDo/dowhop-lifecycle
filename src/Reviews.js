@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import StarRatingComponent from 'react-star-rating-component';
 import { Col, Row, Image } from 'react-bootstrap';
+import { weightedRating } from './helpers/weightedRating';
 
 class Reviews extends Component {
   render() {
     const {
+      ratings,
       creatorRating,
       doerRating,
       doneWhopRating,
@@ -12,6 +14,8 @@ class Reviews extends Component {
       doerComment,
       doneWhopComment,
     } = this.props;
+
+    console.log(ratings && weightedRating(ratings));
 
     return (
       <Row>
@@ -46,7 +50,7 @@ class Reviews extends Component {
                 name="doneWhop"
                 starColor="#ce453b"
                 editing={false}
-                value={doneWhopRating}
+                value={ratings && weightedRating(ratings)}
               />
               <p>{doneWhopComment}</p>
             </Col>

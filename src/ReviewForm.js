@@ -3,6 +3,8 @@ import { database } from './firebase';
 import SelectionButtons from './SelectionButtons';
 import { Col, Row, FormGroup, FormControl, Image } from 'react-bootstrap';
 import StarRatingComponent from 'react-star-rating-component';
+import map from 'lodash/map';
+
 
 const formStyles = {
   border: '1px solid #333'
@@ -15,10 +17,10 @@ class ReviewForm extends Component {
     this.state = {
       rating: 0,
       comment: '',
-      reviewSelection: 'doneWhop'
+      reviewSelected: 'doneWhop'
     };
 
-    this.doWhopsRef = database.ref(`/dowhop/${this.props.doWhopName}/`);
+    this.doWhopsRef = database.ref(`/doWhops/${this.props.doWhopName}/`);
 
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.getValidationState = this.getValidationState.bind(this);
@@ -27,8 +29,8 @@ class ReviewForm extends Component {
     this.onStarClick = this.onStarClick.bind(this);
   }
 
-  handleButtonClick(reviewSelection) {
-    this.setState({ reviewSelection });
+  handleButtonClick(reviewSelected) {
+    this.setState({ reviewSelected });
   }
 
   getValidationState() {
@@ -43,39 +45,59 @@ class ReviewForm extends Component {
     this.setState({ comment });
   }
 
+  // comments
   handleSubmit(e) {
     e.preventDefault();
+    const user = this.props.user;
+    const reviewSelected = this.state.reviewSelected;
+    const doWhopName = this.props.doWhopName;
+    database.ref(`/doWhops/${doWhopName}/${reviewSelected}`)
+      .child('comment')
+      .child(user.uid)
+      .push(this.state.comment);
+
     this.setState({
-      [`${this.state.reviewSelection}Comment`]: this.state.comment,
+      [`${this.state.reviewSelected}Comment`]: this.state.comment,
       comment: ''
     });
-    const user = this.props.user;
-    const reviewSelection = this.state.reviewSelection;
-    const doWhopName = this.props.doWhopName;
-    database.ref(`/dowhop/${doWhopName}/${reviewSelection}`)
-      .child('comment')
-      // .child(user.uid)
-      .child(user.displayName)
-      .set(this.state.comment)
   }
 
+  // rating 
   onStarClick(nextValue, prevValue, name) {
-    this.setState({ 
-      rating: nextValue,
-    });
-
     const user = this.props.user;
-    const reviewSelection = this.state.reviewSelection;
+    const reviewSelected = this.state.reviewSelected;
     const doWhopName = this.props.doWhopName;
-    database.ref(`/dowhop/${doWhopName}/${reviewSelection}`)
-      .child('rating')
-      // .child(user.uid)
-      .child(user.displayName)
-      .set(nextValue)
+    const ratingRef = database.ref(`/doWhops/${doWhopName}/${reviewSelected}`);
+
+    ratingRef.once('value').then(snapshot => {
+      if (snapshot.child('rating').val() && snapshot.child('rated').child(user.uid).val()) {
+        const ratingKey = snapshot.child('rated').child(user.uid).child('key').val();
+        database.ref(`/doWhops/${doWhopName}/${reviewSelected}`)
+          .child('rating')
+          .child(ratingKey)
+          .remove();
+        database.ref(`/doWhops/${doWhopName}/${reviewSelected}`)
+          .child('rating')
+          .child(ratingKey)
+          .set(nextValue);
+        this.setState({ rating: nextValue });
+      } else {
+        let key = database.ref(`/doWhops/${doWhopName}/${reviewSelected}`)
+          .child('rating')
+          .push(nextValue).key;
+        database.ref(`/doWhops/${doWhopName}/${reviewSelected}`)
+          .child('rated')
+          .child(user.uid)
+          .set({
+            key: key
+          });
+        this.setState({ rating: nextValue });
+      }
+    });
   }
 
   render() {
-    const { reviewSelection } = this.state;
+    const { reviewSelected } = this.state;
     const { user, creatorName } = this.props;
 
     return (
@@ -87,13 +109,13 @@ class ReviewForm extends Component {
               <SelectionButtons
                 user={user}
                 creatorName={creatorName}
-                reviewSelection={reviewSelection}
+                reviewSelected={reviewSelected}
                 handleButtonClick={this.handleButtonClick}
               />
               <br />
               <div className="form-input">
                 <StarRatingComponent
-                  name={this.state.reviewSelection}
+                  name={this.state.reviewSelected}
                   starCount={5}
                   value={this.state.rating}
                   onStarClick={this.onStarClick}
