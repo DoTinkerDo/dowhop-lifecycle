@@ -37,29 +37,27 @@ class ReviewForm extends Component {
     this.setState({ comment });
   }
 
-  // set the user comments
   handleSubmit(e) {
-    e.preventDefault();
     const user = this.props.user;
-    const reviewSelected = this.state.reviewSelected;
+    const reviewSelected = this.props.reviewSelected;
     const doWhopName = this.props.doWhopName;
 
     database.ref(`/doWhops/${doWhopName}/${reviewSelected}`)
       .child('comment')
-      .child(user.uid)
-      .push(this.state.comment);
+      .push({
+        comment: this.state.comment,
+        userId: user.uid,
+        name: user.displayName,
+      });
 
-    this.setState({
-      [`${this.state.reviewSelected}Comment`]: this.state.comment,
-      comment: ''
-    });
+    e.preventDefault();
+    this.setState({ comment: '' });
   }
 
-  // set the start ratings
-  onStarClick(newRating, prevValue, name) {
+  onStarClick(newRating, prevRating, name) {
     const user = this.props.user;
-
-    const reviewSelectedRef = this.doWhopsRef.child(this.props.reviewSelected);
+    const reviewSelected = this.props.reviewSelected;
+    const reviewSelectedRef = this.doWhopsRef.child(reviewSelected);
 
     reviewSelectedRef.once('value').then(snapshot => {
       const userHasRated = snapshot.child('hasRated').child(user.uid).val();

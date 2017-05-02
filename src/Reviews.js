@@ -8,10 +8,27 @@ class Reviews extends Component {
       creatorRating,
       doerRating,
       doneWhopRating,
-      creatorComment,
-      doerComment,
-      doneWhopComment,
+      creatorComments,
+      doerComments,
+      doneWhopComments,
     } = this.props;
+
+    // console.log('reviews creator comment are: ', creatorComments && creatorComments);
+
+    let creatorComment = '';
+    if (creatorComments.length > 0) {
+      creatorComment = creatorComments.map((comment, idx) => <p key={idx}>{comment}</p>);
+    }
+
+    let doerComment = '';
+    if (doerComments.length > 0) {
+      doerComment = doerComments.map((comment, idx) => <p key={idx}>{comment}</p>);
+    }
+
+    let doneWhopComment = '';
+    if (doneWhopComments.length > 0) {
+      doneWhopComment = doneWhopComments.map((comment, idx) => <p key={idx}>{comment}</p>);
+    }
 
     return (
       <Row>
@@ -26,7 +43,7 @@ class Reviews extends Component {
                 editing={false}
                 value={creatorRating}
               />
-              <p>{creatorComment}</p>
+              {creatorComment}
             </Col>
             <Col xs={4}className="review">
               <Image src="http://www.fillmurray.com/40/40" alt="headshot" circle />
@@ -37,7 +54,7 @@ class Reviews extends Component {
                 editing={false}
                 value={doerRating}
               />
-              <p>{doerComment}</p>
+              {doerComment}
             </Col>
             <Col xs={4} className="review">
               <Image src="dowhopicon.gif" style={{ width: "35px", height: "35px", marginBottom: "5px" }} alt="icon" circle />
@@ -48,7 +65,7 @@ class Reviews extends Component {
                 editing={false}
                 value={doneWhopRating}
               />
-              <p>{doneWhopComment}</p>
+              {doneWhopComment}
             </Col>
           </Row>
         </Col>

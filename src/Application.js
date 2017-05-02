@@ -26,9 +26,9 @@ class Application extends Component {
       creatorRating: null,
       doerRating: null,
       doneWhopRating: null,
-      creatorComment: '',
-      doerComment: '',
-      doneWhopComment: '',
+      creatorComments: [],
+      doerComments: [],
+      doneWhopComments: [],
     };
 
     this.usersRef = null;
@@ -84,16 +84,25 @@ class Application extends Component {
           // const creatorname = 'creator dowhop';
           // const doername = this.state.currentUser.displayName;
           // const doername = 'Johann Billar';
-          // this.doWhopsRef.on('value', (snapshot) => {
-          //   this.setState({
-          //     creatorRating: snapshot.child('creator').child('rating').child(doername).val(),
-          //     creatorComment: snapshot.child('creator').child('comment').child(doername).val(),
-          //     doerRating: snapshot.child('doer').child('rating').child(creatorname).val(),
-          //     doerComment: snapshot.child('doer').child('comment').child(creatorname).val(),
-          //     doneWhopRating: snapshot.child('doneWhop').child('rating').child(doername).val(),
-          //     doneWhopComment: snapshot.child('doneWhop').child('comment').child(doername).val(),
-          //   });
-          // });
+          this.doWhopsRef.on('value', (snapshot) => {
+
+            const commentsCreatorNode = snapshot.child('creator').child('comment').val();
+            const creatorCommentState = map(commentsCreatorNode, (value, key) => value.comment);
+
+            const commentsDoerNode = snapshot.child('doer').child('comment').val();
+            const doerCommentState = map(commentsDoerNode, (value, key) => value.comment);
+
+            const commentsDoneWhopNode = snapshot.child('doneWhop').child('comment').val();
+            const doneWhopCommentState = map(commentsDoneWhopNode, (value, key) => value.comment);
+
+            this.setState({
+              creatorComments: creatorCommentState,
+              doerComments: doerCommentState,
+              doneWhopComments: doneWhopCommentState,
+              // doerComment: snapshot.child('doer').child('comment').child(creatorname).val(),
+              // doneWhopComment: snapshot.child('doneWhop').child('comment').child(doername).val(),
+            });
+          });
         }
     });
   }
@@ -117,11 +126,13 @@ class Application extends Component {
       creatorRating,
       doerRating,
       doneWhopRating,
-      creatorComment,
-      doerComment,
-      doneWhopComment,
+      creatorComments,
+      doerComments,
+      doneWhopComments,
       reviewSelected,
     } = this.state;
+
+    // console.log('app creator comment are: ', creatorComment && creatorComment);
 
     return (
       <Grid>
@@ -135,9 +146,9 @@ class Application extends Component {
               creatorRating={creatorRating && weightedRating(creatorRating)}
               doerRating={doerRating && weightedRating(doerRating)}
               doneWhopRating={doneWhopRating && weightedRating(doneWhopRating)}
-              creatorComment={creatorComment}
-              doerComment={doerComment}
-              doneWhopComment={doneWhopComment}
+              creatorComments={creatorComments}
+              doerComments={doerComments}
+              doneWhopComments={doneWhopComments}
             />
             <ReviewForm
               user={currentUser}
