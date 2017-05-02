@@ -33,10 +33,8 @@ class Application extends Component {
 
     this.usersRef = null;
     this.userRef = null;
+    this.ratingRef = null;
     this.doWhopsRef = database.ref(`/doWhops/${this.state.doWhopName}`);
-    this.ratingsDoneWhopRef = this.doWhopsRef.child('doneWhop').child('/ratings');
-    this.ratingsCreatorRef = this.doWhopsRef.child('creator').child('/ratings');
-    this.ratingsDoerRef = this.doWhopsRef.child('doer').child('/ratings');
 
     this.handleButtonClick = this.handleButtonClick.bind(this);
   }
@@ -67,43 +65,41 @@ class Application extends Component {
             this.setState({ users: snapshot.val() });
           });
 
-          // 3 event listeners for rating changes
-          this.ratingsDoneWhopRef.on('value', snapshot => {
-            const ratings = map(snapshot.val(), rating => rating);
-            this.setState({ doneWhopRating: ratings });
-          });
-          this.ratingsCreatorRef.on('value', snapshot => {
-            const ratings = map(snapshot.val(), rating => rating);
-            this.setState({ creatorRating: ratings });
-          });
-          this.ratingsDoerRef.on('value', snapshot => {
-            const ratings = map(snapshot.val(), rating => rating);
-            this.setState({ doerRating: ratings });
-          });
-
-          // const creatorname = 'creator dowhop';
-          // const doername = this.state.currentUser.displayName;
-          // const doername = 'Johann Billar';
-          this.doWhopsRef.on('value', (snapshot) => {
-
-            const commentsCreatorNode = snapshot.child('creator').child('comment').val();
-            const creatorCommentState = map(commentsCreatorNode, (value, key) => value.comment);
-
-            const commentsDoerNode = snapshot.child('doer').child('comment').val();
-            const doerCommentState = map(commentsDoerNode, (value, key) => value.comment);
-
-            const commentsDoneWhopNode = snapshot.child('doneWhop').child('comment').val();
-            const doneWhopCommentState = map(commentsDoneWhopNode, (value, key) => value.comment);
-
-            this.setState({
-              creatorComments: creatorCommentState,
-              doerComments: doerCommentState,
-              doneWhopComments: doneWhopCommentState,
-              // doerComment: snapshot.child('doer').child('comment').child(creatorname).val(),
-              // doneWhopComment: snapshot.child('doneWhop').child('comment').child(doername).val(),
-            });
-          });
+          this.fetchRatings('creator');
+          this.fetchRatings('doer');
+          this.fetchRatings('doneWhop');
+          this.fetchComments();
         }
+    });
+  }
+
+  fetchRatings(reviewSelected) {
+    const selectedRating = `${reviewSelected}Rating`;
+    this.ratingRef = this.doWhopsRef.child(reviewSelected).child('/ratings');
+
+    this.ratingRef.on('value', snapshot => {
+      const ratings = map(snapshot.val(), rating => rating);
+      this.setState({ [selectedRating]: ratings  });
+    });
+  }
+
+  fetchComments() {
+    this.doWhopsRef.on('value', (snapshot) => {
+
+      function getNode(reviewSelected, snapshot) {
+        const nodes = snapshot.child(reviewSelected).child('comment').val();
+        return map(nodes, (node, key) => node.comment);
+      }
+
+      const creatorCommentState = getNode('creator', snapshot);
+      const doerCommentState = getNode('doer', snapshot);
+      const doneWhopCommentState = getNode('doneWhop', snapshot);
+
+      this.setState({
+        creatorComments: creatorCommentState,
+        doerComments: doerCommentState,
+        doneWhopComments: doneWhopCommentState,
+      });
     });
   }
 
@@ -113,9 +109,8 @@ class Application extends Component {
 
   componentWillUnmount() {
     this.userRef.off();
-    this.ratingsDoneWhopRef.off();
-    this.ratingsCreatorRef.off();
-    this.ratingsDoerRef.off();
+    this.ratingRef.off();
+    this.doWhopsRef.off();
   }
 
   render() {
@@ -131,8 +126,6 @@ class Application extends Component {
       doneWhopComments,
       reviewSelected,
     } = this.state;
-
-    // console.log('app creator comment are: ', creatorComment && creatorComment);
 
     return (
       <Grid>

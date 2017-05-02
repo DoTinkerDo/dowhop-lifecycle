@@ -43,7 +43,6 @@ input:focus ~ .bar:after {width: 50%;}
 .page-header small {
   color: #ffffff;
 }
-
 .review {
   padding-left: 25px;
   padding-top: 20px;
@@ -51,7 +50,6 @@ input:focus ~ .bar:after {width: 50%;}
 }
 .review img {
   padding-right: 3px;
-
 }
 .form-buttons {
   padding-right: 20px;
@@ -67,3 +65,45 @@ input:focus ~ .bar:after {width: 50%;}
 .form-input input {
   background-color: transparent;
 }
+
+/* Loader Image */
+
+img.loading {
+  width: 32%;
+}
+
+@media (min-width: 560px) {
+  img.loading {
+    width: 20%;
+  }
+}
+
+img.loading {
+  -webkit-animation: spin 3s infinite linear;
+  -moz-animation: spin 3s infinite linear;
+  animation: spin 3s infinite linear;
+}
+
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+
+img.loading {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
+
+
+

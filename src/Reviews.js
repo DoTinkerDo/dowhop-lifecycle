@@ -13,22 +13,29 @@ class Reviews extends Component {
       doneWhopComments,
     } = this.props;
 
-    // console.log('reviews creator comment are: ', creatorComments && creatorComments);
-
     let creatorComment = '';
     if (creatorComments.length > 0) {
       creatorComment = creatorComments.map((comment, idx) => <p key={idx}>{comment}</p>);
     }
+    // } else {
+    //   creatorComment = <img className="loading" src='loading.png' alt="loading indicator" />;
+    // }
 
     let doerComment = '';
     if (doerComments.length > 0) {
       doerComment = doerComments.map((comment, idx) => <p key={idx}>{comment}</p>);
     }
+    // } else {
+    //   doerComment = <img className="loading" src='loading.png' alt="loading indicator" />;
+    // }
 
     let doneWhopComment = '';
     if (doneWhopComments.length > 0) {
       doneWhopComment = doneWhopComments.map((comment, idx) => <p key={idx}>{comment}</p>);
     }
+    // } else {
+    //   doneWhopComment = <img className="loading" src='loading.png' alt="loading indicator" />;
+    // }
 
     return (
       <Row>
