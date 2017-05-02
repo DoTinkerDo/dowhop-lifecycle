@@ -1,5 +1,5 @@
 export const weightedRating = (array) => {
-  console.log('weightedRating called with: ', array);
+  // console.log('weightedRating called with: ', array);
 
   if (array === null || array.length === 0) return 0; 
 
