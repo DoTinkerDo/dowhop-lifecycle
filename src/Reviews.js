@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import StarRatingComponent from 'react-star-rating-component';
+// import StarRatingComponent from 'react-star-rating-component';
+import StarRating from './StarRating';
 import { Col, Row, Image } from 'react-bootstrap';
 
 class Reviews extends Component {
@@ -44,7 +45,7 @@ class Reviews extends Component {
             <Col xs={4} className="review">
               <Image src="http://www.fillmurray.com/40/40" alt="headshot" circle />
               Creator<br />
-              <StarRatingComponent
+              <StarRating
                 name="creator"
                 starColor="#ec1928"
                 editing={false}
@@ -55,7 +56,7 @@ class Reviews extends Component {
             <Col xs={4}className="review">
               <Image src="http://www.fillmurray.com/40/40" alt="headshot" circle />
               Doer<br />
-              <StarRatingComponent
+              <StarRating
                 name="doer" 
                 starColor="#ec1928"
                 editing={false}
@@ -66,7 +67,7 @@ class Reviews extends Component {
             <Col xs={4} className="review">
               <Image src="dowhopicon.gif" style={{ width: "35px", height: "35px", marginBottom: "5px" }} alt="icon" circle />
               DoWhop<br />
-              <StarRatingComponent
+              <StarRating
                 name="doneWhop"
                 starColor="#ec1928"
                 editing={false}

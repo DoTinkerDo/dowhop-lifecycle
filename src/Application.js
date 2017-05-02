@@ -129,29 +129,29 @@ class Application extends Component {
 
     return (
       <Grid>
-        {!currentUser && <SignIn />}
-        {
-          currentUser &&
-          <div>
-            <CurrentUser user={currentUser} />
-            <Header creatorName={creatorName} doWhopName={doWhopName} />
-            <Reviews
-              creatorRating={creatorRating && weightedRating(creatorRating)}
-              doerRating={doerRating && weightedRating(doerRating)}
-              doneWhopRating={doneWhopRating && weightedRating(doneWhopRating)}
-              creatorComments={creatorComments}
-              doerComments={doerComments}
-              doneWhopComments={doneWhopComments}
-            />
-            <ReviewForm
-              user={currentUser}
-              creatorName={creatorName}
-              doWhopName={doWhopName}
-              reviewSelected={reviewSelected}
-              handleButtonClick={this.handleButtonClick}
-            />
-          </div>
-        }
+        {!currentUser ? (
+          <SignIn />
+         ) : (
+            <div>
+              <CurrentUser user={currentUser} />
+              <Header creatorName={creatorName} doWhopName={doWhopName} />
+              <Reviews
+                creatorRating={creatorRating && weightedRating(creatorRating)}
+                doerRating={doerRating && weightedRating(doerRating)}
+                doneWhopRating={doneWhopRating && weightedRating(doneWhopRating)}
+                creatorComments={creatorComments}
+                doerComments={doerComments}
+                doneWhopComments={doneWhopComments}
+              />
+              <ReviewForm
+                user={currentUser}
+                creatorName={creatorName}
+                doWhopName={doWhopName}
+                reviewSelected={reviewSelected}
+                handleButtonClick={this.handleButtonClick}
+              />
+            </div>
+          )}
       </Grid>
     );
   }

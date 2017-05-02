@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { database } from './firebase';
 import SelectionButtons from './SelectionButtons';
 import { Col, Row, FormGroup, FormControl, Image } from 'react-bootstrap';
-import StarRatingComponent from 'react-star-rating-component';
+// import StarRatingComponent from 'react-star-rating-component';
+import StarRating from './StarRating';
 
 const formStyles = {
   border: '1px solid #333'
@@ -103,13 +104,13 @@ class ReviewForm extends Component {
               />
               <br />
               <div className="form-input">
-                <StarRatingComponent
+                <StarRating
                   name={reviewSelected}
                   starCount={5}
                   value={rating}
                   onStarClick={this.onStarClick}
                   starColor="#ec1928"
-                />  
+                />
                 <br />
                 <Image src={user.photoURL} alt={user.displayName} style={{ width: "45px", height: "45px" }} circle /><br />
                 <FormControl
