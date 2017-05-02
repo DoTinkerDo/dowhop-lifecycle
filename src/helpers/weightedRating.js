@@ -1,19 +1,21 @@
 export const weightedRating = (array) => {
-  const ratings = array.reduce((obj, item) => {
-    if (!obj[item]) {
-      obj[item] = 0;
+  console.log('weightedRating called with: ', array);
+
+  if (array === null || array.length === 0) return 0; 
+
+  const ratings = array.reduce((obj, startCount) => {
+    if (!obj[startCount]) {
+      obj[startCount] = 0;
     }
-      obj[item]++;
+      obj[startCount]++;
       return obj;
   }, {});
 
-  // numninator
   let weightedRatingCount = 0;
   for (let rating in ratings) {
     weightedRatingCount += rating * ratings[rating];
   }
 
-  // denominator
   let totalRatingsCount = 0;
   for (let rating in ratings) {
     totalRatingsCount += ratings[rating]

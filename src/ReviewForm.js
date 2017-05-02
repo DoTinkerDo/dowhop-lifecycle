@@ -3,8 +3,6 @@ import { database } from './firebase';
 import SelectionButtons from './SelectionButtons';
 import { Col, Row, FormGroup, FormControl, Image } from 'react-bootstrap';
 import StarRatingComponent from 'react-star-rating-component';
-import map from 'lodash/map';
-
 
 const formStyles = {
   border: '1px solid #333'
@@ -21,6 +19,7 @@ class ReviewForm extends Component {
     };
 
     this.doWhopsRef = database.ref(`/doWhops/${this.props.doWhopName}/`);
+    this.reviewSelectedRef = this.doWhopsRef.child(this.state.reviewSelected);
 
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.getValidationState = this.getValidationState.bind(this);
@@ -45,12 +44,13 @@ class ReviewForm extends Component {
     this.setState({ comment });
   }
 
-  // comments
+  // set the user comments
   handleSubmit(e) {
     e.preventDefault();
     const user = this.props.user;
     const reviewSelected = this.state.reviewSelected;
     const doWhopName = this.props.doWhopName;
+
     database.ref(`/doWhops/${doWhopName}/${reviewSelected}`)
       .child('comment')
       .child(user.uid)
@@ -62,42 +62,41 @@ class ReviewForm extends Component {
     });
   }
 
-  // rating 
-  onStarClick(nextValue, prevValue, name) {
+  // set the start ratings
+  onStarClick(newRating, prevValue, name) {
     const user = this.props.user;
-    const reviewSelected = this.state.reviewSelected;
-    const doWhopName = this.props.doWhopName;
-    const ratingRef = database.ref(`/doWhops/${doWhopName}/${reviewSelected}`);
 
-    ratingRef.once('value').then(snapshot => {
-      if (snapshot.child('rating').val() && snapshot.child('rated').child(user.uid).val()) {
-        const ratingKey = snapshot.child('rated').child(user.uid).child('key').val();
-        database.ref(`/doWhops/${doWhopName}/${reviewSelected}`)
-          .child('rating')
+    this.reviewSelectedRef.once('value').then(snapshot => {
+      const userHasRated = snapshot.child('hasRated').child(user.uid).val();
+
+      if (userHasRated) {
+        const ratingKey = snapshot.child('hasRated').child(user.uid).child('key').val();
+        this.reviewSelectedRef
+          .child('ratings')
           .child(ratingKey)
-          .remove();
-        database.ref(`/doWhops/${doWhopName}/${reviewSelected}`)
-          .child('rating')
-          .child(ratingKey)
-          .set(nextValue);
-        this.setState({ rating: nextValue });
+          .set(newRating);
+        this.setState({ rating: newRating });
       } else {
-        let key = database.ref(`/doWhops/${doWhopName}/${reviewSelected}`)
-          .child('rating')
-          .push(nextValue).key;
-        database.ref(`/doWhops/${doWhopName}/${reviewSelected}`)
-          .child('rated')
+        const key = this.reviewSelectedRef
+          .child('ratings')
+          .push(newRating).key;
+        this.reviewSelectedRef
+          .child('hasRated')
           .child(user.uid)
           .set({
-            key: key
+            key: key,
+            user: user.displayName,
+            [user.uid]: true
           });
-        this.setState({ rating: nextValue });
+        this.setState({ rating: newRating });
       }
     });
   }
 
+
+
   render() {
-    const { reviewSelected } = this.state;
+    const { reviewSelected, comment, rating } = this.state;
     const { user, creatorName } = this.props;
 
     return (
@@ -115,17 +114,17 @@ class ReviewForm extends Component {
               <br />
               <div className="form-input">
                 <StarRatingComponent
-                  name={this.state.reviewSelected}
+                  name={reviewSelected}
                   starCount={5}
-                  value={this.state.rating}
+                  value={rating}
                   onStarClick={this.onStarClick}
-                  starColor="#ce453b"
+                  starColor="#ec1928"
                 />  
                 <br />
                 <Image src={user.photoURL} alt={user.displayName} style={{ width: "45px", height: "45px" }} circle /><br />
                 <FormControl
                   type="text"
-                  value={this.state.comment}
+                  value={comment}
                   placeholder="Comment..."
                   onChange={this.handleChange}
                 />

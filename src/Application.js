@@ -8,6 +8,7 @@ import Header from './Header';
 import ReviewForm from './ReviewForm';
 import pick from 'lodash/pick';
 import map from 'lodash/map';
+import { weightedRating } from './helpers/weightedRating';
 
 class Application extends Component {
   constructor(props) {
@@ -33,6 +34,7 @@ class Application extends Component {
     this.usersRef = null;
     this.userRef = null;
     this.doWhopsRef = database.ref(`/doWhops/${this.state.doWhopName}`);
+    this.ratingsRef = this.doWhopsRef.child('/doneWhop').child('/ratings');
   }
 
   componentDidMount() {
@@ -40,9 +42,8 @@ class Application extends Component {
       this.setState({ currentUser });
 
         if (currentUser) {
-          this.usersRef =database.ref('/users');
+          this.usersRef = database.ref('/users');
           this.userRef = this.usersRef.child(currentUser.uid);
-
           this.userRef.once('value').then(snapshot => {
             if (snapshot.val()) return;
             const userData = pick(currentUser, ['displayName', 'photoURL', 'email', 'uid' ]);
@@ -62,10 +63,15 @@ class Application extends Component {
             this.setState({ users: snapshot.val() });
           });
 
-          const creatorname = 'creator dowhop';
-          // const doername = this.state.currentUser.displayName;
-          const doername = 'Johann Billar';
+          // creates and sets star rating state with an array of ratings
+          this.ratingsRef.on('value', snapshot => {
+            const ratings = map(snapshot.val(), rating => rating);
+            this.setState({ ratings });
+          });
 
+          // const creatorname = 'creator dowhop';
+          // const doername = this.state.currentUser.displayName;
+          // const doername = 'Johann Billar';
           // this.doWhopsRef.on('value', (snapshot) => {
           //   this.setState({
           //     creatorRating: snapshot.child('creator').child('rating').child(doername).val(),
@@ -76,28 +82,19 @@ class Application extends Component {
           //     doneWhopComment: snapshot.child('doneWhop').child('comment').child(doername).val(),
           //   });
           // });
-          const ratingsRef = this.doWhopsRef.child('/doneWhop').child('/rating');
-
-          let r = [];
-          ratingsRef.on('child_added', (snapshot) => {
-            let value = snapshot.val();
-            r.push(value);
-            this.setState({ ratings: r });
-          });
-
-          ratingsRef.on('child_removed', (snapshot) => {
-            let value = snapshot.val();
-            r.pop(value);
-            this.setState({ ratings: r });
-          });
         }
     });
+  }
+
+  componentWillUnmount() {
+    this.ratingsRef.off();
+    this.userRef.off();
   }
 
   render() {
     const {
       ratings,
-      userObject,
+      // userObject,
       currentUser,
       doWhops,
       creatorName,
@@ -110,8 +107,8 @@ class Application extends Component {
       doneWhopComment,
     } = this.state;
 
-    // console.log(userObject && userObject.type);
-    console.log(this.state.ratings);
+    const calculatedWeightedRating = weightedRating(ratings);
+    console.log('app weightedRating', calculatedWeightedRating)
 
     return (
       <Grid>
@@ -122,7 +119,7 @@ class Application extends Component {
             <CurrentUser user={currentUser} />
             <Header creatorName={creatorName} doWhopName={doWhopName} />
             <Reviews
-              ratings={ratings}
+              rating={calculatedWeightedRating}
               creatorRating={creatorRating}
               doerRating={doerRating}
               doneWhopRating={doneWhopRating}
@@ -135,6 +132,7 @@ class Application extends Component {
               doWhops={doWhops}
               creatorName={creatorName}
               doWhopName={doWhopName}
+              ratings={ratings}
             />
           </div>
         }
