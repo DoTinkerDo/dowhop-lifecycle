@@ -17,15 +17,15 @@ class Application extends Component {
     this.state = {
       users: {},
       userObject: null,
-      ratings: null,
       currentUser: null,
-      // hard-coded state...
+      // tempporary hard-coded state...
+      reviewSelected: 'doneWhop', 
       type: 'doer',
       creatorName: 'creator',
       doWhopName: 'Brew Beer',
-      creatorRating: 0,
-      doerRating: 0,
-      doneWhopRating: 0,
+      creatorRating: null,
+      doerRating: null,
+      doneWhopRating: null,
       creatorComment: '',
       doerComment: '',
       doneWhopComment: '',
@@ -34,7 +34,11 @@ class Application extends Component {
     this.usersRef = null;
     this.userRef = null;
     this.doWhopsRef = database.ref(`/doWhops/${this.state.doWhopName}`);
-    this.ratingsRef = this.doWhopsRef.child('/doneWhop').child('/ratings');
+    this.ratingsDoneWhopRef = this.doWhopsRef.child('doneWhop').child('/ratings');
+    this.ratingsCreatorRef = this.doWhopsRef.child('creator').child('/ratings');
+    this.ratingsDoerRef = this.doWhopsRef.child('doer').child('/ratings');
+
+    this.handleButtonClick = this.handleButtonClick.bind(this);
   }
 
   componentDidMount() {
@@ -63,10 +67,18 @@ class Application extends Component {
             this.setState({ users: snapshot.val() });
           });
 
-          // creates and sets star rating state with an array of ratings
-          this.ratingsRef.on('value', snapshot => {
+          // 3 event listeners for rating changes
+          this.ratingsDoneWhopRef.on('value', snapshot => {
             const ratings = map(snapshot.val(), rating => rating);
-            this.setState({ ratings });
+            this.setState({ doneWhopRating: ratings });
+          });
+          this.ratingsCreatorRef.on('value', snapshot => {
+            const ratings = map(snapshot.val(), rating => rating);
+            this.setState({ creatorRating: ratings });
+          });
+          this.ratingsDoerRef.on('value', snapshot => {
+            const ratings = map(snapshot.val(), rating => rating);
+            this.setState({ doerRating: ratings });
           });
 
           // const creatorname = 'creator dowhop';
@@ -86,17 +98,20 @@ class Application extends Component {
     });
   }
 
+  handleButtonClick(reviewSelected) {
+    this.setState({ reviewSelected });
+  }
+
   componentWillUnmount() {
-    this.ratingsRef.off();
     this.userRef.off();
+    this.ratingsDoneWhopRef.off();
+    this.ratingsCreatorRef.off();
+    this.ratingsDoerRef.off();
   }
 
   render() {
     const {
-      ratings,
-      // userObject,
       currentUser,
-      doWhops,
       creatorName,
       doWhopName,
       creatorRating,
@@ -105,10 +120,8 @@ class Application extends Component {
       creatorComment,
       doerComment,
       doneWhopComment,
+      reviewSelected,
     } = this.state;
-
-    const calculatedWeightedRating = weightedRating(ratings);
-    console.log('app weightedRating', calculatedWeightedRating)
 
     return (
       <Grid>
@@ -119,20 +132,19 @@ class Application extends Component {
             <CurrentUser user={currentUser} />
             <Header creatorName={creatorName} doWhopName={doWhopName} />
             <Reviews
-              rating={calculatedWeightedRating}
-              creatorRating={creatorRating}
-              doerRating={doerRating}
-              doneWhopRating={doneWhopRating}
+              creatorRating={creatorRating && weightedRating(creatorRating)}
+              doerRating={doerRating && weightedRating(doerRating)}
+              doneWhopRating={doneWhopRating && weightedRating(doneWhopRating)}
               creatorComment={creatorComment}
               doerComment={doerComment}
               doneWhopComment={doneWhopComment}
             />
             <ReviewForm
               user={currentUser}
-              doWhops={doWhops}
               creatorName={creatorName}
               doWhopName={doWhopName}
-              ratings={ratings}
+              reviewSelected={reviewSelected}
+              handleButtonClick={this.handleButtonClick}
             />
           </div>
         }

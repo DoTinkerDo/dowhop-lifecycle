@@ -5,10 +5,9 @@ import { Col, Row, Image } from 'react-bootstrap';
 class Reviews extends Component {
   render() {
     const {
-      rating,
       creatorRating,
       doerRating,
-      // doneWhopRating,
+      doneWhopRating,
       creatorComment,
       doerComment,
       doneWhopComment,
@@ -47,7 +46,7 @@ class Reviews extends Component {
                 name="doneWhop"
                 starColor="#ec1928"
                 editing={false}
-                value={rating}
+                value={doneWhopRating}
               />
               <p>{doneWhopComment}</p>
             </Col>

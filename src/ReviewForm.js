@@ -15,21 +15,14 @@ class ReviewForm extends Component {
     this.state = {
       rating: 0,
       comment: '',
-      reviewSelected: 'doneWhop'
     };
 
     this.doWhopsRef = database.ref(`/doWhops/${this.props.doWhopName}/`);
-    this.reviewSelectedRef = this.doWhopsRef.child(this.state.reviewSelected);
 
-    this.handleButtonClick = this.handleButtonClick.bind(this);
     this.getValidationState = this.getValidationState.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onStarClick = this.onStarClick.bind(this);
-  }
-
-  handleButtonClick(reviewSelected) {
-    this.setState({ reviewSelected });
   }
 
   getValidationState() {
@@ -66,21 +59,23 @@ class ReviewForm extends Component {
   onStarClick(newRating, prevValue, name) {
     const user = this.props.user;
 
-    this.reviewSelectedRef.once('value').then(snapshot => {
+    const reviewSelectedRef = this.doWhopsRef.child(this.props.reviewSelected);
+
+    reviewSelectedRef.once('value').then(snapshot => {
       const userHasRated = snapshot.child('hasRated').child(user.uid).val();
 
       if (userHasRated) {
         const ratingKey = snapshot.child('hasRated').child(user.uid).child('key').val();
-        this.reviewSelectedRef
+        reviewSelectedRef
           .child('ratings')
           .child(ratingKey)
           .set(newRating);
         this.setState({ rating: newRating });
       } else {
-        const key = this.reviewSelectedRef
+        const key = reviewSelectedRef
           .child('ratings')
           .push(newRating).key;
-        this.reviewSelectedRef
+        reviewSelectedRef
           .child('hasRated')
           .child(user.uid)
           .set({
@@ -93,15 +88,12 @@ class ReviewForm extends Component {
     });
   }
 
-
-
   render() {
-    const { reviewSelected, comment, rating } = this.state;
-    const { user, creatorName } = this.props;
+    const { comment, rating } = this.state;
+    const { user, creatorName, handleButtonClick, reviewSelected } = this.props;
 
     return (
       <Row>
-
         <Col xs={12} sm={6}>
           <form style={formStyles} onSubmit={this.handleSubmit}>
             <FormGroup controlId="formBasicText" validationState={this.getValidationState()}>
@@ -109,7 +101,7 @@ class ReviewForm extends Component {
                 user={user}
                 creatorName={creatorName}
                 reviewSelected={reviewSelected}
-                handleButtonClick={this.handleButtonClick}
+                handleButtonClick={handleButtonClick}
               />
               <br />
               <div className="form-input">
