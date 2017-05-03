@@ -29,6 +29,7 @@ class Application extends Component {
       creatorComments: [],
       doerComments: [],
       doneWhopComments: [],
+      isOpen: false,
     };
 
     this.usersRef = null;
@@ -37,6 +38,7 @@ class Application extends Component {
     this.doWhopsRef = database.ref(`/doWhops/${this.state.doWhopName}`);
 
     this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.toggleOpen = this.toggleOpen.bind(this);
   }
 
   componentDidMount() {
@@ -107,6 +109,10 @@ class Application extends Component {
     this.setState({ reviewSelected });
   }
 
+  toggleOpen() {
+    this.setState({ isOpen: !this.state.isOpen });
+  }
+
   componentWillUnmount() {
     this.userRef.off();
     this.ratingRef.off();
@@ -125,16 +131,17 @@ class Application extends Component {
       doerComments,
       doneWhopComments,
       reviewSelected,
+      isOpen,
     } = this.state;
 
     return (
       <Grid>
-        {!currentUser ? (
+        {currentUser === null ? (
           <SignIn />
          ) : (
             <div>
               <CurrentUser user={currentUser} />
-              <Header creatorName={creatorName} doWhopName={doWhopName} />
+              <Header creatorName={creatorName} doWhopName={doWhopName} toggleOpen={this.toggleOpen} />
               <Reviews
                 creatorRating={creatorRating && weightedRating(creatorRating)}
                 doerRating={doerRating && weightedRating(doerRating)}
@@ -142,6 +149,7 @@ class Application extends Component {
                 creatorComments={creatorComments}
                 doerComments={doerComments}
                 doneWhopComments={doneWhopComments}
+                isOpen={isOpen}
               />
               <ReviewForm
                 user={currentUser}

@@ -9,10 +9,10 @@ const headerImage = {
   height: "225px"
 };
 
-function Header({ doWhopName, creatorName }) {
+function Header({ doWhopName, creatorName, toggleOpen }) {
   return (
-    <Row>
-      <Col xs={12} sm={6}>
+    <Row onClick={toggleOpen}>
+      <Col xs={12} sm={6} className="header">
         <section style={headerImage}>
           <PageHeader className="text-right header-text">
             {doWhopName}<br />

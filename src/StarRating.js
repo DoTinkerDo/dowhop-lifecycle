@@ -126,7 +126,7 @@ class StarRating extends Component {
 
     return (
       // <div style={{display: 'inline-block', position: 'relative'}} className={classes}>
-      <div style={{display: 'inline-block', position: 'relative'}}>
+      <div style={{display: 'inline-block', position: 'relative', fontSize: '120%'}}>
         {this.renderStars()}
        </div>
     );
@@ -137,8 +137,8 @@ StarRating.defaultProps = {
   starCount: 5,
   value: 0,
   editing: true,
-  starColor: '#ffb400',
-  emptyStarColor: '#333'
+  starColor: '#ec1928',
+  emptyStarColor: '#606060'
 };
 
 export default StarRating;

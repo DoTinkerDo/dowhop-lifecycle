@@ -6,7 +6,7 @@ import { Col, Row, FormGroup, FormControl, Image } from 'react-bootstrap';
 import StarRating from './StarRating';
 
 const formStyles = {
-  border: '1px solid #333'
+  border: '1px solid #606060'
 };
 
 class ReviewForm extends Component {

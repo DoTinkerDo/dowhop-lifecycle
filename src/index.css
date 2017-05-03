@@ -2,9 +2,41 @@
 *:after { box-sizing: border-box;margin: 0;padding: 0; }*/
 
 /*html {height: 100%;background: #fff;}*/
-body { font-family: 'Avenir Light', Avenir Light, Arial, sans-serif; /*min-width: 320px;*/ }
+body,
+h1 { 
+  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
+}
+.page-header h1 {
+  padding: 5px;
+  background-color: rgba(0,0,0, .5);
+  font-size: 2em;
+}
 input, 
-button {border: none;outline: none;background: none;font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;color: #606060;}
+button {
+  border: none;
+  outline: none;
+  background: none;
+  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
+  color: #606060;
+}
+
+.form-buttons button {
+  background-color: #606060;
+  color: #ffffff;
+  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
+  font-size: 90%;
+  border-radius: 0;
+  border: none;
+}
+
+.form-buttons button.active,
+.form-buttons button.active:hover,
+.form-buttons button.active:focus {
+  background-color: #ec1928;
+  color: #ffffff;
+  border: none;
+}
+
 /*header {text-align: center;padding-top: 10px;}
 header h1 {font-size: 24px;}
 .wrap {width: 100%;margin: 25px auto;padding: 0 30px;min-height: 60vh;}
@@ -49,7 +81,7 @@ input:focus ~ .bar:after {width: 50%;}
   font-size: 90%;
 }
 .review img {
-  padding-right: 3px;
+  margin-right: 2px;
 }
 .form-buttons {
   padding-right: 20px;
@@ -60,7 +92,8 @@ input:focus ~ .bar:after {width: 50%;}
   padding-right: 10px;
 }
 .form-input img {
-  padding-bottom: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
 }
 .form-input input {
   background-color: transparent;
@@ -105,5 +138,11 @@ img.loading {
   margin-bottom: 10px;
 }
 
+.header {
+  cursor: pointer;
+}
 
+input#formBasicText {
+  border-radius: 0;
+}
 

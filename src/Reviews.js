@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import StarRatingComponent from 'react-star-rating-component';
 import StarRating from './StarRating';
-import { Col, Row, Image } from 'react-bootstrap';
+import { Col, Row, Image, Collapse } from 'react-bootstrap';
 
 class Reviews extends Component {
   render() {
@@ -12,6 +12,7 @@ class Reviews extends Component {
       creatorComments,
       doerComments,
       doneWhopComments,
+      isOpen
     } = this.props;
 
     let creatorComment = '';
@@ -39,45 +40,47 @@ class Reviews extends Component {
     // }
 
     return (
-      <Row>
-        <Col xs={12} sm={6}>
-          <Row >
-            <Col xs={4} className="review">
-              <Image src="http://www.fillmurray.com/40/40" alt="headshot" circle />
-              Creator<br />
-              <StarRating
-                name="creator"
-                starColor="#ec1928"
-                editing={false}
-                value={creatorRating}
-              />
-              {creatorComment}
-            </Col>
-            <Col xs={4}className="review">
-              <Image src="http://www.fillmurray.com/40/40" alt="headshot" circle />
-              Doer<br />
-              <StarRating
-                name="doer" 
-                starColor="#ec1928"
-                editing={false}
-                value={doerRating}
-              />
-              {doerComment}
-            </Col>
-            <Col xs={4} className="review">
-              <Image src="dowhopicon.gif" style={{ width: "35px", height: "35px", marginBottom: "5px" }} alt="icon" circle />
-              DoWhop<br />
-              <StarRating
-                name="doneWhop"
-                starColor="#ec1928"
-                editing={false}
-                value={doneWhopRating}
-              />
-              {doneWhopComment}
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+      <Collapse in={isOpen}>
+        <Row>
+          <Col xs={12} sm={6}>
+            <Row >
+              <Col xs={4} className="review">
+                <Image src="https://www.fillmurray.com/40/40" alt="headshot" circle />
+                Creator<br />
+                <StarRating
+                  name="creator"
+                  starColor="#ec1928"
+                  editing={false}
+                  value={creatorRating}
+                />
+                {creatorComment}
+              </Col>
+              <Col xs={4}className="review">
+                <Image src="https://www.fillmurray.com/40/40" alt="headshot" circle />
+                Doer<br />
+                <StarRating
+                  name="doer" 
+                  starColor="#ec1928"
+                  editing={false}
+                  value={doerRating}
+                />
+                {doerComment}
+              </Col>
+              <Col xs={4} className="review">
+                <Image src="dowhopicon.gif" style={{ width: "25px", height: "25px", marginBottom: "13px" }} alt="icon" circle />
+                DoWhop<br />
+                <StarRating
+                  name="doneWhop"
+                  starColor="#ec1928"
+                  editing={false}
+                  value={doneWhopRating}
+                />
+                {doneWhopComment}
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Collapse>
     );
   }
 }
