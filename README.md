@@ -1,2 +1,2 @@
-# dowhop_lifecycle
-from creation, to booking, to reviewing
+# dowhop-lifecycle
+Create --> Coordinate --> Review 
