@@ -18,7 +18,6 @@ class Application extends Component {
       users: {},
       userObject: null,
       currentUser: null,
-      // tempporary hard-coded state...
       reviewSelected: 'doneWhop', 
       type: 'doer',
       creatorName: 'creator',
