@@ -3,47 +3,33 @@
 [debug] CLI Version:  3.6.1
 [debug] Platform:     darwin
 [debug] Node Version: v6.9.1
-[debug] Time:         Tue May 09 2017 02:11:39 GMT-0700 (PDT)
+[debug] Time:         Tue May 09 2017 11:10:45 GMT-0700 (PDT)
 [debug] ----------------------------------------------------------------------
 [debug] 
 [debug] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
 [debug] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token { refresh_token: '1/G44bLB0gEAFg6tjVsdJOVlUV_21oy0mv_Pk86-ntcn0',
+[debug] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token { refresh_token: '1/6mz0FfakryTNo52mvch6Cd5WRwfZqGtsHd1xq_-Wvfc',
   client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
   client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
   grant_type: 'refresh_token',
   scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
- Tue May 09 2017 02:11:39 GMT-0700 (PDT)
+ Tue May 09 2017 11:10:45 GMT-0700 (PDT)
 [debug] <<< HTTP RESPONSE 200
 [debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/dowhop-lifecycle  
- Tue May 09 2017 02:11:39 GMT-0700 (PDT)
+ Tue May 09 2017 11:10:45 GMT-0700 (PDT)
 [debug] <<< HTTP RESPONSE 200
 [debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/dowhop-lifecycle/tokens  
- Tue May 09 2017 02:11:40 GMT-0700 (PDT)
+ Tue May 09 2017 11:10:46 GMT-0700 (PDT)
 [debug] <<< HTTP RESPONSE 200
 [info] Starting Firebase development server...
 [info] 
 [info] Project Directory: /Users/oam/Desktop/dowhop-lifecycle
 [debug] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/dowhop-lifecycle  
- Tue May 09 2017 02:11:41 GMT-0700 (PDT)
+ Tue May 09 2017 11:10:47 GMT-0700 (PDT)
 [debug] <<< HTTP RESPONSE 200
 [debug] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1090371045772/clients/_:getWebAppConfig  
- Tue May 09 2017 02:11:41 GMT-0700 (PDT)
-[debug] <<< HTTP RESPONSE 200
-[warn] ⚠  Port 5000 is not available. Trying another port...
-[debug] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/dowhop-lifecycle  
- Tue May 09 2017 02:11:42 GMT-0700 (PDT)
-[debug] <<< HTTP RESPONSE 200
-[debug] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1090371045772/clients/_:getWebAppConfig  
- Tue May 09 2017 02:11:42 GMT-0700 (PDT)
-[debug] <<< HTTP RESPONSE 200
-[warn] ⚠  Port 5001 is not available. Trying another port...
-[debug] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/dowhop-lifecycle  
- Tue May 09 2017 02:11:42 GMT-0700 (PDT)
-[debug] <<< HTTP RESPONSE 200
-[debug] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1090371045772/clients/_:getWebAppConfig  
- Tue May 09 2017 02:11:43 GMT-0700 (PDT)
+ Tue May 09 2017 11:10:47 GMT-0700 (PDT)
 [debug] <<< HTTP RESPONSE 200
 [info] Public Directory: ./
 [info] 
-[info] Server listening at: http://localhost:5002
+[info] Server listening at: http://localhost:5000
