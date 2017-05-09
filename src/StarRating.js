@@ -40,7 +40,7 @@ class StarRating extends Component {
   }
 
   onStarClick(index, value, name) {
-    let { onStarClick, editing } = this.props;
+    var { onStarClick, editing } = this.props;
 
     if (!editing) {
       return;

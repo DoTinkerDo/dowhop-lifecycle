@@ -141,7 +141,10 @@ class Application extends Component {
          ) : (
             <div>
               <CurrentUser user={currentUser} />
-              <Header creatorName={creatorName} doWhopName={doWhopName} toggleOpen={this.toggleOpen} />
+              <Header creatorName={creatorName} 
+                doWhopName={doWhopName}
+                toggleOpen={this.toggleOpen}
+              />
               <Reviews
                 creatorRating={creatorRating && weightedRating(creatorRating)}
                 doerRating={doerRating && weightedRating(doerRating)}

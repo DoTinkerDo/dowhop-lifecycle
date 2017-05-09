@@ -1,12 +1,29 @@
 import React, { Component } from 'react';
 import { database } from './firebase';
 import SelectionButtons from './SelectionButtons';
-import { Col, Row, FormGroup, FormControl, Image } from 'react-bootstrap';
+import { Button, Col, Row, FormGroup, FormControl, Image } from 'react-bootstrap';
 // import StarRatingComponent from 'react-star-rating-component';
 import StarRating from './StarRating';
 
 const formStyles = {
-  border: '1px solid #606060'
+  form: {
+    border: '1px solid #606060',
+    padding: '7px'
+  },
+  button: {
+    backgroundColor: '#ec1928',
+    color: '#ffffff',
+    borderRadius: '0',
+    border: 'none',
+  },
+  image: {
+    width: '50px', 
+    height: '50px',
+    margin: '5px',
+  },
+  feedback: {
+    textAlign: 'left',
+  }
 };
 
 class ReviewForm extends Component {
@@ -16,6 +33,7 @@ class ReviewForm extends Component {
     this.state = {
       rating: 0,
       comment: '',
+      validation: null,
     };
 
     this.doWhopsRef = database.ref(`/doWhops/${this.props.doWhopName}/`);
@@ -26,19 +44,40 @@ class ReviewForm extends Component {
     this.onStarClick = this.onStarClick.bind(this);
   }
 
-  getValidationState() {
-    const length = this.state.comment.length;
-    if (length > 10) return 'success';
-    else if (length > 100) return 'warning';
-    else if (length > 120) return 'error';
+  getValidationState(comment) {
+    const length = comment.length;
+    if (length >= 0 && length <= 10) {
+      this.setState({ validation: null });
+    }
+    else if (length > 10 && length < 140) {
+      this.setState({ validation: 'success' });
+    } else {
+      this.setState({ validation: 'error' });
+    }
   }
 
   handleChange(e) {
     const comment = e.target.value;
+    this.getValidationState(comment);
     this.setState({ comment });
   }
 
   handleSubmit(e) {
+    e.preventDefault();
+
+    this.commentSubmit();
+    this.starSubmit();
+    this.setState({
+      comment: '',
+      validation: null,
+    });
+  }
+
+  onStarClick(newRating, prevRating, name) {
+    this.setState({ rating: newRating });
+  }
+
+  commentSubmit() {
     const user = this.props.user;
     const reviewSelected = this.props.reviewSelected;
     const doWhopName = this.props.doWhopName;
@@ -50,12 +89,10 @@ class ReviewForm extends Component {
         userId: user.uid,
         name: user.displayName,
       });
-
-    e.preventDefault();
-    this.setState({ comment: '' });
   }
 
-  onStarClick(newRating, prevRating, name) {
+  starSubmit() {
+    const newRating = this.state.rating;
     const user = this.props.user;
     const reviewSelected = this.props.reviewSelected;
     const reviewSelectedRef = this.doWhopsRef.child(reviewSelected);
@@ -69,7 +106,6 @@ class ReviewForm extends Component {
           .child('ratings')
           .child(ratingKey)
           .set(newRating);
-        this.setState({ rating: newRating });
       } else {
         const key = reviewSelectedRef
           .child('ratings')
@@ -82,7 +118,6 @@ class ReviewForm extends Component {
             user: user.displayName,
             [user.uid]: true
           });
-        this.setState({ rating: newRating });
       }
     });
   }
@@ -94,32 +129,47 @@ class ReviewForm extends Component {
     return (
       <Row>
         <Col xs={12} sm={6}>
-          <form style={formStyles} onSubmit={this.handleSubmit}>
-            <FormGroup controlId="formBasicText" validationState={this.getValidationState()}>
-              <SelectionButtons
-                user={user}
-                creatorName={creatorName}
-                reviewSelected={reviewSelected}
-                handleButtonClick={handleButtonClick}
-              />
-              <br />
-              <div className="form-input">
-                <StarRating
-                  name={reviewSelected}
-                  starCount={5}
-                  value={rating}
-                  onStarClick={this.onStarClick}
-                  starColor="#ec1928"
-                />
-                <br />
-                <Image src={user.photoURL} alt={user.displayName} style={{ width: "45px", height: "45px" }} circle /><br />
-                <FormControl
-                  type="text"
-                  value={comment}
-                  placeholder="Comment..."
-                  onChange={this.handleChange}
-                />
-              </div> 
+          <form style={formStyles.form} onSubmit={e => e.preventDefault()}>
+            <FormGroup controlId="formBasicText" validationState={this.state.validation}>
+              <Row>
+                <Col xs={4}>
+                  <StarRating
+                      name={reviewSelected}
+                      starCount={5}
+                      value={rating}
+                      onStarClick={this.onStarClick}
+                      starColor="#ec1928"
+                      className="pull-left"
+                    />
+                </Col>
+                <Col xs={8}>    
+                  <SelectionButtons
+                    user={user}
+                    creatorName={creatorName}
+                    reviewSelected={reviewSelected}
+                    handleButtonClick={handleButtonClick}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={12}>
+                <Image src={user.photoURL} alt={user.displayName} style={formStyles.image} circle />
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={9} md={10}>
+                  <FormControl
+                    type="text"
+                    value={comment}
+                    placeholder="Comment..."
+                    onChange={this.handleChange}
+                  />
+                  <FormControl.Feedback style={formStyles.feedback}/>
+                  </Col>
+                  <Col xs={3} md={2}>
+                    <Button style={formStyles.button} className="pull-right" onClick={this.handleSubmit}>Submit</Button>
+                </Col>
+              </Row>
             </FormGroup>
           </form>
         </Col>

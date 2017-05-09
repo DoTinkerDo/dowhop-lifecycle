@@ -83,21 +83,6 @@ input:focus ~ .bar:after {width: 50%;}
 .review img {
   margin-right: 2px;
 }
-.form-buttons {
-  padding-right: 20px;
-  padding-top: 20px;
-}
-.form-input {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-.form-input img {
-  margin-bottom: 5px;
-  margin-left: 5px;
-}
-.form-input input {
-  background-color: transparent;
-}
 
 /* Loader Image */
 
