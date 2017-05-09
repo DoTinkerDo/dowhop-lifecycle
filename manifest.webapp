@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "name": "DoWhop Chat",
+  "launch_path": "/index.html",
+  "description": "Web tools for DoWhop.com",
+  "developer": {
+    "name": "DoWhop",
+    "url": "http://dowhop.com"
+  },
+  "installs_allowed_from": [
+    "*"
+  ],
+  "default_locale": "en",
+  "permissions": {
+  },
+  "locales": {
+    "en": {
+      "name": "DoWhop Chat",
+      "description": "Web tools for DoWhop.com"
+    }
+  }
+}
