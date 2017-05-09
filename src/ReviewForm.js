@@ -62,19 +62,21 @@ class ReviewForm extends Component {
     this.setState({ comment });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-
-    this.commentSubmit();
-    this.starSubmit();
-    this.setState({
-      comment: '',
-      validation: null,
-    });
-  }
-
   onStarClick(newRating, prevRating, name) {
     this.setState({ rating: newRating });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    if (this.state.rating && this.state.comment.length > 0) {
+      this.commentSubmit();
+      this.starSubmit();
+      this.setState({
+        rating: 0,
+        comment: '',
+        validation: null,
+      });
+    }
   }
 
   commentSubmit() {
@@ -129,7 +131,7 @@ class ReviewForm extends Component {
     return (
       <Row>
         <Col xs={12} sm={6}>
-          <form style={formStyles.form} onSubmit={e => e.preventDefault()}>
+          <form style={formStyles.form} onSubmit={this.handleSubmit}>
             <FormGroup controlId="formBasicText" validationState={this.state.validation}>
               <Row>
                 <Col xs={4}>
@@ -167,7 +169,7 @@ class ReviewForm extends Component {
                   <FormControl.Feedback style={formStyles.feedback}/>
                   </Col>
                   <Col xs={3} md={2}>
-                    <Button style={formStyles.button} className="pull-right" onClick={this.handleSubmit}>Submit</Button>
+                    <Button type="submit" style={formStyles.button} className="pull-right">Submit</Button>
                 </Col>
               </Row>
             </FormGroup>
