@@ -6,7 +6,7 @@ import CurrentUser from './CurrentUser';
 import SignIn from './SignIn';
 import Header from './Header';
 import ReviewForm from './ReviewForm';
-import pick from 'lodash/pick';
+// import pick from 'lodash/pick';
 import map from 'lodash/map';
 import { weightedRating } from './helpers/weightedRating';
 
@@ -15,11 +15,11 @@ class Application extends Component {
     super(props);
     
     this.state = {
-      users: {},
-      userObject: null,
+      // users: {},
+      // userObject: null,
       currentUser: null,
       reviewSelected: 'doneWhop', 
-      type: 'doer',
+      // type: 'doer',
       creatorName: 'creator',
       doWhopName: 'Brew Beer',
       creatorRating: null,
@@ -31,8 +31,8 @@ class Application extends Component {
       isOpen: false,
     };
 
-    this.usersRef = null;
-    this.userRef = null;
+    // this.usersRef = null;
+    // this.userRef = null;
     this.ratingRef = null;
     this.doWhopsRef = database.ref(`/doWhops/${this.state.doWhopName}`);
 
@@ -43,34 +43,33 @@ class Application extends Component {
   componentDidMount() {
     auth.onAuthStateChanged(currentUser => {
       this.setState({ currentUser });
+      this.fetchRatings('creator');
+      this.fetchRatings('doer');
+      this.fetchRatings('doneWhop');
+      this.fetchComments();
 
-        if (currentUser) {
-          this.usersRef = database.ref('/users');
-          this.userRef = this.usersRef.child(currentUser.uid);
-          this.userRef.once('value').then(snapshot => {
-            if (snapshot.val()) return;
-            const userData = pick(currentUser, ['displayName', 'photoURL', 'email', 'uid' ]);
-            userData.type = this.state.type;
-            this.userRef.set(userData);
-          });
+    //   if (currentUser) {
+    //     this.usersRef = database.ref('/users');
+    //     this.userRef = this.usersRef.child(currentUser.uid);
+    //     this.userRef.once('value').then(snapshot => {
+    //       if (snapshot.val()) return;
+    //       const userData = pick(currentUser, ['displayName', 'photoURL', 'email', 'uid' ]);
+    //       userData.type = this.state.type;
+    //       this.userRef.set(userData);
+    //     });
 
-          this.usersRef.on('value', snapshot => {
-            // setting current userObject with type...
-            const currentUserUid = this.state.currentUser.uid;
-            map(snapshot.val(), (userObject, key) => {
-              if (key === currentUserUid) {
-                this.setState({ userObject });
-              }
-            });
-            // setting Object with all app users... 
-            this.setState({ users: snapshot.val() });
-          });
-
-          this.fetchRatings('creator');
-          this.fetchRatings('doer');
-          this.fetchRatings('doneWhop');
-          this.fetchComments();
-        }
+    //     this.usersRef.on('value', snapshot => {
+    //       // setting current userObject with type...
+    //       const currentUserUid = this.state.currentUser.uid;
+    //       map(snapshot.val(), (userObject, key) => {
+    //         if (key === currentUserUid) {
+    //           this.setState({ userObject });
+    //         }
+    //       });
+    //       // setting Object with all app users... 
+    //       this.setState({ users: snapshot.val() });
+    //     });
+    //   }
     });
   }
 
