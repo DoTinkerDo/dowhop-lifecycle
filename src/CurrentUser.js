@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { auth } from './firebase';
 import { Button } from 'react-bootstrap';
 
@@ -13,5 +14,12 @@ function CurrentUser({ user }) {
     </div>
   );
 }
+
+CurrentUser.propTypes = {
+  user: PropTypes.shape({
+    displayName: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  }),
+};
 
 export default CurrentUser;

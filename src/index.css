@@ -86,7 +86,7 @@ input:focus ~ .bar:after {width: 50%;}
 
 /* Loader Image */
 
-img.loading {
+/*img.loading {
   width: 32%;
 }
 
@@ -121,13 +121,4 @@ img.loading {
   align-items: center;
   margin-left: 15px;
   margin-bottom: 10px;
-}
-
-.header {
-  cursor: pointer;
-}
-
-input#formBasicText {
-  border-radius: 0;
-}
-
+}*/

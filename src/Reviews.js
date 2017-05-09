@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import StarRatingComponent from 'react-star-rating-component';
 import StarRating from './StarRating';
 import { Col, Row, Image, Collapse } from 'react-bootstrap';
 
@@ -19,25 +18,16 @@ class Reviews extends Component {
     if (creatorComments.length > 0) {
       creatorComment = creatorComments.map((comment, idx) => <p key={idx}>{comment}</p>);
     }
-    // } else {
-    //   creatorComment = <img className="loading" src='loading.png' alt="loading indicator" />;
-    // }
 
     let doerComment = '';
     if (doerComments.length > 0) {
       doerComment = doerComments.map((comment, idx) => <p key={idx}>{comment}</p>);
     }
-    // } else {
-    //   doerComment = <img className="loading" src='loading.png' alt="loading indicator" />;
-    // }
 
     let doneWhopComment = '';
     if (doneWhopComments.length > 0) {
       doneWhopComment = doneWhopComments.map((comment, idx) => <p key={idx}>{comment}</p>);
     }
-    // } else {
-    //   doneWhopComment = <img className="loading" src='loading.png' alt="loading indicator" />;
-    // }
 
     return (
       <Collapse in={isOpen}>

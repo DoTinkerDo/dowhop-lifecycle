@@ -1,24 +1,11 @@
-import React, { Component, PropTypes } from 'react';
-// import cx from 'classnames';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class StarRating extends Component {
-  static propTypes = {
-    name: PropTypes.string.isRequired,
-    value: PropTypes.number,
-    editing: PropTypes.bool,
-    starCount: PropTypes.number,
-    starColor: PropTypes.string,
-    onStarClick: PropTypes.func,
-    renderStarIcon: PropTypes.func,
-    renderStarIconHalf: PropTypes.func
-  };
-
   constructor(props) {
     super(props);
 
-    this.state = {
-      value: props.value,
-    };
+    this.state = { value: props.value };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -119,13 +106,7 @@ class StarRating extends Component {
   }
 
   render() {
-    // const { editing, className } = this.props;
-    // const classes = cx('dv-star-rating', {
-    //   'dv-star-rating-non-editable': !editing
-    // }, className);
-
     return (
-      // <div style={{display: 'inline-block', position: 'relative'}} className={classes}>
       <div style={{display: 'inline-block', position: 'relative', fontSize: '120%'}}>
         {this.renderStars()}
        </div>
@@ -139,6 +120,17 @@ StarRating.defaultProps = {
   editing: true,
   starColor: '#ec1928',
   emptyStarColor: '#606060'
+};
+
+StarRating.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.number,
+  editing: PropTypes.bool,
+  starCount: PropTypes.number,
+  starColor: PropTypes.string,
+  onStarClick: PropTypes.func,
+  renderStarIcon: PropTypes.func,
+  renderStarIconHalf: PropTypes.func
 };
 
 export default StarRating;

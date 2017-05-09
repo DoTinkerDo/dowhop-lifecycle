@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ButtonGroup, Button } from 'react-bootstrap';
 
 function SelectionButtons({ user, creatorName, reviewSelected, handleButtonClick }) {
@@ -17,5 +18,14 @@ function SelectionButtons({ user, creatorName, reviewSelected, handleButtonClick
     )
   );
 }
+
+SelectionButtons.propTypes = {
+  user: PropTypes.shape({
+    displayName: PropTypes.string.isRequired,
+  }),
+  creatorName: PropTypes.string.isRequired,
+  reviewSelected: PropTypes.string.isRequired,
+  handleButtonClick: PropTypes.func.isRequired,
+};
 
 export default SelectionButtons;

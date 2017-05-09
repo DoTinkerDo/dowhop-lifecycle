@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { database } from './firebase';
+import StarRating from './StarRating';
 import SelectionButtons from './SelectionButtons';
 import { Button, Col, Row, FormGroup, FormControl, Image } from 'react-bootstrap';
-// import StarRatingComponent from 'react-star-rating-component';
-import StarRating from './StarRating';
 
 const formStyles = {
   form: {
@@ -23,7 +22,10 @@ const formStyles = {
   },
   feedback: {
     textAlign: 'left',
-  }
+  },
+  input: {
+    borderRadius: "0",
+  },
 };
 
 class ReviewForm extends Component {
@@ -132,7 +134,7 @@ class ReviewForm extends Component {
       <Row>
         <Col xs={12} sm={6}>
           <form style={formStyles.form} onSubmit={this.handleSubmit}>
-            <FormGroup controlId="formBasicText" validationState={this.state.validation}>
+            <FormGroup controlId="formReviews" validationState={this.state.validation}>
               <Row>
                 <Col xs={4}>
                   <StarRating
@@ -165,6 +167,7 @@ class ReviewForm extends Component {
                     value={comment}
                     placeholder="Comment..."
                     onChange={this.handleChange}
+                    style={formStyles.input}
                   />
                   <FormControl.Feedback style={formStyles.feedback}/>
                   </Col>
