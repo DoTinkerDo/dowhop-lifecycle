@@ -88,8 +88,8 @@
     });
   }
 
-// Initializes DoWhopChat.
-function DoWhopChat() {
+// Initializes FriendlyChat.
+function FriendlyChat() {
   this.checkSetup();
 
   // Shortcuts to DOM Elements.
@@ -165,7 +165,7 @@ function DoWhopChat() {
 }
 
 // Sets up shortcuts to Firebase features and initiate firebase auth:
-DoWhopChat.prototype.initFirebase = function() {
+FriendlyChat.prototype.initFirebase = function() {
   this.auth = firebase.auth();
   this.database = firebase.database();
   this.storage = firebase.storage();
@@ -173,7 +173,7 @@ DoWhopChat.prototype.initFirebase = function() {
   this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this));
 };
 
-DoWhopChat.prototype.sendApproval = function(e) {
+FriendlyChat.prototype.sendApproval = function(e) {
   e.preventDefault();
   var choice, newDate, newTime
   this.chatItemDataSpecific = document.getElementById("show-chat-data").children[0].id
@@ -210,7 +210,7 @@ DoWhopChat.prototype.sendApproval = function(e) {
   this.pendingDiv.setAttribute("hidden", "true");
 }
 
-DoWhopChat.prototype.sendRescind = function(e) {
+FriendlyChat.prototype.sendRescind = function(e) {
   e.preventDefault();
   console.log("You have rescinded");
   this.chatItemDataSpecific = document.getElementById("show-chat-data").children[0].id // <-- Refactor
@@ -225,17 +225,17 @@ DoWhopChat.prototype.sendRescind = function(e) {
 }
 
 // Add dynamic 'When' form:
-DoWhopChat.prototype.showDateTimeInputs = function () {
+FriendlyChat.prototype.showDateTimeInputs = function () {
   this.newChatWhenBounds.removeAttribute('hidden');
 }
 
-DoWhopChat.prototype.removeChats = function() {
+FriendlyChat.prototype.removeChats = function() {
   this.chatList.innerHTML = "";
   this.messageList.innerHTML = "";
   this.chatItemData.innerHTML = "Your DoWhop details will appear here!";
 }
 
-DoWhopChat.prototype.loadChats = function() {
+FriendlyChat.prototype.loadChats = function() {
 
   // First, make sure the view element is chosen:
   var myView = this.chatList;
@@ -316,7 +316,7 @@ DoWhopChat.prototype.loadChats = function() {
   myRef.on('child_added', snap => {
     // Creating the buttons to further load chat data:
       var container = document.createElement('div');
-      container.innerHTML = DoWhopChat.CHAT_TEMPLATE;
+      container.innerHTML = FriendlyChat.CHAT_TEMPLATE;
       let button = container.firstChild;
       button.setAttribute('id', snap.key);
       button.innerHTML = snap.val().title;
@@ -344,7 +344,7 @@ DoWhopChat.prototype.loadChats = function() {
 };
 
 // Loads messages history and listens for upcoming ones:
-DoWhopChat.prototype.loadMessages = function() {
+FriendlyChat.prototype.loadMessages = function() {
   let user = this.auth.currentUser.uid;
   var chatIdCurrent = this.chatItemData.firstChild.id // <-- Refactor
   this.messagesRef = this.database.ref().child('messages/' + chatIdCurrent);
@@ -362,7 +362,7 @@ DoWhopChat.prototype.loadMessages = function() {
 };
 
 // Saves a new message on the Firebase DB:
-DoWhopChat.prototype.saveMessage = function(e) {
+FriendlyChat.prototype.saveMessage = function(e) {
   e.preventDefault();
 
   // Mke sure this chat and message get sent to two appropriate places:
@@ -397,7 +397,7 @@ DoWhopChat.prototype.saveMessage = function(e) {
       photoUrl: currentUser.photoURL || 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
     }).then(function() {
       // Clear message text field and SEND button state:
-      DoWhopChat.resetMaterialTextfield(this.messageInput);
+      FriendlyChat.resetMaterialTextfield(this.messageInput);
       this.toggleButton();
     }.bind(this)).catch(function(error) {
       console.error('Error writing new message to Firebase Database', error);
@@ -405,13 +405,13 @@ DoWhopChat.prototype.saveMessage = function(e) {
   }
 };
 
-DoWhopChat.prototype.resetDateTime = function() {
+FriendlyChat.prototype.resetDateTime = function() {
   document.getElementById("whenDatePending").value = null;
   document.getElementById("whenTimePending").value = null;
 }
 
 // Button to save your chat thread to the database:
-DoWhopChat.prototype.saveChat = function(e) {
+FriendlyChat.prototype.saveChat = function(e) {
   e.preventDefault();
   // Check that the user entered information and is signed in:
   if (this.newChatInputTitle.value && this.newChatInputWhat.value
@@ -447,10 +447,10 @@ DoWhopChat.prototype.saveChat = function(e) {
 }
 
 // Sets the URL of the given img element with the URL of the image stored in Cloud Storage.
-DoWhopChat.prototype.setImageUrl = function(imageUri, imgElement) {
+FriendlyChat.prototype.setImageUrl = function(imageUri, imgElement) {
   // If the image is a Cloud Storage URI we fetch the URL.
   if (imageUri.startsWith('gs://')) {
-    imgElement.src = DoWhopChat.LOADING_IMAGE_URL; // Display a loading image first.
+    imgElement.src = FriendlyChat.LOADING_IMAGE_URL; // Display a loading image first.
     this.storage.refFromURL(imageUri).getMetadata().then(function(metadata) {
       imgElement.src = metadata.downloadURLs[0];
     });
@@ -461,7 +461,7 @@ DoWhopChat.prototype.setImageUrl = function(imageUri, imgElement) {
 
 // Saves a new message containing an image URI in Firebase.
 // This first saves the image in Firebase storage.
-DoWhopChat.prototype.saveImageMessage = function(event) {
+FriendlyChat.prototype.saveImageMessage = function(event) {
   event.preventDefault();
   var file = event.target.files[0];
 
@@ -484,7 +484,7 @@ DoWhopChat.prototype.saveImageMessage = function(event) {
     var currentUser = this.auth.currentUser;
     this.messagesRef.push({
       name: currentUser.displayName,
-      imageUrl: DoWhopChat.LOADING_IMAGE_URL,
+      imageUrl: FriendlyChat.LOADING_IMAGE_URL,
       photoUrl: currentUser.photoURL || '/images/profile_placeholder.png'
     }).then(function(data) {
 
@@ -503,7 +503,7 @@ DoWhopChat.prototype.saveImageMessage = function(event) {
 };
 
 // Save all users who've logged in into DB via UID for shallow nesting:
-DoWhopChat.prototype.saveUser = function() {
+FriendlyChat.prototype.saveUser = function() {
   var currentUser = this.auth.currentUser;
   this.database.ref('users/' + currentUser.uid).set({
     name: currentUser.displayName,
@@ -515,14 +515,14 @@ DoWhopChat.prototype.saveUser = function() {
 }
 
 // Signs-in Friendly Chat.
-DoWhopChat.prototype.signIn = function() {
+FriendlyChat.prototype.signIn = function() {
   // Sign in Firebase using popup auth and Google as the identity provider.
   var provider = new firebase.auth.GoogleAuthProvider();
   this.auth.signInWithPopup(provider);
 };
 
 // Signs-out of Friendly Chat and resets views:
-DoWhopChat.prototype.signOut = function() {
+FriendlyChat.prototype.signOut = function() {
   this.removeChats();
   this.pendingDiv.setAttribute("hidden", "true");
   this.approvalForm.setAttribute("hidden", "true");
@@ -531,7 +531,7 @@ DoWhopChat.prototype.signOut = function() {
 };
 
 // Triggers when the auth state change for instance when the user signs-in or signs-out.
-DoWhopChat.prototype.onAuthStateChanged = function(user) {
+FriendlyChat.prototype.onAuthStateChanged = function(user) {
   if (user) { // User is signed in!
     // Get profile pic and user's name from the Firebase user object.
     var profilePicUrl = user.photoURL;   // Added: Get profile pic.
@@ -569,7 +569,7 @@ DoWhopChat.prototype.onAuthStateChanged = function(user) {
 };
 
 // Returns true if user is signed-in. Otherwise false and displays a message.
-DoWhopChat.prototype.checkSignedInWithMessage = function() {
+FriendlyChat.prototype.checkSignedInWithMessage = function() {
   /* Added: Check if user is signed-in Firebase. */
   if (this.auth.currentUser) {
     return true;
@@ -585,7 +585,7 @@ DoWhopChat.prototype.checkSignedInWithMessage = function() {
 };
 
 // ADDED: Saves the messaging device token to the datastore.
-DoWhopChat.prototype.saveMessagingDeviceToken = function() {
+FriendlyChat.prototype.saveMessagingDeviceToken = function() {
   firebase.messaging().getToken().then(function(currentToken) {
     if (currentToken) {
       console.log('Got FCM device token:', currentToken);
@@ -602,7 +602,7 @@ DoWhopChat.prototype.saveMessagingDeviceToken = function() {
 };
 
 // ADDED: Requests permissions to show notifications.
-DoWhopChat.prototype.requestNotificationsPermissions = function() {
+FriendlyChat.prototype.requestNotificationsPermissions = function() {
   console.log('Requesting notifications permission...');
   firebase.messaging().requestPermission().then(function() {
     // Notification permission granted.
@@ -613,13 +613,13 @@ DoWhopChat.prototype.requestNotificationsPermissions = function() {
 };
 
 // Resets the given MaterialTextField.
-DoWhopChat.resetMaterialTextfield = function(element) {
+FriendlyChat.resetMaterialTextfield = function(element) {
   element.value = '';
   element.parentNode.MaterialTextfield.boundUpdateClassesHandler();
 };
 
 // Template for messages.
-DoWhopChat.MESSAGE_TEMPLATE =
+FriendlyChat.MESSAGE_TEMPLATE =
     '<div class="message-container">' +
       '<div class="spacing"><div class="pic"></div></div>' +
       '<div class="message"></div>' +
@@ -627,23 +627,23 @@ DoWhopChat.MESSAGE_TEMPLATE =
     '</div>';
 
 // Templates for Chats:
-DoWhopChat.CHAT_TEMPLATE =
+FriendlyChat.CHAT_TEMPLATE =
   '<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dowhop-button">' + '</button>';
 
 // A loading image URL.
-DoWhopChat.LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif';
+FriendlyChat.LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif';
 
 // Tempalte for approval-denial of time-change form:
-DoWhopChat.APPROVAL_TEMPLATE =
+FriendlyChat.APPROVAL_TEMPLATE =
   '<div class="pending-style">' + '<div>' + '<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dowhop-button">' + '</button>' + '</div>' + '</div>';
 
 // Displays a Message in the UI.
-DoWhopChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri) {
+FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri) {
   var div = document.getElementById(key);
   // If an element for that message does not exists yet we create it.
   if (!div) {
     var container = document.createElement('div');
-    container.innerHTML = DoWhopChat.MESSAGE_TEMPLATE;
+    container.innerHTML = FriendlyChat.MESSAGE_TEMPLATE;
     div = container.firstChild;
     div.setAttribute('id', key);
     this.messageList.appendChild(div);
@@ -674,7 +674,7 @@ DoWhopChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri
 
 // Enables or disables the submit button depending on the values of the input
 // fields.
-DoWhopChat.prototype.toggleButton = function() {
+FriendlyChat.prototype.toggleButton = function() {
   if (this.messageInput.value) {
     this.submitButton.removeAttribute('disabled');
   } else {
@@ -683,7 +683,7 @@ DoWhopChat.prototype.toggleButton = function() {
 };
 
 // Checks that the Firebase SDK has been correctly setup and configured.
-DoWhopChat.prototype.checkSetup = function() {
+FriendlyChat.prototype.checkSetup = function() {
   if (!window.firebase || !(firebase.app instanceof Function) || !window.config) {
     window.alert('You have not configured and imported the Firebase SDK. ' +
         'Make sure you go through the codelab setup instructions.');
@@ -698,5 +698,5 @@ DoWhopChat.prototype.checkSetup = function() {
 };
 
 window.onload = function() {
-  window.DoWhopChat = new DoWhopChat();
+  window.friendlyChat = new FriendlyChat();
 };
