@@ -15,12 +15,9 @@ class Application extends Component {
     super(props);
     
     this.state = {
-      // users: {},
-      // userObject: null,
       currentUser: null,
       reviewSelected: 'doneWhop', 
-      // type: 'doer',
-      creatorName: 'creator',
+      creatorName: 'Creator',
       doWhopName: 'Brew Beer',
       creatorRating: null,
       doerRating: null,
@@ -31,8 +28,6 @@ class Application extends Component {
       isOpen: false,
     };
 
-    // this.usersRef = null;
-    // this.userRef = null;
     this.ratingRef = null;
     this.doWhopsRef = database.ref(`/doWhops/${this.state.doWhopName}`);
 
@@ -47,29 +42,6 @@ class Application extends Component {
       this.fetchRatings('doer');
       this.fetchRatings('doneWhop');
       this.fetchComments();
-
-    //   if (currentUser) {
-    //     this.usersRef = database.ref('/users');
-    //     this.userRef = this.usersRef.child(currentUser.uid);
-    //     this.userRef.once('value').then(snapshot => {
-    //       if (snapshot.val()) return;
-    //       const userData = pick(currentUser, ['displayName', 'photoURL', 'email', 'uid' ]);
-    //       userData.type = this.state.type;
-    //       this.userRef.set(userData);
-    //     });
-
-    //     this.usersRef.on('value', snapshot => {
-    //       // setting current userObject with type...
-    //       const currentUserUid = this.state.currentUser.uid;
-    //       map(snapshot.val(), (userObject, key) => {
-    //         if (key === currentUserUid) {
-    //           this.setState({ userObject });
-    //         }
-    //       });
-    //       // setting Object with all app users... 
-    //       this.setState({ users: snapshot.val() });
-    //     });
-    //   }
     });
   }
 
@@ -87,8 +59,8 @@ class Application extends Component {
     this.doWhopsRef.on('value', (snapshot) => {
 
       function getNode(reviewSelected, snapshot) {
-        const nodes = snapshot.child(reviewSelected).child('comment').val();
-        return map(nodes, (node, key) => node.comment);
+        const nodes = snapshot.child(reviewSelected).child('/comments').val();
+        return map(nodes, (node) => node);
       }
 
       const creatorCommentState = getNode('creator', snapshot);

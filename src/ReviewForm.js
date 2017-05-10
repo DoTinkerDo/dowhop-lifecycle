@@ -82,40 +82,34 @@ class ReviewForm extends Component {
   }
 
   commentSubmit() {
-    const user = this.props.user;
-    const reviewSelected = this.props.reviewSelected;
-    const doWhopName = this.props.doWhopName;
-
-    database.ref(`/doWhops/${doWhopName}/${reviewSelected}`)
-      .child('comment')
-      .push({
-        comment: this.state.comment,
-        userId: user.uid,
-        name: user.displayName,
-      });
+    this.handleDatabaseSubmit('hasCommented', 'comments', this.state.comment);
   }
 
   starSubmit() {
-    const newRating = this.state.rating;
+    this.handleDatabaseSubmit('hasRated', 'ratings', this.state.rating);
+  }
+
+  handleDatabaseSubmit(hasCompleted, reviewType, reviewPart) {
     const user = this.props.user;
+    const newReviewPart = reviewPart;
     const reviewSelected = this.props.reviewSelected;
     const reviewSelectedRef = this.doWhopsRef.child(reviewSelected);
 
     reviewSelectedRef.once('value').then(snapshot => {
-      const userHasRated = snapshot.child('hasRated').child(user.uid).val();
+      const userHasRated = snapshot.child(hasCompleted).child(user.uid).val();
 
       if (userHasRated) {
-        const ratingKey = snapshot.child('hasRated').child(user.uid).child('key').val();
+        const ratingKey = snapshot.child(hasCompleted).child(user.uid).child('key').val();
         reviewSelectedRef
-          .child('ratings')
+          .child(reviewType)
           .child(ratingKey)
-          .set(newRating);
+          .set(newReviewPart);
       } else {
         const key = reviewSelectedRef
-          .child('ratings')
-          .push(newRating).key;
+          .child(reviewType)
+          .push(newReviewPart).key;
         reviewSelectedRef
-          .child('hasRated')
+          .child(hasCompleted)
           .child(user.uid)
           .set({
             key: key,
