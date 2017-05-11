@@ -176,7 +176,7 @@ FriendlyChat.prototype.initFirebase = function() {
 
 FriendlyChat.prototype.sendApproval = function(e) {
   e.preventDefault();
-  var choice, newDate, newTime
+  var choice, newDate, newTime, newWhere
   this.chatItemDataSpecific = document.getElementById("show-chat-data").children[0].id
   var myRef = this.database.ref().child('chats/' + this.chatItemDataSpecific);
   var myRefPending = this.database.ref().child('chats/' + this.chatItemDataSpecific + '/pending');
@@ -188,12 +188,14 @@ FriendlyChat.prototype.sendApproval = function(e) {
     console.log(snap.val().whenTimePending);
     newDate = snap.val().whenDatePending;
     newTime = snap.val().whenTimePending;
+    newWhere = snap.val().whereAddressPending;
   });
 
   if (this.radioApprove.checked) {
     myRef.update({
       whenDate: newDate,
-      whenTime: newTime
+      whenTime: newTime,
+      whereAddress: newWhere
     });
     this.database.ref().child('chats/' + this.chatItemDataSpecific + '/pending/').update({
     status: 'approved'
@@ -438,7 +440,7 @@ FriendlyChat.prototype.saveChat = function(e) {
       what: this.newChatInputWhat.value,
       whenDate: this.newChatInputWhenDate.value,
       whenTime: this.newChatInputWhenTime.value,
-      where: this.newChatInputWhere.value,
+      whereAddress: this.newChatInputWhere.value,
       who: this.newChatInputWho.value,
       creator: currentUser.uid
     }).then(function() {
