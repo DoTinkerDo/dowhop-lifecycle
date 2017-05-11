@@ -381,23 +381,23 @@ FriendlyChat.prototype.saveMessage = function(e) {
   if (this.messageFormWhenDatePending.value && this.messageFormWhenTimePending.value && this.messageFormWherePending) {
     // Send the inputted date/time suggestion to the event it's associated with:
     var chatsRef = this.database.ref().child('chats/' + this.chatItemDataSpecific + '/pending/');
+    // Send a notification to the thread:
+    messagesChatsRef.push({
+      chatId: this.chatItemDataSpecific,
+      name: currentUser.displayName,
+      text: currentUser.displayName + " has requested a change!",
+      photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
+    });
+
     chatsRef.update({
       status: true,
       whenDatePending: this.messageFormWhenDatePending.value,
       whenTimePending: this.messageFormWhenTimePending.value,
       whereAddressPending: this.messageFormWherePending.value,
       requester: currentUser.uid
-    }).then(this.resetDateTime) // <-- Reset the field.
+    }).then(this.resetDateTimeWhere) // <-- Reset the field.
+
   }
-
-  // // If there was a new place-time-update, send a message in thread:
-  //   messagesChatsRef.push({
-  //     chatId: this.chatItemDataSpecific,
-  //     name: currentUser.displayName,
-  //     text: currentUser.displayName + " has requested a change!"
-  //     photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
-  //   })
-
 
   // Check that the user entered a message and is signed in:
   if (this.messageInput.value && this.checkSignedInWithMessage()) {
@@ -418,9 +418,10 @@ FriendlyChat.prototype.saveMessage = function(e) {
   }
 };
 
-FriendlyChat.prototype.resetDateTime = function() {
+FriendlyChat.prototype.resetDateTimeWhere = function() {
   document.getElementById("whenDatePending").value = null;
   document.getElementById("whenTimePending").value = null;
+  document.getElementById("whereAddressPending").value = null;
 }
 
 // Button to save your chat thread to the database:
