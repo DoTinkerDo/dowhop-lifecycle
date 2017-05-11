@@ -107,6 +107,7 @@ function FriendlyChat() {
   this.signInSnackbar = document.getElementById('must-signin-snackbar');
   this.messageFormWhenDatePending = document.getElementById('whenDatePending');
   this.messageFormWhenTimePending = document.getElementById('whenTimePending');
+  this.messageFormWherePending = document.getElementById('whereAddressPending');
   this.radioApprove = document.getElementById("radioApprove");
   this.radioDeny = document.getElementById("radioDeny");
   this.approvalForm = document.getElementById('approve-pending-form');
@@ -124,7 +125,7 @@ function FriendlyChat() {
   this.newChatWhenBounds = document.getElementById('when-column-bounds')
   this.newChatInputWhenDate = document.getElementById('new-chat-input-when-date')
   this.newChatInputWhenTime = document.getElementById('new-chat-input-when-time')
-  this.newChatInputWhere = document.getElementById('pac-input')
+  // this.newChatInputWhere = document.getElementById('pac-input')
   this.newChatButton = document.getElementById('new-chat-button')
   this.newChatPopup = document.getElementById('new-chat-popup')
   this.chatList = document.getElementById('chat-list')
@@ -369,19 +370,25 @@ FriendlyChat.prototype.saveMessage = function(e) {
   var currentUser = this.auth.currentUser;
   var whenDatePending = this.whenDatePending;
   var whenTimePending = this.whenTimePending;
+  var whereAddressPending = this.whereAddressPending;
 
   // Check that the user entered a time change request:
 
-  if (this.messageFormWhenDatePending.value && this.messageFormWhenTimePending.value) {
+  if (this.messageFormWhenDatePending.value && this.messageFormWhenTimePending.value && this.messageFormWherePending) {
     // Send the inputted date/time suggestion to the event it's associated with:
     var chatsRef = this.database.ref().child('chats/' + this.chatItemDataSpecific + '/pending/');
     chatsRef.update({
       status: true,
       whenDatePending: this.messageFormWhenDatePending.value,
       whenTimePending: this.messageFormWhenTimePending.value,
+      whereAddressPending: this.messageFormWherePending.value,
       requester: currentUser.uid
     }).then(this.resetDateTime) // <-- Reset the field.
   }
+
+  // If there was a new place-time-update, send a message in thread:
+  // TO DO
+
   // Check that the user entered a message and is signed in:
   if (this.messageInput.value && this.checkSignedInWithMessage()) {
 
