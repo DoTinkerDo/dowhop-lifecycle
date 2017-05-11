@@ -278,8 +278,9 @@ FriendlyChat.prototype.loadChats = function() {
 
           console.log("visiting user is the creator. showing approval form, hiding rescind form.")
 
-          pendingNotification = "Someone has requested this time.\nDo you want to approve it?"
-          pendingDiv.innerText = pendingNotification + "\nRequested: " + data.val().pending.whenDatePending + " at " + data.val().pending.whenTimePending;
+          pendingNotification = "Someone has requested this change.\nDo you want to approve it?"
+          pendingDiv.innerText = pendingNotification + "\nPending time: " + data.val().pending.whenDatePending + " at " + data.val().pending.whenTimePending +
+                                  "\nPending location: " + data.val().pending.whereAddressPending;
 
           myApprovalForm.removeAttribute('hidden');
           myRescindingForm.setAttribute('hidden', 'true');
@@ -289,8 +290,9 @@ FriendlyChat.prototype.loadChats = function() {
 
         console.log("visiting user requested a change. showing rescinding form, hiding approval form.")
 
-        pendingNotification = "You have requested this time!\nDo you want to change it?";
-        pendingDiv.innerText = pendingNotification + "\nRequested: " + data.val().pending.whenDatePending + " at " + data.val().pending.whenDatePending;
+        pendingNotification = "You have requested this time!\nIt is pending. Do you want to change it?";
+        pendingDiv.innerText = pendingNotification + "\nPending time: " + data.val().pending.whenDatePending + " at " + data.val().pending.whenDatePending +
+                                    "\nPending location: " + data.val().pending.whereAddressPending;
 
         myRescindingForm.removeAttribute('hidden');
         myApprovalForm.setAttribute('hidden', 'true');
@@ -386,8 +388,14 @@ FriendlyChat.prototype.saveMessage = function(e) {
     }).then(this.resetDateTime) // <-- Reset the field.
   }
 
-  // If there was a new place-time-update, send a message in thread:
-  // TO DO
+  // // If there was a new place-time-update, send a message in thread:
+  //   messagesChatsRef.push({
+  //     chatId: this.chatItemDataSpecific,
+  //     name: currentUser.displayName,
+  //     text: currentUser.displayName + " has requested a change!"
+  //     photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
+  //   })
+
 
   // Check that the user entered a message and is signed in:
   if (this.messageInput.value && this.checkSignedInWithMessage()) {
