@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <!--
+      Notice the use of %PUBLIC_URL% in the tag above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>DoneWhops Reviews</title>
+    <style>
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        overflow: hidden;
+        margin-bottom: 10px;
+      }
+      .panel {
+        border: 1px solid #ccc;
+        overflow: scroll;
+        margin-bottom: 10px;  
+      }
+      ul a {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-right: 10px;
+        float: left;
+        display: block;
+      }
+      ul a {
+        color: #000;
+        text-decoration: none;
+      }
+      ul.tabs a.selected,
+      ul.tabs a[aria-selected='true'] {
+        background: #ccc;
+        border-color: #ccc;
+        color: #000;
+      }
+      div[aria-hidden='true'] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <ul class="tabs">
+      <li><a class="tab" href="#create">Create</a></li>
+      <li><a class="tab" href="#coordinate">Coordinate</a></li>
+      <li><a class="tab" href="#review">Review</a></li>
+    </ul>
+    <div id="create" class="panel">
+      CREATE APP
+    </div>
+    <div id="coordinate" class="panel">
+      COORDINATE APP
+    </div>
+    <div id="review" class="panel">
+      REVIEW APP
+      <div id="root"></div>
+    </div>
+
+    <script>
+      // adapterd from http://git.io/blingjs
+      var $ = document.querySelectorAll.bind(document);
+
+      Node.prototype.on = window.on = function (name, fn) {
+        this.addEventListener(name, fn);
+        return this;
+      };
+
+      NodeList.prototype.__proto__ = Array.prototype;
+
+      NodeList.prototype.on = NodeList.prototype.addEventListener = function (name, fn) {
+        this.forEach(function (el) {
+          el.on(name, fn);
+        });
+        return this;
+      };
+      // end of bling.js ----
+
+      var target = null;
+
+      var tabs = $('.tab').on('click',  function() {
+        target = $(this.hash)[0];
+        target.id = '';
+        if (location.hash === this.hash) {
+          setTimeout(update)
+        }
+      }).map(function(el) {
+        el.tabindex = 0;
+        return el;
+      });
+
+      var targets = tabs.map(function(el) {
+        return el.hash;
+      });
+
+      var panels = $(targets.join(', '))
+        .map(function(el) {
+          el.dataset.old = el.id;
+          return el;
+        });
+        
+      function update() {
+        if (target) {
+          target.id = target.dataset.old;
+          target = null;
+        }
+        
+        var hash = window.location.hash;
+        if (targets.indexOf(hash) !== -1) {
+          return show(hash);
+        }
+        if (!hash) {
+          show();
+        }
+      }
+
+      function show(id) {
+        if (!id) {
+          id = targets[0];
+        }
+        tabs.forEach(function(el) {
+          var match = el.hash === id;
+          el.classList[match ? 'add' : 'remove']('selected');
+          el.setAttribute('aria', match);
+        });
+        
+        panels.forEach(function(el) {
+          var match = '#' + el.id === id;
+          el.style.display = match ? '' : 'none';
+          el.setAttribute('aria-hidden', !match);
+        });
+      }
+
+      window.addEventListener('hashchange', update);
+
+      if (targets.indexOf(window.location.hash) !== -1) {
+       update();
+      } else {
+        show();
+      }
+    </script>
+  </body>
+</html>

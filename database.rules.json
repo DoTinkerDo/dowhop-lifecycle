@@ -1,0 +1,19 @@
+// {
+//   "rules": {
+//     ".read": "auth != null",
+//     "doWhops": {
+//       ".write": "auth != null"
+//     },
+//     "users": {
+//       "$userId": {
+//         ".write": "$userId === auth.uid"
+//       }
+//     }
+//   }
+// }
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null"
+  }
+}
