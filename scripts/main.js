@@ -107,6 +107,7 @@ function FriendlyChat() {
   this.signInSnackbar = document.getElementById('must-signin-snackbar');
   this.messageFormWhenDatePending = document.getElementById('whenDatePending');
   this.messageFormWhenTimePending = document.getElementById('whenTimePending');
+  this.messageFormWherePending = document.getElementById('whereAddressPending');
   this.radioApprove = document.getElementById("radioApprove");
   this.radioDeny = document.getElementById("radioDeny");
   this.approvalForm = document.getElementById('approve-pending-form');
@@ -124,7 +125,7 @@ function FriendlyChat() {
   this.newChatWhenBounds = document.getElementById('when-column-bounds')
   this.newChatInputWhenDate = document.getElementById('new-chat-input-when-date')
   this.newChatInputWhenTime = document.getElementById('new-chat-input-when-time')
-  this.newChatInputWhere = document.getElementById('pac-input')
+  // this.newChatInputWhere = document.getElementById('pac-input')
   this.newChatButton = document.getElementById('new-chat-button')
   this.newChatPopup = document.getElementById('new-chat-popup')
   this.chatList = document.getElementById('chat-list')
@@ -175,7 +176,7 @@ FriendlyChat.prototype.initFirebase = function() {
 
 FriendlyChat.prototype.sendApproval = function(e) {
   e.preventDefault();
-  var choice, newDate, newTime
+  var choice, newDate, newTime, newWhere
   this.chatItemDataSpecific = document.getElementById("show-chat-data").children[0].id
   var myRef = this.database.ref().child('chats/' + this.chatItemDataSpecific);
   var myRefPending = this.database.ref().child('chats/' + this.chatItemDataSpecific + '/pending');
@@ -187,12 +188,14 @@ FriendlyChat.prototype.sendApproval = function(e) {
     console.log(snap.val().whenTimePending);
     newDate = snap.val().whenDatePending;
     newTime = snap.val().whenTimePending;
+    newWhere = snap.val().whereAddressPending;
   });
 
   if (this.radioApprove.checked) {
     myRef.update({
       whenDate: newDate,
-      whenTime: newTime
+      whenTime: newTime,
+      whereAddress: newWhere
     });
     this.database.ref().child('chats/' + this.chatItemDataSpecific + '/pending/').update({
     status: 'approved'
@@ -277,8 +280,9 @@ FriendlyChat.prototype.loadChats = function() {
 
           console.log("visiting user is the creator. showing approval form, hiding rescind form.")
 
-          pendingNotification = "Someone has requested this time.\nDo you want to approve it?"
-          pendingDiv.innerText = pendingNotification + "\nRequested: " + data.val().pending.whenDatePending + " at " + data.val().pending.whenTimePending;
+          pendingNotification = "Someone has requested this change.\nDo you want to approve it?"
+          pendingDiv.innerText = pendingNotification + "\nPending time: " + data.val().pending.whenDatePending + " at " + data.val().pending.whenTimePending +
+                                  "\nPending location: " + data.val().pending.whereAddressPending;
 
           myApprovalForm.removeAttribute('hidden');
           myRescindingForm.setAttribute('hidden', 'true');
@@ -288,8 +292,9 @@ FriendlyChat.prototype.loadChats = function() {
 
         console.log("visiting user requested a change. showing rescinding form, hiding approval form.")
 
-        pendingNotification = "You have requested this time!\nDo you want to change it?";
-        pendingDiv.innerText = pendingNotification + "\nRequested: " + data.val().pending.whenDatePending + " at " + data.val().pending.whenDatePending;
+        pendingNotification = "You have requested this time!\nIt is pending. Do you want to change it?";
+        pendingDiv.innerText = pendingNotification + "\nPending time: " + data.val().pending.whenDatePending + " at " + data.val().pending.whenDatePending +
+                                    "\nPending location: " + data.val().pending.whereAddressPending;
 
         myRescindingForm.removeAttribute('hidden');
         myApprovalForm.setAttribute('hidden', 'true');
@@ -369,19 +374,31 @@ FriendlyChat.prototype.saveMessage = function(e) {
   var currentUser = this.auth.currentUser;
   var whenDatePending = this.whenDatePending;
   var whenTimePending = this.whenTimePending;
+  var whereAddressPending = this.whereAddressPending;
 
   // Check that the user entered a time change request:
 
-  if (this.messageFormWhenDatePending.value && this.messageFormWhenTimePending.value) {
+  if (this.messageFormWhenDatePending.value && this.messageFormWhenTimePending.value && this.messageFormWherePending) {
     // Send the inputted date/time suggestion to the event it's associated with:
     var chatsRef = this.database.ref().child('chats/' + this.chatItemDataSpecific + '/pending/');
+    // Send a notification to the thread:
+    messagesChatsRef.push({
+      chatId: this.chatItemDataSpecific,
+      name: currentUser.displayName,
+      text: currentUser.displayName + " has requested a change!",
+      photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
+    });
+
     chatsRef.update({
       status: true,
       whenDatePending: this.messageFormWhenDatePending.value,
       whenTimePending: this.messageFormWhenTimePending.value,
+      whereAddressPending: this.messageFormWherePending.value,
       requester: currentUser.uid
-    }).then(this.resetDateTime) // <-- Reset the field.
+    }).then(this.resetDateTimeWhere) // <-- Reset the field.
+
   }
+
   // Check that the user entered a message and is signed in:
   if (this.messageInput.value && this.checkSignedInWithMessage()) {
 
@@ -401,9 +418,10 @@ FriendlyChat.prototype.saveMessage = function(e) {
   }
 };
 
-FriendlyChat.prototype.resetDateTime = function() {
+FriendlyChat.prototype.resetDateTimeWhere = function() {
   document.getElementById("whenDatePending").value = null;
   document.getElementById("whenTimePending").value = null;
+  document.getElementById("whereAddressPending").value = null;
 }
 
 // Button to save your chat thread to the database:
@@ -423,7 +441,7 @@ FriendlyChat.prototype.saveChat = function(e) {
       what: this.newChatInputWhat.value,
       whenDate: this.newChatInputWhenDate.value,
       whenTime: this.newChatInputWhenTime.value,
-      where: this.newChatInputWhere.value,
+      whereAddress: this.newChatInputWhere.value,
       who: this.newChatInputWho.value,
       creator: currentUser.uid
     }).then(function() {
