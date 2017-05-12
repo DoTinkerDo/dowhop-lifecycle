@@ -121,52 +121,105 @@
                   <input type="text" id="message">
                   <span class="bar">
                 </label>
+                <!-- Adding options div here -->
+                <div class="options">
+
+                  <script>
+
+                  var date, time, where, image;
+
+                  function revealInput(x) {
+
+                      switch(x) {
+
+                      	case 'date':
+                          document.getElementById("whenDatePending").removeAttribute("hidden");
+                   			  document.getElementById("whenTimePending").setAttribute("hidden","true");
+                    			document.getElementById("whereAddressPending").setAttribute("hidden","true");
+                        	document.getElementById("map").setAttribute("hidden","true");
+                     			document.getElementById("mediaCapture").setAttribute("hidden","true");
+                          break;
+
+                          case 'time':
+                            document.getElementById("whenTimePending").removeAttribute("hidden");
+                            document.getElementById("whenDatePending").setAttribute("hidden","true");
+                            document.getElementById("whereAddressPending").setAttribute("hidden","true");
+                            document.getElementById("map").setAttribute("hidden","true");
+                            document.getElementById("mediaCapture").setAttribute("hidden","true");
+                     		break;
+
+                   		case 'where':
+                            document.getElementById("whereAddressPending").removeAttribute("hidden");
+                            document.getElementById("map").removeAttribute("hidden");
+                            document.getElementById("whenDatePending").setAttribute("hidden","true");
+                            document.getElementById("whenTimePending").setAttribute("hidden","true");
+                            document.getElementById("mediaCapture").setAttribute("hidden","true");
+                     		break;
+
+
+                          case 'image':
+                            document.getElementById("mediaCapture").removeAttribute("hidden");
+                            document.getElementById("whenDatePending").setAttribute("hidden","true");
+                            document.getElementById("whenTimePending").setAttribute("hidden","true");
+                            document.getElementById("whereAddressPending").setAttribute("hidden","true");
+                            document.getElementById("map").setAttribute("hidden","true");
+
+                     		break;
+
+                        default:
+                        document.getElementById("whenDatePending").setAttribute("hidden", "true");
+                        document.getElementById("whenTimePending").setAttribute("hidden","true");
+                        document.getElementById("whereAddressPending").setAttribute("hidden","true");
+                        document.getElementById("map").setAttribute("hidden","true");
+                        document.getElementById("mediaCapture").setAttribute("hidden","true");
+
+                        break;
+
+                      };
+
+                  }
+                  </script>
+
+                        <div class="underbar">
+
+                          <div id="optione-calendar" class="img_icon">
+                            <img onclick="revealInput('date')" src='images/calendar.png' alt="" width="24" height="24">
+                          </div>
+
+                          <div id="clock" class="img_icon">
+                            <img onclick="revealInput('time')" src="images/clock-circular-outline.png" alt="" width="24" height="24">
+                          </div>
+
+                          <div id="map-div" class="img_icon">
+                            <img onclick="revealInput('where')" src="https://static.wixstatic.com/media/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png/v1/fill/w_512,h_512,al_c/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png" alt="" width="24" height="24">
+                          </div>
+
+                          <div id="image" class="img_icon">
+                            <img onclick="revealInput('image')" src="images/image-add-button.png" alt="" width="24" height="24">
+                          </div>
+
+                          <div id="send-message-button">
+                            <button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect options-div-submit">
+                              Send
+                            </button>
+                          </div>
+
+                        </div>
+                </div>
+              <!-- End of Message Form Div -->
               </div>
-              <!-- Adding the time-change-request inputs here -->
-               <div id="when-icon-div">
-                 <label class="form-line">
-                 <span>When?</span><br>
-                 <img id="when-icon" src='https://static.wixstatic.com/media/de271e_99334077334348128459dcffdcf5262f~mv2.png/v1/fill/w_512,h_512,al_c/de271e_99334077334348128459dcffdcf5262f~mv2.png'>
-                 <div hidden id="when-column-bounds">
-                   <div id="when-column-left">
-                     <!-- <label class="form-line"> -->
-                       <span>Date:</span>
-                       <input type="date" id='whenDatePending' size="50">
-                       <span class="bar">
-                     </label>
-                   </div>
-                   <div id="when-column-right">
-                       <span>Time:</span>
-                       <input type="time" id='whenTimePending' size="50">
-                       <!-- <i id='new-chat-input-when-time-icon' class="medium material-icons">query_builder</i> -->
-                       <span class="bar">
-                     </label>
-                   </div>
-                 </div>
-               </label>
-               </div>
-               <!-- Adding where-change-requests-here -->
-               <label class="form-line">
-                 <span>Where?</span>
-                   <img id="where-icon" src="https://static.wixstatic.com/media/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png/v1/fill/w_512,h_512,al_c/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png">
-                 <!-- Map area-->
-                 <div id="where-column-bounds">
-                   <input id="whereAddressPending" class="controls" type="text" placeholder="Set a place...">
-                   <!-- <div id="map"></div> -->
-                 </div>
-                   <span class="bar">
-               </label>
-
-              <button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect submit2">
-                Send
-              </button>
-
-            </form>
-            <form id="image-form" action="#">
-              <input id="mediaCapture" type="file" accept="image/*,capture=camera">
-              <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--red-200 mdl-color-text--white">
-                <i class="material-icons">perm_media</i>
-              </button>
+              <div id="hidden-inputs">
+                <input hidden type="date" id="whenDatePending">
+                <input hidden type="time" id='whenTimePending' size="50">
+                <input hidden id="whereAddressPending" class="controls" type="text" placeholder="Set a place...">
+                <div hidden id="map"></div>
+                <form hidden id="image-form" action="#">
+                  <input hidden id="mediaCapture" type="file" accept="image/*,capture=camera">
+                  <button hidden id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--red-200 mdl-color-text--white">
+                    <i class="material-icons">perm_media</i>
+                  </button>
+                </form>
+              </div>
             </form>
         </div>
       </div>
@@ -289,7 +342,7 @@ function initAutocomplete() {
   });
 
   // Create the search box and link it to the UI element.
-  var input = document.getElementById('pac-input');
+  var input = document.getElementById('whereAddressPending');
   var searchBox = new google.maps.places.SearchBox(input);
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
 
