@@ -293,47 +293,11 @@ h1,h2,h3,h4,h5 { font-family: Avenir }
   background-color: lightGrey;
 }
 
-/* Styling message input area */
-
-/*[class*='options-'] {
-  float: left;
-}
-
-.options-div-where {
-  width: 20%;
-}
-
-.options-div-when {
-  width: 20%;
-}
-
-.options-div-submit {
-  width: 10%;
-}
-
-.options-div-image {
-  width: 40%;
-}*/
-
-/*.file {
-  opacity: 0;
-  position: absolute;
-	margin-left: 25px;
-  padding: 10px;
-  z-index: 2;
-	width: 25px;
-	height: 10px;
-}*/
+/* Styling underbar icons, inputs  of message input area */
 
 .file_button {
   margin-left: 40px;
 }
-
-/*#whenDatePending {
-	position: absolute;
-	right: 30px;
-	opacity: 0;
-}*/
 
 .options {
   display: block;
@@ -347,7 +311,7 @@ h1,h2,h3,h4,h5 { font-family: Avenir }
 
 .underbar div {
 	float: left;
-	width: 19%;
+	width: 20%;
 }
 
 .underbar_options div {
@@ -357,21 +321,14 @@ h1,h2,h3,h4,h5 { font-family: Avenir }
 	transition: hidden 1s ease-in-out;
 }
 
-/*.slideDown {
-	transform: translateY(30px);
-}
-.slideUp {
-	transform: translateY(-30px);
-}*/
 #map-2 {
-  /*float: right;*/
   width: auto;
   height: auto;
 }
 
-.options-div-submit {
-  padding: 0;
-  margin: 0;
+#submit {
+  position: relative;
+  margin-top: 15%;
   width: auto;
   height: auto;
 }
