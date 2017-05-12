@@ -259,7 +259,7 @@ FriendlyChat.prototype.loadChats = function() {
             "<h5>When?</h5>" +
             "<p>" + snap.val().whenDate + ' at ' + snap.val().whenTime + "</p>" +
             "<h5>Where?</h5>" +
-            "<p>" + snap.val().where + "</p>"
+            "<p>" + snap.val().whereAddress + "</p>"
   };
 
   var checkForPendings = function(id, data) {
