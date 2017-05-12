@@ -123,10 +123,10 @@
 
 /* Adding Google map styling: */
 
-#where-column-bounds {
+/*#where-column-bounds {
   display: flex;
   justify-content: center;
-}
+}*/
 
 #map {   /* <-- Always best to set the map height div explicitly. */
   height: 250px;
@@ -291,4 +291,55 @@ h1,h2,h3,h4,h5 { font-family: Avenir }
 
 .approval-form {
   background-color: lightGrey;
+}
+
+/* Styling underbar icons, inputs  of message input area */
+
+.file_button {
+  margin-left: 40px;
+}
+
+.options {
+  display: block;
+}
+
+.underbar {
+	padding-top: 5px;
+	height: 15px;
+	transition: all 1s ease-in-out;
+}
+
+.underbar div {
+	float: left;
+	width: 20%;
+}
+
+.underbar_options div {
+	float: left;
+	width: 100%;
+	text-align: center;
+	transition: hidden 1s ease-in-out;
+}
+
+#map-2 {
+  width: auto;
+  height: auto;
+}
+
+#submit {
+  position: relative;
+  margin-top: 15%;
+  width: auto;
+  height: auto;
+}
+
+#hidden-inputs {
+  display: flex;
+  justify-content: center;
+  padding-top: 5%;
+  font-size: 2em;
+}
+
+.message img {
+  width: 50%;
 }
