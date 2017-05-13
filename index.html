@@ -49,17 +49,54 @@
 
   <!-- App Styling -->
   <style>*, *:before, *:after {box-sizing: border-box;margin: 0;padding: 0;}html {height: 100%;background: #fff;}body {font-family: 'Avenir Light', Avenir Light, Avenir, sans-serif;min-width: 320px;}input, button {border: none;outline: none;background: none;font-family: 'Avenir Light', Avenir Light, Avenir, sans-serif;color: #606060;}header {text-align: center;padding-top: 10px;}header h1 {font-size: 24px;}.wrap {width: 100%;margin: 25px auto;padding: 0 30px;min-height: 60vh;}@media (min-width: 641px) {.wrap {display: flex;max-width: 900px;}}.form-wrap {width: 100%;padding: 30px 60px;background: #fff;text-align: center;}@media (min-width: 641px) {.form-wrap {flex: 1 0 50%;box-shadow: 0 8px 6px -6px #808080;}}.form-wrap h2 {text-align: center;font-size: 26px;color: #606060;}.form-wrap .form-line {margin: 40px 0 0 0;width: 100%;display: block;text-align: center;position: relative;}.form-wrap .form-line > span {color: #606060;text-transform: uppercase;display: inline-block;width: 100%;font-size: 12px;}.form-wrap .form-line input[type="text"], .form-wrap .form-line input[type="email"] {display: inline-block;width: 100%;margin-top: 6px;padding-bottom: 5px;font-size: 16px;border-bottom: 1px solid rgba(0,0,0,0.4);text-align: center;position: relative;}.form-error {color: #ec1928;font-size: 14px;padding-top: 15px;}.form-error.error--ok {color: #ec1928;}.bar {position: absolute;display: block;width: 100%;bottom: 0;left: 0;z-index: 10;}.bar:before, .bar:after {content: '';height: 2px;width: 0;bottom: 0px;position: absolute;background: #ec1928;transition: 0.2s ease all;}.bar:before {left: 50%;}.bar:after {right: 50%;}input:focus ~ .bar:before, input:focus ~ .bar:after {width: 50%;}.submit {display: inline-block;margin: 40px auto 0 auto;padding: 10px 50px;background: #ec1928;color: #fff;font-weight: 700;border-radius: 0px;font-size: 16px;cursor: pointer;transition: 0.2s ease all;}.submit2 {display: inline-block;margin: 40px auto 0 auto;padding: auto auto;background: #ec1928;color: #fff;font-weight: 700;border-radius: 0px;font-size: 16px;cursor: pointer;transition: 0.2s ease all;}.submit:hover, .submit2:hover {background: #fff;color: #ec1928;}.user-list {width: 100%;background: #fff;box-shadow: 0 8px 6px -6px #808080;padding: 30px 40px;border-top: 3px solid #cfd9df;}@media (min-width: 641px) {.user-list {flex: 1 0 50%;border-left: 3px solid #ededed;border-top: none;}}.user-list > h2 {text-align: center;font-size: 26px;padding-bottom: 30px;color: #606060;}.user-list__item {padding: 10px;border: 1px solid #ededed;border-radius: 3px;border-left: 3px solid #ec1928;margin-bottom: 10px;}.user-list__item h4, .user-list__item p {font-size: 14px;padding-bottom: 10px;color: #c0c0c0;font-size: 14px;}.user-list__item h4 span, .user-list__item p span {color: #606060;} #top-bar-dowhop{ display:none;} #hover-flag{ color: grey; background-color: red; transition: 0.8s ease all;} #hover-flag:hover { background-color: red; transition: 0.8s ease all;} #hover-flag:hover + #top-bar-dowhop{ display:block;} #top-bar-dowhop:hover{ display:block;};
-</style>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  </style>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <link rel="stylesheet" href="styles/main.css"><!--Catch-all stylings-->
+  <link rel="stylesheet" href="styles/main.428896f6.css">
+
+
+  <style>
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .panel {
+      border: 1px solid #ccc;
+      overflow: scroll;
+      margin-bottom: 10px;  
+    }
+    ul a {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-right: 10px;
+      float: left;
+      display: block;
+    }
+    ul a {
+      color: #000;
+      text-decoration: none;
+    }
+    ul.tabs a.selected,
+    ul.tabs a[aria-selected='true'] {
+      background: #ccc;
+      border-color: #ccc;
+      color: #000;
+    }
+    div[aria-hidden='true'] {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+<!-- <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header"> -->
 
   <!-- Header section containing logo -->
-  <a id="hover-flag" onclick="">Show more (hover)</a>
+<!--   <a id="hover-flag" onclick="">Show more (hover)</a>
   <header id="top-bar-dowhop" class="mdl-layout__header mdl-color-text--white mdl-color--red">
     <div id="top-bar-hidden">
       <div id"=top-bar-hidden-sub">
@@ -78,157 +115,176 @@
         </div>
       </div>
   </div>
-  </header>
+  </header> -->
 
-  <main class="mdl-layout__content mdl-color--grey-100">
-    <!-- Chat threads container -->
-    <div id='container-box'>
-      <div id="chat-list-container" class="form-wrap">
-        <h3>My Event Chats</h3>
-        <ul id="chat-list">
-          <!--New chat-thread (button) items shall go here-->
-        </ul>
-      </div>
-
-      <div id="show-chat-data-form" class="form-wrap">
-        <div id="show-chat-data">Your DoWhop details will appear here!
+  <ul class="tabs">
+      <li><a class="tab" href="#create">Create</a></li>
+      <li><a class="tab" href="#coordinate">Coordinate</a></li>
+      <li><a class="tab" href="#review">Review</a></li>
+    </ul>
+    <div id="create" class="panel">
+      CREATE APP
+    </div>
+    <div id="coordinate" class="panel">
+      COORDINATE APP
+      <main class="mdl-layout__content mdl-color--grey-100">
+      <!-- Chat threads container -->
+      <div id='container-box'>
+        <div id="chat-list-container" class="form-wrap">
+          <h3>My Event Chats</h3>
+          <ul id="chat-list">
+            <!--New chat-thread (button) items shall go here-->
+          </ul>
         </div>
-        <!-- These are the hidden pending notifications -->
-        <div id='pending-div-container' class='pending-notification'>
-          <p id='pending-div'></p>
-          <form hidden id='approve-pending-form' class='approval-form'>
-            <input id="radioApprove" type='radio' name='approval' value='approve'>Approve
-            <input id="radioDeny" type='radio' name='approval' value='deny'>Deny
-            <button id='submit-approval-button' type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect'>Send
-            </button>
-          </form>
-          <form hidden id='rescind-pending-form' class='approval-form'>
-            <button id='submit-rescind-button' type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect'>Rescind
-            </button>
-          </form>
-        </div>
-      </div>
 
-      <div id="messages-card-container"  class="form-wrap">
-        <!-- Messages container -->
-        <div id="messages-card">
-            <div id="messages">
-              <span id="message-filler"></span>
-            </div>
-            <form id="message-form" action="#">
-              <div id="message-form-div" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <label class="form-line" for="message">Message
-                  <input type="text" id="message">
-                  <span class="bar">
-                </label>
-                <!-- Adding options div here -->
-                <div class="options">
-                        <div class="underbar">
-                          <div id="optione-calendar" class="img_icon">
-                            <img onclick="revealInput('date')" src='images/calendar.png' alt="" width="24" height="24">
-                          </div>
-                          <div id="clock" class="img_icon">
-                            <img onclick="revealInput('time')" src="images/clock-circular-outline.png" alt="" width="24" height="24">
-                          </div>
-                          <div id="map-div" class="img_icon">
-                            <img onclick="revealInput('where')" src="https://static.wixstatic.com/media/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png/v1/fill/w_512,h_512,al_c/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png" alt="" width="24" height="24">
-                          </div>
-                          <div id="image" class="img_icon">
-                            <img onclick="revealInput('image')" src="images/image-add-button.png" alt="" width="24" height="24">
-                          </div>
-                          <div id="send-message-button">
-                            <button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect options-div-submit">
-                              Send
-                            </button>
-                          </div>
-                        </div>
-                </div>
-              <!-- End of Message Form Div -->
-              </div>
-              <div id="hidden-inputs">
-                <input hidden type="date" id="whenDatePending">
-                <input hidden type="time" id='whenTimePending' size="50">
-                <input hidden id="whereAddressPending" class="controls" type="text" placeholder="Set a place...">
-                <div hidden id="map"></div>
-              </div>
-            </form>
-            <form id="image-form" action="#">
-              <input hidden id="mediaCapture" type="file" accept="image/*,capture=camera">
-              <button hidden  id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--red-200 mdl-color-text--white">
-                <i class="material-icons">perm_media</i>
+        <div id="show-chat-data-form" class="form-wrap">
+          <div id="show-chat-data">Your DoWhop details will appear here!
+          </div>
+          <!-- These are the hidden pending notifications -->
+          <div id='pending-div-container' class='pending-notification'>
+            <p id='pending-div'></p>
+            <form hidden id='approve-pending-form' class='approval-form'>
+              <input id="radioApprove" type='radio' name='approval' value='approve'>Approve
+              <input id="radioDeny" type='radio' name='approval' value='deny'>Deny
+              <button id='submit-approval-button' type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect'>Send
               </button>
             </form>
+            <form hidden id='rescind-pending-form' class='approval-form'>
+              <button id='submit-rescind-button' type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect'>Rescind
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div id="messages-card-container"  class="form-wrap">
+          <!-- Messages container -->
+          <div id="messages-card">
+              <div id="messages">
+                <span id="message-filler"></span>
+              </div>
+              <form id="message-form" action="#">
+                <div id="message-form-div" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <label class="form-line" for="message">Message
+                    <input type="text" id="message">
+                    <span class="bar">
+                  </label>
+                  <!-- Adding options div here -->
+                  <div class="options">
+                          <div class="underbar">
+                            <div id="optione-calendar" class="img_icon">
+                              <img onclick="revealInput('date')" src='images/calendar.png' alt="" width="24" height="24">
+                            </div>
+                            <div id="clock" class="img_icon">
+                              <img onclick="revealInput('time')" src="images/clock-circular-outline.png" alt="" width="24" height="24">
+                            </div>
+                            <div id="map-div" class="img_icon">
+                              <img onclick="revealInput('where')" src="https://static.wixstatic.com/media/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png/v1/fill/w_512,h_512,al_c/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png" alt="" width="24" height="24">
+                            </div>
+                            <div id="image" class="img_icon">
+                              <img onclick="revealInput('image')" src="images/image-add-button.png" alt="" width="24" height="24">
+                            </div>
+                            <div id="send-message-button">
+                              <button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect options-div-submit">
+                                Send
+                              </button>
+                            </div>
+                          </div>
+                  </div>
+                <!-- End of Message Form Div -->
+                </div>
+                <div id="hidden-inputs">
+                  <input hidden type="date" id="whenDatePending">
+                  <input hidden type="time" id='whenTimePending' size="50">
+                  <input hidden id="whereAddressPending" class="controls" type="text" placeholder="Set a place...">
+                  <div hidden id="map"></div>
+                </div>
+              </form>
+              <form id="image-form" action="#">
+                <input hidden id="mediaCapture" type="file" accept="image/*,capture=camera">
+                <button hidden  id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--red-200 mdl-color-text--white">
+                  <i class="material-icons">perm_media</i>
+                </button>
+              </form>
+          </div>
+        </div>
+
+        <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
+          <div class="mdl-snackbar__text"></div>
+          <button class="mdl-snackbar__action" type="button"></button>
         </div>
       </div>
 
-      <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
-        <div class="mdl-snackbar__text"></div>
-        <button class="mdl-snackbar__action" type="button"></button>
-      </div>
+      <div id="create-new-chat" class="form-wrap">
+            <h2>Start a new chat!</h2>
+            <form id="new-chat-form" action="#">
+                <label class="form-line">
+                  <span>Title?</span>
+                  <input type="text" id="new-chat-input-title" placeholder="Ex: Sail with Sam">
+                  <span class="bar">
+                </label>
+                <label class="form-line">
+                  <span>What?</span>
+                  <input type="text" id="new-chat-input-what" placeholder="Ex: 27-foot Soling. You bring white-soled shoes, I provide snacks and lifejackets...">
+                  <span class="bar">
+                </label>
+                <label class="form-line">
+                  <span>Who?</span>
+                  <input type="text" id="new-chat-input-who">
+                  <span class="bar">
+                </label>
+                <!-- Below is the div box for the date-time columns -->
+                <div id="when-icon-div">
+                  <label class="form-line">
+                  <span>When?</span><br>
+                  <img id="when-icon" src='https://static.wixstatic.com/media/de271e_99334077334348128459dcffdcf5262f~mv2.png/v1/fill/w_512,h_512,al_c/de271e_99334077334348128459dcffdcf5262f~mv2.png'>
+                  <div id="when-column-bounds">
+                    <div id="when-column-left">
+                      <!-- <label class="form-line"> -->
+                        <span>Date:</span>
+                        <input type="date" id='new-chat-input-when-date' size="50">
+                        <span class="bar">
+                      </label>
+                    </div>
+                    <div id="when-column-right">
+                        <span>Time:</span>
+                        <input type="time" id='new-chat-input-when-time' size="50">
+                        <!-- <i id='new-chat-input-when-time-icon' class="medium material-icons">query_builder</i> -->
+                        <span class="bar">
+                      </label>
+                    </div>
+                  </div>
+                </label>
+                </div>
+                <!-- Below is the area for selecting 'where' -->
+                <label class="form-line">
+                  <span>Where?</span>
+                    <img id="where-icon" src="https://static.wixstatic.com/media/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png/v1/fill/w_512,h_512,al_c/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png">
+                  <!-- Map area-->
+                  <div id="where-column-bounds">
+                    <input id="pac-input" class="controls" type="text" placeholder="Set a place...">
+                    <div id="map"></div>
+                  </div>
+                    <span class="bar">
+                </label>
+
+              <button id="new-chat-button" type="submit" class="mdl-button--raised submit">
+                Start new chat!</button>
+              <div id="error" class="form-error"></div>
+            </form>
+          </div>
+
+      <div hidden id="new-chat-popup"></div>
+      </main>
     </div>
 
-    <div id="create-new-chat" class="form-wrap">
-          <h2>Start a new chat!</h2>
-          <form id="new-chat-form" action="#">
-              <label class="form-line">
-                <span>Title?</span>
-                <input type="text" id="new-chat-input-title" placeholder="Ex: Sail with Sam">
-                <span class="bar">
-              </label>
-              <label class="form-line">
-                <span>What?</span>
-                <input type="text" id="new-chat-input-what" placeholder="Ex: 27-foot Soling. You bring white-soled shoes, I provide snacks and lifejackets...">
-                <span class="bar">
-              </label>
-              <label class="form-line">
-                <span>Who?</span>
-                <input type="text" id="new-chat-input-who">
-                <span class="bar">
-              </label>
-              <!-- Below is the div box for the date-time columns -->
-              <div id="when-icon-div">
-                <label class="form-line">
-                <span>When?</span><br>
-                <img id="when-icon" src='https://static.wixstatic.com/media/de271e_99334077334348128459dcffdcf5262f~mv2.png/v1/fill/w_512,h_512,al_c/de271e_99334077334348128459dcffdcf5262f~mv2.png'>
-                <div id="when-column-bounds">
-                  <div id="when-column-left">
-                    <!-- <label class="form-line"> -->
-                      <span>Date:</span>
-                      <input type="date" id='new-chat-input-when-date' size="50">
-                      <span class="bar">
-                    </label>
-                  </div>
-                  <div id="when-column-right">
-                      <span>Time:</span>
-                      <input type="time" id='new-chat-input-when-time' size="50">
-                      <!-- <i id='new-chat-input-when-time-icon' class="medium material-icons">query_builder</i> -->
-                      <span class="bar">
-                    </label>
-                  </div>
-                </div>
-              </label>
-              </div>
-              <!-- Below is the area for selecting 'where' -->
-              <label class="form-line">
-                <span>Where?</span>
-                  <img id="where-icon" src="https://static.wixstatic.com/media/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png/v1/fill/w_512,h_512,al_c/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png">
-                <!-- Map area-->
-                <div id="where-column-bounds">
-                  <input id="pac-input" class="controls" type="text" placeholder="Set a place...">
-                  <div id="map"></div>
-                </div>
-                  <span class="bar">
-              </label>
 
-            <button id="new-chat-button" type="submit" class="mdl-button--raised submit">
-              Start new chat!</button>
-            <div id="error" class="form-error"></div>
-          </form>
-        </div>
+    <div id="review" class="panel">
+      REVIEW APP
+      <div id="root"></div>
+    </div>
 
-    <div hidden id="new-chat-popup"></div>
-  </main>
-</div>
+
+<!-- </div> -->
 <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
 <script>
   // Initialize Firebase
@@ -243,9 +299,92 @@
   firebase.initializeApp(config);
 </script>
 <script src="scripts/main.js"></script>
-
+<script src="scripts/main.4411c0f9.js"></script>
 <!-- Adding on jQuery components -->
 <script src="scripts/jquery.js"></script>
+<script>
+  // adapterd from http://git.io/blingjs
+  var $ = document.querySelectorAll.bind(document);
+
+  Node.prototype.on = window.on = function (name, fn) {
+    this.addEventListener(name, fn);
+    return this;
+  };
+
+  NodeList.prototype.__proto__ = Array.prototype;
+
+  NodeList.prototype.on = NodeList.prototype.addEventListener = function (name, fn) {
+    this.forEach(function (el) {
+      el.on(name, fn);
+    });
+    return this;
+  };
+  // end of bling.js ----
+
+  var target = null;
+
+  var tabs = $('.tab').on('click',  function() {
+    target = $(this.hash)[0];
+    target.id = '';
+    if (location.hash === this.hash) {
+      setTimeout(update)
+    }
+  }).map(function(el) {
+    el.tabindex = 0;
+    return el;
+  });
+
+  var targets = tabs.map(function(el) {
+    return el.hash;
+  });
+
+  var panels = $(targets.join(', '))
+    .map(function(el) {
+      el.dataset.old = el.id;
+      return el;
+    });
+    
+  function update() {
+    if (target) {
+      target.id = target.dataset.old;
+      target = null;
+    }
+    
+    var hash = window.location.hash;
+    if (targets.indexOf(hash) !== -1) {
+      return show(hash);
+    }
+    if (!hash) {
+      show();
+    }
+  }
+
+  function show(id) {
+    if (!id) {
+      id = targets[0];
+    }
+    tabs.forEach(function(el) {
+      var match = el.hash === id;
+      el.classList[match ? 'add' : 'remove']('selected');
+      el.setAttribute('aria', match);
+    });
+    
+    panels.forEach(function(el) {
+      var match = '#' + el.id === id;
+      el.style.display = match ? '' : 'none';
+      el.setAttribute('aria-hidden', !match);
+    });
+  }
+
+  window.addEventListener('hashchange', update);
+
+  if (targets.indexOf(window.location.hash) !== -1) {
+   update();
+  } else {
+    show();
+  }
+</script>
+
 
 <!--Adding location, date, time auto-completes--->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-coo6M25h9GjP8AYxhzIQSbNVj-Ope3s&libraries=places&callback=initAutocomplete" async defer></script>
