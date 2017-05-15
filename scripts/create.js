@@ -14,7 +14,7 @@ Array.from(document.getElementsByClassName("plus-button")).forEach(function(e){
         self.classList.add("fa-minus-circle")
         self.parentElement.parentElement.parentElement.nextSibling.nextSibling.childNodes.forEach(function(c, self) {
           if(c.nodeName!="#text") {
-            // debugger
+            //
             c.classList.add("slideDown")
             c.classList.remove("slideUp")
           }
@@ -70,47 +70,53 @@ Array.from(document.getElementsByClassName("img_icon")).forEach(function(e){
 function createDoWhop(data, clearForm) {
   // I collect form data and clear it
   var campoEmail = document.getElementById("email");
-  var campoTitle = document.getElementById("title");
-  var campoWho = document.getElementById("who");
-  var whoImage = document.getElementById("file_who");
-  var campoWhat = document.getElementById("what");
-  var campoWhere = document.getElementById("where");
-  var campoWhen = document.getElementById("when");
-  var campoWhenDate = document.getElementById("whenDate")
-  var campoWhenTime = document.getElementById("whenTime")
-  var campoWhenWhere = document.getElementById("whereAddress");
-  var campoHowmuch = document.getElementById("howmuch");
+  var titleDescription = document.getElementById("titleDescription");
+  // var titleImage = document.getElementById("titleImage");
+  var whoDescription = document.getElementById("whoDescription");
+  // var whoImage = document.getElementById("whoImage");
+  var whatDescription = document.getElementById("whatDescription");
+  // var whatImage = document.getElementById("whatImage");
+  var whereDescription = document.getElementById("whereDescription");
+  var whereAddress = document.getElementById("whereAddress");
+  var whenDescription = document.getElementById("whenDescription");
+  var whenDate = document.getElementById("whenDate")
+  var whenTime = document.getElementById("whenTime")
+  var howDescription = document.getElementById("howDescription");
+  var howCost = document.getElementById("howCost");
 
   var error = document.getElementById("error");
 
   /*took out former if so that only same email dispays if (campoEmail.value !== "" &&  campoNombre.value !== "" && campoApellidos.value !== "")*/
   if (
     campoEmail.value !== "" &&
-    campoTitle.value !== "" &&
-    campoWho.value !== ""
+    titleDescription.value !== "" &&
+    whoDescription.value !== ""
   ) {
     var filePath = data.title + "/" + data.key + "/" + whoImage.value.trim();
     data.email = campoEmail.value.trim();
-    data.title = campoTitle.value.trim();
-    data.who = campoWho.value.trim();
-    data.whoImage = filePath;
-    data.what = campoWhat.value.trim();
-    data.where = campoWhere.value.trim();
-    data.when = campoWhen.value.trim();
-    data.whenDate = campoWhenDate.value.trim();
-    data.whenTime = campoWhenTime.value.trim();
-    data.whenWhere = campoWhenWhere.value.trim();
-    debugger;
-    data.howmuch = campoHowmuch.value.trim();
-      error.innerHTML = "";
-    campoWhat.value.trim();
-      error.innerHTML = "";
-    campoWhere.value.trim();
-      error.innerHTML = "";
-    campoWhen.value.trim();
-      error.innerHTML = "";
-    campoHowmuch.value.trim();
-      error.innerHTML = "";
+    data.titleDescription = titleDescription.value.trim();
+    // data.titleImage = titleImage.value.trim();
+    data.whoDescription = whoDescription.value.trim();
+    // data.whoImage = whoImage.value.trim();
+    data.whatDescription = whatDescription.value.trim();
+    // data.whatImage = whatImage.value.trim();
+    data.whereDescription = whereDescription.value.trim();
+    data.whereAddress = whereAddress.value.trim();
+    data.whenDescription = whenDescription.value.trim();
+    data.whenTime = whenTime.value.trim();
+    data.whenDate = whenDate.value.trim();
+    data.howDescription = howDescription.value.trim();
+    data.howCost = howCost.value.trim();
+      ;
+    //   error.innerHTML = "";
+    // campoWhat.value.trim();
+    //   error.innerHTML = "";
+    // campoWhere.value.trim();
+    //   error.innerHTML = "";
+    // campoWhen.value.trim();
+    //   error.innerHTML = "";
+    // campoHowmuch.value.trim();
+    //   error.innerHTML = "";
   } else {
     var error = document.getElementById("error");
     error.classList.remove("error--ok");
@@ -119,31 +125,42 @@ function createDoWhop(data, clearForm) {
   }
 
   campoEmail.value = "";
-  campoTitle.value = "";
-  campoWho.value = "";
-  whoImage.value = "";
-  campoWhat.value = "";
-  campoWhere.value = "";
-  campoWhen.value = "";
-  campoWhenDate.value = "";
-  campoWhenTime.value = "";
-  campoWhenWhere.value = "";
-  campoHowmuch.value = "";
+  titleDescription.value = "";
+  // titleImage.value = "";
+  whoDescription.value = "";
+  // whoImage.value = "";
+  whatDescription.value = "";
+  // whatImage.value = "";
+  whereDescription.value = "";
+  whereAddress.value = "";
+  // whereImage.value = "";
+  whenDescription.value = "";
+  whenTime.value = "";
+  whenDate.value = "";
+  // whenImage.value = "";
+  howDescription.value = "";
+  howCost.value = "";
+  // howImage.value = "";
 
   // create user data model
   var user = {
     email: data.email,
-    title: data.title,
-    who: data.who,
-    whoImage: data.whoImage,
-    what: data.what,
-    where: data.where,
-    when: data.when,
+    titleDescription: data.titleDescription,
+    // titleImage: data.titleImage,
+    whoDescription: data.whoDescription,
+    // whoImage: data.whoImage,
+    whatDescription: data.whatDescription,
+    // whatImage: data.whatImage,
+    whereDescription: data.whereDescription,
+    whereAddress: data.whereAddress,
+    // whereImage: data.whereImage,
+    whenDescription: data.whenDescription,
     whenDate: data.whenDate,
-    whenTime: data.whenTime,
-    whenWhere: data.whenWhere,
-    howmuch: data.howmuch
+    // whenTime: data.whenTime,
+    howDescription: data.howDescription,
+    howCost: data.howCost
   };
+
 
   // I check that there is no one with the same email and if it is not I enter it in the bbdd
 
@@ -250,7 +267,7 @@ function hideOption(node, name){
 function hideAll(underbar_options){
   underbar_options.childNodes.forEach(function(c){
     if(c.nodeName!="#text"){
-      // debugger
+      //
       if(c.parentElement.dataset.openoption==c.id){ //closes other tabs
         c.setAttribute("hidden", true)
         c.parentElement.dataset.openoption="";
