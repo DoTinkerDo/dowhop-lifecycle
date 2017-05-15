@@ -1,0 +1,32 @@
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .panel {
+      border: 1px solid #ccc;
+      overflow: scroll;
+      margin-bottom: 10px;
+    }
+    ul a {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-right: 10px;
+      float: left;
+      display: block;
+    }
+    ul a {
+      color: #000;
+      text-decoration: none;
+    }
+    ul.tabs a.selected,
+    ul.tabs a[aria-selected='true'] {
+      background: #ccc;
+      border-color: #ccc;
+      color: #000;
+    }
+    div[aria-hidden='true'] {
+      display: none;
+    }
