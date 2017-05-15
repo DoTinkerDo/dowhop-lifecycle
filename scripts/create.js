@@ -92,7 +92,7 @@ function createDoWhop(data, clearForm) {
     titleDescription.value !== "" &&
     whoDescription.value !== ""
   ) {
-    var filePath = data.title + "/" + data.key + "/" + whoImage.value.trim();
+    var filePath = data.titleDescription + "/" + data.key + "/" + whoImage.value.trim();
     data.email = campoEmail.value.trim();
     data.titleDescription = titleDescription.value.trim();
     // data.titleImage = titleImage.value.trim();
@@ -176,7 +176,7 @@ function createDoWhop(data, clearForm) {
       document.getElementById("error").classList.add("error--ok");
       return false;
     } else {
-      rootRef.child(data.title).set(user);
+      rootRef.child(data.titleDescription).set(user);
       document.getElementById("error").innerHTML =
         "You rock! Thanks for submitting your DoWhop. We will review your changes and email you the newly published DoWhop!";
       return false;
@@ -197,17 +197,17 @@ function queryData() {
         //<p>Email: <span>' + data.val().email  +'</span></p>
         content.innerHTML +=
           '<div class="user-list__item"> <h4>DoWhop Title: <span>' +
-          data.val().title +
+          data.val().titleDescription +
           "</span></h4><h4>Who: <span>" +
-          data.val().who +
+          data.val().whoDescription +
           "</span></h4><h4>What: <span>" +
-          data.val().what +
+          data.val().whatDescription +
           "</span></h4><h4>When: <span>" +
-          data.val().where +
+          data.val().whereDescription +
           "</span></h4><h4>Where: <span>" +
-          data.val().when +
+          data.val().whenDescription +
           "</span></h4><h4>$: <span>" +
-          data.val().howmuch +
+          data.val().howCost   +
           "</h4></div><br>";
       });
     },
