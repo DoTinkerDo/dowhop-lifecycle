@@ -53,8 +53,9 @@
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <link rel="stylesheet" href="styles/main.css"><!--Catch-all stylings-->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="styles/main.428896f6.css">
+  <link rel="stylesheet" href="styles/main.css"><!--Catch-all stylings-->
 
 
   <style>
@@ -68,7 +69,7 @@
     .panel {
       border: 1px solid #ccc;
       overflow: scroll;
-      margin-bottom: 10px;  
+      margin-bottom: 10px;
     }
     ul a {
       border: 1px solid #ccc;
@@ -123,7 +124,177 @@
       <li><a class="tab" href="#review">Review</a></li>
     </ul>
     <div id="create" class="panel">
-      CREATE APP
+      <div class="wrap">
+  <div class="form-wrap">
+    <h2>Whop will you do?</h2>
+    <br>
+
+    <span style=color:#ec1928;>Type "same" to keep that section as is.</span>
+    <form action="">
+      <label class="form-line">
+        <span>DoWhop Title <button type="button" name="button"><i class="fa fa-plus-circle plus-button" aria-hidden="true"></i></button></span>
+        <input type="text" id="titleDescription" placeholder="Do this with Me"/>
+        <span class="bar"></span>
+      </label>
+      <div class="options title-options">
+        <div class="underbar icons-1">
+          <div id="calendar" class="img_icon">
+            <input type="file" id="titleFile" class="file" onchange="handleFile(this.files)"/>
+            <img src="images/image-add-button.png" alt="" width="24" height="24">
+          </div>
+        </div>
+        <div class="underbar_options" data-openoption="">
+          <div hidden id="image_options">
+            I'm hidden!
+          </div>
+        </div>
+      </div>
+      <span class="bar"></span>
+      <label class="form-line">
+        <span>Who should join? <button type="button" name="button"><i class="fa fa-plus-circle plus-button" aria-hidden="true"></i></button></span>
+        <input type="text" id="whoDescription" placeholder="This many people with this skill level"/>
+        <span class="bar"></span>
+      </label>
+      <div class="options who-options">
+        <div class="underbar icons-1">
+          <div id="calendar" class="img_icon">
+            <input type="file" id="whoImage" class="file" onchange="handleFile(this.files)"/>
+            <img src="images/image-add-button.png" alt="" width="24" height="24">
+          </div>
+        </div>
+        <div class="underbar_options" data-openoption="">
+          <div hidden id="image_options">
+            I'm hidden!
+          </div>
+        </div>
+      </div>
+      <span class="bar"></span>
+      <label class="form-line">
+      <span>What will you provide?<button type="button" name="button"><i class="fa fa-plus-circle plus-button" aria-hidden="true"></i></button></span>
+        <input type="text" id="whatDescription" placeholder="I'll bring this, you bring that, we'll make this"/>
+        <span class="bar"></span>
+      </label>
+      <div class="options what-options">
+        <div class="underbar icons-1">
+          <div id="calendar" class="img_icon">
+            <input type="file" id="whatImage" class="file" onchange="handleFile(this.files)"/>
+            <img src="images/image-add-button.png" alt="" width="24" height="24">
+          </div>
+        </div>
+        <div class="underbar_options" data-openoption="">
+          <div hidden id="image_options">
+            I'm hidden!
+          </div>
+        </div>
+      </div>
+      <span class="bar"></span>
+      <label class="form-line">
+        <span>Where will you meet?<button type="button" name="button"><i class="fa fa-plus-circle plus-button" aria-hidden="true"></i></button></span>
+        <input type="text" id="whereDescription" placeholder="Meet at this address and go here"/>
+        <span class="bar"></span>
+      </label>
+      <div class="options where-options">
+        <div class="underbar icons-2">
+          <div id="wheremap" class="img_icon">
+            <img src="images/map.png" alt="" width="24" height="24">
+          </div>
+          <div id="calendar" class="img_icon">
+            <input type="file" id="whereImage" class="file" onchange="handleFile(this.files)"/>
+            <img src="images/image-add-button.png" alt="" width="24" height="24">
+          </div>
+        </div>
+        <div class="underbar_options" data-openoption="">
+          <div hidden id="wheremap_options">
+            <input id="whereAddress" class="controls" type="text" placeholder="Set a place...">
+          </div>
+          <div hidden id="image_options">
+            I'm hidden!
+          </div>
+        </div>
+      </div>
+      <span class="bar"></span>
+      <label class="form-line">
+        <span>When will you do?<button type="button" name="button"><i class="fa fa-plus-circle plus-button" aria-hidden="true"></i></button></span>
+        <input type="text" id="whenDescription" placeholder="It will take this many hours on these days"/>
+        <span class="bar"></span>
+      </label>
+      <div class="options when-options">
+        <div class="underbar icons-3">
+          <div id="calendar" class="img_icon">
+            <input type="date" id='whenDate'>
+            <img src="images/calendar.png" alt="" width="24" height="24">
+          </div>
+          <div id="clock" class="img_icon">
+            <img src="images/clock-circular-outline.png" alt="" width="24" height="24">
+          </div>
+          <div id="calendar" class="img_icon">
+            <input type="file" id="whenImage" class="file" onchange="handleFile(this.files)"/>
+            <img src="images/image-add-button.png" alt="" width="24" height="24">
+          </div>
+        </div>
+        <div class="underbar_options" data-openoption="">
+          <div hidden id="calendar_options">
+          </div>
+          <div hidden id="clock_options">
+            <span>Time:
+              <input type="time" id='whenTime' size="50">
+            </span>
+          </div>
+          <div hidden id="image_options">
+            I'm hidden!
+          </div>
+        </div>
+      </div>
+      <span class="bar"></span>
+      <label class="form-line">
+        <span>How much will it cost?<button type="button" name="button"><i class="fa fa-plus-circle plus-button" aria-hidden="true"></i></button></span>
+        <input type="text" id="howDescription" placeholder="$THIS much money per person"/>
+        <span class="bar"></span>
+      </label>
+      <div class="options how-options">
+        <div class="underbar icons-2">
+          <div id="clock" class="img_icon">
+            <img src="images/clock-circular-outline.png" alt="" width="24" height="24">
+          </div>
+          <div id="calendar" class="img_icon">
+            <input type="file" id="howImage" class="file" onchange="handleFile(this.files)"/>
+            <img src="images/image-add-button.png" alt="" width="24" height="24">
+          </div>
+        </div>
+        <div class="underbar_options" data-openoption="">
+          <div hidden id="clock_options">
+            <span>Cost (Icon is placeholder):
+              <input type="number" id='howCost' size="50">
+            </span>
+          </div>
+          <div hidden id="image_options">
+            I'm hidden!
+          </div>
+        </div>
+      </div>
+
+      <label class="form-line">
+        <span>Contact Email</span>
+        <input type="email" id="email" placeholder="my@emailaddress.com"/>
+        <span class="bar"></span>
+      </label>
+      <button type="button" class="submit" id="submit">Submit</button>
+      <div id="error" class="form-error"></div>
+    </form>
+  </div>
+
+
+  <!--show what the user put in by displaying user list wrap-->
+  <div class="user-list">
+    <h2>DoWhops in Planning</h2>
+    <div id="user-list-wrap">
+
+    </div>
+
+
+  </div>
+
+</div>
     </div>
     <div id="coordinate" class="panel">
       COORDINATE APP
@@ -302,6 +473,9 @@
 <script src="scripts/main.4411c0f9.js"></script>
 <!-- Adding on jQuery components -->
 <script src="scripts/jquery.js"></script>
+<script src="scripts/create.js">
+
+</script>
 <script>
   // adapterd from http://git.io/blingjs
   var $ = document.querySelectorAll.bind(document);
@@ -343,13 +517,13 @@
       el.dataset.old = el.id;
       return el;
     });
-    
+
   function update() {
     if (target) {
       target.id = target.dataset.old;
       target = null;
     }
-    
+
     var hash = window.location.hash;
     if (targets.indexOf(hash) !== -1) {
       return show(hash);
@@ -368,7 +542,7 @@
       el.classList[match ? 'add' : 'remove']('selected');
       el.setAttribute('aria', match);
     });
-    
+
     panels.forEach(function(el) {
       var match = '#' + el.id === id;
       el.style.display = match ? '' : 'none';

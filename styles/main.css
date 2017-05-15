@@ -343,3 +343,286 @@ h1,h2,h3,h4,h5 { font-family: Avenir }
 .message img {
   width: 50%;
 }
+
+*, *:before, *:after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	height: 100%;
+	background: #fff;
+}
+
+::placeholder {
+  color: #CFCFCF;
+}
+
+body {
+	font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
+	min-width: 500px;
+}
+
+input, button {
+	border: none;
+	outline: none;
+	background: none;
+	font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
+	color: #606060;
+}
+
+header {
+	text-align: center;
+	padding-top: 10px;
+}
+
+header h1 {
+	font-size: 24px;
+}
+
+
+
+.wrap {
+	width: 100%;
+	margin: 25px auto;
+	padding: 0 30px;
+	min-height: 60vh;
+}
+
+@media (min-width: 640px) {
+	.wrap {
+		display: flex;
+		max-width: 900px;
+	}
+}
+
+.form-wrap {
+	width: 100%;
+	padding: 30px 60px;
+	background: #fff;
+	text-align: center;
+}
+
+@media (min-width: 641px) {
+	.form-wrap {
+		flex: 1 0 50%;
+	}
+}
+
+.form-wrap h2 {
+	text-align: center;
+	font-size: 26px;
+	color: #606060;
+}
+
+.form-wrap .form-line {
+	margin: 40px 0 0 0;
+	width: 100%;
+	display: block;
+	text-align: center;
+	position: relative;
+}
+
+.form-wrap .form-line > span {
+	color: #606060;
+	/*text-transform: uppercase;*/
+	display: inline-block;
+	width: 100%;
+	font-size: 16px;
+}
+
+.form-wrap .form-line input[type="text"], .form-wrap .form-line input[type="email"] {
+	display: inline-block;
+	width: 100%;
+	margin-top: 6px;
+	padding-bottom: 5px;
+	font-size: 16px;
+	border-bottom: 1px solid #606060;
+	text-align: center;
+	position: relative;
+}
+
+.form-error {
+	color: #ec1928;
+	font-size: 14px;
+	padding-top: 15px;
+}
+
+.form-error.error--ok {
+	color: #ec1928;
+}
+
+
+
+.bar {
+	position: absolute;
+	display: block;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	z-index: 10;
+}
+
+.bar:before, .bar:after {
+	content: '';
+	height: 2px;
+	width: 0;
+	bottom: 0px;
+	position: absolute;
+	background: #ec1928;
+	transition: 0.2s ease all;
+}
+
+.bar:before {
+	left: 50%;
+}
+
+.bar:after {
+	right: 50%;
+}
+
+input:focus ~ .bar:before, input:focus ~ .bar:after {
+	width: 50%;
+}
+
+.submit {
+	display: inline-block;
+	margin: 40px auto 0 auto;
+	padding: 10px 50px;
+	background: #ec1928;
+	color: #fff;
+	font-weight: 700;
+	border-radius: 0px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: 0.2s ease all;
+}
+
+.submit:hover {
+	background: #fff;
+	color: #ec1928;
+}
+
+.user-list {
+	width: 100%;
+	background: #fff;
+	box-shadow: 0 8px 6px -6px #808080;
+	padding: 30px 40px;
+	border-top: 3px solid #cfd9df;
+}
+
+@media (min-width: 641px) {
+	.user-list {
+		flex: 1 0 50%;
+		border-left: 3px solid #ededed;
+		border-top: none;
+	}
+}
+
+.user-list > h2 {
+	text-align: center;
+	font-size: 26px;
+	padding-bottom: 30px;
+	color: #606060;
+}
+
+.user-list__item {
+	padding: 10px;
+	border: 1px solid #ededed;
+	border-radius: 3px;
+	border-left: 3px solid #ec1928;
+	margin-bottom: 10px;
+}
+
+.user-list__item h4, .user-list__item p {
+	font-size: 14px;
+	padding-bottom: 10px;
+	color: #c0c0c0;
+	font-size: 14px;
+}
+
+.user-list__item h4 span, .user-list__item p span {
+	color: #606060;
+}
+
+.file {
+  opacity: 0;
+  position: absolute;
+	margin-left: 25px;
+  padding: 10px;
+  z-index: 2;
+	width: 25px;
+	height: 10px;
+}
+
+.file_button {
+  margin-left: 40px;
+}
+
+#whenDate {
+	position: absolute;
+	right: 30px;
+	opacity: 0;
+}
+
+.underbar {
+	padding-top: 5px;
+	height: 15px;
+	transition: all 1s ease-in-out;
+}
+
+.underbar_options {
+	padding-top: 35px;
+	transition: all 1s ease-in-out;
+}
+
+.underbar div {
+	float: left;
+}
+
+.icons-1 div {
+  width: 100%
+}
+
+.icons-2 div {
+  width: 50%
+}
+
+.icons-3 div {
+  width: 33%
+}
+
+.icons-4 div {
+  width: 25%
+}
+
+.underbar_options div {
+	float: left;
+	width: 100%;
+	text-align: center;
+	transition: hidden 1s ease-in-out;
+}
+
+.plus-button {
+	color: #ec1928;
+  position: relative;
+  bottom: 7px;
+  left: 1px;
+}
+
+.options {
+	overflow: hidden;
+}
+
+.options div {
+	position: relative;
+	bottom: 15px;
+}
+
+.slideDown {
+	transform: translateY(30px);
+}
+.slideUp {
+	transform: translateY(-30px);
+}
