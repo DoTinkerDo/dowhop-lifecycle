@@ -93,33 +93,16 @@
   </style>
 </head>
 <body>
-<!-- <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header"> -->
-
-  <!-- Header section containing logo -->
-<!--   <a id="hover-flag" onclick="">Show more (hover)</a>
-  <header id="top-bar-dowhop" class="mdl-layout__header mdl-color-text--white mdl-color--red">
-    <div id="top-bar-hidden">
-      <div id"=top-bar-hidden-sub">
-        <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-          <h3><i class="material-icons">chat_bubble_outline</i>DoWhop Chat</h3>
-        </div>
-        <div id="user-container">
-          <div hidden id="user-pic"></div>
-          <div hidden id="user-name"></div>
-          <button hidden id="sign-out" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-            Sign-out
-          </button>
-          <button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-            <i class="material-icons">account_circle</i>Sign-in with Google
-          </button>
-        </div>
-      </div>
-  </div>
-  </header> -->
   <header>
-    
+    <div>
+      <button id="sign-in" class="btn btn-default">
+        Sign In
+      </button>
+      <button id="sign-out" class="btn btn-default">
+        Sign Out
+      </button>
+    <div>
   </header>
-
   <ul class="tabs">
       <li><a class="tab" href="#create">Create</a></li>
       <li><a class="tab" href="#coordinate">Coordinate</a></li>
@@ -280,33 +263,60 @@
       </main>
     </div>
 
+    <div id="review" class="panel"></div>
 
-    <div id="review" class="panel">
-      REVIEW APP
-      <div id="root"></div>
-    </div>
-
-
-<!-- </div> -->
 <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
 <script>
-  // Initialize Firebase
   var config = {
     apiKey: "AIzaSyB95x1zEsSkXfaDgOVdTw7ESavk9O9geN0",
-      authDomain: "dowhop-lifecycle.firebaseapp.com",
-      databaseURL: "https://dowhop-lifecycle.firebaseio.com",
-      projectId: "dowhop-lifecycle",
-      storageBucket: "dowhop-lifecycle.appspot.com",
-      messagingSenderId: "1090371045772"
+    authDomain: "dowhop-lifecycle.firebaseapp.com",
+    databaseURL: "https://dowhop-lifecycle.firebaseio.com",
+    projectId: "dowhop-lifecycle",
+    storageBucket: "dowhop-lifecycle.appspot.com",
+    messagingSenderId: "1090371045772"
   };
   firebase.initializeApp(config);
 </script>
+<script>
+  "use strict";
+
+  var auth = firebase.auth();
+  var googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+
+  var signIn = document.getElementById('sign-in');
+  var signOut = document.getElementById('sign-out');
+
+  function handleSignIn() {
+    auth.signInWithPopup(googleAuthProvider).then(function() {
+      console.log('signed in');
+      location.reload();
+    });
+  }
+
+  function handleSignOut() {
+    auth.signOut().then(function() {
+      console.log('logged out');
+      location.reload();
+    });
+  }
+
+  var person = null;
+  auth.onAuthStateChanged(function(user) {
+    if (user) {
+      person = user;
+    } else {
+      console.log('user has signed out');
+    }
+  });
+
+  signIn.addEventListener('click', handleSignIn);
+  signOut.addEventListener('click', handleSignOut);
+</script>
 <script src="scripts/main.js"></script>
-<script src="scripts/main.4411c0f9.js"></script>
-<!-- Adding on jQuery components -->
+<script src="scripts/main.595cbbee.js"></script>
 <script src="scripts/jquery.js"></script>
 <script>
-  // adapterd from http://git.io/blingjs
+  // adapted from http://git.io/blingjs
   var $ = document.querySelectorAll.bind(document);
 
   Node.prototype.on = window.on = function (name, fn) {
