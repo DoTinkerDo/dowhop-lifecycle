@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { auth, database } from './firebase';
+import { database } from './firebase';
 import { Grid } from 'react-bootstrap';
 import Reviews from './Reviews';
-import CurrentUser from './CurrentUser';
-import SignIn from './SignIn';
 import Header from './Header';
 import ReviewForm from './ReviewForm';
-// import pick from 'lodash/pick';
 import map from 'lodash/map';
 import { weightedRating } from './helpers/weightedRating';
 
@@ -36,13 +33,10 @@ class Application extends Component {
   }
 
   componentDidMount() {
-    auth.onAuthStateChanged(currentUser => {
-      this.setState({ currentUser });
       this.fetchRatings('creator');
       this.fetchRatings('doer');
       this.fetchRatings('doneWhop');
       this.fetchComments();
-    });
   }
 
   fetchRatings(reviewSelected) {
@@ -91,7 +85,6 @@ class Application extends Component {
 
   render() {
     const {
-      currentUser,
       creatorName,
       doWhopName,
       creatorRating,
@@ -103,14 +96,14 @@ class Application extends Component {
       reviewSelected,
       isOpen,
     } = this.state;
+    const currentUser = window.person;
 
     return (
       <Grid>
         {currentUser === null ? (
-          <SignIn />
+          <div>Please Sign In</div>
          ) : (
             <div>
-              <CurrentUser user={currentUser} />
               <Header creatorName={creatorName} 
                 doWhopName={doWhopName}
                 toggleOpen={this.toggleOpen}

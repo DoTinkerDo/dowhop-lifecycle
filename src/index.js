@@ -5,8 +5,7 @@ import Application from './Application';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
-
 ReactDOM.render(
   <Application />,
-  document.getElementById('root')
+  document.getElementById('review')
 );
