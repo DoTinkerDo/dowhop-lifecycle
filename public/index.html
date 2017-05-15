@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -50,6 +50,14 @@
     </style>
   </head>
   <body>
+    <div>
+      <button id="sign-in" class="btn btn-default">
+        Sign In
+      </button>
+      <button id="sign-out" class="btn btn-default">
+        Sign Out
+      </button>
+    <div>
     <ul class="tabs">
       <li><a class="tab" href="#create">Create</a></li>
       <li><a class="tab" href="#coordinate">Coordinate</a></li>
@@ -63,9 +71,54 @@
     </div>
     <div id="review" class="panel">
       REVIEW APP
-      <div id="root"></div>
     </div>
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    <script>
+      var config = {
+        apiKey: "AIzaSyB95x1zEsSkXfaDgOVdTw7ESavk9O9geN0",
+          authDomain: "dowhop-lifecycle.firebaseapp.com",
+          databaseURL: "https://dowhop-lifecycle.firebaseio.com",
+          projectId: "dowhop-lifecycle",
+          storageBucket: "dowhop-lifecycle.appspot.com",
+          messagingSenderId: "1090371045772"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script>
+      "use strict";
 
+      var auth = firebase.auth();
+      var googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+
+      var signIn = document.getElementById('sign-in');
+      var signOut = document.getElementById('sign-out');
+
+      function handleSignIn() {
+        auth.signInWithPopup(googleAuthProvider).then(function() {
+          console.log('signed in');
+          location.reload();
+        });
+      }
+
+      function handleSignOut() {
+        auth.signOut().then(function() {
+          console.log('logged out');
+          location.reload();
+        });
+      }
+
+      var person = null;
+      auth.onAuthStateChanged(function(user) {
+        if (user) {
+          person = user;
+        } else {
+          console.log('user has signed out');
+        }
+      });
+
+      signIn.addEventListener('click', handleSignIn);
+      signOut.addEventListener('click', handleSignOut);
+    </script>
     <script>
       // adapterd from http://git.io/blingjs
       var $ = document.querySelectorAll.bind(document);
