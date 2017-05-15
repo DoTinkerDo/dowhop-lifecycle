@@ -25,7 +25,7 @@
       .panel {
         border: 1px solid #ccc;
         overflow: scroll;
-        margin-bottom: 10px;  
+        margin-bottom: 10px;
       }
       ul a {
         border: 1px solid #ccc;
@@ -107,13 +107,13 @@
           el.dataset.old = el.id;
           return el;
         });
-        
+
       function update() {
         if (target) {
           target.id = target.dataset.old;
           target = null;
         }
-        
+
         var hash = window.location.hash;
         if (targets.indexOf(hash) !== -1) {
           return show(hash);
@@ -132,7 +132,7 @@
           el.classList[match ? 'add' : 'remove']('selected');
           el.setAttribute('aria', match);
         });
-        
+
         panels.forEach(function(el) {
           var match = '#' + el.id === id;
           el.style.display = match ? '' : 'none';
