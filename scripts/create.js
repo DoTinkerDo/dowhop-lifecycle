@@ -69,8 +69,7 @@ Array.from(document.getElementsByClassName("img_icon")).forEach(function(e){
 // })
 
 function createDoWhop(data, clearForm) {
-  // Getting currently-logged-in user
-  var currentUser = firebase.auth().currentUser.uid; // <-- Check
+
   // I collect form data and clear it
   var campoEmail = document.getElementById("email");
   var titleDescription = document.getElementById("titleDescription");
@@ -149,7 +148,7 @@ function createDoWhop(data, clearForm) {
 
   var newEvent = {
 
-    creator: currentUser, // <-- New
+    creator: person.uid, // <-- New
     titleDescription: data.titleDescription,
     // titleImage: data.titleImage,
     whoDescription: data.whoDescription,
@@ -200,7 +199,7 @@ function createDoWhop(data, clearForm) {
       document.getElementById("error").classList.add("error--ok");
       return false;
     } else {
-      rootRefEvents.push(event); // <-- New
+      rootRefEvents.push(newEvent); // <-- New
       rootRef.child(data.titleDescription).set(user);
       document.getElementById("error").innerHTML =
         "You rock! Thanks for submitting your DoWhop. We will review your changes and email you the newly published DoWhop!";
