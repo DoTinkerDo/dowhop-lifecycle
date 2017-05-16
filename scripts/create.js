@@ -2,6 +2,7 @@
 //form submission
 document.getElementById("submit").addEventListener("click", createDoWhop);
 var rootRef = firebase.database().ref("users/");
+var rootRefEvents = firebase.database().ref("doWhops/"); // <-- New
 document.getElementById('whenDate').setAttribute("value", getDate());
 //Should refactor below later, for more efficient and concise code
 
@@ -142,6 +143,25 @@ function createDoWhop(data, clearForm) {
   howmuchCost.value = "";
   // howImage.value = "";
 
+  // create event data model
+
+  var newEvent = {
+    titleDescription: data.titleDescription,
+    // titleImage: data.titleImage,
+    whoDescription: data.whoDescription,
+    // whoImage: data.whoImage,
+    whatDescription: data.whatDescription,
+    // whatImage: data.whatImage,
+    whereDescription: data.whereDescription,
+    whereAddress: data.whereAddress,
+    // whereImage: data.whereImage,
+    whenDescription: data.whenDescription,
+    whenDate: data.whenDate,
+    // whenTime: data.whenTime,
+    howmuchDescription: data.howmuchDescription,
+    howmuchCost: data.howmuchCost
+  }
+
   // create user data model
   var user = {
     email: data.email,
@@ -176,13 +196,14 @@ function createDoWhop(data, clearForm) {
       document.getElementById("error").classList.add("error--ok");
       return false;
     } else {
+      rootRefEvents.push(event); // <-- New
       rootRef.child(data.titleDescription).set(user);
       document.getElementById("error").innerHTML =
         "You rock! Thanks for submitting your DoWhop. We will review your changes and email you the newly published DoWhop!";
       return false;
     }
-  });
-
+  })
+  
   // put the listing again? spanish: pinto de nuevo el listado
   queryData();
 }
