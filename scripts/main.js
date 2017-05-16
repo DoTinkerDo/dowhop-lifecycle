@@ -96,7 +96,7 @@ function FriendlyChat() {
   this.messageList = document.getElementById('messages');
   this.messageForm = document.getElementById('message-form');
   this.messageInput = document.getElementById('message');
-  this.submitButton = document.getElementById('submit');
+  this.submitButton = document.getElementById('submit-message-button');
   this.submitImageButton = document.getElementById('submitImage');
   this.imageForm = document.getElementById('image-form');
   this.mediaCapture = document.getElementById('mediaCapture');
