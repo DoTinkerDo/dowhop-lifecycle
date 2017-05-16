@@ -2,6 +2,7 @@
 //form submission
 document.getElementById("submit").addEventListener("click", createDoWhop);
 var rootRef = firebase.database().ref("users/");
+var rootRefEvents = firebase.database().ref("doWhops/"); // <-- New
 document.getElementById('whenDate').setAttribute("value", getDate());
 //Should refactor below later, for more efficient and concise code
 
@@ -68,6 +69,7 @@ Array.from(document.getElementsByClassName("img_icon")).forEach(function(e){
 // })
 
 function createDoWhop(data, clearForm) {
+
   // I collect form data and clear it
   var campoEmail = document.getElementById("email");
   var titleDescription = document.getElementById("titleDescription");
@@ -81,8 +83,8 @@ function createDoWhop(data, clearForm) {
   var whenDescription = document.getElementById("whenDescription");
   var whenDate = document.getElementById("whenDate")
   var whenTime = document.getElementById("whenTime")
-  var howDescription = document.getElementById("howDescription");
-  var howCost = document.getElementById("howCost");
+  var howmuchDescription = document.getElementById("howmuchDescription");
+  var howmuchCost = document.getElementById("howmuchCost");
 
   var error = document.getElementById("error");
 
@@ -105,8 +107,8 @@ function createDoWhop(data, clearForm) {
     data.whenDescription = whenDescription.value.trim();
     data.whenTime = whenTime.value.trim();
     data.whenDate = whenDate.value.trim();
-    data.howDescription = howDescription.value.trim();
-    data.howCost = howCost.value.trim();
+    data.howmuchDescription = howmuchDescription.value.trim();
+    data.howmuchCost = howmuchCost.value.trim();
       ;
     //   error.innerHTML = "";
     // campoWhat.value.trim();
@@ -138,9 +140,30 @@ function createDoWhop(data, clearForm) {
   whenTime.value = "";
   whenDate.value = "";
   // whenImage.value = "";
-  howDescription.value = "";
-  howCost.value = "";
+  howmuchDescription.value = "";
+  howmuchCost.value = "";
   // howImage.value = "";
+
+  // create event data model
+
+  var newEvent = {
+
+    creator: person.uid, // <-- New
+    titleDescription: data.titleDescription,
+    // titleImage: data.titleImage,
+    whoDescription: data.whoDescription,
+    // whoImage: data.whoImage,
+    whatDescription: data.whatDescription,
+    // whatImage: data.whatImage,
+    whereDescription: data.whereDescription,
+    whereAddress: data.whereAddress,
+    // whereImage: data.whereImage,
+    whenDescription: data.whenDescription,
+    whenDate: data.whenDate,
+    // whenTime: data.whenTime,
+    howmuchDescription: data.howmuchDescription,
+    howmuchCost: data.howmuchCost
+  }
 
   // create user data model
   var user = {
@@ -157,8 +180,8 @@ function createDoWhop(data, clearForm) {
     whenDescription: data.whenDescription,
     whenDate: data.whenDate,
     // whenTime: data.whenTime,
-    howDescription: data.howDescription,
-    howCost: data.howCost
+    howmuchDescription: data.howmuchDescription,
+    howmuchCost: data.howmuchCost
   };
 
 
@@ -176,12 +199,13 @@ function createDoWhop(data, clearForm) {
       document.getElementById("error").classList.add("error--ok");
       return false;
     } else {
+      rootRefEvents.push(newEvent); // <-- New
       rootRef.child(data.titleDescription).set(user);
       document.getElementById("error").innerHTML =
         "You rock! Thanks for submitting your DoWhop. We will review your changes and email you the newly published DoWhop!";
       return false;
     }
-  });
+  })
 
   // put the listing again? spanish: pinto de nuevo el listado
   queryData();
