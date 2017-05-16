@@ -81,8 +81,8 @@ function createDoWhop(data, clearForm) {
   var whenDescription = document.getElementById("whenDescription");
   var whenDate = document.getElementById("whenDate")
   var whenTime = document.getElementById("whenTime")
-  var howDescription = document.getElementById("howDescription");
-  var howCost = document.getElementById("howCost");
+  var howmuchDescription = document.getElementById("howmuchDescription");
+  var howmuchCost = document.getElementById("howmuchCost");
 
   var error = document.getElementById("error");
 
@@ -105,8 +105,8 @@ function createDoWhop(data, clearForm) {
     data.whenDescription = whenDescription.value.trim();
     data.whenTime = whenTime.value.trim();
     data.whenDate = whenDate.value.trim();
-    data.howDescription = howDescription.value.trim();
-    data.howCost = howCost.value.trim();
+    data.howmuchDescription = howmuchDescription.value.trim();
+    data.howmuchCost = howmuchCost.value.trim();
       ;
     //   error.innerHTML = "";
     // campoWhat.value.trim();
@@ -138,8 +138,8 @@ function createDoWhop(data, clearForm) {
   whenTime.value = "";
   whenDate.value = "";
   // whenImage.value = "";
-  howDescription.value = "";
-  howCost.value = "";
+  howmuchDescription.value = "";
+  howmuchCost.value = "";
   // howImage.value = "";
 
   // create user data model
@@ -157,8 +157,8 @@ function createDoWhop(data, clearForm) {
     whenDescription: data.whenDescription,
     whenDate: data.whenDate,
     // whenTime: data.whenTime,
-    howDescription: data.howDescription,
-    howCost: data.howCost
+    howmuchDescription: data.howmuchDescription,
+    howmuchCost: data.howmuchCost
   };
 
 
