@@ -69,6 +69,8 @@ Array.from(document.getElementsByClassName("img_icon")).forEach(function(e){
 // })
 
 function createDoWhop(data, clearForm) {
+  // Getting currently-logged-in user
+  var currentUser = firebase.auth().currentUser.uid; // <-- Check
   // I collect form data and clear it
   var campoEmail = document.getElementById("email");
   var titleDescription = document.getElementById("titleDescription");
@@ -146,6 +148,8 @@ function createDoWhop(data, clearForm) {
   // create event data model
 
   var newEvent = {
+
+    creator: currentUser, // <-- New
     titleDescription: data.titleDescription,
     // titleImage: data.titleImage,
     whoDescription: data.whoDescription,
@@ -203,7 +207,7 @@ function createDoWhop(data, clearForm) {
       return false;
     }
   })
-  
+
   // put the listing again? spanish: pinto de nuevo el listado
   queryData();
 }
