@@ -124,15 +124,14 @@
       </label>
       <div class="options title-options">
         <div class="underbar icons-1">
-          <div id="calendar" class="img_icon">
-            <input type="file" id="titleFile" class="file" onchange="handleFile(this.files)"/>
+          <div id="image" class="img_icon">
+            <input type="file" id="titleFile" class="file" onchange="handleFile(this.files, this)"/>
             <img src="images/image-add-button.png" alt="" width="24" height="24">
+            <div hidden id="titleImage"></div>
           </div>
         </div>
         <div class="underbar_options" data-openoption="">
-          <div hidden id="image_options">
-            I'm hidden!
-          </div>
+
         </div>
       </div>
       <span class="bar"></span>
@@ -143,15 +142,14 @@
       </label>
       <div class="options who-options">
         <div class="underbar icons-1">
-          <div id="calendar" class="img_icon">
-            <input type="file" id="whoImage" class="file" onchange="handleFile(this.files)"/>
+          <div id="image" class="img_icon">
+            <input type="file" id="whoFile" class="file" onchange="handleFile(this.files, this)"/>
             <img src="images/image-add-button.png" alt="" width="24" height="24">
+            <div hidden id="whoImage"></div>
           </div>
         </div>
         <div class="underbar_options" data-openoption="">
-          <div hidden id="image_options">
-            I'm hidden!
-          </div>
+
         </div>
       </div>
       <span class="bar"></span>
@@ -162,15 +160,14 @@
       </label>
       <div class="options what-options">
         <div class="underbar icons-1">
-          <div id="calendar" class="img_icon">
-            <input type="file" id="whatImage" class="file" onchange="handleFile(this.files)"/>
+          <div id="image" class="img_icon">
+            <input type="file" id="whatFile" class="file" onchange="handleFile(this.files, this)"/>
             <img src="images/image-add-button.png" alt="" width="24" height="24">
+            <div hidden id="whatImage"></div>
           </div>
         </div>
         <div class="underbar_options" data-openoption="">
-          <div hidden id="image_options">
-            I'm hidden!
-          </div>
+
         </div>
       </div>
       <span class="bar"></span>
@@ -184,9 +181,10 @@
           <div id="wheremap" class="img_icon">
             <img src="images/map.png" alt="" width="24" height="24">
           </div>
-          <div id="calendar" class="img_icon">
-            <input type="file" id="whereImage" class="file" onchange="handleFile(this.files)"/>
+          <div id="image" class="img_icon">
+            <input type="file" id="whereFile" class="file" onchange="handleFile(this.files, this)"/>
             <img src="images/image-add-button.png" alt="" width="24" height="24">
+            <div hidden id="whereImage"></div>
           </div>
         </div>
         <div class="underbar_options" data-openoption="">
@@ -194,7 +192,7 @@
             <input id="whereAddress" class="controls" type="text" placeholder="Set a place...">
           </div>
           <div hidden id="image_options">
-            I'm hidden!
+
           </div>
         </div>
       </div>
@@ -214,8 +212,11 @@
             <img src="images/clock-circular-outline.png" alt="" width="24" height="24">
           </div>
           <div id="calendar" class="img_icon">
-            <input type="file" id="whenImage" class="file" onchange="handleFile(this.files)"/>
+            <input type="file" id="whenFile" class="file" onchange="handleFile(this.files, this)"/>
             <img src="images/image-add-button.png" alt="" width="24" height="24">
+            <div hidden id="whenImage">
+
+            </div>
           </div>
         </div>
         <div class="underbar_options" data-openoption="">
@@ -227,34 +228,34 @@
             </span>
           </div>
           <div hidden id="image_options">
-            I'm hidden!
           </div>
         </div>
       </div>
       <span class="bar"></span>
       <label class="form-line">
         <span>How much will it cost?<button type="button" name="button"><i class="fa fa-plus-circle plus-button" aria-hidden="true"></i></button></span>
-        <input type="text" id="howDescription" placeholder="$THIS much money per person"/>
+        <input type="text" id="howmuchDescription" placeholder="$THIS much money per person"/>
         <span class="bar"></span>
       </label>
-      <div class="options how-options">
+      <div class="options howmuch-options">
         <div class="underbar icons-2">
           <div id="clock" class="img_icon">
             <img src="images/clock-circular-outline.png" alt="" width="24" height="24">
           </div>
-          <div id="calendar" class="img_icon">
-            <input type="file" id="howImage" class="file" onchange="handleFile(this.files)"/>
+          <div id="image" class="img_icon">
+            <input type="file" id="howmuchFile" class="file" onchange="handleFile(this.files, this)"/>
             <img src="images/image-add-button.png" alt="" width="24" height="24">
+            <div hidden id="howmuchImage">
+            </div>
           </div>
         </div>
         <div class="underbar_options" data-openoption="">
           <div hidden id="clock_options">
             <span>Cost (Icon is placeholder):
-              <input type="number" id='howCost' size="50">
+              <input type="number" id='howmuchCost' size="50">
             </span>
           </div>
           <div hidden id="image_options">
-            I'm hidden!
           </div>
         </div>
       </div>

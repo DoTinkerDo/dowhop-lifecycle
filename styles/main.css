@@ -552,7 +552,6 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 	margin-left: 25px;
   padding: 10px;
   z-index: 2;
-	width: 25px;
 	height: 10px;
 }
 
