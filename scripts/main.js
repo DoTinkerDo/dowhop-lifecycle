@@ -246,6 +246,7 @@ FriendlyChat.prototype.loadChats = function() {
   // Second, make sure we have reference to the current user's data:
   var me = this.auth.currentUser;
   var myRef = this.database.ref().child('doWhops/');
+  //We had a bunch of code here, but BOY did it not work
   var myChatData = this.chatItemData;
   // Add parts for the notification-pending displays:
   var pendingDiv = this.pendingDiv;
@@ -346,6 +347,24 @@ FriendlyChat.prototype.loadChats = function() {
     checkForPendings(snap.key, snap);
   });
 };
+
+FriendlyChat.prototype.getSession = function() {
+  var myRef = firebase.database().ref('session/' + person.uid);
+  //gets the session of the current user
+  myRef.once("value", function(data) { console.log(data.val().current_dowhop) })
+  //gets current_dowhop from session for current user
+  
+  // var myRef = "";
+  // var x;
+  // this.database.ref().child('session/'+person.uid).on("child_added", function(data){
+  //      console.log("HAVE I RETURNED YET?");
+  //      x = firebase.database().ref('doWhops/'+data.val().current_dowhop)
+  //      x.forEach(function(d){
+  //        console.log(d);
+  //
+  //      })
+  // })
+}
 
 // Loads messages history and listens for upcoming ones:
 FriendlyChat.prototype.loadMessages = function() {
