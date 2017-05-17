@@ -626,7 +626,8 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 }
 
 #send-message-button {
-  margin-top: 10%;
+  margin-top: 20%;
+  padding-right: 2%; /* Check */
 
 }
 
