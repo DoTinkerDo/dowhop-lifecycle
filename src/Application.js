@@ -33,10 +33,11 @@ class Application extends Component {
   }
 
   componentDidMount() {
-      this.fetchRatings('creator');
-      this.fetchRatings('doer');
-      this.fetchRatings('doneWhop');
-      this.fetchComments();
+
+    this.fetchRatings('creator');
+    this.fetchRatings('doer');
+    this.fetchRatings('doneWhop');
+    this.fetchComments();
   }
 
   fetchRatings(reviewSelected) {
@@ -85,7 +86,6 @@ class Application extends Component {
 
   render() {
     const {
-      creatorName,
       doWhopName,
       creatorRating,
       doerRating,
@@ -104,8 +104,9 @@ class Application extends Component {
           <div>Please Sign In</div>
          ) : (
             <div>
-              <Header creatorName={creatorName} 
-                doWhopName={doWhopName}
+              <Header creatorName={window.currentDoWhopProto && window.currentDoWhopProto.creatorName}
+                doWhopName={window.currentDoWhopProto && window.currentDoWhopProto.titleDescription}
+                bannerImageURL={window.currentDoWhopProto && window.currentDoWhopProto.bannerImageURL}
                 toggleOpen={this.toggleOpen}
               />
               <Reviews
@@ -119,7 +120,7 @@ class Application extends Component {
               />
               <ReviewForm
                 user={currentUser}
-                creatorName={creatorName}
+                creatorName={window.currentDoWhopProto && window.currentDoWhopProto.creatorName}
                 doWhopName={doWhopName}
                 reviewSelected={reviewSelected}
                 handleButtonClick={this.handleButtonClick}

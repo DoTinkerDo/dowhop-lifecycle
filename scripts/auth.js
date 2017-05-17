@@ -10,7 +10,7 @@
     auth.signInWithPopup(googleAuthProvider).then(function() {
       console.log('signed in');
       // window.opener.location.reload();
-      location.reload(true);
+      location.reload();
     });
   }
 
@@ -28,6 +28,21 @@
     } else {
       console.log('user has signed out');
     }
+  });
+
+  var currentUserDoWhopId = null;
+  var currentDoWhopProto = null;
+  firebase.database().ref().child('proto_user/').once('value', function(snapshot) {
+   snapshot.forEach(function(data) {
+      var name = "\"" + person.displayName + "\"";
+      var name = person.displayName;
+      if (data.key === name) {
+        currentUserDoWhopId = data.val();
+      }
+    });
+    firebase.database().ref().child('proto/' + currentUserDoWhopId).once('value', function(snapshot) {
+      currentDoWhopProto = snapshot.val();
+    });
   });
 
   signIn.addEventListener('click', handleSignIn);
