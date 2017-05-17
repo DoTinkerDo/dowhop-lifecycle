@@ -134,24 +134,6 @@ function createDoWhop(data, clearForm) {
     return false;
   }
 
-  campoEmail.value = "";
-  titleDescription.value = "";
-  titleImage.innerHTML = "";
-  whoDescription.value = "";
-  whoImage.innerHTML = "";
-  whatDescription.value = "";
-  whatImage.innerHTML = "";
-  whereDescription.value = "";
-  whereAddress.value = "";
-  whereImage.innerHTML = "";
-  whenDescription.value = "";
-  whenTime.value = "";
-  whenDate.value = "";
-  whenImage.innerHTML = "";
-  howmuchDescription.value = "";
-  howmuchCost.value = "";
-  howmuchImage.innerHTML = "";
-
   // create event data model
 
   var newEvent = {
@@ -207,6 +189,28 @@ function createDoWhop(data, clearForm) {
       emails.push(data.val().email);
     });
       rootRefEvents.push(newEvent); // <-- New
+      //^^ this, for some reason, causes the forms to be reset
+
+      campoEmail.value = "";
+      titleDescription.value = "";
+      titleImage.innerHTML = "";
+      whoDescription.value = "";
+      whoImage.innerHTML = "";
+      whatDescription.value = "";
+      whatImage.innerHTML = "";
+      whereDescription.value = "";
+      whereAddress.value = "";
+      whereImage.innerHTML = "";
+      whenDescription.value = "";
+      whenTime.value = "";
+      whenDate.value = "";
+      whenImage.innerHTML = "";
+      howmuchDescription.value = "";
+      howmuchCost.value = "";
+      howmuchImage.innerHTML = "";
+
+      //^^Moved this to here since implementing the new code for population forms with old events the rootRefEvents.push above was causing the form values to not be wiped
+
       rootRef.child(data.creator).set(user);
       document.getElementById("error").innerHTML =
         "You rock! Thanks for submitting your DoWhop. We will review your changes and email you the newly published DoWhop!";
@@ -224,12 +228,9 @@ function queryData() {
     function(snapshot) {
       var content = document.getElementById("user-list-wrap");
       content.innerHTML = "";
-      // debugger;
       snapshot.forEach(function(data) {
         //<p>Email: <span>' + data.val().email  +'</span></p>
-        // debugger;
         if(data.val().creator===person.uid){
-          // debugger;
           content.innerHTML +=
             '<div class="user-list__item" onclick="sessionRef(this)"><div hidden id="'+ data.key + '"></div>'+
             '<h4>DoWhop Title: <span>' +
@@ -253,7 +254,6 @@ function queryData() {
     }
   );
 }
-
 //consulta = query
 queryData();
 
@@ -268,10 +268,8 @@ function handleFile(files_arr, node) {
 
   var filePath = firebase.auth().currentUser.uid+"/"+imagified+"/"+file.name
   //filePath should be <user_id>/<form_id>/<file_name>, but we're going to just hack it together for now
-  debugger
   return firebase.storage().ref(filePath).put(file).then(function(snapshot, node){
     var fullPath = snapshot.metadata.fullPath;
-    debugger
     //snapshot.metadata.downloadURLs[0] <-- Gets the viewable image link
     document.getElementById(fullPath.split("/")[1]).innerHTML = fullPath
   })
@@ -317,6 +315,34 @@ function hideAll(underbar_options){
 }
 
 function sessionRef(node){
+  fillInForms(node) //didn't put the code in here cuz it's not *strictly* about the sessions references
   firebase.database().ref().child('session/' + person.uid).set({current_dowhop: node.firstElementChild.id})
   //Curretly overwrites everything else in the session, even if you're NOT storing a current_dowhop
 }
+
+function fillInForms(node){
+  rootRefEvents.orderByKey().on("value",
+    function(snapshot) {
+      snapshot.forEach(function(data) {
+        if(data.key===node.firstElementChild.id){
+          document.getElementById("email").value = data.val().email;
+          document.getElementById("titleDescription").value = data.val().titleDescription;
+          document.getElementById("titleImage").innerHTML = data.val().titleImage;
+          document.getElementById("whoDescription").value = data.val().whoDescription;
+          document.getElementById("whoImage").innerHTML = data.val().whoImage;
+          document.getElementById("whatDescription").value = data.val().whatDescription;
+          document.getElementById("whatImage").innerHTML = data.val().whatImage;
+          document.getElementById("whereDescription").value = data.val().whereDescription;
+          document.getElementById("whereAddress").value = data.val().whereAddress;
+          document.getElementById("whereImage").innerHTML = data.val().whereImage;
+          document.getElementById("whenDescription").value = data.val().whenDescription;
+          document.getElementById("whenDate").value = data.val().whenDate;
+          document.getElementById("whenTime").value = data.val().whenTime;
+          document.getElementById("whenImage").innerHTML = data.val().whenImage;
+          document.getElementById("howmuchDescription").value = data.val().howmuchDescription;
+          document.getElementById("howmuchCost").value = data.val().howmuchCost;
+          document.getElementById("howmuchImage").innerHTML = data.val().howmuchImage;
+        }
+      })
+    })
+  }
