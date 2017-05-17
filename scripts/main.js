@@ -328,7 +328,7 @@ FriendlyChat.prototype.loadChats = function() {
 
   myRef.on('child_added', snap => {
 
-    if(snap.val().creator === person.uid // || snap.val().doer...) {
+    if(snap.val().creator === person.uid) {
 
       // Creating the buttons to further load chat data:
         var container = document.createElement('div');
