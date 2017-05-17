@@ -320,3 +320,8 @@ function sessionRef(node){
   firebase.database().ref().child('session/' + person.uid).set({current_dowhop: node.firstElementChild.id})
   //Curretly overwrites everything else in the session, even if you're NOT storing a current_dowhop
 }
+
+function skim(node) {
+  node.value = node.value-(node.value*.2)
+  document.getElementById("howmuchCost-error").innerHTML="Set the amount you'd like to get paid! We add the 20% booking fee on top."
+}

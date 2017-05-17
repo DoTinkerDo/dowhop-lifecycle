@@ -210,7 +210,7 @@
       <div class="options howmuch-options">
         <div class="underbar icons-2">
           <div id="clock" class="img_icon">
-            <img src="images/clock-circular-outline.png" alt="" width="24" height="24">
+            <i class="fa fa-usd fa-lg" aria-hidden="true"></i>
           </div>
           <div id="image" class="img_icon">
             <input type="file" id="howmuchFile" class="file" onchange="handleFile(this.files, this)"/>
@@ -222,8 +222,10 @@
         <div class="underbar_options" data-openoption="">
           <div hidden id="clock_options">
             <span>Cost (Icon is placeholder):
-              <input type="number" id='howmuchCost' size="50">
+              <input type="number" id='howmuchCost' size="50" onchange="skim(this)">$
             </span>
+            <br> <!-- Did it with a span bc my CSS makes all divs inside underbar_options have certain styling -->
+            <span id="howmuchCost-error" class="form-error" style="padding-top: 0px;"></span>
           </div>
           <div hidden id="image_options">
            </div>
