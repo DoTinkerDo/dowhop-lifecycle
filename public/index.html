@@ -47,31 +47,116 @@
       div[aria-hidden='true'] {
         display: none;
       }
+
+    /* login page styles */
+    #login-page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* flexbox layout */
+    .login-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .login-container > div {
+      flex: 1;
+    }
+
+    /* social media icons */
+     button#login-button,
+     button#logout-button {
+      border-style: none;
+     } 
+    .login-page-title {
+      margin-top: 25%;
+      margin-left: -20%;
+      padding-bottom: 85px;
+      font: normal normal normal 38px/1.4em 'Avenir Light', sans-serif;
+      line-height: .8em;
+      padding-top: 20px;
+      font-weight: normal;
+      font-size: 56px;
+      text-align: center;
+      color: #606060;
+    }
+    .social-login,
+    .social-logout {
+      padding: 0;
+      height: 48px;
+      line-height: 48px;
+      width: 100%;
+      font-family: Helvetica;
+      font-size: 14px;
+      color: #fff;
+      margin-bottom: 24px;
+      font-weight: 300;
+      cursor: pointer;
+      outline: 0;
+    }
+    .social-login.fb,
+    .social-logout.fb {
+      background-color: #3b5998;
+    }
+    .social-login.ggl,
+    .social-logout.ggl {
+      background-color: #e53935;
+    }
+
+    .divider{
+        position:absolute;
+        left:50%;
+        top:10%;
+        bottom:10%;
+        border-left:1px solid #606060;
+        margin: -50px -70px;;
+    }
+    @media (max-width: 650px) {
+      div.divider {
+        display: none;
+      }
+    }
     </style>
   </head>
   <body>
-    <div>
-      <button id="sign-in" class="btn btn-default">
-        Sign In
-      </button>
-      <button id="sign-out" class="btn btn-default">
-        Sign Out
-      </button>
-    <div>
-    <ul class="tabs">
-      <li><a class="tab" href="#create">Create</a></li>
-      <li><a class="tab" href="#coordinate">Coordinate</a></li>
-      <li><a class="tab" href="#review">Review</a></li>
-    </ul>
-    <div id="create" class="panel">
-      CREATE APP
-    </div>
-    <div id="coordinate" class="panel">
-      COORDINATE APP
-    </div>
-    <div id="review" class="panel">
-      REVIEW APP
-    </div>
+    
+    <!-- Login screen -->
+    <section id="login-page">
+      <h3 class="login-page-title">Login</h3>
+      <div class=login-container>
+        <div class="email-login-conainer vertical-divider">
+          <div>Email login coming soon here</div>
+        </div>
+        <div class="divider"></div>
+        <div class="social-login-container">
+          <button id="login-button-fb" class="social-login fb">
+            <div class="fb-login-text">Log in with Facebook</div>
+          </button>
+          <button id="login-button-ggl" class="social-login ggl">
+            <div class="ggl-login-text">Log in with Google+</div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="application-page">
+      <ul class="tabs">
+        <li><a class="tab" href="#create">Create</a></li>
+        <li><a class="tab" href="#coordinate">Coordinate</a></li>
+        <li><a class="tab" href="#review">Review</a></li>
+      </ul>
+      <div id="create" class="panel">
+        CREATE APP
+      </div>
+      <div id="coordinate" class="panel">
+        COORDINATE APP
+      </div>
+      <div id="review" class="panel">
+        REVIEW APP
+      </div>
+    </section>
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
     <script>
       var config = {
@@ -87,52 +172,83 @@
     <script>
       "use strict";
 
-      var auth = firebase.auth();
-      var googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+      var loginButtonGGL = document.getElementById('login-button-ggl');
+      var loginButtonFB = document.getElementById('login-button-fb');
+      var loginPage = document.getElementById('login-page');
+      var applicationPage = document.getElementById('application-page');
 
-      var signIn = document.getElementById('sign-in');
-      var signOut = document.getElementById('sign-out');
-
-      function handleSignIn() {
-        auth.signInWithPopup(googleAuthProvider).then(function() {
-          console.log('signed in');
-          location.reload();
+      function writeUserData(userId, name, email, photoURL, UID) {
+        firebase.database().ref('logged_in_users/' + userId).set({
+          username: name,
+          email: email,
+          userUID: UID,
+          photoURL: photoURL,
+          UID: UID
         });
       }
 
-      function handleSignOut() {
-        auth.signOut().then(function() {
-          console.log('logged out');
-          location.reload();
+      window.addEventListener('load', function() {
+
+        loginButtonGGL.addEventListener('click', function() {
+          var googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+          firebase.auth().signInWithPopup(googleAuthProvider).then(function(result) {
+            location.reload();
+            console.log('GGL login button pressed', result.user);
+          });
         });
-      }
 
-      var person = null;
-      auth.onAuthStateChanged(function(user) {
-        if (user) {
-          person = user;
-        } else {
-          console.log('user has signed out');
-        }
-      });
+        loginButtonFB.addEventListener('click', function() {
+          var facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
+          firebase.auth().signInWithPopup(facebookAuthProvider).then(function(result) {
+            location.reload();
+            console.log('FB login button pressed', result.user);
+          });
+        });
 
-      var currentUserDoWhopId = null;
-      var currentDoWhopProto = null;
-      firebase.database().ref().child('proto_user/').once('value', function(snapshot) {
-       snapshot.forEach(function(data) {
-          var name = "\"" + person.displayName + "\"";
-          var name = person.displayName;
-          if (data.key === name) {
-            currentUserDoWhopId = data.val();
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            loginPage.style.display = 'none';
+            applicationPage.style.display = 'block';
+            writeUserData(user.uid, user.displayName, user.email, user.photoURL, user.uid);
+            console.log('user signed in: ');
+          } else {
+            loginPage.style.display = 'block';
+            applicationPage.style.display = 'none'
+            console.log('user signed out');
           }
         });
-        firebase.database().ref().child('proto/' + currentUserDoWhopId).once('value', function(snapshot) {
-          currentDoWhopProto = snapshot.val();
-        });
-      });
+      }, false);
 
-      signIn.addEventListener('click', handleSignIn);
-      signOut.addEventListener('click', handleSignOut);
+        var auth = firebase.auth();
+        var googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+
+        var person = null;
+        auth.onAuthStateChanged(function(user) {
+          if (user) {
+            person = user;
+          } else {
+            console.log('user has signed out');
+          }
+        });
+
+        var currentUserDoWhopId = null;
+        var currentDoWhopProto = null;
+        firebase.database().ref().child('proto_user/').once('value', function(snapshot) {
+
+         snapshot.forEach(function(data) {
+            var name = "\"" + person.displayName + "\"";
+            var name = person.displayName;
+            if (data.key === name) {
+              currentUserDoWhopId = data.val();
+            }
+          });
+
+          firebase.database().ref().child('proto/' + currentUserDoWhopId).once('value', function(snapshot) {
+            currentDoWhopProto = snapshot.val();
+          });
+
+        });
+
     </script>
     <script>
       // adapterd from http://git.io/blingjs
