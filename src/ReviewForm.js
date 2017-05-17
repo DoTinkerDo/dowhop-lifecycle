@@ -38,7 +38,7 @@ class ReviewForm extends Component {
       validation: null,
     };
 
-    this.doWhopsRef = database.ref(`/doWhops/${this.props.doWhopName}/`);
+    this.doWhopsRef = database.ref(`/proto/${this.props.eventId}/reviews`);
 
     this.getValidationState = this.getValidationState.bind(this);
     this.handleChange = this.handleChange.bind(this);

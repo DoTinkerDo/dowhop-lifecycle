@@ -9,7 +9,6 @@
   function handleSignIn() {
     auth.signInWithPopup(googleAuthProvider).then(function() {
       console.log('signed in');
-      // window.opener.location.reload();
       location.reload();
     });
   }
