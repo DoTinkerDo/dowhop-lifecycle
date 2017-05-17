@@ -29,15 +29,10 @@ class Application extends Component {
 
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.toggleOpen = this.toggleOpen.bind(this);
-
-    console.log(window.currentUserDoWhopId)
   }
 
   componentDidMount() {
 
-    database.ref('doWhops').once('value', (snapshot) => {
-      console.log(snapshot.val());
-    });
 
     this.fetchRatings('creator');
     this.fetchRatings('doer');
@@ -100,7 +95,6 @@ class Application extends Component {
       doneWhopComments,
       reviewSelected,
       isOpen,
-      eventId,
     } = this.state;
     const currentUser = window.person;
 
@@ -130,7 +124,7 @@ class Application extends Component {
                 doWhopName={doWhopName}
                 reviewSelected={reviewSelected}
                 handleButtonClick={this.handleButtonClick}
-                eventId={eventId}
+                eventId={window.currentUserDoWhopId}
               />
             </div>
           )}

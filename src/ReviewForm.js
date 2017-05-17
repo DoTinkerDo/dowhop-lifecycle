@@ -124,8 +124,6 @@ class ReviewForm extends Component {
     const { comment, rating } = this.state;
     const { user, creatorName, handleButtonClick, reviewSelected } = this.props;
 
-    console.log(this.props.eventId);
-
     return (
       <Row>
         <Col xs={12} sm={6}>
