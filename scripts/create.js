@@ -158,6 +158,10 @@ function createDoWhop(data, clearForm) {
     howmuchImage: data.howmuchImage
   }
 
+    rootRefEvents.push(newEvent);
+
+    //^^Moved this to here since implementing the new code for population forms with old events the rootRefEvents.push above was causing the form values to not be wiped
+
   // create user data model
   var user = {
     creator: data.creator,
@@ -180,43 +184,46 @@ function createDoWhop(data, clearForm) {
     howmuchImage: data.howmuchImage
   };
 
+  campoEmail.value = "";
+  titleDescription.value = "";
+  titleImage.innerHTML = "";
+  whoDescription.value = "";
+  whoImage.innerHTML = "";
+  whatDescription.value = "";
+  whatImage.innerHTML = "";
+  whereDescription.value = "";
+  whereAddress.value = "";
+  whereImage.innerHTML = "";
+  whenDescription.value = "";
+  whenTime.value = "";
+  whenDate.value = "";
+  whenImage.innerHTML = "";
+  howmuchDescription.value = "";
+  howmuchCost.value = "";
+  howmuchImage.innerHTML = "";
+
+  rootRef.child(data.creator).set(user);
+  document.getElementById("error").innerHTML =
+    "You rock! Thanks for submitting your DoWhop. We will review your changes and email you the newly published DoWhop!";
+
 
   // I check that there is no one with the same email and if it is not I enter it in the bbdd
 
-  rootRef.orderByValue().on("value", function(snapshot) {
-    var emails = [];
-    snapshot.forEach(function(data) {
-      emails.push(data.val().email);
-    });
-      rootRefEvents.push(newEvent); // <-- New
-      //^^ this, for some reason, causes the forms to be reset
-
-      campoEmail.value = "";
-      titleDescription.value = "";
-      titleImage.innerHTML = "";
-      whoDescription.value = "";
-      whoImage.innerHTML = "";
-      whatDescription.value = "";
-      whatImage.innerHTML = "";
-      whereDescription.value = "";
-      whereAddress.value = "";
-      whereImage.innerHTML = "";
-      whenDescription.value = "";
-      whenTime.value = "";
-      whenDate.value = "";
-      whenImage.innerHTML = "";
-      howmuchDescription.value = "";
-      howmuchCost.value = "";
-      howmuchImage.innerHTML = "";
-
-      //^^Moved this to here since implementing the new code for population forms with old events the rootRefEvents.push above was causing the form values to not be wiped
-
-      rootRef.child(data.creator).set(user);
-      document.getElementById("error").innerHTML =
-        "You rock! Thanks for submitting your DoWhop. We will review your changes and email you the newly published DoWhop!";
-      return false;
-
-  })
+  // rootRef.orderByValue().on("value", function(snapshot) {
+  //   var emails = [];
+  //   snapshot.forEach(function(data) {
+  //     emails.push(data.val().email);
+  //   });
+  //     rootRefEvents.push(newEvent); // <-- New
+  //
+  //     rootRef.child(data.creator).set(user);
+  //     document.getElementById("error").innerHTML =
+  //       "You rock! Thanks for submitting your DoWhop. We will review your changes and email you the newly published DoWhop!";
+  //     return false;
+  //
+  // })
+  //^^^ Commented this out bc we no longer need to Email search AND it was totally crashing our DB by adding more events everytime a new one was created
+  //Relevant code has been moved up to where the newEvent and user objects are created
 
   // put the listing again? spanish: pinto de nuevo el listado
   queryData();
@@ -316,7 +323,7 @@ function hideAll(underbar_options){
 
 function sessionRef(node){
   fillInForms(node) //didn't put the code in here cuz it's not *strictly* about the sessions references
-  firebase.database().ref().child('session/' + person.uid).set({current_dowhop: node.firstElementChild.id})
+    firebase.database().ref().child('session/' + person.uid).set({current_dowhop: node.firstElementChild.id})
   //Curretly overwrites everything else in the session, even if you're NOT storing a current_dowhop
 }
 
