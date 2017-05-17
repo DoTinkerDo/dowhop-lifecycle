@@ -14,8 +14,7 @@ class Application extends Component {
     this.state = {
       currentUser: null,
       reviewSelected: 'doneWhop', 
-      creatorName: 'Creator',
-      doWhopName: 'Brew Beer',
+      eventId: 'event1',
       creatorRating: null,
       doerRating: null,
       doneWhopRating: null,
@@ -26,13 +25,19 @@ class Application extends Component {
     };
 
     this.ratingRef = null;
-    this.doWhopsRef = database.ref(`/doWhops/${this.state.doWhopName}`);
+    this.doWhopsRef = database.ref(`/proto/${this.state.eventId}/reviews`);
 
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.toggleOpen = this.toggleOpen.bind(this);
+
+    console.log(window.currentUserDoWhopId)
   }
 
   componentDidMount() {
+
+    database.ref('doWhops').once('value', (snapshot) => {
+      console.log(snapshot.val());
+    });
 
     this.fetchRatings('creator');
     this.fetchRatings('doer');
@@ -95,6 +100,7 @@ class Application extends Component {
       doneWhopComments,
       reviewSelected,
       isOpen,
+      eventId,
     } = this.state;
     const currentUser = window.person;
 
@@ -124,6 +130,7 @@ class Application extends Component {
                 doWhopName={doWhopName}
                 reviewSelected={reviewSelected}
                 handleButtonClick={this.handleButtonClick}
+                eventId={eventId}
               />
             </div>
           )}
