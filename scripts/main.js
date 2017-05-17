@@ -88,6 +88,10 @@
     });
   }
 
+function getSesh() {
+  FriendlyChat.prototype.getSession()
+}
+
 // Initializes FriendlyChat.
 function FriendlyChat() {
   this.checkSetup();
@@ -134,6 +138,7 @@ function FriendlyChat() {
   // Load chat data:
   this.chatItemData = document.getElementById('show-chat-data');
   this.chatItemData.addEventListener('click', this.loadMessages.bind(this)); // <-- Developer: return to this.
+  this.getSession();
 
   // Save chats on chatroom form submit:
   // this.newChatForm.addEventListener('submit', this.saveChat.bind(this));
@@ -348,12 +353,17 @@ FriendlyChat.prototype.loadChats = function() {
   });
 };
 
-FriendlyChat.prototype.getSession = function() {
-  var myRef = firebase.database().ref('session/' + person.uid);
-  //gets the session of the current user
-  myRef.once("value", function(data) { console.log(data.val().current_dowhop) })
+ FriendlyChat.prototype.getSession = function() {
+    var myRef = firebase.database().ref('session/' + person.uid);
+    //gets the session of the current user
+    var y;
+    myRef.once("value", function(data) {
+      console.log("Inside once",y=data.val().current_dowhop);
+      return y;})
+    console.log("Outside once",y);
+  }
   //gets current_dowhop from session for current user
-  
+
   // var myRef = "";
   // var x;
   // this.database.ref().child('session/'+person.uid).on("child_added", function(data){
@@ -364,7 +374,7 @@ FriendlyChat.prototype.getSession = function() {
   //
   //      })
   // })
-}
+
 
 // Loads messages history and listens for upcoming ones:
 FriendlyChat.prototype.loadMessages = function() {
