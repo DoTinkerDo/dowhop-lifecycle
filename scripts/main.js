@@ -138,7 +138,7 @@ function FriendlyChat() {
   // Load chat data:
   this.chatItemData = document.getElementById('show-chat-data');
   this.chatItemData.addEventListener('click', this.loadMessages.bind(this)); // <-- Developer: return to this.
-  this.getSession();
+  // this.getSession();
 
   // Save chats on chatroom form submit:
   // this.newChatForm.addEventListener('submit', this.saveChat.bind(this));
@@ -256,6 +256,10 @@ FriendlyChat.prototype.loadChats = function() {
   // Second, make sure we have reference to the current user's data:
   var me = this.auth.currentUser;
   var myRef = this.database.ref().child('doWhops/');
+  var myRefB = this.database.ref().child('session/' + person.uid);
+
+  myRefB.on("value", function(data) { myRef = firebase.database().ref().child('doWhops/' + data.val()) } );
+
   //We had a bunch of code here, but BOY did it not work
   var myChatData = this.chatItemData;
   // Add parts for the notification-pending displays:
@@ -279,21 +283,16 @@ FriendlyChat.prototype.loadChats = function() {
   var checkForPendings = function(id, data) {
 
     var pendingNotification = '';
-
     console.log("something was changed regarding: " + id);
 
     // Check if there are pending notifications:
     if ((data.val().pending != null) && (data.val().pending.status != "approved") && (data.val().pending.status != "denied")) {
-
       console.log("pending status true. showing pending div.");
-
       pendingDiv.removeAttribute('hidden');
 
       // This means visiting user is the creator of event:
       if (firebase.auth().currentUser.uid == data.val().creator) {
-
           console.log("visiting user is the creator. showing approval form, hiding rescind form.")
-
           pendingNotification = "Someone has requested this change.\nDo you want to approve it?"
           pendingDiv.innerText = pendingNotification + "\nPending time: " + data.val().pending.whenDatePending + " at " + data.val().pending.whenTimePending +
                                   "\nPending location: " + data.val().pending.whereAddressPending;
@@ -305,7 +304,6 @@ FriendlyChat.prototype.loadChats = function() {
     } else if (firebase.auth().currentUser.uid == data.val().pending.requester) {
 
         console.log("visiting user requested a change. showing rescinding form, hiding approval form.")
-
         pendingNotification = "You have requested this time!\nIt is pending. Do you want to change it?";
         pendingDiv.innerText = pendingNotification + "\nPending time: " + data.val().pending.whenDatePending + " at " + data.val().pending.whenDatePending +
                                     "\nPending location: " + data.val().pending.whereAddressPending;
@@ -329,27 +327,35 @@ FriendlyChat.prototype.loadChats = function() {
   // NOTE: Check the event-listener design to ensure this UI timing works:
 
   myRef.on('child_added', snap => {
-    // Creating the buttons to further load chat data:
-      var container = document.createElement('div');
-      container.innerHTML = FriendlyChat.CHAT_TEMPLATE;
-      let button = container.firstChild;
-      button.setAttribute('id', snap.key);
-      button.innerHTML = snap.val().titleDescription;
-      // let myReset = this.newChatPopup;
 
-      // Setting the events for when chat-thread button is clicked.
-      button.addEventListener('click', function(){
+    if(snap.val().creator === person.uid // || snap.val().doer...) {
 
-        // Resetting error messages and forms:
-        // myReset.setAttribute("hidden", "true");
-        myViewMessageList.innerText = '';
+      // Creating the buttons to further load chat data:
+        var container = document.createElement('div');
+        container.innerHTML = FriendlyChat.CHAT_TEMPLATE;
+        let button = container.firstChild;
+        button.setAttribute('id', snap.key);
+        button.innerHTML = snap.val().titleDescription;
+        // let myReset = this.newChatPopup;
 
-        myChatData.innerText = snap.val().titleDescription;
+        // Setting the events for when chat-thread button is clicked.
+        button.addEventListener('click', function(){
 
-        makeEventDisplay(myChatData, snap);
-        checkForPendings(snap.key, snap); // <-- Check
-      });
-      myView.appendChild(button);
+          // Resetting error messages and forms:
+          // myReset.setAttribute("hidden", "true");
+          myViewMessageList.innerText = '';
+
+          myChatData.innerText = snap.val().titleDescription;
+
+          makeEventDisplay(myChatData, snap);
+          checkForPendings(snap.key, snap); // <-- Check
+        });
+        myView.appendChild(button);
+
+    } else {
+      // To be continued...
+    }
+      // End of segment
   });
 
   myRef.on('child_changed', snap => { // <-- Check
@@ -367,19 +373,6 @@ FriendlyChat.prototype.loadChats = function() {
       return y;})
     console.log("Outside once",y);
   }
-  //gets current_dowhop from session for current user
-
-  // var myRef = "";
-  // var x;
-  // this.database.ref().child('session/'+person.uid).on("child_added", function(data){
-  //      console.log("HAVE I RETURNED YET?");
-  //      x = firebase.database().ref('doWhops/'+data.val().current_dowhop)
-  //      x.forEach(function(d){
-  //        console.log(d);
-  //
-  //      })
-  // })
-
 
 // Loads messages history and listens for upcoming ones:
 FriendlyChat.prototype.loadMessages = function() {
