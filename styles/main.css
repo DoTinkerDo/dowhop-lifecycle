@@ -341,7 +341,7 @@ h1,h2,h3,h4,h5 { font-family: Avenir }
 }
 
 .message img {
-  width: 50%;
+  max-height: 20%;
 }
 
 *, *:before, *:after {
@@ -617,6 +617,14 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 .options div {
 	position: relative;
 	bottom: 15px;
+}
+
+.options-coordinate div {
+  bottom: 15px;
+}
+
+#submit-message-button {
+  /*margin-top: 80%;*/
 }
 
 .slideDown {

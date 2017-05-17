@@ -2,6 +2,7 @@
 //form submission
 document.getElementById("submit").addEventListener("click", createDoWhop);
 var rootRef = firebase.database().ref("users/");
+var rootRefEvents = firebase.database().ref("doWhops/"); // <-- New
 document.getElementById('whenDate').setAttribute("value", getDate());
 //Should refactor below later, for more efficient and concise code
 
@@ -68,6 +69,7 @@ Array.from(document.getElementsByClassName("img_icon")).forEach(function(e){
 // })
 
 function createDoWhop(data, clearForm) {
+
   // I collect form data and clear it
   var creator = firebase.auth().currentUser.uid
   var campoEmail = document.getElementById("email");
@@ -87,6 +89,7 @@ function createDoWhop(data, clearForm) {
   var howmuchDescription = document.getElementById("howmuchDescription");
   var howmuchCost = document.getElementById("howmuchCost");
   var howmuchImage = document.getElementById("howmuchImage");
+
 
   var error = document.getElementById("error");
 
@@ -149,6 +152,30 @@ function createDoWhop(data, clearForm) {
   howmuchCost.value = "";
   howmuchImage.innerHTML = "";
 
+  // create event data model
+
+  var newEvent = {
+
+    creator: person.uid, // <-- New
+    email: data.email,
+    titleDescription: data.titleDescription,
+    titleImage: data.titleImage,
+    whoDescription: data.whoDescription,
+    whoImage: data.whoImage,
+    whatDescription: data.whatDescription,
+    whatImage: data.whatImage,
+    whereDescription: data.whereDescription,
+    whereAddress: data.whereAddress,
+    whereImage: data.whereImage,
+    whenDescription: data.whenDescription,
+    whenDate: data.whenDate,
+    whenTime: data.whenTime,
+    whenImage: data.whenImage,
+    howmuchDescription: data.howmuchDescription,
+    howmuchCost: data.howmuchCost,
+    howmuchImage: data.howmuchImage
+  }
+
   // create user data model
   var user = {
     creator: data.creator,
@@ -186,12 +213,14 @@ function createDoWhop(data, clearForm) {
       document.getElementById("error").classList.add("error--ok");
       return false;
     } else {
+      rootRefEvents.push(newEvent); // <-- New
+
       rootRef.child(data.titleDescription).set(user);
       document.getElementById("error").innerHTML =
         "You rock! Thanks for submitting your DoWhop. We will review your changes and email you the newly published DoWhop!";
       return false;
     }
-  });
+  })
 
   // put the listing again? spanish: pinto de nuevo el listado
   queryData();

@@ -96,7 +96,7 @@ function FriendlyChat() {
   this.messageList = document.getElementById('messages');
   this.messageForm = document.getElementById('message-form');
   this.messageInput = document.getElementById('message');
-  this.submitButton = document.getElementById('submit');
+  this.submitButton = document.getElementById('submit-message-button');
   this.submitImageButton = document.getElementById('submitImage');
   this.imageForm = document.getElementById('image-form');
   this.mediaCapture = document.getElementById('mediaCapture');
@@ -117,17 +117,17 @@ function FriendlyChat() {
   this.submitRescind = document.getElementById('submit-rescind-button');
 
   // DOM elements for the new chatroom form
-  this.newChatForm = document.getElementById('new-chat-form')
-  this.newChatInputTitle = document.getElementById('new-chat-input-title')
-  this.newChatInputWhat = document.getElementById('new-chat-input-what')
-  this.newChatInputWho = document.getElementById('new-chat-input-who')
-  this.newChatWhenIcon = document.getElementById('when-icon-div')
-  this.newChatWhenBounds = document.getElementById('when-column-bounds')
-  this.newChatInputWhenDate = document.getElementById('new-chat-input-when-date')
-  this.newChatInputWhenTime = document.getElementById('new-chat-input-when-time')
+  // this.newChatForm = document.getElementById('new-chat-form')
+  // this.newChatInputTitle = document.getElementById('new-chat-input-title')
+  // this.newChatInputWhat = document.getElementById('new-chat-input-what')
+  // this.newChatInputWho = document.getElementById('new-chat-input-who')
+  // this.newChatWhenIcon = document.getElementById('when-icon-div')
+  // this.newChatWhenBounds = document.getElementById('when-column-bounds')
+  // this.newChatInputWhenDate = document.getElementById('new-chat-input-when-date')
+  // this.newChatInputWhenTime = document.getElementById('new-chat-input-when-time')
   // this.newChatInputWhere = document.getElementById('pac-input')
-  this.newChatButton = document.getElementById('new-chat-button')
-  this.newChatPopup = document.getElementById('new-chat-popup')
+  // this.newChatButton = document.getElementById('new-chat-button')
+  // this.newChatPopup = document.getElementById('new-chat-popup')
   this.chatList = document.getElementById('chat-list')
   this.chatInputMap = document.getElementById('map')
 
@@ -136,10 +136,10 @@ function FriendlyChat() {
   this.chatItemData.addEventListener('click', this.loadMessages.bind(this)); // <-- Developer: return to this.
 
   // Save chats on chatroom form submit:
-  this.newChatForm.addEventListener('submit', this.saveChat.bind(this));
+  // this.newChatForm.addEventListener('submit', this.saveChat.bind(this));
 
   // Reveal when and where upon form section click:
-  this.newChatWhenIcon.addEventListener('click', this.showDateTimeInputs.bind(this));
+  // this.newChatWhenIcon.addEventListener('click', this.showDateTimeInputs.bind(this));
 
   // Save message on form submit:
   this.messageForm.addEventListener('submit', this.saveMessage.bind(this));
@@ -178,8 +178,8 @@ FriendlyChat.prototype.sendApproval = function(e) {
   e.preventDefault();
   var choice, newDate, newTime, newWhere
   this.chatItemDataSpecific = document.getElementById("show-chat-data").children[0].id
-  var myRef = this.database.ref().child('chats/' + this.chatItemDataSpecific);
-  var myRefPending = this.database.ref().child('chats/' + this.chatItemDataSpecific + '/pending');
+  var myRef = this.database.ref().child('doWhops/' + this.chatItemDataSpecific);
+  var myRefPending = this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending');
 
   myRefPending.once('value', function(snap) {
     console.log("your suggested date is:\n")
@@ -197,11 +197,11 @@ FriendlyChat.prototype.sendApproval = function(e) {
       whenTime: newTime,
       whereAddress: newWhere
     });
-    this.database.ref().child('chats/' + this.chatItemDataSpecific + '/pending/').update({
+    this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/').update({
     status: 'approved'
     });
   } else if (this.radioDeny.checked) {
-    this.database.ref().child('chats/' + this.chatItemDataSpecific + '/pending/').update({
+    this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/').update({
     status: 'denied'
   });
   };
@@ -217,7 +217,7 @@ FriendlyChat.prototype.sendRescind = function(e) {
   e.preventDefault();
   console.log("You have rescinded");
   this.chatItemDataSpecific = document.getElementById("show-chat-data").children[0].id // <-- Refactor
-  this.database.ref().child('chats/' + this.chatItemDataSpecific + '/pending/').remove();
+  this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/').remove();
 
   // Add UI reset information here:
   this.approvalForm.setAttribute("hidden", "true");
@@ -229,7 +229,7 @@ FriendlyChat.prototype.sendRescind = function(e) {
 
 // Add dynamic 'When' form:
 FriendlyChat.prototype.showDateTimeInputs = function () {
-  this.newChatWhenBounds.removeAttribute('hidden');
+  // this.newChatWhenBounds.removeAttribute('hidden');
 }
 
 FriendlyChat.prototype.removeChats = function() {
@@ -245,21 +245,24 @@ FriendlyChat.prototype.loadChats = function() {
   var myViewMessageList = this.messageList;
   // Second, make sure we have reference to the current user's data:
   var me = this.auth.currentUser;
-  var myRef = this.database.ref().child('chats/');
+  var myRef = this.database.ref().child('doWhops/');
   var myChatData = this.chatItemData;
   // Add parts for the notification-pending displays:
   var pendingDiv = this.pendingDiv;
   var myApprovalForm = this.approvalForm;
   var myRescindingForm = this.rescindingForm;
-  var myReset = this.newChatPopup;
+  // var myReset = this.newChatPopup;
 
   var makeEventDisplay = function(item, snap) {
-    item.innerHTML = "<h3 id='" + snap.key + "'>" + snap.val().title + '</h3>' +
+    item.innerHTML = "<h3 id='" + snap.key + "'>" + snap.val().whatDescription + '</h3>' +
             "<p>Click  to load messages.</p>" +
             "<h5>When?</h5>" +
-            "<p>" + snap.val().whenDate + ' at ' + snap.val().whenTime + "</p>" +
+            "<p>" + snap.val().whenDate + ' for ' + snap.val().whenTime +
+            " " + snap.val().whenDescription + "</p>" +
             "<h5>Where?</h5>" +
-            "<p>" + snap.val().whereAddress + "</p>"
+            "<p>" + snap.val().whereDescription + " " + snap.val().whereAddress + "</p>" +
+            "<h5>How much?</h5>" +
+            "<p>" + snap.val().howmuchDescription + ' : ' + snap.val().howmuchCost
   };
 
   var checkForPendings = function(id, data) {
@@ -320,17 +323,17 @@ FriendlyChat.prototype.loadChats = function() {
       container.innerHTML = FriendlyChat.CHAT_TEMPLATE;
       let button = container.firstChild;
       button.setAttribute('id', snap.key);
-      button.innerHTML = snap.val().title;
-      let myReset = this.newChatPopup;
+      button.innerHTML = snap.val().titleDescription;
+      // let myReset = this.newChatPopup;
 
       // Setting the events for when chat-thread button is clicked.
       button.addEventListener('click', function(){
 
         // Resetting error messages and forms:
-        myReset.setAttribute("hidden", "true");
+        // myReset.setAttribute("hidden", "true");
         myViewMessageList.innerText = '';
 
-        myChatData.innerText = snap.val().title;
+        myChatData.innerText = snap.val().titleDescription;
 
         makeEventDisplay(myChatData, snap);
         checkForPendings(snap.key, snap); // <-- Check
@@ -380,12 +383,12 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
   if (this.messageFormWhenDatePending.value && this.messageFormWhenTimePending.value && this.messageFormWherePending) {
     // Send the inputted date/time suggestion to the event it's associated with:
-    var chatsRef = this.database.ref().child('chats/' + this.chatItemDataSpecific + '/pending/');
+    var chatsRef = this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/');
     // Send a notification to the thread:
     messagesChatsRef.push({
       chatId: this.chatItemDataSpecific,
       name: currentUser.displayName,
-      text: currentUser.displayName + " has requested a change!",
+      text: currentUser.displayName + " has requested a change: " + this.messageFormWhenDatePending.value + " at " + this.messageFormWhenTimePending.value + "  " + this.messageFormWherePending.value,
       photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
     });
 
@@ -425,40 +428,40 @@ FriendlyChat.prototype.resetDateTimeWhere = function() {
 }
 
 // Button to save your chat thread to the database:
-FriendlyChat.prototype.saveChat = function(e) {
-  e.preventDefault();
-  // Check that the user entered information and is signed in:
-  if (this.newChatInputTitle.value && this.newChatInputWhat.value
-    && this.newChatInputWhenDate.value && this.newChatInputWhenTime.value
-    && this.newChatInputWho.value && this.checkSignedInWithMessage()) {
-
-    // Push new chat to Firebase:
-    var currentUser = this.auth.currentUser;
-
-    // A new chat entry to the Firebase Database:
-    this.database.ref('chats/').push({
-      title: this.newChatInputTitle.value,
-      what: this.newChatInputWhat.value,
-      whenDate: this.newChatInputWhenDate.value,
-      whenTime: this.newChatInputWhenTime.value,
-      whereAddress: this.newChatInputWhere.value,
-      who: this.newChatInputWho.value,
-      creator: currentUser.uid
-    }).then(function() {
-      // Clear the form and reset the button state.
-      this.newChatForm.reset();
-      this.toggleButton();
-      this.newChatPopup.removeAttribute("hidden");
-      this.newChatPopup.innerHTML = "You started a new event!";
-      this.newChatWhenBounds.setAttribute('hidden', 'true');
-    }.bind(this)).catch(function(error) {
-      console.error('Error writing new message to Firebase Database', error);
-    });
-  } else {
-    this.newChatPopup.removeAttribute("hidden");
-    this.newChatPopup.innerHTML = "Please enter all event information.";
-  }
-}
+// FriendlyChat.prototype.saveChat = function(e) {
+//   e.preventDefault();
+//   // Check that the user entered information and is signed in:
+//   if (this.newChatInputTitle.value && this.newChatInputWhat.value
+//     && this.newChatInputWhenDate.value && this.newChatInputWhenTime.value
+//     && this.newChatInputWho.value && this.checkSignedInWithMessage()) {
+//
+//     // Push new chat to Firebase:
+//     var currentUser = this.auth.currentUser;
+//
+//     // A new chat entry to the Firebase Database:
+//     this.database.ref('doWhops/').push({
+//       title: this.newChatInputTitle.value,
+//       what: this.newChatInputWhat.value,
+//       whenDate: this.newChatInputWhenDate.value,
+//       whenTime: this.newChatInputWhenTime.value,
+//       whereAddress: this.newChatInputWhere.value,
+//       who: this.newChatInputWho.value,
+//       creator: currentUser.uid
+//     }).then(function() {
+//       // Clear the form and reset the button state.
+//       // this.newChatForm.reset();
+//       this.toggleButton();
+//       // this.newChatPopup.removeAttribute("hidden");
+//       // this.newChatPopup.innerHTML = "You started a new event!";
+//       // this.newChatWhenBounds.setAttribute('hidden', 'true');
+//     }.bind(this)).catch(function(error) {
+//       console.error('Error writing new message to Firebase Database', error);
+//     });
+//   } else {
+//     // this.newChatPopup.removeAttribute("hidden");
+//     // this.newChatPopup.innerHTML = "Please enter all event information.";
+//   }
+// }
 
 // Sets the URL of the given img element with the URL of the image stored in Cloud Storage.
 FriendlyChat.prototype.setImageUrl = function(imageUri, imgElement) {
@@ -552,16 +555,16 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
     var userName = user.displayName;        // Added: Get user's name.
 
     // Set the user's profile pic and name.
-    this.userPic.style.backgroundImage = 'url(' + profilePicUrl + ')';
-    this.userName.textContent = userName;
+    // this.userPic.style.backgroundImage = 'url(' + profilePicUrl + ')';
+    // this.userName.textContent = userName;
 
     // Show user's profile and sign-out button.
-    this.userName.removeAttribute('hidden');
-    this.userPic.removeAttribute('hidden');
-    this.signOutButton.removeAttribute('hidden');
+    // this.userName.removeAttribute('hidden');
+    // this.userPic.removeAttribute('hidden');
+    // this.signOutButton.removeAttribute('hidden');
 
     // Hide sign-in button.
-    this.signInButton.setAttribute('hidden', 'true');
+    // this.signInButton.setAttribute('hidden', 'true');
 
     // We want to reset the page and load currently existing threads:
     this.loadChats();
