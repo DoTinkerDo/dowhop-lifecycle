@@ -117,17 +117,17 @@ function FriendlyChat() {
   this.submitRescind = document.getElementById('submit-rescind-button');
 
   // DOM elements for the new chatroom form
-  this.newChatForm = document.getElementById('new-chat-form')
-  this.newChatInputTitle = document.getElementById('new-chat-input-title')
-  this.newChatInputWhat = document.getElementById('new-chat-input-what')
-  this.newChatInputWho = document.getElementById('new-chat-input-who')
-  this.newChatWhenIcon = document.getElementById('when-icon-div')
-  this.newChatWhenBounds = document.getElementById('when-column-bounds')
-  this.newChatInputWhenDate = document.getElementById('new-chat-input-when-date')
-  this.newChatInputWhenTime = document.getElementById('new-chat-input-when-time')
+  // this.newChatForm = document.getElementById('new-chat-form')
+  // this.newChatInputTitle = document.getElementById('new-chat-input-title')
+  // this.newChatInputWhat = document.getElementById('new-chat-input-what')
+  // this.newChatInputWho = document.getElementById('new-chat-input-who')
+  // this.newChatWhenIcon = document.getElementById('when-icon-div')
+  // this.newChatWhenBounds = document.getElementById('when-column-bounds')
+  // this.newChatInputWhenDate = document.getElementById('new-chat-input-when-date')
+  // this.newChatInputWhenTime = document.getElementById('new-chat-input-when-time')
   // this.newChatInputWhere = document.getElementById('pac-input')
-  this.newChatButton = document.getElementById('new-chat-button')
-  this.newChatPopup = document.getElementById('new-chat-popup')
+  // this.newChatButton = document.getElementById('new-chat-button')
+  // this.newChatPopup = document.getElementById('new-chat-popup')
   this.chatList = document.getElementById('chat-list')
   this.chatInputMap = document.getElementById('map')
 
@@ -136,10 +136,10 @@ function FriendlyChat() {
   this.chatItemData.addEventListener('click', this.loadMessages.bind(this)); // <-- Developer: return to this.
 
   // Save chats on chatroom form submit:
-  this.newChatForm.addEventListener('submit', this.saveChat.bind(this));
+  // this.newChatForm.addEventListener('submit', this.saveChat.bind(this));
 
   // Reveal when and where upon form section click:
-  this.newChatWhenIcon.addEventListener('click', this.showDateTimeInputs.bind(this));
+  // this.newChatWhenIcon.addEventListener('click', this.showDateTimeInputs.bind(this));
 
   // Save message on form submit:
   this.messageForm.addEventListener('submit', this.saveMessage.bind(this));
@@ -229,7 +229,7 @@ FriendlyChat.prototype.sendRescind = function(e) {
 
 // Add dynamic 'When' form:
 FriendlyChat.prototype.showDateTimeInputs = function () {
-  this.newChatWhenBounds.removeAttribute('hidden');
+  // this.newChatWhenBounds.removeAttribute('hidden');
 }
 
 FriendlyChat.prototype.removeChats = function() {
@@ -251,7 +251,7 @@ FriendlyChat.prototype.loadChats = function() {
   var pendingDiv = this.pendingDiv;
   var myApprovalForm = this.approvalForm;
   var myRescindingForm = this.rescindingForm;
-  var myReset = this.newChatPopup;
+  // var myReset = this.newChatPopup;
 
   var makeEventDisplay = function(item, snap) {
     item.innerHTML = "<h3 id='" + snap.key + "'>" + snap.val().whatDescription + '</h3>' +
@@ -324,13 +324,13 @@ FriendlyChat.prototype.loadChats = function() {
       let button = container.firstChild;
       button.setAttribute('id', snap.key);
       button.innerHTML = snap.val().titleDescription;
-      let myReset = this.newChatPopup;
+      // let myReset = this.newChatPopup;
 
       // Setting the events for when chat-thread button is clicked.
       button.addEventListener('click', function(){
 
         // Resetting error messages and forms:
-        myReset.setAttribute("hidden", "true");
+        // myReset.setAttribute("hidden", "true");
         myViewMessageList.innerText = '';
 
         myChatData.innerText = snap.val().titleDescription;
@@ -388,7 +388,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
     messagesChatsRef.push({
       chatId: this.chatItemDataSpecific,
       name: currentUser.displayName,
-      text: currentUser.displayName + " has requested a change: " + this.messageFormWhenDatePending + " - " + this.messageFormWhenTimePending + " - " + this.messageFormWherePending,
+      text: currentUser.displayName + " has requested a change: " + this.messageFormWhenDatePending.value + " at " + this.messageFormWhenTimePending.value + "  " + this.messageFormWherePending.value,
       photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
     });
 
@@ -428,40 +428,40 @@ FriendlyChat.prototype.resetDateTimeWhere = function() {
 }
 
 // Button to save your chat thread to the database:
-FriendlyChat.prototype.saveChat = function(e) {
-  e.preventDefault();
-  // Check that the user entered information and is signed in:
-  if (this.newChatInputTitle.value && this.newChatInputWhat.value
-    && this.newChatInputWhenDate.value && this.newChatInputWhenTime.value
-    && this.newChatInputWho.value && this.checkSignedInWithMessage()) {
-
-    // Push new chat to Firebase:
-    var currentUser = this.auth.currentUser;
-
-    // A new chat entry to the Firebase Database:
-    this.database.ref('doWhops/').push({
-      title: this.newChatInputTitle.value,
-      what: this.newChatInputWhat.value,
-      whenDate: this.newChatInputWhenDate.value,
-      whenTime: this.newChatInputWhenTime.value,
-      whereAddress: this.newChatInputWhere.value,
-      who: this.newChatInputWho.value,
-      creator: currentUser.uid
-    }).then(function() {
-      // Clear the form and reset the button state.
-      this.newChatForm.reset();
-      this.toggleButton();
-      this.newChatPopup.removeAttribute("hidden");
-      this.newChatPopup.innerHTML = "You started a new event!";
-      this.newChatWhenBounds.setAttribute('hidden', 'true');
-    }.bind(this)).catch(function(error) {
-      console.error('Error writing new message to Firebase Database', error);
-    });
-  } else {
-    this.newChatPopup.removeAttribute("hidden");
-    this.newChatPopup.innerHTML = "Please enter all event information.";
-  }
-}
+// FriendlyChat.prototype.saveChat = function(e) {
+//   e.preventDefault();
+//   // Check that the user entered information and is signed in:
+//   if (this.newChatInputTitle.value && this.newChatInputWhat.value
+//     && this.newChatInputWhenDate.value && this.newChatInputWhenTime.value
+//     && this.newChatInputWho.value && this.checkSignedInWithMessage()) {
+//
+//     // Push new chat to Firebase:
+//     var currentUser = this.auth.currentUser;
+//
+//     // A new chat entry to the Firebase Database:
+//     this.database.ref('doWhops/').push({
+//       title: this.newChatInputTitle.value,
+//       what: this.newChatInputWhat.value,
+//       whenDate: this.newChatInputWhenDate.value,
+//       whenTime: this.newChatInputWhenTime.value,
+//       whereAddress: this.newChatInputWhere.value,
+//       who: this.newChatInputWho.value,
+//       creator: currentUser.uid
+//     }).then(function() {
+//       // Clear the form and reset the button state.
+//       // this.newChatForm.reset();
+//       this.toggleButton();
+//       // this.newChatPopup.removeAttribute("hidden");
+//       // this.newChatPopup.innerHTML = "You started a new event!";
+//       // this.newChatWhenBounds.setAttribute('hidden', 'true');
+//     }.bind(this)).catch(function(error) {
+//       console.error('Error writing new message to Firebase Database', error);
+//     });
+//   } else {
+//     // this.newChatPopup.removeAttribute("hidden");
+//     // this.newChatPopup.innerHTML = "Please enter all event information.";
+//   }
+// }
 
 // Sets the URL of the given img element with the URL of the image stored in Cloud Storage.
 FriendlyChat.prototype.setImageUrl = function(imageUri, imgElement) {
