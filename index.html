@@ -293,7 +293,7 @@
                   <span class="bar">
                 </label>
                 <!-- Adding options div here -->
-                <div class="options">
+                <div class="options-coordinate">
                         <div class="underbar">
                           <div id="optione-calendar" class="img_icon">
                             <img onclick="revealInput('date')" src='images/calendar.png' alt="" width="24" height="24">
@@ -337,67 +337,6 @@
         <button class="mdl-snackbar__action" type="button"></button>
       </div>
     </div>
-
-    <div id="create-new-chat" class="form-wrap">
-          <h2>Start a new chat!</h2>
-          <form id="new-chat-form" action="#">
-              <label class="form-line">
-                <span>Title?</span>
-                <input type="text" id="new-chat-input-title" placeholder="Ex: Sail with Sam">
-                <span class="bar">
-              </label>
-              <label class="form-line">
-                <span>What?</span>
-                <input type="text" id="new-chat-input-what" placeholder="Ex: 27-foot Soling. You bring white-soled shoes, I provide snacks and lifejackets...">
-                <span class="bar">
-              </label>
-              <label class="form-line">
-                <span>Who?</span>
-                <input type="text" id="new-chat-input-who">
-                <span class="bar">
-              </label>
-              <!-- Below is the div box for the date-time columns -->
-              <div id="when-icon-div">
-                <label class="form-line">
-                <span>When?</span><br>
-                <img id="when-icon" src='https://static.wixstatic.com/media/de271e_99334077334348128459dcffdcf5262f~mv2.png/v1/fill/w_512,h_512,al_c/de271e_99334077334348128459dcffdcf5262f~mv2.png'>
-                <div id="when-column-bounds">
-                  <div id="when-column-left">
-                    <!-- <label class="form-line"> -->
-                      <span>Date:</span>
-                      <input type="date" id='new-chat-input-when-date' size="50">
-                      <span class="bar">
-                    </label>
-                  </div>
-                  <div id="when-column-right">
-                      <span>Time:</span>
-                      <input type="time" id='new-chat-input-when-time' size="50">
-                      <!-- <i id='new-chat-input-when-time-icon' class="medium material-icons">query_builder</i> -->
-                      <span class="bar">
-                    </label>
-                  </div>
-                </div>
-              </label>
-              </div>
-              <!-- Below is the area for selecting 'where' -->
-              <label class="form-line">
-                <span>Where?</span>
-                  <img id="where-icon" src="https://static.wixstatic.com/media/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png/v1/fill/w_512,h_512,al_c/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png">
-                <!-- Map area-->
-                <div id="where-column-bounds">
-                  <input id="pac-input" class="controls" type="text" placeholder="Set a place...">
-                  <div id="map"></div>
-                </div>
-                  <span class="bar">
-              </label>
-
-            <button id="new-chat-button" type="submit" class="mdl-button--raised submit">
-              Start new chat!</button>
-            <div id="error" class="form-error"></div>
-          </form>
-        </div>
-
-    <div hidden id="new-chat-popup"></div>
     </main>
   </div>
 
