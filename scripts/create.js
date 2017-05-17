@@ -206,20 +206,12 @@ function createDoWhop(data, clearForm) {
     snapshot.forEach(function(data) {
       emails.push(data.val().email);
     });
-
-    if (emails.indexOf(data.email) != -1) {
-      document.getElementById("error").innerHTML =
-        "This email doesn't match your profile, please log in and try again!";
-      document.getElementById("error").classList.add("error--ok");
-      return false;
-    } else {
       rootRefEvents.push(newEvent); // <-- New
-
-      rootRef.child(data.titleDescription).set(user);
+      rootRef.child(data.creator).set(user);
       document.getElementById("error").innerHTML =
         "You rock! Thanks for submitting your DoWhop. We will review your changes and email you the newly published DoWhop!";
       return false;
-    }
+
   })
 
   // put the listing again? spanish: pinto de nuevo el listado
@@ -227,27 +219,33 @@ function createDoWhop(data, clearForm) {
 }
 
 function queryData() {
-  rootRef.orderByKey().on(
+  rootRefEvents.orderByKey().on(
     "value",
     function(snapshot) {
       var content = document.getElementById("user-list-wrap");
       content.innerHTML = "";
+      // debugger;
       snapshot.forEach(function(data) {
         //<p>Email: <span>' + data.val().email  +'</span></p>
-        content.innerHTML +=
-          '<div class="user-list__item"> <h4>DoWhop Title: <span>' +
-          data.val().titleDescription +
-          "</span></h4><h4>Who: <span>" +
-          data.val().whoDescription +
-          "</span></h4><h4>What: <span>" +
-          data.val().whatDescription +
-          "</span></h4><h4>When: <span>" +
-          data.val().whereDescription +
-          "</span></h4><h4>Where: <span>" +
-          data.val().whenDescription +
-          "</span></h4><h4>$: <span>" +
-          data.val().howmuchCost  +
-          "</h4></div><br>";
+        // debugger;
+        if(data.val().creator===person.uid){
+          // debugger;
+          content.innerHTML +=
+            '<div class="user-list__item" onclick="sessionRef(this)"><div hidden id="'+ data.key + '"></div>'+
+            '<h4>DoWhop Title: <span>' +
+            data.val().titleDescription +
+            "</span></h4><h4>Who: <span>" +
+            data.val().whoDescription +
+            "</span></h4><h4>What: <span>" +
+            data.val().whatDescription +
+            "</span></h4><h4>When: <span>" +
+            data.val().whereDescription +
+            "</span></h4><h4>Where: <span>" +
+            data.val().whenDescription +
+            "</span></h4><h4>$: <span>" +
+            data.val().howmuchCost  +
+            "</h4></div><br>";
+        }
       });
     },
     function(errorObject) {
@@ -316,4 +314,9 @@ function hideAll(underbar_options){
       }
     }
   })
+}
+
+function sessionRef(node){
+  firebase.database().ref().child('session/' + person.uid).set({current_dowhop: node.firstElementChild.id})
+  //Curretly overwrites everything else in the session, even if you're NOT storing a current_dowhop
 }

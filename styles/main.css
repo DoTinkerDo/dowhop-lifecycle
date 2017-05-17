@@ -512,6 +512,7 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 	border-top: 3px solid #cfd9df;
 }
 
+
 @media (min-width: 641px) {
 	.user-list {
 		flex: 1 0 50%;
@@ -546,6 +547,9 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 	color: #606060;
 }
 
+.user-list__item:hover {
+  opacity: 0.5;
+}
 .file {
   opacity: 0;
   position: absolute;
