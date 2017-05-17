@@ -620,6 +620,16 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 	bottom: 15px;
 }
 
+.options-coordinate div {
+  /*position: */
+  bottom: 15px;
+}
+
+#send-message-button {
+  margin-top: 10%;
+
+}
+
 .slideDown {
 	transform: translateY(30px);
 }
