@@ -71,20 +71,25 @@ Array.from(document.getElementsByClassName("img_icon")).forEach(function(e){
 function createDoWhop(data, clearForm) {
 
   // I collect form data and clear it
+  var creator = firebase.auth().currentUser.uid
   var campoEmail = document.getElementById("email");
   var titleDescription = document.getElementById("titleDescription");
-  // var titleImage = document.getElementById("titleImage");
+  var titleImage = document.getElementById("titleImage");
   var whoDescription = document.getElementById("whoDescription");
-  // var whoImage = document.getElementById("whoImage");
+  var whoImage = document.getElementById("whoImage");
   var whatDescription = document.getElementById("whatDescription");
-  // var whatImage = document.getElementById("whatImage");
+  var whatImage = document.getElementById("whatImage");
   var whereDescription = document.getElementById("whereDescription");
   var whereAddress = document.getElementById("whereAddress");
+  var whereImage = document.getElementById("whereImage");
   var whenDescription = document.getElementById("whenDescription");
   var whenDate = document.getElementById("whenDate")
   var whenTime = document.getElementById("whenTime")
+  var whenImage = document.getElementById("whenImage");
   var howmuchDescription = document.getElementById("howmuchDescription");
   var howmuchCost = document.getElementById("howmuchCost");
+  var howmuchImage = document.getElementById("howmuchImage");
+
 
   var error = document.getElementById("error");
 
@@ -94,21 +99,24 @@ function createDoWhop(data, clearForm) {
     titleDescription.value !== "" &&
     whoDescription.value !== ""
   ) {
-    var filePath = data.title + "/" + data.key + "/" + whoImage.value.trim();
+    data.creator = creator;
     data.email = campoEmail.value.trim();
     data.titleDescription = titleDescription.value.trim();
-    // data.titleImage = titleImage.value.trim();
+    data.titleImage = titleImage.innerHTML.trim();
     data.whoDescription = whoDescription.value.trim();
-    // data.whoImage = whoImage.value.trim();
+    data.whoImage = whoImage.innerHTML.trim();
     data.whatDescription = whatDescription.value.trim();
-    // data.whatImage = whatImage.value.trim();
+    data.whatImage = whatImage.innerHTML.trim();
     data.whereDescription = whereDescription.value.trim();
     data.whereAddress = whereAddress.value.trim();
+    data.whereImage = whereImage.innerHTML.trim();
     data.whenDescription = whenDescription.value.trim();
     data.whenTime = whenTime.value.trim();
     data.whenDate = whenDate.value.trim();
+    data.whenImage = whenImage.innerHTML.trim();
     data.howmuchDescription = howmuchDescription.value.trim();
     data.howmuchCost = howmuchCost.value.trim();
+    data.howmuchImage = howmuchImage.innerHTML.trim();
       ;
     //   error.innerHTML = "";
     // campoWhat.value.trim();
@@ -128,60 +136,66 @@ function createDoWhop(data, clearForm) {
 
   campoEmail.value = "";
   titleDescription.value = "";
-  // titleImage.value = "";
+  titleImage.innerHTML = "";
   whoDescription.value = "";
-  // whoImage.value = "";
+  whoImage.innerHTML = "";
   whatDescription.value = "";
-  // whatImage.value = "";
+  whatImage.innerHTML = "";
   whereDescription.value = "";
   whereAddress.value = "";
-  // whereImage.value = "";
+  whereImage.innerHTML = "";
   whenDescription.value = "";
   whenTime.value = "";
   whenDate.value = "";
-  // whenImage.value = "";
+  whenImage.innerHTML = "";
   howmuchDescription.value = "";
   howmuchCost.value = "";
-  // howImage.value = "";
+  howmuchImage.innerHTML = "";
 
   // create event data model
 
   var newEvent = {
 
     creator: person.uid, // <-- New
+    email: data.email,
     titleDescription: data.titleDescription,
-    // titleImage: data.titleImage,
+    titleImage: data.titleImage,
     whoDescription: data.whoDescription,
-    // whoImage: data.whoImage,
+    whoImage: data.whoImage,
     whatDescription: data.whatDescription,
-    // whatImage: data.whatImage,
+    whatImage: data.whatImage,
     whereDescription: data.whereDescription,
     whereAddress: data.whereAddress,
-    // whereImage: data.whereImage,
+    whereImage: data.whereImage,
     whenDescription: data.whenDescription,
     whenDate: data.whenDate,
-    // whenTime: data.whenTime,
+    whenTime: data.whenTime,
+    whenImage: data.whenImage,
     howmuchDescription: data.howmuchDescription,
-    howmuchCost: data.howmuchCost
+    howmuchCost: data.howmuchCost,
+    howmuchImage: data.howmuchImage
   }
 
   // create user data model
   var user = {
+    creator: data.creator,
     email: data.email,
     titleDescription: data.titleDescription,
-    // titleImage: data.titleImage,
+    titleImage: data.titleImage,
     whoDescription: data.whoDescription,
-    // whoImage: data.whoImage,
+    whoImage: data.whoImage,
     whatDescription: data.whatDescription,
-    // whatImage: data.whatImage,
+    whatImage: data.whatImage,
     whereDescription: data.whereDescription,
     whereAddress: data.whereAddress,
-    // whereImage: data.whereImage,
+    whereImage: data.whereImage,
     whenDescription: data.whenDescription,
     whenDate: data.whenDate,
-    // whenTime: data.whenTime,
+    whenTime: data.whenTime,
+    whenImage: data.whenImage,
     howmuchDescription: data.howmuchDescription,
-    howmuchCost: data.howmuchCost
+    howmuchCost: data.howmuchCost,
+    howmuchImage: data.howmuchImage
   };
 
 
@@ -200,6 +214,7 @@ function createDoWhop(data, clearForm) {
       return false;
     } else {
       rootRefEvents.push(newEvent); // <-- New
+
       rootRef.child(data.titleDescription).set(user);
       document.getElementById("error").innerHTML =
         "You rock! Thanks for submitting your DoWhop. We will review your changes and email you the newly published DoWhop!";
@@ -221,17 +236,17 @@ function queryData() {
         //<p>Email: <span>' + data.val().email  +'</span></p>
         content.innerHTML +=
           '<div class="user-list__item"> <h4>DoWhop Title: <span>' +
-          data.val().title +
+          data.val().titleDescription +
           "</span></h4><h4>Who: <span>" +
-          data.val().who +
+          data.val().whoDescription +
           "</span></h4><h4>What: <span>" +
-          data.val().what +
+          data.val().whatDescription +
           "</span></h4><h4>When: <span>" +
-          data.val().where +
+          data.val().whereDescription +
           "</span></h4><h4>Where: <span>" +
-          data.val().when +
+          data.val().whenDescription +
           "</span></h4><h4>$: <span>" +
-          data.val().howmuch +
+          data.val().howmuchCost  +
           "</h4></div><br>";
       });
     },
@@ -244,20 +259,23 @@ function queryData() {
 //consulta = query
 queryData();
 
-function handleFile(files_arr) {
+function handleFile(files_arr, node) {
   var file = files_arr[0]
+  var imagified = node.id.split("F")[0] + "Image"
   console.log(files_arr)
   if(!file.type.match("image/.*")){
     alert("You can only add images at the moment.")
     return;
   }
 
-  var filePath = "dummy/dummy1/"+file.name
+  var filePath = firebase.auth().currentUser.uid+"/"+imagified+"/"+file.name
   //filePath should be <user_id>/<form_id>/<file_name>, but we're going to just hack it together for now
-
-  return firebase.storage().ref(filePath).put(file).then(function(snapshot){
+  debugger
+  return firebase.storage().ref(filePath).put(file).then(function(snapshot, node){
     var fullPath = snapshot.metadata.fullPath;
-    document.getElementById("replace").innerHTML = '<img src="' + firebase.storage().ref(fullPath).toString() + '">'
+    debugger
+    //snapshot.metadata.downloadURLs[0] <-- Gets the viewable image link
+    document.getElementById(fullPath.split("/")[1]).innerHTML = fullPath
   })
 }
 
