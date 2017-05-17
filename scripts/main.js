@@ -211,6 +211,9 @@ FriendlyChat.prototype.sendApproval = function(e) {
   });
   };
 
+  // Notify the user of a change here:
+  window.alert("You have responded to the change request!");
+
   // Add UI reset information here:
   this.approvalForm.setAttribute("hidden", "true");
   this.rescindingForm.setAttribute("hidden", "true");
@@ -223,11 +226,13 @@ FriendlyChat.prototype.sendRescind = function(e) {
   console.log("You have rescinded");
   this.chatItemDataSpecific = document.getElementById("show-chat-data").children[0].id // <-- Refactor
   this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/').remove();
+  // Send a notification to the user:
+  window.alert("You have rescinded!");
 
   // Add UI reset information here:
   this.approvalForm.setAttribute("hidden", "true");
   this.rescindingForm.setAttribute("hidden", "true");
-  this.pendingDiv.innerHTML = '';
+  this.pendingDiv.innerHTML = ''; // Return.
   this.pendingDiv.setAttribute("hidden", "true");
 
 }
@@ -357,7 +362,7 @@ FriendlyChat.prototype.loadChats = function() {
     var myRef = firebase.database().ref('session/' + person.uid);
     //gets the session of the current user
     var y;
-    myRef.once("value", function(data) {
+    myRef.on("value", function(data) {
       console.log("Inside once",y=data.val().current_dowhop);
       return y;})
     console.log("Outside once",y);
