@@ -1,103 +1,112 @@
-    ul {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      overflow: hidden;
-      margin-bottom: 10px;
-    }
-    .panel {
-      border: 1px solid #ccc;
-      overflow: scroll;
-      margin-bottom: 10px;
-    }
-    ul a {
-      border: 1px solid #ccc;
-      padding: 10px;
-      margin-right: 10px;
-      float: left;
-      display: block;
-    }
-    ul a {
-      color: #000;
-      text-decoration: none;
-    }
-    ul.tabs a.selected,
-    ul.tabs a[aria-selected='true'] {
-      background: #ccc;
-      border-color: #ccc;
-      color: #000;
-    }
-    div[aria-hidden='true'] {
-      display: none;
-    }
+.tabs-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+ul {
+  list-style: none;
+  overflow: hidden;
+  margin-bottom: 10px;
+  color: #605e5e;
+}
+.panel {
+  border: 1px solid #605e5e;
+  overflow: scroll;
+  margin-bottom: 10px;
+}
+ul a {
+  color: #605e5e;
+  text-decoration: none;
+  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
+  padding: 10px;
+  float: left;
+  display: block;
+}
 
-        /* login page styles */
-    #login-page {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
+ul a:hover,
+ul a:focus {
+  background-color: #605e5e;
+  color: #fff;
+  text-decoration: none;
+}
 
-    /* flexbox layout */
-    .login-container {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-    .login-container > div {
-      flex: 1;
-    }
+ul.tabs a.selected,
+ul.tabs a[aria-selected='true'] {
+  background: #605e5e;
+  border-color: #605e5e;
+  color: #fff;
+  text-decoration: none;
+}
+div[aria-hidden='true'] {
+  display: none;
+}
 
-    /* social media icons */
-     button#login-button,
-     button#logout-button {
-      border-style: none;
-     } 
-    .login-page-title {
-      margin-top: 25%;
-      margin-left: -20%;
-      padding-bottom: 85px;
-      font: normal normal normal 38px/1.4em 'Avenir Light', sans-serif;
-      line-height: .8em;
-      padding-top: 20px;
-      font-weight: normal;
-      font-size: 56px;
-      text-align: center;
-      color: #606060;
-    }
-    .social-login,
-    .social-logout {
-      padding: 0;
-      height: 48px;
-      line-height: 48px;
-      width: 100%;
-      font-family: Helvetica;
-      font-size: 14px;
-      color: #fff;
-      margin-bottom: 24px;
-      font-weight: 300;
-      cursor: pointer;
-      outline: 0;
-    }
-    .social-login.fb,
-    .social-logout.fb {
-      background-color: #3b5998;
-    }
-    .social-login.ggl,
-    .social-logout.ggl {
-      background-color: #e53935;
-    }
+/* login page styles */
+#login-page {
+max-width: 800px;
+margin: 0 auto;
+padding: 0 20px;
+}
 
-    .divider{
-        position:absolute;
-        left:50%;
-        top:10%;
-        bottom:10%;
-        border-left:1px solid #606060;
-        margin: -50px -70px;;
-    }
-    @media (max-width: 650px) {
-      div.divider {
-        display: none;
-      }
-    }
+/* flexbox layout */
+.login-container {
+position: relative;
+display: flex;
+align-items: center;
+}
+.login-container > div {
+flex: 1;
+}
+
+/* social media icons */
+button#login-button,
+button#logout-button {
+border-style: none;
+} 
+.login-page-title {
+margin-top: 25%;
+margin-left: -20%;
+padding-bottom: 85px;
+font: normal normal normal 38px/1.4em 'Avenir Light', sans-serif;
+line-height: .8em;
+padding-top: 20px;
+font-weight: normal;
+font-size: 56px;
+text-align: center;
+color: #606060;
+}
+.social-login,
+.social-logout {
+padding: 0;
+height: 48px;
+line-height: 48px;
+width: 100%;
+font-family: Helvetica;
+font-size: 14px;
+color: #fff;
+margin-bottom: 24px;
+font-weight: 300;
+cursor: pointer;
+outline: 0;
+}
+.social-login.fb,
+.social-logout.fb {
+background-color: #3b5998;
+}
+.social-login.ggl,
+.social-logout.ggl {
+background-color: #e53935;
+}
+
+.divider{
+  position:absolute;
+  left:50%;
+  top:10%;
+  bottom:10%;
+  border-left:1px solid #606060;
+  margin: -50px -70px;;
+}
+@media (max-width: 650px) {
+div.divider {
+  display: none;
+}
+}
