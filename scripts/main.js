@@ -184,7 +184,7 @@ FriendlyChat.prototype.checkForAdmin = function() { // CHECK.
 
   var adminDiv = document.getElementById("admin-input-form");
 
-  // if(person.email === ("tinkerdowhop@gmail.com") {
+  // if(person.email === ("XXXX@gmail.com") {
   //   console.log("person's email passed: ", person.email);
   //   adminDiv.removeAttribute("hidden");
   // } else {
