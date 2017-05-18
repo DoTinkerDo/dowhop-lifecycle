@@ -6,6 +6,10 @@ var rootRefEvents = firebase.database().ref("doWhops/"); // <-- New
 document.getElementById('whenDate').setAttribute("value", getDate());
 //Should refactor below later, for more efficient and concise code
 
+// Hiding the forms by default unless admin is noted otherwise:
+document.getElementById("admin-input-form").setAttribute("hidden", "true");
+
+
 Array.from(document.getElementsByClassName("plus-button")).forEach(function(e){
   e.addEventListener("click", function() {
     var self = this;
@@ -70,15 +74,13 @@ Array.from(document.getElementsByClassName("img_icon")).forEach(function(e){
 
 function createDoWhop(data, clearForm) {
 
-  // Checking for user's admin status:
-
+  // Checking for user's admin status <-- CHECK. 
   // var adminDiv = document.getElementById("admin-input-form");
-  //
-  // if(person.email === "tinkerdowhop@gmail.com") {
-  //
-  //   adminDiv.removeAttribute('hidden');
+  // if(person.email === "tinkerdowhop@gmail.com" || "omaralimalik@gmail.com") {
+  //   console.log("person's email passed: ", person.email)
+  //     this.adminDiv.removeAttribute("hidden")
   // } else {
-  //   adminDiv.setAttribute('hidden', 'true');
+  //   adminDiv.setAttribute("hidden", "true");
   // }
 
   // I collect form data and clear it
@@ -249,8 +251,8 @@ function queryData() {
       var content = document.getElementById("user-list-wrap");
       content.innerHTML = "";
       snapshot.forEach(function(data) {
-        //<p>Email: <span>' + data.val().email  +'</span></p>
-        if(data.val().creator===person.uid){
+        //<p>Email: <span>' + data.val().email  +'</span></p> // Check below.
+        if((data.val().creator===person.uid) || (data.val().doer===person.email) || (data.val().host===person.email)){
           content.innerHTML +=
             '<div class="user-list__item" onclick="sessionRef(this)"><div hidden id="'+ data.key + '"></div>'+
             '<h4>DoWhop Title: <span>' +
