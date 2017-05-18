@@ -1,11 +1,15 @@
 //Code cobled together by Erik, working off code created by DoWhop
 //form submission
+
 document.getElementById("submit").addEventListener("click", createDoWhop);
+
 var rootRef = firebase.database().ref("users/");
 var rootRefEvents = firebase.database().ref("doWhops/"); // <-- New
+
 document.getElementById('whenDate').setAttribute("value", getDate());
 //Should refactor below later, for more efficient and concise code
 
+// Array.from needs polyfill. 
 Array.from(document.getElementsByClassName("plus-button")).forEach(function(e){
   e.addEventListener("click", function() {
     var self = this;
@@ -15,7 +19,6 @@ Array.from(document.getElementsByClassName("plus-button")).forEach(function(e){
         self.classList.add("fa-minus-circle")
         self.parentElement.parentElement.parentElement.nextSibling.nextSibling.childNodes.forEach(function(c, self) {
           if(c.nodeName!="#text") {
-            //
             c.classList.add("slideDown")
             c.classList.remove("slideUp")
           }
