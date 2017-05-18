@@ -10,8 +10,7 @@ document.getElementById('whenDate').setAttribute("value", getDate());
 //Should refactor below later, for more efficient and concise code
 
 // Hiding the forms by default unless admin is noted otherwise:
-document.getElementById("admin-input-form").setAttribute("hidden", "true");
-
+// document.getElementById("admin-input-form").setAttribute("hidden", "true");
 
 Array.from(document.getElementsByClassName("plus-button")).forEach(function(e){
   e.addEventListener("click", function() {
@@ -74,16 +73,16 @@ Array.from(document.getElementsByClassName("img_icon")).forEach(function(e){
 //   document.getElementById("underbar_options").innerHTML="<span>Time:</span><input type='time' id='whenTime' size='50'>"
 // })
 
+
+var adminDiv = document.getElementById("admin-input-form");
+adminDiv.style.display = 'none';
+
 function createDoWhop(data, clearForm) {
 
   // Checking for user's admin status <-- CHECK. 
-  // var adminDiv = document.getElementById("admin-input-form");
-  // if(person.email === "tinkerdowhop@gmail.com" || "omaralimalik@gmail.com") {
-  //   console.log("person's email passed: ", person.email)
-  //     this.adminDiv.removeAttribute("hidden")
-  // } else {
-  //   adminDiv.setAttribute("hidden", "true");
-  // }
+  person.email === 'tinkerdowhop@gmail.com' || 'omaralimalik@gmail.com' ? 
+    adminDiv.style.display = 'block' : 
+    adminDiv.style.display = 'none';
 
   // I collect form data and clear it
   var creator = firebase.auth().currentUser.uid
