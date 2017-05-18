@@ -9,7 +9,7 @@ ul {
   color: #605e5e;
 }
 .panel {
-  border: 1px solid #605e5e;
+  /*border: 1px solid #605e5e;*/
   overflow: scroll;
   margin-bottom: 10px;
 }
