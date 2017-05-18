@@ -1,49 +1,78 @@
-  "use strict";
+"use strict";
 
-  var auth = firebase.auth();
-  var googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+var loginButtonGGL = document.getElementById('login-button-ggl');
+var loginButtonFB = document.getElementById('login-button-fb');
+var loginPage = document.getElementById('login-page');
+var applicationPage = document.getElementById('application-page');
 
-  var signIn = document.getElementById('sign-in');
-  var signOut = document.getElementById('sign-out');
+function writeUserData(userId, name, email, photoURL, UID) {
+  firebase.database().ref('logged_in_users/' + userId).set({
+    username: name,
+    email: email,
+    userUID: UID,
+    photoURL: photoURL,
+    UID: UID
+  });
+}
 
-  function handleSignIn() {
-    auth.signInWithPopup(googleAuthProvider).then(function() {
-      console.log('signed in');
-      // window.opener.location.reload();
+window.addEventListener('load', function() {
+
+  loginButtonGGL.addEventListener('click', function() {
+    var googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(googleAuthProvider).then(function(result) {
       location.reload();
+      console.log('GGL login button pressed', result.user);
     });
-  }
+  });
 
-  function handleSignOut() {
-    auth.signOut().then(function() {
-      console.log('logged out');
+  loginButtonFB.addEventListener('click', function() {
+    var facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
+    firebase.auth().signInWithPopup(facebookAuthProvider).then(function(result) {
       location.reload();
+      console.log('FB login button pressed', result.user);
     });
-  }
+  });
 
-  var person = null;
-  auth.onAuthStateChanged(function(user) {
+  firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-      person = user;
+      loginPage.style.display = 'none';
+      applicationPage.style.display = 'block';
+      writeUserData(user.uid, user.displayName, user.email, user.photoURL, user.uid);
+      console.log('user signed in: ');
     } else {
-      console.log('user has signed out');
+      loginPage.style.display = 'block';
+      applicationPage.style.display = 'none'
+      console.log('user signed out');
+    }
+  });
+}, false);
+
+var auth = firebase.auth();
+var googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+
+var person = null;
+auth.onAuthStateChanged(function(user) {
+  if (user) {
+    person = user;
+  } else {
+    console.log('user has signed out');
+  }
+});
+
+var currentUserDoWhopId = null;
+var currentDoWhopProto = null;
+firebase.database().ref().child('proto_user/').once('value', function(snapshot) {
+
+ snapshot.forEach(function(data) {
+    var name = "\"" + person.displayName + "\"";
+    var name = person.displayName;
+    if (data.key === name) {
+      currentUserDoWhopId = data.val();
     }
   });
 
-  var currentUserDoWhopId = null;
-  var currentDoWhopProto = null;
-  firebase.database().ref().child('proto_user/').once('value', function(snapshot) {
-   snapshot.forEach(function(data) {
-      var name = "\"" + person.displayName + "\"";
-      var name = person.displayName;
-      if (data.key === name) {
-        currentUserDoWhopId = data.val();
-      }
-    });
-    firebase.database().ref().child('proto/' + currentUserDoWhopId).once('value', function(snapshot) {
-      currentDoWhopProto = snapshot.val();
-    });
+  firebase.database().ref().child('proto/' + currentUserDoWhopId).once('value', function(snapshot) {
+    currentDoWhopProto = snapshot.val();
   });
 
-  signIn.addEventListener('click', handleSignIn);
-  signOut.addEventListener('click', handleSignOut);
+});

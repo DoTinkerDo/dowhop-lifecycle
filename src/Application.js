@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { database } from './firebase';
+import { auth, database } from './firebase';
 import { Grid } from 'react-bootstrap';
 import Reviews from './Reviews';
 import Header from './Header';
@@ -12,10 +12,10 @@ class Application extends Component {
     super(props);
     
     this.state = {
+      currentUserUID: null,
       currentUser: null,
       reviewSelected: 'doneWhop', 
-      creatorName: 'Creator',
-      doWhopName: 'Brew Beer',
+      eventId: 'event1',
       creatorRating: null,
       doerRating: null,
       doneWhopRating: null,
@@ -26,18 +26,35 @@ class Application extends Component {
     };
 
     this.ratingRef = null;
-    this.doWhopsRef = database.ref(`/doWhops/${this.state.doWhopName}`);
+    this.doWhopsRef = database.ref(`/proto/${this.state.eventId}/reviews`);
 
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.toggleOpen = this.toggleOpen.bind(this);
+    this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
   }
 
   componentDidMount() {
+    database.ref('logged_in_users/').on('value', snapshot => {
+      console.log(snapshot.val());
+    });
+
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ currentUser: user });
+      } else {
+        this.setState({ currentUser: null });
+      }
+    });
 
     this.fetchRatings('creator');
     this.fetchRatings('doer');
     this.fetchRatings('doneWhop');
     this.fetchComments();
+
+    // this.timer = setTimeout(
+    //     () => this.forceUpdateHandler(), 
+    //     100
+    //   );
   }
 
   fetchRatings(reviewSelected) {
@@ -78,6 +95,11 @@ class Application extends Component {
     this.setState({ isOpen: !this.state.isOpen });
   }
 
+  forceUpdateHandler() {
+    this.forceUpdate();
+    console.log('update called');
+  }
+
   componentWillUnmount() {
     this.userRef.off();
     this.ratingRef.off();
@@ -86,6 +108,7 @@ class Application extends Component {
 
   render() {
     const {
+      currentUser,
       doWhopName,
       creatorRating,
       doerRating,
@@ -96,10 +119,18 @@ class Application extends Component {
       reviewSelected,
       isOpen,
     } = this.state;
-    const currentUser = window.person;
+    // const currentUser = window.person;
+
+    // console.log('currentUser -> ', currentUser && currentUser);
+
+      // var time = setTimeout(
+      //   () => this.forceUpdateHandler(), 
+      //   100
+      // )
+      // clearTimeout(time);
 
     return (
-      <Grid>
+      <Grid onClick={this.forceUpdateHandler}>
         {currentUser === null ? (
           <div>Please Sign In</div>
          ) : (
@@ -124,6 +155,7 @@ class Application extends Component {
                 doWhopName={doWhopName}
                 reviewSelected={reviewSelected}
                 handleButtonClick={this.handleButtonClick}
+                eventId={window.currentUserDoWhopId}
               />
             </div>
           )}
