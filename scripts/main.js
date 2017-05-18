@@ -20,7 +20,7 @@
 // This example requires the Places library. Include the libraries=places
   // parameter when you first load the API. For example:
   // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
+  var currentSessionID;
   function initAutocomplete() {
     var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: -33.8688, lng: 151.2195},
@@ -88,6 +88,10 @@
     });
   }
 
+function getSesh() {
+  FriendlyChat.prototype.getSession()
+}
+
 // Initializes FriendlyChat.
 function FriendlyChat() {
   this.checkSetup();
@@ -134,6 +138,7 @@ function FriendlyChat() {
   // Load chat data:
   this.chatItemData = document.getElementById('show-chat-data');
   this.chatItemData.addEventListener('click', this.loadMessages.bind(this)); // <-- Developer: return to this.
+  // this.getSession();
 
   // Save chats on chatroom form submit:
   // this.newChatForm.addEventListener('submit', this.saveChat.bind(this));
@@ -206,6 +211,9 @@ FriendlyChat.prototype.sendApproval = function(e) {
   });
   };
 
+  // Notify the user of a change here:
+  window.alert("You have responded to the change request!");
+
   // Add UI reset information here:
   this.approvalForm.setAttribute("hidden", "true");
   this.rescindingForm.setAttribute("hidden", "true");
@@ -218,11 +226,13 @@ FriendlyChat.prototype.sendRescind = function(e) {
   console.log("You have rescinded");
   this.chatItemDataSpecific = document.getElementById("show-chat-data").children[0].id // <-- Refactor
   this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/').remove();
+  // Send a notification to the user:
+  window.alert("You have rescinded!");
 
   // Add UI reset information here:
   this.approvalForm.setAttribute("hidden", "true");
   this.rescindingForm.setAttribute("hidden", "true");
-  this.pendingDiv.innerHTML = '';
+  this.pendingDiv.innerHTML = ''; // Return.
   this.pendingDiv.setAttribute("hidden", "true");
 
 }
@@ -245,7 +255,12 @@ FriendlyChat.prototype.loadChats = function() {
   var myViewMessageList = this.messageList;
   // Second, make sure we have reference to the current user's data:
   var me = this.auth.currentUser;
+  // var currentSessionID;
   var myRef = this.database.ref().child('doWhops/');
+  // var myRefB = this.database.ref().child('session/' + person.uid);
+
+  // myRefB.on("value", function(data) { myRef = firebase.database().ref().child('doWhops/' + data.val()) } );
+
   //We had a bunch of code here, but BOY did it not work
   var myChatData = this.chatItemData;
   // Add parts for the notification-pending displays:
@@ -269,21 +284,16 @@ FriendlyChat.prototype.loadChats = function() {
   var checkForPendings = function(id, data) {
 
     var pendingNotification = '';
-
     console.log("something was changed regarding: " + id);
 
     // Check if there are pending notifications:
     if ((data.val().pending != null) && (data.val().pending.status != "approved") && (data.val().pending.status != "denied")) {
-
       console.log("pending status true. showing pending div.");
-
       pendingDiv.removeAttribute('hidden');
 
       // This means visiting user is the creator of event:
       if (firebase.auth().currentUser.uid == data.val().creator) {
-
           console.log("visiting user is the creator. showing approval form, hiding rescind form.")
-
           pendingNotification = "Someone has requested this change.\nDo you want to approve it?"
           pendingDiv.innerText = pendingNotification + "\nPending time: " + data.val().pending.whenDatePending + " at " + data.val().pending.whenTimePending +
                                   "\nPending location: " + data.val().pending.whereAddressPending;
@@ -295,7 +305,6 @@ FriendlyChat.prototype.loadChats = function() {
     } else if (firebase.auth().currentUser.uid == data.val().pending.requester) {
 
         console.log("visiting user requested a change. showing rescinding form, hiding approval form.")
-
         pendingNotification = "You have requested this time!\nIt is pending. Do you want to change it?";
         pendingDiv.innerText = pendingNotification + "\nPending time: " + data.val().pending.whenDatePending + " at " + data.val().pending.whenDatePending +
                                     "\nPending location: " + data.val().pending.whereAddressPending;
@@ -316,55 +325,116 @@ FriendlyChat.prototype.loadChats = function() {
     }
   };
 
-  // NOTE: Check the event-listener design to ensure this UI timing works:
+  var myRefC = this.database.ref().child('session/' + person.uid);
+  //gets the session of the current user
+  // var y;
 
-  myRef.on('child_added', snap => {
-    // Creating the buttons to further load chat data:
-      var container = document.createElement('div');
-      container.innerHTML = FriendlyChat.CHAT_TEMPLATE;
-      let button = container.firstChild;
-      button.setAttribute('id', snap.key);
-      button.innerHTML = snap.val().titleDescription;
-      // let myReset = this.newChatPopup;
+  var currentSessionID2;
+  myRefC.once('value').then(function(snapshot) {
+    currentSessionID2 = snapshot.val().current_dowhop;
+      // return currentSessionID2;
+      console.log("checking....", currentSessionID2);
+      var myRefA = firebase.database().ref().child('doWhops/'+currentSessionID2);
+      myRefA.on('value', snap => {
 
-      // Setting the events for when chat-thread button is clicked.
-      button.addEventListener('click', function(){
+        console.log("comparing..." + snap.key + currentSessionID2);
 
-        // Resetting error messages and forms:
-        // myReset.setAttribute("hidden", "true");
-        myViewMessageList.innerText = '';
+        // if(snap.val().creator === person.uid) {
+        if(snap.key == currentSessionID2) {
 
-        myChatData.innerText = snap.val().titleDescription;
+          // Creating the buttons to further load chat data:
+            var container = document.createElement('div');
+            container.innerHTML = FriendlyChat.CHAT_TEMPLATE;
+            let button = container.firstChild;
+            button.setAttribute('id', snap.key);
+            button.innerHTML = snap.val().titleDescription;
 
-        makeEventDisplay(myChatData, snap);
-        checkForPendings(snap.key, snap); // <-- Check
+            // Setting the events for when chat-thread button is clicked.
+            button.addEventListener('click', function(){
+
+              // Resetting error messages and forms:
+              // myReset.setAttribute("hidden", "true");
+              myViewMessageList.innerText = '';
+
+              myChatData.innerText = snap.val().titleDescription;
+
+              makeEventDisplay(myChatData, snap);
+              checkForPendings(snap.key, snap); // <-- Check
+            });
+            myView.appendChild(button);
+
+        } else {
+          // To be continued...
+        }
+          // End of segment
       });
-      myView.appendChild(button);
+
+      myRef.on('child_changed', snap => { // <-- Check
+        makeEventDisplay(myChatData, snap),
+        checkForPendings(snap.key, snap);
+      });
+  // Moved a whole bunch of stuff here.
+
   });
 
-  myRef.on('child_changed', snap => { // <-- Check
-    makeEventDisplay(myChatData, snap),
-    checkForPendings(snap.key, snap);
-  });
+  console.log("past check..", currentSessionID2);
+
+  // myRef.on('value', snap => {
+  //
+  //   console.log("comparing..." + snap.key + currentSessionID2);
+  //
+  //   // if(snap.val().creator === person.uid) {
+  //   if(snap.key == currentSessionID2) {
+  //
+  //     // Creating the buttons to further load chat data:
+  //       var container = document.createElement('div');
+  //       container.innerHTML = FriendlyChat.CHAT_TEMPLATE;
+  //       let button = container.firstChild;
+  //       button.setAttribute('id', snap.key);
+  //       button.innerHTML = snap.val().titleDescription;
+  //       // let myReset = this.newChatPopup;
+  //
+  //       // Setting the events for when chat-thread button is clicked.
+  //       button.addEventListener('click', function(){
+  //
+  //         // Resetting error messages and forms:
+  //         // myReset.setAttribute("hidden", "true");
+  //         myViewMessageList.innerText = '';
+  //
+  //         myChatData.innerText = snap.val().titleDescription;
+  //
+  //         makeEventDisplay(myChatData, snap);
+  //         checkForPendings(snap.key, snap); // <-- Check
+  //       });
+  //       myView.appendChild(button);
+  //
+  //   } else {
+  //     // To be continued...
+  //   }
+  //     // End of segment
+  // });
+  //
+  // myRef.on('child_changed', snap => { // <-- Check
+  //   makeEventDisplay(myChatData, snap),
+  //   checkForPendings(snap.key, snap);
+  // });
 };
 
-FriendlyChat.prototype.getSession = function() {
-  var myRef = firebase.database().ref('session/' + person.uid);
-  //gets the session of the current user
-  myRef.once("value", function(data) { console.log(data.val().current_dowhop) })
-  //gets current_dowhop from session for current user
-  
-  // var myRef = "";
-  // var x;
-  // this.database.ref().child('session/'+person.uid).on("child_added", function(data){
-  //      console.log("HAVE I RETURNED YET?");
-  //      x = firebase.database().ref('doWhops/'+data.val().current_dowhop)
-  //      x.forEach(function(d){
-  //        console.log(d);
-  //
-  //      })
-  // })
-}
+ FriendlyChat.prototype.getSession = function() {
+    var myRef = firebase.database().ref('session/' + person.uid);
+    //gets the session of the current user
+    // var y;
+
+    // myRef.once('value').then(function(snapshot) {
+    //   currentSessionID = snapshot.val().current_dowhop;
+    // });
+    //
+    // return currentSessionID;
+    myRef.once("value", function(data) {
+      console.log("Inside once", currentSessionID = data.val().current_dowhop);
+      return currentSessionID;});
+    // console.log("Outside once",currentSessionID);
+  }
 
 // Loads messages history and listens for upcoming ones:
 FriendlyChat.prototype.loadMessages = function() {
@@ -591,6 +661,8 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
     // We want to save currently signed-in user.
     this.saveUser();
 
+    // Add event listener for event session changes:
+    this.getSession(currentSessionID);
     // We save the Firebase Messaging Device token and enable notifications.
     this.saveMessagingDeviceToken();
   } else { // User is signed out!
