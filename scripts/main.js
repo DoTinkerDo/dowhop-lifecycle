@@ -106,8 +106,8 @@ function FriendlyChat() {
   this.mediaCapture = document.getElementById('mediaCapture');
   this.userPic = document.getElementById('user-pic');
   this.userName = document.getElementById('user-name');
-  this.signInButton = document.getElementById('sign-in');
-  this.signOutButton = document.getElementById('sign-out');
+  // this.signInButton = document.getElementById('sign-in');
+  // this.signOutButton = document.getElementById('sign-out');
   this.signInSnackbar = document.getElementById('must-signin-snackbar');
   this.messageFormWhenDatePending = document.getElementById('whenDatePending');
   this.messageFormWhenTimePending = document.getElementById('whenTimePending');
@@ -148,8 +148,8 @@ function FriendlyChat() {
 
   // Save message on form submit:
   this.messageForm.addEventListener('submit', this.saveMessage.bind(this));
-  this.signOutButton.addEventListener('click', this.signOut.bind(this));
-  this.signInButton.addEventListener('click', this.signIn.bind(this));
+  // this.signOutButton.addEventListener('click', this.signOut.bind(this));
+  // this.signInButton.addEventListener('click', this.signIn.bind(this));
 
   // Toggle for the button:
   var buttonTogglingHandler = this.toggleButton.bind(this);
@@ -254,7 +254,7 @@ FriendlyChat.prototype.loadChats = function() {
   var myView = this.chatList;
   var myViewMessageList = this.messageList;
   // Second, make sure we have reference to the current user's data:
-  var me = this.auth.currentUser;
+  var me = person;
   // var currentSessionID;
   var myRef = this.database.ref().child('doWhops/');
   // var myRefB = this.database.ref().child('session/' + person.uid);
@@ -438,7 +438,7 @@ FriendlyChat.prototype.loadChats = function() {
 
 // Loads messages history and listens for upcoming ones:
 FriendlyChat.prototype.loadMessages = function() {
-  let user = this.auth.currentUser.uid;
+  let user = person.uid;
   var chatIdCurrent = this.chatItemData.firstChild.id // <-- Refactor
   this.messagesRef = this.database.ref().child('messages/' + chatIdCurrent);
 
@@ -463,7 +463,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
   // Nesting the message content under chat-id node headings:
   var messagesChatsRef = this.messagesRef; // <-- Refactor?
-  var currentUser = this.auth.currentUser;
+  var currentUser = person;
   var whenDatePending = this.whenDatePending;
   var whenTimePending = this.whenTimePending;
   var whereAddressPending = this.whereAddressPending;
@@ -525,7 +525,7 @@ FriendlyChat.prototype.resetDateTimeWhere = function() {
 //     && this.newChatInputWho.value && this.checkSignedInWithMessage()) {
 //
 //     // Push new chat to Firebase:
-//     var currentUser = this.auth.currentUser;
+//     var currentUser = person;
 //
 //     // A new chat entry to the Firebase Database:
 //     this.database.ref('doWhops/').push({
@@ -587,7 +587,7 @@ FriendlyChat.prototype.saveImageMessage = function(event) {
   if (this.checkSignedInWithMessage()) {
 
     // We add a message with a loading icon that will get updated with the shared image.
-    var currentUser = this.auth.currentUser;
+    var currentUser = person;
     this.messagesRef.push({
       name: currentUser.displayName,
       imageUrl: FriendlyChat.LOADING_IMAGE_URL,
@@ -610,7 +610,7 @@ FriendlyChat.prototype.saveImageMessage = function(event) {
 
 // Save all users who've logged in into DB via UID for shallow nesting:
 FriendlyChat.prototype.saveUser = function() {
-  var currentUser = this.auth.currentUser;
+  var currentUser = person;
   this.database.ref('users/' + currentUser.uid).set({
     name: currentUser.displayName,
     email: currentUser.email,
@@ -669,17 +669,17 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
     // Hide user's profile and sign-out button.
     this.userName.setAttribute('hidden', 'true');
     this.userPic.setAttribute('hidden', 'true');
-    this.signOutButton.setAttribute('hidden', 'true');
+    // this.signOutButton.setAttribute('hidden', 'true');
 
     // Show sign-in button.
-    this.signInButton.removeAttribute('hidden');
+    // this.signInButton.removeAttribute('hidden');
   }
 };
 
 // Returns true if user is signed-in. Otherwise false and displays a message.
 FriendlyChat.prototype.checkSignedInWithMessage = function() {
   /* Added: Check if user is signed-in Firebase. */
-  if (this.auth.currentUser) {
+  if (person) {
     return true;
   }
 
