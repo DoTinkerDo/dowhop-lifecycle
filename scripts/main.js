@@ -348,7 +348,6 @@ FriendlyChat.prototype.loadChats = function() {
             let button = container.firstChild;
             button.setAttribute('id', snap.key);
             button.innerHTML = snap.val().titleDescription;
-            // let myReset = this.newChatPopup;
 
             // Setting the events for when chat-thread button is clicked.
             button.addEventListener('click', function(){
@@ -374,9 +373,7 @@ FriendlyChat.prototype.loadChats = function() {
         makeEventDisplay(myChatData, snap),
         checkForPendings(snap.key, snap);
       });
-  // Do a whole bunch of stuff here?
-
-
+  // Moved a whole bunch of stuff here.
 
   });
 
