@@ -179,6 +179,19 @@ FriendlyChat.prototype.initFirebase = function() {
   this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this));
 };
 
+FriendlyChat.prototype.checkForAdmin = function() {
+
+  var adminDiv = document.getElementById("admin-input-form");
+
+  if(person.email === ("tinkerdowhop@gmail.com" || "omaralimalik@gmail.com" || "jwbillar@gmail.com")) {
+
+    adminDiv.removeAttribute('hidden');
+  } else {
+    adminDiv.setAttribute('hidden', 'true');
+  }
+
+};
+
 FriendlyChat.prototype.sendApproval = function(e) {
   e.preventDefault();
   var choice, newDate, newTime, newWhere
@@ -654,6 +667,8 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
 
     // Hide sign-in button.
     // this.signInButton.setAttribute('hidden', 'true');
+    // We are checking if user is admin:
+    this.checkForAdmin();
 
     // We want to reset the page and load currently existing threads:
     this.loadChats();

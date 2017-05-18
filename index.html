@@ -62,7 +62,7 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
-<body>       
+<body>
 
   <!-- Login screen -->
   <section id="login-page">
@@ -256,6 +256,17 @@
               <input type="email" id="email" placeholder="my@emailaddress.com"/>
               <span class="bar"></span>
             </label>
+
+            <div id="admin-input-form" type="hidden">
+              <label class="form-line">
+              <span>ADMIN: What's the Doer's Email?</span>
+              <input type="email" id="doerEmail" placeholder="doer email here"/>
+              </label>
+              <label class="form-line">
+              <span>ADMIN: What's the Host's Email (if host is not yourself)?</span>
+              <input type="email" id="hostEmail" placeholder="doer email here"/>
+              </label>
+            </div>
             <button type="button" class="submit" id="submit">Submit</button>
             <div id="error" class="form-error"></div>
           </form>

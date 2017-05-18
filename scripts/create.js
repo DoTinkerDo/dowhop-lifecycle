@@ -70,6 +70,17 @@ Array.from(document.getElementsByClassName("img_icon")).forEach(function(e){
 
 function createDoWhop(data, clearForm) {
 
+  // Checking for user's admin status:
+
+  // var adminDiv = document.getElementById("admin-input-form");
+  //
+  // if(person.email === "tinkerdowhop@gmail.com") {
+  //
+  //   adminDiv.removeAttribute('hidden');
+  // } else {
+  //   adminDiv.setAttribute('hidden', 'true');
+  // }
+
   // I collect form data and clear it
   var creator = firebase.auth().currentUser.uid
   var campoEmail = document.getElementById("email");
@@ -155,7 +166,9 @@ function createDoWhop(data, clearForm) {
     whenImage: data.whenImage,
     howmuchDescription: data.howmuchDescription,
     howmuchCost: data.howmuchCost,
-    howmuchImage: data.howmuchImage
+    howmuchImage: data.howmuchImage,
+    doer: data.doerEmail || "none",
+    host: data.hostEmail || "none"
   }
 
     rootRefEvents.push(newEvent);
