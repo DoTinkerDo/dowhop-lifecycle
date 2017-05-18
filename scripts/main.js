@@ -20,7 +20,7 @@
 // This example requires the Places library. Include the libraries=places
   // parameter when you first load the API. For example:
   // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
+  var currentSessionID;
   function initAutocomplete() {
     var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: -33.8688, lng: 151.2195},
@@ -255,10 +255,11 @@ FriendlyChat.prototype.loadChats = function() {
   var myViewMessageList = this.messageList;
   // Second, make sure we have reference to the current user's data:
   var me = this.auth.currentUser;
+  // var currentSessionID;
   var myRef = this.database.ref().child('doWhops/');
-  var myRefB = this.database.ref().child('session/' + person.uid);
+  // var myRefB = this.database.ref().child('session/' + person.uid);
 
-  myRefB.on("value", function(data) { myRef = firebase.database().ref().child('doWhops/' + data.val()) } );
+  // myRefB.on("value", function(data) { myRef = firebase.database().ref().child('doWhops/' + data.val()) } );
 
   //We had a bunch of code here, but BOY did it not work
   var myChatData = this.chatItemData;
@@ -324,54 +325,118 @@ FriendlyChat.prototype.loadChats = function() {
     }
   };
 
-  // NOTE: Check the event-listener design to ensure this UI timing works:
+  var myRefC = this.database.ref().child('session/' + person.uid);
+  //gets the session of the current user
+  // var y;
 
-  myRef.on('child_added', snap => {
+  var currentSessionID2;
+  myRefC.once('value').then(function(snapshot) {
+    currentSessionID2 = snapshot.val().current_dowhop;
+      // return currentSessionID2;
+      console.log("checking....", currentSessionID2);
+      var myRefA = firebase.database().ref().child('doWhops/'+currentSessionID2);
+      myRefA.on('value', snap => {
 
-    if(snap.val().creator === person.uid) {
+        console.log("comparing..." + snap.key + currentSessionID2);
 
-      // Creating the buttons to further load chat data:
-        var container = document.createElement('div');
-        container.innerHTML = FriendlyChat.CHAT_TEMPLATE;
-        let button = container.firstChild;
-        button.setAttribute('id', snap.key);
-        button.innerHTML = snap.val().titleDescription;
-        // let myReset = this.newChatPopup;
+        // if(snap.val().creator === person.uid) {
+        if(snap.key == currentSessionID2) {
 
-        // Setting the events for when chat-thread button is clicked.
-        button.addEventListener('click', function(){
+          // Creating the buttons to further load chat data:
+            var container = document.createElement('div');
+            container.innerHTML = FriendlyChat.CHAT_TEMPLATE;
+            let button = container.firstChild;
+            button.setAttribute('id', snap.key);
+            button.innerHTML = snap.val().titleDescription;
+            // let myReset = this.newChatPopup;
 
-          // Resetting error messages and forms:
-          // myReset.setAttribute("hidden", "true");
-          myViewMessageList.innerText = '';
+            // Setting the events for when chat-thread button is clicked.
+            button.addEventListener('click', function(){
 
-          myChatData.innerText = snap.val().titleDescription;
+              // Resetting error messages and forms:
+              // myReset.setAttribute("hidden", "true");
+              myViewMessageList.innerText = '';
 
-          makeEventDisplay(myChatData, snap);
-          checkForPendings(snap.key, snap); // <-- Check
-        });
-        myView.appendChild(button);
+              myChatData.innerText = snap.val().titleDescription;
 
-    } else {
-      // To be continued...
-    }
-      // End of segment
+              makeEventDisplay(myChatData, snap);
+              checkForPendings(snap.key, snap); // <-- Check
+            });
+            myView.appendChild(button);
+
+        } else {
+          // To be continued...
+        }
+          // End of segment
+      });
+
+      myRef.on('child_changed', snap => { // <-- Check
+        makeEventDisplay(myChatData, snap),
+        checkForPendings(snap.key, snap);
+      });
+  // Do a whole bunch of stuff here?
+
+
+
   });
 
-  myRef.on('child_changed', snap => { // <-- Check
-    makeEventDisplay(myChatData, snap),
-    checkForPendings(snap.key, snap);
-  });
+  console.log("past check..", currentSessionID2);
+
+  // myRef.on('value', snap => {
+  //
+  //   console.log("comparing..." + snap.key + currentSessionID2);
+  //
+  //   // if(snap.val().creator === person.uid) {
+  //   if(snap.key == currentSessionID2) {
+  //
+  //     // Creating the buttons to further load chat data:
+  //       var container = document.createElement('div');
+  //       container.innerHTML = FriendlyChat.CHAT_TEMPLATE;
+  //       let button = container.firstChild;
+  //       button.setAttribute('id', snap.key);
+  //       button.innerHTML = snap.val().titleDescription;
+  //       // let myReset = this.newChatPopup;
+  //
+  //       // Setting the events for when chat-thread button is clicked.
+  //       button.addEventListener('click', function(){
+  //
+  //         // Resetting error messages and forms:
+  //         // myReset.setAttribute("hidden", "true");
+  //         myViewMessageList.innerText = '';
+  //
+  //         myChatData.innerText = snap.val().titleDescription;
+  //
+  //         makeEventDisplay(myChatData, snap);
+  //         checkForPendings(snap.key, snap); // <-- Check
+  //       });
+  //       myView.appendChild(button);
+  //
+  //   } else {
+  //     // To be continued...
+  //   }
+  //     // End of segment
+  // });
+  //
+  // myRef.on('child_changed', snap => { // <-- Check
+  //   makeEventDisplay(myChatData, snap),
+  //   checkForPendings(snap.key, snap);
+  // });
 };
 
  FriendlyChat.prototype.getSession = function() {
     var myRef = firebase.database().ref('session/' + person.uid);
     //gets the session of the current user
-    var y;
-    myRef.on("value", function(data) {
-      console.log("Inside once",y=data.val().current_dowhop);
-      return y;})
-    console.log("Outside once",y);
+    // var y;
+
+    // myRef.once('value').then(function(snapshot) {
+    //   currentSessionID = snapshot.val().current_dowhop;
+    // });
+    //
+    // return currentSessionID;
+    myRef.once("value", function(data) {
+      console.log("Inside once", currentSessionID = data.val().current_dowhop);
+      return currentSessionID;});
+    // console.log("Outside once",currentSessionID);
   }
 
 // Loads messages history and listens for upcoming ones:
@@ -599,6 +664,8 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
     // We want to save currently signed-in user.
     this.saveUser();
 
+    // Add event listener for event session changes:
+    this.getSession(currentSessionID);
     // We save the Firebase Messaging Device token and enable notifications.
     this.saveMessagingDeviceToken();
   } else { // User is signed out!
