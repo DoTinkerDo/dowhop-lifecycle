@@ -1,10 +1,16 @@
 //Code cobled together by Erik, working off code created by DoWhop
 //form submission
+
 document.getElementById("submit").addEventListener("click", createDoWhop);
+
 var rootRef = firebase.database().ref("users/");
 var rootRefEvents = firebase.database().ref("doWhops/"); // <-- New
+
 document.getElementById('whenDate').setAttribute("value", getDate());
 //Should refactor below later, for more efficient and concise code
+
+// Hiding the forms by default unless admin is noted otherwise:
+// document.getElementById("admin-input-form").setAttribute("hidden", "true");
 
 Array.from(document.getElementsByClassName("plus-button")).forEach(function(e){
   e.addEventListener("click", function() {
@@ -15,7 +21,6 @@ Array.from(document.getElementsByClassName("plus-button")).forEach(function(e){
         self.classList.add("fa-minus-circle")
         self.parentElement.parentElement.parentElement.nextSibling.nextSibling.childNodes.forEach(function(c, self) {
           if(c.nodeName!="#text") {
-            //
             c.classList.add("slideDown")
             c.classList.remove("slideUp")
           }
@@ -68,7 +73,16 @@ Array.from(document.getElementsByClassName("img_icon")).forEach(function(e){
 //   document.getElementById("underbar_options").innerHTML="<span>Time:</span><input type='time' id='whenTime' size='50'>"
 // })
 
+
+var adminDiv = document.getElementById("admin-input-form");
+adminDiv.style.display = 'none';
+
 function createDoWhop(data, clearForm) {
+
+  // Checking for user's admin status <-- CHECK. 
+  person.email === 'tinkerdowhop@gmail.com' || 'omaralimalik@gmail.com' ? 
+    adminDiv.style.display = 'block' : 
+    adminDiv.style.display = 'none';
 
   // I collect form data and clear it
   var creator = firebase.auth().currentUser.uid
@@ -155,7 +169,9 @@ function createDoWhop(data, clearForm) {
     whenImage: data.whenImage,
     howmuchDescription: data.howmuchDescription,
     howmuchCost: data.howmuchCost,
-    howmuchImage: data.howmuchImage
+    howmuchImage: data.howmuchImage,
+    doer: data.doerEmail || "none",
+    host: data.hostEmail || "none"
   }
 
     rootRefEvents.push(newEvent);
@@ -236,8 +252,8 @@ function queryData() {
       var content = document.getElementById("user-list-wrap");
       content.innerHTML = "";
       snapshot.forEach(function(data) {
-        //<p>Email: <span>' + data.val().email  +'</span></p>
-        if(data.val().creator===person.uid){
+        //<p>Email: <span>' + data.val().email  +'</span></p> // Check below.
+        if((data.val().creator===person.uid) || (data.val().doer===person.email) || (data.val().host===person.email)){
           content.innerHTML +=
             '<div class="user-list__item" onclick="sessionRef(this)"><div hidden id="'+ data.key + '"></div>'+
             '<h4>DoWhop Title: <span>' +

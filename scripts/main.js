@@ -97,6 +97,7 @@ function FriendlyChat() {
   this.checkSetup();
 
   // Shortcuts to DOM Elements.
+  this.adminDiv = document.getElementById('admin-input-form'); // Check.
   this.messageList = document.getElementById('messages');
   this.messageForm = document.getElementById('message-form');
   this.messageInput = document.getElementById('message');
@@ -177,6 +178,19 @@ FriendlyChat.prototype.initFirebase = function() {
   this.storage = firebase.storage();
   // Initiates Firebase auth and listen to auth state changes.
   this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this));
+};
+
+FriendlyChat.prototype.checkForAdmin = function() { // CHECK.
+
+  var adminDiv = document.getElementById("admin-input-form");
+
+  // if(person.email === ("XXXX@gmail.com") {
+  //   console.log("person's email passed: ", person.email);
+  //   adminDiv.removeAttribute("hidden");
+  // } else {
+  //   adminDiv.setAttribute("hidden","true");
+  // }
+
 };
 
 FriendlyChat.prototype.sendApproval = function(e) {
@@ -292,7 +306,7 @@ FriendlyChat.prototype.loadChats = function() {
       pendingDiv.removeAttribute('hidden');
 
       // This means visiting user is the creator of event:
-      if (firebase.auth().currentUser.uid == data.val().creator) {
+      if (firebase.auth().currentUser.uid == data.val().creator || (person.email == data.val().host)) { // <--Check
           console.log("visiting user is the creator. showing approval form, hiding rescind form.")
           pendingNotification = "Someone has requested this change.\nDo you want to approve it?"
           pendingDiv.innerText = pendingNotification + "\nPending time: " + data.val().pending.whenDatePending + " at " + data.val().pending.whenTimePending +
@@ -654,6 +668,9 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
 
     // Hide sign-in button.
     // this.signInButton.setAttribute('hidden', 'true');
+    // We are checking if user is admin:
+
+    this.checkForAdmin(); // CHECK.
 
     // We want to reset the page and load currently existing threads:
     this.loadChats();
