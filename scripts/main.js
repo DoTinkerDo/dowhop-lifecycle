@@ -292,13 +292,13 @@ FriendlyChat.prototype.loadChats = function() {
 
     item.innerHTML =
 
-          "<section id='" + snap.key + "' class='current-event-block'>" +
+          "<section id='" + snap.key + "' class='col-sm-6 col-xs-12 dowhop-selector-block'>" +
 
-              "<div class='current-event-header' style='background-image: url(" + imageUrl + ");'>" +
+              "<div class='dowhop-selector-header' style='background-image: url(" + imageUrl + ");'>" +
                 "<h1>" + snap.val().titleDescription + "</h1>" +
               "</div>" +
 
-              "<div class='current-event-body'>" +
+              "<div class='dowhop-selector-body'>" +
                 "<h3>" + snap.val().whatDescription + "</h3>" +
                 "<h5>When?</h5>" +
                 "<p>" + snap.val().whenDate + ' at ' + snap.val().whenTime +
