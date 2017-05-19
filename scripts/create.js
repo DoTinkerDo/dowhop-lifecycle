@@ -79,9 +79,9 @@ adminDiv.style.display = 'none';
 
 function createDoWhop(data, clearForm) {
 
-  // Checking for user's admin status <-- CHECK. 
-  person.email === 'tinkerdowhop@gmail.com' || 'omaralimalik@gmail.com' ? 
-    adminDiv.style.display = 'block' : 
+  // Checking for user's admin status <-- CHECK.
+  person.email === 'tinkerdowhop@gmail.com' || 'omaralimalik@gmail.com' ?
+    adminDiv.style.display = 'block' :
     adminDiv.style.display = 'none';
 
   // I collect form data and clear it
@@ -254,21 +254,27 @@ function queryData() {
       snapshot.forEach(function(data) {
         //<p>Email: <span>' + data.val().email  +'</span></p> // Check below.
         if((data.val().creator===person.uid) || (data.val().doer===person.email) || (data.val().host===person.email)){
+          let imageUrl = 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
           content.innerHTML +=
-            '<div class="user-list__item" onclick="sessionRef(this)"><div hidden id="'+ data.key + '"></div>'+
-            '<h4>DoWhop Title: <span>' +
-            data.val().titleDescription +
-            "</span></h4><h4>Who: <span>" +
-            data.val().whoDescription +
-            "</span></h4><h4>What: <span>" +
-            data.val().whatDescription +
-            "</span></h4><h4>When: <span>" +
-            data.val().whereDescription +
-            "</span></h4><h4>Where: <span>" +
-            data.val().whenDescription +
-            "</span></h4><h4>$: <span>" +
-            data.val().howmuchCost  +
-            "</h4></div><br>";
+
+          "<section id='" + data.key + "' class='current-event-block' onclick='sessionRef(this)''>" +
+
+              "<div class='current-event-header' style='background-image: url(" + imageUrl + ");'>" +
+                "<h1>" + data.val().titleDescription + "</h1>" +
+              "</div>" +
+
+              "<div class='current-event-body'>" +
+                "<h3>" + data.val().whatDescription + "</h3>" +
+                "<h6>Click  to load messages.</h6>" +
+                "<h5>When?</h5>" +
+                "<p>" + data.val().whenDate + ' at ' + data.val().whenTime +
+                " " + data.val().whenDescription + "</p>" +
+                "<h5>Where?</h5>" +
+                "<p>" + data.val().whereDescription + " " + data.val().whereAddress + "</p>" +
+                "<h5>What else?</h5>" +
+                "<p>" + data.val().howmuchDescription + ' ' + data.val().howmuchCost +
+            "</div>" +
+          "</section>"
         }
       });
     },
@@ -339,7 +345,7 @@ function hideAll(underbar_options){
 
 function sessionRef(node){
   fillInForms(node) //didn't put the code in here cuz it's not *strictly* about the sessions references
-    firebase.database().ref().child('session/' + person.uid).set({current_dowhop: node.firstElementChild.id})
+    firebase.database().ref().child('session/' + person.uid).set({current_dowhop: node.id})
   //Curretly overwrites everything else in the session, even if you're NOT storing a current_dowhop
 }
 
