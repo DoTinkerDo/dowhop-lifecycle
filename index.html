@@ -60,8 +60,9 @@
 
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-  <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+  
+  <!-- Initialize Firebase app -->
+  <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
   <script>
     var config = {
       apiKey: "AIzaSyB95x1zEsSkXfaDgOVdTw7ESavk9O9geN0",
@@ -73,15 +74,21 @@
     };
     firebase.initializeApp(config);
   </script>
+  <!-- Firebase UI for Web Auth -->
+  <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script>
+  <link rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" />
 </head>
 
 <body>
 
+  
+  
   <!-- Login screen -->
   <section id="login-page">
     <h3 class="login-page-title">Login</h3>
     <div class=login-container>
-      <div class="email-login-conainer vertical-divider">
+     <div id="firebaseui-auth-container"></div>
+<!--       <div class="email-login-conainer vertical-divider">
         <div>Email login coming soon here</div>
       </div>
       <div class="divider"></div>
@@ -92,17 +99,19 @@
         <button id="login-button-ggl" class="social-login ggl">
           <div class="ggl-login-text">Log in with Google+</div>
         </button>
-      </div>
+      </div> -->
     </div>
   </section>
 
   <section id="application-page">
-    <div class="tabs-container">
-      <ul class="tabs">
-        <li><a class="tab" href="#create" onclick="getSesh()"><span>✎</span></a></li>
-        <li><a class="tab" href="#coordinate" onclick="getSesh()">Coordinate</a></li>
-        <li><a class="tab" href="#review" onclick="getSesh()"><span>★</span></a></li>
-      </ul>
+    <div class="flex-wrapper">
+      <div class="tabs-container">
+        <ul class="tabs">
+          <li><a class="tab" href="#create" onclick="getSesh()"><span>✎</span></a></li>
+          <li><a class="tab" href="#coordinate" onclick="getSesh()">Coordinate</a></li>
+          <li><a class="tab" href="#review" onclick="getSesh()"><span>★</span></a></li>
+        </ul>
+      </div>
     </div>
 
     <aside class="dowhop-image-container">

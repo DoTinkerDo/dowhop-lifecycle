@@ -1,12 +1,27 @@
 "use strict";
 
-var loginButtonGGL = document.getElementById('login-button-ggl');
-var loginButtonFB = document.getElementById('login-button-fb');
-var loginPage = document.getElementById('login-page');
-var applicationPage = document.getElementById('application-page');
+var uiConfig = {
+'callbacks': {
+  'signInSuccess': function(user, credential, redirectUrl) {
+    handleSignedInUser(user);
+    // Do not redirect.
+    return false;
+  }
+},
+'signInFlow': 'popup',
+  signInSuccessUrl: '<url-to-redirect-to-on-success>',
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+    firebase.auth.EmailAuthProvider.PROVIDER_ID,
+  ]
+};
+
+var ui = new firebaseui.auth.AuthUI(firebase.auth());
+ui.start('#firebaseui-auth-container', uiConfig);
 
 function writeUserData(userId, name, email, photoURL, UID) {
-  firebase.database().ref('logged_in_users/' + userId).set({
+  firebase.database().ref('logged_users/' + userId).set({
     username: name,
     email: email,
     userUID: UID,
@@ -15,37 +30,30 @@ function writeUserData(userId, name, email, photoURL, UID) {
   });
 }
 
+var loginPage = document.getElementById('login-page');
+var applicationPage = document.getElementById('application-page');
+
+function handleSignedInUser(user) {
+  loginPage.style.display = 'none';
+  applicationPage.style.display = 'block';
+  writeUserData(user.uid, user.displayName, user.email, user.photoURL, user.uid);
+  console.log('user signed in -> ', user.uid);
+}
+
+function handleSignedOutUser() {
+  loginPage.style.display = 'block';
+  applicationPage.style.display = 'none';
+  ui.start('#firebaseui-auth-container', uiConfig);
+  console.log('user signed out');
+}
+
 window.addEventListener('load', function() {
-
-  loginButtonGGL.addEventListener('click', function() {
-    var googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(googleAuthProvider).then(function(result) {
-      location.reload();
-      console.log('GGL login button pressed', result.user);
-    });
-  });
-
-  loginButtonFB.addEventListener('click', function() {
-    var facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
-    firebase.auth().signInWithPopup(facebookAuthProvider).then(function(result) {
-      location.reload();
-      console.log('FB login button pressed', result.user);
-    });
-  });
-
   firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      loginPage.style.display = 'none';
-      applicationPage.style.display = 'block';
-      writeUserData(user.uid, user.displayName, user.email, user.photoURL, user.uid);
-      console.log('user signed in: ');
-    } else {
-      loginPage.style.display = 'block';
-      applicationPage.style.display = 'none'
-      console.log('user signed out');
-    }
+    user ? handleSignedInUser(user) : handleSignedOutUser();
   });
 }, false);
+
+// legacy code...
 
 var auth = firebase.auth();
 var googleAuthProvider = new firebase.auth.GoogleAuthProvider();
