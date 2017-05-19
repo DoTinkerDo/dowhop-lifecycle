@@ -57,6 +57,7 @@
   <link rel="stylesheet" href="styles/main.428896f6.css">
   <link rel="stylesheet" href="styles/main.css"><!--Catch-all stylings-->
   <link rel="stylesheet" href="styles/tab-styles.css">
+  <link rel="stylesheet" href="styles/dowhop-selector-style.css">
 
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -107,7 +108,8 @@
 
     <aside class="dowhop-image-container">
       <div>
-        <img style="width: 25%; height: auto; padding: 10px" src="https://static.wixstatic.com/media/de271e_e1411466fdd5402db26a6b25eb6d0d55~mv2.png/v1/fill/w_630,h_354,al_c/de271e_e1411466fdd5402db26a6b25eb6d0d55~mv2.png" alt="DoWhop title description">
+        <div id="dowhop-selector-container"></div>
+        <!-- <img style="width: 25%; height: auto; padding: 10px" src="https://static.wixstatic.com/media/de271e_e1411466fdd5402db26a6b25eb6d0d55~mv2.png/v1/fill/w_630,h_354,al_c/de271e_e1411466fdd5402db26a6b25eb6d0d55~mv2.png" alt="DoWhop title description"> -->
       </div>
     </aside>
 
@@ -136,7 +138,7 @@
                 </div>
               </div>
               <div class="underbar_options" data-openoption="">
-                
+
               </div>
             </div>
 
@@ -304,23 +306,24 @@
       </div> <!-- Close Wrap -->
     </div> <!-- Close Panel tab -->
 
-    
+
     <!-- Coordinate app -->
     <div id="coordinate" class="panel">
 
-      <main class="mdl-layout__content mdl-color--grey-100">
+      <main class="">
       <!-- Chat threads container -->
       <div id='container-box'>
         <div id="chat-list-container" class="form-wrap">
           <h3>My Event Chats</h3>
+          <h6>Click to load messages.</h6>
           <ul id="chat-list">
             <!--New chat-thread (button) items shall go here-->
           </ul>
         </div>
 
-        <div id="show-chat-data-form" class="form-wrap">
+        <!-- <div id="show-chat-data-form" class=""> -->
           <div id="show-chat-data">Your DoWhop details will appear here!
-          </div>
+          <!-- </div> -->
           <!-- These are the hidden pending notifications -->
           <div id='pending-div-container' class='pending-notification'>
             <p id='pending-div'></p>
@@ -337,7 +340,7 @@
           </div>
         </div>
 
-        <div id="messages-card-container"  class="form-wrap">
+        <div id="messages-card-container"  class="form-wrap col-sm-12 col-xs-12">
           <!-- Messages container -->
           <div id="messages-card">
               <div id="messages">
@@ -403,7 +406,7 @@
     <div id="review" class="panel"></div>
 
   </section>
- 
+
   <!-- <script src="scripts/jquery.js"></script> --> <!-- Commented out to stop error in console  -->
   <script src="scripts/auth.js"></script>
   <script src="scripts/tabs.js"></script>

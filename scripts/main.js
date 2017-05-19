@@ -281,18 +281,34 @@ FriendlyChat.prototype.loadChats = function() {
   var pendingDiv = this.pendingDiv;
   var myApprovalForm = this.approvalForm;
   var myRescindingForm = this.rescindingForm;
-  // var myReset = this.newChatPopup;
+
+  // CHECK. We are going to add dynamic images, like so:  imageUrl2 = this.storage().ref();
 
   var makeEventDisplay = function(item, snap) {
-    item.innerHTML = "<h3 id='" + snap.key + "'>" + snap.val().whatDescription + '</h3>' +
-            "<p>Click  to load messages.</p>" +
-            "<h5>When?</h5>" +
-            "<p>" + snap.val().whenDate + ' for ' + snap.val().whenTime +
-            " " + snap.val().whenDescription + "</p>" +
-            "<h5>Where?</h5>" +
-            "<p>" + snap.val().whereDescription + " " + snap.val().whereAddress + "</p>" +
-            "<h5>How much?</h5>" +
-            "<p>" + snap.val().howmuchDescription + ' : ' + snap.val().howmuchCost
+
+    let imageUrl;
+
+    imageUrl = 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+
+    item.innerHTML =
+
+          "<section id='" + snap.key + "' class='col-sm-6 col-xs-12 dowhop-selector-block'>" +
+
+              "<div class='dowhop-selector-header' style='background-image: url(" + imageUrl + ");'>" +
+                "<h1>" + snap.val().titleDescription + "</h1>" +
+              "</div>" +
+
+              "<div class='dowhop-selector-body'>" +
+                "<h3>" + snap.val().whatDescription + "</h3>" +
+                "<h5>When?</h5>" +
+                "<p>" + snap.val().whenDate + ' at ' + snap.val().whenTime +
+                " " + snap.val().whenDescription + "</p>" +
+                "<h5>Where?</h5>" +
+                "<p>" + snap.val().whereDescription + " " + snap.val().whereAddress + "</p>" +
+                "<h5>What else?</h5>" +
+                "<p>" + snap.val().howmuchDescription + ' ' + snap.val().howmuchCost +
+            "</div>" +
+          "</section>"
   };
 
   var checkForPendings = function(id, data) {
@@ -436,17 +452,46 @@ FriendlyChat.prototype.loadChats = function() {
 
  FriendlyChat.prototype.getSession = function() {
     var myRef = firebase.database().ref('session/' + person.uid);
-    //gets the session of the current user
-    // var y;
+    var dowhopSelector = document.getElementById('dowhop-selector-container');
 
-    // myRef.once('value').then(function(snapshot) {
-    //   currentSessionID = snapshot.val().current_dowhop;
-    // });
-    //
-    // return currentSessionID;
-    myRef.once("value", function(data) {
+    myRef.on("value", function(data) {
+
+      var dowhopSelector = document.getElementById('dowhop-selector-container');
+      var dowhopSelectorDiv = "";
+
       console.log("Inside once", currentSessionID = data.val().current_dowhop);
-      return currentSessionID;});
+
+      firebase.database().ref().child('doWhops/' + data.val().current_dowhop)
+        .on('value', function(data) {
+
+          //  TO-DO: refactor using makeEventDisplay.
+          let imageUrl;
+
+          imageUrl = 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+
+          return dowhopSelectorDiv +=
+          "<section id='" + data.key + "' class='col-sm-12 col-xs-12 dowhop-selector-block' onclick='sessionRef(this)''>" +
+
+              "<div class='dowhop-selector-header' style='background-image: url(" + imageUrl + ");'>" +
+                "<h1>" + data.val().titleDescription + "</h1>" +
+              "</div>" +
+            // We only need the header portion of this data. TO-DO: Refacator.
+            //   "<div class='dowhop-selector-body'>" +
+            //     "<h3>" + data.val().whatDescription + "</h3>" +
+            //     "<h5>When?</h5>" +
+            //     "<p>" + data.val().whenDate + ' at ' + data.val().whenTime +
+            //     " " + data.val().whenDescription + "</p>" +
+            //     "<h5>Where?</h5>" +
+            //     "<p>" + data.val().whereDescription + " " + data.val().whereAddress + "</p>" +
+            //     "<h5>What else?</h5>" +
+            //     "<p>" + data.val().howmuchDescription + ' ' + data.val().howmuchCost +
+            // "</div>" +
+          "</section>"
+
+         });
+
+       dowhopSelector.innerHTML = dowhopSelectorDiv;
+    });
     // console.log("Outside once",currentSessionID);
   }
 
