@@ -352,7 +352,7 @@ function fillInForms(node){
   rootRefEvents.orderByKey().on("value",
     function(snapshot) {
       snapshot.forEach(function(data) {
-        if(data.key===node.firstElementChild.id){
+        if(data.key===node.id){
           document.getElementById("email").value = data.val().email;
           document.getElementById("titleDescription").value = data.val().titleDescription;
           document.getElementById("titleImage").innerHTML = data.val().titleImage;
