@@ -281,27 +281,28 @@ FriendlyChat.prototype.loadChats = function() {
   var pendingDiv = this.pendingDiv;
   var myApprovalForm = this.approvalForm;
   var myRescindingForm = this.rescindingForm;
-  // var myReset = this.newChatPopup;
+
+  // CHECK. We are going to add dynamic images, like so:  imageUrl2 = this.storage().ref();
 
   var makeEventDisplay = function(item, snap) {
 
     let imageUrl;
 
-    imageUrl = snap.val().whatImage || 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+    imageUrl = 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
 
     item.innerHTML =
 
           "<section id='" + snap.key + "' class='current-event-block'>" +
 
-              "<div class='current-event-header' style='background-image: url(" + imageUrl + ");'" +
-                "<h1 id='" + snap.val().titleDescription + '</h1>' +
-                "<h2>" + snap.val().whatDescription + "</h2>" +
+              "<div class='current-event-header' style='background-image: url(" + imageUrl + ");'>" +
+                "<h1>" + snap.val().titleDescription + "</h1>" +
               "</div>" +
 
               "<div class='current-event-body'>" +
-                "<p>Click  to load messages.</p>" +
+                "<h3>" + snap.val().whatDescription + "</h3>" +
+                "<h6>Click  to load messages.</h6>" +
                 "<h5>When?</h5>" +
-                "<p>" + snap.val().whenDate + ' for ' + snap.val().whenTime +
+                "<p>" + snap.val().whenDate + ' at ' + snap.val().whenTime +
                 " " + snap.val().whenDescription + "</p>" +
                 "<h5>Where?</h5>" +
                 "<p>" + snap.val().whereDescription + " " + snap.val().whereAddress + "</p>" +
