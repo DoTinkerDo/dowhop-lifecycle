@@ -265,7 +265,6 @@ function queryData() {
 
               "<div class='current-event-body'>" +
                 "<h3>" + data.val().whatDescription + "</h3>" +
-                "<h6>Click  to load messages.</h6>" +
                 "<h5>When?</h5>" +
                 "<p>" + data.val().whenDate + ' at ' + data.val().whenTime +
                 " " + data.val().whenDescription + "</p>" +

@@ -300,7 +300,6 @@ FriendlyChat.prototype.loadChats = function() {
 
               "<div class='current-event-body'>" +
                 "<h3>" + snap.val().whatDescription + "</h3>" +
-                "<h6>Click  to load messages.</h6>" +
                 "<h5>When?</h5>" +
                 "<p>" + snap.val().whenDate + ' at ' + snap.val().whenTime +
                 " " + snap.val().whenDescription + "</p>" +

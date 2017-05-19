@@ -18,10 +18,8 @@
   margin: 5%;
 }
 
-/* For notification-style messages */
-.current-event-block h6 {
-  display: flex;
-  justify-content: center;
+.current-event-block:hover {
+  opacity: 0.5;
 }
 
 .current-event-header {
