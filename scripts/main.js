@@ -452,10 +452,7 @@ FriendlyChat.prototype.loadChats = function() {
 
  FriendlyChat.prototype.getSession = function() {
     var myRef = firebase.database().ref('session/' + person.uid);
-    // let x = firebase.database().ref().child('doWhops/' + data.val().current_dowhop);
-
     var dowhopSelector = document.getElementById('dowhop-selector-container');
-    var dowhopSelectorTitle;
 
     myRef.on("value", function(data) {
 
