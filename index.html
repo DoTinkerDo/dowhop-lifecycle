@@ -61,7 +61,7 @@
 
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  
+
   <!-- Initialize Firebase app -->
   <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
   <script>
@@ -82,11 +82,13 @@
 
 <body>
 
-  
-  
+
+
   <!-- Login screen -->
   <section id="login-page">
-    <h3 class="login-page-title">Login</h3>
+    <div class="login-page-title">
+      <h2>Log In</h2> <h4> Confirm your information to view your DoWhops </h4>
+    </div>
     <div class=login-container>
      <div id="firebaseui-auth-container"></div>
 <!--       <div class="email-login-conainer vertical-divider">
@@ -117,13 +119,21 @@
 
     <aside class="dowhop-image-container">
       <div>
-        <div id="dowhop-selector-container"></div>
+        <img id="dowhop-selector-image"></img>
+        <div id="dowhop-selector-container">
+        </div>
         <!-- <img style="width: 25%; height: auto; padding: 10px" src="https://static.wixstatic.com/media/de271e_e1411466fdd5402db26a6b25eb6d0d55~mv2.png/v1/fill/w_630,h_354,al_c/de271e_e1411466fdd5402db26a6b25eb6d0d55~mv2.png" alt="DoWhop title description"> -->
       </div>
     </aside>
 
     <div id="create" class="panel">
       <div class="wrap">
+        <!--show what the user put in by displaying user list wrap-->
+        <div class="user-list">
+          <h2>DoWhops in Planning</h2>
+          <div id="user-list-wrap"></div>
+        </div> <!-- Close Form wrap -->
+
         <div class="form-wrap">
 
           <h2>Whop will you do?</h2>
@@ -306,12 +316,6 @@
             <div id="error" class="form-error"></div>
           </form>
         </div>
-
-        <!--show what the user put in by displaying user list wrap-->
-        <div class="user-list">
-          <h2>DoWhops in Planning</h2>
-          <div id="user-list-wrap"></div>
-        </div> <!-- Close Form wrap -->
       </div> <!-- Close Wrap -->
     </div> <!-- Close Panel tab -->
 

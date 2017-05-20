@@ -467,7 +467,22 @@ FriendlyChat.prototype.loadChats = function() {
           //  TO-DO: refactor using makeEventDisplay.
           let imageUrl;
 
-          imageUrl = 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+          imageUrl = 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp'
+          // imageUrl =  data.val().titleImage || data.val().whereImage || data.val().whenImage; <-- TO-DO.
+
+          console.log("Looking for image here...", imageUrl);
+
+          // TO-DO: retrieve information dynamically from image storage space:
+          // firebase.storage().ref().child(imageUrl).getDownloadURL().then(function(url) {
+          //   console.log("URL retrieved to look at...inside", url);
+          //
+          //   // var divImg = document.createElement("div"); // <-- Alternative method.
+          //     // divImg.style.backgroundImage.src = url;
+          //         // return divImg;
+          //   document.getElementById("dowhop-selector-image").src = url;
+          //
+          //   return imageUrl = url;
+          // });
 
           return dowhopSelectorDiv +=
           "<section id='" + data.key + "' class='col-sm-12 col-xs-12 dowhop-selector-block' onclick='sessionRef(this)''>" +
@@ -475,7 +490,8 @@ FriendlyChat.prototype.loadChats = function() {
               "<div class='dowhop-selector-header' style='background-image: url(" + imageUrl + ");'>" +
                 "<h1>" + data.val().titleDescription + "</h1>" +
               "</div>" +
-            // We only need the header portion of this data. TO-DO: Refacator.
+
+            // We only need the header portion of this data. TO-DO: Factor out.
             //   "<div class='dowhop-selector-body'>" +
             //     "<h3>" + data.val().whatDescription + "</h3>" +
             //     "<h5>When?</h5>" +
@@ -489,10 +505,8 @@ FriendlyChat.prototype.loadChats = function() {
           "</section>"
 
          });
-
        dowhopSelector.innerHTML = dowhopSelectorDiv;
     });
-    // console.log("Outside once",currentSessionID);
   }
 
 // Loads messages history and listens for upcoming ones:

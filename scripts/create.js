@@ -294,9 +294,10 @@ function handleFile(files_arr, node) {
     return;
   }
 
-  var filePath = firebase.auth().currentUser.uid+"/"+imagified+"/"+file.name
+  var filePath = "dowhopImages"+"/" + firebase.auth().currentUser.uid+"/"+imagified+"/"+file.name
   //filePath should be <user_id>/<form_id>/<file_name>, but we're going to just hack it together for now
   return firebase.storage().ref(filePath).put(file).then(function(snapshot, node){
+    console.log("Saving photo here...", snapshot.downloadURL); // CHECK
     var fullPath = snapshot.metadata.fullPath;
     //snapshot.metadata.downloadURLs[0] <-- Gets the viewable image link
     document.getElementById(fullPath.split("/")[1]).innerHTML = fullPath
