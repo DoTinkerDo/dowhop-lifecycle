@@ -422,6 +422,16 @@
   <script src="scripts/create.js"></script>
   <script src="scripts/main.js"></script>
   <script src="scripts/main.224fb9ad.js"></script>
+  <script>
+    window.addEventListener('load', function() {
+      var btnSpan = document.querySelectorAll('.firebaseui-idp-text-long');
+        if (btnSpan) {
+        btnSpan[0].innerHTML = 'Login with Google';
+        btnSpan[1].innerHTML = 'Login with Facebook';
+        btnSpan[2].innerHTML = 'Login with Email';
+      }
+    });
+  </script>
   </body>
 </html>
 
