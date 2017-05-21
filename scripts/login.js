@@ -17,27 +17,26 @@
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
     ]
   };
-
-  var ui = new firebaseui.auth.AuthUI(firebase.auth());
+  var ui = new firebaseui.auth.AuthUI(auth);
   ui.start('#firebaseui-auth-container', uiConfig);
-
-  function writeUserData(userId, name, email, photoURL, UID) {
-    firebase.database().ref('logged_users/' + userId).set({
-      username: name,
-      email: email,
-      userUID: UID,
-      photoURL: photoURL,
-      UID: UID
-    });
-  }
 
   var loginPage = document.getElementById('login-container');
   var applicationPage = document.getElementById('application-container');
+  var appUsersRef = database.ref('/app_users');
+
+  function writeUserData(user) {
+    var appUserRef = appUsersRef.child(user.uid);
+    appUserRef.once('value').then(function(snapshot) {
+      if (snapshot.val()) return;
+      var userData = _.pick(user, ['displayName', 'photoURL', 'uid', 'email']);
+      appUserRef.set(userData);
+    });  
+  }
 
   function handleSignedInUser(user) {
     loginPage.style.display = 'none';
     applicationPage.style.display = 'block';
-    writeUserData(user.uid, user.displayName, user.email, user.photoURL, user.uid);
+    writeUserData(user);
     console.log('USER SIGNED IN WITH USER.UID -> ', user.uid);
   }
 
@@ -49,21 +48,16 @@
   }
 
   function handleOnAuthStateChange() {
-    firebase.auth().onAuthStateChanged(function(user) {
+    auth.onAuthStateChanged(function(user) {
       user ? handleSignedInUser(user) : handleSignedOutUser();
     });
   }
 
-  window.addEventListener('load', handleOnAuthStateChange, false);
-
+  window.addEventListener('load', handleOnAuthStateChange);
 }) ();
 
 
-// legacy code...
-
-var auth = firebase.auth();
-var googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-
+// setting currentUser globals...
 var person = null;
 auth.onAuthStateChanged(function(user) {
   if (user) {
