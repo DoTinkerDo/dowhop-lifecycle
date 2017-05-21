@@ -82,38 +82,26 @@
 
 <body>
 
-  
-  
-  <!-- Login screen -->
-  <section id="login-page">
+  <!-- Login splash screen -->
+  <section id="login-container">
     <div class="login-page-title">
       <h2>Log In</h2>
       <h4> Confirm your information to view your DoWhops</h4>
     </div>
     <div class=login-container>
-     <div id="firebaseui-auth-container"></div>
-<!--       <div class="email-login-conainer vertical-divider">
-        <div>Email login coming soon here</div>
-      </div>
-      <div class="divider"></div>
-      <div class="social-login-container">
-        <button id="login-button-fb" class="social-login fb">
-          <div class="fb-login-text">Log in with Facebook</div>
-        </button>
-        <button id="login-button-ggl" class="social-login ggl">
-          <div class="ggl-login-text">Log in with Google+</div>
-        </button>
-      </div> -->
+      <div id="firebaseui-auth-container"></div>
     </div>
   </section>
-
-  <section id="application-page">
+  
+  <!-- Application Container -->
+  <section class="hide-component" id="application-container">
     <div class="flex-wrapper">
       <div class="tabs-container">
         <ul class="tabs">
           <li><a class="tab" href="#create" onclick="getSesh()"><span>✎</span></a></li>
           <li><a class="tab" href="#coordinate" onclick="getSesh()">Coordinate</a></li>
           <li><a class="tab" href="#review" onclick="getSesh()"><span>★</span></a></li>
+          <li><a class="btn-logout" href="#" onclick="firebase.auth().signOut()"><span>Log Out</span></a></li>
         </ul>
       </div>
     </div>
@@ -417,23 +405,28 @@
     <!-- review app  -->
     <div id="review" class="panel"></div>
 
-  </section>
+  </section> <!-- End Application Container -->
 
   <!-- <script src="scripts/jquery.js"></script> --> <!-- Commented out to stop error in console  -->
-  <script src="scripts/auth.js"></script>
+  <script src="scripts/login.js"></script>
   <script src="scripts/tabs.js"></script>
   <script src="scripts/create.js"></script>
   <script src="scripts/main.js"></script>
   <script src="scripts/main.224fb9ad.js"></script>
   <script>
-    window.addEventListener('load', function() {
-      var btnSpan = document.querySelectorAll('.firebaseui-idp-text-long');
-        if (btnSpan) {
-        btnSpan[0].innerHTML = 'Login with Google';
-        btnSpan[1].innerHTML = 'Login with Facebook';
-        btnSpan[2].innerHTML = 'Login with Email';
+    var btnLogOut = document.querySelector('.btn-logout');
+    function changeLoginText() {
+      var btnSpans = document.querySelectorAll('.firebaseui-idp-text-long');
+      if (btnSpans.length > 0) {
+        btnSpans[0].innerHTML = 'Login with Google';
+        btnSpans[1].innerHTML = 'Login with Facebook';
+        btnSpans[2].innerHTML = 'Login with Email';
+      } else {
+        console.log('NO LOGIN BUTTONS SELECTED');
       }
-    });
+    }
+    btnLogOut.addEventListener('click', changeLoginText);
+    window.addEventListener('load', changeLoginText);
   </script>
   </body>
 </html>
