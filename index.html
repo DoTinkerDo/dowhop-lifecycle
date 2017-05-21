@@ -54,30 +54,22 @@
 
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  
+  <link rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" /> <!-- Firebase UI CSS for Web Auth -->
   <link rel="stylesheet" href="styles/main.428896f6.css">
-  <link rel="stylesheet" href="styles/main.css"><!--Catch-all stylings-->
-  <link rel="stylesheet" href="styles/tab-styles.css">
+  <link rel="stylesheet" href="styles/main.css"> <!--Catch-all stylings-->
+  <link rel="stylesheet" href="styles/login-tabs-styles.css">
   <link rel="stylesheet" href="styles/dowhop-selector-style.css">
 
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   
-  <!-- Initialize Firebase app -->
-  <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
-  <script>
-    var config = {
-      apiKey: "AIzaSyB95x1zEsSkXfaDgOVdTw7ESavk9O9geN0",
-      authDomain: "dowhop-lifecycle.firebaseapp.com",
-      databaseURL: "https://dowhop-lifecycle.firebaseio.com",
-      projectId: "dowhop-lifecycle",
-      storageBucket: "dowhop-lifecycle.appspot.com",
-      messagingSenderId: "1090371045772"
-    };
-    firebase.initializeApp(config);
-  </script>
-  <!-- Firebase UI for Web Auth -->
-  <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script>
-  <link rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" />
+  <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>  <!-- Firebase library -->
+  <script src="scripts/firebase.js"></script> <!-- Initialize Firebase app -->
+
+  <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script> <!-- Lodash ._ -->
+  <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script> <!-- Firebase UI JS for Web Auth -->
+  
 </head>
 
 <body>
