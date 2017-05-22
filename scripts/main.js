@@ -196,7 +196,7 @@ FriendlyChat.prototype.checkForAdmin = function() { // CHECK.
 FriendlyChat.prototype.sendApproval = function(e) {
   e.preventDefault();
   var choice, newDate, newTime, newWhere
-  this.chatItemDataSpecific = document.getElementById("show-chat-data").children[0].id
+  this.chatItemDataSpecific = document.getElementById("dowhop-selector-container").children[0].id
   var myRef = this.database.ref().child('doWhops/' + this.chatItemDataSpecific);
   var myRefPending = this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending');
 
@@ -238,7 +238,7 @@ FriendlyChat.prototype.sendApproval = function(e) {
 FriendlyChat.prototype.sendRescind = function(e) {
   e.preventDefault();
   console.log("You have rescinded");
-  this.chatItemDataSpecific = document.getElementById("show-chat-data").children[0].id // <-- Refactor
+  this.chatItemDataSpecific = document.getElementById("dowhop-selector-container").children[0].id // <-- Refactor
   this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/').remove();
   // Send a notification to the user:
   window.alert("You have rescinded!");
@@ -520,7 +520,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
   e.preventDefault();
 
   // Mke sure this chat and message get sent to two appropriate places:
-  this.chatItemDataSpecific = document.getElementById("show-chat-data").children[0].id // <-- Refactor
+  this.chatItemDataSpecific = document.getElementById("dowhop-selector-container").children[0].id // <-- Refactor
 
   // Nesting the message content under chat-id node headings:
   var messagesChatsRef = this.messagesRef; // <-- Refactor?
