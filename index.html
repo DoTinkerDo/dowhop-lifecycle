@@ -103,6 +103,19 @@
         <div id="dowhop-selector-container"></div>
         <!-- <img style="width: 25%; height: auto; padding: 10px" src="https://static.wixstatic.com/media/de271e_e1411466fdd5402db26a6b25eb6d0d55~mv2.png/v1/fill/w_630,h_354,al_c/de271e_e1411466fdd5402db26a6b25eb6d0d55~mv2.png" alt="DoWhop title description"> -->
       </div>
+      <div id='pending-div-container' class='pending-notification'>
+        <p id='pending-div'></p>
+        <form hidden id='approve-pending-form' class='approval-form'>
+          <input id="radioApprove" type='radio' name='approval' value='approve'>Approve
+          <input id="radioDeny" type='radio' name='approval' value='deny'>Deny
+          <button id='submit-approval-button' type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect'>Send
+          </button>
+        </form>
+        <form hidden id='rescind-pending-form' class='approval-form'>
+          <button id='submit-rescind-button' type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect'>Rescind
+          </button>
+        </form>
+      </div>
     </div>
 
     <div id="create" class="panel">
@@ -318,7 +331,7 @@
           <div id="show-chat-data">
           <!-- </div> -->
           <!-- These are the hidden pending notifications -->
-          <div id='pending-div-container' class='pending-notification'>
+          <!-- <div id='pending-div-container' class='pending-notification'>
             <p id='pending-div'></p>
             <form hidden id='approve-pending-form' class='approval-form'>
               <input id="radioApprove" type='radio' name='approval' value='approve'>Approve
@@ -330,7 +343,7 @@
               <button id='submit-rescind-button' type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect'>Rescind
               </button>
             </form>
-          </div>
+          </div> -->
         </div>
 
         <div id="messages-card-container"  class="form-wrap col-sm-12 col-xs-12">
