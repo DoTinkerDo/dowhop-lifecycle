@@ -137,7 +137,7 @@ function FriendlyChat() {
   this.chatInputMap = document.getElementById('map')
 
   // Load chat data:
-  this.chatItemData = document.getElementById('show-chat-data');
+  this.chatItemData = document.getElementById('dowhop-selector-container');
   this.chatItemData.addEventListener('click', this.loadMessages.bind(this)); // <-- Developer: return to this.
   // this.getSession();
 
@@ -267,6 +267,7 @@ FriendlyChat.prototype.loadChats = function() {
   // First, make sure the view element is chosen:
   var myView = this.chatList;
   var myViewMessageList = this.messageList;
+
   // Second, make sure we have reference to the current user's data:
   var me = person;
   // var currentSessionID;
@@ -501,8 +502,9 @@ FriendlyChat.prototype.loadMessages = function() {
   var chatIdCurrent = this.chatItemData.firstChild.id // <-- Refactor
   this.messagesRef = this.database.ref().child('messages/' + chatIdCurrent);
 
-  // Make sure we remove all previous listeners.
+  // Make sure we remove all previous listeners and clear the UI.
   this.messagesRef.off();
+  this.messageList.innerText = '';
 
   // Loads the last x number of messages and listen for new ones:
   var setMessage = function(data) {
