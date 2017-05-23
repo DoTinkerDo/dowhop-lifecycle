@@ -185,6 +185,8 @@ FriendlyChat.prototype.sendApproval = function(e) {
   this.chatItemDataSpecific = document.getElementById("dowhop-selector-container").children[0].id
   var myRef = this.database.ref().child('doWhops/' + this.chatItemDataSpecific);
   var myRefPending = this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending');
+  var messagesRef = this.database.ref().child('messages/' + this.chatItemDataSpecific);
+  var status
 
   myRefPending.once('value', function(snap) {
     console.log("your suggested date is:\n")
@@ -197,19 +199,27 @@ FriendlyChat.prototype.sendApproval = function(e) {
   });
 
   if (this.radioApprove.checked) {
+    status = "approved";
     myRef.update({
       whenDate: newDate,
       whenTime: newTime,
       whereAddress: newWhere
     });
     this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/').update({
-    status: 'approved'
+    status: status
     });
   } else if (this.radioDeny.checked) {
+    status = "denied";
     this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/').update({
-    status: 'denied'
+    status: status
   });
   };
+  messagesRef.push({
+        chatId: this.chatItemDataSpecific,
+        name: "",
+        text: person.displayName + " has " + status + " the request.",
+        photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
+      });
 
   // Notify the user of a change here:
   window.alert("You have responded to the change request!");
