@@ -23,6 +23,7 @@ var whatDescription = document.getElementById('what-description');
 var whenDescription = document.getElementById('when-description');
 var whereDescription = document.getElementById('where-description');
 var howMuchDescription = document.getElementById('how-much-description');
+var divId = document.getElementById('card');
 
 var fullPath = null;
 
@@ -36,9 +37,9 @@ var fullPath = null;
           var div = document.createElement('div');
           div.innerHTML +=
 
-          "<section id='" + data.key + "' class='col-sm-12 col-xs-12 dowhop-selector-block' onclick='sessionRef(this)''>" +
+          "<section id='" + data.key + "' class='dowhop-selector-block' onclick='sessionRef(this)''>" +
 
-              "<div class='dowhop-selector-header' style='background-image: url(" + data.val().downloadURL + "); background-size: cover;'>" +
+              "<div class='dowhop-selector-header' style='background-image: url(" + data.val().downloadURL + "); background-size: contain;'>" +
                 "<h1>" + data.val().titleDescription + "</h1>" +
               "</div>" +
 
@@ -55,7 +56,7 @@ var fullPath = null;
           "</section>"
         // }
 
-          newDoWhopDiv.append(div);
+          divId.append(div);
       });
 
 
