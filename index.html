@@ -113,6 +113,7 @@
     <div id="newdowhop" class="panel">
       <div class="mdl-layout mdl-js-layout">
         <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--7-col" id="dowhop-placard"></div>
           <div class="mdl-cell mdl-cell--5-col">
             <form action="#">
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -145,16 +146,20 @@
               </button>
             </form>
           </div>
-          <div class="mdl-cell mdl-cell--7-col" id="dowhop-placard"></div>
         </div>
       </div>
     </div>
 
     <div id="create" class="panel">
-      <div class="wrap">
-        <div class="form-wrap">
+      <div class="mdl-layout mdl-js-layout">
+        <!--show what the user put in by displaying user list wrap-->
+        <div class="mdl-cell mdl-cell--7-col user-list">
+          <h2 class="mdl-title">My DoWhops in Planning</h2>
+          <div id="user-list-wrap"></div>
+        </div> <!-- Close Form wrap -->
+        <div class="mdl-cell mdl-cell--5-col form-wrap">
 
-          <h2>Whop will you do?</h2>
+          <h2 class="mdl-title">Whop will you do?</h2>
           <br>
           <span style=color:#ec1928;>Type "same" to keep that section as is.</span>
 
@@ -334,12 +339,6 @@
             <div id="error" class="form-error"></div>
           </form>
         </div>
-
-        <!--show what the user put in by displaying user list wrap-->
-        <div class="user-list">
-          <h2>DoWhops in Planning</h2>
-          <div id="user-list-wrap"></div>
-        </div> <!-- Close Form wrap -->
       </div> <!-- Close Wrap -->
     </div> <!-- Close Panel tab -->
 
