@@ -51,25 +51,17 @@
 <!--   <style>
     *, *:before, *:after {box-sizing: border-box;margin: 0;padding: 0;}html {height: 100%;background: #fff;}body {font-family: 'Avenir Light', Avenir Light, Avenir, sans-serif;min-width: 320px;}input, button {border: none;outline: none;background: none;font-family: 'Avenir Light', Avenir Light, Avenir, sans-serif;color: #606060;}header {text-align: center;padding-top: 10px;}header h1 {font-size: 24px;}.wrap {width: 100%;margin: 25px auto;padding: 0 30px;min-height: 60vh;}@media (min-width: 641px) {.wrap {display: flex;max-width: 900px;}}.form-wrap {width: 100%;padding: 30px 60px;background: #fff;text-align: center;}@media (min-width: 641px) {.form-wrap {flex: 1 0 50%;box-shadow: 0 8px 6px -6px #808080;}}.form-wrap h2 {text-align: center;font-size: 26px;color: #606060;}.form-wrap .form-line {margin: 40px 0 0 0;width: 100%;display: block;text-align: center;position: relative;}.form-wrap .form-line > span {color: #606060;text-transform: uppercase;display: inline-block;width: 100%;font-size: 12px;}.form-wrap .form-line input[type="text"], .form-wrap .form-line input[type="email"] {display: inline-block;width: 100%;margin-top: 6px;padding-bottom: 5px;font-size: 16px;border-bottom: 1px solid rgba(0,0,0,0.4);text-align: center;position: relative;}.form-error {color: #ec1928;font-size: 14px;padding-top: 15px;}.form-error.error--ok {color: #ec1928;}.bar {position: absolute;display: block;width: 100%;bottom: 0;left: 0;z-index: 10;}.bar:before, .bar:after {content: '';height: 2px;width: 0;bottom: 0px;position: absolute;background: #ec1928;transition: 0.2s ease all;}.bar:before {left: 50%;}.bar:after {right: 50%;}input:focus ~ .bar:before, input:focus ~ .bar:after {width: 50%;}.submit {display: inline-block;margin: 40px auto 0 auto;padding: 10px 50px;background: #ec1928;color: #fff;font-weight: 700;border-radius: 0px;font-size: 16px;cursor: pointer;transition: 0.2s ease all;}.submit2 {display: inline-block;margin: 40px auto 0 auto;padding: auto auto;background: #ec1928;color: #fff;font-weight: 700;border-radius: 0px;font-size: 16px;cursor: pointer;transition: 0.2s ease all;}.submit:hover, .submit2:hover {background: #fff;color: #ec1928;}.user-list {width: 100%;background: #fff;box-shadow: 0 8px 6px -6px #808080;padding: 30px 40px;border-top: 3px solid #cfd9df;}@media (min-width: 641px) {.user-list {flex: 1 0 50%;border-left: 3px solid #ededed;border-top: none;}}.user-list > h2 {text-align: center;font-size: 26px;padding-bottom: 30px;color: #606060;}.user-list__item {padding: 10px;border: 1px solid #ededed;border-radius: 3px;border-left: 3px solid #ec1928;margin-bottom: 10px;}.user-list__item h4, .user-list__item p {font-size: 14px;padding-bottom: 10px;color: #c0c0c0;font-size: 14px;}.user-list__item h4 span, .user-list__item p span {color: #606060;} #top-bar-dowhop{ display:none;} #hover-flag{ color: grey; background-color: red; transition: 0.8s ease all;} #hover-flag:hover { background-color: red; transition: 0.8s ease all;} #hover-flag:hover + #top-bar-dowhop{ display:block;} #top-bar-dowhop:hover{ display:block;};
   </style> -->
-
-  <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
-  <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> -->
-  
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" /> <!-- Firebase UI CSS for Web Auth -->
   <link rel="stylesheet" href="styles/main.428896f6.css">
   <link rel="stylesheet" href="styles/main.css"> <!--Catch-all stylings-->
   <link rel="stylesheet" href="styles/login-tabs-styles.css">
   <link rel="stylesheet" href="styles/dowhop-selector-style.css">
-
-  <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
-  <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-  
   <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>  <!-- Firebase library -->
   <script src="scripts/firebase.js"></script> <!-- Initialize Firebase app -->
-
   <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script> <!-- Lodash ._ -->
   <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script> <!-- Firebase UI JS for Web Auth -->
-  
+
 </head>
 
 <body>
@@ -84,7 +76,7 @@
       <div id="firebaseui-auth-container"></div>
     </div>
   </section>
-  
+
   <!-- Application Container -->
   <section class="hide-component" id="application-container">
     <div class="flex-wrapper">
@@ -99,11 +91,24 @@
       </div>
     </div>
 
-    <aside class="dowhop-image-container">
+    <div class="dowhop-image-container">
       <div>
         <div id="dowhop-selector-container"></div>
       </div>
-    </aside>
+    </div>
+    <div id='pending-div-container' class='pending-notification'>
+      <div id='pending-div'></div>
+      <form hidden id='approve-pending-form' class='approval-form'>
+        <input id="radioApprove" type='radio' name='approval' value='approve'>Approve
+        <input id="radioDeny" type='radio' name='approval' value='deny'>Deny
+        <button id='submit-approval-button' type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect'>Send
+        </button>
+      </form>
+      <form hidden id='rescind-pending-form' class='approval-form'>
+        <button id='submit-rescind-button' type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect'>Rescind
+        </button>
+      </form>
+    </div>
 
     <div id="newdowhop" class="panel">
       <div class="mdl-layout mdl-js-layout">
@@ -343,21 +348,22 @@
     <div id="coordinate" class="panel">
 
       <main class="">
+        <h6>Please click on header above to load messages! </h6>
       <!-- Chat threads container -->
-      <div id='container-box'>
-        <div id="chat-list-container" class="form-wrap">
-          <h3>My Event Chats</h3>
-          <h6>Click to load messages.</h6>
-          <ul id="chat-list">
+      <!-- <div id='container-box'> -->
+        <!-- <div id="chat-list-container" class="form-wrap"> -->
+          <!-- <h3>My Event Chats</h3> -->
+          <!-- <h6>Click to load messages.</h6> -->
+          <!-- <ul id="chat-list"> -->
             <!--New chat-thread (button) items shall go here-->
-          </ul>
-        </div>
+          <!-- </ul> -->
+        <!-- </div> -->
 
         <!-- <div id="show-chat-data-form" class=""> -->
-          <div id="show-chat-data">Your DoWhop details will appear here!
+          <div id="show-chat-data">
           <!-- </div> -->
           <!-- These are the hidden pending notifications -->
-          <div id='pending-div-container' class='pending-notification'>
+          <!-- <div id='pending-div-container' class='pending-notification'>
             <p id='pending-div'></p>
             <form hidden id='approve-pending-form' class='approval-form'>
               <input id="radioApprove" type='radio' name='approval' value='approve'>Approve
@@ -369,7 +375,7 @@
               <button id='submit-rescind-button' type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect'>Rescind
               </button>
             </form>
-          </div>
+          </div> -->
         </div>
 
         <div id="messages-card-container"  class="form-wrap col-sm-12 col-xs-12">

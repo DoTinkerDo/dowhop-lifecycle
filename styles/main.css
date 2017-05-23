@@ -284,13 +284,16 @@ h1,h2,h3,h4,h5 { font-family: Avenir }
 }
 
 .pending-notification {
-  color: red;
-  font-size: 1em;
-  background-color: #ECECEC;
+  color: #ed238b;
+  font-size: 1.25em;
+  background-color: eggShell;
+  padding-left: 10%;
+  padding-right: 10%;
+
 }
 
 .approval-form {
-  background-color: lightGrey;
+  background-color: eggShell;
 }
 
 /* Styling underbar icons, inputs  of message input area */
@@ -380,8 +383,6 @@ header {
 header h1 {
 	font-size: 24px;
 }
-
-
 
 .wrap {
 	width: 100%;
