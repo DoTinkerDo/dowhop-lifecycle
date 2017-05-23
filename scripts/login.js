@@ -56,6 +56,20 @@
   window.addEventListener('load', handleOnAuthStateChange);
 }) ();
 
+// function getCurrentUser() {
+//   var currentUser = {};
+//   auth.onAuthStateChanged(function(user) {
+//     if (user) {
+//       currentUser = user;
+//     } else {
+//       console.log('signed out');
+//     }
+//   });
+//   return currentUser;
+// }
+
+// var currentUser = getCurrentUser();
+
 
 // setting currentUser globals...
 var person = null;
