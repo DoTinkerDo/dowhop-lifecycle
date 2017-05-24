@@ -246,7 +246,7 @@ function createDoWhop(data, clearForm) {
 
 function retrieveMyDoWhops(uid) {
 
-  var rootRefEvents = firebase.database().ref("doWhops/");
+  var rootRefEvents = firebase.database().ref("doWhopDescription/");
   var rootRefDoer = firebase.database().ref("app_users/" + uid);
 
   var makeDoWhopSelector = function(container, data) {
@@ -274,6 +274,14 @@ function retrieveMyDoWhops(uid) {
 
   };
 
+  var retrieveElement = function(id) {
+    let myTempRef = firebase.database().ref("/doWhopDescription/"+ id);
+    myTempRef.once("value").then(function(data) {
+      console.log("inside retrieving...");
+      console.log(data.val().titleDescription);
+    });
+  }
+
   rootRefDoer.child('doer').on("value", function(snap) {
     console.log("You own!!!!:", snap.val());
 
@@ -282,9 +290,13 @@ function retrieveMyDoWhops(uid) {
     snap.forEach(function(snap) {
       // Note: these hard-coded doer, host properties are a fall-back functionality.
       // if((data.val().creator===person.uid) || (data.val().doer===person.email) || (data.val().host===person.email)){
+
+      var doWhopItem = snap.key;
+
+      retrieveElement(snap.key);
+
       console.log("YOU RLY OWN!!!:", snap.key);
         // makeDoWhopSelector(content, data);
-
       });
   });
 
