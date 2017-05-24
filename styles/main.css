@@ -517,7 +517,7 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 @media (min-width: 641px) {
 	.user-list {
 		flex: 1 0 50%;
-		border-left: 3px solid #ededed;
+		/*border-left: 3px solid #ededed;*/
 		border-top: none;
 	}
 }
@@ -533,7 +533,7 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 	padding: 10px;
 	border: 1px solid #ededed;
 	border-radius: 3px;
-	border-left: 3px solid #ec1928;
+	/*border-left: 3px solid #ec1928;*/
 	margin-bottom: 10px;
 }
 
