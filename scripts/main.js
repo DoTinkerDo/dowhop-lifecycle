@@ -542,16 +542,16 @@ FriendlyChat.prototype.saveImageMessage = function(event) {
 };
 
 // Save all users who've logged in into DB via UID for shallow nesting:
-FriendlyChat.prototype.saveUser = function() {
-  var currentUser = person;
-  this.database.ref('users/' + currentUser.uid).update({
-    name: currentUser.displayName,
-    email: currentUser.email,
-    uid: currentUser.uid,
-    photo: currentUser.photoURL || '/images/profile_placeholder.png',
-    note: "N/A"
-  })
-}
+// FriendlyChat.prototype.saveUser = function() {
+//   var currentUser = person;
+//   this.database.ref('users/' + currentUser.uid).update({
+//     name: currentUser.displayName,
+//     email: currentUser.email,
+//     uid: currentUser.uid,
+//     photo: currentUser.photoURL || '/images/profile_placeholder.png',
+//     note: "N/A"
+//   })
+// }
 
 // Signs-in Friendly Chat.
 FriendlyChat.prototype.signIn = function() {
@@ -582,7 +582,7 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
     // this.loadPendingNotifications();
 
     // We want to save currently signed-in user.
-    this.saveUser();
+    // this.saveUser();
 
     // Add event listener for event session changes:
     this.getSession(currentSessionID);

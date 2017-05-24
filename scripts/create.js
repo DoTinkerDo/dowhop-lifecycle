@@ -2,7 +2,7 @@
 //form submission
 
 document.getElementById("submit").addEventListener("click", createDoWhop);
-var rootRef = firebase.database().ref("users/");
+var rootRef = firebase.database().ref("app_users/");
 var rootRefEvents = firebase.database().ref("doWhops/"); // <-- New
 
 document.getElementById('whenDate').setAttribute("value", getDate());
@@ -247,7 +247,7 @@ function createDoWhop(data, clearForm) {
 function retrieveMyDoWhops(uid) {
 
   var rootRefEvents = firebase.database().ref("doWhops/");
-  var rootRefDoer = firebase.database().ref("users/" + uid);
+  var rootRefDoer = firebase.database().ref("app_users/" + uid);
 
   var makeDoWhopSelector = function(container, data) {
     let imageUrl = data.val().titleDescriptionImage || 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
@@ -297,7 +297,6 @@ function retrieveMyDoWhops(uid) {
         // Note: these hard-coded doer, host properties are a fall-back functionality.
         if((data.val().creator===person.uid) || (data.val().doer===person.email) || (data.val().host===person.email)){
           makeDoWhopSelector(content, data);
-
         }
       });
     },
