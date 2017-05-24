@@ -3,7 +3,7 @@
 
 document.getElementById("submit").addEventListener("click", createDoWhop);
 var rootRef = firebase.database().ref("app_users/");
-var rootRefEvents = firebase.database().ref("doWhops/"); // <-- New
+var rootRefEvents = firebase.database().ref("doWhopDescription/"); // <-- New
 
 document.getElementById('whenDate').setAttribute("value", getDate());
 //Should refactor below later, for more efficient and concise code
@@ -99,8 +99,8 @@ function createDoWhop(data, clearForm) {
   var whenDate = document.getElementById("whenDate")
   var whenTime = document.getElementById("whenTime")
   var whenImage = document.getElementById("whenImage");
-  var howmuchDescription = document.getElementById("howmuchDescription");
-  var howmuchCost = document.getElementById("howmuchCost");
+  var howMuchDescription = document.getElementById("howMuchDescription");
+  var howMuchCost = document.getElementById("howMuchCost");
   var howmuchImage = document.getElementById("howmuchImage");
 
 
@@ -127,8 +127,8 @@ function createDoWhop(data, clearForm) {
     data.whenTime = whenTime.value.trim();
     data.whenDate = whenDate.value.trim();
     data.whenImage = whenImage.innerHTML.trim();
-    data.howmuchDescription = howmuchDescription.value.trim();
-    data.howmuchCost = howmuchCost.value.trim();
+    data.howMuchDescription = howMuchDescription.value.trim();
+    data.howMuchCost = howMuchCost.value.trim();
     data.howmuchImage = howmuchImage.innerHTML.trim();
       ;
     //   error.innerHTML = "";
@@ -166,8 +166,8 @@ function createDoWhop(data, clearForm) {
     whenDate: data.whenDate,
     whenTime: data.whenTime,
     whenImage: data.whenImage,
-    howmuchDescription: data.howmuchDescription,
-    howmuchCost: data.howmuchCost,
+    howMuchDescription: data.howMuchDescription,
+    howMuchCost: data.howMuchCost,
     howmuchImage: data.howmuchImage,
     doer: data.doerEmail || "none",
     host: data.hostEmail || "none"
@@ -194,8 +194,8 @@ function createDoWhop(data, clearForm) {
     whenDate: data.whenDate,
     whenTime: data.whenTime,
     whenImage: data.whenImage,
-    howmuchDescription: data.howmuchDescription,
-    howmuchCost: data.howmuchCost,
+    howMuchDescription: data.howMuchDescription,
+    howMuchCost: data.howMuchCost,
     howmuchImage: data.howmuchImage
   };
 
@@ -213,8 +213,8 @@ function createDoWhop(data, clearForm) {
   whenTime.value = "";
   whenDate.value = "";
   whenImage.innerHTML = "";
-  howmuchDescription.value = "";
-  howmuchCost.value = "";
+  howMuchDescription.value = "";
+  howMuchCost.value = "";
   howmuchImage.innerHTML = "";
 
   rootRef.child(data.creator).set(user);
@@ -254,7 +254,7 @@ function retrieveMyDoWhops(uid) {
 
     container.innerHTML +=
 
-    "<section id='" + data.key + "' class='col-sm-12 col-xs-12 dowhop-selector-block' onclick='sessionRef(this)''>" +
+    "<section id='" + data.key + "' class='col-sm-12 col-xs-12 dowhop-selector-block' onclick='sessionRef(this)'>" +
         "<div class='dowhop-selector-header' style='background-image: url(" + imageUrl + ");'>" +
           "<h1>" + data.val().titleDescription + "</h1>" +
         "</div>" +
@@ -379,8 +379,8 @@ function hideAll(underbar_options){
 
 function sessionRef(node){
   fillInForms(node) //didn't put the code in here cuz it's not *strictly* about the sessions references
-    firebase.database().ref().child('session/' + person.uid).set({current_dowhop: node.id})
-  //Curretly overwrites everything else in the session, even if you're NOT storing a current_dowhop
+    firebase.database().ref().child('session/' + person.uid).set({current_dowhop: node.id});
+    //Curretly overwrites everything else in the session, even if you're NOT storing a current_dowhop
 }
 
 function fillInForms(node){
@@ -388,23 +388,23 @@ function fillInForms(node){
     function(snapshot) {
       snapshot.forEach(function(data) {
         if(data.key===node.id){
-          document.getElementById("email").value = data.val().email;
+          // document.getElementById("email").value = data.val().email;
           document.getElementById("titleDescription").value = data.val().titleDescription;
-          document.getElementById("titleImage").innerHTML = data.val().titleImage;
+          // document.getElementById("titleImage").innerHTML = data.val().titleImage;
           document.getElementById("whoDescription").value = data.val().whoDescription;
-          document.getElementById("whoImage").innerHTML = data.val().whoImage;
+          // document.getElementById("whoImage").innerHTML = data.val().whoImage;
           document.getElementById("whatDescription").value = data.val().whatDescription;
-          document.getElementById("whatImage").innerHTML = data.val().whatImage;
+          // document.getElementById("whatImage").innerHTML = data.val().whatImage;
           document.getElementById("whereDescription").value = data.val().whereDescription;
           document.getElementById("whereAddress").value = data.val().whereAddress;
-          document.getElementById("whereImage").innerHTML = data.val().whereImage;
+          // document.getElementById("whereImage").innerHTML = data.val().whereImage;
           document.getElementById("whenDescription").value = data.val().whenDescription;
-          document.getElementById("whenDate").value = data.val().whenDate;
+          // document.getElementById("whenDate").value = data.val().whenDate;
           document.getElementById("whenTime").value = data.val().whenTime;
-          document.getElementById("whenImage").innerHTML = data.val().whenImage;
-          document.getElementById("howmuchDescription").value = data.val().howmuchDescription;
-          document.getElementById("howmuchCost").value = data.val().howmuchCost;
-          document.getElementById("howmuchImage").innerHTML = data.val().howmuchImage;
+          // document.getElementById("whenImage").innerHTML = data.val().whenImage;
+          document.getElementById("howMuchDescription").value = data.val().howMuchDescription;
+          document.getElementById("howMuchCost").value = data.val().howMuchCost;
+          // document.getElementById("howmuchImage").innerHTML = data.val().howmuchImage;
         }
       })
     })
