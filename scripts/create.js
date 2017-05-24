@@ -383,8 +383,23 @@ function hideAll(underbar_options){
   })
 }
 
+function showEditForm(node) {
+  var editForm = document.getElementById("edit-dowhop-form");
+  var rootRefEvent = firebase.database().ref("doWhopDescription/" + node.id);
+  rootRefEvent.once("value").then(function(snap) {
+    if(snap.val().creator === auth.currentUser.uid) {
+      console.log("You clicked on one of your events!");
+      editForm.removeAttribute("hidden");
+    } else {
+      console.log("You clicked on someone else's events!");
+      editForm.setAttribute("hidden", "true");
+    }
+  })
+}
+
 function sessionRef(node){
   fillInForms(node) //didn't put the code in here cuz it's not *strictly* about the sessions references
+  showEditForm(node);
     firebase.database().ref().child('session/' + person.uid).set({current_dowhop: node.id});
     //Curretly overwrites everything else in the session, even if you're NOT storing a current_dowhop
 }
