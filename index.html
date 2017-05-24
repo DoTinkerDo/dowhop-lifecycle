@@ -114,6 +114,7 @@
     <div id="newdowhop" class="panel">
       <div class="mdl-layout mdl-js-layout">
         <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--7-col" id="dowhop-placard"></div>
           <div class="mdl-cell mdl-cell--5-col">
             <div class="mdl-card mdl-shadow--6dp">
               <div class="mdl-layout__content">
@@ -157,21 +158,25 @@
               </div>
             </div>
           </div>
-          <div class="mdl-cell mdl-cell--7-col" id="dowhop-placard"></div>
         </div>
       </div>
     </div> <!-- End Create New DoWhop Form -->
 
     <div id="create" class="panel">
-      <div class="wrap">
-        <div class="form-wrap">
-
-          <h2>Whop will you do?</h2>
+      <div class="mdl-layout mdl-js-layout">
+        <!--show what the user put in by displaying user list wrap-->
+        <div class="mdl-cell mdl-cell--7-col user-list">
+          <h2 class="mdl-title">My DoWhops in Planning</h2>
+          <div id="user-list-wrap"></div>
+        </div> <!-- Close Form wrap -->
+        <div class="mdl-cell mdl-cell--5-col form-wrap">
+<!-- 
+          <h2 class="mdl-title">Whop will you do?</h2>
           <br>
-          <span style=color:#ec1928;>Type "same" to keep that section as is.</span>
+          <span style=color:#ec1928;>Type "same" to keep that section as is.</span> -->
 
-          <form action="">
-
+          <form id="edit-dowhop-form" hidden="true" action="">
+                <h2 class="mdl-title">Whop will you do?</h2>
             <label class="form-line">
               <span>DoWhop Title <button type="button" name="button"><i class="fa fa-plus-circle plus-button" aria-hidden="true"></i></button></span>
               <input type="text" id="titleDescription" placeholder="Do this with Me"/>
@@ -297,7 +302,7 @@
             <span class="bar"></span>
             <label class="form-line">
               <span>How much will it cost?<button type="button" name="button"><i class="fa fa-plus-circle plus-button" aria-hidden="true"></i></button></span>
-              <input type="text" id="howmuchDescription" placeholder="$THIS much money per person"/>
+              <input type="text" id="howMuchDescription" placeholder="$THIS much money per person"/>
               <span class="bar"></span>
             </label>
             <div class="options howmuch-options">
@@ -316,7 +321,7 @@
               <div class="underbar_options" data-openoption="">
                 <div hidden id="clock_options">
                   <span>Cost (Icon is placeholder):
-                    <input type="number" id='howmuchCost' size="50">
+                    <input type="number" id='howMuchCost' size="50">
                   </span>
                 </div>
                 <div hidden id="image_options">
@@ -325,11 +330,11 @@
             </div>
             <span class="bar"></span>
 
-            <label class="form-line">
+            <!-- <label class="form-line">
               <span>Contact Email</span>
               <input type="email" id="email" placeholder="my@emailaddress.com"/>
               <span class="bar"></span>
-            </label>
+            </label> -->
 
             <div id="admin-input-form">
               <label class="form-line">
@@ -341,17 +346,11 @@
               <input type="email" id="hostEmail" placeholder="doer email here"/>
               </label>
             </div>
-            <button type="button" class="submit" id="submit">Submit</button>
+            <button type="button" class="submit" id="submit">Update</button>
 
             <div id="error" class="form-error"></div>
           </form>
         </div>
-
-        <!--show what the user put in by displaying user list wrap-->
-        <div class="user-list">
-          <h2>DoWhops in Planning</h2>
-          <div id="user-list-wrap"></div>
-        </div> <!-- Close Form wrap -->
       </div> <!-- Close Wrap -->
     </div> <!-- Close Panel tab -->
 
@@ -460,7 +459,6 @@
   <!-- <script src="scripts/jquery.js"></script> --> <!-- Commented out to stop error in console  -->
   <script src="scripts/login.js"></script>
   <script src="scripts/tabs.js"></script>
-  <script src="scripts/create.js"></script>
   <script src="scripts/main.js"></script>
   <script src="scripts/main.224fb9ad.js"></script>
   <script src="scripts/dowhop-description-form.js"></script>
@@ -628,6 +626,7 @@ function revealInput(x) {
     };
 }
 </script>
+<script src="scripts/create.js"></script>
 <script
   src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="

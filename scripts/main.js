@@ -143,7 +143,6 @@ function FriendlyChat() {
   this.messageInput.addEventListener('keyup', buttonTogglingHandler);
   this.messageInput.addEventListener('change', buttonTogglingHandler);
 
-
   // Events for time-change-approval buttons:
   this.submitApproval.addEventListener('click', this.sendApproval.bind(this));
   this.submitRescind.addEventListener('click', this.sendRescind.bind(this));
@@ -183,8 +182,8 @@ FriendlyChat.prototype.sendApproval = function(e) {
   e.preventDefault();
   var choice, newDate, newTime, newWhere
   this.chatItemDataSpecific = document.getElementById("dowhop-selector-container").children[0].id
-  var myRef = this.database.ref().child('doWhops/' + this.chatItemDataSpecific);
-  var myRefPending = this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending');
+  var myRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific);
+  var myRefPending = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending');
   var messagesRef = this.database.ref().child('messages/' + this.chatItemDataSpecific);
   var status
 
@@ -205,12 +204,12 @@ FriendlyChat.prototype.sendApproval = function(e) {
       whenTime: newTime,
       whereAddress: newWhere
     });
-    this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/').update({
+    this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/').update({
     status: status
     });
   } else if (this.radioDeny.checked) {
     status = "denied";
-    this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/').update({
+    this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/').update({
     status: status
   });
   };
@@ -235,7 +234,7 @@ FriendlyChat.prototype.sendRescind = function(e) {
   e.preventDefault();
   console.log("You have rescinded");
   this.chatItemDataSpecific = document.getElementById("dowhop-selector-container").children[0].id // <-- Refactor
-  this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/').remove();
+  this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/').remove();
   // Send a notification to the user:
   window.alert("You have rescinded!");
 
@@ -271,7 +270,7 @@ FriendlyChat.prototype.getSession = function() {
         console.log("something was changed regarding: " + id);
 
         // Check if there are pending notifications:
-        if ((data.val().pending != null) && (data.val().pending.status != "approved") && (data.val().pending.status != "denied")) {
+        if (data.val() && (data.val().pending != null) && (data.val().pending.status != "approved") && (data.val().pending.status != "denied")) {
           console.log("pending status true. showing pending div.");
           document.getElementById('pending-div').removeAttribute('hidden');
 
@@ -320,40 +319,42 @@ FriendlyChat.prototype.getSession = function() {
       // Setting the header and check for pendings for the current DoWhop session:
 
       // Checking for changed pendings in real-time:
-      firebase.database().ref().child('doWhops/' + data.val().current_dowhop)
+      firebase.database().ref().child('doWhopDescription/' + data.val().current_dowhop)
         .on('child_changed', function(data) {
         checkForPendings(data.key, data);
       });
 
       // Extracting all of the relevant DoWhop-Selector-Block information:
-      firebase.database().ref().child('doWhops/' + data.val().current_dowhop)
+      firebase.database().ref().child('doWhopDescription/' + data.val().current_dowhop)
         .on('value', function(data) {
 
           // Check for pending notifications:
           checkForPendings(data.key, data)
 
           // Weave together header
-          let imageUrl; // <--TO-DO: refactor. Add ImageUrl default when no uploaded banner image is available.
-          imageUrl = 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+          if (data.val()) {
+            let imageUrl = data.val().downloadURL || 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
 
-          return dowhopSelectorDiv +=
-          "<section id='" + data.key + "' class='col-sm-12 col-xs-12 dowhop-selector-block' onclick='sessionRef(this)''>" +
+            return dowhopSelectorDiv +=
+            "<section id='" + data.key + "' class='col-sm-12 col-xs-12 dowhop-selector-block' onclick='sessionRef(this)''>" +
 
-              "<div class='dowhop-selector-header' style='background-image: url(" + imageUrl + ");'>" +
-                "<h1>" + data.val().titleDescription + "</h1>" +
-              "</div>" +
-            // We only need the header portion of this data. TO-DO: Refacator.
-            //   "<div class='dowhop-selector-body'>" +
-            //     "<h3>" + data.val().whatDescription + "</h3>" +
-            //     "<h5>When?</h5>" +
-            //     "<p>" + data.val().whenDate + ' at ' + data.val().whenTime +
-            //     " " + data.val().whenDescription + "</p>" +
-            //     "<h5>Where?</h5>" +
-            //     "<p>" + data.val().whereDescription + " " + data.val().whereAddress + "</p>" +
-            //     "<h5>What else?</h5>" +
-            //     "<p>" + data.val().howmuchDescription + ' ' + data.val().howmuchCost +
-            // "</div>" +
-          "</section>"
+                "<div class='dowhop-selector-header' style='background-image: url(" + imageUrl + ");'>" +
+                  "<h1>" + data.val().titleDescription + "</h1>" +
+                "</div>" +
+              // We only need the header portion of this data. TO-DO: Refacator.
+              //   "<div class='dowhop-selector-body'>" +
+              //     "<h3>" + data.val().whatDescription + "</h3>" +
+              //     "<h5>When?</h5>" +
+              //     "<p>" + data.val().whenDate + ' at ' + data.val().whenTime +
+              //     " " + data.val().whenDescription + "</p>" +
+              //     "<h5>Where?</h5>" +
+              //     "<p>" + data.val().whereDescription + " " + data.val().whereAddress + "</p>" +
+              //     "<h5>What else?</h5>" +
+              //     "<p>" + data.val().howMuchDescription + ' ' + data.val().howMuchCost +
+              // "</div>" +
+            "</section>"
+
+          }
 
          });
 
@@ -398,7 +399,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
       // For only all three attributes: Time, Date, Where:
   if (this.messageFormWhenDatePending.value && this.messageFormWhenTimePending.value && this.messageFormWherePending) {
     // Send the inputted date/time suggestion to the event it's associated with:
-    var chatsRef = this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/');
+    var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
     // Send a notification to the thread:
     messagesChatsRef.push({
       chatId: this.chatItemDataSpecific,
@@ -419,7 +420,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
   // Check for just Which Day and What Time:
   if (this.messageFormWhenDatePending.value && this.messageFormWhenTimePending.value) {
     // Send the inputted date/time suggestion to the event it's associated with:
-    var chatsRef = this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/');
+    var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
     // Send a notification to the thread:
     messagesChatsRef.push({
       chatId: this.chatItemDataSpecific,
@@ -439,7 +440,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
   // Check for just Where or When:
   if (this.messageFormWhenDatePending.value || this.messageFormWhenTimePending.value) {
     // Send the inputted date/time suggestion to the event it's associated with:
-    var chatsRef = this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/');
+    var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
     // Send a notification to the thread:
     messagesChatsRef.push({
       chatId: this.chatItemDataSpecific,
@@ -542,16 +543,16 @@ FriendlyChat.prototype.saveImageMessage = function(event) {
 };
 
 // Save all users who've logged in into DB via UID for shallow nesting:
-FriendlyChat.prototype.saveUser = function() {
-  var currentUser = person;
-  this.database.ref('users/' + currentUser.uid).set({
-    name: currentUser.displayName,
-    email: currentUser.email,
-    uid: currentUser.uid,
-    photo: currentUser.photoURL || '/images/profile_placeholder.png',
-    note: "N/A"
-  })
-}
+// FriendlyChat.prototype.saveUser = function() {
+//   var currentUser = person;
+//   this.database.ref('users/' + currentUser.uid).update({
+//     name: currentUser.displayName,
+//     email: currentUser.email,
+//     uid: currentUser.uid,
+//     photo: currentUser.photoURL || '/images/profile_placeholder.png',
+//     note: "N/A"
+//   })
+// }
 
 // Signs-in Friendly Chat.
 FriendlyChat.prototype.signIn = function() {
@@ -582,7 +583,7 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
     // this.loadPendingNotifications();
 
     // We want to save currently signed-in user.
-    this.saveUser();
+    // this.saveUser();
 
     // Add event listener for event session changes:
     this.getSession(currentSessionID);

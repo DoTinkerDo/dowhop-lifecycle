@@ -86,11 +86,11 @@ function addDoWhopImage(files_arr, node) {
 
 function validateAddDoWhopDescription(titleDescription, whoDescription, whatDescription, whenDescription, whereDescription, howMuchDescription) {
   if (
-    titleDescription === "" || 
+    titleDescription === "" ||
     whoDescription   === "" ||
-    whatDescription  === "" || 
-    whenDescription  === "" || 
-    whereDescription === "" || 
+    whatDescription  === "" ||
+    whenDescription  === "" ||
+    whereDescription === "" ||
     howMuchDescription === ""
   ) return false;
     return true;
@@ -104,7 +104,13 @@ function clearNewDoWhopEntryForm() {
   whenDescription.value = "";
   whereDescription.value = "";
   howMuchDescription.value = "";
-  dowhopImageCapture.value = ""; 
+  dowhopImageCapture.value = "";
+}
+
+// Adding function to add a chosen dowhop a user's list.
+function addToMyDoWhops(node){
+    console.log("you clicked on:", node.parentElement.id)
+    firebase.database().ref().child('app_users/' + person.uid + "/doer/" + node.parentElement.id).update({doer: true})
 }
 
 var doWhopPlacard = document.getElementById('dowhop-placard');
@@ -114,10 +120,10 @@ doWhopDescriptionRef.on('value', function(snapshot) {
   doWhopPlacard.innerHTML = "";
   snapshot.forEach(function(data) {
     div.innerHTML +=
-    "<section id='" + data.key + "' class='dowhop-selector-block' onclick='sessionRef(this)''>" +
+    "<section id='" + data.key + "' class='dowhop-selector-block'>" +
+      "<i class='material-icons' onclick='addToMyDoWhops(this)'>person_add</i>" +
       "<div class='dowhop-selector-header' style='background-image: url(" + data.val().downloadURL + "); background-size: contain;'>" +
         "<h1>" + data.val().titleDescription + "</h1>" +
-        "<i class='material-icons' onclick=''>person_add</i>" +
       "</div>" +
       "<div class='dowhop-selector-body'>" +
         "<h5>What?</h5>" +

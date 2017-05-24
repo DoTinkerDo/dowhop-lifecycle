@@ -16,7 +16,7 @@
 
 /* Adding in template presets */
 
- main, #messages-card {
+main, #messages-card {
   height: 100%;
   padding-bottom: 0;
 }
