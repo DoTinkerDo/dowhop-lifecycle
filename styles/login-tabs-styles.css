@@ -1,5 +1,4 @@
-/* TAB STYLES */
-
+/* TAB NAVIATION */
 .tabs-container {
   max-width: 800px;
   margin: 0 auto;
@@ -41,7 +40,7 @@ div[aria-hidden='true'] {
   display: none;
 }
 
-/* LOGIN STYLES */
+/* LOGIN SPLASH PAGE */
 #login-page {
   max-width: 800px;
   margin: 0 auto;
@@ -69,6 +68,7 @@ div[aria-hidden='true'] {
   color: #606060;
 }
 
+/* INDEX PAGE CONVENIENCE STYLES */
 .hide-component {
   display: none;
 }

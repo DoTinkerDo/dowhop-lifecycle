@@ -336,9 +336,9 @@ FriendlyChat.prototype.getSession = function() {
             let imageUrl = data.val().downloadURL || 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
 
             return dowhopSelectorDiv +=
-            "<section id='" + data.key + "' class='col-sm-12 col-xs-12 dowhop-selector-block' onclick='sessionRef(this)''>" +
-
-                "<div class='dowhop-selector-header' style='background-image: url(" + imageUrl + ");'>" +
+            "<section id='" + data.key + "' class='dowhop-selector-block' onclick='sessionRef(this)''>" +
+              // changed class to dowhop-selector-header-top to apply different styles...
+                "<div class='dowhop-selector-header-top' style='background-image: url(" + imageUrl + ");'>" +
                   "<h1>" + data.val().titleDescription + "</h1>" +
                 "</div>" +
               // We only need the header portion of this data. TO-DO: Refacator.

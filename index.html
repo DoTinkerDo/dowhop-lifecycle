@@ -1,32 +1,15 @@
 <!doctype html>
-<!--
-  Copyright 2015 Google Inc. All rights reserved.
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-  https://www.apache.org/licenses/LICENSE-2.0
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License
--->
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="DoWhop WebChat" content="Arrange details with other DoWhop users">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DoWhop Chat</title>
+  <title>DoWhop</title>
 
-  <!-- Disable tap highlight on IE -->
-  <meta name="msapplication-tap-highlight" content="no">
-
-  <!-- Web Application Manifest -->
-  <link rel="manifest" href="manifest.json">
-
-  <!-- Add to homescreen for Chrome on Android -->
-  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no"> <!-- Disable tap highlight on IE -->
+  <link rel="manifest" href="manifest.json"> <!-- Web Application Manifest -->
+  <meta name="mobile-web-app-capable" content="yes"> <!-- Add to homescreen for Chrome on Android -->
   <meta name="application-name" content="Friendly Chat">
   <!-- <meta name="theme-color" content="#303F9F"> -->
 
@@ -47,35 +30,33 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
-  <!-- App Styling -->
-<!--   <style>
-    *, *:before, *:after {box-sizing: border-box;margin: 0;padding: 0;}html {height: 100%;background: #fff;}body {font-family: 'Avenir Light', Avenir Light, Avenir, sans-serif;min-width: 320px;}input, button {border: none;outline: none;background: none;font-family: 'Avenir Light', Avenir Light, Avenir, sans-serif;color: #606060;}header {text-align: center;padding-top: 10px;}header h1 {font-size: 24px;}.wrap {width: 100%;margin: 25px auto;padding: 0 30px;min-height: 60vh;}@media (min-width: 641px) {.wrap {display: flex;max-width: 900px;}}.form-wrap {width: 100%;padding: 30px 60px;background: #fff;text-align: center;}@media (min-width: 641px) {.form-wrap {flex: 1 0 50%;box-shadow: 0 8px 6px -6px #808080;}}.form-wrap h2 {text-align: center;font-size: 26px;color: #606060;}.form-wrap .form-line {margin: 40px 0 0 0;width: 100%;display: block;text-align: center;position: relative;}.form-wrap .form-line > span {color: #606060;text-transform: uppercase;display: inline-block;width: 100%;font-size: 12px;}.form-wrap .form-line input[type="text"], .form-wrap .form-line input[type="email"] {display: inline-block;width: 100%;margin-top: 6px;padding-bottom: 5px;font-size: 16px;border-bottom: 1px solid rgba(0,0,0,0.4);text-align: center;position: relative;}.form-error {color: #ec1928;font-size: 14px;padding-top: 15px;}.form-error.error--ok {color: #ec1928;}.bar {position: absolute;display: block;width: 100%;bottom: 0;left: 0;z-index: 10;}.bar:before, .bar:after {content: '';height: 2px;width: 0;bottom: 0px;position: absolute;background: #ec1928;transition: 0.2s ease all;}.bar:before {left: 50%;}.bar:after {right: 50%;}input:focus ~ .bar:before, input:focus ~ .bar:after {width: 50%;}.submit {display: inline-block;margin: 40px auto 0 auto;padding: 10px 50px;background: #ec1928;color: #fff;font-weight: 700;border-radius: 0px;font-size: 16px;cursor: pointer;transition: 0.2s ease all;}.submit2 {display: inline-block;margin: 40px auto 0 auto;padding: auto auto;background: #ec1928;color: #fff;font-weight: 700;border-radius: 0px;font-size: 16px;cursor: pointer;transition: 0.2s ease all;}.submit:hover, .submit2:hover {background: #fff;color: #ec1928;}.user-list {width: 100%;background: #fff;box-shadow: 0 8px 6px -6px #808080;padding: 30px 40px;border-top: 3px solid #cfd9df;}@media (min-width: 641px) {.user-list {flex: 1 0 50%;border-left: 3px solid #ededed;border-top: none;}}.user-list > h2 {text-align: center;font-size: 26px;padding-bottom: 30px;color: #606060;}.user-list__item {padding: 10px;border: 1px solid #ededed;border-radius: 3px;border-left: 3px solid #ec1928;margin-bottom: 10px;}.user-list__item h4, .user-list__item p {font-size: 14px;padding-bottom: 10px;color: #c0c0c0;font-size: 14px;}.user-list__item h4 span, .user-list__item p span {color: #606060;} #top-bar-dowhop{ display:none;} #hover-flag{ color: grey; background-color: red; transition: 0.8s ease all;} #hover-flag:hover { background-color: red; transition: 0.8s ease all;} #hover-flag:hover + #top-bar-dowhop{ display:block;} #top-bar-dowhop:hover{ display:block;};
-  </style> -->
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" /> <!-- Firebase UI CSS for Web Auth -->
   <link rel="stylesheet" href="styles/main.428896f6.css">
   <link rel="stylesheet" href="styles/main.css"> <!--Catch-all stylings-->
   <link rel="stylesheet" href="styles/login-tabs-styles.css">
   <link rel="stylesheet" href="styles/dowhop-selector-style.css">
+
   <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>  <!-- Firebase library -->
   <script src="scripts/firebase.js"></script> <!-- Initialize Firebase app -->
   <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script> <!-- Lodash ._ -->
   <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script> <!-- Firebase UI JS for Web Auth -->
-
 </head>
 
 <body>
 
   <!-- Login splash screen -->
+  <!-- <div class="mdl-layout mdl-js-layout"> -->
   <section id="login-container">
     <div class="login-page-title">
       <h2>Log In</h2>
       <h4> Confirm your information to view your DoWhops</h4>
     </div>
     <div class=login-container>
-      <div id="firebaseui-auth-container"></div>
+      <div id="firebaseui-auth-container"></div>;
     </div>
   </section>
+  <!-- </div> -->
 
   <!-- Application Container -->
   <section class="hide-component" id="application-container">
@@ -91,11 +72,15 @@
       </div>
     </div>
 
-    <div class="dowhop-image-container">
-      <div>
-        <div id="dowhop-selector-container"></div>
+
+    <!-- DoWhop Selected Image Container -->
+    <div class="mdl-grid">
+      <div class="" style="width: 100%;">
+          <div id="dowhop-selector-container"></div>
       </div>
     </div>
+
+    <!-- Figure out what this is... -->
     <div id='pending-div-container' class='pending-notification'>
       <div id='pending-div'></div>
       <form hidden id='approve-pending-form' class='approval-form'>
@@ -112,10 +97,10 @@
 
     <!-- Create New DoWhop Form -->
     <div id="newdowhop" class="panel">
-      <div class="mdl-layout mdl-js-layout">
+      <!-- <div class="mdl-layout mdl-js-layout"> -->
         <div class="mdl-grid">
-          <div class="mdl-cell mdl-cell--7-col" id="dowhop-placard"></div>
-          <div class="mdl-cell mdl-cell--5-col">
+          <div class="mdl-cell mdl-cell--6-col" id="dowhop-placard"></div>
+          <div class="mdl-cell mdl-cell--6-col">
             <div class="mdl-card mdl-shadow--6dp">
               <div class="mdl-layout__content">
                 <div class="mdl-card__title">
@@ -159,11 +144,12 @@
             </div>
           </div>
         </div>
-      </div>
+      <!-- </div> -->
     </div> <!-- End Create New DoWhop Form -->
 
+    <!-- Start Create DoWhops -->
     <div id="create" class="panel">
-      <div class="mdl-layout mdl-js-layout">
+      <!-- <div class="mdl-layout mdl-js-layout"> -->
         <!--show what the user put in by displaying user list wrap-->
         <div class="mdl-cell mdl-cell--7-col user-list">
           <h2 class="mdl-title">My DoWhops in Planning</h2>
@@ -351,14 +337,14 @@
             <div id="error" class="form-error"></div>
           </form>
         </div>
-      </div> <!-- Close Wrap -->
+      <!-- </div> Close Wrap -->
     </div> <!-- Close Panel tab -->
 
 
     <!-- Coordinate app -->
     <div id="coordinate" class="panel">
 
-      <main class="">
+      <main class="mdl-grid">
         <h6>Please click on header above to load messages! </h6>
       <!-- Chat threads container -->
       <!-- <div id='container-box'> -->

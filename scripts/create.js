@@ -260,7 +260,7 @@ function retrieveMyDoWhops(uid) {
 
     container.innerHTML +=
 
-    "<section id='" + data.key + "' class='col-sm-12 col-xs-12 dowhop-selector-block' onclick='sessionRef(this)'>" +
+    "<section id='" + data.key + "' class='dowhop-selector-block' onclick='sessionRef(this)'>" +
         "<div class='dowhop-selector-header' style='background-image: url(" + imageUrl + ");'>" +
           "<h1>" + data.val().titleDescription + "</h1>" +
         "</div>" +

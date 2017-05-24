@@ -10,17 +10,28 @@
 
 .dowhop-selector-block {
   box-shadow: 2px 2px 20px #888888;
-  margin: 5%;
+  margin-bottom: 25px;
 }
 
 .dowhop-selector-block:hover {
   opacity: 0.5;
 }
 
+/* 
+  create seperate classes for the top
+  background image and for the cards
+*/
+.dowhop-selector-header-top {
+  height: 250px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 .dowhop-selector-header {
-  padding: 10%;
-  padding-bottom: 0%;
-  /* Note background image is built-up in JS scripts. Default: background-image: url('https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp');*/
+  /*background-size: cover;*/
+  /*background-repeat: no-repeat*/
+  padding-bottom: 10%;
+  /* Note background image is built-up in JS scripts. 
+  Default: background-image: url('https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp');*/
 }
 
 .dowhop-selector-header h1, h2 {
@@ -35,6 +46,15 @@
 .text-right.page-header {
   /* TBD */
 }
+
+
+/* 
+
+  DoWhop Image Selector
+
+*/
+
+
 
 
 /* 
