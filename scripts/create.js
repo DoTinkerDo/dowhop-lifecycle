@@ -175,7 +175,11 @@ function createDoWhop(data, clearForm) {
 
     // Changing this to an edit/update form that will only set certain attributes. NOTE: THis is overwriter the DOERs list.
     rootRefEvents.child(currentDoWhop).child('titleDescription').set(data.titleDescription).then(retrieveMyDoWhops(auth.currentUser.uid));
-    // retrieveMyDoWhops(auth.currentUser.uid); // <-- Be sure to reset the page since it's acting strange.
+    rootRefEvents.child(currentDoWhop).child('whatDescription').set(data.whatDescription).then(retrieveMyDoWhops(auth.currentUser.uid));
+    rootRefEvents.child(currentDoWhop).child('whoDescription').set(data.whoDescription).then(retrieveMyDoWhops(auth.currentUser.uid));
+    rootRefEvents.child(currentDoWhop).child('whereDescription').set(data.whereDescription).then(retrieveMyDoWhops(auth.currentUser.uid));
+    rootRefEvents.child(currentDoWhop).child('whenDescription').set(data.whenDescription).then(retrieveMyDoWhops(auth.currentUser.uid));
+    rootRefEvents.child(currentDoWhop).child('howMuchDescription').set(data.howMuchDescription).then(retrieveMyDoWhops(auth.currentUser.uid));
 
     //^^Moved this to here since implementing the new code for population forms with old events the rootRefEvents.push above was causing the form values to not be wiped
 
