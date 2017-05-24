@@ -182,8 +182,8 @@ FriendlyChat.prototype.sendApproval = function(e) {
   e.preventDefault();
   var choice, newDate, newTime, newWhere
   this.chatItemDataSpecific = document.getElementById("dowhop-selector-container").children[0].id
-  var myRef = this.database.ref().child('doWhops/' + this.chatItemDataSpecific);
-  var myRefPending = this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending');
+  var myRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific);
+  var myRefPending = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending');
   var messagesRef = this.database.ref().child('messages/' + this.chatItemDataSpecific);
   var status
 
@@ -204,12 +204,12 @@ FriendlyChat.prototype.sendApproval = function(e) {
       whenTime: newTime,
       whereAddress: newWhere
     });
-    this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/').update({
+    this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/').update({
     status: status
     });
   } else if (this.radioDeny.checked) {
     status = "denied";
-    this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/').update({
+    this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/').update({
     status: status
   });
   };
@@ -234,7 +234,7 @@ FriendlyChat.prototype.sendRescind = function(e) {
   e.preventDefault();
   console.log("You have rescinded");
   this.chatItemDataSpecific = document.getElementById("dowhop-selector-container").children[0].id // <-- Refactor
-  this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/').remove();
+  this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/').remove();
   // Send a notification to the user:
   window.alert("You have rescinded!");
 
@@ -319,13 +319,13 @@ FriendlyChat.prototype.getSession = function() {
       // Setting the header and check for pendings for the current DoWhop session:
 
       // Checking for changed pendings in real-time:
-      firebase.database().ref().child('doWhops/' + data.val().current_dowhop)
+      firebase.database().ref().child('doWhopDescription/' + data.val().current_dowhop)
         .on('child_changed', function(data) {
         checkForPendings(data.key, data);
       });
 
       // Extracting all of the relevant DoWhop-Selector-Block information:
-      firebase.database().ref().child('doWhops/' + data.val().current_dowhop)
+      firebase.database().ref().child('doWhopDescription/' + data.val().current_dowhop)
         .on('value', function(data) {
 
           // Check for pending notifications:
@@ -399,7 +399,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
       // For only all three attributes: Time, Date, Where:
   if (this.messageFormWhenDatePending.value && this.messageFormWhenTimePending.value && this.messageFormWherePending) {
     // Send the inputted date/time suggestion to the event it's associated with:
-    var chatsRef = this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/');
+    var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
     // Send a notification to the thread:
     messagesChatsRef.push({
       chatId: this.chatItemDataSpecific,
@@ -420,7 +420,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
   // Check for just Which Day and What Time:
   if (this.messageFormWhenDatePending.value && this.messageFormWhenTimePending.value) {
     // Send the inputted date/time suggestion to the event it's associated with:
-    var chatsRef = this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/');
+    var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
     // Send a notification to the thread:
     messagesChatsRef.push({
       chatId: this.chatItemDataSpecific,
@@ -440,7 +440,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
   // Check for just Where or When:
   if (this.messageFormWhenDatePending.value || this.messageFormWhenTimePending.value) {
     // Send the inputted date/time suggestion to the event it's associated with:
-    var chatsRef = this.database.ref().child('doWhops/' + this.chatItemDataSpecific + '/pending/');
+    var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
     // Send a notification to the thread:
     messagesChatsRef.push({
       chatId: this.chatItemDataSpecific,
