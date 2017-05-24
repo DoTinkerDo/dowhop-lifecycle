@@ -242,38 +242,46 @@ function createDoWhop(data, clearForm) {
   //Relevant code has been moved up to where the newEvent and user objects are created
 
   // put the listing again? spanish: pinto de nuevo el listado
-  queryData();
+  retrieveMyDoWhops();
 }
 
-function queryData() {
+function retrieveMyDoWhops() {
+
+  var makeDoWhopSelector = function(container, data) {
+    let imageUrl = data.val().titleDescriptionImage || 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+
+    container.innerHTML +=
+
+    "<section id='" + data.key + "' class='col-sm-12 col-xs-12 dowhop-selector-block' onclick='sessionRef(this)''>" +
+        "<div class='dowhop-selector-header' style='background-image: url(" + imageUrl + ");'>" +
+          "<h1>" + data.val().titleDescription + "</h1>" +
+        "</div>" +
+
+        "<div class='dowhop-selector-body'>" +
+          "<h3>" + data.val().whatDescription + "</h3>" +
+          "<h5>When?</h5>" +
+          "<p>" + data.val().whenDate + ' at ' + data.val().whenTime +
+          " " + data.val().whenDescription + "</p>" +
+          "<h5>Where?</h5>" +
+          "<p>" + data.val().whereDescription + " " + data.val().whereAddress + "</p>" +
+          "<h5>What else?</h5>" +
+          "<p>" + data.val().howMuchDescription + ' ' + data.val().howMuchCost +
+
+      "</div>" +
+    "</section>"
+
+  };
+
   rootRefEvents.orderByKey().on(
     "value",
     function(snapshot) {
       var content = document.getElementById("user-list-wrap");
       content.innerHTML = "";
       snapshot.forEach(function(data) {
-        //<p>Email: <span>' + data.val().email  +'</span></p> // Check below.
+        // Note: these hard-coded doer, host properties are a fall-back functionality.
         if((data.val().creator===person.uid) || (data.val().doer===person.email) || (data.val().host===person.email)){
-          let imageUrl = 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
-          content.innerHTML +=
+          makeDoWhopSelector(content, data);
 
-          "<section id='" + data.key + "' class='col-sm-12 col-xs-12 dowhop-selector-block' onclick='sessionRef(this)''>" +
-
-              "<div class='dowhop-selector-header' style='background-image: url(" + imageUrl + ");'>" +
-                "<h1>" + data.val().titleDescription + "</h1>" +
-              "</div>" +
-
-              "<div class='dowhop-selector-body'>" +
-                "<h3>" + data.val().whatDescription + "</h3>" +
-                "<h5>When?</h5>" +
-                "<p>" + data.val().whenDate + ' at ' + data.val().whenTime +
-                " " + data.val().whenDescription + "</p>" +
-                "<h5>Where?</h5>" +
-                "<p>" + data.val().whereDescription + " " + data.val().whereAddress + "</p>" +
-                "<h5>What else?</h5>" +
-                "<p>" + data.val().howmuchDescription + ' ' + data.val().howmuchCost +
-            "</div>" +
-          "</section>"
         }
       });
     },
@@ -282,8 +290,8 @@ function queryData() {
     }
   );
 }
-//consulta = query
-queryData();
+
+retrieveMyDoWhops();
 
 function handleFile(files_arr, node) {
   var file = files_arr[0]
