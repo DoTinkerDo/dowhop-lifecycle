@@ -544,7 +544,7 @@ FriendlyChat.prototype.saveImageMessage = function(event) {
 // Save all users who've logged in into DB via UID for shallow nesting:
 FriendlyChat.prototype.saveUser = function() {
   var currentUser = person;
-  this.database.ref('users/' + currentUser.uid).set({
+  this.database.ref('users/' + currentUser.uid).update({
     name: currentUser.displayName,
     email: currentUser.email,
     uid: currentUser.uid,

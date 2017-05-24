@@ -110,7 +110,7 @@ function clearNewDoWhopEntryForm() {
 // Adding function to add a chosen dowhop a user's list.
 function addToMyDoWhops(node){
     console.log("you clicked on:", node.parentElement.id)
-    firebase.database().ref().child('session/' + person.uid + "/doer/" + node.parentElement.id).set({doer: true})
+    firebase.database().ref().child('users/' + person.uid + "/doer/" + node.parentElement.id).update({doer: true})
 }
 
 var doWhopPlacard = document.getElementById('dowhop-placard');

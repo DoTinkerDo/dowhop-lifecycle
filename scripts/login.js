@@ -30,7 +30,7 @@
       if (snapshot.val()) return;
       var userData = _.pick(user, ['displayName', 'photoURL', 'uid', 'email']);
       appUserRef.set(userData);
-    });  
+    });
   }
 
   function handleSignedInUser(user) {
@@ -38,6 +38,7 @@
     applicationPage.style.display = 'block';
     writeUserData(user);
     console.log('USER SIGNED IN WITH USER.UID -> ', user.uid);
+    retrieveMyDoWhops(user.uid); // MOVED HERE TO AVOID TIMING ERROR.
   }
 
   function handleSignedOutUser() {
