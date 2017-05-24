@@ -85,7 +85,7 @@ function createDoWhop(data, clearForm) {
 
   // I collect form data and clear it
   var creator = firebase.auth().currentUser.uid
-  var campoEmail = document.getElementById("email");
+  // var campoEmail = document.getElementById("email");
   var titleDescription = document.getElementById("titleDescription");
   var titleImage = document.getElementById("titleImage");
   var whoDescription = document.getElementById("whoDescription");
@@ -102,18 +102,18 @@ function createDoWhop(data, clearForm) {
   var howMuchDescription = document.getElementById("howMuchDescription");
   var howMuchCost = document.getElementById("howMuchCost");
   var howmuchImage = document.getElementById("howmuchImage");
-
+  var currentDoWhop = document.getElementById("dowhop-selector-container").firstChild.id || "orphan";
 
   var error = document.getElementById("error");
 
   /*took out former if so that only same email dispays if (campoEmail.value !== "" &&  campoNombre.value !== "" && campoApellidos.value !== "")*/
   if (
-    campoEmail.value !== "" &&
+    // campoEmail.value !== "" &&
     titleDescription.value !== "" &&
     whoDescription.value !== ""
   ) {
     data.creator = creator;
-    data.email = campoEmail.value.trim();
+    // data.email = campoEmail.value.trim();
     data.titleDescription = titleDescription.value.trim();
     data.titleImage = titleImage.innerHTML.trim();
     data.whoDescription = whoDescription.value.trim();
@@ -152,7 +152,7 @@ function createDoWhop(data, clearForm) {
   var newEvent = {
 
     creator: person.uid, // <-- New
-    email: data.email,
+    // email: data.email,
     titleDescription: data.titleDescription,
     titleImage: data.titleImage,
     whoDescription: data.whoDescription,
@@ -168,19 +168,21 @@ function createDoWhop(data, clearForm) {
     whenImage: data.whenImage,
     howMuchDescription: data.howMuchDescription,
     howMuchCost: data.howMuchCost,
-    howmuchImage: data.howmuchImage,
-    doer: data.doerEmail || "none",
-    host: data.hostEmail || "none"
+    howmuchImage: data.howmuchImage
+    // doer: data.doerEmail || "none",
+    // host: data.hostEmail || "none"
   }
 
-    rootRefEvents.push(newEvent); // <-- Change this to an edit/update form.
+    // Changing this to an edit/update form that will only set certain attributes. NOTE: THis is overwriter the DOERs list.
+    rootRefEvents.child(currentDoWhop).child('titleDescription').set(data.titleDescription).then(retrieveMyDoWhops(auth.currentUser.uid));
+    // retrieveMyDoWhops(auth.currentUser.uid); // <-- Be sure to reset the page since it's acting strange.
 
     //^^Moved this to here since implementing the new code for population forms with old events the rootRefEvents.push above was causing the form values to not be wiped
 
   // create user data model
   var user = {
     creator: data.creator,
-    email: data.email,
+    // email: data.email,
     titleDescription: data.titleDescription,
     titleImage: data.titleImage,
     whoDescription: data.whoDescription,
@@ -199,7 +201,7 @@ function createDoWhop(data, clearForm) {
     howmuchImage: data.howmuchImage
   };
 
-  campoEmail.value = "";
+  // campoEmail.value = "";
   titleDescription.value = "";
   titleImage.innerHTML = "";
   whoDescription.value = "";
@@ -217,9 +219,9 @@ function createDoWhop(data, clearForm) {
   howMuchCost.value = "";
   howmuchImage.innerHTML = "";
 
-  rootRef.child(data.creator).set(user);
+  // rootRef.child(data.creator).set(user);
   document.getElementById("error").innerHTML =
-    "You rock! Thanks for submitting your DoWhop. We will review your changes and email you the newly published DoWhop!";
+    "You rock! Thanks for submitting your DoWhop. Please review your changes to the newly updated DoWhop!";
 
 
   // I check that there is no one with the same email and if it is not I enter it in the bbdd
