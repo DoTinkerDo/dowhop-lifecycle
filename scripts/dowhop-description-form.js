@@ -56,7 +56,7 @@ function submitNewDoWhopEntry(e) {
             whereDescription: whereDescription.value,
             howMuchDescription: howMuchDescription.value
           });
-          clearNewDoWhopEntryForm();
+        clearNewDoWhopEntryForm();
       });
   } else {
     doWhopDescriptionRef.child(doWhopDescriptionKey)
@@ -70,7 +70,7 @@ function submitNewDoWhopEntry(e) {
         whereDescription: whereDescription.value,
         howMuchDescription: howMuchDescription.value
       });
-      clearNewDoWhopEntryForm(); 
+    clearNewDoWhopEntryForm(); 
   }
 }
 
