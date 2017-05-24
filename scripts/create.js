@@ -250,7 +250,7 @@ function retrieveMyDoWhops(uid) {
   var rootRefDoer = firebase.database().ref("app_users/" + uid);
 
   var makeDoWhopSelector = function(container, data) {
-    let imageUrl = data.val().titleDescriptionImage || 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+    let imageUrl = data.val().downloadURL || 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
 
     container.innerHTML +=
 
@@ -268,15 +268,17 @@ function retrieveMyDoWhops(uid) {
           "<p>" + data.val().whereDescription + " " + data.val().whereAddress + "</p>" +
           "<h5>What else?</h5>" +
           "<p>" + data.val().howMuchDescription + ' ' + data.val().howMuchCost +
-
       "</div>" +
     "</section>"
 
   };
 
   var retrieveElement = function(id) {
+    let container = document.getElementById("user-list-wrap");
+
     let myTempRef = firebase.database().ref("/doWhopDescription/"+ id);
     myTempRef.once("value").then(function(data) {
+      makeDoWhopSelector(container, data);
       console.log("inside retrieving...");
       console.log(data.val().titleDescription);
     });
