@@ -173,7 +173,7 @@ function createDoWhop(data, clearForm) {
     host: data.hostEmail || "none"
   }
 
-    rootRefEvents.push(newEvent);
+    rootRefEvents.push(newEvent); // <-- Change this to an edit/update form.
 
     //^^Moved this to here since implementing the new code for population forms with old events the rootRefEvents.push above was causing the form values to not be wiped
 
@@ -260,14 +260,20 @@ function retrieveMyDoWhops(uid) {
         "</div>" +
 
         "<div class='dowhop-selector-body'>" +
-          "<h3>" + data.val().whatDescription + "</h3>" +
-          "<h5>When?</h5>" +
-          "<p>" + data.val().whenDate + ' at ' + data.val().whenTime +
-          " " + data.val().whenDescription + "</p>" +
-          "<h5>Where?</h5>" +
-          "<p>" + data.val().whereDescription + " " + data.val().whereAddress + "</p>" +
-          "<h5>What else?</h5>" +
-          "<p>" + data.val().howMuchDescription + ' ' + data.val().howMuchCost +
+          "<h3>What?</h3>" +
+          "<p>" + data.val().whatDescription + "</p>" +
+          "<h3>When?</h3>" +
+          "<p>" + data.val().whenDescription + "</p>" +
+          "<h3>What day?</h3>" +
+          "<p>" + ("TBD" || data.val().whenDate) + "<p>" +
+          "<h3>What time?</h3>" +
+          "<p>" + ("TBD" || data.val().whenTime) + "<p>" +
+          "<h3>Where?</h3>" +
+          "<p>" + data.val().whereDescription + "</p>" +
+          "<p>" + ("Address TBD" || data.val().whereAddress) + "</p>" +
+          "<h3>How Much?</h3>" +
+          "<p>" + data.val().howMuchDescription + "</p>" +
+          "<p>" + (":-)" || data.val().howMuchCost) + "</p>"
       "</div>" +
     "</section>"
 
