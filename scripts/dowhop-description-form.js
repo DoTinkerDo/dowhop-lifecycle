@@ -70,7 +70,7 @@ function submitNewDoWhopEntry(e) {
         whereDescription: whereDescription.value,
         howMuchDescription: howMuchDescription.value
       });
-    clearNewDoWhopEntryForm(); 
+    clearNewDoWhopEntryForm();
   }
 }
 
@@ -121,8 +121,8 @@ doWhopDescriptionRef.on('value', function(snapshot) {
   snapshot.forEach(function(data) {
     div.innerHTML +=
     "<section id='" + data.key + "' class='dowhop-selector-block'>" +
-      "<i class='material-icons' onclick='addToMyDoWhops(this)'>person_add</i>" +
-      "<div class='dowhop-selector-header' style='background-image: url(" + data.val().downloadURL + "); background-size: contain;'>" +
+      "<i class='material-icons dowhop-action' onclick='addToMyDoWhops(this)'>person_add</i>" +
+      "<div class='dowhop-selector-header' style='background-image: url(" + data.val().downloadURL + ");'>" +
         "<h1>" + data.val().titleDescription + "</h1>" +
       "</div>" +
       "<div class='dowhop-selector-body'>" +

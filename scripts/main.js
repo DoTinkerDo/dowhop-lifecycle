@@ -88,8 +88,37 @@
     });
   }
 
-function getSesh() {
-  FriendlyChat.prototype.getSession()
+function getSesh(node) {
+  FriendlyChat.prototype.getSession();
+
+  // Adding some funcitonality to help users walk through:
+  console.log("you clicked GET SESH on,,,,,",node.href);
+  var anchorPoint = node.href.match(/\/#(.*)/)[0];
+  getSeshTutorial(anchorPoint)
+}
+
+function getSeshTutorial(anchor) {
+  console.log("tutorial for...", anchor);
+  var tutorial = document.getElementById('tutorial-container');
+
+  switch(anchor) {
+
+    case "/#newdowhop":
+      console.log("Load tutorial for new dowhop.");
+      tutorial.innerText = "Please create your DoWhop or select a DoWhop to do by clicking the icon."
+      break;
+
+    case "/#create":
+      console.log("Load tutorial for create");
+      tutorial.innerText = "Here you can view or edit your purchased or advertised DoWhop details."
+      break;
+
+    case "/#coordinate":
+      console.log("Load tutorial for coordinate");
+      tutorial.innerText = "Here you can coordinate the DoWhop. Click banner to load messages."
+      break;
+
+  };
 }
 
 // Initializes FriendlyChat.
