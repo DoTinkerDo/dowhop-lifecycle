@@ -31,7 +31,6 @@
   background-color: white;
   opacity: 0.5;
   filter: alpha(opacity=50); /* For IE8 and earlier */
-  /*position: absolute;*/
   bottom: 0;
 }
 
@@ -40,6 +39,8 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  padding-top: 0;
+  margin-top: 0;
   /* Default: background-image: url('https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp');*/*/
 }
 
@@ -51,15 +52,29 @@
 
 .dowhop-selector-body {
   background-color: white;
-  padding: 10%;
-  padding-bottom: 2%;
+  padding: 5%;
+  /*padding-bottom: 2%;*/
 }
 
 .text-right.page-header {
   /* TBD */
 }
 
+i.dowhop-action {
+  padding-top: 2%;
+  padding-left: 2%;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  width: 100%;
+  height: 100%;
+}
 
+i.dowhop-action:hover {
+  color: pink;
+  cursor: hand;
+  cursor: pointer;
+  /*border: 2px solid pink;*/
+}
 /*
 
   DoWhop Image Selector
