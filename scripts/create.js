@@ -256,33 +256,38 @@ function retrieveMyDoWhops(uid) {
   var rootRefDoer = firebase.database().ref("app_users/" + uid);
 
   var makeDoWhopSelector = function(container, data) {
-    let imageUrl = data.val().downloadURL || 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
 
-    container.innerHTML +=
+    let imageUrl;
+    if (data.val() && data.val().downloadURL) {
+      imageUrl = data.val().downloadURL || 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+      container.innerHTML +=
 
-    "<section id='" + data.key + "' class='dowhop-selector-block' onclick='sessionRef(this)'>" +
-        "<div class='dowhop-selector-header' style='background-image: url(" + imageUrl + ");'>" +
-          "<h1>" + data.val().titleDescription + "</h1>" +
+      "<section id='" + data.key + "' class='dowhop-selector-block' onclick='sessionRef(this)'>" +
+          "<div class='dowhop-selector-header' style='background-image: url(" + imageUrl + ");'>" +
+            "<h1>" + data.val().titleDescription + "</h1>" +
+          "</div>" +
+
+          "<div class='dowhop-selector-body'>" +
+            "<h3>What?</h3>" +
+            "<p>" + data.val().whatDescription + "</p>" +
+            "<h3>When?</h3>" +
+            "<p>" + data.val().whenDescription + "</p>" +
+            "<h3>What day?</h3>" +
+            "<p>" + ("TBD" || data.val().whenDate) + "<p>" +
+            "<h3>What time?</h3>" +
+            "<p>" + ("TBD" || data.val().whenTime) + "<p>" +
+            "<h3>Where?</h3>" +
+            "<p>" + data.val().whereDescription + "</p>" +
+            "<p>" + ("Address TBD" || data.val().whereAddress) + "</p>" +
+            "<h3>How Much?</h3>" +
+            "<p>" + data.val().howMuchDescription + "</p>" +
+            "<p>" + (":-)" || data.val().howMuchCost) + "</p>"
         "</div>" +
-
-        "<div class='dowhop-selector-body'>" +
-          "<h3>What?</h3>" +
-          "<p>" + data.val().whatDescription + "</p>" +
-          "<h3>When?</h3>" +
-          "<p>" + data.val().whenDescription + "</p>" +
-          "<h3>What day?</h3>" +
-          "<p>" + ("TBD" || data.val().whenDate) + "<p>" +
-          "<h3>What time?</h3>" +
-          "<p>" + ("TBD" || data.val().whenTime) + "<p>" +
-          "<h3>Where?</h3>" +
-          "<p>" + data.val().whereDescription + "</p>" +
-          "<p>" + ("Address TBD" || data.val().whereAddress) + "</p>" +
-          "<h3>How Much?</h3>" +
-          "<p>" + data.val().howMuchDescription + "</p>" +
-          "<p>" + (":-)" || data.val().howMuchCost) + "</p>"
-      "</div>" +
-    "</section>"
-
+      "</section>"
+    } else {
+      console.log("No data yet...");
+      return container
+    }
   };
 
   var retrieveElement = function(id) {
@@ -290,9 +295,15 @@ function retrieveMyDoWhops(uid) {
 
     let myTempRef = firebase.database().ref("/doWhopDescription/"+ id);
     myTempRef.once("value").then(function(data) {
-      makeDoWhopSelector(container, data);
-      console.log("inside retrieving...");
-      console.log(data.val().titleDescription);
+
+      if(data.val()) {
+        makeDoWhopSelector(container, data);
+        console.log("inside retrieving...");
+        console.log(data.val().titleDescription);
+      } else {
+        console.log("No data yet...");
+      }
+
     });
   }
 
