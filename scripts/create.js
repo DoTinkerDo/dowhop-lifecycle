@@ -179,7 +179,7 @@ function createDoWhop(data, clearForm) {
     rootRefEvents.child(currentDoWhop).child('whoDescription').set(data.whoDescription);
     rootRefEvents.child(currentDoWhop).child('whereDescription').set(data.whereDescription);
     rootRefEvents.child(currentDoWhop).child('whenDescription').set(data.whenDescription);
-    rootRefEvents.child(currentDoWhop).child('howMuchDescription').set(data.howMuchDescription);
+    rootRefEvents.child(currentDoWhop).child('howMuchDescription').set(data.howMuchDescription).then(retrieveMyDoWhops(auth.currentUser.uid));
 
     //^^Moved this to here since implementing the new code for population forms with old events the rootRefEvents.push above was causing the form values to not be wiped
 
