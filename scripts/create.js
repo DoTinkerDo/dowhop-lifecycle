@@ -174,12 +174,12 @@ function createDoWhop(data, clearForm) {
   }
 
     // Changing this to an edit/update form that will only set certain attributes. NOTE: THis is overwriter the DOERs list.
-    rootRefEvents.child(currentDoWhop).child('titleDescription').set(data.titleDescription).then(retrieveMyDoWhops(auth.currentUser.uid));
-    rootRefEvents.child(currentDoWhop).child('whatDescription').set(data.whatDescription).then(retrieveMyDoWhops(auth.currentUser.uid));
-    rootRefEvents.child(currentDoWhop).child('whoDescription').set(data.whoDescription).then(retrieveMyDoWhops(auth.currentUser.uid));
-    rootRefEvents.child(currentDoWhop).child('whereDescription').set(data.whereDescription).then(retrieveMyDoWhops(auth.currentUser.uid));
-    rootRefEvents.child(currentDoWhop).child('whenDescription').set(data.whenDescription).then(retrieveMyDoWhops(auth.currentUser.uid));
-    rootRefEvents.child(currentDoWhop).child('howMuchDescription').set(data.howMuchDescription).then(retrieveMyDoWhops(auth.currentUser.uid));
+    rootRefEvents.child(currentDoWhop).child('titleDescription').set(data.titleDescription);
+    rootRefEvents.child(currentDoWhop).child('whatDescription').set(data.whatDescription);
+    rootRefEvents.child(currentDoWhop).child('whoDescription').set(data.whoDescription);
+    rootRefEvents.child(currentDoWhop).child('whereDescription').set(data.whereDescription);
+    rootRefEvents.child(currentDoWhop).child('whenDescription').set(data.whenDescription);
+    rootRefEvents.child(currentDoWhop).child('howMuchDescription').set(data.howMuchDescription);
 
     //^^Moved this to here since implementing the new code for population forms with old events the rootRefEvents.push above was causing the form values to not be wiped
 
@@ -257,16 +257,26 @@ function retrieveMyDoWhops(uid) {
 
   var makeDoWhopSelector = function(container, data) {
 
-    let imageUrl;
+    let imageUrl = '';
+    let relationshipIcon ='';
+
+    // Checking if current user is the creator; if so, prepare a special icon:
+    if (data.val() && (data.val().creator===auth.currentUser.uid)) {
+      relationshipIcon = 'check_box'; // icon for a Creator
+    } else {
+      relationshipIcon = 'directions_walk'; // icon for a Doer
+    }
+
+    // Put together elements to make a DoWhop Selector block:
     if (data.val() && data.val().downloadURL) {
       imageUrl = data.val().downloadURL || 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
       container.innerHTML +=
 
       "<section id='" + data.key + "' class='dowhop-selector-block' onclick='sessionRef(this)'>" +
+        "<i class='material-icons dowhop-icon'>" + relationshipIcon + "</i>" +
           "<div class='dowhop-selector-header' style='background-image: url(" + imageUrl + ");'>" +
             "<h1>" + data.val().titleDescription + "</h1>" +
           "</div>" +
-
           "<div class='dowhop-selector-body'>" +
             "<h3>What?</h3>" +
             "<p>" + data.val().whatDescription + "</p>" +
