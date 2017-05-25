@@ -63,12 +63,14 @@
     <div class="flex-wrapper">
       <div class="tabs-container">
         <ul class="tabs">
-          <li><a class="tab" href="#newdowhop" onclick="getSesh()"><span>+</span></a></li>
-          <li><a class="tab" href="#create" onclick="getSesh()"><span>✎</span></a></li>
-          <li><a class="tab" href="#coordinate" onclick="getSesh()">Coordinate</a></li>
-          <li><a class="tab" href="#review" onclick="getSesh()"><span>★</span></a></li>
+          <li><a class="tab" href="#newdowhop" onclick="getSesh(this)"><span>+</span></a></li>
+          <li><a class="tab" href="#create" onclick="getSesh(this)"><span>✎</span></a></li>
+          <li><a class="tab" href="#coordinate" onclick="getSesh(this)">Coordinate</a></li>
+          <li><a class="tab" href="#review" onclick="getSesh(this)"><span>★</span></a></li>
           <li><a class="btn-logout" href="#" onclick="firebase.auth().signOut()"><span>Log Out</span></a></li>
         </ul>
+      </div>
+      <div id="tutorial-container" class="tutorial-text">
       </div>
     </div>
 
@@ -106,7 +108,7 @@
                 <div class="mdl-card__title">
                   <h2 class="mdl-card__title-text">Create a  new Dowhop</h2>
                 </div>
-                <div class="mdl-card__supporting-text">  
+                <div class="mdl-card__supporting-text">
                   <form action="#">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                       <input class="mdl-textfield__input" type="text" id="title-description" placeholder="Do this with me">
@@ -132,7 +134,7 @@
                       <input class="mdl-textfield__input" type="text" id="how-much-description" placeholder="This much per person">
                       <label class="mdl-textfield__label" for="how-description">How much will it cost?</label>
                     </div>
-                    <div class="mdl-card__actions"> 
+                    <div class="mdl-card__actions">
                       <input id="dowhop-image-capture" type="file" accept="image/*,capture=camera" onchange="addDoWhopImage(this.files, this)">
                       <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="create-new-dowhop">
                         Create New DoWhop
@@ -158,13 +160,9 @@
 
         </div> <!-- Close Form wrap -->
         <div class="mdl-cell mdl-cell--5-col form-wrap">
-<!-- 
-          <h2 class="mdl-title">Whop will you do?</h2>
-          <br>
-          <span style=color:#ec1928;>Type "same" to keep that section as is.</span> -->
-
           <form id="edit-dowhop-form" hidden="true" action="">
                 <h2 class="mdl-title">Whop will you do?</h2>
+                <h5>Edit your details here<h5>
             <label class="form-line">
               <span>DoWhop Title <button type="button" name="button"><i class="fa fa-plus-circle plus-button" aria-hidden="true"></i></button></span>
               <input type="text" id="titleDescription" placeholder="Do this with Me"/>
