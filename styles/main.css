@@ -638,3 +638,9 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 .slideUp {
 	transform: translateY(-30px);
 }
+
+/* Any other general stylings */
+
+.tutorial-text {
+  opacity: 0.5;
+}

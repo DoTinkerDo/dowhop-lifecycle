@@ -105,17 +105,17 @@ function getSeshTutorial(anchor) {
 
     case "/#newdowhop":
       console.log("Load tutorial for new dowhop.");
-      tutorial.innerText = "Please create or select a DoWhop to do."
+      tutorial.innerText = "Please create your DoWhop or select a DoWhop to do by clicking the icon."
       break;
 
     case "/#create":
       console.log("Load tutorial for create");
-      tutorial.innerText = "Here you can view or edit your DoWhop details."
+      tutorial.innerText = "Here you can view or edit your purchased or advertised DoWhop details."
       break;
 
     case "/#coordinate":
       console.log("Load tutorial for coordinate");
-      tutorial.innerText = "Here you can coordinate with others on the DoWhop.."
+      tutorial.innerText = "Here you can coordinate the DoWhop. Click banner to load messages."
       break;
 
   };
