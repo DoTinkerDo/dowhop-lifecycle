@@ -207,7 +207,9 @@ main, #messages-card {
 
 /* Added-on styling details */
 
-h1,h2,h3,h4,h5 { font-family: Avenir }
+h1,h2,h3,h4,h5 { 
+  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
+}
 
 #image-form {
   padding-top: 7%;
