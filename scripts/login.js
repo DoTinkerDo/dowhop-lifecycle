@@ -39,6 +39,7 @@
     writeUserData(user);
     console.log('USER SIGNED IN WITH USER.UID -> ', user.uid);
     retrieveMyDoWhops(user.uid); // MOVED HERE TO AVOID TIMING ERROR.
+    registerDoWhopDescriptionCallback();
   }
 
   function handleSignedOutUser() {

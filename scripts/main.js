@@ -342,8 +342,8 @@ FriendlyChat.prototype.getSession = function() {
 
       var dowhopSelector = document.getElementById('dowhop-selector-container');
       var dowhopSelectorDiv = "";
-
-      console.log("Inside once", currentSessionID = data.val().current_dowhop);
+ 
+      console.log("Inside once", currentSessionID = data.val() ? data.val().current_dowhop : null);
 
       // Setting the header and check for pendings for the current DoWhop session:
 
@@ -620,8 +620,8 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
     this.saveMessagingDeviceToken();
   } else { // User is signed out!
     // Hide user's profile and sign-out button.
-    this.userName.setAttribute('hidden', 'true');
-    this.userPic.setAttribute('hidden', 'true');
+    this.userName && this.userName.setAttribute('hidden', 'true');
+    this.userPic && this.userPic.setAttribute('hidden', 'true');
   }
 };
 
