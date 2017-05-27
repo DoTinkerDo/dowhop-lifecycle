@@ -250,6 +250,7 @@ function createDoWhop(data, clearForm) {
   // retrieveMyDoWhops();
 }
 
+
 function retrieveMyDoWhops(uid) {
 
   var rootRefEvents = firebase.database().ref("doWhopDescription/");
