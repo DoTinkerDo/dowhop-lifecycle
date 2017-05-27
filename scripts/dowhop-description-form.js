@@ -29,49 +29,34 @@ function submitNewDoWhopEntry(e) {
   e.preventDefault();
 
   if (
-    !validateAddDoWhopDescription(titleDescription.value, whoDescription.value, whatDescription.value, whenDescription.value, whereDescription.value, howMuchDescription.value)
+    !validateAddDoWhopDescription(file, titleDescription.value, whoDescription.value, whatDescription.value, whenDescription.value, whereDescription.value, howMuchDescription.value)
   ) {
-    alert("Please fill out all the fields, Try again.");
+    alert("Please fill out all the fields and add an Image, Try again.");
     return;
   }
 
   var uid = auth.currentUser.uid;
   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
   var filepath;
-  var defaultImageURL = 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+  // var defaultImageURL = 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
 
-  if (file) {
-    filePath = "doWhopImages/" + uid + "/" + "titleDescriptionImage/" + doWhopDescriptionKey + "/" + file.name;
-    storage.ref(filePath)
-      .put(file)
-      .then(function(snapshot) {
-        doWhopDescriptionRef.child(doWhopDescriptionKey)
-          .set({
-            creator: uid,
-            downloadURL: snapshot.metadata.downloadURLs[0],
-            titleDescription: titleDescription.value,
-            whoDescription: whoDescription.value,
-            whatDescription: whatDescription.value,
-            whenDescription: whenDescription.value,
-            whereDescription: whereDescription.value,
-            howMuchDescription: howMuchDescription.value
-          });
-        clearNewDoWhopEntryForm();
-      });
-  } else {
-    doWhopDescriptionRef.child(doWhopDescriptionKey)
-      .set({
-        creator: uid,
-        downloadURL: defaultImageURL,
-        titleDescription: titleDescription.value,
-        whoDescription: whoDescription.value,
-        whatDescription: whatDescription.value,
-        whenDescription: whenDescription.value,
-        whereDescription: whereDescription.value,
-        howMuchDescription: howMuchDescription.value
-      });
-    clearNewDoWhopEntryForm();
-  }
+  filePath = "doWhopImages/" + uid + "/" + "titleDescriptionImage/" + doWhopDescriptionKey + "/" + file.name;
+  storage.ref(filePath)
+    .put(file)
+    .then(function(snapshot) {
+      doWhopDescriptionRef.child(doWhopDescriptionKey)
+        .set({
+          creator: uid,
+          downloadURL: snapshot.metadata.downloadURLs[0],
+          titleDescription: titleDescription.value,
+          whoDescription: whoDescription.value,
+          whatDescription: whatDescription.value,
+          whenDescription: whenDescription.value,
+          whereDescription: whereDescription.value,
+          howMuchDescription: howMuchDescription.value
+        });
+      clearNewDoWhopEntryForm();
+    });
 }
 
 var file = null;
@@ -84,14 +69,15 @@ function addDoWhopImage(files_arr, node) {
   }
 }
 
-function validateAddDoWhopDescription(titleDescription, whoDescription, whatDescription, whenDescription, whereDescription, howMuchDescription) {
+function validateAddDoWhopDescription(file, titleDescription, whoDescription, whatDescription, whenDescription, whereDescription, howMuchDescription) {
   if (
     titleDescription === "" ||
     whoDescription   === "" ||
     whatDescription  === "" ||
     whenDescription  === "" ||
     whereDescription === "" ||
-    howMuchDescription === ""
+    howMuchDescription === "" ||
+    file === null
   ) return false;
     return true;
 }

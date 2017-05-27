@@ -157,3 +157,11 @@ input[type=file]#dowhop-image-capture{
   background: #605e5e;
   color: #ffffff;
 }
+
+.mdl-card.mdl-shadow--6dp {
+  width: 100%;
+}
+
+.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.has-placeholder.is-upgraded {
+  width: 100%;
+}
