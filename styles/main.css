@@ -14,7 +14,14 @@
  * limitations under the License.
  */
 
-/* Adding in template presets */
+/* Adding in template presets */ 
+
+/* Color palette 
+Replaced #hover-flag, #top-bar-hidden, #top-bar-dowhop  #FF0404 (red) with #ec1928  
+Repalced #title and #pac-input focus #4d90fe (blue) with #ec1928 
+Replaced #user-list border #cfd9df (blue-grey) with #c0c0c0*
+
+TODO: standardize grey pallette */
 
 main, #messages-card {
   height: 100%;
@@ -190,12 +197,12 @@ main, #messages-card {
 }
 
 #pac-input:focus {
- border-color: #4d90fe;
+ border-color: #ec1928;
 }
 
 #title {
  color: #fff;
- background-color: #4d90fe;
+ background-color: #ec1928;
  font-size: 25px;
  font-weight: 500;
  padding: 6px 12px;
@@ -276,7 +283,7 @@ h1,h2,h3,h4,h5 {
 /* Be sure to update upon style guide changes */
 
 #hover-flag, #top-bar-hidden, #top-bar-dowhop {
-  background-color: #FF0404;
+  background-color: #ec1928;
 }
 
 #new-chat-popup {
@@ -286,7 +293,7 @@ h1,h2,h3,h4,h5 {
 }
 
 .pending-notification {
-  color: #ed238b;
+  color: #ec1928;
   font-size: 1.25em;
   background-color: eggShell;
   padding-left: 10%;
@@ -512,7 +519,7 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 	background: #fff;
 	box-shadow: 0 8px 6px -6px #808080;
 	padding: 30px 40px;
-	border-top: 3px solid #cfd9df;
+	border-top: 3px solid #c0c0c0;
 }
 
 
