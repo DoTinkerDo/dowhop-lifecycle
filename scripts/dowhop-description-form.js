@@ -47,6 +47,7 @@ function submitNewDoWhopEntry(e) {
       doWhopDescriptionRef.child(doWhopDescriptionKey)
         .set({
           creator: uid,
+          doWhopDescriptionKey: doWhopDescriptionKey,
           downloadURL: snapshot.metadata.downloadURLs[0],
           titleDescription: titleDescription.value,
           whoDescription: whoDescription.value,
@@ -103,26 +104,27 @@ var doWhopPlacard = document.getElementById('dowhop-placard');
 
 function registerDoWhopDescriptionCallback() {
   doWhopDescriptionRef.on('value', function(snapshot) {
+    var doWhopPlacardsDesc = _.map(snapshot.val()).reverse();
     var div = document.createElement('div');
     doWhopPlacard.innerHTML = "";
-    snapshot.forEach(function(data) {
+    doWhopPlacardsDesc.forEach(function(data) {
       div.innerHTML +=
-      "<section id='" + data.key + "' class='dowhop-selector-block'>" +
+      "<section id='" + data.doWhopDescriptionKey + "' class='dowhop-selector-block'>" +
         "<i class='material-icons dowhop-action' onclick='addToMyDoWhops(this)'>person_add</i>" +
-        "<div class='dowhop-selector-header' style='background-image: url(" + data.val().downloadURL + ");'>" +
-          "<h1>" + data.val().titleDescription + "</h1>" +
+        "<div class='dowhop-selector-header' style='background-image: url(" + data.downloadURL + ");'>" +
+          "<h1>" + data.titleDescription + "</h1>" +
         "</div>" +
         "<div class='dowhop-selector-body'>" +
           "<h5>What?</h5>" +
-          "<p>" + data.val().whatDescription + "</p>" +
+          "<p>" + data.whatDescription + "</p>" +
           "<h5>Who?</h5>" +
-          "<p>" + data.val().whoDescription + "</p>" +
+          "<p>" + data.whoDescription + "</p>" +
           "<h5>When?</h5>" +
-          "<p>" + data.val().whenDescription + "</p>" +
+          "<p>" + data.whenDescription + "</p>" +
           "<h5>Where?</h5>" +
-          "<p>" + data.val().whereDescription + "</p>" +
+          "<p>" + data.whereDescription + "</p>" +
           "<h5>How much?</h5>" +
-          "<p>" + data.val().howMuchDescription + "</p>"
+          "<p>" + data.howMuchDescription + "</p>"
         "</div>" +
       "</section>";
       doWhopPlacard.append(div);
