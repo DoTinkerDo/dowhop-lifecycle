@@ -20,6 +20,8 @@ var whatDescription = document.getElementById('what-description');
 var whenDescription = document.getElementById('when-description');
 var whereDescription = document.getElementById('where-description');
 var howMuchDescription = document.getElementById('how-much-description');
+var hostDescription = document.getElementById('host-description');
+var guestDescription = document.getElementById('guest-description');
 var dowhopImageCapture = document.getElementById('dowhop-image-capture');
 
 var submitNewDoWhopBtn = document.getElementById('create-new-dowhop');
@@ -54,7 +56,9 @@ function submitNewDoWhopEntry(e) {
           whatDescription: whatDescription.value,
           whenDescription: whenDescription.value,
           whereDescription: whereDescription.value,
-          howMuchDescription: howMuchDescription.value
+          howMuchDescription: howMuchDescription.value,
+          host: hostDescription.value,
+          guest: guestDescription.value
         });
       clearNewDoWhopEntryForm();
     });
@@ -70,7 +74,7 @@ function addDoWhopImage(files_arr, node) {
   }
 }
 
-function validateAddDoWhopDescription(file, titleDescription, whoDescription, whatDescription, whenDescription, whereDescription, howMuchDescription) {
+function validateAddDoWhopDescription(file, titleDescription, whoDescription, whatDescription, whenDescription, whereDescription, howMuchDescription, hostDescription, guestDescription) {
   if (
     titleDescription === "" ||
     whoDescription   === "" ||
@@ -78,6 +82,8 @@ function validateAddDoWhopDescription(file, titleDescription, whoDescription, wh
     whenDescription  === "" ||
     whereDescription === "" ||
     howMuchDescription === "" ||
+    hostDescription === "" ||
+    guestDescription === "" ||
     file === null
   ) return false;
     return true;
@@ -92,6 +98,8 @@ function clearNewDoWhopEntryForm() {
   whereDescription.value = "";
   howMuchDescription.value = "";
   dowhopImageCapture.value = "";
+  hostDescription.value = "";
+  guestDescription.value = "";
 }
 
 // Adding function to add a chosen dowhop a user's list.
@@ -124,7 +132,11 @@ function registerDoWhopDescriptionCallback() {
           "<h5>Where?</h5>" +
           "<p>" + data.whereDescription + "</p>" +
           "<h5>How much?</h5>" +
-          "<p>" + data.howMuchDescription + "</p>"
+          "<p>" + data.howMuchDescription + "</p>" +
+          "<h5>Who is host?</h5>" +
+          "<p>" + data.hostDescription + "</p>" +
+          "<h5>Who is guest?</h5>" +
+          "<p>" + data.guestDescription + "</p>" +
         "</div>" +
       "</section>";
       doWhopPlacard.append(div);
