@@ -51,6 +51,13 @@
 
   function handleOnAuthStateChange() {
     auth.onAuthStateChanged(function(user) {
+
+      // Testing out specific admin redirects:
+
+      if (user.email === "omaralimalik@gmail.com") {
+        window.location = 'admin.html';
+      }
+
       user ? handleSignedInUser(user) : handleSignedOutUser();
     });
   }
