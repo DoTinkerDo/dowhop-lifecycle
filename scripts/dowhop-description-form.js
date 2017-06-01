@@ -21,7 +21,7 @@ var whenDescription = document.getElementById('when-description');
 var whereDescription = document.getElementById('where-description');
 var howMuchDescription = document.getElementById('how-much-description');
 var hostDescription = document.getElementById('host-description');
-var guestDescription = document.getElementById('guest-description');
+var guestDescription = document.getElementById('guestDescription');
 var dowhopImageCapture = document.getElementById('dowhop-image-capture');
 
 var submitNewDoWhopBtn = document.getElementById('create-new-dowhop');
@@ -31,7 +31,7 @@ function submitNewDoWhopEntry(e) {
   e.preventDefault();
 
   if (
-    !validateAddDoWhopDescription(file, titleDescription.value, whoDescription.value, whatDescription.value, whenDescription.value, whereDescription.value, howMuchDescription.value, hostDescription.value, guestDescription.value)
+    !validateAddDoWhopDescription(file, titleDescription.value, whoDescription.value, whatDescription.value, whenDescription.value, whereDescription.value, howMuchDescription.value)
   ) {
     alert("Please fill out all the fields and add an Image, Try again.");
     return;
@@ -105,7 +105,7 @@ function clearNewDoWhopEntryForm() {
 // Adding function to add a chosen dowhop a user's list.
 function addToMyDoWhops(node){
     console.log("you clicked on:", node.parentElement.id)
-    firebase.database().ref().child('app_users/' + person.uid + "/doer/" + node.parentElement.id).update({doer: true})
+    firebase.database().ref().child('app_users/' + auth.currentUser.uid + "/doer/" + node.parentElement.id).update({doer: true})
 }
 
 var doWhopPlacard = document.getElementById('dowhop-placard');
@@ -136,7 +136,7 @@ function registerDoWhopDescriptionCallback() {
           "<h5>Who is host?</h5>" +
           "<p>" + data.hostDescription + "</p>" +
           "<h5>Who is guest?</h5>" +
-          "<p>" + data.guestDescription + "</p>" +
+          "<p>" + data.hostDescription + "</p>" +
         "</div>" +
       "</section>";
       doWhopPlacard.append(div);
