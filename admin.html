@@ -3,6 +3,13 @@
   <head>
     <meta charset="utf-8">
     <title>DoWhop Admin</title>
+
+    <!-- Adding in cloned info from index.html -->
+    <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>  <!-- Firebase library -->
+    <script src="scripts/firebase.js"></script> <!-- Initialize Firebase app -->
+    <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script> <!-- Lodash ._ -->
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script> <!-- Firebase UI JS for Web Auth -->
+
   </head>
   <body>
     <h1>Admin</h1>
@@ -42,6 +49,14 @@
                       <input class="mdl-textfield__input" type="text" id="how-much-description" placeholder="This much per person">
                       <label class="mdl-textfield__label" for="how-description">How much will it cost?</label>
                     </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <input class="mdl-textfield__input" type="text" id="host-description" placeholder="host@example.com">
+                      <label class="mdl-textfield__label" for="host-description">Who is the host (email)?</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <input class="mdl-textfield__input" type="text" id="guest-description" placeholder="guest@example.com">
+                      <label class="mdl-textfield__label" for="guest-description">Who is the guest (email)?</label>
+                    </div>
                     <div class="mdl-card__actions">
                       <input id="dowhop-image-capture" type="file" accept="image/*,capture=camera" onchange="addDoWhopImage(this.files, this)">
                       <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="create-new-dowhop">
@@ -56,5 +71,6 @@
         </div>
       <!-- </div> -->
     </div> <!-- End Create New DoWhop Form -->
+    <script src="scripts/dowhop-description-form.js"></script>
   </body>
 </html>
