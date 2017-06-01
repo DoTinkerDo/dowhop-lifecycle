@@ -52,11 +52,28 @@
   function handleOnAuthStateChange() {
     auth.onAuthStateChanged(function(user) {
 
-      // Testing out specific admin redirects:
+      // Check if current user email is admin in Firebase:
+      var approved = false;
 
-      if (user.email === "omaralimalik@gmail.com") {
-        window.location = 'admin.html';
-      }
+      firebase.database().ref().child('admin/').once("value", function(snap) {
+
+        // Cycling through the data to see if admin is permitted:
+        console.log("looking for admins in the databse...");
+        snap.forEach(function(data) {
+           if (data.val() === user.email) {
+             approved = true;
+             window.location = 'admin.html';
+
+           } else {
+             approved = false;
+           }
+         });
+
+         console.log("Person trying to enter is Admin? ", approved);
+         return approved;
+
+      });
+
 
       user ? handleSignedInUser(user) : handleSignedOutUser();
     });
