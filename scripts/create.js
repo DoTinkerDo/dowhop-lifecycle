@@ -73,15 +73,15 @@ Array.from(document.getElementsByClassName("img_icon")).forEach(function(e){
 // })
 
 
-var adminDiv = document.getElementById("admin-input-form");
-adminDiv.style.display = 'none';
+// var adminDiv = document.getElementById("admin-input-form");
+// adminDiv.style.display = 'none';
 
 function createDoWhop(data, clearForm) {
 
   // Checking for user's admin status <-- CHECK.
-  person.email === 'tinkerdowhop@gmail.com' || 'omaralimalik@gmail.com' ?
-    adminDiv.style.display = 'block' :
-    adminDiv.style.display = 'none';
+  // person.email === 'tinkerdowhop@gmail.com' || 'omaralimalik@gmail.com' ?
+  //   adminDiv.style.display = 'block' :
+  //   adminDiv.style.display = 'none';
 
   // I collect form data and clear it
   var creator = firebase.auth().currentUser.uid
@@ -100,6 +100,8 @@ function createDoWhop(data, clearForm) {
   var whenTime = document.getElementById("whenTime")
   var whenImage = document.getElementById("whenImage");
   var howMuchDescription = document.getElementById("howMuchDescription");
+  var hostDescription = document.getElementById("hostDescription"); // new
+  var guestDescription = document.getElementById("guestDescription"); // new
   var howMuchCost = document.getElementById("howMuchCost");
   var howmuchImage = document.getElementById("howmuchImage");
   var currentDoWhop = document.getElementById("dowhop-selector-container").firstChild.id || "orphan";
@@ -128,6 +130,8 @@ function createDoWhop(data, clearForm) {
     data.whenDate = whenDate.value.trim();
     data.whenImage = whenImage.innerHTML.trim();
     data.howMuchDescription = howMuchDescription.value.trim();
+    data.host = hostDescription.value.trim();
+    data.guest = guestDescription.value.trim();
     data.howMuchCost = howMuchCost.value.trim();
     data.howmuchImage = howmuchImage.innerHTML.trim();
       ;
@@ -168,9 +172,9 @@ function createDoWhop(data, clearForm) {
     whenImage: data.whenImage,
     howMuchDescription: data.howMuchDescription,
     howMuchCost: data.howMuchCost,
-    howmuchImage: data.howmuchImage
-    // doer: data.doerEmail || "none",
-    // host: data.hostEmail || "none"
+    howmuchImage: data.howmuchImage,
+    doer: data.hostDescription || "none",
+    host: data.guestDescription || "none"
   }
 
     // Changing this to an edit/update form that will only set certain attributes. NOTE: THis is overwriter the DOERs list.
@@ -179,6 +183,8 @@ function createDoWhop(data, clearForm) {
     rootRefEvents.child(currentDoWhop).child('whoDescription').set(data.whoDescription);
     rootRefEvents.child(currentDoWhop).child('whereDescription').set(data.whereDescription);
     rootRefEvents.child(currentDoWhop).child('whenDescription').set(data.whenDescription);
+    rootRefEvents.child(currentDoWhop).child('host').set(data.host);
+    rootRefEvents.child(currentDoWhop).child('guest').set(data.guest);
     rootRefEvents.child(currentDoWhop).child('howMuchDescription').set(data.howMuchDescription).then(retrieveMyDoWhops(auth.currentUser.uid));
 
     //^^Moved this to here since implementing the new code for population forms with old events the rootRefEvents.push above was causing the form values to not be wiped
@@ -201,11 +207,12 @@ function createDoWhop(data, clearForm) {
     whenTime: data.whenTime,
     whenImage: data.whenImage,
     howMuchDescription: data.howMuchDescription,
+    host: data.hostDescription,
+    guest: data.guestDescription,
     howMuchCost: data.howMuchCost,
     howmuchImage: data.howmuchImage
   };
 
-  // campoEmail.value = "";
   titleDescription.value = "";
   titleImage.innerHTML = "";
   whoDescription.value = "";
@@ -220,6 +227,8 @@ function createDoWhop(data, clearForm) {
   whenDate.value = "";
   whenImage.innerHTML = "";
   howMuchDescription.value = "";
+  hostDescription.value = "";
+  guestDescription.value = "";
   howMuchCost.value = "";
   howmuchImage.innerHTML = "";
 
@@ -262,7 +271,7 @@ function retrieveMyDoWhops(uid) {
     let relationshipIcon ='';
 
     // Checking if current user is the creator; if so, prepare a special icon:
-    if (data.val() && (data.val().creator===auth.currentUser.uid)) {
+    if (data.val() && (data.val().host===auth.currentUser.email || data.val().creator===auth.currentUser.uid)) {
       relationshipIcon = 'check_box'; // icon for a Creator
     } else {
       relationshipIcon = 'directions_walk'; // icon for a Doer
@@ -292,6 +301,10 @@ function retrieveMyDoWhops(uid) {
             "<p>" + ("Address TBD" || data.val().whereAddress) + "</p>" +
             "<h3>How Much?</h3>" +
             "<p>" + data.val().howMuchDescription + "</p>" +
+            "<h3>Who is host?</h3>" +
+            "<p>" + data.val().host + "</p>" +
+            "<h3>Who is guest?</h3>" +
+            "<p>" + data.val().guest + "</p>" +
             "<p>" + (":-)" || data.val().howMuchCost) + "</p>"
         "</div>" +
       "</section>"
@@ -415,7 +428,7 @@ function showEditForm(node) {
   var editForm = document.getElementById("edit-dowhop-form");
   var rootRefEvent = firebase.database().ref("doWhopDescription/" + node.id);
   rootRefEvent.once("value").then(function(snap) {
-    if(snap.val().creator === auth.currentUser.uid) {
+    if(snap.val().host === auth.currentUser.email) {
       console.log("You clicked on one of your events!");
       editForm.removeAttribute("hidden");
     } else {
@@ -452,6 +465,9 @@ function fillInForms(node){
           document.getElementById("whenTime").value = data.val().whenTime;
           // document.getElementById("whenImage").innerHTML = data.val().whenImage;
           document.getElementById("howMuchDescription").value = data.val().howMuchDescription;
+          // New
+          document.getElementById("hostDescription").value = data.val().host;
+          document.getElementById("guestDescription").value = data.val().guest;
           document.getElementById("howMuchCost").value = data.val().howMuchCost;
           // document.getElementById("howmuchImage").innerHTML = data.val().howmuchImage;
         }

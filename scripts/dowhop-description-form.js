@@ -31,7 +31,7 @@ function submitNewDoWhopEntry(e) {
   e.preventDefault();
 
   if (
-    !validateAddDoWhopDescription(file, titleDescription.value, whoDescription.value, whatDescription.value, whenDescription.value, whereDescription.value, howMuchDescription.value)
+    !validateAddDoWhopDescription(file, titleDescription.value, whoDescription.value, whatDescription.value, whenDescription.value, whereDescription.value, howMuchDescription.value, hostDescription.value, guestDescription.value)
   ) {
     alert("Please fill out all the fields and add an Image, Try again.");
     return;
