@@ -355,8 +355,8 @@ function retrieveMyDoWhops(uid) {
       var content = document.getElementById("user-list-wrap");
       content.innerHTML = "";
       snapshot.forEach(function(data) {
-        // Note: these hard-coded doer, host properties are a fall-back functionality.
-        if((data.val().creator===person.uid) || (data.val().doer===person.email) || (data.val().host===person.email)){
+        // Note: these hard-coded doer, host, guest properties are an admin-priority functionality.
+        if( (data.val().creator===person.uid) || (data.val().host===person.email) || (data.val().doer===person.email) || (data.val().guest===person.guest) ){
           makeDoWhopSelector(content, data);
         }
       });
@@ -428,7 +428,7 @@ function showEditForm(node) {
   var editForm = document.getElementById("edit-dowhop-form");
   var rootRefEvent = firebase.database().ref("doWhopDescription/" + node.id);
   rootRefEvent.once("value").then(function(snap) {
-    if((snap.val().host === auth.currentUser.email || snap.val().creator === auth.currentUser.uid)) {
+    if(snap.val().host === auth.currentUser.email || snap.val().creator === auth.current) {
       console.log("You clicked on one of your events!");
       editForm.removeAttribute("hidden");
     } else {
