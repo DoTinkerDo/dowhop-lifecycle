@@ -63,7 +63,7 @@ function submitNewDoWhopEntry(e) {
       whereDescription: whereDescription.value,
       howMuchDescription: howMuchDescription.value,
       host: hostDescription.value,
-      guest: guestDescription.value
+      doer: guestDescription.value
     });
     clearNewDoWhopEntryForm();
   });
