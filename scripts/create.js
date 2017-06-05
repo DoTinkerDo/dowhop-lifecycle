@@ -428,7 +428,7 @@ function showEditForm(node) {
   var editForm = document.getElementById("edit-dowhop-form");
   var rootRefEvent = firebase.database().ref("doWhopDescription/" + node.id);
   rootRefEvent.once("value").then(function(snap) {
-    if(snap.val().hostDescription === auth.currentUser.email || snap.val().creator === auth.current) {
+    if(snap.val().hostDescription === auth.currentUser.email || snap.val().creator === auth.currentUser.uid) {
       console.log("You clicked on one of your events!");
       editForm.removeAttribute("hidden");
     } else {
