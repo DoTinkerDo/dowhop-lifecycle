@@ -173,8 +173,8 @@ function createDoWhop(data, clearForm) {
     howMuchDescription: data.howMuchDescription,
     howMuchCost: data.howMuchCost,
     howmuchImage: data.howmuchImage,
-    doer: data.hostDescription || "none",
-    host: data.doerDescription || "none"
+    doerDescription: data.hostDescription || "none",
+    hostDescription: data.doerDescription || "none"
   }
 
     // Changing this to an edit/update form that will only set certain attributes. NOTE: THis is overwriter the DOERs list.
@@ -207,8 +207,8 @@ function createDoWhop(data, clearForm) {
     whenTime: data.whenTime,
     whenImage: data.whenImage,
     howMuchDescription: data.howMuchDescription,
-    host: data.hostDescription,
-    doer: data.doerDescription,
+    hostDescription: data.hostDescription,
+    doerDescription: data.doerDescription,
     howMuchCost: data.howMuchCost,
     howmuchImage: data.howmuchImage
   };
@@ -271,7 +271,7 @@ function retrieveMyDoWhops(uid) {
     let relationshipIcon ='';
 
     // Checking if current user is the creator; if so, prepare a special icon:
-    if (data.val() && (data.val().host===auth.currentUser.email || data.val().creator===auth.currentUser.uid)) {
+    if (data.val() && (data.val().hostDescription===auth.currentUser.email || data.val().creator===auth.currentUser.uid)) {
       relationshipIcon = 'check_box'; // icon for a Creator
     } else {
       relationshipIcon = 'directions_walk'; // icon for a Doer
@@ -302,9 +302,9 @@ function retrieveMyDoWhops(uid) {
             "<h3>How Much?</h3>" +
             "<p>" + data.val().howMuchDescription + "</p>" +
             "<h3>Who is host?</h3>" +
-            "<p>" + data.val().host + "</p>" +
+            "<p>" + data.val().hostDescription + "</p>" +
             "<h3>Who is doer?</h3>" +
-            "<p>" + data.val().doer + "</p>" +
+            "<p>" + data.val().doerDescription + "</p>" +
             "<p>" + (":-)" || data.val().howMuchCost) + "</p>"
         "</div>" +
       "</section>"
@@ -338,7 +338,7 @@ function retrieveMyDoWhops(uid) {
 
     snap.forEach(function(snap) {
       // Note: these hard-coded doer, host properties are a fall-back functionality.
-      // if((data.val().creator===person.uid) || (data.val().doer===person.email) || (data.val().host===person.email)){
+      // if((data.val().creator===person.uid) || (data.val().doerDescription===person.email) || (data.val().hostDescription===person.email)){
 
       var doWhopItem = snap.key;
 
@@ -356,7 +356,7 @@ function retrieveMyDoWhops(uid) {
       content.innerHTML = "";
       snapshot.forEach(function(data) {
         // Note: these hard-coded doer, host, doer properties are an admin-priority functionality.
-        if( (data.val().creator===person.uid) || (data.val().host===person.email) || (data.val().doer===person.email) ){
+        if( (data.val().creator===person.uid) || (data.val().hostDescription===person.email) || (data.val().doerDescription===person.email) ){
           makeDoWhopSelector(content, data);
         }
       });
@@ -428,7 +428,7 @@ function showEditForm(node) {
   var editForm = document.getElementById("edit-dowhop-form");
   var rootRefEvent = firebase.database().ref("doWhopDescription/" + node.id);
   rootRefEvent.once("value").then(function(snap) {
-    if(snap.val().host === auth.currentUser.email || snap.val().creator === auth.current) {
+    if(snap.val().hostDescription === auth.currentUser.email || snap.val().creator === auth.current) {
       console.log("You clicked on one of your events!");
       editForm.removeAttribute("hidden");
     } else {
@@ -466,8 +466,8 @@ function fillInForms(node){
           // document.getElementById("whenImage").innerHTML = data.val().whenImage;
           document.getElementById("howMuchDescription").value = data.val().howMuchDescription;
           // New
-          document.getElementById("hostDescription").value = data.val().host;
-          document.getElementById("doerDescription").value = data.val().doer;
+          document.getElementById("hostDescription").value = data.val().hostDescription;
+          document.getElementById("doerDescription").value = data.val().doerDescription;
           document.getElementById("howMuchCost").value = data.val().howMuchCost;
           // document.getElementById("howmuchImage").innerHTML = data.val().howmuchImage;
         }

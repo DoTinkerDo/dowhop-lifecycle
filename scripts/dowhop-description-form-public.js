@@ -20,8 +20,8 @@ var whatDescription = document.getElementById('what-description');
 var whenDescription = document.getElementById('when-description');
 var whereDescription = document.getElementById('where-description');
 var howMuchDescription = document.getElementById('how-much-description');
-var hostDescription = document.getElementById('host-description');
-var doerDescription = document.getElementById('doer-description');
+// var hostDescription = document.getElementById('host-description');
+// var doerDescription = document.getElementById('doer-description');
 var dowhopImageCapture = document.getElementById('dowhop-image-capture');
 
 var submitNewDoWhopBtn = document.getElementById('create-new-dowhop');
@@ -62,8 +62,8 @@ function submitNewDoWhopEntry(e) {
       whenDescription: whenDescription.value,
       whereDescription: whereDescription.value,
       howMuchDescription: howMuchDescription.value,
-      host: hostDescription.value,
-      doer: doerDescription.value
+      hostDescription: "", // Temporary placeholder.
+      doerDescription: "" // Temp.
     });
     clearNewDoWhopEntryForm();
   });
@@ -86,9 +86,9 @@ function validateAddDoWhopDescription(
   whatDescription,
   whenDescription,
   whereDescription,
-  howMuchDescription,
-  hostDescription,
-  doerDescription
+  howMuchDescription
+  // hostDescription,
+  // doerDescription
 ) {
   if (
     titleDescription === '' ||
@@ -97,8 +97,8 @@ function validateAddDoWhopDescription(
     whenDescription === '' ||
     whereDescription === '' ||
     howMuchDescription === '' ||
-    hostDescription === '' ||
-    doerDescription === '' ||
+    // hostDescription === '' ||
+    // doerDescription === '' ||
     file === null
   )
     return false;
@@ -114,8 +114,8 @@ function clearNewDoWhopEntryForm() {
   whereDescription.value = '';
   howMuchDescription.value = '';
   dowhopImageCapture.value = '';
-  hostDescription.value = '';
-  doerDescription.value = '';
+  // hostDescription.value = '';
+  // doerDescription.value = '';
 }
 
 // Adding function to add a chosen dowhop a user's list.
@@ -126,60 +126,4 @@ function addToMyDoWhops(node) {
     .ref()
     .child('app_users/' + auth.currentUser.uid + '/doer/' + node.parentElement.id)
     .update({ doer: true });
-}
-
-var doWhopPlacard = document.getElementById('dowhop-placard');
-
-function registerDoWhopDescriptionCallback() {
-  doWhopDescriptionRef.on('value', function(snapshot) {
-    var doWhopPlacardsDesc = _.map(snapshot.val()).reverse();
-    var div = document.createElement('div');
-    doWhopPlacard.innerHTML = '';
-    doWhopPlacardsDesc.forEach(function(data) {
-      div.innerHTML +=
-        "<section id='" +
-        data.doWhopDescriptionKey +
-        "' class='dowhop-selector-block'>" +
-        "<i class='material-icons dowhop-action' onclick='addToMyDoWhops(this)'>person_add</i>" +
-        "<div class='dowhop-selector-header' style='background-image: url(" +
-        data.downloadURL +
-        ");'>" +
-        '<h1>' +
-        data.titleDescription +
-        '</h1>' +
-        '</div>' +
-        "<div class='dowhop-selector-body'>" +
-        '<h5>What?</h5>' +
-        '<p>' +
-        data.whatDescription +
-        '</p>' +
-        '<h5>Who?</h5>' +
-        '<p>' +
-        data.whoDescription +
-        '</p>' +
-        '<h5>When?</h5>' +
-        '<p>' +
-        data.whenDescription +
-        '</p>' +
-        '<h5>Where?</h5>' +
-        '<p>' +
-        data.whereDescription +
-        '</p>' +
-        '<h5>How much?</h5>' +
-        '<p>' +
-        data.howMuchDescription +
-        '</p>' +
-        '<h5>Who is host?</h5>' +
-        '<p>' +
-        data.hostDescription +
-        '</p>' +
-        '<h5>Who is doer?</h5>' +
-        '<p>' +
-        data.doerDescription +
-        '</p>' +
-        '</div>' +
-        '</section>';
-      doWhopPlacard.append(div);
-    });
-  });
 }

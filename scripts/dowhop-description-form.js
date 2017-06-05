@@ -62,8 +62,8 @@ function submitNewDoWhopEntry(e) {
       whenDescription: whenDescription.value,
       whereDescription: whereDescription.value,
       howMuchDescription: howMuchDescription.value,
-      host: hostDescription.value,
-      doer: doerDescription.value
+      hostDescription: hostDescription.value,
+      doerDescription: doerDescription.value
     });
     clearNewDoWhopEntryForm();
   });
