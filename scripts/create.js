@@ -356,7 +356,7 @@ function retrieveMyDoWhops(uid) {
       content.innerHTML = "";
       snapshot.forEach(function(data) {
         // Note: these hard-coded doer, host, guest properties are an admin-priority functionality.
-        if( (data.val().creator===person.uid) || (data.val().host===person.email) || (data.val().doer===person.email)) ){
+        if( (data.val().creator===person.uid) || (data.val().host===person.email) || (data.val().doer===person.email) ){
           makeDoWhopSelector(content, data);
         }
       });
