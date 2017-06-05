@@ -184,7 +184,7 @@ function createDoWhop(data, clearForm) {
     rootRefEvents.child(currentDoWhop).child('whereDescription').set(data.whereDescription);
     rootRefEvents.child(currentDoWhop).child('whenDescription').set(data.whenDescription);
     rootRefEvents.child(currentDoWhop).child('host').set(data.host);
-    rootRefEvents.child(currentDoWhop).child('guest').set(data.doer);
+    rootRefEvents.child(currentDoWhop).child('doer').set(data.doer);
     rootRefEvents.child(currentDoWhop).child('howMuchDescription').set(data.howMuchDescription).then(retrieveMyDoWhops(auth.currentUser.uid));
 
     //^^Moved this to here since implementing the new code for population forms with old events the rootRefEvents.push above was causing the form values to not be wiped
@@ -303,7 +303,7 @@ function retrieveMyDoWhops(uid) {
             "<p>" + data.val().howMuchDescription + "</p>" +
             "<h3>Who is host?</h3>" +
             "<p>" + data.val().host + "</p>" +
-            "<h3>Who is guest?</h3>" +
+            "<h3>Who is doer?</h3>" +
             "<p>" + data.val().doer + "</p>" +
             "<p>" + (":-)" || data.val().howMuchCost) + "</p>"
         "</div>" +
@@ -355,7 +355,7 @@ function retrieveMyDoWhops(uid) {
       var content = document.getElementById("user-list-wrap");
       content.innerHTML = "";
       snapshot.forEach(function(data) {
-        // Note: these hard-coded doer, host, guest properties are an admin-priority functionality.
+        // Note: these hard-coded doer, host, doer properties are an admin-priority functionality.
         if( (data.val().creator===person.uid) || (data.val().host===person.email) || (data.val().doer===person.email) ){
           makeDoWhopSelector(content, data);
         }

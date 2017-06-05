@@ -21,7 +21,7 @@ var whenDescription = document.getElementById('when-description');
 var whereDescription = document.getElementById('where-description');
 var howMuchDescription = document.getElementById('how-much-description');
 var hostDescription = document.getElementById('host-description');
-var doerDescription = document.getElementById('guest-description');
+var doerDescription = document.getElementById('doer-description');
 var dowhopImageCapture = document.getElementById('dowhop-image-capture');
 
 var submitNewDoWhopBtn = document.getElementById('create-new-dowhop');
@@ -173,7 +173,7 @@ function registerDoWhopDescriptionCallback() {
         '<p>' +
         data.hostDescription +
         '</p>' +
-        '<h5>Who is guest?</h5>' +
+        '<h5>Who is doer?</h5>' +
         '<p>' +
         data.doerDescription +
         '</p>' +
