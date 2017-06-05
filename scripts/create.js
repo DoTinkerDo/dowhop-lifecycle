@@ -130,8 +130,8 @@ function createDoWhop(data, clearForm) {
     data.whenDate = whenDate.value.trim();
     data.whenImage = whenImage.innerHTML.trim();
     data.howMuchDescription = howMuchDescription.value.trim();
-    data.host = hostDescription.value.trim();
-    data.doer = doerDescription.value.trim();
+    data.hostDescription = hostDescription.value.trim();
+    data.doerDescription = doerDescription.value.trim();
     data.howMuchCost = howMuchCost.value.trim();
     data.howmuchImage = howmuchImage.innerHTML.trim();
       ;
@@ -183,8 +183,8 @@ function createDoWhop(data, clearForm) {
     rootRefEvents.child(currentDoWhop).child('whoDescription').set(data.whoDescription);
     rootRefEvents.child(currentDoWhop).child('whereDescription').set(data.whereDescription);
     rootRefEvents.child(currentDoWhop).child('whenDescription').set(data.whenDescription);
-    rootRefEvents.child(currentDoWhop).child('host').set(data.host);
-    rootRefEvents.child(currentDoWhop).child('doer').set(data.doer);
+    rootRefEvents.child(currentDoWhop).child('hostDescription').set(data.hostDescription);
+    rootRefEvents.child(currentDoWhop).child('doerDescription').set(data.doerDescription);
     rootRefEvents.child(currentDoWhop).child('howMuchDescription').set(data.howMuchDescription).then(retrieveMyDoWhops(auth.currentUser.uid));
 
     //^^Moved this to here since implementing the new code for population forms with old events the rootRefEvents.push above was causing the form values to not be wiped
@@ -304,7 +304,7 @@ function retrieveMyDoWhops(uid) {
             "<h3>Who is host?</h3>" +
             "<p>" + (data.val().hostDescription || "TBD") + "</p>" +
             "<h3>Who is doer?</h3>" +
-            "<p>" + (data.val().doerDescriptionDescription || "TBD") + "</p>" +
+            "<p>" + (data.val().doerDescription || "TBD") + "</p>" +
             "<p>" + (":-)" || data.val().howMuchCost) + "</p>"
         "</div>" +
       "</section>"
@@ -338,7 +338,7 @@ function retrieveMyDoWhops(uid) {
 
     snap.forEach(function(snap) {
       // Note: these hard-coded doer, host properties are a fall-back functionality.
-      // if((data.val().creator===person.uid) || (data.val().doerDescriptionDescription===person.email) || (data.val().hostDescription===person.email)){
+      // if((data.val().creator===person.uid) || (data.val().doerDescription===person.email) || (data.val().hostDescription===person.email)){
 
       var doWhopItem = snap.key;
 
@@ -356,7 +356,7 @@ function retrieveMyDoWhops(uid) {
       content.innerHTML = "";
       snapshot.forEach(function(data) {
         // Note: these hard-coded doer, host, doer properties are an admin-priority functionality.
-        if( (data.val().creator===person.uid) || (data.val().hostDescription===person.email) || (data.val().doerDescriptionDescription===person.email) ){
+        if( (data.val().creator===person.uid) || (data.val().hostDescription===person.email) || (data.val().doerDescription===person.email) ){
           makeDoWhopSelector(content, data);
         }
       });
@@ -467,7 +467,7 @@ function fillInForms(node){
           document.getElementById("howMuchDescription").value = data.val().howMuchDescription;
           // New
           document.getElementById("hostDescription").value = data.val().hostDescription;
-          document.getElementById("doerDescription").value = data.val().doerDescriptionDescription;
+          document.getElementById("doerDescription").value = data.val().doerDescription;
           document.getElementById("howMuchCost").value = data.val().howMuchCost;
           // document.getElementById("howmuchImage").innerHTML = data.val().howmuchImage;
         }
