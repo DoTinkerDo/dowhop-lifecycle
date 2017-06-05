@@ -1,20 +1,20 @@
 (function LoginUsers() {
-  "use strict";
+  'use strict';
 
   var uiConfig = {
-  'callbacks': {
-    'signInSuccess': function(user, credential, redirectUrl) {
-      handleSignedInUser(user);
-      // Do not redirect.
-      return false;
-    }
-  },
-  'signInFlow': 'popup',
+    callbacks: {
+      signInSuccess: function(user, credential, redirectUrl) {
+        handleSignedInUser(user);
+        // Do not redirect.
+        return false;
+      }
+    },
+    signInFlow: 'popup',
     // signInSuccessUrl: '<url-to-redirect-to-on-success>',
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID
     ]
   };
   var ui = new firebaseui.auth.AuthUI(auth);
@@ -38,6 +38,7 @@
     applicationPage.style.display = 'block';
     writeUserData(user);
     console.log('USER SIGNED IN WITH USER.UID -> ', user.uid);
+
     retrieveMyDoWhops(user.uid); // MOVED HERE TO AVOID TIMING ERROR.
     registerDoWhopDescriptionCallback();
   }
@@ -51,36 +52,31 @@
 
   function handleOnAuthStateChange() {
     auth.onAuthStateChanged(function(user) {
-
       // Check if current user email is admin in Firebase:
       var approved = false;
 
-      firebase.database().ref().child('admin/').once("value", function(snap) {
-
+      firebase.database().ref().child('admin/').once('value', function(snap) {
         // Cycling through the data to see if admin is permitted:
-        console.log("looking for admins in the databse...");
+        console.log('looking for admins in the databse...');
         snap.forEach(function(data) {
-           if (data.val() === user.email) {
-             approved = true;
-             window.location = 'admin.html';
+          if (data.val() === user.email) {
+            approved = true;
+            window.location = 'admin.html';
+          } else {
+            approved = false;
+          }
+        });
 
-           } else {
-             approved = false;
-           }
-         });
-
-         console.log("Person trying to enter is Admin? ", approved);
-         return approved;
-
+        console.log('Person trying to enter is Admin? ', approved);
+        return approved;
       });
-
 
       user ? handleSignedInUser(user) : handleSignedOutUser();
     });
   }
 
   window.addEventListener('load', handleOnAuthStateChange);
-}) ();
+})();
 
 // function getCurrentUser() {
 //   var currentUser = {};
@@ -96,7 +92,6 @@
 
 // var currentUser = getCurrentUser();
 
-
 // setting currentUser globals...
 var person = null;
 auth.onAuthStateChanged(function(user) {
@@ -110,9 +105,8 @@ auth.onAuthStateChanged(function(user) {
 var currentUserDoWhopId = null;
 var currentDoWhopProto = null;
 firebase.database().ref().child('proto_user/').once('value', function(snapshot) {
-
- snapshot.forEach(function(data) {
-    var name = "\"" + person.displayName + "\"";
+  snapshot.forEach(function(data) {
+    var name = '"' + person.displayName + '"';
     var name = person.displayName;
     if (data.key === name) {
       currentUserDoWhopId = data.val();
@@ -122,5 +116,4 @@ firebase.database().ref().child('proto_user/').once('value', function(snapshot) 
   firebase.database().ref().child('proto/' + currentUserDoWhopId).once('value', function(snapshot) {
     currentDoWhopProto = snapshot.val();
   });
-
 });
