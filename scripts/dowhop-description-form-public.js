@@ -65,6 +65,7 @@ function submitNewDoWhopEntry(e) {
       hostDescription: "", // Temporary placeholder.
       doerDescription: "" // Temp.
     });
+    showConfirmationMessage();
     clearNewDoWhopEntryForm();
   });
 }
@@ -126,4 +127,8 @@ function addToMyDoWhops(node) {
     .ref()
     .child('app_users/' + auth.currentUser.uid + '/doer/' + node.parentElement.id)
     .update({ doer: true });
+}
+
+function showConfirmationMessage() {
+  window.alert("Thanks for submitting your DoWhop!");
 }
