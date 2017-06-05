@@ -101,7 +101,7 @@ function createDoWhop(data, clearForm) {
   var whenImage = document.getElementById("whenImage");
   var howMuchDescription = document.getElementById("howMuchDescription");
   var hostDescription = document.getElementById("hostDescription"); // new
-  var guestDescription = document.getElementById("guestDescription"); // new
+  var doerDescription = document.getElementById("doerDescription"); // new
   var howMuchCost = document.getElementById("howMuchCost");
   var howmuchImage = document.getElementById("howmuchImage");
   var currentDoWhop = document.getElementById("dowhop-selector-container").firstChild.id || "orphan";
@@ -131,7 +131,7 @@ function createDoWhop(data, clearForm) {
     data.whenImage = whenImage.innerHTML.trim();
     data.howMuchDescription = howMuchDescription.value.trim();
     data.host = hostDescription.value.trim();
-    data.doer = guestDescription.value.trim();
+    data.doer = doerDescription.value.trim();
     data.howMuchCost = howMuchCost.value.trim();
     data.howmuchImage = howmuchImage.innerHTML.trim();
       ;
@@ -228,7 +228,7 @@ function createDoWhop(data, clearForm) {
   whenImage.innerHTML = "";
   howMuchDescription.value = "";
   hostDescription.value = "";
-  guestDescription.value = "";
+  doerDescription.value = "";
   howMuchCost.value = "";
   howmuchImage.innerHTML = "";
 
@@ -467,7 +467,7 @@ function fillInForms(node){
           document.getElementById("howMuchDescription").value = data.val().howMuchDescription;
           // New
           document.getElementById("hostDescription").value = data.val().host;
-          document.getElementById("guestDescription").value = data.val().doer;
+          document.getElementById("doerDescription").value = data.val().doer;
           document.getElementById("howMuchCost").value = data.val().howMuchCost;
           // document.getElementById("howmuchImage").innerHTML = data.val().howmuchImage;
         }

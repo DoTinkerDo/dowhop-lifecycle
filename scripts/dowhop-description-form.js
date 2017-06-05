@@ -21,7 +21,7 @@ var whenDescription = document.getElementById('when-description');
 var whereDescription = document.getElementById('where-description');
 var howMuchDescription = document.getElementById('how-much-description');
 var hostDescription = document.getElementById('host-description');
-var guestDescription = document.getElementById('guest-description');
+var doerDescription = document.getElementById('guest-description');
 var dowhopImageCapture = document.getElementById('dowhop-image-capture');
 
 var submitNewDoWhopBtn = document.getElementById('create-new-dowhop');
@@ -63,7 +63,7 @@ function submitNewDoWhopEntry(e) {
       whereDescription: whereDescription.value,
       howMuchDescription: howMuchDescription.value,
       host: hostDescription.value,
-      doer: guestDescription.value
+      doer: doerDescription.value
     });
     clearNewDoWhopEntryForm();
   });
@@ -88,7 +88,7 @@ function validateAddDoWhopDescription(
   whereDescription,
   howMuchDescription,
   hostDescription,
-  guestDescription
+  doerDescription
 ) {
   if (
     titleDescription === '' ||
@@ -98,7 +98,7 @@ function validateAddDoWhopDescription(
     whereDescription === '' ||
     howMuchDescription === '' ||
     hostDescription === '' ||
-    guestDescription === '' ||
+    doerDescription === '' ||
     file === null
   )
     return false;
@@ -115,7 +115,7 @@ function clearNewDoWhopEntryForm() {
   howMuchDescription.value = '';
   dowhopImageCapture.value = '';
   hostDescription.value = '';
-  guestDescription.value = '';
+  doerDescription.value = '';
 }
 
 // Adding function to add a chosen dowhop a user's list.
@@ -175,7 +175,7 @@ function registerDoWhopDescriptionCallback() {
         '</p>' +
         '<h5>Who is guest?</h5>' +
         '<p>' +
-        data.hostDescription +
+        data.doerDescription +
         '</p>' +
         '</div>' +
         '</section>';
