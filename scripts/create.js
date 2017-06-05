@@ -302,9 +302,9 @@ function retrieveMyDoWhops(uid) {
             "<h3>How Much?</h3>" +
             "<p>" + data.val().howMuchDescription + "</p>" +
             "<h3>Who is host?</h3>" +
-            "<p>" + data.val().hostDescription + "</p>" +
+            "<p>" + (data.val().hostDescription || "TBD") + "</p>" +
             "<h3>Who is doer?</h3>" +
-            "<p>" + data.val().doerDescriptionDescription + "</p>" +
+            "<p>" + (data.val().doerDescriptionDescription || "TBD") + "</p>" +
             "<p>" + (":-)" || data.val().howMuchCost) + "</p>"
         "</div>" +
       "</section>"

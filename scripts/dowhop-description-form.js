@@ -171,11 +171,11 @@ function registerDoWhopDescriptionCallback() {
         '</p>' +
         '<h5>Who is host?</h5>' +
         '<p>' +
-        data.hostDescription +
+        (data.hostDescription || "TBD") +
         '</p>' +
         '<h5>Who is doer?</h5>' +
         '<p>' +
-        data.doerDescription +
+        (data.doerDescription || "TBD") +
         '</p>' +
         '</div>' +
         '</section>';
