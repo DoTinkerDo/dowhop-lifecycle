@@ -83,27 +83,27 @@ function createDoWhop(data, clearForm) {
   // I collect form data and clear it
   var creator = firebase.auth().currentUser.uid;
   // var campoEmail = document.getElementById("email");
-  var titleDescription = document.getElementById("titleDescription");
-  var titleImage = document.getElementById("titleImage");
-  var whoDescription = document.getElementById("whoDescription");
-  var whoImage = document.getElementById("whoImage");
-  var whatDescription = document.getElementById("whatDescription");
-  var whatImage = document.getElementById("whatImage");
-  var whereDescription = document.getElementById("whereDescription");
-  var whereAddress = document.getElementById("whereAddress");
-  var whereImage = document.getElementById("whereImage");
-  var whenDescription = document.getElementById("whenDescription");
-  var whenDate = document.getElementById("whenDate")
-  var whenTime = document.getElementById("whenTime")
-  var whenImage = document.getElementById("whenImage");
-  var howMuchDescription = document.getElementById("howMuchDescription");
-  var hostDescription = document.getElementById("hostDescription"); // new
-  var doerDescription = document.getElementById("doerDescription"); // new
-  var howMuchCost = document.getElementById("howMuchCost");
-  var howmuchImage = document.getElementById("howmuchImage");
-  var currentDoWhop = document.getElementById("dowhop-selector-container").firstChild.id || "orphan";
+  var titleDescription = document.getElementById('titleDescription');
+  var titleImage = document.getElementById('titleImage');
+  var whoDescription = document.getElementById('whoDescription');
+  var whoImage = document.getElementById('whoImage');
+  var whatDescription = document.getElementById('whatDescription');
+  var whatImage = document.getElementById('whatImage');
+  var whereDescription = document.getElementById('whereDescription');
+  var whereAddress = document.getElementById('whereAddress');
+  var whereImage = document.getElementById('whereImage');
+  var whenDescription = document.getElementById('whenDescription');
+  var whenDate = document.getElementById('whenDate');
+  var whenTime = document.getElementById('whenTime');
+  var whenImage = document.getElementById('whenImage');
+  var howMuchDescription = document.getElementById('howMuchDescription');
+  var hostDescription = document.getElementById('hostDescription'); // new
+  var doerDescription = document.getElementById('doerDescription'); // new
+  var howMuchCost = document.getElementById('howMuchCost');
+  var howmuchImage = document.getElementById('howmuchImage');
+  var currentDoWhop = document.getElementById('dowhop-selector-container').firstChild.id || 'orphan';
 
-  var error = document.getElementById("error");
+  var error = document.getElementById('error');
 
   /*took out former if so that only same email dispays if (campoEmail.value !== "" &&  campoNombre.value !== "" && campoApellidos.value !== "")*/
   if (
@@ -168,25 +168,9 @@ function createDoWhop(data, clearForm) {
     howMuchDescription: data.howMuchDescription,
     howMuchCost: data.howMuchCost,
     howmuchImage: data.howmuchImage,
-<<<<<<< HEAD
-    doer: data.hostDescription || 'none',
-    host: data.guestDescription || 'none'
+    doerDescription: data.hostDescription || 'none',
+    hostDescription: data.doerDescription || 'none'
   };
-=======
-    doerDescription: data.hostDescription || "none",
-    hostDescription: data.doerDescription || "none"
-  }
-
-    // Changing this to an edit/update form that will only set certain attributes. NOTE: THis is overwriter the DOERs list.
-    rootRefEvents.child(currentDoWhop).child('titleDescription').set(data.titleDescription);
-    rootRefEvents.child(currentDoWhop).child('whatDescription').set(data.whatDescription);
-    rootRefEvents.child(currentDoWhop).child('whoDescription').set(data.whoDescription);
-    rootRefEvents.child(currentDoWhop).child('whereDescription').set(data.whereDescription);
-    rootRefEvents.child(currentDoWhop).child('whenDescription').set(data.whenDescription);
-    rootRefEvents.child(currentDoWhop).child('hostDescription').set(data.hostDescription);
-    rootRefEvents.child(currentDoWhop).child('doerDescription').set(data.doerDescription);
-    rootRefEvents.child(currentDoWhop).child('howMuchDescription').set(data.howMuchDescription).then(retrieveMyDoWhops(auth.currentUser.uid));
->>>>>>> master
 
   // Changing this to an edit/update form that will only set certain attributes. NOTE: THis is overwriter the DOERs list.
   rootRefEvents.child(currentDoWhop).child('titleDescription').set(data.titleDescription);
@@ -194,8 +178,8 @@ function createDoWhop(data, clearForm) {
   rootRefEvents.child(currentDoWhop).child('whoDescription').set(data.whoDescription);
   rootRefEvents.child(currentDoWhop).child('whereDescription').set(data.whereDescription);
   rootRefEvents.child(currentDoWhop).child('whenDescription').set(data.whenDescription);
-  rootRefEvents.child(currentDoWhop).child('host').set(data.host);
-  rootRefEvents.child(currentDoWhop).child('guest').set(data.guest);
+  rootRefEvents.child(currentDoWhop).child('hostDescription').set(data.hostDescription);
+  rootRefEvents.child(currentDoWhop).child('doerDescription').set(data.doerDescription);
   rootRefEvents
     .child(currentDoWhop)
     .child('howMuchDescription')
@@ -228,7 +212,6 @@ function createDoWhop(data, clearForm) {
     howmuchImage: data.howmuchImage
   };
 
-<<<<<<< HEAD
   titleDescription.value = '';
   titleImage.innerHTML = '';
   whoDescription.value = '';
@@ -244,29 +227,9 @@ function createDoWhop(data, clearForm) {
   whenImage.innerHTML = '';
   howMuchDescription.value = '';
   hostDescription.value = '';
-  guestDescription.value = '';
+  doerDescription.value = '';
   howMuchCost.value = '';
   howmuchImage.innerHTML = '';
-=======
-  titleDescription.value = "";
-  titleImage.innerHTML = "";
-  whoDescription.value = "";
-  whoImage.innerHTML = "";
-  whatDescription.value = "";
-  whatImage.innerHTML = "";
-  whereDescription.value = "";
-  whereAddress.value = "";
-  whereImage.innerHTML = "";
-  whenDescription.value = "";
-  whenTime.value = "";
-  whenDate.value = "";
-  whenImage.innerHTML = "";
-  howMuchDescription.value = "";
-  hostDescription.value = "";
-  doerDescription.value = "";
-  howMuchCost.value = "";
-  howmuchImage.innerHTML = "";
->>>>>>> master
 
   // rootRef.child(data.creator).set(user);
   document.getElementById('error').innerHTML =
@@ -303,11 +266,10 @@ function retrieveMyDoWhops(uid) {
     let relationshipIcon = '';
 
     // Checking if current user is the creator; if so, prepare a special icon:
-<<<<<<< HEAD
-    if (data.val() && (data.val().host === auth.currentUser.email || data.val().creator === auth.currentUser.uid)) {
-=======
-    if (data.val() && (data.val().hostDescription===auth.currentUser.email || data.val().creator===auth.currentUser.uid)) {
->>>>>>> master
+    if (
+      data.val() &&
+      (data.val().hostDescription === auth.currentUser.email || data.val().creator === auth.currentUser.uid)
+    ) {
       relationshipIcon = 'check_box'; // icon for a Creator
     } else {
       relationshipIcon = 'directions_walk'; // icon for a Doer
@@ -319,7 +281,6 @@ function retrieveMyDoWhops(uid) {
         data.val().downloadURL ||
         'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
       container.innerHTML +=
-<<<<<<< HEAD
         "<section id='" +
         data.key +
         "' class='dowhop-selector-block' onclick='sessionRef(this)'>" +
@@ -363,45 +324,16 @@ function retrieveMyDoWhops(uid) {
         '</p>' +
         '<h3>Who is host?</h3>' +
         '<p>' +
-        data.val().host +
+        (data.val().hostDescription || 'TBD') +
         '</p>' +
-        '<h3>Who is guest?</h3>' +
+        '<h3>Who is doer?</h3>' +
         '<p>' +
-        data.val().guest +
+        (data.val().doerDescription || 'TBD') +
         '</p>' +
         '<p>' +
         (':-)' || data.val().howMuchCost) +
         '</p>';
       '</div>' + '</section>';
-=======
-
-      "<section id='" + data.key + "' class='dowhop-selector-block' onclick='sessionRef(this)'>" +
-        "<i class='material-icons dowhop-icon'>" + relationshipIcon + "</i>" +
-          "<div class='dowhop-selector-header' style='background-image: url(" + imageUrl + ");'>" +
-            "<h1>" + data.val().titleDescription + "</h1>" +
-          "</div>" +
-          "<div class='dowhop-selector-body'>" +
-            "<h3>What?</h3>" +
-            "<p>" + data.val().whatDescription + "</p>" +
-            "<h3>When?</h3>" +
-            "<p>" + data.val().whenDescription + "</p>" +
-            "<h3>What day?</h3>" +
-            "<p>" + ("TBD" || data.val().whenDate) + "<p>" +
-            "<h3>What time?</h3>" +
-            "<p>" + ("TBD" || data.val().whenTime) + "<p>" +
-            "<h3>Where?</h3>" +
-            "<p>" + data.val().whereDescription + "</p>" +
-            "<p>" + ("Address TBD" || data.val().whereAddress) + "</p>" +
-            "<h3>How Much?</h3>" +
-            "<p>" + data.val().howMuchDescription + "</p>" +
-            "<h3>Who is host?</h3>" +
-            "<p>" + (data.val().hostDescription || "TBD") + "</p>" +
-            "<h3>Who is doer?</h3>" +
-            "<p>" + (data.val().doerDescription || "TBD") + "</p>" +
-            "<p>" + (":-)" || data.val().howMuchCost) + "</p>"
-        "</div>" +
-      "</section>"
->>>>>>> master
     } else {
       console.log('No data yet...');
       return container;
@@ -447,18 +379,12 @@ function retrieveMyDoWhops(uid) {
       var content = document.getElementById('user-list-wrap');
       content.innerHTML = '';
       snapshot.forEach(function(data) {
-<<<<<<< HEAD
-        // Note: these hard-coded doer, host, guest properties are an admin-priority functionality.
+        // Note: these hard-coded doer, host, doer properties are an admin-priority functionality.
         if (
           data.val().creator === person.uid ||
-          data.val().host === person.email ||
-          data.val().doer === person.email ||
-          data.val().guest === person.email
+          data.val().hostDescription === person.email ||
+          data.val().doerDescription === person.email
         ) {
-=======
-        // Note: these hard-coded doer, host, doer properties are an admin-priority functionality.
-        if( (data.val().creator===person.uid) || (data.val().hostDescription===person.email) || (data.val().doerDescription===person.email) ){
->>>>>>> master
           makeDoWhopSelector(content, data);
         }
       });
@@ -526,21 +452,12 @@ function hideAll(underbar_options) {
 }
 
 function showEditForm(node) {
-<<<<<<< HEAD
   var editForm = document.getElementById('edit-dowhop-form');
   var rootRefEvent = firebase.database().ref('doWhopDescription/' + node.id);
   rootRefEvent.once('value').then(function(snap) {
-    if (snap.val().host === auth.currentUser.email || snap.val().creator === auth.current) {
+    if (snap.val().hostDescription === auth.currentUser.email || snap.val().creator === auth.currentUser.uid) {
       console.log('You clicked on one of your events!');
       editForm.removeAttribute('hidden');
-=======
-  var editForm = document.getElementById("edit-dowhop-form");
-  var rootRefEvent = firebase.database().ref("doWhopDescription/" + node.id);
-  rootRefEvent.once("value").then(function(snap) {
-    if(snap.val().hostDescription === auth.currentUser.email || snap.val().creator === auth.currentUser.uid) {
-      console.log("You clicked on one of your events!");
-      editForm.removeAttribute("hidden");
->>>>>>> master
     } else {
       console.log("You clicked on someone else's events!");
       editForm.setAttribute('hidden', 'true');
@@ -555,7 +472,6 @@ function sessionRef(node) {
   //Curretly overwrites everything else in the session, even if you're NOT storing a current_dowhop
 }
 
-<<<<<<< HEAD
 function fillInForms(node) {
   rootRefEvents.orderByKey().on('value', function(snapshot) {
     snapshot.forEach(function(data) {
@@ -576,44 +492,13 @@ function fillInForms(node) {
         // document.getElementById("whenImage").innerHTML = data.val().whenImage;
         document.getElementById('howMuchDescription').value = data.val().howMuchDescription;
         // New
-        document.getElementById('hostDescription').value = data.val().host;
-        document.getElementById('guestDescription').value = data.val().guest;
+        document.getElementById('hostDescription').value = data.val().hostDescription;
+        document.getElementById('doerDescription').value = data.val().doerDescription;
         document.getElementById('howMuchCost').value = data.val().howMuchCost;
         // document.getElementById("howmuchImage").innerHTML = data.val().howmuchImage;
       }
     });
   });
 }
-=======
-function fillInForms(node){
-  rootRefEvents.orderByKey().on("value",
-    function(snapshot) {
-      snapshot.forEach(function(data) {
-        if(data.key===node.id){
-          // document.getElementById("email").value = data.val().email;
-          document.getElementById("titleDescription").value = data.val().titleDescription;
-          // document.getElementById("titleImage").innerHTML = data.val().titleImage;
-          document.getElementById("whoDescription").value = data.val().whoDescription;
-          // document.getElementById("whoImage").innerHTML = data.val().whoImage;
-          document.getElementById("whatDescription").value = data.val().whatDescription;
-          // document.getElementById("whatImage").innerHTML = data.val().whatImage;
-          document.getElementById("whereDescription").value = data.val().whereDescription;
-          document.getElementById("whereAddress").value = data.val().whereAddress;
-          // document.getElementById("whereImage").innerHTML = data.val().whereImage;
-          document.getElementById("whenDescription").value = data.val().whenDescription;
-          // document.getElementById("whenDate").value = data.val().whenDate;
-          document.getElementById("whenTime").value = data.val().whenTime;
-          // document.getElementById("whenImage").innerHTML = data.val().whenImage;
-          document.getElementById("howMuchDescription").value = data.val().howMuchDescription;
-          // New
-          document.getElementById("hostDescription").value = data.val().hostDescription;
-          document.getElementById("doerDescription").value = data.val().doerDescription;
-          document.getElementById("howMuchCost").value = data.val().howMuchCost;
-          // document.getElementById("howmuchImage").innerHTML = data.val().howmuchImage;
-        }
-      })
-    })
-  }
->>>>>>> master
 
 // retrieveMyDoWhops(auth.currentUser.uid); // ERROR.

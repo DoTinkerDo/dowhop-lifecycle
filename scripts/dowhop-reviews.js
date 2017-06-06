@@ -22,7 +22,8 @@ readCommentsFromDatabase('creator', creatorCommentDiv);
 readCommentsFromDatabase('doer', doerCommentDiv);
 readCommentsFromDatabase('dowhop', doWhopCommentDiv);
 
-function handleCommentSubmit() {
+function handleCommentSubmit(e) {
+  e.preventDefault();
   var commentInput = this.parentNode.parentNode.firstChild.nextSibling.firstChild.nextSibling;
   var reviewType = this.id;
   handleDatabaseCommentSubmit(commentInput.value, reviewType);
