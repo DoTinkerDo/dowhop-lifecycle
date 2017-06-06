@@ -101,7 +101,7 @@ function createDoWhop(data, clearForm) {
   var whenImage = document.getElementById("whenImage");
   var howMuchDescription = document.getElementById("howMuchDescription");
   var hostDescription = document.getElementById("hostDescription"); // new
-  var guestDescription = document.getElementById("guestDescription"); // new
+  var doerDescription = document.getElementById("doerDescription"); // new
   var howMuchCost = document.getElementById("howMuchCost");
   var howmuchImage = document.getElementById("howmuchImage");
   var currentDoWhop = document.getElementById("dowhop-selector-container").firstChild.id || "orphan";
@@ -130,8 +130,8 @@ function createDoWhop(data, clearForm) {
     data.whenDate = whenDate.value.trim();
     data.whenImage = whenImage.innerHTML.trim();
     data.howMuchDescription = howMuchDescription.value.trim();
-    data.host = hostDescription.value.trim();
-    data.guest = guestDescription.value.trim();
+    data.hostDescription = hostDescription.value.trim();
+    data.doerDescription = doerDescription.value.trim();
     data.howMuchCost = howMuchCost.value.trim();
     data.howmuchImage = howmuchImage.innerHTML.trim();
       ;
@@ -173,8 +173,8 @@ function createDoWhop(data, clearForm) {
     howMuchDescription: data.howMuchDescription,
     howMuchCost: data.howMuchCost,
     howmuchImage: data.howmuchImage,
-    doer: data.hostDescription || "none",
-    host: data.guestDescription || "none"
+    doerDescription: data.hostDescription || "none",
+    hostDescription: data.doerDescription || "none"
   }
 
     // Changing this to an edit/update form that will only set certain attributes. NOTE: THis is overwriter the DOERs list.
@@ -183,8 +183,8 @@ function createDoWhop(data, clearForm) {
     rootRefEvents.child(currentDoWhop).child('whoDescription').set(data.whoDescription);
     rootRefEvents.child(currentDoWhop).child('whereDescription').set(data.whereDescription);
     rootRefEvents.child(currentDoWhop).child('whenDescription').set(data.whenDescription);
-    rootRefEvents.child(currentDoWhop).child('host').set(data.host);
-    rootRefEvents.child(currentDoWhop).child('guest').set(data.guest);
+    rootRefEvents.child(currentDoWhop).child('hostDescription').set(data.hostDescription);
+    rootRefEvents.child(currentDoWhop).child('doerDescription').set(data.doerDescription);
     rootRefEvents.child(currentDoWhop).child('howMuchDescription').set(data.howMuchDescription).then(retrieveMyDoWhops(auth.currentUser.uid));
 
     //^^Moved this to here since implementing the new code for population forms with old events the rootRefEvents.push above was causing the form values to not be wiped
@@ -207,8 +207,8 @@ function createDoWhop(data, clearForm) {
     whenTime: data.whenTime,
     whenImage: data.whenImage,
     howMuchDescription: data.howMuchDescription,
-    host: data.hostDescription,
-    guest: data.guestDescription,
+    hostDescription: data.hostDescription,
+    doerDescription: data.doerDescription,
     howMuchCost: data.howMuchCost,
     howmuchImage: data.howmuchImage
   };
@@ -228,7 +228,7 @@ function createDoWhop(data, clearForm) {
   whenImage.innerHTML = "";
   howMuchDescription.value = "";
   hostDescription.value = "";
-  guestDescription.value = "";
+  doerDescription.value = "";
   howMuchCost.value = "";
   howmuchImage.innerHTML = "";
 
@@ -271,7 +271,7 @@ function retrieveMyDoWhops(uid) {
     let relationshipIcon ='';
 
     // Checking if current user is the creator; if so, prepare a special icon:
-    if (data.val() && (data.val().host===auth.currentUser.email || data.val().creator===auth.currentUser.uid)) {
+    if (data.val() && (data.val().hostDescription===auth.currentUser.email || data.val().creator===auth.currentUser.uid)) {
       relationshipIcon = 'check_box'; // icon for a Creator
     } else {
       relationshipIcon = 'directions_walk'; // icon for a Doer
@@ -302,9 +302,9 @@ function retrieveMyDoWhops(uid) {
             "<h3>How Much?</h3>" +
             "<p>" + data.val().howMuchDescription + "</p>" +
             "<h3>Who is host?</h3>" +
-            "<p>" + data.val().host + "</p>" +
-            "<h3>Who is guest?</h3>" +
-            "<p>" + data.val().guest + "</p>" +
+            "<p>" + (data.val().hostDescription || "TBD") + "</p>" +
+            "<h3>Who is doer?</h3>" +
+            "<p>" + (data.val().doerDescription || "TBD") + "</p>" +
             "<p>" + (":-)" || data.val().howMuchCost) + "</p>"
         "</div>" +
       "</section>"
@@ -338,7 +338,7 @@ function retrieveMyDoWhops(uid) {
 
     snap.forEach(function(snap) {
       // Note: these hard-coded doer, host properties are a fall-back functionality.
-      // if((data.val().creator===person.uid) || (data.val().doer===person.email) || (data.val().host===person.email)){
+      // if((data.val().creator===person.uid) || (data.val().doerDescription===person.email) || (data.val().hostDescription===person.email)){
 
       var doWhopItem = snap.key;
 
@@ -355,8 +355,8 @@ function retrieveMyDoWhops(uid) {
       var content = document.getElementById("user-list-wrap");
       content.innerHTML = "";
       snapshot.forEach(function(data) {
-        // Note: these hard-coded doer, host, guest properties are an admin-priority functionality.
-        if( (data.val().creator===person.uid) || (data.val().host===person.email) || (data.val().doer===person.email) || (data.val().guest===person.email) ){
+        // Note: these hard-coded doer, host, doer properties are an admin-priority functionality.
+        if( (data.val().creator===person.uid) || (data.val().hostDescription===person.email) || (data.val().doerDescription===person.email) ){
           makeDoWhopSelector(content, data);
         }
       });
@@ -428,7 +428,7 @@ function showEditForm(node) {
   var editForm = document.getElementById("edit-dowhop-form");
   var rootRefEvent = firebase.database().ref("doWhopDescription/" + node.id);
   rootRefEvent.once("value").then(function(snap) {
-    if(snap.val().host === auth.currentUser.email || snap.val().creator === auth.current) {
+    if(snap.val().hostDescription === auth.currentUser.email || snap.val().creator === auth.currentUser.uid) {
       console.log("You clicked on one of your events!");
       editForm.removeAttribute("hidden");
     } else {
@@ -466,8 +466,8 @@ function fillInForms(node){
           // document.getElementById("whenImage").innerHTML = data.val().whenImage;
           document.getElementById("howMuchDescription").value = data.val().howMuchDescription;
           // New
-          document.getElementById("hostDescription").value = data.val().host;
-          document.getElementById("guestDescription").value = data.val().guest;
+          document.getElementById("hostDescription").value = data.val().hostDescription;
+          document.getElementById("doerDescription").value = data.val().doerDescription;
           document.getElementById("howMuchCost").value = data.val().howMuchCost;
           // document.getElementById("howmuchImage").innerHTML = data.val().howmuchImage;
         }
