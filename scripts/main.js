@@ -304,7 +304,7 @@ FriendlyChat.prototype.getSession = function() {
           document.getElementById('pending-div').removeAttribute('hidden');
 
           // This means visiting user is the creator of event:
-          if (firebase.auth().currentUser.uid == data.val().creator || (person.email == data.val().host)) { // <--Check
+          if (firebase.auth().currentUser.uid == data.val().creator || (person.email == data.val().hostDescription)) { // <--Check
               console.log("visiting user is the creator. showing approval form, hiding rescind form.")
               pendingNotification = "Someone has requested this change.\nDo you want to approve it?"
               document.getElementById('pending-div').innerText = pendingNotification + "\nPending time: " + data.val().pending.whenDatePending + " at " + data.val().pending.whenTimePending +
@@ -342,7 +342,7 @@ FriendlyChat.prototype.getSession = function() {
 
       var dowhopSelector = document.getElementById('dowhop-selector-container');
       var dowhopSelectorDiv = "";
- 
+
       console.log("Inside once", currentSessionID = data.val() ? data.val().current_dowhop : null);
 
       // Setting the header and check for pendings for the current DoWhop session:
