@@ -80,7 +80,8 @@ _.forEach(submitCommentButtons, function(button) {
   button.addEventListener('click', handleCommentSubmit);
 });
 
-// Write ratings
+// Write rating callback functions
+// used by rating instances
 function creatorSubmitRating(rating) {
   handleDatabaseRatingSubmit(rating, 'creator', showRatingCreator);
 }
@@ -96,7 +97,6 @@ function callback(rating) {
 
 // Helper functions for Firebase reading and writing
 function readRatingsFromDatabase(reviewType, ratingInstance) {
-  console.log('KEY RATINGS READING ', currentDoWhopKey);
   var reviewRef = database.ref().child('doWhopDescription/' + currentDoWhopKey + '/reviews');
   var ratingRef = reviewRef.child(reviewType).child('/ratings');
   ratingRef.once('value').then(function(snapshot) {
@@ -107,7 +107,6 @@ function readRatingsFromDatabase(reviewType, ratingInstance) {
   });
 }
 function readCommentsFromDatabase(reviewType, commentDiv) {
-  console.log('KEY COMMENTS READING ', currentDoWhopKey);
   var reviewRef = database.ref().child('doWhopDescription/' + currentDoWhopKey + '/reviews');
   var commentRef = reviewRef.child(reviewType).child('/comments');
   commentRef.on('value', function(snapshot) {
@@ -121,7 +120,6 @@ function readCommentsFromDatabase(reviewType, commentDiv) {
   });
 }
 function handleDatabaseRatingSubmit(rating, reviewType, ratingInstance) {
-  console.log('KEY WRITING ', currentDoWhopKey);
   var reviewRef = database.ref().child('doWhopDescription/' + currentDoWhopKey + '/reviews');
   var ratingReviewTypeRef = reviewRef.child(reviewType);
   ratingReviewTypeRef.once('value').then(function(snapshot) {
