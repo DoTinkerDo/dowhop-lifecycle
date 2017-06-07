@@ -78,6 +78,10 @@
   window.addEventListener('load', handleOnAuthStateChange);
 })();
 
+// TODO map what parts of app use this...
+// 1) person is used by session
+// 2) ?
+
 // function getCurrentUser() {
 //   var currentUser = {};
 //   auth.onAuthStateChanged(function(user) {
@@ -89,7 +93,6 @@
 //   });
 //   return currentUser;
 // }
-
 // var currentUser = getCurrentUser();
 
 // setting currentUser globals...
@@ -98,10 +101,12 @@ auth.onAuthStateChanged(function(user) {
   if (user) {
     person = user;
   } else {
-    console.log('LEGACY signed out');
+    console.log('PERSON signed out');
   }
 });
 
+// Probably no longer needed...
+// was used by react review app
 var currentUserDoWhopId = null;
 var currentDoWhopProto = null;
 firebase.database().ref().child('proto_user/').once('value', function(snapshot) {

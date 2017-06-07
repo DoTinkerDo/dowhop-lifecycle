@@ -1,27 +1,73 @@
 'use strict';
 
-// definitions ->
-// userHasCompleted = 'hasRated' or 'hasCommented'
+// Definitions ->
+// userHasCompleted = hasRated or hasCommented
 // reviewType = creator/doer/dowhop
 // reviewPart = stars or comments
 // reviewer = creator or doer
-// ratingInstance = ...
+// ratingInstance = ratingCreator/ratingDoer/ratingDoWhop/ &
+//                  showRatingCreator/showRatingDoer/showRatingDoWhop
 
-// TODO: need to grab key and uid dynamically
-var uid = 'tYaXQjb2CLQBLxiSY1arBi0bwDF12';
-var key = '-Klems7GHux6YRIksJVj';
+var userData = {};
+var uid = null;
+var currentDoWhopKey = null;
+var maxRating = 5;
+var currentRating = 0;
 
-var reviewRef = database.ref().child('doWhopDescription/' + key + '/reviews');
-
-// Read and write comments
 var creatorCommentDiv = document.querySelector('#comments-for-creator');
 var doerCommentDiv = document.querySelector('#comments-for-doer');
 var doWhopCommentDiv = document.querySelector('#comments-for-dowhop');
+var creatorRatingDiv = document.querySelector('#rating-creator');
+var doerRatingDiv = document.querySelector('#rating-doer');
+var doWhopRatingDiv = document.querySelector('#rating-dowhop');
+var creatorDisplayRatingDiv = document.querySelector('#show-rating-creator');
+var doerDisplayRatingDiv = document.querySelector('#show-rating-doer');
+var doWhopDisplayRatingDiv = document.querySelector('#show-rating-dowhop');
+var submitCommentButtons = document.querySelectorAll('.submit-comment');
 
-readCommentsFromDatabase('creator', creatorCommentDiv);
-readCommentsFromDatabase('doer', doerCommentDiv);
-readCommentsFromDatabase('dowhop', doWhopCommentDiv);
+// Create rating instances
+var ratingCreator = rating(creatorRatingDiv, currentRating, maxRating, creatorSubmitRating);
+var ratingDoer = rating(doerRatingDiv, currentRating, maxRating, doerSubmitRating);
+var ratingDoWhop = rating(doWhopRatingDiv, currentRating, maxRating, doWhopSubmitRating);
+var showRatingCreator = rating(creatorDisplayRatingDiv, currentRating, maxRating, callback);
+var showRatingDoer = rating(doerDisplayRatingDiv, currentRating, maxRating, callback);
+var showRatingDoWhop = rating(doWhopDisplayRatingDiv, currentRating, maxRating, callback);
 
+// Read ratings and comments when
+// we have a user and the currentDoWhopKey
+auth.onAuthStateChanged(function(user) {
+  if (user) {
+    // Create userData objec and set uid
+    readUserData(user);
+
+    // Using user session object in Firebase to find currentDoWhop
+    var sessionRef = database.ref('/session').child(user.uid).child('current_dowhop');
+    sessionRef.once('value').then(function(snapshot) {
+      currentDoWhopKey = snapshot.val();
+      // Placed read functions here to make sure
+      // currentDoWhopkey is assigned before calling functions
+      readRatingsFromDatabase('creator', ratingCreator);
+      readRatingsFromDatabase('doer', ratingDoer);
+      readRatingsFromDatabase('dowhop', ratingDoWhop);
+      readRatingsFromDatabase('creator', showRatingCreator);
+      readRatingsFromDatabase('doer', showRatingDoer);
+      readRatingsFromDatabase('dowhop', showRatingDoWhop);
+      readCommentsFromDatabase('creator', creatorCommentDiv);
+      readCommentsFromDatabase('doer', doerCommentDiv);
+      readCommentsFromDatabase('dowhop', doWhopCommentDiv);
+    });
+  }
+});
+
+function readUserData(user) {
+  var appUserRef = database.ref('/app_users').child(user.uid);
+  appUserRef.once('value').then(function(snapshot) {
+    userData = _.pick(snapshot.val(), ['displayName', 'photoURL', 'uid', 'email']);
+    uid = userData.uid;
+  });
+}
+
+// Write comments
 function handleCommentSubmit(e) {
   e.preventDefault();
   var commentInput = this.parentNode.parentNode.firstChild.nextSibling.firstChild.nextSibling;
@@ -30,39 +76,11 @@ function handleCommentSubmit(e) {
   commentInput.value = '';
 }
 
-var submitCommentButtons = document.querySelectorAll('.submit-comment');
 _.forEach(submitCommentButtons, function(button) {
   button.addEventListener('click', handleCommentSubmit);
 });
 
-// Read and write ratings
-var creatorRatingDiv = document.querySelector('#rating-creator');
-var doerRatingDiv = document.querySelector('#rating-doer');
-var doWhopRatingDiv = document.querySelector('#rating-dowhop');
-
-var creatorDisplayRatingDiv = document.querySelector('#show-rating-creator');
-var doerDisplayRatingDiv = document.querySelector('#show-rating-doer');
-var doWhopDisplayRatingDiv = document.querySelector('#show-rating-dowhop');
-
-var maxRating = 5;
-var currentRating = 0;
-
-var ratingCreator = rating(creatorRatingDiv, currentRating, maxRating, creatorSubmitRating);
-var ratingDoer = rating(doerRatingDiv, currentRating, maxRating, doerSubmitRating);
-var ratingDoWhop = rating(doWhopRatingDiv, currentRating, maxRating, doWhopSubmitRating);
-
-var showRatingCreator = rating(creatorDisplayRatingDiv, currentRating, maxRating, callback);
-var showRatingDoer = rating(doerDisplayRatingDiv, currentRating, maxRating, callback);
-var showRatingDoWhop = rating(doWhopDisplayRatingDiv, currentRating, maxRating, callback);
-
-readRatingsFromDatabase('creator', ratingCreator);
-readRatingsFromDatabase('doer', ratingDoer);
-readRatingsFromDatabase('dowhop', ratingDoWhop);
-
-readRatingsFromDatabase('creator', showRatingCreator);
-readRatingsFromDatabase('doer', showRatingDoer);
-readRatingsFromDatabase('dowhop', showRatingDoWhop);
-
+// Write ratings
 function creatorSubmitRating(rating) {
   handleDatabaseRatingSubmit(rating, 'creator', showRatingCreator);
 }
@@ -73,11 +91,17 @@ function doWhopSubmitRating(rating) {
   handleDatabaseRatingSubmit(rating, 'dowhop', showRatingDoWhop);
 }
 function callback(rating) {
-  console.log('rating callback-> ', rating);
+  // console.log('rating callback-> ', rating);
 }
 
-// Helper functions
+// Helper functions for Firebase reading and writing
+// var key = '-Klems7GHux6YRIksJVj';
+// var reviewRef = database.ref().child('doWhopDescription/' + key + '/reviews');
+
 function readRatingsFromDatabase(reviewType, ratingInstance) {
+  // var key = document.querySelector('.dowhop-selector-block');
+  console.log('KEY RATINGS READING ', currentDoWhopKey);
+  var reviewRef = database.ref().child('doWhopDescription/' + currentDoWhopKey + '/reviews');
   var ratingRef = reviewRef.child(reviewType).child('/ratings');
   ratingRef.once('value').then(function(snapshot) {
     var ratings = _.map(snapshot.val(), function(rating) {
@@ -87,6 +111,8 @@ function readRatingsFromDatabase(reviewType, ratingInstance) {
   });
 }
 function readCommentsFromDatabase(reviewType, commentDiv) {
+  console.log('KEY COMMENTS READING ', currentDoWhopKey);
+  var reviewRef = database.ref().child('doWhopDescription/' + currentDoWhopKey + '/reviews');
   var commentRef = reviewRef.child(reviewType).child('/comments');
   commentRef.on('value', function(snapshot) {
     var comments = snapshot.val();
@@ -99,6 +125,8 @@ function readCommentsFromDatabase(reviewType, commentDiv) {
   });
 }
 function handleDatabaseRatingSubmit(rating, reviewType, ratingInstance) {
+  console.log('KEY WRITING ', currentDoWhopKey);
+  var reviewRef = database.ref().child('doWhopDescription/' + currentDoWhopKey + '/reviews');
   var ratingReviewTypeRef = reviewRef.child(reviewType);
   ratingReviewTypeRef.once('value').then(function(snapshot) {
     var userHasRated = snapshot.child('hasRated').child(uid).val();
@@ -113,9 +141,11 @@ function handleDatabaseRatingSubmit(rating, reviewType, ratingInstance) {
       ratingReviewTypeRef.child('hasRated').child(uid).set(ratingObj);
     }
   });
+  // Sets rating in reviews
   ratingInstance.setRating(rating);
 }
 function handleDatabaseCommentSubmit(comment, reviewType) {
+  var reviewRef = database.ref().child('doWhopDescription/' + currentDoWhopKey + '/reviews');
   var commentReviewTypeRef = reviewRef.child(reviewType);
   commentReviewTypeRef.once('value').then(function(snapshot) {
     var userHasCommented = snapshot.child('hasCommented').child(uid).val();
