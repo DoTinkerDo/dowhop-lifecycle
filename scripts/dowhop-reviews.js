@@ -42,7 +42,7 @@ auth.onAuthStateChanged(function(user) {
 
     // Using user session object in Firebase to find currentDoWhop
     var sessionRef = database.ref('/session').child(user.uid).child('current_dowhop');
-    sessionRef.once('value').then(function(snapshot) {
+    sessionRef.on('value', function(snapshot) {
       currentDoWhopKey = snapshot.val();
       // Placed read functions here to make sure
       // currentDoWhopkey is assigned before calling functions
@@ -91,15 +91,11 @@ function doWhopSubmitRating(rating) {
   handleDatabaseRatingSubmit(rating, 'dowhop', showRatingDoWhop);
 }
 function callback(rating) {
-  // console.log('rating callback-> ', rating);
+  return rating;
 }
 
 // Helper functions for Firebase reading and writing
-// var key = '-Klems7GHux6YRIksJVj';
-// var reviewRef = database.ref().child('doWhopDescription/' + key + '/reviews');
-
 function readRatingsFromDatabase(reviewType, ratingInstance) {
-  // var key = document.querySelector('.dowhop-selector-block');
   console.log('KEY RATINGS READING ', currentDoWhopKey);
   var reviewRef = database.ref().child('doWhopDescription/' + currentDoWhopKey + '/reviews');
   var ratingRef = reviewRef.child(reviewType).child('/ratings');
@@ -141,7 +137,7 @@ function handleDatabaseRatingSubmit(rating, reviewType, ratingInstance) {
       ratingReviewTypeRef.child('hasRated').child(uid).set(ratingObj);
     }
   });
-  // Sets rating in reviews
+  // Sets rating in reviews UI
   ratingInstance.setRating(rating);
 }
 function handleDatabaseCommentSubmit(comment, reviewType) {

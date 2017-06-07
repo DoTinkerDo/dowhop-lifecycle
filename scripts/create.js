@@ -466,7 +466,6 @@ function showEditForm(node) {
 }
 
 function sessionRef(node) {
-  console.log('SESSIONREF -> ', node.id);
   fillInForms(node); //didn't put the code in here cuz it's not *strictly* about the sessions references
   showEditForm(node);
   firebase.database().ref().child('session/' + person.uid).set({ current_dowhop: node.id });
