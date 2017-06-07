@@ -34,11 +34,12 @@
 
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" /> <!-- Firebase UI CSS for Web Auth -->
-  <link rel="stylesheet" href="styles/main.428896f6.css">
   <link rel="stylesheet" href="styles/main.css"> <!--Catch-all stylings-->
   <link rel="stylesheet" href="styles/login-tabs-styles.css">
   <link rel="stylesheet" href="styles/dowhop-selector-style.css">
-
+  <link rel="stylesheet" href="ratings/rating-lib/rating.min.css"> <!-- star rating styles -->
+  <link rel="stylesheet" href="styles/dowhop-reviews.css">
+  
   <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>  <!-- Firebase library -->
   <script src="scripts/firebase.js"></script> <!-- Initialize Firebase app -->
   <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script> <!-- Lodash ._ -->
@@ -48,17 +49,15 @@
 <body>
 
   <!-- Login splash screen -->
-  <!-- <div class="mdl-layout mdl-js-layout"> -->
   <section id="login-container">
     <div class="login-page-title">
       <h2>Log In</h2>
-      <h4> Confirm your information to view your DoWhops</h4>
+      <h4>Confirm your information to view your DoWhops</h4>
     </div>
     <div class=login-container>
       <div id="firebaseui-auth-container"></div>;
     </div>
   </section>
-  <!-- </div> -->
 
   <!-- Application Container -->
   <section class="hide-component" id="application-container">
@@ -364,7 +363,120 @@
     </div>
 
     <!-- review app  -->
-    <div id="review" class="panel"></div>
+    <div id="review" class="panel">
+      <!-- Show comments and ratings for creator/doer/dowhop -->
+      <section class="mdl-grid">
+        <aside class="mdl-cell mdl-cell--12-col">
+          <div class="mdl-card mdl-shadow--6dp">
+            <div class="mdl-layout__content">
+              <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Reviews</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                <div class="mdl-grid">
+                  <div class="mdl-cell mdl-cell--4-col">
+                    <h3>Creator</h3>
+                    <div class="mdl-card__actions mdl-card--border">
+                      <div class="c-rating" id="show-rating-creator"></div>
+                      <div id="comments-for-creator"></div>
+                    </div>
+                  </div>
+                  <div class="mdl-cell mdl-cell--4-col">
+                    <h3>Doer</h3>
+                    <div class="mdl-card__actions mdl-card--border">
+                      <div class="c-rating" id="show-rating-doer"></div>
+                      <div id="comments-for-doer"></div>
+                    </div>
+                  </div>
+                  <div class="mdl-cell mdl-cell--4-col">
+                    <h3>DoWhop</h3>
+                    <div class="mdl-card__actions mdl-card--border">
+                      <div class="c-rating" id="show-rating-dowhop"></div>
+                      <div id="comments-for-dowhop"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </section>  <!-- End show comment and ratings -->
+
+      <!-- Form for comments and ratings -->
+      <section class="mdl-grid">
+        <aside class="mdl-cell mdl-cell--4-col">
+          <div class="mdl-card mdl-shadow--6dp">
+            <div class="mdl-layout__content">
+              <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Review Creator</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                <div class="c-rating" id="rating-creator"></div>
+                <form action="#">
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="creator-comment-input">
+                    <label class="mdl-textfield__label" for="creator-comment-input">Write comment...</label>
+                  </div>
+                  <div class="mdl-card__actions">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect submit-comment creator" id="creator">
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <aside class="mdl-cell mdl-cell--4-col">
+          <div class="mdl-card mdl-shadow--6dp">
+            <div class="mdl-layout__content">
+              <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Review Doer</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+              <div class="c-rating" id="rating-doer"></div>
+              <form action="#">
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="text" id="doer-comment-input">
+                  <label class="mdl-textfield__label" for="doer-comment-input">Write comment...</label>
+                </div>
+                <div class="mdl-card__actions">
+                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect submit-comment doer" id="doer">
+                    Submit
+                  </button>
+                </div>
+              </form>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <aside class="mdl-cell mdl-cell--4-col">
+          <div class="mdl-card mdl-shadow--6dp">
+            <div class="mdl-layout__content">
+              <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Review DoWhop</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                <div class="c-rating" id="rating-dowhop"></div>
+                <form action="#">
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="dowhop-comment-input">
+                    <label class="mdl-textfield__label" for="dowhop-comment-input">Write comment...</label>
+                  </div>
+                  <div class="mdl-card__actions">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect submit-comment dowhop" id="dowhop">
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </section> <!-- End form for comments and ratings -->
+    </div> <!-- End review app  -->
 
   </section> <!-- End Application Container -->
 
@@ -372,7 +484,9 @@
   <script src="scripts/login.js"></script>
   <script src="scripts/tabs.js"></script>
   <script src="scripts/main.js"></script>
-  <script src="scripts/main.224fb9ad.js"></script>
+  <script src="ratings/rating-lib/rating.min.js"></script>
+  <script src="ratings/rating-lib/weighted-ratings.js"></script>
+  <script src="scripts/dowhop-reviews.js"></script>
   <!-- <script src="scripts/dowhop-description-form.js"></script> -->
   <script>
     var btnLogOut = document.querySelector('.btn-logout');
