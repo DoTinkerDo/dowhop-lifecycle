@@ -49,7 +49,7 @@ function submitNewDoWhopEntry(e) {
   filePath = 'doWhopImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
   storage.ref(filePath).put(file).then(function(snapshot) {
     doWhopDescriptionRef.child(doWhopDescriptionKey).set({
-      creator: uid,
+      createdBy: uid,
       doWhopDescriptionKey: doWhopDescriptionKey,
       downloadURL: snapshot.metadata.downloadURLs[0],
       titleDescription: titleDescription.value,
@@ -111,7 +111,7 @@ function clearNewDoWhopEntryForm() {
   dowhopImageCapture.value = '';
 }
 
-// Adding function to add a chosen dowhop a user's list.
+// Adding function to add a chosen dowhop a user's list:
 function addToMyDoWhops(node) {
   firebase
     .database()

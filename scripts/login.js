@@ -75,19 +75,6 @@
 // 1) person is used by session
 // 2) ?
 
-// function getCurrentUser() {
-//   var currentUser = {};
-//   auth.onAuthStateChanged(function(user) {
-//     if (user) {
-//       currentUser = user;
-//     } else {
-//       console.log('signed out');
-//     }
-//   });
-//   return currentUser;
-// }
-// var currentUser = getCurrentUser();
-
 // setting currentUser globals...
 var person = null;
 auth.onAuthStateChanged(function(user) {

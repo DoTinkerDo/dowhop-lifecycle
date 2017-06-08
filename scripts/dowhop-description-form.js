@@ -9,7 +9,6 @@
   whereDescription
   howDescription
   howMuchDescription
-
 */
 
 var doWhopDescriptionRef = database.ref('/doWhopDescription');
@@ -23,7 +22,6 @@ var howMuchDescription = document.getElementById('how-much-description');
 var hostDescription = document.getElementById('host-description');
 var doerDescription = document.getElementById('doer-description');
 var dowhopImageCapture = document.getElementById('dowhop-image-capture');
-
 var submitNewDoWhopBtn = document.getElementById('create-new-dowhop');
 submitNewDoWhopBtn.addEventListener('click', submitNewDoWhopEntry);
 
@@ -53,7 +51,7 @@ function submitNewDoWhopEntry(e) {
   filePath = 'doWhopImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
   storage.ref(filePath).put(file).then(function(snapshot) {
     doWhopDescriptionRef.child(doWhopDescriptionKey).set({
-      creator: uid,
+      createdBy: uid,
       doWhopDescriptionKey: doWhopDescriptionKey,
       downloadURL: snapshot.metadata.downloadURLs[0],
       titleDescription: titleDescription.value,
@@ -120,7 +118,6 @@ function clearNewDoWhopEntryForm() {
 
 // Adding function to add a chosen dowhop a user's list.
 function addToMyDoWhops(node) {
-  console.log('you clicked on:', node.parentElement.id);
   firebase
     .database()
     .ref()
