@@ -191,38 +191,13 @@ function retrieveMyDoWhops(uid) {
         '</div>' +
         "<div class='dowhop-selector-body'>" +
 
-        // '<h3>When?</h3>' +
-        // '<p>' +
-        // data.val().whenDescription +
-        // '</p>' +
-        // '<h3>What day?</h3>' +
-        // '<p>' +
-        // ('By request' || data.val().whenDate) +
-        // '<p>' +
-        // '<h3>What time?</h3>' +
-        // '<p>' +
-        // ('By request' || data.val().whenTime) +
-        // '<p>' +
-        // '<h3>Where?</h3>' +
-        // '<p>' +
-        // data.val().whereDescription +
-        // '</p>' +
-        // '<p>' +
-        // ('By request' || data.val().whereAddress) +
-        // '</p>' +
-        // '<h3>How Much?</h3>' +
-        // '<p>' +
-        // data.val().howMuchDescription +
-        // '</p>' +
-
-        '<h3>Who is host?</h3>' +
+        '<h3>Who?</h3>' +
         '<p>' +
         (data.val().hostDescription || 'TBD') +
-        '</p>' +
-        '<h3>Who is doer?</h3>' +
-        '<p>' +
+        ' and ' +
         (data.val().doerDescription || 'TBD') +
         '</p>' +
+
         '<h3>What?</h3>' +
         '<p>' +
         data.val().whatDescription +
@@ -230,7 +205,9 @@ function retrieveMyDoWhops(uid) {
         '<h3>How much?</h3>' +
         '<p>' +
         ('TBD' || data.val().howMuchCost) +
-        '</p>';
+        '</p>'
+
+        ;
       '</div>' + '</section>';
     } else {
       return container;
