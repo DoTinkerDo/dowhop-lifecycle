@@ -9,7 +9,6 @@
   whereDescription
   howDescription
   howMuchDescription
-
 */
 
 var doWhopDescriptionRef = database.ref('/doWhopDescription');
@@ -20,10 +19,7 @@ var whatDescription = document.getElementById('what-description');
 var whenDescription = document.getElementById('when-description');
 var whereDescription = document.getElementById('where-description');
 var howMuchDescription = document.getElementById('how-much-description');
-// var hostDescription = document.getElementById('host-description');
-// var doerDescription = document.getElementById('doer-description');
 var dowhopImageCapture = document.getElementById('dowhop-image-capture');
-
 var submitNewDoWhopBtn = document.getElementById('create-new-dowhop');
 submitNewDoWhopBtn.addEventListener('click', submitNewDoWhopEntry);
 
@@ -88,8 +84,7 @@ function validateAddDoWhopDescription(
   whenDescription,
   whereDescription,
   howMuchDescription
-  // hostDescription,
-  // doerDescription
+
 ) {
   if (
     titleDescription === '' ||
@@ -98,8 +93,7 @@ function validateAddDoWhopDescription(
     whenDescription === '' ||
     whereDescription === '' ||
     howMuchDescription === '' ||
-    // hostDescription === '' ||
-    // doerDescription === '' ||
+
     file === null
   )
     return false;
@@ -115,13 +109,10 @@ function clearNewDoWhopEntryForm() {
   whereDescription.value = '';
   howMuchDescription.value = '';
   dowhopImageCapture.value = '';
-  // hostDescription.value = '';
-  // doerDescription.value = '';
 }
 
 // Adding function to add a chosen dowhop a user's list.
 function addToMyDoWhops(node) {
-  console.log('you clicked on:', node.parentElement.id);
   firebase
     .database()
     .ref()

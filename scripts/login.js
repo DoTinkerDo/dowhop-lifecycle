@@ -10,7 +10,6 @@
       }
     },
     signInFlow: 'popup',
-    // signInSuccessUrl: '<url-to-redirect-to-on-success>',
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
@@ -37,9 +36,7 @@
     loginPage.style.display = 'none';
     applicationPage.style.display = 'block';
     writeUserData(user);
-    console.log('USER SIGNED IN WITH USER.UID -> ', user.uid);
-
-    retrieveMyDoWhops(user.uid); // MOVED HERE TO AVOID TIMING ERROR.
+    retrieveMyDoWhops(user.uid);
     registerDoWhopDescriptionCallback();
   }
 
@@ -47,7 +44,6 @@
     loginPage.style.display = 'block';
     applicationPage.style.display = 'none';
     ui.start('#firebaseui-auth-container', uiConfig);
-    console.log('USER SIGNED OUT');
   }
 
   function handleOnAuthStateChange() {
@@ -57,7 +53,6 @@
 
       firebase.database().ref().child('admin/').once('value', function(snap) {
         // Cycling through the data to see if admin is permitted:
-        console.log('looking for admins in the databse...');
         snap.forEach(function(data) {
           if (data.val() === user.email) {
             approved = true;
@@ -66,8 +61,6 @@
             approved = false;
           }
         });
-
-        console.log('Person trying to enter is Admin? ', approved);
         return approved;
       });
 
