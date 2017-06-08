@@ -197,18 +197,18 @@ function retrieveMyDoWhops(uid) {
         // '</p>' +
         // '<h3>What day?</h3>' +
         // '<p>' +
-        // ('TBD' || data.val().whenDate) +
+        // ('By request' || data.val().whenDate) +
         // '<p>' +
         // '<h3>What time?</h3>' +
         // '<p>' +
-        // ('TBD' || data.val().whenTime) +
+        // ('By request' || data.val().whenTime) +
         // '<p>' +
         // '<h3>Where?</h3>' +
         // '<p>' +
         // data.val().whereDescription +
         // '</p>' +
         // '<p>' +
-        // ('Address TBD' || data.val().whereAddress) +
+        // ('By request' || data.val().whereAddress) +
         // '</p>' +
         // '<h3>How Much?</h3>' +
         // '<p>' +
