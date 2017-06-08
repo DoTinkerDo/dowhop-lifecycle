@@ -1,25 +1,5 @@
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-'use strict';
+// Use code to coordinate DoWhops.
 
-// Creates Google maps: <-- TO-DO: Reset the Google Map upon reload.
-
-// This example requires the Places library. Include the libraries=places
-// parameter when you first load the API. For example:
-// <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 var currentSessionID;
 function initAutocomplete() {
   var map = new google.maps.Map(document.getElementById('map'), {
@@ -39,8 +19,7 @@ function initAutocomplete() {
   });
 
   var markers = [];
-  // Listen for the event fired when the user selects a prediction and retrieve
-  // more details for that place.
+  // Listen for the event fired when the user selects a prediction.
   searchBox.addListener('places_changed', function() {
     var places = searchBox.getPlaces();
 
@@ -92,30 +71,23 @@ function initAutocomplete() {
 
 function getSesh(node) {
   FriendlyChat.prototype.getSession();
-
-  // Adding some funcitonality to help users walk through:
-  console.log('you clicked GET SESH on,,,,,', node.href);
   var anchorPoint = node.href.match(/\/#(.*)/)[0];
   getSeshTutorial(anchorPoint);
 }
 
 function getSeshTutorial(anchor) {
-  console.log('tutorial for...', anchor);
   var tutorial = document.getElementById('tutorial-container');
 
   switch (anchor) {
     case '/#newdowhop':
-      console.log('Load tutorial for new dowhop.');
       tutorial.innerText = 'Please create your DoWhop or select a DoWhop to do by clicking the icon.';
       break;
 
     case '/#create':
-      console.log('Load tutorial for create');
       tutorial.innerText = 'Here you can view or edit your purchased or advertised DoWhop details.';
       break;
 
     case '/#coordinate':
-      console.log('Load tutorial for coordinate');
       tutorial.innerText = 'Here you can coordinate the DoWhop. Click banner to load messages.';
       break;
   }
@@ -198,16 +170,7 @@ FriendlyChat.prototype.initFirebase = function() {
 };
 
 FriendlyChat.prototype.checkForAdmin = function() {
-  // CHECK.
-
   var adminDiv = document.getElementById('admin-input-form');
-
-  // if(person.email === ("XXXX@gmail.com") {
-  //   console.log("person's email passed: ", person.email);
-  //   adminDiv.removeAttribute("hidden");
-  // } else {
-  //   adminDiv.setAttribute("hidden","true");
-  // }
 };
 
 FriendlyChat.prototype.sendApproval = function(e) {
@@ -220,10 +183,6 @@ FriendlyChat.prototype.sendApproval = function(e) {
   var status;
 
   myRefPending.once('value', function(snap) {
-    console.log('your suggested date is:\n');
-    console.log(snap.val().whenDatePending);
-    console.log('your suggested time is:\n');
-    console.log(snap.val().whenTimePending);
     newDate = snap.val().whenDatePending;
     newTime = snap.val().whenTimePending;
     newWhere = snap.val().whereAddressPending;
@@ -264,12 +223,10 @@ FriendlyChat.prototype.sendApproval = function(e) {
 
 FriendlyChat.prototype.sendRescind = function(e) {
   e.preventDefault();
-  console.log('You have rescinded');
   this.chatItemDataSpecific = document.getElementById('dowhop-selector-container').children[0].id; // <-- Refactor
   this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/').remove();
   // Send a notification to the user:
   window.alert('You have rescinded!');
-
   // Add UI reset information here:
   this.approvalForm.setAttribute('hidden', 'true');
   this.rescindingForm.setAttribute('hidden', 'true');
@@ -279,13 +236,10 @@ FriendlyChat.prototype.sendRescind = function(e) {
 
 // Add dynamic 'When' form:
 FriendlyChat.prototype.showDateTimeInputs = function() {
-  // this.newChatWhenBounds.removeAttribute('hidden');
 };
 
 FriendlyChat.prototype.removeChats = function() {
-  // this.chatList.innerHTML = "";
   this.messageList.innerHTML = '';
-  // this.chatItemData.innerHTML = "Your DoWhop details will appear here!";
 };
 
 FriendlyChat.prototype.getSession = function() {
@@ -299,8 +253,6 @@ FriendlyChat.prototype.getSession = function() {
 
   var checkForPendings = function(id, data) {
     var pendingNotification = '';
-    console.log('something was changed regarding: ' + id);
-
     // Check if there are pending notifications:
     if (
       data.val() &&
@@ -308,13 +260,12 @@ FriendlyChat.prototype.getSession = function() {
       data.val().pending.status != 'approved' &&
       data.val().pending.status != 'denied'
     ) {
-      console.log('pending status true. showing pending div.');
+      // console.log('pending status true. showing pending div.');
       document.getElementById('pending-div').removeAttribute('hidden');
 
       // This means visiting user is the creator of event:
       if (firebase.auth().currentUser.uid == data.val().creator || person.email == data.val().host) {
-        // <--Check
-        console.log('visiting user is the creator. showing approval form, hiding rescind form.');
+        // console.log('visiting user is the creator. showing approval form, hiding rescind form.');
         pendingNotification = 'Someone has requested this change.\nDo you want to approve it?';
         document.getElementById('pending-div').innerText =
           pendingNotification +
@@ -330,7 +281,7 @@ FriendlyChat.prototype.getSession = function() {
 
         // This means visiting user is a requestor of event change:
       } else if (firebase.auth().currentUser.uid == data.val().pending.requester) {
-        console.log('visiting user requested a change. showing rescinding form, hiding approval form.');
+        // console.log('visiting user requested a change. showing rescinding form, hiding approval form.');
         pendingNotification = 'You have requested this time!\nIt is pending. Do you want to change it?';
         document.getElementById('pending-div').innerText =
           pendingNotification +
@@ -346,21 +297,17 @@ FriendlyChat.prototype.getSession = function() {
       }
       // All other cases:
     } else {
-      console.log('this means it has passed over logic tests.');
+      // console.log('this means it has passed over logic tests.');
       document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
       document.getElementById('pending-div').innerText = '';
       document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
       document.getElementById('rescind-pending-form').setAttribute('hidden', 'true');
     }
-    console.log('your id...checking here', id);
   };
 
   myRef.on('value', function(data) {
     var dowhopSelector = document.getElementById('dowhop-selector-container');
     var dowhopSelectorDiv = '';
-
-    console.log('Inside once', (currentSessionID = data.val() ? data.val().current_dowhop : null));
-
     // Setting the header and check for pendings for the current DoWhop session:
 
     // Checking for changed pendings in real-time:
@@ -387,7 +334,6 @@ FriendlyChat.prototype.getSession = function() {
           "<section id='" +
           data.key +
           "' class='dowhop-selector-block' onclick='sessionRef(this)''>" +
-          // changed class to dowhop-selector-header-top to apply different styles...
           "<div class='dowhop-selector-header-top' style='background-image: url(" +
           imageUrl +
           ");'>" +
@@ -395,17 +341,6 @@ FriendlyChat.prototype.getSession = function() {
           data.val().titleDescription +
           '</h1>' +
           '</div>' +
-          // We only need the header portion of this data. TO-DO: Refacator.
-          //   "<div class='dowhop-selector-body'>" +
-          //     "<h3>" + data.val().whatDescription + "</h3>" +
-          //     "<h5>When?</h5>" +
-          //     "<p>" + data.val().whenDate + ' at ' + data.val().whenTime +
-          //     " " + data.val().whenDescription + "</p>" +
-          //     "<h5>Where?</h5>" +
-          //     "<p>" + data.val().whereDescription + " " + data.val().whereAddress + "</p>" +
-          //     "<h5>What else?</h5>" +
-          //     "<p>" + data.val().howMuchDescription + ' ' + data.val().howMuchCost +
-          // "</div>" +
           '</section>');
       }
     });
@@ -441,14 +376,12 @@ FriendlyChat.prototype.saveMessage = function(e) {
   this.chatItemDataSpecific = document.getElementById('dowhop-selector-container').children[0].id; // <-- Refactor
 
   // Nesting the message content under chat-id node headings:
-  // var messagesChatsRef = this.messagesRef; // <-- Refactor?
   var messagesChatsRef = this.database.ref().child('messages/' + this.chatItemDataSpecific);
   var currentUser = person;
   var whenDatePending = this.whenDatePending;
   var whenTimePending = this.whenTimePending;
   var whereAddressPending = this.whereAddressPending;
 
-  // Check that the user entered a time change request:
   // For only all three attributes: Time, Date, Where:
   if (this.messageFormWhenDatePending.value && this.messageFormWhenTimePending.value && this.messageFormWherePending) {
     // Send the inputted date/time suggestion to the event it's associated with:
@@ -533,7 +466,6 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
   // Check that the user entered a message and is signed in:
   if (this.messageInput.value && this.checkSignedInWithMessage()) {
-    // Push new message to Firebase:
     messagesChatsRef
       .push({
         chatId: this.chatItemDataSpecific,
@@ -621,18 +553,6 @@ FriendlyChat.prototype.saveImageMessage = function(event) {
   }
 };
 
-// Save all users who've logged in into DB via UID for shallow nesting:
-// FriendlyChat.prototype.saveUser = function() {
-//   var currentUser = person;
-//   this.database.ref('users/' + currentUser.uid).update({
-//     name: currentUser.displayName,
-//     email: currentUser.email,
-//     uid: currentUser.uid,
-//     photo: currentUser.photoURL || '/images/profile_placeholder.png',
-//     note: "N/A"
-//   })
-// }
-
 // Signs-in Friendly Chat.
 FriendlyChat.prototype.signIn = function() {
   // Sign in Firebase using popup auth and Google as the identity provider.
@@ -654,36 +574,23 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
   if (user) {
     // User is signed in!
     // Get profile pic and user's name from the Firebase user object.
-    var profilePicUrl = user.photoURL; // Added: Get profile pic.
-    var userName = user.displayName; // Added: Get user's name.
-    this.checkForAdmin(); // CHECK.
-
-    // We want to reset the page and load currently existing threads:
-    // this.loadChats();
-    // this.loadPendingNotifications();
-
-    // We want to save currently signed-in user.
-    // this.saveUser();
-
+    var profilePicUrl = user.photoURL;
+    var userName = user.displayName;
+    this.checkForAdmin();
     // Add event listener for event session changes:
     this.getSession(currentSessionID);
     // We save the Firebase Messaging Device token and enable notifications.
     this.saveMessagingDeviceToken();
   } else {
     // User is signed out!
-    // Hide user's profile and sign-out button.
-    this.userName && this.userName.setAttribute('hidden', 'true');
-    this.userPic && this.userPic.setAttribute('hidden', 'true');
   }
 };
 
 // Returns true if user is signed-in. Otherwise false and displays a message.
 FriendlyChat.prototype.checkSignedInWithMessage = function() {
-  /* Added: Check if user is signed-in Firebase. */
   if (person) {
     return true;
   }
-
   // Display a message to the user using a Toast.
   var data = {
     message: 'You must sign-in first, please!',
@@ -693,7 +600,7 @@ FriendlyChat.prototype.checkSignedInWithMessage = function() {
   return false;
 };
 
-// ADDED: Saves the messaging device token to the datastore.
+// Saves the messaging device token to the datastore.
 FriendlyChat.prototype.saveMessagingDeviceToken = function() {
   firebase
     .messaging()
@@ -701,7 +608,6 @@ FriendlyChat.prototype.saveMessagingDeviceToken = function() {
     .then(
       function(currentToken) {
         if (currentToken) {
-          console.log('Got FCM device token:', currentToken);
           // Saving the Device Token to the datastore.
           firebase.database().ref('/fcmTokens').child(currentToken).set(firebase.auth().currentUser.uid);
         } else {
@@ -715,9 +621,8 @@ FriendlyChat.prototype.saveMessagingDeviceToken = function() {
     });
 };
 
-// ADDED: Requests permissions to show notifications.
+// Requests permissions to show notifications.
 FriendlyChat.prototype.requestNotificationsPermissions = function() {
-  console.log('Requesting notifications permission...');
   firebase
     .messaging()
     .requestPermission()

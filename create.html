@@ -46,7 +46,6 @@
   <body>
     <h1>DoWhop You Love!</h1>
     <div id="newdowhop" class="panel">
-      <!-- <div class="mdl-layout mdl-js-layout"> -->
         <div class="mdl-grid">
           <div class="mdl-cell mdl-cell--6-col">
             <div class="mdl-card mdl-shadow--6dp">
@@ -80,14 +79,6 @@
                       <input class="mdl-textfield__input" type="text" id="how-much-description" placeholder="This much per person">
                       <label class="mdl-textfield__label" for="how-description">How much will it cost?</label>
                     </div>
-                    <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                      <input class="mdl-textfield__input" type="text" id="host-description" placeholder="host@example.com">
-                      <label class="mdl-textfield__label" for="host-description">Who is the host (email)?</label>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                      <input class="mdl-textfield__input" type="text" id="doer-description" placeholder="doer@example.com">
-                      <label class="mdl-textfield__label" for="doer-description">Who is the doer (email)?</label>
-                    </div> -->
                     <div class="mdl-card__actions">
                       <input id="dowhop-image-capture" type="file" accept="image/*,capture=camera" onchange="addDoWhopImage(this.files, this)">
                       <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="create-new-dowhop">
@@ -99,21 +90,9 @@
               </div>
             </div>
           </div>
-          <!-- <div class="mdl-cell mdl-cell--6-col" id="dowhop-placard"></div> -->
-
         </div>
       <!-- </div> -->
     </div> <!-- End Create New DoWhop Form -->
     <script src="scripts/dowhop-description-form-public.js"></script>
-    <!-- Below not necessary if we are allowing this page to be public. -->
-    <!-- <script>
-    auth.onAuthStateChanged(function(user) {
-
-      if (user) {
-        registerDoWhopDescriptionCallback();
-      }
-
-    });
-    </script> -->
   </body>
 </html>
