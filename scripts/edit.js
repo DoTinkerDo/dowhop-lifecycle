@@ -190,33 +190,31 @@ function retrieveMyDoWhops(uid) {
         '</h1>' +
         '</div>' +
         "<div class='dowhop-selector-body'>" +
-        '<h3>What?</h3>' +
-        '<p>' +
-        data.val().whatDescription +
-        '</p>' +
-        '<h3>When?</h3>' +
-        '<p>' +
-        data.val().whenDescription +
-        '</p>' +
-        '<h3>What day?</h3>' +
-        '<p>' +
-        ('TBD' || data.val().whenDate) +
-        '<p>' +
-        '<h3>What time?</h3>' +
-        '<p>' +
-        ('TBD' || data.val().whenTime) +
-        '<p>' +
-        '<h3>Where?</h3>' +
-        '<p>' +
-        data.val().whereDescription +
-        '</p>' +
-        '<p>' +
-        ('Address TBD' || data.val().whereAddress) +
-        '</p>' +
-        '<h3>How Much?</h3>' +
-        '<p>' +
-        data.val().howMuchDescription +
-        '</p>' +
+
+        // '<h3>When?</h3>' +
+        // '<p>' +
+        // data.val().whenDescription +
+        // '</p>' +
+        // '<h3>What day?</h3>' +
+        // '<p>' +
+        // ('TBD' || data.val().whenDate) +
+        // '<p>' +
+        // '<h3>What time?</h3>' +
+        // '<p>' +
+        // ('TBD' || data.val().whenTime) +
+        // '<p>' +
+        // '<h3>Where?</h3>' +
+        // '<p>' +
+        // data.val().whereDescription +
+        // '</p>' +
+        // '<p>' +
+        // ('Address TBD' || data.val().whereAddress) +
+        // '</p>' +
+        // '<h3>How Much?</h3>' +
+        // '<p>' +
+        // data.val().howMuchDescription +
+        // '</p>' +
+
         '<h3>Who is host?</h3>' +
         '<p>' +
         (data.val().hostDescription || 'TBD') +
@@ -225,8 +223,13 @@ function retrieveMyDoWhops(uid) {
         '<p>' +
         (data.val().doerDescription || 'TBD') +
         '</p>' +
+        '<h3>What?</h3>' +
         '<p>' +
-        (':-)' || data.val().howMuchCost) +
+        data.val().whatDescription +
+        '</p>' +
+        '<h3>How much?</h3>' +
+        '<p>' +
+        ('TBD' || data.val().howMuchCost) +
         '</p>';
       '</div>' + '</section>';
     } else {
