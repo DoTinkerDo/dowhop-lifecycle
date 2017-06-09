@@ -114,7 +114,12 @@ function readCommentsFromDatabase(reviewType, commentDiv) {
     var div = document.createElement('div');
     commentDiv.innerHTML = '';
     _.forEach(comments, function(comment) {
-      div.innerHTML += '<blockquote>' + comment + '</blockquote>';
+      div.innerHTML +=
+        '<blockquote>' +
+        comment +
+        '</blockquote>' +
+        '<img class="comment-headshot-pic" src="https://lh4.googleusercontent.com/-JDaQUYkpe1s/AAAAAAAAAAI/AAAAAAAACWE/NcFPPmvFeRY/photo.jpg" alt="">' +
+        '<p class="comment-by-name">Johann Billar</p>';
       commentDiv.append(div);
     });
   });
