@@ -110,6 +110,8 @@ function readCommentsFromDatabase(reviewType, commentDiv) {
   var reviewRef = database.ref().child('doWhopDescription/' + currentDoWhopKey + '/reviews');
   var commentRef = reviewRef.child(reviewType).child('/comments');
   commentRef.on('value', function(snapshot) {
+    var name = '';
+    var url = '';
     var comments = snapshot.val();
     var div = document.createElement('div');
     commentDiv.innerHTML = '';
@@ -118,8 +120,12 @@ function readCommentsFromDatabase(reviewType, commentDiv) {
         '<blockquote>' +
         comment +
         '</blockquote>' +
-        '<img class="comment-headshot-pic" src="https://lh4.googleusercontent.com/-JDaQUYkpe1s/AAAAAAAAAAI/AAAAAAAACWE/NcFPPmvFeRY/photo.jpg" alt="">' +
-        '<p class="comment-by-name">Johann Billar</p>';
+        '<img class="comment-headshot-pic" src="' +
+        url +
+        '" alt="">' +
+        '<p class="comment-by-name">' +
+        name +
+        '</p>';
       commentDiv.append(div);
     });
   });
