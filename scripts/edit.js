@@ -4,7 +4,7 @@ document.getElementById('submit').addEventListener('click', createDoWhop);
 var rootRef = firebase.database().ref('app_users/');
 var rootRefEvents = firebase.database().ref('doWhopDescription/');
 
-document.getElementById('whenDate').setAttribute('value', getDate());
+// document.getElementById('whenDate').setAttribute('value', getDate());
 
 function addDoWhopImage(files_arr, node) {
   return (file = files_arr[0]);
@@ -72,23 +72,23 @@ function createDoWhop(data, clearForm) {
   // Collect form data and clear it:
   var creator = firebase.auth().currentUser.uid;
   var titleDescription = document.getElementById('titleDescription');
-  var titleImage = document.getElementById('titleImage');
+  // var titleImage = document.getElementById('titleImage');
   var whoDescription = document.getElementById('whoDescription');
-  var whoImage = document.getElementById('whoImage');
+  // var whoImage = document.getElementById('whoImage');
   var whatDescription = document.getElementById('whatDescription');
-  var whatImage = document.getElementById('whatImage');
+  // var whatImage = document.getElementById('whatImage');
   var whereDescription = document.getElementById('whereDescription');
-  var whereAddress = document.getElementById('whereAddress');
-  var whereImage = document.getElementById('whereImage');
+  // var whereAddress = document.getElementById('whereAddress');
+  // var whereImage = document.getElementById('whereImage');
   var whenDescription = document.getElementById('whenDescription');
-  var whenDate = document.getElementById('whenDate');
-  var whenTime = document.getElementById('whenTime');
-  var whenImage = document.getElementById('whenImage');
+  // var whenDate = document.getElementById('whenDate');
+  // var whenTime = document.getElementById('whenTime');
+  // var whenImage = document.getElementById('whenImage');
   var howMuchDescription = document.getElementById('howMuchDescription');
   var hostDescription = document.getElementById('hostDescription'); // new
   var doerDescription = document.getElementById('doerDescription'); // new
   var howMuchCost = document.getElementById('howMuchCost');
-  var howmuchImage = document.getElementById('howmuchImage');
+  // var howmuchImage = document.getElementById('howmuchImage');
   var currentDoWhop = document.getElementById('dowhop-selector-container').firstChild.id || 'orphan';
 
   var error = document.getElementById('error');
@@ -99,23 +99,23 @@ function createDoWhop(data, clearForm) {
   ) {
     data.creator = creator;
     data.titleDescription = titleDescription.value.trim();
-    data.titleImage = titleImage.innerHTML.trim();
+    // data.titleImage = titleImage.innerHTML.trim();
     data.whoDescription = whoDescription.value.trim();
-    data.whoImage = whoImage.innerHTML.trim();
+    // data.whoImage = whoImage.innerHTML.trim();
     data.whatDescription = whatDescription.value.trim();
-    data.whatImage = whatImage.innerHTML.trim();
+    // data.whatImage = whatImage.innerHTML.trim();
     data.whereDescription = whereDescription.value.trim();
-    data.whereAddress = whereAddress.value.trim();
-    data.whereImage = whereImage.innerHTML.trim();
+    // data.whereAddress = whereAddress.value.trim();
+    // data.whereImage = whereImage.innerHTML.trim();
     data.whenDescription = whenDescription.value.trim();
-    data.whenTime = whenTime.value.trim();
-    data.whenDate = whenDate.value.trim();
-    data.whenImage = whenImage.innerHTML.trim();
+    // data.whenTime = whenTime.value.trim();
+    // data.whenDate = whenDate.value.trim();
+    // data.whenImage = whenImage.innerHTML.trim();
     data.howMuchDescription = howMuchDescription.value.trim();
     data.hostDescription = hostDescription.value.trim();
     data.doerDescription = doerDescription.value.trim();
-    data.howMuchCost = howMuchCost.value.trim();
-    data.howmuchImage = howmuchImage.innerHTML.trim();
+    // data.howMuchCost = howMuchCost.value.trim();
+    // data.howmuchImage = howmuchImage.innerHTML.trim();
   } else {
     var error = document.getElementById('error');
     error.classList.remove('error--ok');
@@ -138,23 +138,23 @@ function createDoWhop(data, clearForm) {
     .then(retrieveMyDoWhops(auth.currentUser.uid));
 
   titleDescription.value = '';
-  titleImage.innerHTML = '';
+  // titleImage.innerHTML = '';
   whoDescription.value = '';
-  whoImage.innerHTML = '';
+  // whoImage.innerHTML = '';
   whatDescription.value = '';
-  whatImage.innerHTML = '';
+  // whatImage.innerHTML = '';
   whereDescription.value = '';
-  whereAddress.value = '';
-  whereImage.innerHTML = '';
+  // whereAddress.value = '';
+  // whereImage.innerHTML = '';
   whenDescription.value = '';
-  whenTime.value = '';
-  whenDate.value = '';
-  whenImage.innerHTML = '';
+  // whenTime.value = '';
+  // whenDate.value = '';
+  // whenImage.innerHTML = '';
   howMuchDescription.value = '';
   hostDescription.value = '';
   doerDescription.value = '';
-  howMuchCost.value = '';
-  howmuchImage.innerHTML = '';
+  // howMuchCost.value = '';
+  // howmuchImage.innerHTML = '';
 
   document.getElementById('error').innerHTML =
     'You rock! Thanks for submitting your DoWhop. Please review your changes to the newly updated DoWhop!';
@@ -341,13 +341,13 @@ function fillInForms(node) {
         document.getElementById('whoDescription').value = data.val().whoDescription;
         document.getElementById('whatDescription').value = data.val().whatDescription;
         document.getElementById('whereDescription').value = data.val().whereDescription;
-        document.getElementById('whereAddress').value = data.val().whereAddress;
+        // document.getElementById('whereAddress').value = data.val().whereAddress;
         document.getElementById('whenDescription').value = data.val().whenDescription;
-        document.getElementById('whenTime').value = data.val().whenTime;
+        // document.getElementById('whenTime').value = data.val().whenTime;
         document.getElementById('howMuchDescription').value = data.val().howMuchDescription;
         document.getElementById('hostDescription').value = data.val().hostDescription;
         document.getElementById('doerDescription').value = data.val().doerDescription;
-        document.getElementById('howMuchCost').value = data.val().howMuchCost;
+        // document.getElementById('howMuchCost').value = data.val().howMuchCost;
       }
     });
   });
