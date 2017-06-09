@@ -64,7 +64,7 @@
       <div class="tabs-container">
         <ul class="tabs">
           <!-- <li><a class="tab" href="#newdowhop" onclick="getSesh(this)"><span>+</span></a></li> -->
-          <li><a class="tab" href="#create" onclick="getSesh(this)"><span>✎</span></a></li>
+          <li><a class="tab" href="#edit" onclick="getSesh(this)"><span>✎</span></a></li>
           <li><a class="tab" href="#coordinate" onclick="getSesh(this)">Coordinate</a></li>
           <li><a class="tab" href="#review" onclick="getSesh(this)"><span>★</span></a></li>
           <li><a class="btn-logout" href="#" onclick="firebase.auth().signOut()"><span>Log Out</span></a></li>
@@ -96,8 +96,8 @@
       </form>
     </div>
 
-    <!-- Start Create DoWhops -->
-    <div id="create" class="panel">
+    <!-- Start edit DoWhops -->
+    <div id="edit" class="panel">
       <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--7-col user-list">
           <h2 class="mdl-title">My DoWhops in Planning</h2>
@@ -245,8 +245,7 @@
               </div>
               <div class="underbar_options" data-openoption="">
                 <div hidden id="clock_options">
-
-                <--TODO: replace icon with dollar sign-->
+                  <!-- TODO: replace icon with dollar sign  -->
                   <span>Cost:
                     <input type="number" id='howMuchCost' size="50">
                   </span>

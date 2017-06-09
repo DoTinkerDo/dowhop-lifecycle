@@ -123,17 +123,21 @@ function handleDatabaseRatingSubmit(rating, reviewType, ratingInstance) {
   var reviewRef = database.ref().child('doWhopDescription/' + currentDoWhopKey + '/reviews');
   var ratingReviewTypeRef = reviewRef.child(reviewType);
   ratingReviewTypeRef.once('value').then(function(snapshot) {
+    var noReviews = snapshot.val();
     var userHasRated = snapshot.child('hasRated').child(uid).val();
     if (userHasRated) {
       var ratingKey = snapshot.child('hasRated').child(uid).child('key').val();
       ratingReviewTypeRef.child('ratings').child(ratingKey).set(rating);
     } else {
+      // check if no reviews, then set initial rating to 1
+      !noReviews ? (rating = 1) : rating;
       var key = ratingReviewTypeRef.child('ratings').push(rating).key;
       var ratingObj = {};
       ratingObj.key = key;
       ratingObj[uid] = true;
       ratingReviewTypeRef.child('hasRated').child(uid).set(ratingObj);
     }
+    ratingInstance.setRating(rating);
   });
   // Sets rating in reviews UI
   ratingInstance.setRating(rating);
