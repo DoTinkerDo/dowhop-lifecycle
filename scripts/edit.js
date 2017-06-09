@@ -6,6 +6,14 @@ var rootRefEvents = firebase.database().ref('doWhopDescription/');
 
 document.getElementById('whenDate').setAttribute('value', getDate());
 
+function addDoWhopImage(files_arr, node) {
+  return (file = files_arr[0]);
+  if (!file.type.match('image/.*')) {
+    alert('You can only add images at the moment.');
+    return;
+  }
+}
+
 Array.from(document.getElementsByClassName('plus-button')).forEach(function(e) {
   e.addEventListener('click', function() {
     var self = this;
