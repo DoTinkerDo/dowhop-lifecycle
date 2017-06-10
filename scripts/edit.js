@@ -212,7 +212,7 @@ function retrieveMyDoWhops(uid) {
         '</p>' +
         '<h3>How much?</h3>' +
         '<p>' +
-        ('TBD' || data.val().howMuchCost) +
+        (data.val().howMuchDescription || 'TBD') +
         '</p>'
 
         ;
