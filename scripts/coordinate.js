@@ -71,27 +71,27 @@ function initAutocomplete() {
 
 function getSesh(node) {
   FriendlyChat.prototype.getSession();
-  var anchorPoint = node.href.match(/\/#(.*)/)[0];
-  getSeshTutorial(anchorPoint);
+  // var anchorPoint = node.href.match(/\/#(.*)/)[0]; ! TO-DO: Convert to alternative "tool-tip" style.
+  // getSeshTutorial(anchorPoint);
 }
 
-function getSeshTutorial(anchor) {
-  var tutorial = document.getElementById('tutorial-container');
-
-  switch (anchor) {
-    case '/#newdowhop':
-      tutorial.innerText = 'Please create your DoWhop or select a DoWhop to do by clicking the icon.';
-      break;
-
-    case '/#create':
-      tutorial.innerText = 'Here you can view or edit your purchased or advertised DoWhop details.';
-      break;
-
-    case '/#coordinate':
-      tutorial.innerText = 'Here you can coordinate the DoWhop. Click banner to load messages.';
-      break;
-  }
-}
+// function getSeshTutorial(anchor) {
+//   var tutorial = document.getElementById('tutorial-container');
+//
+//   switch (anchor) {
+//     case '/#newdowhop':
+//       tutorial.innerText = 'Please create your DoWhop or select a DoWhop to do by clicking the icon.';
+//       break;
+//
+//     case '/#create':
+//       tutorial.innerText = 'Here you can view or edit your purchased or advertised DoWhop details.';
+//       break;
+//
+//     case '/#coordinate':
+//       tutorial.innerText = 'Here you can coordinate the DoWhop. Click banner to load messages.';
+//       break;
+//   }
+// }
 
 // Initializes FriendlyChat.
 function FriendlyChat() {
