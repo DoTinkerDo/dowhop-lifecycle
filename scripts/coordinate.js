@@ -370,36 +370,13 @@ FriendlyChat.prototype.loadMessages = function() {
 
 // Checking which of the when, where attributes are selected to generate appropriate response message:
 // FriendlyChat.prototype.getCombinations = function(a,b,c) {
-//
-//   var result;
-//   console.log("first.", a);
-//   console.log("second.", b);
-//   console.log("third.", c);
-//
-//   if(a != null && b!=null && c != null) {
-//     return result = 7;
-//
-//   } else if(a !=null && c!=null && b) {
-//     return result = 6;
-//   } else if(a !=null && b!=null && c) {
-//     return result = 4;
-//   } else if(b !=null && c!=null && a) {
-//     return result = 5;
-//
-//   } else if(a !=null && b && c) {
-//     return result = 1;
-//   } else if(b !=null && a && c) {
-//     return result = 2;
-//   } else if(c !=null && a && b) {
-//     return result = 3;
-//
-//   } else {
-//     return result = 0;
-//   }
-//
-//   return result;
-//
+  // var result = "";
+  // if(a) result += a;
+  // if(b) result += b;
+  // if(c) result += c;
+  // return result;
 // }
+
 // Saves a new message on the Firebase DB:
 FriendlyChat.prototype.saveMessage = function(e) {
   e.preventDefault();
@@ -416,8 +393,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
   // For only all three attributes: Time, Date, Where:
 
-  this.getCombinations(this.messageFormWherePending, this.messageFormWhenTimePending, this.messageFormWherePending);
-  console.log(  this.getCombinations(this.messageFormWherePending, this.messageFormWhenTimePending, this.messageFormWherePending.value) );
+  // this.getCombinations(this.messageFormWherePending, this.messageFormWhenTimePending, this.messageFormWherePending); TODO
 
   if (this.messageFormWhenDatePending.value && this.messageFormWhenTimePending.value && this.messageFormWherePending) {
     // Send the inputted date/time suggestion to the event it's associated with:
