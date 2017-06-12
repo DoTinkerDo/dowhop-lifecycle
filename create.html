@@ -58,7 +58,9 @@
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                       <input class="mdl-textfield__input" type="text" id="title-description" placeholder="Do this with me">
                       <label class="mdl-textfield__label" for="title-description">DoWhop Title</label>
+                      <div class="mdl-tooltip" for="title-description">Write what you'll DO!</div>
                     </div>
+
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                       <input class="mdl-textfield__input" type="text" id="who-description" placeholder="This many people with this skill level">
                       <label class="mdl-textfield__label" for="who-description">Who Should Join?</label>
@@ -83,6 +85,7 @@
                       <input id="dowhop-image-capture" type="file" accept="image/*,capture=camera" onchange="addDoWhopImage(this.files, this)">
                       <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="create-new-dowhop">
                         Create New DoWhop
+                        <div class="mdl-tooltip" for="create-new-dowhop">Click here to share your DoWhop!</div>
                       </button>
                     </div>
                   </form>

@@ -65,7 +65,7 @@
         <ul class="tabs">
           <!-- <li><a class="tab" href="#newdowhop" onclick="getSesh(this)"><span>+</span></a></li> -->
           <li><a class="tab" href="#edit" onclick="getSesh(this)"><span>✎</span></a></li>
-          <li><a class="tab" href="#coordinate" onclick="getSesh(this)">Coordinate</a></li>
+          <li><a id='coordinate-tab' class="tab" href="#coordinate" onclick="getSesh(this)">Coordinate</a></li>
           <li><a class="tab" href="#review" onclick="getSesh(this)"><span>★</span></a></li>
           <li><a class="btn-logout" href="#" onclick="firebase.auth().signOut()"><span>Log Out</span></a></li>
         </ul>
@@ -102,176 +102,66 @@
         <div class="mdl-cell mdl-cell--7-col user-list">
           <h2 class="mdl-title">My DoWhops in Planning</h2>
           <div id="user-list-wrap" class="mdl-card" style="width: 500px;"></div>
+        </div> <!-- Close Form wrap
 
-        </div> <!-- Close Form wrap -->
-        <div class="mdl-cell mdl-cell--5-col form-wrap">
-          <form id="edit-dowhop-form" hidden="true" action="">
-                <h2 class="mdl-title">Whop will you do?</h2>
-                <h5>Edit your details here<h5>
-            <label class="form-line">
-              <span>DoWhop Title <button type="button" name="button"><i class="fa fa-plus-circle plus-button" aria-hidden="true"></i></button></span>
-              <input type="text" id="titleDescription" placeholder="Do this with Me"/>
-              <span class="bar"></span>
-            </label>
-
-            <div class="options title-options">
-              <div class="underbar icons-1">
-                <div id="image" class="img_icon">
-                  <input type="file" id="titleFile" class="file" onchange="handleFile(this.files, this)"/>
-                  <img src="images/image-add-button.png" alt="" width="24" height="24">
-                  <div hidden id="titleImage"></div>
-                </div>
-              </div>
-              <div class="underbar_options" data-openoption="">
-              </div>
-            </div>
-
-            <span class="bar"></span>
-            <label class="form-line">
-              <span>Who should join? <button type="button" name="button"><i class="fa fa-plus-circle plus-button" aria-hidden="true"></i></button></span>
-              <input type="text" id="whoDescription" placeholder="This many people with this skill level"/>
-              <span class="bar"></span>
-            </label>
-            <div class="options who-options">
-              <div class="underbar icons-1">
-                <div id="image" class="img_icon">
-                  <input type="file" id="whoFile" class="file" onchange="handleFile(this.files, this)"/>
-                  <img src="images/image-add-button.png" alt="" width="24" height="24">
-                  <div hidden id="whoImage"></div>
-                </div>
-              </div>
-              <div class="underbar_options" data-openoption="">
-              </div>
-            </div>
-
-            <span class="bar"></span>
-            <label class="form-line">
-            <span>What will you provide?<button type="button" name="button"><i class="fa fa-plus-circle plus-button" aria-hidden="true"></i></button></span>
-              <input type="text" id="whatDescription" placeholder="I'll bring this, you bring that, we'll make this"/>
-              <span class="bar"></span>
-            </label>
-            <div class="options what-options">
-              <div class="underbar icons-1">
-                <div id="image" class="img_icon">
-                  <input type="file" id="whatFile" class="file" onchange="handleFile(this.files, this)"/>
-                  <img src="images/image-add-button.png" alt="" width="24" height="24">
-                  <div hidden id="whatImage"></div>
-                </div>
-              </div>
-              <div class="underbar_options" data-openoption="">
-              </div>
-            </div>
-
-            <span class="bar"></span>
-            <label class="form-line">
-              <span>Where will you meet?<button type="button" name="button"><i class="fa fa-plus-circle plus-button" aria-hidden="true"></i></button></span>
-              <input type="text" id="whereDescription" placeholder="Meet at this address and go here"/>
-              <span class="bar"></span>
-            </label>
-            <div class="options where-options">
-              <div class="underbar icons-2">
-                <div id="wheremap" class="img_icon">
-                  <img src="images/map.png" alt="" width="24" height="24">
-                </div>
-                <div id="image" class="img_icon">
-                  <input type="file" id="whereFile" class="file" onchange="handleFile(this.files, this)"/>
-                  <img src="images/image-add-button.png" alt="" width="24" height="24">
-                  <div hidden id="whereImage"></div>
-                </div>
-              </div>
-              <div class="underbar_options" data-openoption="">
-                <div hidden id="wheremap_options">
-                  <input id="whereAddress" class="controls" type="text" placeholder="Set a place...">
-                </div>
-                <div hidden id="image_options">
-                </div>
-              </div>
-            </div>
-
-            <span class="bar"></span>
-            <label class="form-line">
-              <span>When will you do?<button type="button" name="button"><i class="fa fa-plus-circle plus-button" aria-hidden="true"></i></button></span>
-              <input type="text" id="whenDescription" placeholder="It will take this many hours on these days"/>
-              <span class="bar"></span>
-            </label>
-            <div class="options when-options">
-              <div class="underbar icons-3">
-                <div id="calendar" class="img_icon">
-                  <input type="date" id='whenDate'>
-                  <img src="images/calendar.png" alt="" width="24" height="24">
-                </div>
-                <div id="clock" class="img_icon">
-                  <img src="images/clock-circular-outline.png" alt="" width="24" height="24">
-                </div>
-                <div id="calendar" class="img_icon">
-                  <input type="file" id="whenFile" class="file" onchange="handleFile(this.files, this)"/>
-                  <img src="images/image-add-button.png" alt="" width="24" height="24">
-                  <div hidden id="whenImage">
+      <!-- Added edit-update form based on create form, below -->
+        <div class="mdl-cell mdl-cell--4-col">
+          <div class="mdl-card mdl-shadow--6dp">
+            <div class="mdl-layout__content">
+                <form id="edit-dowhop-form" hidden="true" action="">
+                  <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">Edit your DoWhop</h2>
                   </div>
-                </div>
-              </div>
-
-              <div class="underbar_options" data-openoption="">
-                <div hidden id="calendar_options">
-                </div>
-                <div hidden id="clock_options">
-                  <span>Time:
-                    <input type="time" id='whenTime' size="50">
-                  </span>
-                </div>
-                <div hidden id="image_options">
-                </div>
-              </div>
-            </div>
-
-            <span class="bar"></span>
-            <label class="form-line">
-              <span>How much will it cost?<button type="button" name="button"><i class="fa fa-plus-circle plus-button" aria-hidden="true"></i></button></span>
-              <input type="text" id="howMuchDescription" placeholder="$THIS much money per person"/>
-              <span class="bar"></span>
-            </label>
-            <div class="options howmuch-options">
-              <div class="underbar icons-2">
-                <div id="clock" class="img_icon">
-                  <img src="images/clock-circular-outline.png" alt="" width="24" height="24">
-                </div>
-                <div id="image" class="img_icon">
-                  <input type="file" id="howmuchFile" class="file" onchange="handleFile(this.files, this)"/>
-                  <img src="images/image-add-button.png" alt="" width="24" height="24">
-                  <div hidden id="howmuchImage">
-
+                  <div class="mdl-card__supporting-text">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="titleDescription" placeholder="Do this with me">
+                    <label class="mdl-textfield__label" for="titleDescription">DoWhop Title</label>
+                    <div class="mdl-tooltip" for="titleDescription">Change what you'll DO!</div>
                   </div>
-                </div>
-              </div>
-              <div class="underbar_options" data-openoption="">
-                <div hidden id="clock_options">
-                  <!-- TODO: replace icon with dollar sign  -->
-                  <span>Cost:
-                    <input type="number" id='howMuchCost' size="50">
-                  </span>
-                </div>
-                <div hidden id="image_options">
-                 </div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="whoDescription" placeholder="This many people with this skill level">
+                    <label class="mdl-textfield__label" for="whoDescription">Who is joining?</label>
+                  </div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="whatDescription" placeholder="I bring this, you bring that, we will make this">
+                    <label class="mdl-textfield__label" for="whatDescription">What will you provide?</label>
+                  </div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="whenDescription" placeholder="It will take this many hours, on these days">
+                    <label class="mdl-textfield__label" for="whenDescription">When will you do?</label>
+                  </div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="whereDescription" placeholder="Meet at this location">
+                    <label class="mdl-textfield__label" for="whereDescription">Where will you meet?</label>
+                  </div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="howMuchDescription" placeholder="This much per person">
+                    <label class="mdl-textfield__label" for="howMuchDescription">How much will it cost?</label>
+                  </div>
+                  <!-- NEW -->
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="hostDescription" placeholder="host@example.com">
+                    <label class="mdl-textfield__label" for="hostDescription">What's the host/creator's email?</label>
+                  </div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="doerDescription" placeholder="doer@example.com">
+                    <label class="mdl-textfield__label" for="hostDescription">Who is attending this DoWhop (email, please)?</label>
+                  </div>
+                  <!-- END NEW -->
+                  <div class="mdl-card__actions">
+                    <!-- <input id="dowhop-image-capture" type="file" accept="image/*,capture=camera" onchange="addDoWhopImage(this.files, this)"> -->
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="submit">
+                      Update
+                      <div class="mdl-tooltip" for="submit">Click here to update your DoWhop!</div>
+                    </button>
+                    <div id="error" class="form-error"></div>
+                  </div>
+                </form>
               </div>
             </div>
-            <span class="bar"></span>
-
-            <label class="form-line">
-              <span>What's the host email?<button type="button" name="button"><i class="fa fa-plus-circle plus-button" aria-hidden="true"></i></button></span>
-              <input type="text" id="hostDescription" placeholder="host@example.com"/>
-              <span class="bar"></span>
-            </label>
-            <label class="form-line">
-              <span>What's the doer email?<button type="button" name="button"><i class="fa fa-plus-circle plus-button" aria-hidden="true"></i></button></span>
-              <input type="text" id="doerDescription" placeholder="doer@example.com"/>
-              <span class="bar"></span>
-            </label>
-            <button type="button" class="submit" id="submit">Update</button>
-
-            <div id="error" class="form-error"></div>
-          </form>
-        </div>
-      </div> <!-- Close Grid -->
+          </div>
+        </div><!-- End edit form -->
+      </div><!-- End mdl grid -->
     </div> <!-- Close Panel tab -->
 
     <!-- Coordinate app -->
@@ -459,7 +349,7 @@
   </section> <!-- End Application Container -->
   <script src="scripts/login.js"></script>
   <script src="scripts/tabs.js"></script>
-  <script src="scripts/main.js"></script>
+  <script src="scripts/coordinate.js"></script>
   <script src="ratings/rating-lib/rating.min.js"></script>
   <script src="ratings/rating-lib/weighted-ratings.js"></script>
   <script src="scripts/dowhop-reviews.js"></script>

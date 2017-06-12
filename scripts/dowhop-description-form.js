@@ -156,7 +156,7 @@ function registerDoWhopDescriptionCallback() {
         '</p>' +
         '<h5>When?</h5>' +
         '<p>' +
-        data.whenDescription +
+        (data.whenDescription || "By request") +
         '</p>' +
         '<h5>Where?</h5>' +
         '<p>' +

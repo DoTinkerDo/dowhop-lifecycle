@@ -71,27 +71,27 @@ function initAutocomplete() {
 
 function getSesh(node) {
   FriendlyChat.prototype.getSession();
-  var anchorPoint = node.href.match(/\/#(.*)/)[0];
-  getSeshTutorial(anchorPoint);
+  // var anchorPoint = node.href.match(/\/#(.*)/)[0]; ! TO-DO: Convert to alternative "tool-tip" style.
+  // getSeshTutorial(anchorPoint);
 }
 
-function getSeshTutorial(anchor) {
-  var tutorial = document.getElementById('tutorial-container');
-
-  switch (anchor) {
-    case '/#newdowhop':
-      tutorial.innerText = 'Please create your DoWhop or select a DoWhop to do by clicking the icon.';
-      break;
-
-    case '/#create':
-      tutorial.innerText = 'Here you can view or edit your purchased or advertised DoWhop details.';
-      break;
-
-    case '/#coordinate':
-      tutorial.innerText = 'Here you can coordinate the DoWhop. Click banner to load messages.';
-      break;
-  }
-}
+// function getSeshTutorial(anchor) {
+//   var tutorial = document.getElementById('tutorial-container');
+//
+//   switch (anchor) {
+//     case '/#newdowhop':
+//       tutorial.innerText = 'Please create your DoWhop or select a DoWhop to do by clicking the icon.';
+//       break;
+//
+//     case '/#create':
+//       tutorial.innerText = 'Here you can view or edit your purchased or advertised DoWhop details.';
+//       break;
+//
+//     case '/#coordinate':
+//       tutorial.innerText = 'Here you can coordinate the DoWhop. Click banner to load messages.';
+//       break;
+//   }
+// }
 
 // Initializes FriendlyChat.
 function FriendlyChat() {
@@ -124,7 +124,7 @@ function FriendlyChat() {
   this.chatInputMap = document.getElementById('map');
 
   // Load chat data:
-  this.chatItemData = document.getElementById('dowhop-selector-container');
+  this.chatItemData = document.getElementById('coordinate-tab');
   this.chatItemData.addEventListener('click', this.loadMessages.bind(this)); // <-- Developer: return to this.
   // this.getSession();
 
@@ -352,7 +352,7 @@ FriendlyChat.prototype.getSession = function() {
 // Loads messages history and listens for upcoming ones:
 FriendlyChat.prototype.loadMessages = function() {
   let user = person.uid;
-  var chatIdCurrent = this.chatItemData.firstChild.id; // <-- Refactor
+  var chatIdCurrent = document.getElementById('dowhop-selector-container').firstChild.id; // <-- Refactor to ping Firebase db. 
   this.messagesRef = this.database.ref().child('messages/' + chatIdCurrent);
 
   // Make sure we remove all previous listeners and clear the UI.
@@ -367,6 +367,15 @@ FriendlyChat.prototype.loadMessages = function() {
   this.messagesRef.orderByKey().limitToLast(12).on('child_added', setMessage);
   this.messagesRef.orderByKey().limitToLast(12).on('child_changed', setMessage);
 };
+
+// Checking which of the when, where attributes are selected to generate appropriate response message:
+// FriendlyChat.prototype.getCombinations = function(a,b,c) {
+  // var result = "";
+  // if(a) result += a;
+  // if(b) result += b;
+  // if(c) result += c;
+  // return result;
+// }
 
 // Saves a new message on the Firebase DB:
 FriendlyChat.prototype.saveMessage = function(e) {
@@ -383,6 +392,9 @@ FriendlyChat.prototype.saveMessage = function(e) {
   var whereAddressPending = this.whereAddressPending;
 
   // For only all three attributes: Time, Date, Where:
+
+  // this.getCombinations(this.messageFormWherePending, this.messageFormWhenTimePending, this.messageFormWherePending); TODO
+
   if (this.messageFormWhenDatePending.value && this.messageFormWhenTimePending.value && this.messageFormWherePending) {
     // Send the inputted date/time suggestion to the event it's associated with:
     var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
@@ -461,8 +473,6 @@ FriendlyChat.prototype.saveMessage = function(e) {
       })
       .then(this.resetDateTimeWhere); // <-- Reset the field.
   }
-
-  // !TO-DO: Refactor this logic for all optional cases (switch statement).
 
   // Check that the user entered a message and is signed in:
   if (this.messageInput.value && this.checkSignedInWithMessage()) {
