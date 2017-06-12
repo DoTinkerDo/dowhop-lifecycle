@@ -77,7 +77,7 @@ function handleCommentSubmit(e) {
   var commentInput = this.parentNode.parentNode.firstChild.nextSibling.firstChild.nextSibling;
   var reviewType = this.id;
   if (!validateHandleCommentSubmit(commentInput.value)) {
-    alert('You comment is longer than 140 characters, Try again.');
+    alert('Your comment is longer than 140 characters, Try again.');
     return;
   }
   handleDatabaseCommentSubmit(commentInput.value, reviewType);
