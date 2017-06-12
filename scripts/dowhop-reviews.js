@@ -137,12 +137,12 @@ function handleDatabaseRatingSubmit(rating, reviewType, ratingInstance) {
     var noReviews = snapshot.val();
     var userHasRated = snapshot.child('hasRated').child(uid).val();
     if (userHasRated) {
-      var ratingKey = snapshot.child('hasRated').child(uid).child('key').val();
-      ratingReviewTypeRef.child('ratings').child(ratingKey).set(rating);
+      let key = snapshot.child('hasRated').child(uid).child('key').val();
+      ratingReviewTypeRef.child('ratings').child(key).set(rating);
     } else {
-      // check if no reviews, then set initial rating to 1
+      // Check: if no reviews, then set initial rating to 1
       !noReviews ? (rating = 1) : rating;
-      var key = ratingReviewTypeRef.child('ratings').push(rating).key;
+      let key = ratingReviewTypeRef.child('ratings').push(rating).key;
       var ratingObj = {};
       ratingObj.key = key;
       ratingObj[uid] = true;
@@ -159,10 +159,13 @@ function handleDatabaseCommentSubmit(comment, reviewType) {
   commentReviewTypeRef.once('value').then(function(snapshot) {
     var userHasCommented = snapshot.child('hasCommented').child(uid).val();
     if (userHasCommented) {
-      var ratingKey = snapshot.child('hasCommented').child(uid).child('key').val();
-      commentReviewTypeRef.child('comments').child(ratingKey).set(comment);
+      let key = snapshot.child('hasCommented').child(uid).child('key').val();
+      let commentObj = { comment: comment, name: userData.displayName, url: userData.photoURL };
+      commentReviewTypeRef.child('comments').child(key).set(commentObj);
     } else {
-      var key = commentReviewTypeRef.child('comments').push(comment).key;
+      let key = commentReviewTypeRef.child('comments').push().key;
+      let commentObj = { comment: comment, name: userData.displayName, url: userData.photoURL };
+      commentReviewTypeRef.child('comments').child(key).set(commentObj);
       var ratingObj = {};
       ratingObj.key = key;
       ratingObj[uid] = true;
