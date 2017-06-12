@@ -68,17 +68,26 @@ function readUserData(user) {
 }
 
 // Write comments
+_.forEach(submitCommentButtons, function(button) {
+  button.addEventListener('click', handleCommentSubmit);
+});
+
 function handleCommentSubmit(e) {
   e.preventDefault();
   var commentInput = this.parentNode.parentNode.firstChild.nextSibling.firstChild.nextSibling;
   var reviewType = this.id;
+  if (!validateHandleCommentSubmit(commentInput.value)) {
+    alert('Your comment is longer than 140 characters, Try again.');
+    return;
+  }
   handleDatabaseCommentSubmit(commentInput.value, reviewType);
   commentInput.value = '';
 }
 
-_.forEach(submitCommentButtons, function(button) {
-  button.addEventListener('click', handleCommentSubmit);
-});
+function validateHandleCommentSubmit(comment) {
+  if (comment.length >= 140) return false;
+  return true;
+}
 
 // Write rating callback functions
 // used by rating instances
@@ -110,11 +119,22 @@ function readCommentsFromDatabase(reviewType, commentDiv) {
   var reviewRef = database.ref().child('doWhopDescription/' + currentDoWhopKey + '/reviews');
   var commentRef = reviewRef.child(reviewType).child('/comments');
   commentRef.on('value', function(snapshot) {
-    var comments = snapshot.val();
     var div = document.createElement('div');
     commentDiv.innerHTML = '';
-    _.forEach(comments, function(comment) {
-      div.innerHTML += '<blockquote>' + comment + '</blockquote>';
+    var commentsDetails = snapshot.val();
+    _.forEach(commentsDetails, function(commentDetail) {
+      div.innerHTML +=
+        '<blockquote>' +
+        commentDetail.comment +
+        '</blockquote>' +
+        '<img class="comment-headshot-pic" src="' +
+        commentDetail.photoURL +
+        '" alt="head shot for ' +
+        commentDetail.name +
+        '">' +
+        '<p class="comment-by-name">' +
+        commentDetail.name +
+        '</p>';
       commentDiv.append(div);
     });
   });
@@ -126,12 +146,12 @@ function handleDatabaseRatingSubmit(rating, reviewType, ratingInstance) {
     var noReviews = snapshot.val();
     var userHasRated = snapshot.child('hasRated').child(uid).val();
     if (userHasRated) {
-      var ratingKey = snapshot.child('hasRated').child(uid).child('key').val();
-      ratingReviewTypeRef.child('ratings').child(ratingKey).set(rating);
+      let key = snapshot.child('hasRated').child(uid).child('key').val();
+      ratingReviewTypeRef.child('ratings').child(key).set(rating);
     } else {
-      // check if no reviews, then set initial rating to 1
+      // Check: if no reviews, then set initial rating to 1
       !noReviews ? (rating = 1) : rating;
-      var key = ratingReviewTypeRef.child('ratings').push(rating).key;
+      let key = ratingReviewTypeRef.child('ratings').push(rating).key;
       var ratingObj = {};
       ratingObj.key = key;
       ratingObj[uid] = true;
@@ -143,15 +163,17 @@ function handleDatabaseRatingSubmit(rating, reviewType, ratingInstance) {
   ratingInstance.setRating(rating);
 }
 function handleDatabaseCommentSubmit(comment, reviewType) {
+  var commentDetails = { comment: comment, name: userData.displayName, photoURL: userData.photoURL };
   var reviewRef = database.ref().child('doWhopDescription/' + currentDoWhopKey + '/reviews');
   var commentReviewTypeRef = reviewRef.child(reviewType);
   commentReviewTypeRef.once('value').then(function(snapshot) {
     var userHasCommented = snapshot.child('hasCommented').child(uid).val();
     if (userHasCommented) {
-      var ratingKey = snapshot.child('hasCommented').child(uid).child('key').val();
-      commentReviewTypeRef.child('comments').child(ratingKey).set(comment);
+      let key = snapshot.child('hasCommented').child(uid).child('key').val();
+      commentReviewTypeRef.child('comments').child(key).set(commentDetails);
     } else {
-      var key = commentReviewTypeRef.child('comments').push(comment).key;
+      let key = commentReviewTypeRef.child('comments').push().key;
+      commentReviewTypeRef.child('comments').child(key).set(commentDetails);
       var ratingObj = {};
       ratingObj.key = key;
       ratingObj[uid] = true;

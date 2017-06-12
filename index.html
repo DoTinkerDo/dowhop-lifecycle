@@ -282,8 +282,9 @@
                 <div class="c-rating" id="rating-creator"></div>
                 <form action="#">
                   <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="creator-comment-input">
+                    <input type="text" class="mdl-textfield__input" id="creator-comment-input" pattern="^.{1,120}" title="Max characters for a comment is 140">
                     <label class="mdl-textfield__label" for="creator-comment-input">Write comment...</label>
+                    <span class="mdl-textfield__error">Max characters for a comment is 140</span>
                   </div>
                   <div class="mdl-card__actions">
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect submit-comment creator" id="creator">
@@ -306,8 +307,9 @@
               <div class="c-rating" id="rating-doer"></div>
               <form action="#">
                 <div class="mdl-textfield mdl-js-textfield">
-                  <input class="mdl-textfield__input" type="text" id="doer-comment-input">
+                  <input type="text" class="mdl-textfield__input" id="doer-comment-input" pattern="^.{1,120}" title="Max characters for a comment is 140">
                   <label class="mdl-textfield__label" for="doer-comment-input">Write comment...</label>
+                  <span class="mdl-textfield__error">Max characters for a comment is 140</span>
                 </div>
                 <div class="mdl-card__actions">
                   <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect submit-comment doer" id="doer">
@@ -330,8 +332,9 @@
                 <div class="c-rating" id="rating-dowhop"></div>
                 <form action="#">
                   <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" type="text" id="dowhop-comment-input">
+                    <input type="text" class="mdl-textfield__input" id="dowhop-comment-input" pattern="^.{1,120}" title="Max characters for a comment is 140">
                     <label class="mdl-textfield__label" for="dowhop-comment-input">Write comment...</label>
+                    <span class="mdl-textfield__error">Max characters for a comment is 140</span>
                   </div>
                   <div class="mdl-card__actions">
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect submit-comment dowhop" id="dowhop">
