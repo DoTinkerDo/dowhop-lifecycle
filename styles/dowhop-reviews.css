@@ -1,3 +1,10 @@
+/* Set all form inputs
+  font-family to 'Avenir-light'
+*/
+input {
+  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif !important;
+}
+
 #review blockquote {
   font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
   font-size: 14px;
