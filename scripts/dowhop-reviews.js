@@ -110,21 +110,21 @@ function readCommentsFromDatabase(reviewType, commentDiv) {
   var reviewRef = database.ref().child('doWhopDescription/' + currentDoWhopKey + '/reviews');
   var commentRef = reviewRef.child(reviewType).child('/comments');
   commentRef.on('value', function(snapshot) {
-    var name = '';
-    var url = '';
-    var comments = snapshot.val();
     var div = document.createElement('div');
     commentDiv.innerHTML = '';
-    _.forEach(comments, function(comment) {
+    var commentsDetails = snapshot.val();
+    _.forEach(commentsDetails, function(commentDetail) {
       div.innerHTML +=
         '<blockquote>' +
-        comment +
+        commentDetail.comment +
         '</blockquote>' +
         '<img class="comment-headshot-pic" src="' +
-        url +
-        '" alt="">' +
+        commentDetail.photoURL +
+        '" alt="head shot for ' +
+        commentDetail.name +
+        '">' +
         '<p class="comment-by-name">' +
-        name +
+        commentDetail.name +
         '</p>';
       commentDiv.append(div);
     });
@@ -154,18 +154,17 @@ function handleDatabaseRatingSubmit(rating, reviewType, ratingInstance) {
   ratingInstance.setRating(rating);
 }
 function handleDatabaseCommentSubmit(comment, reviewType) {
+  var commentDetails = { comment: comment, name: userData.displayName, photoURL: userData.photoURL };
   var reviewRef = database.ref().child('doWhopDescription/' + currentDoWhopKey + '/reviews');
   var commentReviewTypeRef = reviewRef.child(reviewType);
   commentReviewTypeRef.once('value').then(function(snapshot) {
     var userHasCommented = snapshot.child('hasCommented').child(uid).val();
     if (userHasCommented) {
       let key = snapshot.child('hasCommented').child(uid).child('key').val();
-      let commentObj = { comment: comment, name: userData.displayName, url: userData.photoURL };
-      commentReviewTypeRef.child('comments').child(key).set(commentObj);
+      commentReviewTypeRef.child('comments').child(key).set(commentDetails);
     } else {
       let key = commentReviewTypeRef.child('comments').push().key;
-      let commentObj = { comment: comment, name: userData.displayName, url: userData.photoURL };
-      commentReviewTypeRef.child('comments').child(key).set(commentObj);
+      commentReviewTypeRef.child('comments').child(key).set(commentDetails);
       var ratingObj = {};
       ratingObj.key = key;
       ratingObj[uid] = true;
