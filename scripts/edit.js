@@ -70,7 +70,7 @@ Array.from(document.getElementsByClassName('img_icon')).forEach(function(e) {
 function createDoWhop(data, clearForm) {
 
   // Collect form data and clear it:
-  var creator = firebase.auth().currentUser.uid;
+  var createdBy = firebase.auth().currentUser.uid;
   var titleDescription = document.getElementById('titleDescription');
   // var titleImage = document.getElementById('titleImage');
   var whoDescription = document.getElementById('whoDescription');
@@ -97,7 +97,7 @@ function createDoWhop(data, clearForm) {
     titleDescription.value !== '' &&
     whoDescription.value !== ''
   ) {
-    data.createdBy= creator;
+    data.createdBy = createdBy;
     data.titleDescription = titleDescription.value.trim();
     // data.titleImage = titleImage.innerHTML.trim();
     data.whoDescription = whoDescription.value.trim();
