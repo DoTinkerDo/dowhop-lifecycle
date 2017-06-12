@@ -124,7 +124,7 @@ function FriendlyChat() {
   this.chatInputMap = document.getElementById('map');
 
   // Load chat data:
-  this.chatItemData = document.getElementById('dowhop-selector-container');
+  this.chatItemData = document.getElementById('coordinate-tab');
   this.chatItemData.addEventListener('click', this.loadMessages.bind(this)); // <-- Developer: return to this.
   // this.getSession();
 
@@ -352,7 +352,7 @@ FriendlyChat.prototype.getSession = function() {
 // Loads messages history and listens for upcoming ones:
 FriendlyChat.prototype.loadMessages = function() {
   let user = person.uid;
-  var chatIdCurrent = this.chatItemData.firstChild.id; // <-- Refactor
+  var chatIdCurrent = document.getElementById('dowhop-selector-container').firstChild.id; // <-- Refactor to ping Firebase db. 
   this.messagesRef = this.database.ref().child('messages/' + chatIdCurrent);
 
   // Make sure we remove all previous listeners and clear the UI.
