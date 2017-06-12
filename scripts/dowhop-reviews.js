@@ -68,17 +68,26 @@ function readUserData(user) {
 }
 
 // Write comments
+_.forEach(submitCommentButtons, function(button) {
+  button.addEventListener('click', handleCommentSubmit);
+});
+
 function handleCommentSubmit(e) {
   e.preventDefault();
   var commentInput = this.parentNode.parentNode.firstChild.nextSibling.firstChild.nextSibling;
   var reviewType = this.id;
+  if (!validateHandleCommentSubmit(commentInput.value)) {
+    alert('You comment is longer than 140 characters, Try again.');
+    return;
+  }
   handleDatabaseCommentSubmit(commentInput.value, reviewType);
   commentInput.value = '';
 }
 
-_.forEach(submitCommentButtons, function(button) {
-  button.addEventListener('click', handleCommentSubmit);
-});
+function validateHandleCommentSubmit(comment) {
+  if (comment.length >= 140) return false;
+  return true;
+}
 
 // Write rating callback functions
 // used by rating instances
