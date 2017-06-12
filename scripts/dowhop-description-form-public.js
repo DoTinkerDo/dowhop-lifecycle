@@ -49,7 +49,7 @@ function submitNewDoWhopEntry(e) {
   filePath = 'doWhopImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
   storage.ref(filePath).put(file).then(function(snapshot) {
     doWhopDescriptionRef.child(doWhopDescriptionKey).set({
-      creator: uid,
+      createdBy: uid,
       doWhopDescriptionKey: doWhopDescriptionKey,
       downloadURL: snapshot.metadata.downloadURLs[0],
       titleDescription: titleDescription.value,
@@ -58,8 +58,8 @@ function submitNewDoWhopEntry(e) {
       whenDescription: whenDescription.value,
       whereDescription: whereDescription.value,
       howMuchDescription: howMuchDescription.value,
-      hostDescription: "", // Temporary placeholder.
-      doerDescription: "" // Temp.
+      creatorDescription: '', // Temporary placeholder.
+      doerDescription: '' // Temp.
     });
     showConfirmationMessage();
     clearNewDoWhopEntryForm();
@@ -84,7 +84,6 @@ function validateAddDoWhopDescription(
   whenDescription,
   whereDescription,
   howMuchDescription
-
 ) {
   if (
     titleDescription === '' ||
@@ -93,7 +92,6 @@ function validateAddDoWhopDescription(
     whenDescription === '' ||
     whereDescription === '' ||
     howMuchDescription === '' ||
-
     file === null
   )
     return false;
@@ -121,5 +119,5 @@ function addToMyDoWhops(node) {
 }
 
 function showConfirmationMessage() {
-  window.alert("Thanks for submitting your DoWhop!");
+  window.alert('Thanks for submitting your DoWhop!');
 }
