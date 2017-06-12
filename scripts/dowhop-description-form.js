@@ -166,7 +166,7 @@ function registerDoWhopDescriptionCallback() {
         '<p>' +
         data.howMuchDescription +
         '</p>' +
-        '<h5>Who is host?</h5>' +
+        '<h5>Who is the creator?</h5>' +
         '<p>' +
         (data.creatorDescription || "TBD") +
         '</p>' +
