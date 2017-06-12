@@ -49,7 +49,7 @@ function submitNewDoWhopEntry(e) {
   filePath = 'doWhopImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
   storage.ref(filePath).put(file).then(function(snapshot) {
     doWhopDescriptionRef.child(doWhopDescriptionKey).set({
-      creator: uid,
+      createdBy: uid,
       doWhopDescriptionKey: doWhopDescriptionKey,
       downloadURL: snapshot.metadata.downloadURLs[0],
       titleDescription: titleDescription.value,
@@ -58,7 +58,7 @@ function submitNewDoWhopEntry(e) {
       whenDescription: whenDescription.value,
       whereDescription: whereDescription.value,
       howMuchDescription: howMuchDescription.value,
-      hostDescription: "", // Temporary placeholder.
+      creatorDescription: "", // Temporary placeholder.
       doerDescription: "" // Temp.
     });
     showConfirmationMessage();
