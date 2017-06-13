@@ -264,7 +264,7 @@ FriendlyChat.prototype.getSession = function() {
       document.getElementById('pending-div').removeAttribute('hidden');
 
       // This means visiting user is the creator of event:
-      if (firebase.auth().currentUser.uid == data.val().creator || person.email == data.val().host) {
+      if (firebase.auth().currentUser.uid == data.val().createdBy|| person.email == data.val().creatorDescription) {
         // console.log('visiting user is the creator. showing approval form, hiding rescind form.');
         pendingNotification = 'Someone has requested this change.\nDo you want to approve it?';
         document.getElementById('pending-div').innerText =
@@ -352,7 +352,7 @@ FriendlyChat.prototype.getSession = function() {
 // Loads messages history and listens for upcoming ones:
 FriendlyChat.prototype.loadMessages = function() {
   let user = person.uid;
-  var chatIdCurrent = document.getElementById('dowhop-selector-container').firstChild.id; // <-- Refactor to ping Firebase db. 
+  var chatIdCurrent = document.getElementById('dowhop-selector-container').firstChild.id; // <-- Refactor to ping Firebase db.
   this.messagesRef = this.database.ref().child('messages/' + chatIdCurrent);
 
   // Make sure we remove all previous listeners and clear the UI.

@@ -70,7 +70,7 @@ Array.from(document.getElementsByClassName('img_icon')).forEach(function(e) {
 function createDoWhop(data, clearForm) {
 
   // Collect form data and clear it:
-  var creator = firebase.auth().currentUser.uid;
+  var createdBy = firebase.auth().currentUser.uid;
   var titleDescription = document.getElementById('titleDescription');
   // var titleImage = document.getElementById('titleImage');
   var whoDescription = document.getElementById('whoDescription');
@@ -85,7 +85,7 @@ function createDoWhop(data, clearForm) {
   // var whenTime = document.getElementById('whenTime');
   // var whenImage = document.getElementById('whenImage');
   var howMuchDescription = document.getElementById('howMuchDescription');
-  var hostDescription = document.getElementById('hostDescription'); // new
+  var creatorDescription = document.getElementById('creatorDescription'); // new
   var doerDescription = document.getElementById('doerDescription'); // new
   var howMuchCost = document.getElementById('howMuchCost');
   // var howmuchImage = document.getElementById('howmuchImage');
@@ -97,7 +97,7 @@ function createDoWhop(data, clearForm) {
     titleDescription.value !== '' &&
     whoDescription.value !== ''
   ) {
-    data.creator = creator;
+    data.createdBy = createdBy;
     data.titleDescription = titleDescription.value.trim();
     // data.titleImage = titleImage.innerHTML.trim();
     data.whoDescription = whoDescription.value.trim();
@@ -112,7 +112,7 @@ function createDoWhop(data, clearForm) {
     // data.whenDate = whenDate.value.trim();
     // data.whenImage = whenImage.innerHTML.trim();
     data.howMuchDescription = howMuchDescription.value.trim();
-    data.hostDescription = hostDescription.value.trim();
+    data.creatorDescription = creatorDescription.value.trim();
     data.doerDescription = doerDescription.value.trim();
     // data.howMuchCost = howMuchCost.value.trim();
     // data.howmuchImage = howmuchImage.innerHTML.trim();
@@ -129,7 +129,7 @@ function createDoWhop(data, clearForm) {
   rootRefEvents.child(currentDoWhop).child('whoDescription').set(data.whoDescription);
   rootRefEvents.child(currentDoWhop).child('whereDescription').set(data.whereDescription);
   rootRefEvents.child(currentDoWhop).child('whenDescription').set(data.whenDescription);
-  rootRefEvents.child(currentDoWhop).child('hostDescription').set(data.hostDescription);
+  rootRefEvents.child(currentDoWhop).child('creatorDescription').set(data.creatorDescription);
   rootRefEvents.child(currentDoWhop).child('doerDescription').set(data.doerDescription);
   rootRefEvents
     .child(currentDoWhop)
@@ -151,7 +151,7 @@ function createDoWhop(data, clearForm) {
   // whenDate.value = '';
   // whenImage.innerHTML = '';
   howMuchDescription.value = '';
-  hostDescription.value = '';
+  creatorDescription.value = '';
   doerDescription.value = '';
   // howMuchCost.value = '';
   // howmuchImage.innerHTML = '';
@@ -171,7 +171,7 @@ function retrieveMyDoWhops(uid) {
     // Add icon to image dependong on whether current user is Creator or Doer:
     if (
       data.val() &&
-      (data.val().hostDescription === auth.currentUser.email || data.val().creator === auth.currentUser.uid)
+      (data.val().creatorDescription === auth.currentUser.email || data.val().createdBy=== auth.currentUser.uid)
     ) {
       relationshipIcon = 'check_box';
     } else {
@@ -201,7 +201,7 @@ function retrieveMyDoWhops(uid) {
 
         '<h3>Who?</h3>' +
         '<p>' +
-        (data.val().hostDescription || 'TBD') +
+        (data.val().creatorDescription || 'TBD') +
         ' and ' +
         (data.val().doerDescription || 'TBD') +
         '</p>' +
@@ -249,8 +249,8 @@ function retrieveMyDoWhops(uid) {
       snapshot.forEach(function(data) {
         // Note: these hard-coded doer, host, doer properties are an admin-priority functionality.
         if (
-          data.val().creator === person.uid ||
-          data.val().hostDescription === person.email ||
+          data.val().createdBy=== person.uid ||
+          data.val().creatorDescription === person.email ||
           data.val().doerDescription === person.email
         ) {
           makeDoWhopSelector(content, data);
@@ -319,7 +319,7 @@ function showEditForm(node) {
   var editForm = document.getElementById('edit-dowhop-form');
   var rootRefEvent = firebase.database().ref('doWhopDescription/' + node.id);
   rootRefEvent.once('value').then(function(snap) {
-    if (snap.val().hostDescription === auth.currentUser.email || snap.val().creator === auth.currentUser.uid) {
+    if (snap.val().creatorDescription === auth.currentUser.email || snap.val().createdBy=== auth.currentUser.uid) {
       editForm.removeAttribute('hidden');
     } else {
       editForm.setAttribute('hidden', 'true');
@@ -345,7 +345,7 @@ function fillInForms(node) {
         document.getElementById('whenDescription').value = data.val().whenDescription;
         // document.getElementById('whenTime').value = data.val().whenTime;
         document.getElementById('howMuchDescription').value = data.val().howMuchDescription;
-        document.getElementById('hostDescription').value = data.val().hostDescription;
+        document.getElementById('creatorDescription').value = data.val().creatorDescription;
         document.getElementById('doerDescription').value = data.val().doerDescription;
         // document.getElementById('howMuchCost').value = data.val().howMuchCost;
       }
