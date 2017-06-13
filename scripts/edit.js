@@ -180,21 +180,22 @@ function retrieveMyDoWhops(uid) {
       imageUrl =
         data.val().downloadURL ||
         'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+
       container.innerHTML +=
-        "<section id='" +
+        '<aside class="mdl-card mdl-shadow--6dp dowhop-selector" id="' +
         data.key +
-        "' class='dowhop-selector-block' onclick='sessionRef(this)'>" +
-        "<i class='material-icons dowhop-icon'>" +
+        '" onclick="sessionRef(this)">' +
+        '<i class="material-icons dowhop-icon">' +
         relationshipIcon +
         '</i>' +
-        "<div class='dowhop-selector-header' style='background-image: url(" +
+        '<div class="dowhop-selector-header" style="background-image: url(' +
         imageUrl +
-        ");'>" +
+        ');">' +
         '<h1>' +
         data.val().titleDescription +
         '</h1>' +
         '</div>' +
-        "<div class='dowhop-selector-body'>" +
+        '<div class="dowhop-selector-body">' +
         '<h3>Who?</h3>' +
         '<p>' +
         (data.val().creatorDescription || 'TBD') +
@@ -209,7 +210,7 @@ function retrieveMyDoWhops(uid) {
         '<p>' +
         (data.val().howMuchDescription || 'TBD') +
         '</p>';
-      '</div>' + '</section>';
+      '</div>' + '</aside>';
     } else {
       return container;
     }

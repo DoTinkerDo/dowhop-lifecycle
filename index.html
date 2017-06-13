@@ -31,7 +31,7 @@
   <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script> <!-- Lodash ._ -->
   <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script> <!-- Firebase UI JS for Web Auth -->
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-coo6M25h9GjP8AYxhzIQSbNVj-Ope3s&libraries=places&callback=initAutocomplete" async defer></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-coo6M25h9GjP8AYxhzIQSbNVj-Ope3s&libraries=places&callback=initAutocomplete" async defer></script> -->
 </head>
 <body>
 
@@ -92,14 +92,16 @@
     <!-- Start Edit Panel -->
     <section id="edit" class="panel">
       <div class="mdl-grid">
+        
+        <!-- Start DoWhop Selector cards -->
+        <div class="mdl-cell mdl-cell--6-col">
+          <div id="user-list-wrap"></div>
+          <!-- DoWhop Cards Get Rendered Here -->
+        </div> <!-- Close DoWhopSelectors wrap
 
-        <div class="mdl-cell mdl-cell--7-col user-list">
-          <h2 class="mdl-title">My DoWhops in Planning</h2>
-          <div id="user-list-wrap" class="mdl-card"></div>
-        </div> <!-- Close Form wrap
 
         <!-- Start Edit-update form (based on create form below) -->
-        <div class="mdl-cell mdl-cell--4-col">
+        <div class="mdl-cell mdl-cell--6-col">
           <div class="mdl-card mdl-shadow--6dp">
             <div class="mdl-layout__content">
               <form id="edit-dowhop-form" hidden="true" action="">
@@ -154,6 +156,8 @@
             </div>
           </div>
         </div>    <!-- End edit form -->
+
+
       </div>    <!-- End MDL grid -->
     </section> <!-- End Edit Panel tab -->
 
