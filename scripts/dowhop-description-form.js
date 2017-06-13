@@ -29,6 +29,7 @@ var doerDescriptionUpdate = document.getElementById('doerDescriptionUpdate');
 submitNewDoWhopBtn.addEventListener('click', submitNewDoWhopEntry);
 var emailSubmitBtn = document.getElementById('emailSubmit');
 emailSubmitBtn.addEventListener('click', updateEmails);
+var selectedForEdit = document.getElementById('selected-for-edit')
 
 function submitNewDoWhopEntry(e) {
   e.preventDefault();
@@ -127,6 +128,14 @@ var currentNode;
 function revealEditEmailForm(node) {
   adminEditDoWhopForm.removeAttribute("hidden");
   currentNode = node.parentElement.id;
+  var currentNodeTitle = "";
+  // Show current title in UI:
+  var ref =firebase.database().ref('doWhopDescription/' + currentNode)
+  ref.once('value', function(data) {
+    var currentNodeTitle = data.val().titleDescription;
+    console.log(currentNodeTitle);
+    selectedForEdit.innerHTML = currentNodeTitle;
+  });
   return currentNode;
 }
 
@@ -136,13 +145,11 @@ function updateEmails(e) {
   var rootRefEvents = firebase.database().ref('doWhopDescription/');
   var newCreatorEmail = document.getElementById('creatorDescriptionUpdate');
   var newDoerEmail = document.getElementById('doerDescriptionUpdate');
-
   rootRefEvents.child(currentNode).child('creatorDescription').set(newCreatorEmail.value);
   rootRefEvents.child(currentNode).child('doerDescription').set(newDoerEmail.value);
   adminEditDoWhopForm.reset();
   console.log('saved!');
 }
-
 
 // Adding function to add a chosen dowhop a user's list.
 function addToMyDoWhops(node) {
