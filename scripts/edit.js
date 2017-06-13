@@ -68,7 +68,6 @@ Array.from(document.getElementsByClassName('img_icon')).forEach(function(e) {
 });
 
 function createDoWhop(data, clearForm) {
-
   // Collect form data and clear it:
   var creator = firebase.auth().currentUser.uid;
   var titleDescription = document.getElementById('titleDescription');
@@ -93,10 +92,7 @@ function createDoWhop(data, clearForm) {
 
   var error = document.getElementById('error');
 
-  if (
-    titleDescription.value !== '' &&
-    whoDescription.value !== ''
-  ) {
+  if (titleDescription.value !== '' && whoDescription.value !== '') {
     data.creator = creator;
     data.titleDescription = titleDescription.value.trim();
     // data.titleImage = titleImage.innerHTML.trim();
@@ -175,7 +171,7 @@ function retrieveMyDoWhops(uid) {
     ) {
       relationshipIcon = 'check_box';
     } else {
-      relationshipIcon = 'directions_walk'
+      relationshipIcon = 'directions_walk';
     }
 
     // Put together elements to make a DoWhop Selector block:
@@ -198,14 +194,12 @@ function retrieveMyDoWhops(uid) {
         '</h1>' +
         '</div>' +
         "<div class='dowhop-selector-body'>" +
-
         '<h3>Who?</h3>' +
         '<p>' +
         (data.val().hostDescription || 'TBD') +
         ' and ' +
         (data.val().doerDescription || 'TBD') +
         '</p>' +
-
         '<h3>What?</h3>' +
         '<p>' +
         data.val().whatDescription +
@@ -213,9 +207,7 @@ function retrieveMyDoWhops(uid) {
         '<h3>How much?</h3>' +
         '<p>' +
         (data.val().howMuchDescription || 'TBD') +
-        '</p>'
-
-        ;
+        '</p>';
       '</div>' + '</section>';
     } else {
       return container;

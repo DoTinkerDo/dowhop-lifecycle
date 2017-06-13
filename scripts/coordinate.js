@@ -235,8 +235,7 @@ FriendlyChat.prototype.sendRescind = function(e) {
 };
 
 // Add dynamic 'When' form:
-FriendlyChat.prototype.showDateTimeInputs = function() {
-};
+FriendlyChat.prototype.showDateTimeInputs = function() {};
 
 FriendlyChat.prototype.removeChats = function() {
   this.messageList.innerHTML = '';
@@ -329,7 +328,7 @@ FriendlyChat.prototype.getSession = function() {
         let imageUrl =
           data.val().downloadURL ||
           'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
-
+        var doWhopDescriptionTitle = data.val().titleDescription || 'Your DoWhops Will Appear Here';
         return (dowhopSelectorDiv +=
           "<section id='" +
           data.key +
@@ -338,7 +337,7 @@ FriendlyChat.prototype.getSession = function() {
           imageUrl +
           ");'>" +
           '<h1>' +
-          data.val().titleDescription +
+          doWhopDescriptionTitle +
           '</h1>' +
           '</div>' +
           '</section>');
@@ -352,7 +351,7 @@ FriendlyChat.prototype.getSession = function() {
 // Loads messages history and listens for upcoming ones:
 FriendlyChat.prototype.loadMessages = function() {
   let user = person.uid;
-  var chatIdCurrent = document.getElementById('dowhop-selector-container').firstChild.id; // <-- Refactor to ping Firebase db. 
+  var chatIdCurrent = document.getElementById('dowhop-selector-container').firstChild.id; // <-- Refactor to ping Firebase db.
   this.messagesRef = this.database.ref().child('messages/' + chatIdCurrent);
 
   // Make sure we remove all previous listeners and clear the UI.
@@ -370,11 +369,11 @@ FriendlyChat.prototype.loadMessages = function() {
 
 // Checking which of the when, where attributes are selected to generate appropriate response message:
 // FriendlyChat.prototype.getCombinations = function(a,b,c) {
-  // var result = "";
-  // if(a) result += a;
-  // if(b) result += b;
-  // if(c) result += c;
-  // return result;
+// var result = "";
+// if(a) result += a;
+// if(b) result += b;
+// if(c) result += c;
+// return result;
 // }
 
 // Saves a new message on the Firebase DB:
