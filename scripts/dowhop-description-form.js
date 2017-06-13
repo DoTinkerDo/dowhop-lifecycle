@@ -23,6 +23,9 @@ var creatorDescription = document.getElementById('creator-description');
 var doerDescription = document.getElementById('doer-description');
 var dowhopImageCapture = document.getElementById('dowhop-image-capture');
 var submitNewDoWhopBtn = document.getElementById('create-new-dowhop');
+var adminEditDoWhopForm = document.getElementById('admin-edit-dowhop-form');
+var creatorDescriptionUpdate = document.getElementById('creatorDescriptionUpdate');
+var doerDescriptionUpdate = document.getElementById('doerDescriptionUpdate');
 submitNewDoWhopBtn.addEventListener('click', submitNewDoWhopEntry);
 
 function submitNewDoWhopEntry(e) {
@@ -116,6 +119,13 @@ function clearNewDoWhopEntryForm() {
   doerDescription.value = '';
 }
 
+// Function for admins to hand-code Doer, Creator emails for Betas:
+function updateEmails(node) {
+  // firebase.database().ref().child('app_')
+  console.log('clicked on...',node.parentElement.id);
+  adminEditDoWhopForm.removeAttribute("hidden");
+}
+
 // Adding function to add a chosen dowhop a user's list.
 function addToMyDoWhops(node) {
   firebase
@@ -138,6 +148,7 @@ function registerDoWhopDescriptionCallback() {
         data.doWhopDescriptionKey +
         "' class='dowhop-selector-block'>" +
         "<i class='material-icons dowhop-action' onclick='addToMyDoWhops(this)'>person_add</i>" +
+        "<i class='material-icons dowhop-action' onclick='updateEmails(this)'>mode_edit</i>" +
         "<div class='dowhop-selector-header' style='background-image: url(" +
         data.downloadURL +
         ");'>" +
