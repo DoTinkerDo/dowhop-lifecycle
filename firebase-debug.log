@@ -1,0 +1,36 @@
+[debug] [2017-06-13T01:49:57.347Z] ----------------------------------------------------------------------
+[debug] [2017-06-13T01:49:57.350Z] Command:      /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2017-06-13T01:49:57.351Z] CLI Version:  3.9.1
+[debug] [2017-06-13T01:49:57.351Z] Platform:     darwin
+[debug] [2017-06-13T01:49:57.351Z] Node Version: v7.10.0
+[debug] [2017-06-13T01:49:57.352Z] Time:         Mon Jun 12 2017 18:49:57 GMT-0700 (PDT)
+[debug] [2017-06-13T01:49:57.352Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-06-13T01:49:57.370Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-06-13T01:49:57.370Z] > authorizing via signed-in user
+[debug] [2017-06-13T01:49:57.372Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2017-06-13T01:49:57.373Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token { refresh_token: '1/sigdKBoRUfs2zy_5Tj-YDXLQAPIj_sCWi4qUuSZawBQ',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Mon Jun 12 2017 18:49:57 GMT-0700 (PDT)
+[debug] [2017-06-13T01:49:57.737Z] <<< HTTP RESPONSE 200
+[debug] [2017-06-13T01:49:57.784Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/dowhop-lifecycle  
+ Mon Jun 12 2017 18:49:57 GMT-0700 (PDT)
+[debug] [2017-06-13T01:49:58.427Z] <<< HTTP RESPONSE 200
+[debug] [2017-06-13T01:49:58.429Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/dowhop-lifecycle/tokens  
+ Mon Jun 12 2017 18:49:58 GMT-0700 (PDT)
+[debug] [2017-06-13T01:49:59.056Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/oam/Desktop/dowhop-lifecycle'...
+[info] 
+[debug] [2017-06-13T01:49:59.061Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/dowhop-lifecycle  
+ Mon Jun 12 2017 18:49:59 GMT-0700 (PDT)
+[debug] [2017-06-13T01:49:59.599Z] <<< HTTP RESPONSE 200
+[debug] [2017-06-13T01:49:59.600Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1090371045772/clients/_:getWebAppConfig  
+ Mon Jun 12 2017 18:49:59 GMT-0700 (PDT)
+[debug] [2017-06-13T01:50:00.321Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: ./
+[info] ✔  hosting: Local server: http://localhost:5000
+
