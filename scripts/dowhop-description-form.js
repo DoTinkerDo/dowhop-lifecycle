@@ -132,7 +132,6 @@ function revealEditEmailForm(node) {
 
 function updateEmails(e) {
   e.preventDefault();
-  console.log('clicked on...', currentNode);
   adminEditDoWhopForm.removeAttribute("hidden");
   var rootRefEvents = firebase.database().ref('doWhopDescription/');
   var newCreatorEmail = document.getElementById('creatorDescriptionUpdate');
