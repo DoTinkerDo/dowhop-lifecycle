@@ -19,7 +19,7 @@ var whatDescription = document.getElementById('what-description');
 var whenDescription = document.getElementById('when-description');
 var whereDescription = document.getElementById('where-description');
 var howMuchDescription = document.getElementById('how-much-description');
-var hostDescription = document.getElementById('host-description');
+var creatorDescription = document.getElementById('creator-description');
 var doerDescription = document.getElementById('doer-description');
 var dowhopImageCapture = document.getElementById('dowhop-image-capture');
 var submitNewDoWhopBtn = document.getElementById('create-new-dowhop');
@@ -51,7 +51,7 @@ function submitNewDoWhopEntry(e) {
   filePath = 'doWhopImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
   storage.ref(filePath).put(file).then(function(snapshot) {
     doWhopDescriptionRef.child(doWhopDescriptionKey).set({
-      creator: uid,
+      createdBy: uid,
       doWhopDescriptionKey: doWhopDescriptionKey,
       downloadURL: snapshot.metadata.downloadURLs[0],
       titleDescription: titleDescription.value,
@@ -60,7 +60,7 @@ function submitNewDoWhopEntry(e) {
       whenDescription: whenDescription.value,
       whereDescription: whereDescription.value,
       howMuchDescription: howMuchDescription.value,
-      hostDescription: hostDescription.value,
+      creatorDescription: creatorDescription.value,
       doerDescription: doerDescription.value
     });
     clearNewDoWhopEntryForm();
@@ -85,7 +85,7 @@ function validateAddDoWhopDescription(
   whenDescription,
   whereDescription,
   howMuchDescription,
-  hostDescription,
+  creatorDescription,
   doerDescription
 ) {
   if (
@@ -95,7 +95,7 @@ function validateAddDoWhopDescription(
     whenDescription === '' ||
     whereDescription === '' ||
     howMuchDescription === '' ||
-    hostDescription === '' ||
+    creatorDescription === '' ||
     doerDescription === '' ||
     file === null
   )
@@ -112,7 +112,7 @@ function clearNewDoWhopEntryForm() {
   whereDescription.value = '';
   howMuchDescription.value = '';
   dowhopImageCapture.value = '';
-  hostDescription.value = '';
+  creatorDescription.value = '';
   doerDescription.value = '';
 }
 
@@ -166,9 +166,9 @@ function registerDoWhopDescriptionCallback() {
         '<p>' +
         data.howMuchDescription +
         '</p>' +
-        '<h5>Who is host?</h5>' +
+        '<h5>Who is the creator?</h5>' +
         '<p>' +
-        (data.hostDescription || "TBD") +
+        (data.creatorDescription || "TBD") +
         '</p>' +
         '<h5>Who is doer?</h5>' +
         '<p>' +
