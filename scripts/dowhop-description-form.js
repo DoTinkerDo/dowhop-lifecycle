@@ -12,7 +12,6 @@
 */
 
 var doWhopDescriptionRef = database.ref('/doWhopDescription');
-
 var titleDescription = document.getElementById('title-description');
 var whoDescription = document.getElementById('who-description');
 var whatDescription = document.getElementById('what-description');
@@ -30,6 +29,7 @@ submitNewDoWhopBtn.addEventListener('click', submitNewDoWhopEntry);
 var emailSubmitBtn = document.getElementById('emailSubmit');
 emailSubmitBtn.addEventListener('click', updateEmails);
 var selectedForEdit = document.getElementById('selected-for-edit')
+var error = document.getElementById('errorAdmin');
 
 function submitNewDoWhopEntry(e) {
   e.preventDefault();
@@ -133,8 +133,7 @@ function revealEditEmailForm(node) {
   var ref =firebase.database().ref('doWhopDescription/' + currentNode)
   ref.once('value', function(data) {
     var currentNodeTitle = data.val().titleDescription;
-    console.log(currentNodeTitle);
-    selectedForEdit.innerHTML = currentNodeTitle;
+    selectedForEdit.innerHTML = "Edit: " + currentNodeTitle;
   });
   return currentNode;
 }
@@ -147,8 +146,9 @@ function updateEmails(e) {
   var newDoerEmail = document.getElementById('doerDescriptionUpdate');
   rootRefEvents.child(currentNode).child('creatorDescription').set(newCreatorEmail.value);
   rootRefEvents.child(currentNode).child('doerDescription').set(newDoerEmail.value);
+  selectedForEdit.innerHTML = "Edit your DoWhop"
+  error.innerHTML = "Emails have been updated!";
   adminEditDoWhopForm.reset();
-  console.log('saved!');
 }
 
 // Adding function to add a chosen dowhop a user's list.
