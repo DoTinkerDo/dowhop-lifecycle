@@ -6,10 +6,11 @@
   <meta name="DoWhop WebChat" content="Arrange details with other DoWhop users">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DoWhop</title>
-  <!--   <link rel="manifest" href="manifest.json"> <!-- Web Application Manifest -->
-
+    <!-- <link rel="manifest" href="manifest.json"> <!-- Web Application Manifest -->
   <!-- Adding jQUery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
   <!-- Adding font 'Avenir Light' -->
   <link rel="stylesheet" href="styles/font-styles.css">
   <!-- Material Design Lite -->
@@ -29,9 +30,10 @@
   <script src="scripts/firebase.js"></script> <!-- Initialize Firebase app -->
   <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script> <!-- Lodash ._ -->
   <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script> <!-- Firebase UI JS for Web Auth -->
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-coo6M25h9GjP8AYxhzIQSbNVj-Ope3s&libraries=places&callback=initAutocomplete" async defer></script>
 </head>
 <body>
-
   <!-- Login splash screen -->
   <section id="login-container">
     <div class="login-page-title">
@@ -41,32 +43,35 @@
     <div class=login-container>
       <div id="firebaseui-auth-container"></div>;
     </div>
-  </section>
+  </section> <!-- End Login screen -->
 
   <!-- Application Container -->
   <section class="hide-component" id="application-container">
+    
+    <!-- Navigation Container -->
     <div class="flex-wrapper">
       <div class="tabs-container">
         <ul class="tabs">
-          <!-- <li><a class="tab" href="#newdowhop" onclick="getSesh(this)"><span>+</span></a></li> -->
           <li><a class="tab" href="#edit" onclick="getSesh(this)"><span>✎</span></a></li>
           <li><a id='coordinate-tab' class="tab" href="#coordinate" onclick="getSesh(this)">Coordinate</a></li>
           <li><a class="tab" href="#review" onclick="getSesh(this)"><span>★</span></a></li>
           <li><a class="btn-logout" href="#" onclick="firebase.auth().signOut()"><span>Log Out</span></a></li>
         </ul>
       </div>
-      <div class="mdl-grid"><!-- Hoping this doesn't throw of mdl griddings -->
+      <!-- Tutorial container -->
+      <div class="mdl-grid">
         <div class="mdl-card mdl-shadow--6dp tutorial-text" id="tutorial-container"></div>
-      </div>
-    </div>
+      </div> <!-- End Tutorial container -->
+    </div> <!-- End Navigation -->
 
     <!-- DoWhop Selected Image Container -->
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--12-col">
         <div id="dowhop-selector-container"></div>
       </div>
-    </div>
+    </div> <!-- End Image Container -->
 
+    <!-- Pending Notifications Container -->
     <div id='pending-div-container' class='pending-notification'>
       <div id='pending-div'></div>
       <form hidden id='approve-pending-form' class='approval-form'>
@@ -79,11 +84,12 @@
         <button id='submit-rescind-button' type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect'>Rescind
         </button>
       </form>
-    </div>
+    </div> <!-- End Notifications Container -->
 
-    <!-- Start edit DoWhops -->
+    <!-- Start Edit DoWhops -->
     <div id="edit" class="panel">
       <div class="mdl-grid">
+
         <div class="mdl-cell mdl-cell--7-col user-list">
           <h2 class="mdl-title">My DoWhops in Planning</h2>
           <div id="user-list-wrap" class="mdl-card" style="width: 500px;"></div>
@@ -145,8 +151,9 @@
               </div>
             </div>
           </div>
-        </div><!-- End edit form -->
-      </div><!-- End mdl grid -->
+
+        </div> <!-- End edit form -->
+      </div> <!-- End mdl grid -->
     </div> <!-- Close Panel tab -->
 
     <!-- Coordinate app -->
@@ -253,11 +260,10 @@
             </div>
           </div>
         </aside>
-      </section>  <!-- End show comment and ratings -->
+      </section> <!-- End show comment and ratings -->
 
       <!-- Form for comments and ratings -->
       <section class="mdl-grid">
-      
         <aside class="mdl-cell mdl-cell--6-col hide-component" id="creator-input-container">
           <div class="mdl-card mdl-shadow--6dp">
             <div class="mdl-layout__content">
@@ -282,7 +288,6 @@
             </div>
           </div>
         </aside>
-
         <aside class="mdl-cell mdl-cell--6-col hide-component" id="doer-input-container">
           <div class="mdl-card mdl-shadow--6dp">
             <div class="mdl-layout__content">
@@ -307,7 +312,6 @@
             </div>
           </div>
         </aside>
-
         <aside class="mdl-cell mdl-cell--6-col">
           <div class="mdl-card mdl-shadow--6dp">
             <div class="mdl-layout__content">
@@ -335,15 +339,17 @@
       </section> <!-- End form for comments and ratings -->
     </div> <!-- End review app  -->
   </section> <!-- End Application Container -->
-
+  
+  <script src="scripts/google-map.js"></script>
   <script src="scripts/login.js"></script>
   <script src="scripts/tabs.js"></script>
+  <script src="scripts/edit.js"></script>
   <script src="scripts/coordinate.js"></script>
   <script src="ratings/rating-lib/rating.min.js"></script>
   <script src="ratings/rating-lib/weighted-ratings.js"></script>
   <script src="scripts/dowhop-reviews.js"></script>
   <script>
-    // Script to change SignIn button Login
+    // Script to change SignIn button text to Login
     var btnLogOut = document.querySelector('.btn-logout');
     function changeLoginText() {
       var btnSpans = document.querySelectorAll('.firebaseui-idp-text-long');
