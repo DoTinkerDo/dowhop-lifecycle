@@ -12,7 +12,6 @@
 */
 
 var doWhopDescriptionRef = database.ref('/doWhopDescription');
-
 var titleDescription = document.getElementById('title-description');
 var whoDescription = document.getElementById('who-description');
 var whatDescription = document.getElementById('what-description');
@@ -23,7 +22,14 @@ var creatorDescription = document.getElementById('creator-description');
 var doerDescription = document.getElementById('doer-description');
 var dowhopImageCapture = document.getElementById('dowhop-image-capture');
 var submitNewDoWhopBtn = document.getElementById('create-new-dowhop');
+var adminEditDoWhopForm = document.getElementById('admin-edit-dowhop-form');
+var creatorDescriptionUpdate = document.getElementById('creatorDescriptionUpdate');
+var doerDescriptionUpdate = document.getElementById('doerDescriptionUpdate');
 submitNewDoWhopBtn.addEventListener('click', submitNewDoWhopEntry);
+var emailSubmitBtn = document.getElementById('emailSubmit');
+emailSubmitBtn.addEventListener('click', updateEmails);
+var selectedForEdit = document.getElementById('selected-for-edit')
+var error = document.getElementById('errorAdmin');
 
 function submitNewDoWhopEntry(e) {
   e.preventDefault();
@@ -116,6 +122,35 @@ function clearNewDoWhopEntryForm() {
   doerDescription.value = '';
 }
 
+// Function for admins to hand-code Doer, Creator emails for Betas:
+var currentNode;
+
+function revealEditEmailForm(node) {
+  adminEditDoWhopForm.removeAttribute("hidden");
+  currentNode = node.parentElement.id;
+  var currentNodeTitle = "";
+  // Show current title in UI:
+  var ref =firebase.database().ref('doWhopDescription/' + currentNode)
+  ref.once('value', function(data) {
+    var currentNodeTitle = data.val().titleDescription;
+    selectedForEdit.innerHTML = "Edit: " + currentNodeTitle;
+  });
+  return currentNode;
+}
+
+function updateEmails(e) {
+  e.preventDefault();
+  adminEditDoWhopForm.removeAttribute("hidden");
+  var rootRefEvents = firebase.database().ref('doWhopDescription/');
+  var newCreatorEmail = document.getElementById('creatorDescriptionUpdate');
+  var newDoerEmail = document.getElementById('doerDescriptionUpdate');
+  rootRefEvents.child(currentNode).child('creatorDescription').set(newCreatorEmail.value);
+  rootRefEvents.child(currentNode).child('doerDescription').set(newDoerEmail.value);
+  selectedForEdit.innerHTML = "Edit your DoWhop"
+  error.innerHTML = "Emails have been updated!";
+  adminEditDoWhopForm.reset();
+}
+
 // Adding function to add a chosen dowhop a user's list.
 function addToMyDoWhops(node) {
   firebase
@@ -138,6 +173,7 @@ function registerDoWhopDescriptionCallback() {
         data.doWhopDescriptionKey +
         "' class='dowhop-selector-block'>" +
         "<i class='material-icons dowhop-action' onclick='addToMyDoWhops(this)'>person_add</i>" +
+        "<i class='material-icons dowhop-action' onclick='revealEditEmailForm(this)'>mode_edit</i>" +
         "<div class='dowhop-selector-header' style='background-image: url(" +
         data.downloadURL +
         ");'>" +

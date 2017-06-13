@@ -44,7 +44,9 @@
 
   </head>
   <body>
-    <h1>Admin</h1>
+    <div class="mdl-grid">
+      <h1>Admin</h1>
+    </div>
     <div id="newdowhop" class="panel">
         <div class="mdl-grid">
           <div class="mdl-cell mdl-cell--6-col">
@@ -98,9 +100,42 @@
               </div>
             </div>
           </div>
+
+          <div class="mdl-cell mdl-cell--6-col"><!-- Start Mini-Form for Admin Email Data Entry-->
+            <div class="mdl-card mdl-shadow--6dp">
+              <div class="mdl-layout__content">
+                  <form id="admin-edit-dowhop-form" hidden="true" action="">
+                    <div class="mdl-card__title">
+                      <h2 id="selected-for-edit" class="mdl-card__title-text">Edit your DoWhop</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <input class="mdl-textfield__input" type="text" id="creatorDescriptionUpdate" placeholder="creator@example.com">
+                      <label class="mdl-textfield__label" for="creatorDescriptionUpdate">What's the creator's email?</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <input class="mdl-textfield__input" type="text" id="doerDescriptionUpdate" placeholder="doer@example.com">
+                      <label class="mdl-textfield__label" for="doerDescriptionUpdate">Who is attending this DoWhop (email, please)?</label>
+                    </div>
+                    <!-- END NEW -->
+                    <div class="mdl-card__actions">
+                      <!-- <input id="dowhop-image-capture" type="file" accept="image/*,capture=camera" onchange="addDoWhopImage(this.files, this)"> -->
+                      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="emailSubmit">
+                        Update
+                        <div class="mdl-tooltip" for="emailSubmit">Click here to update the DoWhop information!</div>
+                      </button>
+                      <div id="errorAdmin" class="form-error"></div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Admin Email-Edit form -->
+
           <div class="mdl-cell mdl-cell--6-col" id="dowhop-placard"></div><!-- Move eventually -->
         </div>
     </div> <!-- End Create New DoWhop Form -->
+
     <script src="scripts/dowhop-description-form.js"></script>
     <script>
     auth.onAuthStateChanged(function(user) {
