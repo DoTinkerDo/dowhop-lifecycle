@@ -68,7 +68,6 @@ Array.from(document.getElementsByClassName('img_icon')).forEach(function(e) {
 });
 
 function createDoWhop(data, clearForm) {
-
   // Collect form data and clear it:
   var createdBy = firebase.auth().currentUser.uid;
   var titleDescription = document.getElementById('titleDescription');
@@ -93,11 +92,9 @@ function createDoWhop(data, clearForm) {
 
   var error = document.getElementById('error');
 
-  if (
-    titleDescription.value !== '' &&
-    whoDescription.value !== ''
-  ) {
+  if (titleDescription.value !== '' && whoDescription.value !== '') {
     data.createdBy = createdBy;
+
     data.titleDescription = titleDescription.value.trim();
     // data.titleImage = titleImage.innerHTML.trim();
     data.whoDescription = whoDescription.value.trim();
@@ -171,11 +168,11 @@ function retrieveMyDoWhops(uid) {
     // Add icon to image dependong on whether current user is Creator or Doer:
     if (
       data.val() &&
-      (data.val().creatorDescription === auth.currentUser.email || data.val().createdBy=== auth.currentUser.uid)
+      (data.val().creatorDescription === auth.currentUser.email || data.val().createdBy === auth.currentUser.uid)
     ) {
       relationshipIcon = 'check_box';
     } else {
-      relationshipIcon = 'directions_walk'
+      relationshipIcon = 'directions_walk';
     }
 
     // Put together elements to make a DoWhop Selector block:
@@ -198,14 +195,12 @@ function retrieveMyDoWhops(uid) {
         '</h1>' +
         '</div>' +
         "<div class='dowhop-selector-body'>" +
-
         '<h3>Who?</h3>' +
         '<p>' +
         (data.val().creatorDescription || 'TBD') +
         ' and ' +
         (data.val().doerDescription || 'TBD') +
         '</p>' +
-
         '<h3>What?</h3>' +
         '<p>' +
         data.val().whatDescription +
@@ -213,9 +208,7 @@ function retrieveMyDoWhops(uid) {
         '<h3>How much?</h3>' +
         '<p>' +
         (data.val().howMuchDescription || 'TBD') +
-        '</p>'
-
-        ;
+        '</p>';
       '</div>' + '</section>';
     } else {
       return container;
@@ -249,7 +242,7 @@ function retrieveMyDoWhops(uid) {
       snapshot.forEach(function(data) {
         // Note: these hard-coded doer, host, doer properties are an admin-priority functionality.
         if (
-          data.val().createdBy=== person.uid ||
+          data.val().createdBy === person.uid ||
           data.val().creatorDescription === person.email ||
           data.val().doerDescription === person.email
         ) {
@@ -319,7 +312,7 @@ function showEditForm(node) {
   var editForm = document.getElementById('edit-dowhop-form');
   var rootRefEvent = firebase.database().ref('doWhopDescription/' + node.id);
   rootRefEvent.once('value').then(function(snap) {
-    if (snap.val().creatorDescription === auth.currentUser.email || snap.val().createdBy=== auth.currentUser.uid) {
+    if (snap.val().creatorDescription === auth.currentUser.email || snap.val().createdBy === auth.currentUser.uid) {
       editForm.removeAttribute('hidden');
     } else {
       editForm.setAttribute('hidden', 'true');
