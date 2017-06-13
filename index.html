@@ -272,7 +272,8 @@
 
       <!-- Form for comments and ratings -->
       <section class="mdl-grid">
-        <aside class="mdl-cell mdl-cell--4-col">
+      
+        <aside class="mdl-cell mdl-cell--6-col hide-component">
           <div class="mdl-card mdl-shadow--6dp">
             <div class="mdl-layout__content">
               <div class="mdl-card__title">
@@ -297,7 +298,7 @@
           </div>
         </aside>
 
-        <aside class="mdl-cell mdl-cell--4-col">
+        <aside class="mdl-cell mdl-cell--6-col hide-component">
           <div class="mdl-card mdl-shadow--6dp">
             <div class="mdl-layout__content">
               <div class="mdl-card__title">
@@ -322,7 +323,7 @@
           </div>
         </aside>
 
-        <aside class="mdl-cell mdl-cell--4-col">
+        <aside class="mdl-cell mdl-cell--6-col">
           <div class="mdl-card mdl-shadow--6dp">
             <div class="mdl-layout__content">
               <div class="mdl-card__title">
@@ -357,6 +358,7 @@
   <script src="ratings/rating-lib/weighted-ratings.js"></script>
   <script src="scripts/dowhop-reviews.js"></script>
   <script>
+    // Script to change SignIn button Login
     var btnLogOut = document.querySelector('.btn-logout');
     function changeLoginText() {
       var btnSpans = document.querySelectorAll('.firebaseui-idp-text-long');
