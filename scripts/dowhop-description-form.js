@@ -27,6 +27,8 @@ var adminEditDoWhopForm = document.getElementById('admin-edit-dowhop-form');
 var creatorDescriptionUpdate = document.getElementById('creatorDescriptionUpdate');
 var doerDescriptionUpdate = document.getElementById('doerDescriptionUpdate');
 submitNewDoWhopBtn.addEventListener('click', submitNewDoWhopEntry);
+var emailSubmitBtn = document.getElementById('emailSubmit');
+emailSubmitBtn.addEventListener('click', updateEmails);
 
 function submitNewDoWhopEntry(e) {
   e.preventDefault();
@@ -120,11 +122,28 @@ function clearNewDoWhopEntryForm() {
 }
 
 // Function for admins to hand-code Doer, Creator emails for Betas:
-function updateEmails(node) {
-  // firebase.database().ref().child('app_')
-  console.log('clicked on...',node.parentElement.id);
+var currentNode;
+
+function revealEditEmailForm(node) {
   adminEditDoWhopForm.removeAttribute("hidden");
+  currentNode = node.parentElement.id;
+  return currentNode;
 }
+
+function updateEmails(e) {
+  e.preventDefault();
+  console.log('clicked on...', currentNode);
+  adminEditDoWhopForm.removeAttribute("hidden");
+  var rootRefEvents = firebase.database().ref('doWhopDescription/');
+  var newCreatorEmail = document.getElementById('creatorDescriptionUpdate');
+  var newDoerEmail = document.getElementById('doerDescriptionUpdate');
+
+  rootRefEvents.child(currentNode).child('creatorDescription').set(newCreatorEmail.value);
+  rootRefEvents.child(currentNode).child('doerDescription').set(newDoerEmail.value);
+  adminEditDoWhopForm.reset();
+  console.log('saved!');
+}
+
 
 // Adding function to add a chosen dowhop a user's list.
 function addToMyDoWhops(node) {
@@ -148,7 +167,7 @@ function registerDoWhopDescriptionCallback() {
         data.doWhopDescriptionKey +
         "' class='dowhop-selector-block'>" +
         "<i class='material-icons dowhop-action' onclick='addToMyDoWhops(this)'>person_add</i>" +
-        "<i class='material-icons dowhop-action' onclick='updateEmails(this)'>mode_edit</i>" +
+        "<i class='material-icons dowhop-action' onclick='revealEditEmailForm(this)'>mode_edit</i>" +
         "<div class='dowhop-selector-header' style='background-image: url(" +
         data.downloadURL +
         ");'>" +
