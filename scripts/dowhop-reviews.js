@@ -13,7 +13,6 @@ var uid = null;
 var selectedDoWhopKey = null;
 var maxRating = 5;
 var currentRating = 0;
-var reviewer = null;
 
 var creatorCommentDiv = document.querySelector('#comments-for-creator');
 var doerCommentDiv = document.querySelector('#comments-for-doer');
@@ -25,6 +24,8 @@ var creatorDisplayRatingDiv = document.querySelector('#show-rating-creator');
 var doerDisplayRatingDiv = document.querySelector('#show-rating-doer');
 var doWhopDisplayRatingDiv = document.querySelector('#show-rating-dowhop');
 var submitCommentButtons = document.querySelectorAll('.submit-comment');
+var creatorRatingInput = document.getElementById('creator-input-container');
+var doerRatingInput = document.getElementById('doer-input-container');
 
 // Create rating instances
 var ratingCreator = rating(creatorRatingDiv, currentRating, maxRating, creatorSubmitRating);
@@ -45,20 +46,20 @@ auth.onAuthStateChanged(function(user) {
     var sessionRef = database.ref('/session').child(user.uid).child('current_dowhop');
     sessionRef.on('value', function(snapshot) {
       selectedDoWhopKey = snapshot.val();
+
+      // Toggle review inputs for Creator or Doer
       var doWhopDescriptionRef = database.ref('doWhopDescription').child(selectedDoWhopKey);
       doWhopDescriptionRef.on('value', function(snapshot) {
         var selectedDoWhop = snapshot.val();
         var currentUserEmail = user.email;
-        console.log(selectedDoWhop.doerDescription, selectedDoWhop.creatorDescription, currentUserEmail);
-
         if (currentUserEmail === selectedDoWhop.doerDescription) {
-          reviewer = 'doer';
+          doerRatingInput.style.display = 'none';
+          creatorRatingInput.style.display = 'block';
         } else if (currentUserEmail === selectedDoWhop.creatorDescription) {
-          reviewer = 'creator';
+          doerRatingInput.style.display = 'block';
+          creatorRatingInput.style.display = 'none';
         }
       });
-
-      console.log('REVIEWER ', reviewer);
 
       // Placed read functions here to make sure
       // selectedDoWhopkey is assigned before calling functions
