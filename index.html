@@ -68,7 +68,7 @@
 
     <!-- DoWhop Selected Header Image Container -->
     <section class="mdl-grid">
-      <div class="mdl-cell mdl-cell--12-col">
+      <div class="mdl-cell mdl-cell--7-col">
         <div id="dowhop-selector-container"></div>
       </div>
     </section> <!-- End Image Container -->
@@ -93,14 +93,14 @@
       <div class="mdl-grid">
         
         <!-- Start DoWhop Selector cards -->
-        <div class="mdl-cell mdl-cell--6-col">
+        <div class="mdl-cell mdl-cell--5-col">
           <div id="user-list-wrap"></div>
-          <!-- DoWhop Cards Get Rendered Here -->
+          <!-- DoWhop Selector Cards Get Rendered Here -->
         </div> <!-- Close DoWhopSelectors wrap
 
 
         <!-- Start Edit-update form (based on create form below) -->
-        <div class="mdl-cell mdl-cell--6-col">
+        <div class="mdl-cell mdl-cell--7-col">
           <div class="mdl-card mdl-shadow--6dp">
             <div class="mdl-layout__content">
               <form id="edit-dowhop-form" hidden="true" action="">
@@ -227,7 +227,7 @@
     <section id="review" class="panel">
       <!-- Show comments and ratings for creator/doer/dowhop -->
       <section class="mdl-grid">
-        <aside class="mdl-cell mdl-cell--12-col">
+        <aside class="mdl-cell mdl-cell--7-col">
           <div class="mdl-card mdl-shadow--6dp">
             <div class="mdl-layout__content">
               <div class="mdl-card__title">
@@ -265,79 +265,84 @@
 
       <!-- Form for comments and ratings -->
       <section class="mdl-grid">
-        <aside class="mdl-cell mdl-cell--6-col hide-component" id="creator-input-container">
-          <div class="mdl-card mdl-shadow--6dp">
-            <div class="mdl-layout__content">
-              <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Review Creator</h2>
-              </div>
-              <div class="mdl-card__supporting-text">
-                <div class="c-rating" id="rating-creator"></div>
-                <form action="#">
-                  <div class="mdl-textfield mdl-js-textfield">
-                    <input type="text" class="mdl-textfield__input" id="creator-comment-input" pattern="^.{1,120}" title="Max characters for a comment is 140">
-                    <label class="mdl-textfield__label" for="creator-comment-input">Write comment...</label>
-                    <span class="mdl-textfield__error">Max characters for a comment is 140</span>
+        <div class="mdl-cell mdl-cell--7-col">
+          <div class="mdl-grid">
+            <aside class="mdl-cell mdl-cell--6-col hide-component" id="creator-input-container">
+              <div class="mdl-card mdl-shadow--6dp">
+                <div class="mdl-layout__content">
+                  <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">Review Creator</h2>
                   </div>
-                  <div class="mdl-card__actions">
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect submit-comment creator" id="creator">
-                      Submit
-                    </button>
+                  <div class="mdl-card__supporting-text">
+                    <div class="c-rating" id="rating-creator"></div>
+                    <form action="#">
+                      <div class="mdl-textfield mdl-js-textfield">
+                        <input type="text" class="mdl-textfield__input" id="creator-comment-input" pattern="^.{1,120}" title="Max characters for a comment is 140">
+                        <label class="mdl-textfield__label" for="creator-comment-input">Write comment...</label>
+                        <span class="mdl-textfield__error">Max characters for a comment is 140</span>
+                      </div>
+                      <div class="mdl-card__actions">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect submit-comment creator" id="creator">
+                          Submit
+                        </button>
+                      </div>
+                    </form>
                   </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </aside>
-        <aside class="mdl-cell mdl-cell--6-col hide-component" id="doer-input-container">
-          <div class="mdl-card mdl-shadow--6dp">
-            <div class="mdl-layout__content">
-              <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Review Doer</h2>
-              </div>
-              <div class="mdl-card__supporting-text">
-              <div class="c-rating" id="rating-doer"></div>
-              <form action="#">
-                <div class="mdl-textfield mdl-js-textfield">
-                  <input type="text" class="mdl-textfield__input" id="doer-comment-input" pattern="^.{1,120}" title="Max characters for a comment is 140">
-                  <label class="mdl-textfield__label" for="doer-comment-input">Write comment...</label>
-                  <span class="mdl-textfield__error">Max characters for a comment is 140</span>
                 </div>
-                <div class="mdl-card__actions">
-                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect submit-comment doer" id="doer">
-                    Submit
-                  </button>
+              </div>
+            </aside>
+            <aside class="mdl-cell mdl-cell--6-col hide-component" id="doer-input-container">
+              <div class="mdl-card mdl-shadow--6dp">
+                <div class="mdl-layout__content">
+                  <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">Review Doer</h2>
+                  </div>
+                  <div class="mdl-card__supporting-text">
+                  <div class="c-rating" id="rating-doer"></div>
+                  <form action="#">
+                    <div class="mdl-textfield mdl-js-textfield">
+                      <input type="text" class="mdl-textfield__input" id="doer-comment-input" pattern="^.{1,120}" title="Max characters for a comment is 140">
+                      <label class="mdl-textfield__label" for="doer-comment-input">Write comment...</label>
+                      <span class="mdl-textfield__error">Max characters for a comment is 140</span>
+                    </div>
+                    <div class="mdl-card__actions">
+                      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect submit-comment doer" id="doer">
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                  </div>
                 </div>
-              </form>
               </div>
-            </div>
-          </div>
-        </aside>
-        <aside class="mdl-cell mdl-cell--6-col">
-          <div class="mdl-card mdl-shadow--6dp">
-            <div class="mdl-layout__content">
-              <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Review DoWhop</h2>
-              </div>
-              <div class="mdl-card__supporting-text">
-                <div class="c-rating" id="rating-dowhop"></div>
-                <form action="#">
-                  <div class="mdl-textfield mdl-js-textfield">
-                    <input type="text" class="mdl-textfield__input" id="dowhop-comment-input" pattern="^.{1,120}" title="Max characters for a comment is 140">
-                    <label class="mdl-textfield__label" for="dowhop-comment-input">Write comment...</label>
-                    <span class="mdl-textfield__error">Max characters for a comment is 140</span>
+            </aside>
+            <aside class="mdl-cell mdl-cell--6-col">
+              <div class="mdl-card mdl-shadow--6dp">
+                <div class="mdl-layout__content">
+                  <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">Review DoWhop</h2>
                   </div>
-                  <div class="mdl-card__actions">
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect submit-comment dowhop" id="dowhop">
-                      Submit
-                    </button>
+                  <div class="mdl-card__supporting-text">
+                    <div class="c-rating" id="rating-dowhop"></div>
+                    <form action="#">
+                      <div class="mdl-textfield mdl-js-textfield">
+                        <input type="text" class="mdl-textfield__input" id="dowhop-comment-input" pattern="^.{1,120}" title="Max characters for a comment is 140">
+                        <label class="mdl-textfield__label" for="dowhop-comment-input">Write comment...</label>
+                        <span class="mdl-textfield__error">Max characters for a comment is 140</span>
+                      </div>
+                      <div class="mdl-card__actions">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect submit-comment dowhop" id="dowhop">
+                          Submit
+                        </button>
+                      </div>
+                    </form>
                   </div>
-                </form>
+                </div>
               </div>
-            </div>
-          </div>
-        </aside>
-      </section> <!-- End form for comments and ratings -->
+            </aside>
+          </div> <!-- End form for comments and ratings -->
+        </div> <!-- End outer columns -->
+      </section> <!-- End end outer grid -->
+
     </section> <!-- End review app  -->
   </section> <!-- End Application Container -->
   
