@@ -48,8 +48,8 @@
   <section class="hide-component" id="application-container">
     
     <!-- Navigation Container -->
-    <header class="flex-wrapper">
-      <div class="tabs-container">
+    <header class="mdl-grid">
+      <div class="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--5-offset-desktop">
         <ul class="tabs">
           <li><a class="tab" href="#edit" onclick="getSesh(this)"><span>✎</span></a></li>
           <li><a class="tab" href="#coordinate" onclick="getSesh(this)" id="coordinate-tab">Coordinate</a></li>
@@ -85,13 +85,13 @@
     <main class="mdl-grid">
 
       <!-- Start DoWhop Selector cards -->
-      <div class="mdl-cell mdl-cell--5-col">
+      <div class="mdl-cell mdl-cell--5-col mdl-cell--11-col-tablet mdl-cell--order-2-tablet mdl-cell--order-2-phone">
         <div id="user-list-wrap"></div>
         <!-- DoWhop Selector Cards Get Rendered Here -->
       </div> <!-- Close DoWhopSelectors wrap -->
 
       <!-- Outer 7 columns  -->
-      <div class="mdl-cell mdl-cell--7-col">
+      <div class="mdl-cell mdl-cell--7-col mdl-cell--11-col-tablet mdl-cell--order-1-tablet mdl-cell--order-1-phone">
         <!-- Currently Selected DoWhop Top Image Container -->
         <div id="dowhop-selector-container"></div> <!-- End Image Container -->
         
@@ -216,7 +216,7 @@
         <!-- review app  -->
         <section id="review" class="panel">
           <!-- Show comments and ratings for creator/doer/dowhop -->
-          <div class="mdl-card mdl-shadow--6dp">
+          <div class="mdl-card mdl-shadow--6dp show-reviews">
             <div class="mdl-layout__content">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Reviews</h2>
@@ -250,7 +250,7 @@
           </div>
           <!-- Form for comments and ratings -->
           <div class="mdl-grid">
-            <aside class="mdl-cell mdl-cell--6-col hide-component" id="creator-input-container">
+            <aside class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet hide-component" id="creator-input-container">
               <div class="mdl-card mdl-shadow--6dp">
                 <div class="mdl-layout__content">
                   <div class="mdl-card__title">
@@ -274,7 +274,7 @@
                 </div>
               </div>
             </aside>
-            <aside class="mdl-cell mdl-cell--6-col hide-component" id="doer-input-container">
+            <aside class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet hide-component" id="doer-input-container">
               <div class="mdl-card mdl-shadow--6dp">
                 <div class="mdl-layout__content">
                   <div class="mdl-card__title">
@@ -298,7 +298,7 @@
                 </div>
               </div>
             </aside>
-            <aside class="mdl-cell mdl-cell--6-col">
+            <aside class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
               <div class="mdl-card mdl-shadow--6dp">
                 <div class="mdl-layout__content">
                   <div class="mdl-card__title">
