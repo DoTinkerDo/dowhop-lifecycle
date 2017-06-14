@@ -185,17 +185,17 @@ function retrieveMyDoWhops(uid) {
         '<aside class="mdl-card mdl-shadow--6dp dowhop-selector" id="' +
         data.key +
         '" onclick="sessionRef(this)">' +
-        '<i class="material-icons dowhop-icon">' +
-        relationshipIcon +
-        '</i>' +
         '<div class="dowhop-selector-header" style="background-image: url(' +
         imageUrl +
         ');">' +
+        '<i class="material-icons dowhop-icon">' +
+        relationshipIcon +
+        '</i>' +
         '<h1>' +
         data.val().titleDescription +
         '</h1>' +
         '</div>' +
-        '<div class="dowhop-selector-body">' +
+        '<div class="mdl-layout__content dowhop-selector-body">' +
         '<h3>Who?</h3>' +
         '<p>' +
         (data.val().creatorDescription || 'TBD') +
