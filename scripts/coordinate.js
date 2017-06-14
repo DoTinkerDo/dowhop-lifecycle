@@ -333,7 +333,7 @@ FriendlyChat.prototype.getSession = function() {
         return (dowhopSelectorDiv +=
           "<aside id='" +
           data.key +
-          "' class='mld-card mdl-shadow--6dp' onclick='sessionRef(this)''>" +
+          "' class='mdl-card mdl-shadow--6dp' onclick='sessionRef(this)''>" +
           "<div class='dowhop-selector-header-top' style='background-image: url(" +
           imageUrl +
           ");'>" +

@@ -1,6 +1,10 @@
 /* Set all form inputs
   font-family to 'Avenir-light'
 */
+.show-reviews {
+  margin-bottom: 25px;
+}
+
 input {
   font-family: 'Avenir Light', Avenir Light, Arial, sans-serif !important;
 }

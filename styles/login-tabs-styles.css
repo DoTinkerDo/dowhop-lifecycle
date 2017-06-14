@@ -1,8 +1,8 @@
 /* TAB NAVIATION */
-.tabs-container {
+/*.tabs-container {
   max-width: 800px;
   margin: 0 auto;
-}
+}*/
 ul {
   list-style: none;
   overflow: hidden;
@@ -72,6 +72,3 @@ div[aria-hidden='true'] {
 .hide-component {
   display: none;
 }
-
-
-

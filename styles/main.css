@@ -296,9 +296,7 @@ h1,h2,h3,h4,h5 {
   color: #ec1928;
   font-size: 1.25em;
   background-color: eggShell;
-  padding-left: 10%;
-  padding-right: 10%;
-
+  padding: 0 10%;
 }
 
 .approval-form {
