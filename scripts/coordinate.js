@@ -263,7 +263,7 @@ FriendlyChat.prototype.getSession = function() {
       document.getElementById('pending-div').removeAttribute('hidden');
 
       // This means visiting user is the creator of event:
-      if (firebase.auth().currentUser.uid == data.val().createdBy|| person.email == data.val().creatorDescription) {
+      if (firebase.auth().currentUser.uid == data.val().createdBy || person.email == data.val().creatorDescription) {
         // console.log('visiting user is the creator. showing approval form, hiding rescind form.');
         pendingNotification = 'Someone has requested this change.\nDo you want to approve it?';
         document.getElementById('pending-div').innerText =
@@ -329,10 +329,11 @@ FriendlyChat.prototype.getSession = function() {
           data.val().downloadURL ||
           'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
         var doWhopDescriptionTitle = data.val().titleDescription || 'Your DoWhops Will Appear Here';
+
         return (dowhopSelectorDiv +=
-          "<section id='" +
+          "<aside id='" +
           data.key +
-          "' class='dowhop-selector-block' onclick='sessionRef(this)''>" +
+          "' class='mld-card mdl-shadow--6dp' onclick='sessionRef(this)''>" +
           "<div class='dowhop-selector-header-top' style='background-image: url(" +
           imageUrl +
           ");'>" +
@@ -340,7 +341,7 @@ FriendlyChat.prototype.getSession = function() {
           doWhopDescriptionTitle +
           '</h1>' +
           '</div>' +
-          '</section>');
+          '</aside>');
       }
     });
 
