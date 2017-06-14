@@ -14,7 +14,7 @@ function initAutocomplete() {
     zoom: 13,
     mapTypeId: 'roadmap'
   });
-
+  google.maps.event.addDomListener(map, 'load', initialize);
   google.maps.event.addListenerOnce(map, 'idle', function() {
    google.maps.event.trigger(map, 'resize');
   });
