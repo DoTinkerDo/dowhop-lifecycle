@@ -3,13 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="DoWhop WebChat" content="Arrange details with other DoWhop users">
+  <meta name="DoWhop Coordinate App" content="Arrange details with other DoWhop users">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DoWhop</title>
   <!-- Adding jQUery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-
   <!-- Adding font 'Avenir Light' -->
   <link rel="stylesheet" href="styles/font-styles.css">
   <!-- Material Design Lite -->
@@ -53,7 +52,7 @@
       <div class="tabs-container">
         <ul class="tabs">
           <li><a class="tab" href="#edit" onclick="getSesh(this)"><span>✎</span></a></li>
-          <li><a id='coordinate-tab' class="tab" href="#coordinate" onclick="getSesh(this)">Coordinate</a></li>
+          <li><a class="tab" href="#coordinate" onclick="getSesh(this)" id="coordinate-tab">Coordinate</a></li>
           <li><a class="tab" href="#review" onclick="getSesh(this)"><span>★</span></a></li>
           <li><a class="btn-logout" href="#" onclick="firebase.auth().signOut()"><span>Log Out</span></a></li>
         </ul>
@@ -97,120 +96,120 @@
         <div id="dowhop-selector-container"></div> <!-- End Image Container -->
         
         <!-- Start Edit Panel -->
-        <section id="edit" class="panel">
+        <section id="edit" class="mdl-card mdl-shadow--6dp panel">
           <!-- Start Edit-update form (based on create form below) -->
-          <div class="mdl-card mdl-shadow--6dp">
-            <div class="mdl-layout__content">
-              <form id="edit-dowhop-form" hidden="true" action="">
-                <div class="mdl-card__title">
-                  <h2 class="mdl-card__title-text">Edit your DoWhop</h2>
-                </div>
-                <div class="mdl-card__supporting-text">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="titleDescription" placeholder="Do this with me">
-                  <label class="mdl-textfield__label" for="titleDescription">DoWhop Title</label>
-                  <div class="mdl-tooltip" for="titleDescription">Change what you'll DO!</div>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="whoDescription" placeholder="This many people with this skill level">
-                  <label class="mdl-textfield__label" for="whoDescription">Who is joining?</label>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="whatDescription" placeholder="I bring this, you bring that, we will make this">
-                  <label class="mdl-textfield__label" for="whatDescription">What will you provide?</label>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="whenDescription" placeholder="It will take this many hours, on these days">
-                  <label class="mdl-textfield__label" for="whenDescription">When will you do?</label>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="whereDescription" placeholder="Meet at this location">
-                  <label class="mdl-textfield__label" for="whereDescription">Where will you meet?</label>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="howMuchDescription" placeholder="This much per person">
-                  <label class="mdl-textfield__label" for="howMuchDescription">How much will it cost?</label>
-                </div>
-                <!-- NEW -->
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="creatorDescription" placeholder="creator@example.com">
-                  <label class="mdl-textfield__label" for="creatorDescription">What's the creator's email?</label>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="doerDescription" placeholder="doer@example.com">
-                  <label class="mdl-textfield__label" for="doerDescription">Who is attending this DoWhop (email, please)?</label>
-                </div>
-                <!-- END NEW -->
-                <div class="mdl-card__actions">
-                <!-- <input id="dowhop-image-capture" type="file" accept="image/*,capture=camera" onchange="addDoWhopImage(this.files, this)"> -->
-                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="submit">
-                    Update
-                    <div class="mdl-tooltip" for="submit">Click here to update your DoWhop!</div>
-                  </button>
-                  <div id="error" class="form-error"></div>
-                </div>
-              </form>
-            </div>
+          <div class="mdl-layout__content">
+            <form id="edit-dowhop-form" hidden="true" action="">
+              <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Edit your DoWhop</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="titleDescription" placeholder="Do this with me">
+                <label class="mdl-textfield__label" for="titleDescription">DoWhop Title</label>
+                <div class="mdl-tooltip" for="titleDescription">Change what you'll DO!</div>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="whoDescription" placeholder="This many people with this skill level">
+                <label class="mdl-textfield__label" for="whoDescription">Who is joining?</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="whatDescription" placeholder="I bring this, you bring that, we will make this">
+                <label class="mdl-textfield__label" for="whatDescription">What will you provide?</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="whenDescription" placeholder="It will take this many hours, on these days">
+                <label class="mdl-textfield__label" for="whenDescription">When will you do?</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="whereDescription" placeholder="Meet at this location">
+                <label class="mdl-textfield__label" for="whereDescription">Where will you meet?</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="howMuchDescription" placeholder="This much per person">
+                <label class="mdl-textfield__label" for="howMuchDescription">How much will it cost?</label>
+              </div>
+              <!-- NEW -->
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="creatorDescription" placeholder="creator@example.com">
+                <label class="mdl-textfield__label" for="creatorDescription">What's the creator's email?</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="doerDescription" placeholder="doer@example.com">
+                <label class="mdl-textfield__label" for="doerDescription">Who is attending this DoWhop (email, please)?</label>
+              </div>
+              <!-- END NEW -->
+              <div class="mdl-card__actions">
+              <!-- <input id="dowhop-image-capture" type="file" accept="image/*,capture=camera" onchange="addDoWhopImage(this.files, this)"> -->
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="submit">
+                  Update
+                  <div class="mdl-tooltip" for="submit">Click here to update your DoWhop!</div>
+                </button>
+                <div id="error" class="form-error"></div>
+              </div>
+            </form>
           </div>
         </section> <!-- End Edit Panel tab -->
 
         <!-- Start Coordinate app -->
-        <section id="coordinate" class="panel">
-          <div id="show-chat-data"></div>
-          <div id="messages-card-container" class="form-wrap">
-            <!-- Messages container -->
-            <div id="messages-card">
-              <div id="messages">
-                <span id="message-filler"></span>
-              </div>
-              <form id="message-form" action="#">
-                <div id="message-form-div" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <label class="form-line" for="message">Message
-                    <input type="text" id="message">
-                    <span class="bar">
-                  </label>
-                  <!-- Adding options div here -->
-                  <div class="options-coordinate">
-                    <div class="underbar">
-                      <div id="optione-calendar" class="img_icon">
-                        <img onclick="revealInput('date')" src='images/calendar.png' alt="" width="24" height="24">
-                      </div>
-                      <div id="clock" class="img_icon">
-                        <img onclick="revealInput('time')" src="images/clock-circular-outline.png" alt="" width="24" height="24">
-                      </div>
-                      <div id="map-div" class="img_icon">
-                        <img onclick="revealInput('where')" src="https://static.wixstatic.com/media/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png/v1/fill/w_512,h_512,al_c/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png" alt="" width="24" height="24">
-                      </div>
-                      <div id="image" class="img_icon">
-                        <img onclick="revealInput('image')" src="images/image-add-button.png" alt="" width="24" height="24">
-                      </div>
-                      <div id="send-message-button">
-                        <button id="submit-message-button" disabled type="submit" class="options-div-submit">
-                          Send
-                        </button>
+        <section id="coordinate" class="mdl-card mdl-shadow--6dp panel">
+          <div class="mdl-layout__content">
+            <div id="show-chat-data"></div>
+            <div id="messages-card-container" class="form-wrap">
+              <!-- Messages container -->
+              <div id="messages-card">
+                <div id="messages">
+                  <span id="message-filler"></span>
+                </div>
+                <form id="message-form" action="#">
+                  <div id="message-form-div" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <label class="form-line" for="message">Message
+                      <input type="text" id="message">
+                      <span class="bar">
+                    </label>
+                    <!-- Adding options div here -->
+                    <div class="options-coordinate">
+                      <div class="underbar">
+                        <div id="optione-calendar" class="img_icon">
+                          <img onclick="revealInput('date')" src='images/calendar.png' alt="" width="24" height="24">
+                        </div>
+                        <div id="clock" class="img_icon">
+                          <img onclick="revealInput('time')" src="images/clock-circular-outline.png" alt="" width="24" height="24">
+                        </div>
+                        <div id="map-div" class="img_icon">
+                          <img onclick="revealInput('where')" src="https://static.wixstatic.com/media/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png/v1/fill/w_512,h_512,al_c/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png" alt="" width="24" height="24">
+                        </div>
+                        <div id="image" class="img_icon">
+                          <img onclick="revealInput('image')" src="images/image-add-button.png" alt="" width="24" height="24">
+                        </div>
+                        <div id="send-message-button">
+                          <button id="submit-message-button" disabled type="submit" class="options-div-submit">
+                            Send
+                          </button>
+                        </div>
                       </div>
                     </div>
+                  <!-- End of Message Form Div -->
                   </div>
-                <!-- End of Message Form Div -->
-                </div>
-                <div id="hidden-inputs">
-                  <input hidden type="date" id="whenDatePending">
-                  <input hidden type="time" id='whenTimePending' size="50">
-                  <input hidden id="whereAddressPending" class="controls" type="text" placeholder="Set a place...">
-                  <div hidden id="map"></div>
-                </div>
-              </form>
-              <form id="image-form" action="#">
-                <input hidden id="mediaCapture" type="file" accept="image/*,capture=camera">
-                <button hidden  id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--red-200 mdl-color-text--white">
-                  <i class="material-icons">perm_media</i>
-                </button>
-              </form>
+                  <div id="hidden-inputs">
+                    <input hidden type="date" id="whenDatePending">
+                    <input hidden type="time" id='whenTimePending' size="50">
+                    <input hidden id="whereAddressPending" class="controls" type="text" placeholder="Set a place...">
+                    <div hidden id="map"></div>
+                  </div>
+                </form>
+                <form id="image-form" action="#">
+                  <input hidden id="mediaCapture" type="file" accept="image/*,capture=camera">
+                  <button hidden  id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--red-200 mdl-color-text--white">
+                    <i class="material-icons">perm_media</i>
+                  </button>
+                </form>
+              </div>
             </div>
-          </div>
-          <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
-            <div class="mdl-snackbar__text"></div>
-            <button class="mdl-snackbar__action" type="button"></button>
+            <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
+              <div class="mdl-snackbar__text"></div>
+              <button class="mdl-snackbar__action" type="button"></button>
+            </div>
           </div>
         </section> <!-- End coordinate app  -->
 
@@ -323,10 +322,10 @@
                 </div>
               </div>
             </aside>
-          </div> <!-- End grid for form for comments and ratings -->
+          </div>     <!-- End grid for form for comments and ratings -->
         </section> <!-- End review app panel -->
-      </div> <!-- End outer 7 columns -->
-    </main>  <!-- End main MDL grid -->
+      </div>    <!-- End outer 7 columns -->
+    </main>   <!-- End main MDL grid -->
   </section> <!-- End Application Container -->
   
 <script src="scripts/google-map.js"></script>
