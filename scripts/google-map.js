@@ -1,28 +1,24 @@
-// 'use strict';
+'use strict';
 
 var mapElement = document.getElementById('map');
 var loadEvent = document.getElementById('map-div');
 
 function initialize() {
-  console.log('initializing map...');
   var input = document.getElementById('whereAddressPending');
   var autocomplete = new google.maps.places.Autocomplete(input);
 }
 
-var initAutocomplete = function() {
-  // google.maps.event.addDomListener(window, 'load', initialize);
-  google.maps.event.addDomListener(window, 'resize', initialize);
-  console.log("doing autocomplete...");
+function initAutocomplete() {
+
   var map = new google.maps.Map(mapElement, {
-    center: {lat: 32.7303, lng: -117.14256},
+    center: {lat: 32.73597, lng: -117.15071},
     zoom: 13,
     mapTypeId: 'roadmap'
   });
 
-  // map.addListener('tilesloaded', initialize);
-  map.addListener(loadEvent, 'click', initialize);
-  // map.addListener(window, 'resize', initialize);
-
+  google.maps.event.addListenerOnce(map, 'idle', function() {
+   google.maps.event.trigger(map, 'resize');
+  });
   // Create the search box and link it to the UI element.
   var input = document.getElementById('whereAddressPending');
   var searchBox = new google.maps.places.SearchBox(input);
