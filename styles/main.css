@@ -463,8 +463,6 @@ header h1 {
 	color: #ec1928;
 }
 
-
-
 .bar {
 	position: absolute;
 	display: block;
@@ -514,7 +512,7 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 	color: #ec1928;
 }
 
-.user-list {
+/*.user-list {
 	width: 100%;
 	background: #fff;
 	box-shadow: 0 8px 6px -6px #808080;
@@ -522,31 +520,30 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 	border-top: 3px solid #c0c0c0;
 }
 
-
-@media (min-width: 641px) {
+/*@media (min-width: 641px) {
 	.user-list {
 		flex: 1 0 50%;
-		/*border-left: 3px solid #ededed;*/
+		border-left: 3px solid #ededed;
 		border-top: none;
 	}
 }
-
-.user-list > h2 {
+*/
+/*.user-list > h2 {
 	text-align: center;
 	font-size: 26px;
 	padding-bottom: 30px;
 	color: #606060;
-}
+}*/
 
-.user-list__item {
+/*.user-list__item {
 	padding: 10px;
 	border: 1px solid #ededed;
 	border-radius: 3px;
-	/*border-left: 3px solid #ec1928;*/
+	/*border-left: 3px solid #ec1928;
 	margin-bottom: 10px;
-}
+}*/
 
-.user-list__item h4, .user-list__item p {
+/*.user-list__item h4, .user-list__item p {
 	font-size: 14px;
 	padding-bottom: 10px;
 	color: #c0c0c0;
@@ -559,7 +556,8 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 
 .user-list__item:hover {
   opacity: 0.5;
-}
+}*/
+
 .file {
   opacity: 0;
   position: absolute;

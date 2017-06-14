@@ -8,19 +8,19 @@
   background-color: white;
 }
 
-.dowhop-selector-block {
-  box-shadow: 2px 2px 20px #888888;
-  margin-bottom: 25px;
-}
-
-.dowhop-selector-block:hover {
-  opacity: 0.5;
-}
-
 /*
+
   create seperate classes for the top
   background image and for the cards
+
 */
+.dowhop-selector {
+  margin-bottom: 25px;
+}
+.dowhop-selector:hover {
+  cursor: pointer;
+}
+
 .dowhop-selector-header-top {
   height: 250px;
   background-size: cover;
@@ -41,63 +41,62 @@
   background-position: center;
   padding-top: 0;
   margin-top: 0;
-  /* Default: background-image: url('https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp');*/*/
 }
 
 .dowhop-selector-header h1, h2 {
-  background-color: white;
-  opacity: 0.5;
+  background-color: rgba(255,255,255, .5);
+  /*opacity: 0.5;*/
   filter: alpha(opacity=50); /* For IE8 and earlier */
 }
 
+.dowhop-selector-header h1 {
+  margin: 0;
+  padding: 5px 10px;
+}
+
 .dowhop-selector-body {
-  background-color: white;
   padding: 5%;
-  /*padding-bottom: 2%;*/
 }
 
-.text-right.page-header {
-  /* TBD */
-}
+/*.dowhop-selector-block {
+  box-shadow: 2px 2px 20px #888888;
+  margin-bottom: 25px;
+}*/
 
-/* Styling the material icons throughout pages with added .dowhop- classes */
+/*.dowhop-selector-block:hover {
+  opacity: 0.5;
+}*/
 
-i.dowhop-action {
-  padding-top: 2%;
-  padding-left: 2%;
-  padding-bottom: 0;
-  margin-bottom: 0;
-  width: 100%;
-  height: 100%;
-}
+/* 
 
-i.dowhop-action:hover {
-  color: pink;
-  cursor: hand;
-  cursor: pointer;
-  /*border: 2px solid pink;*/
-}
+  Styling the material icons 
+  throughout pages with added 
+  .dowhop- classes 
+
+*/
 
 i.dowhop-icon {
-  color: pink;
+  color: rgba(255,255,255, .5);
   opacity: 0.5;
   padding-top: 2%;
   padding-left: 2%;
   padding-bottom: 0;
   margin-bottom: 0;
   width: 100%;
-  height: 100%;
+}
+
+i.dowhop-icon:hover,
+i.dowhop-icon:active {
+  color: rgba(255,255,255, .9);
+  cursor: pointer;
 }
 
 /*
 
   Create New DoWhop Form
+  and MDL card styles
 
 */
-
-input {
-  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif !important;
-}
 
 .mdl-layout__content {
   background-color: #ffffff;
@@ -105,16 +104,16 @@ input {
 .mdl-card__title {
   background-color: #ec1928;
 }
-
-.mdl-card__supporting-text {
-  padding:  24px;
-  flex: none;
-}
 .mdl-card__title-text {
   background-color: #ec1928;
   color: #ffffff;
 }
+.mdl-card__supporting-text {
+  padding:  24px;
+  flex: none;
+}
 
+/* form input styles */
 .mdl-textfield--floating-label.has-placeholder .mdl-textfield__label,
 .mdl-textfield--floating-label.is-dirty .mdl-textfield__label,
 .mdl-textfield--floating-label.is-focused .mdl-textfield__label {
@@ -122,7 +121,6 @@ input {
   color: #605e5e;
   font-size: 1em;
 }
-
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #d1d1d1;
   font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
@@ -143,21 +141,17 @@ input {
   font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
   font-size: 0.875em;
 }
-
+input {
+  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif !important;
+}
 input[type=file]#dowhop-image-capture{
   margin-bottom: 12px;
   font-size: .875em;
 }
 
-#create-new-dowhop { /* button dark grey- */
-  background: #605e5e;
-  color: #ffffff;
-}
-
 .mdl-card.mdl-shadow--6dp {
   width: 100%;
 }
-
 .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.has-placeholder.is-upgraded {
   width: 100%;
 }
