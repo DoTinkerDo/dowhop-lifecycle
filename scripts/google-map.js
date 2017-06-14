@@ -4,7 +4,10 @@ function initialize() {
   var input = document.getElementById('searchTextField');
   var autocomplete = new google.maps.places.Autocomplete(input);
 }
-google.maps.event.addDomListener(window, 'load', initialize);
+// google.maps.event.addDomListener(window, 'load', initialize);
+var loadEvent = document.getElementById('map-div');
+google.maps.event.addDomListener(loadEvent, 'click', initialize);
+google.maps.event.addDomListener(window, 'resize', initialize);
 
 function initAutocomplete() {
   // OM: We initially want to get current location, like so:
@@ -15,7 +18,7 @@ function initAutocomplete() {
   // To-Do: Change the starting location of the map to dynamically load:
   var map = new google.maps.Map(document.getElementById('map'), {
     center: { lat: 32.742705, lng: -117.145857 }, // <-- Preset to San Diego Zoo
-    zoom: 13,
+    zoom: 10,
     mapTypeId: 'roadmap',
     mapTypeControl: true,
     mapTypeControlOptions: {
@@ -79,48 +82,48 @@ function initAutocomplete() {
 }
 
 // A script to use icon to select/toggle input fields
-var date, time, where, image;
-function revealInput(x) {
-  switch (x) {
-    case 'date':
-      document.getElementById('whenDatePending').removeAttribute('hidden');
-      document.getElementById('whenTimePending').setAttribute('hidden', 'true');
-      document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
-      document.getElementById('map').setAttribute('hidden', 'true');
-      document.getElementById('mediaCapture').setAttribute('hidden', 'true');
-      document.getElementById('submitImage').setAttribute('hidden', 'true');
-      break;
-    case 'time':
-      document.getElementById('whenTimePending').removeAttribute('hidden');
-      document.getElementById('whenDatePending').setAttribute('hidden', 'true');
-      document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
-      document.getElementById('map').setAttribute('hidden', 'true');
-      document.getElementById('mediaCapture').setAttribute('hidden', 'true');
-      document.getElementById('submitImage').setAttribute('hidden', 'true');
-      break;
-    case 'where':
-      document.getElementById('whereAddressPending').removeAttribute('hidden');
-      document.getElementById('map').removeAttribute('hidden');
-      document.getElementById('whenDatePending').setAttribute('hidden', 'true');
-      document.getElementById('whenTimePending').setAttribute('hidden', 'true');
-      document.getElementById('mediaCapture').setAttribute('hidden', 'true');
-      document.getElementById('submitImage').setAttribute('hidden', 'true');
-      break;
-    case 'image':
-      document.getElementById('mediaCapture').removeAttribute('hidden');
-      document.getElementById('submitImage').removeAttribute('hidden');
-      document.getElementById('whenDatePending').setAttribute('hidden', 'true');
-      document.getElementById('whenTimePending').setAttribute('hidden', 'true');
-      document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
-      document.getElementById('map').setAttribute('hidden', 'true');
-      break;
-    default:
-      document.getElementById('whenDatePending').setAttribute('hidden', 'true');
-      document.getElementById('whenTimePending').setAttribute('hidden', 'true');
-      document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
-      document.getElementById('map').setAttribute('hidden', 'true');
-      document.getElementById('mediaCapture').setAttribute('hidden', 'true');
-      document.getElementById('submitImage').setAttribute('hidden', 'true');
-      break;
-  }
-}
+// var date, time, where, image;
+// function revealInput(x) {
+//   switch (x) {
+//     case 'date':
+//       document.getElementById('whenDatePending').removeAttribute('hidden');
+//       document.getElementById('whenTimePending').setAttribute('hidden', 'true');
+//       document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
+//       document.getElementById('map').setAttribute('hidden', 'true');
+//       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
+//       document.getElementById('submitImage').setAttribute('hidden', 'true');
+//       break;
+//     case 'time':
+//       document.getElementById('whenTimePending').removeAttribute('hidden');
+//       document.getElementById('whenDatePending').setAttribute('hidden', 'true');
+//       document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
+//       document.getElementById('map').setAttribute('hidden', 'true');
+//       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
+//       document.getElementById('submitImage').setAttribute('hidden', 'true');
+//       break;
+//     case 'where':
+//       document.getElementById('whereAddressPending').removeAttribute('hidden');
+//       document.getElementById('map').removeAttribute('hidden');
+//       document.getElementById('whenDatePending').setAttribute('hidden', 'true');
+//       document.getElementById('whenTimePending').setAttribute('hidden', 'true');
+//       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
+//       document.getElementById('submitImage').setAttribute('hidden', 'true');
+//       break;
+//     case 'image':
+//       document.getElementById('mediaCapture').removeAttribute('hidden');
+//       document.getElementById('submitImage').removeAttribute('hidden');
+//       document.getElementById('whenDatePending').setAttribute('hidden', 'true');
+//       document.getElementById('whenTimePending').setAttribute('hidden', 'true');
+//       document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
+//       document.getElementById('map').setAttribute('hidden', 'true');
+//       break;
+//     default:
+//       document.getElementById('whenDatePending').setAttribute('hidden', 'true');
+//       document.getElementById('whenTimePending').setAttribute('hidden', 'true');
+//       document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
+//       document.getElementById('map').setAttribute('hidden', 'true');
+//       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
+//       document.getElementById('submitImage').setAttribute('hidden', 'true');
+//       break;
+//   }
+// }

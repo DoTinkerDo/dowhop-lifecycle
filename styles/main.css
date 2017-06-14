@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-/* Adding in template presets */ 
+/* Adding in template presets */
 
-/* Color palette 
-Replaced #hover-flag, #top-bar-hidden, #top-bar-dowhop  #FF0404 (red) with #ec1928  
-Repalced #title and #pac-input focus #4d90fe (blue) with #ec1928 
+/* Color palette
+Replaced #hover-flag, #top-bar-hidden, #top-bar-dowhop  #FF0404 (red) with #ec1928
+Repalced #title and #pac-input focus #4d90fe (blue) with #ec1928
 Replaced #user-list border #cfd9df (blue-grey) with #c0c0c0*
 
 TODO: standardize grey pallette */
@@ -130,14 +130,14 @@ main, #messages-card {
 
 /* Adding Google map styling: */
 
-/*#where-column-bounds {
+#where-column-bounds {
   display: flex;
   justify-content: center;
-}*/
+}
 
 #map {   /* <-- Always best to set the map height div explicitly. */
-  height: 250px;
-  width: 600px;
+  height: 500px;
+  width: 500px;
 }
 
 #description {
@@ -214,7 +214,7 @@ main, #messages-card {
 
 /* Added-on styling details */
 
-h1,h2,h3,h4,h5 { 
+h1,h2,h3,h4,h5 {
   font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
 }
 
