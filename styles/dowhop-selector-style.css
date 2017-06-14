@@ -28,10 +28,8 @@
 }
 
 .dowhop-selector-header-top h1, h2 {
-  background-color: white;
-  opacity: 0.5;
-  filter: alpha(opacity=50); /* For IE8 and earlier */
-  bottom: 0;
+  background-color: #ffffff;
+  background-color: rgba(255,255,255, .3);
 }
 
 .dowhop-selector-header {
@@ -44,12 +42,12 @@
 }
 
 .dowhop-selector-header h1, h2 {
-  background-color: rgba(255,255,255, .5);
-  /*opacity: 0.5;*/
-  filter: alpha(opacity=50); /* For IE8 and earlier */
+  background-color: #ffffff;
+  background-color: rgba(255,255,255, .3);
 }
 
-.dowhop-selector-header h1 {
+.dowhop-selector-header h1,
+.dowhop-selector-header-top h1 {
   margin: 0;
   padding: 5px 10px;
 }
@@ -57,15 +55,6 @@
 .dowhop-selector-body {
   padding: 5%;
 }
-
-/*.dowhop-selector-block {
-  box-shadow: 2px 2px 20px #888888;
-  margin-bottom: 25px;
-}*/
-
-/*.dowhop-selector-block:hover {
-  opacity: 0.5;
-}*/
 
 /* 
 
