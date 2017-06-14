@@ -46,7 +46,7 @@
 
   <!-- Application Container -->
   <section class="hide-component" id="application-container">
-    
+
     <!-- Navigation Container -->
     <header class="mdl-grid">
       <div class="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--5-offset-desktop">
@@ -94,7 +94,7 @@
       <div class="mdl-cell mdl-cell--7-col mdl-cell--11-col-tablet mdl-cell--order-1-tablet mdl-cell--order-1-phone">
         <!-- Currently Selected DoWhop Top Image Container -->
         <div id="dowhop-selector-container"></div> <!-- End Image Container -->
-        
+
         <!-- Start Edit Panel -->
         <section id="edit" class="mdl-card mdl-shadow--6dp panel">
           <!-- Start Edit-update form (based on create form below) -->
@@ -195,7 +195,7 @@
                     <input hidden type="date" id="whenDatePending">
                     <input hidden type="time" id='whenTimePending' size="50">
                     <input hidden id="whereAddressPending" class="controls" type="text" placeholder="Set a place...">
-                    <div hidden id="map"></div>
+                      <div hidden id="map"></div>
                   </div>
                 </form>
                 <form id="image-form" action="#">
@@ -327,11 +327,12 @@
       </div>    <!-- End outer 7 columns -->
     </main>   <!-- End main MDL grid -->
   </section> <!-- End Application Container -->
-  
-<script src="scripts/google-map.js"></script>
+
 <script src="scripts/login.js"></script>
 <script src="scripts/tabs.js"></script>
 <script src="scripts/edit.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-coo6M25h9GjP8AYxhzIQSbNVj-Ope3s&libraries=places&callback=initAutocomplete" async defer></script>
+<script src="scripts/google-map.js"></script>
 <script src="scripts/coordinate.js"></script>
 <script src="ratings/rating-lib/rating.min.js"></script>
 <script src="ratings/rating-lib/weighted-ratings.js"></script>
@@ -351,6 +352,55 @@
   }
   btnLogOut.addEventListener('click', changeLoginText);
   window.addEventListener('load', changeLoginText);
+</script>
+<script>
+/* A script to use icon to select/toggle input fields */
+var date, time, where, image;
+function revealInput(x) {
+    switch(x) {
+      case 'date':
+        document.getElementById("whenDatePending").removeAttribute("hidden");
+        document.getElementById("whenTimePending").setAttribute("hidden","true");
+        document.getElementById("whereAddressPending").setAttribute("hidden","true");
+        document.getElementById("map").setAttribute("hidden","true");
+        document.getElementById("mediaCapture").setAttribute("hidden","true");
+        document.getElementById("submitImage").setAttribute("hidden","true");
+        break;
+      case 'time':
+        document.getElementById("whenTimePending").removeAttribute("hidden");
+        document.getElementById("whenDatePending").setAttribute("hidden","true");
+        document.getElementById("whereAddressPending").setAttribute("hidden","true");
+        document.getElementById("map").setAttribute("hidden","true");
+        document.getElementById("mediaCapture").setAttribute("hidden","true");
+        document.getElementById("submitImage").setAttribute("hidden","true");
+        break;
+      case 'where':
+        document.getElementById("whereAddressPending").removeAttribute("hidden");
+        document.getElementById("map").removeAttribute("hidden");
+        google.maps.event.trigger(map, 'resize');
+        document.getElementById("whenDatePending").setAttribute("hidden","true");
+        document.getElementById("whenTimePending").setAttribute("hidden","true");
+        document.getElementById("mediaCapture").setAttribute("hidden","true");
+        document.getElementById("submitImage").setAttribute("hidden","true");
+        break;
+      case 'image':
+        document.getElementById("mediaCapture").removeAttribute("hidden");
+        document.getElementById("submitImage").removeAttribute("hidden");
+        document.getElementById("whenDatePending").setAttribute("hidden","true");
+        document.getElementById("whenTimePending").setAttribute("hidden","true");
+        document.getElementById("whereAddressPending").setAttribute("hidden","true");
+        document.getElementById("map").setAttribute("hidden","true");
+        break;
+      default:
+        document.getElementById("whenDatePending").setAttribute("hidden", "true");
+        document.getElementById("whenTimePending").setAttribute("hidden","true");
+        document.getElementById("whereAddressPending").setAttribute("hidden","true");
+        document.getElementById("map").setAttribute("hidden","true");
+        document.getElementById("mediaCapture").setAttribute("hidden","true");
+        document.getElementById("submitImage").setAttribute("hidden","true");
+        break;
+    };
+}
 </script>
 </body>
 </html>
