@@ -140,12 +140,12 @@
                   </div>
                   <!-- NEW -->
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="hostDescription" placeholder="host@example.com">
-                    <label class="mdl-textfield__label" for="hostDescription">What's the host/creator's email?</label>
+                    <input class="mdl-textfield__input" type="text" id="creatorDescription" placeholder="creator@example.com">
+                    <label class="mdl-textfield__label" for="creatorDescription">What's the host/creator's email?</label>
                   </div>
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="doerDescription" placeholder="doer@example.com">
-                    <label class="mdl-textfield__label" for="hostDescription">Who is attending this DoWhop (email, please)?</label>
+                    <label class="mdl-textfield__label" for="doerDescription">Who is attending this DoWhop (email, please)?</label>
                   </div>
                   <!-- END NEW -->
                   <div class="mdl-card__actions">
@@ -494,102 +494,11 @@ function revealInput(x) {
       case 'where':
         document.getElementById("whereAddressPending").removeAttribute("hidden");
         document.getElementById("map").removeAttribute("hidden");
+        google.maps.event.trigger(map, 'resize');
         document.getElementById("whenDatePending").setAttribute("hidden","true");
         document.getElementById("whenTimePending").setAttribute("hidden","true");
         document.getElementById("mediaCapture").setAttribute("hidden","true");
         document.getElementById("submitImage").setAttribute("hidden","true");
-
-        // var mapElement = document.getElementById('map');
-        // var loadEvent = document.getElementById('map-div');
-        //
-        // function initialize() {
-        //   console.log('initializing map...');
-        //   var input = document.getElementById('searchTextField');
-        //   var autocomplete = new google.maps.places.Autocomplete(input);
-        // }
-        // // google.maps.event.addDomListener(window, 'load', initialize);
-        // // var loadEvent = document.getElementById('map-div');
-        // // google.maps.event.addListenerOnce(map, 'idle', function() {
-        // //    google.maps.event.trigger(map, 'resize');
-        // // });
-        // // google.maps.event.addDomListener(loadEvent, 'click', initialize);
-        // // google.maps.event.addDomListener(window, 'resize', initialize);
-        //
-        // function initAutocomplete() {
-        //   console.log('Initializing autocomplete...');
-        //   // OM: We initially want to get current location, like so:
-        //   // var loc;
-        //   // loc = navigator.geolocation.getCurrentPosition(function(position){ return x = position.coords })
-        //   // let lat = loc.latitude;
-        //   // let long = loc.longitude;
-        //   // To-Do: Change the starting location of the map to dynamically load:
-        //   var map = new google.maps.Map(mapElement, {
-        //     center: { lat: 32.742705, lng: -117.145857 }, // <-- Preset to San Diego Zoo
-        //     zoom: 10,
-        //     mapTypeId: 'roadmap',
-        //     mapTypeControl: true,
-        //     mapTypeControlOptions: {
-        //       style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-        //       position: google.maps.ControlPosition.BOTTOM_CENTER
-        //     }
-        //   });
-        //   // Create the search box and link it to the UI element.
-        //   var input = document.getElementById('whereAddressPending');
-        //   var searchBox = new google.maps.places.SearchBox(input);
-        //   map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
-        //   // Bias the SearchBox results towards current map's viewport.
-        //   map.addListener('bounds_changed', function() {
-        //     searchBox.setBounds(map.getBounds());
-        //   });
-        //   var markers = [];
-        //   // Listen for the event fired when the user selects a prediction and retrieve
-        //   // more details for that place.
-        //   searchBox.addListener('places_changed', function() {
-        //     var places = searchBox.getPlaces();
-        //     if (places.length == 0) {
-        //       return;
-        //     }
-        //     // Clear out the old markers.
-        //     markers.forEach(function(marker) {
-        //       marker.setMap(null);
-        //     });
-        //     markers = [];
-        //     // For each place, get the icon, name and location.
-        //     var bounds = new google.maps.LatLngBounds();
-        //     places.forEach(function(place) {
-        //       if (!place.geometry) {
-        //         console.log('Returned place contains no geometry');
-        //         return;
-        //       }
-        //       var icon = {
-        //         url: place.icon,
-        //         size: new google.maps.Size(71, 71),
-        //         origin: new google.maps.Point(0, 0),
-        //         anchor: new google.maps.Point(17, 34),
-        //         scaledSize: new google.maps.Size(25, 25)
-        //       };
-        //       // Create a marker for each place.
-        //       markers.push(
-        //         new google.maps.Marker({
-        //           map: map,
-        //           icon: icon,
-        //           title: place.name,
-        //           position: place.geometry.location
-        //         })
-        //       );
-        //       if (place.geometry.viewport) {
-        //         // Only geocodes have viewport.
-        //         bounds.union(place.geometry.viewport);
-        //       } else {
-        //         bounds.extend(place.geometry.location);
-        //       }
-        //     });
-        //     map.fitBounds(bounds);
-        //   });
-        // }
-        //
-        //
-
         break;
 
       case 'image':
