@@ -3,6 +3,9 @@
 # dependencies
 node_modules
 
+.eslintcache
+.sass-cache/
+
 # testing
 /coverage
 
