@@ -352,6 +352,8 @@
   </section> <!-- End Application Container -->
   <script src="scripts/login.js"></script>
   <script src="scripts/tabs.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-coo6M25h9GjP8AYxhzIQSbNVj-Ope3s&libraries=places&callback=initAutocomplete" async defer></script>
+  <script src="scripts/google-map.js"></script>
   <script src="scripts/coordinate.js"></script>
   <script src="ratings/rating-lib/rating.min.js"></script>
   <script src="ratings/rating-lib/weighted-ratings.js"></script>
@@ -373,97 +375,95 @@
   </script>
   </body>
 </html>
-
 <!--Adding location, date, time auto-completes--->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-coo6M25h9GjP8AYxhzIQSbNVj-Ope3s&libraries=places&callback=initAutocomplete" async defer></script>
 <script>
 //   function initialize() {
 //   var input = document.getElementById('searchTextField');
 //   var autocomplete = new google.maps.places.Autocomplete(input);
 //   }
 //   google.maps.event.addDomListener(window, 'load', initialize);
-// </script>
+</script>
 <script>
-function initAutocomplete() {
-
-// OM: We initially want to get current location, like so:
-// var loc;
-// loc = navigator.geolocation.getCurrentPosition(function(position){ return x = position.coords })
-// let lat = loc.latitude;
-// let long = loc.longitude;
-
-// To-Do: Change the starting location of the map to dynamically load:
-
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 32.742705, lng: -117.145857}, // <-- Preset to San Diego Zoo
-    zoom: 13,
-    mapTypeId: 'roadmap',
-    mapTypeControl: true,
-    mapTypeControlOptions: {
-        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-        position: google.maps.ControlPosition.BOTTOM_CENTER
-    }
-  });
-
-  // Create the search box and link it to the UI element.
-  var input = document.getElementById('whereAddressPending');
-  var searchBox = new google.maps.places.SearchBox(input);
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
-
-  // Bias the SearchBox results towards current map's viewport.
-  map.addListener('bounds_changed', function() {
-    searchBox.setBounds(map.getBounds());
-  });
-
-  var markers = [];
-  // Listen for the event fired when the user selects a prediction and retrieve
-  // more details for that place.
-  searchBox.addListener('places_changed', function() {
-    var places = searchBox.getPlaces();
-
-    if (places.length == 0) {
-      return;
-    }
-
-    // Clear out the old markers.
-    markers.forEach(function(marker) {
-      marker.setMap(null);
-    });
-    markers = [];
-
-    // For each place, get the icon, name and location.
-    var bounds = new google.maps.LatLngBounds();
-    places.forEach(function(place) {
-      if (!place.geometry) {
-        console.log("Returned place contains no geometry");
-        return;
-      }
-      var icon = {
-        url: place.icon,
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(25, 25)
-      };
-
-      // Create a marker for each place.
-      markers.push(new google.maps.Marker({
-        map: map,
-        icon: icon,
-        title: place.name,
-        position: place.geometry.location
-      }));
-
-      if (place.geometry.viewport) {
-        // Only geocodes have viewport.
-        bounds.union(place.geometry.viewport);
-      } else {
-        bounds.extend(place.geometry.location);
-      }
-    });
-    map.fitBounds(bounds);
-  });
-}
+// function initAutocomplete() {
+//
+// // OM: We initially want to get current location, like so:
+// // var loc;
+// // loc = navigator.geolocation.getCurrentPosition(function(position){ return x = position.coords })
+// // let lat = loc.latitude;
+// // let long = loc.longitude;
+//
+// // To-Do: Change the starting location of the map to dynamically load:
+//
+//   var map = new google.maps.Map(document.getElementById('map'), {
+//     center: {lat: 32.742705, lng: -117.145857}, // <-- Preset to San Diego Zoo
+//     zoom: 13,
+//     mapTypeId: 'roadmap',
+//     mapTypeControl: true,
+//     mapTypeControlOptions: {
+//         style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+//         position: google.maps.ControlPosition.BOTTOM_CENTER
+//     }
+//   });
+//
+//   // Create the search box and link it to the UI element.
+//   var input = document.getElementById('whereAddressPending');
+//   var searchBox = new google.maps.places.SearchBox(input);
+//   map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+//
+//   // Bias the SearchBox results towards current map's viewport.
+//   map.addListener('bounds_changed', function() {
+//     searchBox.setBounds(map.getBounds());
+//   });
+//
+//   var markers = [];
+//   // Listen for the event fired when the user selects a prediction and retrieve
+//   // more details for that place.
+//   searchBox.addListener('places_changed', function() {
+//     var places = searchBox.getPlaces();
+//
+//     if (places.length == 0) {
+//       return;
+//     }
+//
+//     // Clear out the old markers.
+//     markers.forEach(function(marker) {
+//       marker.setMap(null);
+//     });
+//     markers = [];
+//
+//     // For each place, get the icon, name and location.
+//     var bounds = new google.maps.LatLngBounds();
+//     places.forEach(function(place) {
+//       if (!place.geometry) {
+//         console.log("Returned place contains no geometry");
+//         return;
+//       }
+//       var icon = {
+//         url: place.icon,
+//         size: new google.maps.Size(71, 71),
+//         origin: new google.maps.Point(0, 0),
+//         anchor: new google.maps.Point(17, 34),
+//         scaledSize: new google.maps.Size(25, 25)
+//       };
+//
+//       // Create a marker for each place.
+//       markers.push(new google.maps.Marker({
+//         map: map,
+//         icon: icon,
+//         title: place.name,
+//         position: place.geometry.location
+//       }));
+//
+//       if (place.geometry.viewport) {
+//         // Only geocodes have viewport.
+//         bounds.union(place.geometry.viewport);
+//       } else {
+//         bounds.extend(place.geometry.location);
+//       }
+//     });
+//     map.fitBounds(bounds);
+//   });
+// }
 </script>
 <script>
 /* A script to use icon to select/toggle input fields */
@@ -498,6 +498,98 @@ function revealInput(x) {
         document.getElementById("whenTimePending").setAttribute("hidden","true");
         document.getElementById("mediaCapture").setAttribute("hidden","true");
         document.getElementById("submitImage").setAttribute("hidden","true");
+
+        // var mapElement = document.getElementById('map');
+        // var loadEvent = document.getElementById('map-div');
+        //
+        // function initialize() {
+        //   console.log('initializing map...');
+        //   var input = document.getElementById('searchTextField');
+        //   var autocomplete = new google.maps.places.Autocomplete(input);
+        // }
+        // // google.maps.event.addDomListener(window, 'load', initialize);
+        // // var loadEvent = document.getElementById('map-div');
+        // // google.maps.event.addListenerOnce(map, 'idle', function() {
+        // //    google.maps.event.trigger(map, 'resize');
+        // // });
+        // // google.maps.event.addDomListener(loadEvent, 'click', initialize);
+        // // google.maps.event.addDomListener(window, 'resize', initialize);
+        //
+        // function initAutocomplete() {
+        //   console.log('Initializing autocomplete...');
+        //   // OM: We initially want to get current location, like so:
+        //   // var loc;
+        //   // loc = navigator.geolocation.getCurrentPosition(function(position){ return x = position.coords })
+        //   // let lat = loc.latitude;
+        //   // let long = loc.longitude;
+        //   // To-Do: Change the starting location of the map to dynamically load:
+        //   var map = new google.maps.Map(mapElement, {
+        //     center: { lat: 32.742705, lng: -117.145857 }, // <-- Preset to San Diego Zoo
+        //     zoom: 10,
+        //     mapTypeId: 'roadmap',
+        //     mapTypeControl: true,
+        //     mapTypeControlOptions: {
+        //       style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        //       position: google.maps.ControlPosition.BOTTOM_CENTER
+        //     }
+        //   });
+        //   // Create the search box and link it to the UI element.
+        //   var input = document.getElementById('whereAddressPending');
+        //   var searchBox = new google.maps.places.SearchBox(input);
+        //   map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+        //   // Bias the SearchBox results towards current map's viewport.
+        //   map.addListener('bounds_changed', function() {
+        //     searchBox.setBounds(map.getBounds());
+        //   });
+        //   var markers = [];
+        //   // Listen for the event fired when the user selects a prediction and retrieve
+        //   // more details for that place.
+        //   searchBox.addListener('places_changed', function() {
+        //     var places = searchBox.getPlaces();
+        //     if (places.length == 0) {
+        //       return;
+        //     }
+        //     // Clear out the old markers.
+        //     markers.forEach(function(marker) {
+        //       marker.setMap(null);
+        //     });
+        //     markers = [];
+        //     // For each place, get the icon, name and location.
+        //     var bounds = new google.maps.LatLngBounds();
+        //     places.forEach(function(place) {
+        //       if (!place.geometry) {
+        //         console.log('Returned place contains no geometry');
+        //         return;
+        //       }
+        //       var icon = {
+        //         url: place.icon,
+        //         size: new google.maps.Size(71, 71),
+        //         origin: new google.maps.Point(0, 0),
+        //         anchor: new google.maps.Point(17, 34),
+        //         scaledSize: new google.maps.Size(25, 25)
+        //       };
+        //       // Create a marker for each place.
+        //       markers.push(
+        //         new google.maps.Marker({
+        //           map: map,
+        //           icon: icon,
+        //           title: place.name,
+        //           position: place.geometry.location
+        //         })
+        //       );
+        //       if (place.geometry.viewport) {
+        //         // Only geocodes have viewport.
+        //         bounds.union(place.geometry.viewport);
+        //       } else {
+        //         bounds.extend(place.geometry.location);
+        //       }
+        //     });
+        //     map.fitBounds(bounds);
+        //   });
+        // }
+        //
+        //
+
         break;
 
       case 'image':
