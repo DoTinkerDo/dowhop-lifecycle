@@ -169,10 +169,10 @@ main, #messages-card {
  font-family: Roboto;
 }
 
-#pac-container {
+/*#pac-container {
  padding-bottom: 12px;
  margin-right: 12px;
-}
+}*/
 
 .whereAddressPending {
  display: inline-block;
