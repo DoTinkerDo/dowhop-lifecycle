@@ -135,9 +135,14 @@ main, #messages-card {
   justify-content: center;
 }
 
+/*#map-div {
+  width: 100%;
+  height: 100%;
+}*/
+
 #map {   /* <-- Always best to set the map height div explicitly. */
-  height: 500px;
-  width: 500px;
+  height: 700px;
+  width: 700px;
 }
 
 #description {
@@ -174,18 +179,18 @@ main, #messages-card {
  margin-right: 12px;
 }
 
-.pac-controls {
+.whereAddressPending {
  display: inline-block;
  padding: 5px 11px;
 }
 
-.pac-controls label {
+.whereAddressPending label {
  font-family: Roboto;
  font-size: 13px;
  font-weight: 300;
 }
 
-#pac-input {
+#whereAddressPending {
  background-color: #fff;
  font-family: Roboto;
  font-size: 15px;
@@ -196,7 +201,7 @@ main, #messages-card {
  width: 400px;
 }
 
-#pac-input:focus {
+#whereAddressPending:focus {
  border-color: #ec1928;
 }
 
@@ -270,11 +275,11 @@ h1,h2,h3,h4,h5 {
 
 /* Harmonizing Googls Maps input field with theme */
 
-#pac-input {
+#whereAddressPending {
   position: 0;
   transition: 0.2s ease all;
 }
-#pac-input:focus {
+#whereAddressPending:focus {
   border-color: red;
   border-width: 2px;
 
@@ -350,6 +355,8 @@ h1,h2,h3,h4,h5 {
   justify-content: center;
   padding-top: 5%;
   font-size: 2em;
+  width: 100%;
+  height: 100%;
 }
 
 .message img {
