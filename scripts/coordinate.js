@@ -1,73 +1,6 @@
 // Use code to coordinate DoWhops.
 
 var currentSessionID;
-function initAutocomplete() {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: { lat: -33.8688, lng: 151.2195 },
-    zoom: 13,
-    mapTypeId: 'roadmap'
-  });
-
-  // Create the search box and link it to the UI element.
-  var input = document.getElementById('pac-input');
-  var searchBox = new google.maps.places.SearchBox(input);
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-  // Bias the SearchBox results towards current map's viewport.
-  map.addListener('bounds_changed', function() {
-    searchBox.setBounds(map.getBounds());
-  });
-
-  var markers = [];
-  // Listen for the event fired when the user selects a prediction.
-  searchBox.addListener('places_changed', function() {
-    var places = searchBox.getPlaces();
-
-    if (places.length == 0) {
-      return;
-    }
-
-    // Clear out the old markers.
-    markers.forEach(function(marker) {
-      marker.setMap(null);
-    });
-    markers = [];
-
-    // For each place, get the icon, name and location.
-    var bounds = new google.maps.LatLngBounds();
-    places.forEach(function(place) {
-      if (!place.geometry) {
-        console.log('Returned place contains no geometry');
-        return;
-      }
-      var icon = {
-        url: place.icon,
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(25, 25)
-      };
-
-      // Create a marker for each place.
-      markers.push(
-        new google.maps.Marker({
-          map: map,
-          icon: icon,
-          title: place.name,
-          position: place.geometry.location
-        })
-      );
-
-      if (place.geometry.viewport) {
-        // Only geocodes have viewport.
-        bounds.union(place.geometry.viewport);
-      } else {
-        bounds.extend(place.geometry.location);
-      }
-    });
-    map.fitBounds(bounds);
-  });
-}
 
 function getSesh(node) {
   FriendlyChat.prototype.getSession();
@@ -121,7 +54,6 @@ function FriendlyChat() {
   this.pendingDiv = document.getElementById('pending-div');
   this.submitApproval = document.getElementById('submit-approval-button');
   this.submitRescind = document.getElementById('submit-rescind-button');
-  this.chatInputMap = document.getElementById('map');
 
   // Load chat data:
   this.chatItemData = document.getElementById('coordinate-tab');
@@ -263,7 +195,7 @@ FriendlyChat.prototype.getSession = function() {
       document.getElementById('pending-div').removeAttribute('hidden');
 
       // This means visiting user is the creator of event:
-      if (firebase.auth().currentUser.uid == data.val().createdBy || person.email == data.val().creatorDescription) {
+      if (firebase.auth().currentUser.uid == data.val().createdBy|| person.email == data.val().creatorDescription) {
         // console.log('visiting user is the creator. showing approval form, hiding rescind form.');
         pendingNotification = 'Someone has requested this change.\nDo you want to approve it?';
         document.getElementById('pending-div').innerText =
@@ -329,11 +261,10 @@ FriendlyChat.prototype.getSession = function() {
           data.val().downloadURL ||
           'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
         var doWhopDescriptionTitle = data.val().titleDescription || 'Your DoWhops Will Appear Here';
-
         return (dowhopSelectorDiv +=
-          "<aside id='" +
+          "<section id='" +
           data.key +
-          "' class='mdl-card mdl-shadow--6dp' onclick='sessionRef(this)''>" +
+          "' class='dowhop-selector-block' onclick='sessionRef(this)''>" +
           "<div class='dowhop-selector-header-top' style='background-image: url(" +
           imageUrl +
           ");'>" +
@@ -341,7 +272,7 @@ FriendlyChat.prototype.getSession = function() {
           doWhopDescriptionTitle +
           '</h1>' +
           '</div>' +
-          '</aside>');
+          '</section>');
       }
     });
 

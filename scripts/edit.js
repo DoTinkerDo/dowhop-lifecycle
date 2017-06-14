@@ -14,58 +14,58 @@ function addDoWhopImage(files_arr, node) {
   }
 }
 
-Array.from(document.getElementsByClassName('plus-button')).forEach(function(e) {
-  e.addEventListener('click', function() {
-    var self = this;
-    for (var p of self.classList) {
-      if (p == 'fa-plus-circle') {
-        self.classList.remove('fa-plus-circle');
-        self.classList.add('fa-minus-circle');
-        self.parentElement.parentElement.parentElement.nextSibling.nextSibling.childNodes.forEach(function(c, self) {
-          if (c.nodeName != '#text') {
-            c.classList.add('slideDown');
-            c.classList.remove('slideUp');
-          }
-        });
-        break;
-      } else if (p == 'fa-minus-circle') {
-        self.classList.remove('fa-minus-circle');
-        self.classList.add('fa-plus-circle');
-        self.parentElement.parentElement.parentElement.nextSibling.nextSibling.childNodes.forEach(function(c, self) {
-          if (c.nodeName != '#text') {
-            if (c.classList[0] == 'underbar_options') {
-              hideAll(c);
-            }
-            c.classList.add('slideUp');
-            c.classList.remove('slideDown');
-          }
-        });
-        break;
-      }
-    }
-  });
-});
-
-Array.from(document.getElementsByClassName('img_icon')).forEach(function(e) {
-  e.addEventListener('click', function() {
-    var self = this;
-    self.parentElement.nextElementSibling.childNodes.forEach(function(c) {
-      if (c.nodeName != '#text' && c.id.split('_')[0] == self.id) {
-        if (c.parentElement.dataset.openoption != '' && c.parentElement.dataset.openoption != c.id) {
-          //closes other tabs
-          hideOption(c.parentElement.childNodes[1], c.parentElement.dataset.openoption);
-        }
-        if (c.parentElement.dataset.openoption == c.id) {
-          c.setAttribute('hidden', true);
-          c.parentElement.dataset.openoption = '';
-        } else {
-          c.removeAttribute('hidden');
-          c.parentElement.dataset.openoption = c.id;
-        }
-      }
-    });
-  });
-});
+// Array.from(document.getElementsByClassName('plus-button')).forEach(function(e) {
+//   e.addEventListener('click', function() {
+//     var self = this;
+//     for (var p of self.classList) {
+//       if (p == 'fa-plus-circle') {
+//         self.classList.remove('fa-plus-circle');
+//         self.classList.add('fa-minus-circle');
+//         self.parentElement.parentElement.parentElement.nextSibling.nextSibling.childNodes.forEach(function(c, self) {
+//           if (c.nodeName != '#text') {
+//             c.classList.add('slideDown');
+//             c.classList.remove('slideUp');
+//           }
+//         });
+//         break;
+//       } else if (p == 'fa-minus-circle') {
+//         self.classList.remove('fa-minus-circle');
+//         self.classList.add('fa-plus-circle');
+//         self.parentElement.parentElement.parentElement.nextSibling.nextSibling.childNodes.forEach(function(c, self) {
+//           if (c.nodeName != '#text') {
+//             if (c.classList[0] == 'underbar_options') {
+//               hideAll(c);
+//             }
+//             c.classList.add('slideUp');
+//             c.classList.remove('slideDown');
+//           }
+//         });
+//         break;
+//       }
+//     }
+//   });
+// });
+//
+// Array.from(document.getElementsByClassName('img_icon')).forEach(function(e) {
+//   e.addEventListener('click', function() {
+//     var self = this;
+//     self.parentElement.nextElementSibling.childNodes.forEach(function(c) {
+//       if (c.nodeName != '#text' && c.id.split('_')[0] == self.id) {
+//         if (c.parentElement.dataset.openoption != '' && c.parentElement.dataset.openoption != c.id) {
+//           //closes other tabs
+//           hideOption(c.parentElement.childNodes[1], c.parentElement.dataset.openoption);
+//         }
+//         if (c.parentElement.dataset.openoption == c.id) {
+//           c.setAttribute('hidden', true);
+//           c.parentElement.dataset.openoption = '';
+//         } else {
+//           c.removeAttribute('hidden');
+//           c.parentElement.dataset.openoption = c.id;
+//         }
+//       }
+//     });
+//   });
+// });
 
 function createDoWhop(data, clearForm) {
   // Collect form data and clear it:
