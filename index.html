@@ -66,40 +66,39 @@
 
     </header> <!-- End Navigation -->
 
-    <!-- DoWhop Selected Header Image Container -->
-    <section class="mdl-grid">
-      <div class="mdl-cell mdl-cell--7-col">
-        <div id="dowhop-selector-container"></div>
-      </div>
-    </section> <!-- End Image Container -->
-
     <!-- Pending Notifications Container -->
-    <section id='pending-div-container' class='pending-notification'>
-      <div id='pending-div'></div>
-      <form hidden id='approve-pending-form' class='approval-form'>
-        <input id="radioApprove" type='radio' name='approval' value='approve'>Approve
-        <input id="radioDeny" type='radio' name='approval' value='deny'>Deny
-        <button id='submit-approval-button' type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect'>Send
+    <section id="pending-div-container" class="pending-notification mdl-grid">
+      <div id="pending-div"></div>
+      <form hidden id="approve-pending-form" class="approval-form">
+        <input id="radioApprove" type="radio" name="approval" value="approve">Approve
+        <input id="radioDeny" type="radio" name="approval" value="deny">Deny
+        <button id="submit-approval-button" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Send
         </button>
       </form>
-      <form hidden id='rescind-pending-form' class='approval-form'>
-        <button id='submit-rescind-button' type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect'>Rescind
+      <form hidden id="rescind-pending-form" class="approval-form">
+        <button id="submit-rescind-button" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Rescind
         </button>
       </form>
     </section> <!-- End Notifications Container -->
 
-    <!-- Start Edit Panel -->
-    <section id="edit" class="panel">
-      <div class="mdl-grid">
-        
-        <!-- Start DoWhop Selector cards -->
-        <div class="mdl-cell mdl-cell--5-col">
-          <div id="user-list-wrap"></div>
-          <!-- DoWhop Selector Cards Get Rendered Here -->
-        </div> <!-- Close DoWhopSelectors wrap
+    <!-- Main MDL Grid around DoWhop Selector cards and Life cycle apps -->
+    <!-- 5 and 7 columns on desktop -->
+    <main class="mdl-grid">
 
-        <!-- Start Edit-update form (based on create form below) -->
-        <div class="mdl-cell mdl-cell--7-col">
+      <!-- Start DoWhop Selector cards -->
+      <div class="mdl-cell mdl-cell--5-col">
+        <div id="user-list-wrap"></div>
+        <!-- DoWhop Selector Cards Get Rendered Here -->
+      </div> <!-- Close DoWhopSelectors wrap -->
+
+      <!-- Outer 7 columns  -->
+      <div class="mdl-cell mdl-cell--7-col">
+        <!-- Currently Selected DoWhop Top Image Container -->
+        <div id="dowhop-selector-container"></div> <!-- End Image Container -->
+        
+        <!-- Start Edit Panel -->
+        <section id="edit" class="panel">
+          <!-- Start Edit-update form (based on create form below) -->
           <div class="mdl-card mdl-shadow--6dp">
             <div class="mdl-layout__content">
               <form id="edit-dowhop-form" hidden="true" action="">
@@ -153,15 +152,11 @@
               </form>
             </div>
           </div>
-        </div>    <!-- End edit form -->
-      </div>    <!-- End MDL grid -->
-    </section> <!-- End Edit Panel tab -->
+        </section> <!-- End Edit Panel tab -->
 
-    <!-- Start Coordinate app -->
-    <section id="coordinate" class="panel">
-      <div class="mdl-grid">
-      <div class="mdl-cell mdl-cell--7-col">
-        <div id="show-chat-data"></div>
+        <!-- Start Coordinate app -->
+        <section id="coordinate" class="panel">
+          <div id="show-chat-data"></div>
           <div id="messages-card-container" class="form-wrap">
             <!-- Messages container -->
             <div id="messages-card">
@@ -217,16 +212,11 @@
             <div class="mdl-snackbar__text"></div>
             <button class="mdl-snackbar__action" type="button"></button>
           </div>
-        </div>        <!-- End message card container -->
-        </div>      <!-- End columns -->
-      </div>     <!-- End MDL grid -->
-    </section> <!-- End coordinate app  -->
+        </section> <!-- End coordinate app  -->
 
-    <!-- review app  -->
-    <section id="review" class="panel">
-      <!-- Show comments and ratings for creator/doer/dowhop -->
-      <section class="mdl-grid">
-        <aside class="mdl-cell mdl-cell--7-col">
+        <!-- review app  -->
+        <section id="review" class="panel">
+          <!-- Show comments and ratings for creator/doer/dowhop -->
           <div class="mdl-card mdl-shadow--6dp">
             <div class="mdl-layout__content">
               <div class="mdl-card__title">
@@ -259,12 +249,7 @@
               </div>
             </div>
           </div>
-        </aside>
-      </section> <!-- End show comment and ratings -->
-
-      <!-- Form for comments and ratings -->
-      <section class="mdl-grid">
-        <div class="mdl-cell mdl-cell--7-col">
+          <!-- Form for comments and ratings -->
           <div class="mdl-grid">
             <aside class="mdl-cell mdl-cell--6-col hide-component" id="creator-input-container">
               <div class="mdl-card mdl-shadow--6dp">
@@ -338,36 +323,35 @@
                 </div>
               </div>
             </aside>
-          </div> <!-- End form for comments and ratings -->
-        </div> <!-- End outer columns -->
-      </section> <!-- End end outer grid -->
-
-    </section> <!-- End review app  -->
+          </div> <!-- End grid for form for comments and ratings -->
+        </section> <!-- End review app panel -->
+      </div> <!-- End outer 7 columns -->
+    </main>  <!-- End main MDL grid -->
   </section> <!-- End Application Container -->
   
-  <script src="scripts/google-map.js"></script>
-  <script src="scripts/login.js"></script>
-  <script src="scripts/tabs.js"></script>
-  <script src="scripts/edit.js"></script>
-  <script src="scripts/coordinate.js"></script>
-  <script src="ratings/rating-lib/rating.min.js"></script>
-  <script src="ratings/rating-lib/weighted-ratings.js"></script>
-  <script src="scripts/dowhop-reviews.js"></script>
-  <script>
-    // Script to change SignIn button text to Login
-    var btnLogOut = document.querySelector('.btn-logout');
-    function changeLoginText() {
-      var btnSpans = document.querySelectorAll('.firebaseui-idp-text-long');
-      if (btnSpans.length > 0) {
-        btnSpans[0].innerHTML = 'Login with Google';
-        btnSpans[1].innerHTML = 'Login with Facebook';
-        btnSpans[2].innerHTML = 'Login with Email';
-      } else {
-        console.log('NO LOGIN BUTTONS SELECTED');
-      }
+<script src="scripts/google-map.js"></script>
+<script src="scripts/login.js"></script>
+<script src="scripts/tabs.js"></script>
+<script src="scripts/edit.js"></script>
+<script src="scripts/coordinate.js"></script>
+<script src="ratings/rating-lib/rating.min.js"></script>
+<script src="ratings/rating-lib/weighted-ratings.js"></script>
+<script src="scripts/dowhop-reviews.js"></script>
+<script>
+  // Script to change SignIn button text to Login
+  var btnLogOut = document.querySelector('.btn-logout');
+  function changeLoginText() {
+    var btnSpans = document.querySelectorAll('.firebaseui-idp-text-long');
+    if (btnSpans.length > 0) {
+      btnSpans[0].innerHTML = 'Login with Google';
+      btnSpans[1].innerHTML = 'Login with Facebook';
+      btnSpans[2].innerHTML = 'Login with Email';
+    } else {
+      console.log('NO LOGIN BUTTONS SELECTED');
     }
-    btnLogOut.addEventListener('click', changeLoginText);
-    window.addEventListener('load', changeLoginText);
-  </script>
-  </body>
+  }
+  btnLogOut.addEventListener('click', changeLoginText);
+  window.addEventListener('load', changeLoginText);
+</script>
+</body>
 </html>
