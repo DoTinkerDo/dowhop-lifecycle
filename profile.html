@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DoWhop Profile</title>
+    <!-- Adding jQUery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <!-- Adding font 'Avenir Light' -->
+    <link rel="stylesheet" href="styles/font-styles.css">
+    <!-- Material Design Lite -->
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.red-blue.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" /> <!-- Firebase UI CSS for Web Auth -->
+    <link rel="stylesheet" href="styles/main.css"> <!--Catch-all stylings-->
+    <link rel="stylesheet" href="styles/login-tabs-styles.css">
+    <link rel="stylesheet" href="styles/dowhop-selector-style.css">
+    <!-- Functional -->
+    <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>  <!-- Firebase library -->
+    <script src="scripts/firebase.js"></script> <!-- Initialize Firebase app -->
+    <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script> <!-- Lodash ._ -->
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script> <!-- Firebase UI JS for Web Auth -->
+  </head>
+  <body>
+      <div class="mdl-grid">
+        <h1>Welcome to DoWhop!</h1>
+      </div>
+      <div id="create-profile-div" class="panel"><!-- Begin Create New Profile Form -->
+        <div class="mdl-cell mdl-cell--6-col">
+          <div class="mdl-card mdl-shadow--6dp">
+            <div class="mdl-layout__content">
+              <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Make Your Profile</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                <form id="create-profile-form" action="#">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="profile-name" placeholder="Your name"></input>
+                    <label class="mdl-textfield__label" for="profile-name">What's your name?</label>
+                    <div class="mdl-tooltip" for="profile-name">What's your preferred name?</div>
+                  </div>
+
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <textarea class="mdl-textfield__input" type="text" id="profile-about" placeholder="What kinds of DoWhops do you like to do?"></textarea>
+                    <label class="mdl-textfield__label" row="3" for="profile-about">What is your story?</label>
+                    <div class="mdl-tooltip" for="profile-about">Tell the community about yourself. What makes you unique?</div>
+                  </div>
+
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="profile-activities-1" placeholder="e.g., Casey is a dog enthusiast ">
+                    <label class="mdl-textfield__label" for="profile-activities-1">What activities do you like to do?</label>
+                    <div class="mdl-tooltip" for="profile-activities-1">Just add one here for now.</div>
+                  </div>
+
+                  <div class="mdl-card__actions">
+                    <input id="profile-image-capture" type="file" accept="image/*,capture=camera" onchange="addProfileImage(this.files, this)">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="create-new-profile">
+                      Submit Profile
+                      <div class="mdl-tooltip" for="create-new-profile">Click here to save your info!</div>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div> <!-- End Create New Profile Form -->
+    <script src="scripts/dowhop-profile-form-create.js"></script>
+  </body>
+</html>
