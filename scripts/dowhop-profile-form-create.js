@@ -25,17 +25,17 @@ function createProfile(e) {
     var currentProfile = firebase.auth().currentUser.uid;
     var profileRef = firebase.database().ref('app_users/' + currentProfile);
 
-  var profileData = {
-    profileName: createProfileName.value,
-    profileAbout: createProfileName.value,
-    createProfileActivity1: createProfileActivity1.value
-  }
+  // Prepare user data:
+    var profileData = {
+      profileName: createProfileName.value,
+      profileAbout: createProfileName.value,
+      createProfileActivity1: createProfileActivity1.value
+    }
 
-  profileRef.update(profileData).then(function() {
-    console.log("Successful!");
-  });
-  console.log("resetting form!");
+  // Save information to db:
+    profileRef.update(profileData).then(function() {
+    });
+
   createProfileForm.reset();
-  console.log("You submitted a new profile!");
 
 }
