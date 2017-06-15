@@ -320,90 +320,123 @@ FriendlyChat.prototype.saveMessage = function(e) {
   var currentUser = person;
   var whenDatePending = this.whenDatePending;
   var whenTimePending = this.whenTimePending;
-  var whereAddressPending = this.whereAddressPending;
+  var whereAddressPending = this.messageFormWherePending;
 
   // For only all three attributes: Time, Date, Where:
 
   // this.getCombinations(this.messageFormWherePending, this.messageFormWhenTimePending, this.messageFormWherePending); TODO
-
-  if (this.messageFormWhenDatePending.value && this.messageFormWhenTimePending.value && this.messageFormWherePending) {
-    // Send the inputted date/time suggestion to the event it's associated with:
+  if (this.messageFormWhenDatePending.value || this.messageFormWhenTimePending.value || this.messageFormWherePending) {
     var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
-    // Send a notification to the thread:
+
+    var messageText = "";
+
+    messageText += currentUser.displayName + " has requested a change!\n";
+    if (this.messageFormWherePending.value) messageText += "Where: " + this.messageFormWherePending.value + "\n";
+    if (this.messageFormWhenTimePending.value || this.messageFormWhenDatePending.value) messageText += "On: ";
+    if (this.messageFormWhenTimePending.value) messageText += this.messageFormWhenTimePending.value + "\n";
+    if (this.messageFormWhenDatePending.value) messageText += this.messageFormWhenDatePending.value + "\n";
+
     messagesChatsRef.push({
       chatId: this.chatItemDataSpecific,
       name: currentUser.displayName,
-      text: currentUser.displayName +
-        ' has requested a change: ' +
-        this.messageFormWhenDatePending.value +
-        ' at ' +
-        this.messageFormWhenTimePending.value +
-        '  ' +
-        this.messageFormWherePending.value,
+      text: messageText,
       photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
     });
 
-    chatsRef
-      .update({
-        status: true,
-        whenDatePending: this.messageFormWhenDatePending.value,
-        whenTimePending: this.messageFormWhenTimePending.value,
-        whereAddressPending: this.messageFormWherePending.value,
-        requester: currentUser.uid
-      })
-      .then(this.resetDateTimeWhere); // <-- Reset the field.
-  }
-  // Check for just Which Day and What Time:
-  if (this.messageFormWhenDatePending.value && this.messageFormWhenTimePending.value) {
-    // Send the inputted date/time suggestion to the event it's associated with:
-    var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
-    // Send a notification to the thread:
-    messagesChatsRef.push({
-      chatId: this.chatItemDataSpecific,
-      name: currentUser.displayName,
-      text: currentUser.displayName +
-        ' has requested a change: ' +
-        this.messageFormWhenDatePending.value +
-        ' at ' +
-        this.messageFormWhenTimePending.value,
-      photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
-    });
+    chatsRef.update({status: true, requester: currentUser.uid }); // Refactoring to make it a dis-aggregated update.
+    if (this.messageFormWhenDatePending.value) chatsRef.update({ whenDatePending: this.messageFormWhenDatePending.value });
+    if (this.messageFormWhenTimePending.value) chatsRef.update({  whenTimePending: this.messageFormWhenTimePending.value });
+    if (this.messageFormWherePending.value) chatsRef.update({ whereAddressPending: this.messageFormWherePending.value });
+    // chatsRef
+    //   .update({
+    //     status: true,
+    //     whenDatePending: this.messageFormWhenDatePending.value,
+    //     whenTimePending: this.messageFormWhenTimePending.value,
+    //     whereAddressPending: this.messageFormWherePending.value,
+    //     requester: currentUser.uid
+    //   })
+    this.resetDateTimeWhere; // <-- Reset the field.
 
-    chatsRef
-      .update({
-        status: true,
-        whenDatePending: this.messageFormWhenDatePending.value,
-        whenTimePending: this.messageFormWhenTimePending.value,
-        requester: currentUser.uid
-      })
-      .then(this.resetDateTimeWhere); // <-- Reset the field.
-  }
-  // Check for just Where or When:
-  if (this.messageFormWhenDatePending.value || this.messageFormWhenTimePending.value) {
-    // Send the inputted date/time suggestion to the event it's associated with:
-    var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
-    // Send a notification to the thread:
-    messagesChatsRef.push({
-      chatId: this.chatItemDataSpecific,
-      name: currentUser.displayName,
-      text: currentUser.displayName +
-        ' has requested a change: ' +
-        this.messageFormWhenDatePending.value +
-        '  ' +
-        this.messageFormWhenTimePending.value,
-      photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
-    });
+  } // End of new test.
 
-    chatsRef
-      .update({
-        status: true,
-        whenDatePending: this.messageFormWhenDatePending.value,
-        whenTimePending: this.messageFormWhenTimePending.value,
-        whereAddressPending: this.messageFormWherePending.value,
-        requester: currentUser.uid
-      })
-      .then(this.resetDateTimeWhere); // <-- Reset the field.
-  }
+  // if (this.messageFormWhenDatePending.value && this.messageFormWhenTimePending.value && this.messageFormWherePending) {
+  //   // Send the inputted date/time suggestion to the event it's associated with:
+  //   var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
+  //   // Send a notification to the thread:
+  //   messagesChatsRef.push({
+  //     chatId: this.chatItemDataSpecific,
+  //     name: currentUser.displayName,
+  //     text: currentUser.displayName +
+  //       ' has requested a change: ' +
+  //       this.messageFormWhenDatePending.value +
+  //       ' at ' +
+  //       this.messageFormWhenTimePending.value +
+  //       '  ' +
+  //       this.messageFormWherePending.value,
+  //     photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
+  //   });
+  //
+  //   chatsRef
+  //     .update({
+  //       status: true,
+  //       whenDatePending: this.messageFormWhenDatePending.value,
+  //       whenTimePending: this.messageFormWhenTimePending.value,
+  //       whereAddressPending: this.messageFormWherePending.value,
+  //       requester: currentUser.uid
+  //     })
+  //     .then(this.resetDateTimeWhere); // <-- Reset the field.
+  // }
+  // // Check for just Which Day and What Time:
+  // if (this.messageFormWhenDatePending.value && this.messageFormWhenTimePending.value) {
+  //   // Send the inputted date/time suggestion to the event it's associated with:
+  //   var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
+  //   // Send a notification to the thread:
+  //   messagesChatsRef.push({
+  //     chatId: this.chatItemDataSpecific,
+  //     name: currentUser.displayName,
+  //     text: currentUser.displayName +
+  //       ' has requested a change: ' +
+  //       this.messageFormWhenDatePending.value +
+  //       ' at ' +
+  //       this.messageFormWhenTimePending.value,
+  //     photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
+  //   });
+  //
+  //   chatsRef
+  //     .update({
+  //       status: true,
+  //       whenDatePending: this.messageFormWhenDatePending.value,
+  //       whenTimePending: this.messageFormWhenTimePending.value,
+  //       requester: currentUser.uid
+  //     })
+  //     .then(this.resetDateTimeWhere); // <-- Reset the field.
+  // }
+  // // Check for just Where or When:
+  // if (this.messageFormWhenDatePending.value || this.messageFormWhenTimePending.value) {
+  //   // Send the inputted date/time suggestion to the event it's associated with:
+  //   var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
+  //   // Send a notification to the thread:
+  //   messagesChatsRef.push({
+  //     chatId: this.chatItemDataSpecific,
+  //     name: currentUser.displayName,
+  //     text: currentUser.displayName +
+  //       ' has requested a change: ' +
+  //       this.messageFormWhenDatePending.value +
+  //       '  ' +
+  //       this.messageFormWhenTimePending.value,
+  //     photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
+  //   });
+  //
+  //   chatsRef
+  //     .update({
+  //       status: true,
+  //       whenDatePending: this.messageFormWhenDatePending.value,
+  //       whenTimePending: this.messageFormWhenTimePending.value,
+  //       whereAddressPending: this.messageFormWherePending.value,
+  //       requester: currentUser.uid
+  //     })
+  //     .then(this.resetDateTimeWhere); // <-- Reset the field.
+  // }
 
   // Check that the user entered a message and is signed in:
   if (this.messageInput.value && this.checkSignedInWithMessage()) {
