@@ -4,27 +4,7 @@ var currentSessionID;
 
 function getSesh(node) {
   FriendlyChat.prototype.getSession();
-  // var anchorPoint = node.href.match(/\/#(.*)/)[0]; ! TO-DO: Convert to alternative "tool-tip" style.
-  // getSeshTutorial(anchorPoint);
 }
-
-// function getSeshTutorial(anchor) {
-//   var tutorial = document.getElementById('tutorial-container');
-//
-//   switch (anchor) {
-//     case '/#newdowhop':
-//       tutorial.innerText = 'Please create your DoWhop or select a DoWhop to do by clicking the icon.';
-//       break;
-//
-//     case '/#create':
-//       tutorial.innerText = 'Here you can view or edit your purchased or advertised DoWhop details.';
-//       break;
-//
-//     case '/#coordinate':
-//       tutorial.innerText = 'Here you can coordinate the DoWhop. Click banner to load messages.';
-//       break;
-//   }
-// }
 
 // Initializes FriendlyChat.
 function FriendlyChat() {
@@ -58,18 +38,9 @@ function FriendlyChat() {
   // Load chat data:
   this.chatItemData = document.getElementById('coordinate-tab');
   this.chatItemData.addEventListener('click', this.loadMessages.bind(this)); // <-- Developer: return to this.
-  // this.getSession();
-
-  // Save chats on chatroom form submit:
-  // this.newChatForm.addEventListener('submit', this.saveChat.bind(this));
-
-  // Reveal when and where upon form section click:
-  // this.newChatWhenIcon.addEventListener('click', this.showDateTimeInputs.bind(this));
 
   // Save message on form submit:
   this.messageForm.addEventListener('submit', this.saveMessage.bind(this));
-  // this.signOutButton.addEventListener('click', this.signOut.bind(this));
-  // this.signInButton.addEventListener('click', this.signIn.bind(this));
 
   // Toggle for the button:
   var buttonTogglingHandler = this.toggleButton.bind(this);
@@ -240,7 +211,6 @@ FriendlyChat.prototype.getSession = function() {
     var dowhopSelector = document.getElementById('dowhop-selector-container');
     var dowhopSelectorDiv = '';
     // Setting the header and check for pendings for the current DoWhop session:
-
     // Checking for changed pendings in real-time:
     firebase
       .database()
@@ -299,15 +269,6 @@ FriendlyChat.prototype.loadMessages = function() {
   this.messagesRef.orderByKey().limitToLast(12).on('child_changed', setMessage);
 };
 
-// Checking which of the when, where attributes are selected to generate appropriate response message:
-// FriendlyChat.prototype.getCombinations = function(a,b,c) {
-// var result = "";
-// if(a) result += a;
-// if(b) result += b;
-// if(c) result += c;
-// return result;
-// }
-
 // Saves a new message on the Firebase DB:
 FriendlyChat.prototype.saveMessage = function(e) {
   e.preventDefault();
@@ -323,8 +284,6 @@ FriendlyChat.prototype.saveMessage = function(e) {
   var whereAddressPending = this.messageFormWherePending;
 
   // For only all three attributes: Time, Date, Where:
-
-  // this.getCombinations(this.messageFormWherePending, this.messageFormWhenTimePending, this.messageFormWherePending); TODO
   if (this.messageFormWhenDatePending.value || this.messageFormWhenTimePending.value || this.messageFormWherePending) {
     var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
 
@@ -347,97 +306,9 @@ FriendlyChat.prototype.saveMessage = function(e) {
     if (this.messageFormWhenDatePending.value) chatsRef.update({ whenDatePending: this.messageFormWhenDatePending.value }).then(this.resetDate);
     if (this.messageFormWhenTimePending.value) chatsRef.update({  whenTimePending: this.messageFormWhenTimePending.value }).then(this.resetTime);
     if (this.messageFormWherePending.value) chatsRef.update({ whereAddressPending: this.messageFormWherePending.value }).then(this.resetWhere);
+    this.resetDateTimeWhere; // Catch-all.
 
-    // chatsRef
-    //   .update({
-    //     status: true,
-    //     whenDatePending: this.messageFormWhenDatePending.value,
-    //     whenTimePending: this.messageFormWhenTimePending.value,
-    //     whereAddressPending: this.messageFormWherePending.value,
-    //     requester: currentUser.uid
-    //   })
-    this.resetDateTimeWhere; // <-- Reset the field.
-
-  } // End of new test.
-
-  // if (this.messageFormWhenDatePending.value && this.messageFormWhenTimePending.value && this.messageFormWherePending) {
-  //   // Send the inputted date/time suggestion to the event it's associated with:
-  //   var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
-  //   // Send a notification to the thread:
-  //   messagesChatsRef.push({
-  //     chatId: this.chatItemDataSpecific,
-  //     name: currentUser.displayName,
-  //     text: currentUser.displayName +
-  //       ' has requested a change: ' +
-  //       this.messageFormWhenDatePending.value +
-  //       ' at ' +
-  //       this.messageFormWhenTimePending.value +
-  //       '  ' +
-  //       this.messageFormWherePending.value,
-  //     photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
-  //   });
-  //
-  //   chatsRef
-  //     .update({
-  //       status: true,
-  //       whenDatePending: this.messageFormWhenDatePending.value,
-  //       whenTimePending: this.messageFormWhenTimePending.value,
-  //       whereAddressPending: this.messageFormWherePending.value,
-  //       requester: currentUser.uid
-  //     })
-  //     .then(this.resetDateTimeWhere); // <-- Reset the field.
-  // }
-  // // Check for just Which Day and What Time:
-  // if (this.messageFormWhenDatePending.value && this.messageFormWhenTimePending.value) {
-  //   // Send the inputted date/time suggestion to the event it's associated with:
-  //   var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
-  //   // Send a notification to the thread:
-  //   messagesChatsRef.push({
-  //     chatId: this.chatItemDataSpecific,
-  //     name: currentUser.displayName,
-  //     text: currentUser.displayName +
-  //       ' has requested a change: ' +
-  //       this.messageFormWhenDatePending.value +
-  //       ' at ' +
-  //       this.messageFormWhenTimePending.value,
-  //     photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
-  //   });
-  //
-  //   chatsRef
-  //     .update({
-  //       status: true,
-  //       whenDatePending: this.messageFormWhenDatePending.value,
-  //       whenTimePending: this.messageFormWhenTimePending.value,
-  //       requester: currentUser.uid
-  //     })
-  //     .then(this.resetDateTimeWhere); // <-- Reset the field.
-  // }
-  // // Check for just Where or When:
-  // if (this.messageFormWhenDatePending.value || this.messageFormWhenTimePending.value) {
-  //   // Send the inputted date/time suggestion to the event it's associated with:
-  //   var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
-  //   // Send a notification to the thread:
-  //   messagesChatsRef.push({
-  //     chatId: this.chatItemDataSpecific,
-  //     name: currentUser.displayName,
-  //     text: currentUser.displayName +
-  //       ' has requested a change: ' +
-  //       this.messageFormWhenDatePending.value +
-  //       '  ' +
-  //       this.messageFormWhenTimePending.value,
-  //     photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
-  //   });
-  //
-  //   chatsRef
-  //     .update({
-  //       status: true,
-  //       whenDatePending: this.messageFormWhenDatePending.value,
-  //       whenTimePending: this.messageFormWhenTimePending.value,
-  //       whereAddressPending: this.messageFormWherePending.value,
-  //       requester: currentUser.uid
-  //     })
-  //     .then(this.resetDateTimeWhere); // <-- Reset the field.
-  // }
+  }
 
   // Check that the user entered a message and is signed in:
   if (this.messageInput.value && this.checkSignedInWithMessage()) {
@@ -461,20 +332,6 @@ FriendlyChat.prototype.saveMessage = function(e) {
       });
   }
 };
-
-// FriendlyChat.prototype.resetInput = function(input) {
-//   switch(input) {
-//     case "Date"
-//       document.getElementById('whenDatePending').value = null;
-//       break;
-//     case "Time"
-//       document.getElementById('whenTimePending').value = null;
-//       break;
-//     case "Where"
-//       document.getElementById('whereAddressPending').value = null;
-//       break;
-//   }
-// };
 
 FriendlyChat.prototype.resetDate = function() {
   document.getElementById('whenDatePending').value = null;
