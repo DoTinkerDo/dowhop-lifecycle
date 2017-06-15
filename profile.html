@@ -67,6 +67,15 @@
           </div>
         </div>
     </div> <!-- End Create New Profile Form -->
+    <section id="my-profile"> <!-- Start Show Profile Section -->
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="my-profile-button">
+        Show Profile
+        <div class="mdl-tooltip" for="my-profile-button">Click here to show your info!</div>
+      </button>
+      <div id="my-profile-name"></div>
+      <div id="my-profile-about"></div>
+      <div id="my-profile-activity-1"></div>
+    </section>
     <script>
     auth.onAuthStateChanged(function(user) {
       console.log("before there is user...");

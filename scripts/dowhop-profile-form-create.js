@@ -27,9 +27,10 @@ function createProfile(e) {
 
   // Prepare user data:
     var profileData = {
+      update: true,
       profileName: createProfileName.value,
-      profileAbout: createProfileName.value,
-      createProfileActivity1: createProfileActivity1.value
+      profileAbout: createProfileAbout.value,
+      profileActivity1: createProfileActivity1.value
     }
 
   // Save information to db:
@@ -37,5 +38,27 @@ function createProfile(e) {
     });
 
   createProfileForm.reset();
+
+}
+
+// Section for retrieving previously-existing user profiles:
+
+var myProfileButton = document.getElementById('my-profile-button');
+var myProfileName = document.getElementById('my-profile-name');
+var myProfileAbout = document.getElementById('my-profile-about');
+var myProfileActivity1 = document.getElementById('my-profile-activity-1');
+
+myProfileButton.addEventListener('click', retrieveProfile);
+
+function retrieveProfile() {
+  var currentProfile = firebase.auth().currentUser.uid;
+  console.log('getting for', currentProfile);
+  var profileRef = firebase.database().ref('app_users/' + currentProfile);
+
+  profileRef.on('value', function(snap) {
+    myProfileName.innerText = snap.val().profileName;
+    myProfileAbout.innerText = snap.val().profileAbout;
+    myProfileActivity1.innerText = snap.val().profileActivity1;
+  });
 
 }
