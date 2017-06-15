@@ -344,9 +344,10 @@ FriendlyChat.prototype.saveMessage = function(e) {
     });
 
     chatsRef.update({status: true, requester: currentUser.uid }); // Refactoring to make it a dis-aggregated update.
-    if (this.messageFormWhenDatePending.value) chatsRef.update({ whenDatePending: this.messageFormWhenDatePending.value });
-    if (this.messageFormWhenTimePending.value) chatsRef.update({  whenTimePending: this.messageFormWhenTimePending.value });
-    if (this.messageFormWherePending.value) chatsRef.update({ whereAddressPending: this.messageFormWherePending.value });
+    if (this.messageFormWhenDatePending.value) chatsRef.update({ whenDatePending: this.messageFormWhenDatePending.value }).then(this.resetDate);
+    if (this.messageFormWhenTimePending.value) chatsRef.update({  whenTimePending: this.messageFormWhenTimePending.value }).then(this.resetTime);
+    if (this.messageFormWherePending.value) chatsRef.update({ whereAddressPending: this.messageFormWherePending.value }).then(this.resetWhere);
+
     // chatsRef
     //   .update({
     //     status: true,
@@ -459,6 +460,32 @@ FriendlyChat.prototype.saveMessage = function(e) {
         console.error('Error writing new message to Firebase Database', error);
       });
   }
+};
+
+// FriendlyChat.prototype.resetInput = function(input) {
+//   switch(input) {
+//     case "Date"
+//       document.getElementById('whenDatePending').value = null;
+//       break;
+//     case "Time"
+//       document.getElementById('whenTimePending').value = null;
+//       break;
+//     case "Where"
+//       document.getElementById('whereAddressPending').value = null;
+//       break;
+//   }
+// };
+
+FriendlyChat.prototype.resetDate = function() {
+  document.getElementById('whenDatePending').value = null;
+};
+
+FriendlyChat.prototype.resetTime = function() {
+  document.getElementById('whenTimePending').value = null;
+};
+
+FriendlyChat.prototype.resetWhere = function() {
+  document.getElementById('whereAddressPending').value = null;
 };
 
 FriendlyChat.prototype.resetDateTimeWhere = function() {
