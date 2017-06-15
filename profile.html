@@ -49,14 +49,14 @@
                   </div>
 
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="profile-activities-1" placeholder="e.g., Casey is a dog enthusiast ">
-                    <label class="mdl-textfield__label" for="profile-activities-1">What activities do you like to do?</label>
-                    <div class="mdl-tooltip" for="profile-activities-1">Just add one here for now.</div>
+                    <input class="mdl-textfield__input" type="text" id="profile-activity-1" placeholder="e.g., Casey is a dog enthusiast ">
+                    <label class="mdl-textfield__label" for="profile-activity-1">What activities do you like to do?</label>
+                    <div class="mdl-tooltip" for="profile-activity-1">Just add one here for now.</div>
                   </div>
 
                   <div class="mdl-card__actions">
-                    <input id="profile-image-capture" type="file" accept="image/*,capture=camera" onchange="addProfileImage(this.files, this)">
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="create-new-profile">
+                    <!-- <input id="profile-image-capture" type="file" accept="image/*,capture=camera" onchange="addProfileImage(this.files, this)"> -->
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="create-profile-form-button">
                       Submit Profile
                       <div class="mdl-tooltip" for="create-new-profile">Click here to save your info!</div>
                     </button>
@@ -67,6 +67,17 @@
           </div>
         </div>
     </div> <!-- End Create New Profile Form -->
+    <script>
+    auth.onAuthStateChanged(function(user) {
+      console.log("before there is user...");
+      console.log(user);
+      if (user) {
+        console.log("there is user...");
+        console.log(user);
+        registerDoWhopDescriptionCallback();
+      }
+    });
+    </script>
     <script src="scripts/dowhop-profile-form-create.js"></script>
   </body>
 </html>
