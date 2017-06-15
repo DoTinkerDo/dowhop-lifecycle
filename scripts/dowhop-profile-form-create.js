@@ -22,23 +22,20 @@ function addDoWhopImage(files_arr, node) {
 
 function createProfile(e) {
     e.preventDefault();
-    console.log("You submitted a new profile!");
     var currentProfile = firebase.auth().currentUser.uid;
-    // var profileRef = firebase.database().ref('app_users/' + currentProfile);
-    console.log('creating profile');
-    console.log(currentProfile);
-    createProfileForm.reset();
-  // });
+    var profileRef = firebase.database().ref('app_users/' + currentProfile);
 
-  // var profileData = {
-  //   profileName: createProfileName.value,
-  //   profileAbout: createProfileName.value,
-  //   createProfileActivity1: createProfileActivity1.value
-  // }
-  //
-  // profileRef.update(profileData).then(function() {
-  //   consoel.log("Successful!");
-  // });
+  var profileData = {
+    profileName: createProfileName.value,
+    profileAbout: createProfileName.value,
+    createProfileActivity1: createProfileActivity1.value
+  }
+
+  profileRef.update(profileData).then(function() {
+    console.log("Successful!");
+  });
   console.log("resetting form!");
-  // createProfileForm.reset();
+  createProfileForm.reset();
+  console.log("You submitted a new profile!");
+
 }
