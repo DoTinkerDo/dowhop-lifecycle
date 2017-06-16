@@ -27,7 +27,7 @@ function createProfile(e) {
     var currentProfile = firebase.auth().currentUser.uid;
     var profileRef = firebase.database().ref('app_users/' + currentProfile);
 
-  // Prepare user data:
+    // Prepare user data:
     var profileData = {
       update: true,
       profileName: createProfileName.value,
@@ -36,11 +36,9 @@ function createProfile(e) {
       profileActivity2: createProfileActivity2.value,
       profileActivity3: createProfileActivity3.value
     }
-
-  // Save information to db:
+    // Save information to db:
     profileRef.update(profileData).then(function() {
     });
-
   createProfileForm.reset();
 
 }
@@ -58,11 +56,12 @@ var myProfileActivity3 = document.getElementById('my-profile-activity-3');
 var myProfilePicture = document.getElementById('my-profile-picture');
 
 function retrieveProfile(currentProfile) {
-  // currentProfile = firebase.auth().currentUser.uid;
+  // We are testing whether visiting user is looking at own profile (default), or other's via query parameter:
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   console.log('getting for', currentProfile);
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
 
+  // Retrieving relevant data from the database:
   profileRef.on('value', function(snap) {
     myDisplayName.innerText = snap.val().displayName;
     myProfileName.innerText = snap.val().profileName;
@@ -71,12 +70,10 @@ function retrieveProfile(currentProfile) {
     myProfileActivity1.innerText = snap.val().profileActivity1;
     myProfileActivity2.innerText = snap.val().profileActivity2;
     myProfileActivity3.innerText = snap.val().profileActivity3;
-    myProfilePicture.style.backgroundImage = 'url(' + snap.val().photoURL + ')';
+    myProfilePicture.src = snap.val().photoURL;
+    // myProfilePicture.style.backgroundImage = 'url(' + snap.val().photoURL + ')';
   });
-
 }
-
-// console.log(retrieveUrl(window.location.href));
 
 // For looking at someone else's profile via query parameter:
 function retrieveUrl(loc) {
