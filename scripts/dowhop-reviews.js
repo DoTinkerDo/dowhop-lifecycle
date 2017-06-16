@@ -52,7 +52,11 @@ auth.onAuthStateChanged(function(user) {
       doWhopDescriptionRef.on('value', function(snapshot) {
         var selectedDoWhop = snapshot.val();
         var currentUserEmail = user.email;
-        if (currentUserEmail === selectedDoWhop.doerDescription) {
+        if (
+          selectedDoWhop.doerDescription.split(', ').some(function(doerDescriptionEmail) {
+            return doerDescriptionEmail === currentUserEmail;
+          })
+        ) {
           doerRatingInput.style.display = 'none';
           creatorRatingInput.style.display = 'block';
         } else if (currentUserEmail === selectedDoWhop.creatorDescription) {
