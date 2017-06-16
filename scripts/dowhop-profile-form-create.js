@@ -55,7 +55,7 @@ var myProfileActivity2 = document.getElementById('my-profile-activity-2');
 var myProfileActivity3 = document.getElementById('my-profile-activity-3');
 var myProfilePicture = document.getElementById('my-profile-picture');
 
-myProfileButton.addEventListener('click', retrieveProfile);
+// myProfileButton.addEventListener('click', retrieveProfile);
 
 function retrieveProfile() {
   var currentProfile = firebase.auth().currentUser.uid;
@@ -72,3 +72,14 @@ function retrieveProfile() {
   });
 
 }
+
+auth.onAuthStateChanged(function(user) {
+  // console.log("before there is user... in js");
+  // console.log(user);
+  if (user) {
+    retrieveProfile();
+    // console.log("there is user...in js");
+    // console.log(user);
+    // registerDoWhopDescriptionCallback();
+  }
+});
