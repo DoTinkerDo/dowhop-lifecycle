@@ -46,8 +46,9 @@ function createProfile(e) {
 }
 
 // Section for retrieving previously-existing user profiles:
-
+var currentProfile;
 var myProfileButton = document.getElementById('my-profile-button');
+var myDisplayName = document.getElementById('my-display-name');
 var myProfileName = document.getElementById('my-profile-name');
 var myProfileAbout = document.getElementById('my-profile-about');
 var myProfileActivity1 = document.getElementById('my-profile-activity-1');
@@ -55,14 +56,14 @@ var myProfileActivity2 = document.getElementById('my-profile-activity-2');
 var myProfileActivity3 = document.getElementById('my-profile-activity-3');
 var myProfilePicture = document.getElementById('my-profile-picture');
 
-// myProfileButton.addEventListener('click', retrieveProfile);
-
-function retrieveProfile() {
-  var currentProfile = firebase.auth().currentUser.uid;
+function retrieveProfile(currentProfile) {
+  // currentProfile = firebase.auth().currentUser.uid;
+  currentProfile = retrieveUrl(window.location.href);
   console.log('getting for', currentProfile);
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
 
   profileRef.on('value', function(snap) {
+    myDisplayName.innerText = snap.val().displayName;
     myProfileName.innerText = snap.val().profileName;
     myProfileAbout.innerText = snap.val().profileAbout;
     myProfileActivity1.innerText = snap.val().profileActivity1;
@@ -73,13 +74,18 @@ function retrieveProfile() {
 
 }
 
+console.log(retrieveUrl(window.location.href));
+
+// For looking at someone else's profile via query parameter:
+function retrieveUrl(loc) {
+  var y = loc.match(/\?(.+)/)[1];
+  console.log("seeking data for!!!...", y);
+  return y
+}
+
+// For looking at your own profile (user is logged in):
 auth.onAuthStateChanged(function(user) {
-  // console.log("before there is user... in js");
-  // console.log(user);
   if (user) {
     retrieveProfile();
-    // console.log("there is user...in js");
-    // console.log(user);
-    // registerDoWhopDescriptionCallback();
   }
 });
