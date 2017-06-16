@@ -47,6 +47,7 @@ var myProfileButton = document.getElementById('my-profile-button');
 var myProfileName = document.getElementById('my-profile-name');
 var myProfileAbout = document.getElementById('my-profile-about');
 var myProfileActivity1 = document.getElementById('my-profile-activity-1');
+var myProfilePicture = document.getElementById('my-profile-picture');
 
 myProfileButton.addEventListener('click', retrieveProfile);
 
@@ -59,6 +60,7 @@ function retrieveProfile() {
     myProfileName.innerText = snap.val().profileName;
     myProfileAbout.innerText = snap.val().profileAbout;
     myProfileActivity1.innerText = snap.val().profileActivity1;
+    myProfilePicture.style.backgroundImage = 'url(' + snap.val().photoURL + ')';
   });
 
 }
