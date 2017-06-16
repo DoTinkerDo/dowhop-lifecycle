@@ -6,6 +6,8 @@ var createProfileForm = document.getElementById('create-profile-form');
 var createProfileName = document.getElementById('profile-name');
 var createProfileAbout = document.getElementById('profile-about');
 var createProfileActivity1 = document.getElementById('profile-activity-1');
+var createProfileActivity2 = document.getElementById('profile-activity-2');
+var createProfileActivity3 = document.getElementById('profile-activity-3');
 var createProfileFormBtn = document.getElementById('create-profile-form-button');
 
 createProfileFormBtn.addEventListener('click', createProfile);
@@ -30,7 +32,9 @@ function createProfile(e) {
       update: true,
       profileName: createProfileName.value,
       profileAbout: createProfileAbout.value,
-      profileActivity1: createProfileActivity1.value
+      profileActivity1: createProfileActivity1.value,
+      profileActivity2: createProfileActivity2.value,
+      profileActivity3: createProfileActivity3.value
     }
 
   // Save information to db:
@@ -47,6 +51,8 @@ var myProfileButton = document.getElementById('my-profile-button');
 var myProfileName = document.getElementById('my-profile-name');
 var myProfileAbout = document.getElementById('my-profile-about');
 var myProfileActivity1 = document.getElementById('my-profile-activity-1');
+var myProfileActivity2 = document.getElementById('my-profile-activity-2');
+var myProfileActivity3 = document.getElementById('my-profile-activity-3');
 var myProfilePicture = document.getElementById('my-profile-picture');
 
 myProfileButton.addEventListener('click', retrieveProfile);
@@ -60,6 +66,8 @@ function retrieveProfile() {
     myProfileName.innerText = snap.val().profileName;
     myProfileAbout.innerText = snap.val().profileAbout;
     myProfileActivity1.innerText = snap.val().profileActivity1;
+    myProfileActivity2.innerText = snap.val().profileActivity2;
+    myProfileActivity3.innerText = snap.val().profileActivity3;
     myProfilePicture.style.backgroundImage = 'url(' + snap.val().photoURL + ')';
   });
 
