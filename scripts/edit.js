@@ -1,10 +1,9 @@
+'use strict';
+
 // Use code below to edit/update information for a selected DoWhop.
 
-document.getElementById('submit').addEventListener('click', createDoWhop);
-var rootRef = firebase.database().ref('app_users/');
-var rootRefEvents = firebase.database().ref('doWhopDescription/');
-
-// document.getElementById('whenDate').setAttribute('value', getDate());
+var rootRef = database.ref('app_users/');
+var rootRefEvents = database.ref('doWhopDescription/');
 
 function addDoWhopImage(files_arr, node) {
   return (file = files_arr[0]);
@@ -14,62 +13,17 @@ function addDoWhopImage(files_arr, node) {
   }
 }
 
-// Array.from(document.getElementsByClassName('plus-button')).forEach(function(e) {
-//   e.addEventListener('click', function() {
-//     var self = this;
-//     for (var p of self.classList) {
-//       if (p == 'fa-plus-circle') {
-//         self.classList.remove('fa-plus-circle');
-//         self.classList.add('fa-minus-circle');
-//         self.parentElement.parentElement.parentElement.nextSibling.nextSibling.childNodes.forEach(function(c, self) {
-//           if (c.nodeName != '#text') {
-//             c.classList.add('slideDown');
-//             c.classList.remove('slideUp');
-//           }
-//         });
-//         break;
-//       } else if (p == 'fa-minus-circle') {
-//         self.classList.remove('fa-minus-circle');
-//         self.classList.add('fa-plus-circle');
-//         self.parentElement.parentElement.parentElement.nextSibling.nextSibling.childNodes.forEach(function(c, self) {
-//           if (c.nodeName != '#text') {
-//             if (c.classList[0] == 'underbar_options') {
-//               hideAll(c);
-//             }
-//             c.classList.add('slideUp');
-//             c.classList.remove('slideDown');
-//           }
-//         });
-//         break;
-//       }
-//     }
-//   });
-// });
-//
-// Array.from(document.getElementsByClassName('img_icon')).forEach(function(e) {
-//   e.addEventListener('click', function() {
-//     var self = this;
-//     self.parentElement.nextElementSibling.childNodes.forEach(function(c) {
-//       if (c.nodeName != '#text' && c.id.split('_')[0] == self.id) {
-//         if (c.parentElement.dataset.openoption != '' && c.parentElement.dataset.openoption != c.id) {
-//           //closes other tabs
-//           hideOption(c.parentElement.childNodes[1], c.parentElement.dataset.openoption);
-//         }
-//         if (c.parentElement.dataset.openoption == c.id) {
-//           c.setAttribute('hidden', true);
-//           c.parentElement.dataset.openoption = '';
-//         } else {
-//           c.removeAttribute('hidden');
-//           c.parentElement.dataset.openoption = c.id;
-//         }
-//       }
-//     });
-//   });
-// });
+var editDoWhopForm = document.getElementById('edit-dowhop-form');
+editDoWhopForm.addEventListener('click', function(e) {
+  e.preventDefault();
+});
+
+var submitUpdateDoWhopBtn = document.getElementById('submit-update-dowhop');
+submitUpdateDoWhopBtn.addEventListener('click', createDoWhop);
 
 function createDoWhop(data, clearForm) {
   // Collect form data and clear it:
-  var createdBy = firebase.auth().currentUser.uid;
+  var createdBy = auth.currentUser.uid;
   var titleDescription = document.getElementById('titleDescription');
   // var titleImage = document.getElementById('titleImage');
   var whoDescription = document.getElementById('whoDescription');
@@ -158,8 +112,8 @@ function createDoWhop(data, clearForm) {
 }
 
 function retrieveMyDoWhops(uid) {
-  var rootRefEvents = firebase.database().ref('doWhopDescription/');
-  var rootRefDoer = firebase.database().ref('app_users/' + uid);
+  var rootRefEvents = database.ref('doWhopDescription/');
+  var rootRefDoer = database.ref('app_users/' + uid);
 
   var makeDoWhopSelector = function(container, data) {
     let imageUrl = '';
@@ -219,7 +173,7 @@ function retrieveMyDoWhops(uid) {
   var retrieveElement = function(id) {
     let container = document.getElementById('user-list-wrap');
 
-    let myTempRef = firebase.database().ref('/doWhopDescription/' + id);
+    let myTempRef = database.ref('/doWhopDescription/' + id);
     myTempRef.once('value').then(function(data) {
       if (data.val()) {
         makeDoWhopSelector(container, data);
@@ -265,8 +219,8 @@ function handleFile(files_arr, node) {
     return;
   }
 
-  var filePath = firebase.auth().currentUser.uid + '/' + imagified + '/' + file.name;
-  return firebase.storage().ref(filePath).put(file).then(function(snapshot, node) {
+  var filePath = auth.currentUser.uid + '/' + imagified + '/' + file.name;
+  return storage.ref(filePath).put(file).then(function(snapshot, node) {
     var fullPath = snapshot.metadata.fullPath; //TIP: snapshot.metadata.downloadURLs[0] <-- Gets the viewable image link
     document.getElementById(fullPath.split('/')[1]).innerHTML = fullPath;
   });
@@ -311,7 +265,7 @@ function hideAll(underbar_options) {
 
 function showEditForm(node) {
   var editForm = document.getElementById('edit-dowhop-form');
-  var rootRefEvent = firebase.database().ref('doWhopDescription/' + node.id);
+  var rootRefEvent = database.ref('doWhopDescription/' + node.id);
   rootRefEvent.once('value').then(function(snap) {
     if (snap.val().creatorDescription === auth.currentUser.email || snap.val().createdBy === auth.currentUser.uid) {
       editForm.removeAttribute('hidden');
@@ -324,7 +278,7 @@ function showEditForm(node) {
 function sessionRef(node) {
   fillInForms(node);
   showEditForm(node);
-  firebase.database().ref().child('session/' + person.uid).set({ current_dowhop: node.id });
+  database.ref().child('session/' + person.uid).set({ current_dowhop: node.id });
 }
 
 function fillInForms(node) {
@@ -346,3 +300,55 @@ function fillInForms(node) {
     });
   });
 }
+
+// Array.from(document.getElementsByClassName('plus-button')).forEach(function(e) {
+//   e.addEventListener('click', function() {
+//     var self = this;
+//     for (var p of self.classList) {
+//       if (p == 'fa-plus-circle') {
+//         self.classList.remove('fa-plus-circle');
+//         self.classList.add('fa-minus-circle');
+//         self.parentElement.parentElement.parentElement.nextSibling.nextSibling.childNodes.forEach(function(c, self) {
+//           if (c.nodeName != '#text') {
+//             c.classList.add('slideDown');
+//             c.classList.remove('slideUp');
+//           }
+//         });
+//         break;
+//       } else if (p == 'fa-minus-circle') {
+//         self.classList.remove('fa-minus-circle');
+//         self.classList.add('fa-plus-circle');
+//         self.parentElement.parentElement.parentElement.nextSibling.nextSibling.childNodes.forEach(function(c, self) {
+//           if (c.nodeName != '#text') {
+//             if (c.classList[0] == 'underbar_options') {
+//               hideAll(c);
+//             }
+//             c.classList.add('slideUp');
+//             c.classList.remove('slideDown');
+//           }
+//         });
+//         break;
+//       }
+//     }
+//   });
+// });
+// Array.from(document.getElementsByClassName('img_icon')).forEach(function(e) {
+//   e.addEventListener('click', function() {
+//     var self = this;
+//     self.parentElement.nextElementSibling.childNodes.forEach(function(c) {
+//       if (c.nodeName != '#text' && c.id.split('_')[0] == self.id) {
+//         if (c.parentElement.dataset.openoption != '' && c.parentElement.dataset.openoption != c.id) {
+//           //closes other tabs
+//           hideOption(c.parentElement.childNodes[1], c.parentElement.dataset.openoption);
+//         }
+//         if (c.parentElement.dataset.openoption == c.id) {
+//           c.setAttribute('hidden', true);
+//           c.parentElement.dataset.openoption = '';
+//         } else {
+//           c.removeAttribute('hidden');
+//           c.parentElement.dataset.openoption = c.id;
+//         }
+//       }
+//     });
+//   });
+// });
