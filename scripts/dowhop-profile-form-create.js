@@ -51,6 +51,7 @@ var myProfileButton = document.getElementById('my-profile-button');
 var myDisplayName = document.getElementById('my-display-name');
 var myProfileName = document.getElementById('my-profile-name');
 var myProfileAbout = document.getElementById('my-profile-about');
+var myProfileEmail = document.getElementById('my-profile-email');
 var myProfileActivity1 = document.getElementById('my-profile-activity-1');
 var myProfileActivity2 = document.getElementById('my-profile-activity-2');
 var myProfileActivity3 = document.getElementById('my-profile-activity-3');
@@ -58,7 +59,7 @@ var myProfilePicture = document.getElementById('my-profile-picture');
 
 function retrieveProfile(currentProfile) {
   // currentProfile = firebase.auth().currentUser.uid;
-  currentProfile = retrieveUrl(window.location.href);
+  currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   console.log('getting for', currentProfile);
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
 
@@ -66,6 +67,7 @@ function retrieveProfile(currentProfile) {
     myDisplayName.innerText = snap.val().displayName;
     myProfileName.innerText = snap.val().profileName;
     myProfileAbout.innerText = snap.val().profileAbout;
+    myProfileEmail.innerText = snap.val().email;
     myProfileActivity1.innerText = snap.val().profileActivity1;
     myProfileActivity2.innerText = snap.val().profileActivity2;
     myProfileActivity3.innerText = snap.val().profileActivity3;
@@ -74,13 +76,15 @@ function retrieveProfile(currentProfile) {
 
 }
 
-console.log(retrieveUrl(window.location.href));
+// console.log(retrieveUrl(window.location.href));
 
 // For looking at someone else's profile via query parameter:
 function retrieveUrl(loc) {
-  var y = loc.match(/\?(.+)/)[1];
-  console.log("seeking data for!!!...", y);
-  return y
+  if (loc.match(/\?(.+)/)) {
+    var y = loc.match(/\?(.+)/)[1];
+    return y } else {
+      return null;
+    }
 }
 
 // For looking at your own profile (user is logged in):
