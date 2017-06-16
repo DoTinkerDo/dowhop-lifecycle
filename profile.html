@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="styles/main.css"> <!--Catch-all stylings-->
     <link rel="stylesheet" href="styles/login-tabs-styles.css">
     <link rel="stylesheet" href="styles/dowhop-selector-style.css">
+    <link rel="stylesheet" href="styles/dowhop-profile.css">
     <!-- Functional -->
     <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>  <!-- Firebase library -->
     <script src="scripts/firebase.js"></script> <!-- Initialize Firebase app -->
@@ -72,10 +73,22 @@
         Show Profile
         <div class="mdl-tooltip" for="my-profile-button">Click here to show your info!</div>
       </button>
-      <div id="my-profile-name"></div>
-      <div id="my-profile-about"></div>
-      <div id="my-profile-activity-1"></div>
-    </section>
+      <div class="mdl-cell mdl-cell--6-col">
+        <div class="mdl-card mdl-shadow--6dp">
+          <div class="profile-details">
+      			<h6><div id="my-profile-name"></div></h6>
+      		</div>
+      		<div class="profile-about">
+            <div id="my-profile-about"></div>
+      		</div>
+      		<div class="profile-activities">
+              <div id="my-profile-activity-1"></div>
+              <div id="my-profile-activity-2"></div>
+              <div id="my-profile-activity-2"></div>
+      		</div>
+        </div>
+      </div>
+    </section><!-- End Show Profile Section -->
     <script>
     auth.onAuthStateChanged(function(user) {
       console.log("before there is user...");
