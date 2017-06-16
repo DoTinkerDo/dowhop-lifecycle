@@ -105,7 +105,6 @@ function retrieveMyDoWhops(uid) {
     function(snapshot) {
       var doWhopDescriptions = snapshot.val();
       var userDowhopCardDiv = document.getElementById('user-dowhop-cards');
-
       userDowhopCardDiv.innerHTML = '';
 
       snapshot.forEach(function(doWhopDescription) {
@@ -114,15 +113,11 @@ function retrieveMyDoWhops(uid) {
           doerDescriptionEmails = doWhopDescription.val().doerDescription.split(', ');
         }
 
-        // Note: these hard-coded doer, host, doer properties are an admin-priority functionality.
         if (
-          doWhopDescription.val().createdBy === person.uid ||
           doWhopDescription.val().creatorDescription === person.email ||
-          // add multiple doer code here...
           doerDescriptionEmails.some(function(doerDescriptionEmail) {
             return doerDescriptionEmail === person.email;
           })
-          // doWhopDescription.val().doerDescription === person.email
         ) {
           makeDoWhopSelector(userDowhopCardDiv, doWhopDescription);
         }
