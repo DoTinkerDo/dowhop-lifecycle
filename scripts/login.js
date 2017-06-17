@@ -37,7 +37,6 @@
     applicationPage.style.display = 'block';
     writeUserData(user);
     retrieveMyDoWhops(user.uid);
-    registerDoWhopDescriptionCallback();
   }
 
   function handleSignedOutUser() {
@@ -72,7 +71,7 @@
 })();
 
 // TODO map what parts of app use this...
-// 1) person is used by session
+// 1) person is used by session -> confirmed line 219!
 // 2) ?
 
 // setting currentUser globals...
