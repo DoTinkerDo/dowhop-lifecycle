@@ -1,7 +1,6 @@
 {
-  "name": "DoWhop Chat Web App",
-  "short_name": "DoWhop Chat",
+  "name": "DoWhop Web App",
+  "short_name": "DoWhop App",
   "start_url": "/index.html",
   "display": "standalone",
-  "orientation": "portrait"
 }

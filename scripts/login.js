@@ -6,7 +6,7 @@
       signInSuccess: function(user, credential, redirectUrl) {
         handleSignedInUser(user);
         // Do not redirect.
-        return false;
+        return true;
       }
     },
     signInFlow: 'popup',
@@ -37,6 +37,7 @@
     applicationPage.style.display = 'block';
     writeUserData(user);
     retrieveMyDoWhops(user.uid);
+    registerMessaging(user);
   }
 
   function handleSignedOutUser() {
