@@ -166,7 +166,7 @@ FriendlyChat.prototype.getSession = function() {
       document.getElementById('pending-div').removeAttribute('hidden');
 
       // This means visiting user is the creator of event:
-      if (firebase.auth().currentUser.uid == data.val().createdBy|| person.email == data.val().creatorDescription) {
+      if (firebase.auth().currentUser.uid == person.email == data.val().creatorDescription) {
         // console.log('visiting user is the creator. showing approval form, hiding rescind form.');
         pendingNotification = 'Someone has requested this change.\nDo you want to approve it?';
         document.getElementById('pending-div').innerText =
