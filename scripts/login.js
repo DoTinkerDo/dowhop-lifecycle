@@ -42,6 +42,7 @@
     applicationPage.style.display = 'block';
     writeUserData(user);
     retrieveMyDoWhops(user.uid);
+    // FCM permission registration
     // registerMessaging(user);
   }
 
@@ -78,7 +79,7 @@
 
 // TODO map what parts of app use this...
 // 1) person is used by session -> confirmed line 219!
-// 2) ?
+// 2) now also used by reviews when user signs in for the first time.
 
 // setting currentUser globals...
 var person = null;
