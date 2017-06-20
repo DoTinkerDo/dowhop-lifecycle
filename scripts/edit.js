@@ -117,6 +117,7 @@ function retrieveMyDoWhops(uid) {
           doWhopDescription.val().creatorDescription === person.email ||
           doerDescriptionEmails.some(function(doerDescriptionEmail) {
             return doerDescriptionEmail === person.email;
+            console.log(person)
           })
         ) {
           makeDoWhopSelector(userDowhopCardDiv, doWhopDescription);

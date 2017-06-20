@@ -26,23 +26,23 @@ function addDoWhopImage(files_arr, node) {
 }
 
 function createProfile(e) {
-    e.preventDefault();
-    var currentProfile = firebase.auth().currentUser.uid;
-    var profileRef = firebase.database().ref('app_users/' + currentProfile);
+  e.preventDefault();
+  var currentProfile = firebase.auth().currentUser.uid;
+  var profileRef = firebase.database().ref('app_users/' + currentProfile);
 
-    // Prepare user data:
-    var profileData = {
-      update: true,
-      profileName: createProfileName.value,
-      profilePhone: createProfilePhone.value,
-      profileSocial: createProfileSocial.value,
-      profileWebsite: createProfileWebsite.value,
-      profileAbout: createProfileAbout.value,
-      profileActivity1: createProfileActivity1.value,
-      profileActivity2: createProfileActivity2.value,
-      profileActivity3: createProfileActivity3.value
-    }
-    // Save information to db:
+  // Prepare user data:
+  var profileData = {
+    update: true,
+    profileName: createProfileName.value,
+    profilePhone: createProfilePhone.value,
+    profileSocial: createProfileSocial.value,
+    profileWebsite: createProfileWebsite.value,
+    profileAbout: createProfileAbout.value,
+    profileActivity1: createProfileActivity1.value,
+    profileActivity2: createProfileActivity2.value,
+    profileActivity3: createProfileActivity3.value
+  }
+  // Save information to db:
   if(
     createProfileName.value &&
     createProfilePhone.value &&
@@ -56,11 +56,11 @@ function createProfile(e) {
   {
     profileRef.update(profileData).then(function() {
     });
-  createProfileForm.reset();
-}else{
-  alert("Please Fill Out All Fields.")
-  return
-}
+    createProfileForm.reset();
+  }else{
+    alert("Please Fill Out All Fields.")
+    return
+  }
 
 }
 
