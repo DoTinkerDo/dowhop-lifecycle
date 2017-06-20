@@ -3,9 +3,9 @@ const admin = require('firebase-admin');
 
 admin.initializeApp(functions.config().firebase);
 
-exports.newDoWhopDescriptionAlert = functions.database.ref('/doWhopDescription/{description}').onWrite(function(event) {
+exports.newDoWhopDescriptionAlert = functions.database.ref('/doWhopDescription/{pushKey}').onWrite(function(event) {
   const description = event.data.val();
-  console.log('description: -> ', description);
+  console.log('DESCRIPTION: -> ', event.params.pushKey, ' -- ', description, ' -- ');
 
   const getTokens = admin.database().ref('app_users').once('value').then(snapshot => {
     const tokens = [];
@@ -21,9 +21,9 @@ exports.newDoWhopDescriptionAlert = functions.database.ref('/doWhopDescription/{
   Promise.all([getTokens, getDoer]).then(([tokens, doer]) => {
     const payload = {
       notification: {
-        title: `doWhopDescription test`,
-        body: 'description',
-        icon: 'doer.imageURL'
+        title: 'A new DoWhop Has Been Added!',
+        body: 'description will go here',
+        icon: 'doer icon can go here'
       }
     };
     admin.messaging().sendToDevice(tokens, payload).catch(function(error) {
