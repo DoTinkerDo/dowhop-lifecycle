@@ -21,13 +21,18 @@
 
   var loginPage = document.getElementById('login-container');
   var applicationPage = document.getElementById('application-container');
-  var appUsersRef = database.ref('/app_users');
 
   function writeUserData(user) {
+    var appUsersRef = database.ref('/app_users');
     var appUserRef = appUsersRef.child(user.uid);
     appUserRef.once('value').then(function(snapshot) {
       if (snapshot.val()) return;
-      var userData = _.pick(user, ['displayName', 'photoURL', 'uid', 'email']);
+      var userData = {
+        displayName: user.displayName,
+        photoURL: user.photoURL ? user.photoURL : placeholderUserPhotoURL,
+        uid: user.uid,
+        email: user.email
+      };
       appUserRef.set(userData);
     });
   }
@@ -37,7 +42,7 @@
     applicationPage.style.display = 'block';
     writeUserData(user);
     retrieveMyDoWhops(user.uid);
-    registerMessaging(user);
+    // registerMessaging(user);
   }
 
   function handleSignedOutUser() {
