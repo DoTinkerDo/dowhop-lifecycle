@@ -3,7 +3,13 @@
 var currentSessionID;
 
 function getSesh(node) {
+  FriendlyChat.prototype.loadMessages();
   FriendlyChat.prototype.getSession();
+  // console.log("get sesh");
+  // var chatIdCurrent;
+  // var sessionRef = database.ref('/session').child(person.uid).child('current_dowhop');
+  // sessionRef.once('value', snap => chatIdCurrent = snap.val());
+  // loadMessagesOnClick(chatIdCurrent);
 }
 
 // Initializes FriendlyChat.
@@ -36,8 +42,8 @@ function FriendlyChat() {
   this.submitRescind = document.getElementById('submit-rescind-button');
 
   // Load chat data:
-  this.chatItemData = document.getElementById('coordinate-tab');
-  this.chatItemData.addEventListener('click', this.loadMessages.bind(this)); // <-- Developer: return to this.
+  // this.chatItemData = document.getElementById('coordinate-tab');
+  // this.chatItemData.addEventListener('click', this.loadMessages.bind(this)); // <-- Developer: return to this.
 
   // Save message on form submit:
   this.messageForm.addEventListener('submit', this.saveMessage.bind(this));
@@ -153,6 +159,9 @@ FriendlyChat.prototype.getSession = function() {
   var myRescindingForm = this.rescindingForm;
   var pendingNotification = '';
 
+  // new
+  this.loadMessagesOnClick(); // end new
+
   var checkForPendings = function(id, data) {
     var pendingNotification = '';
     // Check if there are pending notifications:
@@ -220,11 +229,12 @@ FriendlyChat.prototype.getSession = function() {
         checkForPendings(data.key, data);
       });
 
-    // Extracting all of the relevant DoWhop-Selector-Block information:
+    // Executing functions that are triggered by clicking on a selector block:
     firebase.database().ref().child('doWhopDescription/' + data.val().current_dowhop).on('value', function(data) {
       // Check for pending notifications:
       checkForPendings(data.key, data);
-
+      // Load the relevant messages:
+      // loadMessagesOnClick(data.key);
       // Weave together header
       if (data.val()) {
         let imageUrl =
@@ -250,10 +260,33 @@ FriendlyChat.prototype.getSession = function() {
   });
 };
 
+FriendlyChat.prototype.loadMessagesOnClick = function() {
+  console.log("hello there");
+  var chatIdCurrent;
+  var sessionRef = database.ref('/session').child(person.uid).child('current_dowhop');
+  sessionRef.once('value', snap => chatIdCurrent = snap.val());
+  messagesRef = firebase.database().ref().child('messages/' + chatIdCurrent);
+  messagesRef.off();
+
+  var messageList = document.getElementById('messages');
+  messageList.innerText = '';
+
+  // Loads the last x number of messages and listen for new ones:
+  var setMessage = function(data) {
+    var val = data.val();
+    this.displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl);
+  }.bind(this);
+  messagesRef.orderByKey().limitToLast(12).on('child_added', setMessage);
+  messagesRef.orderByKey().limitToLast(12).on('child_changed', setMessage);
+}
 // Loads messages history and listens for upcoming ones:
 FriendlyChat.prototype.loadMessages = function() {
+  console.log("starting load messages...");
   let user = person.uid;
-  var chatIdCurrent = document.getElementById('dowhop-selector-container').firstChild.id; // <-- Refactor to ping Firebase db.
+  var chatIdCurrent;
+  var sessionRef = database.ref('/session').child(person.uid).child('current_dowhop');
+  sessionRef.once('value', snap => chatIdCurrent = snap.val());
+  console.log("ChatIdCurrent", chatIdCurrent);
   this.messagesRef = this.database.ref().child('messages/' + chatIdCurrent);
 
   // Make sure we remove all previous listeners and clear the UI.
