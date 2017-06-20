@@ -81,18 +81,26 @@
         </div>
     </div> <!-- End Create New Profile Form -->
     <section id="my-profile"> <!-- Start Show Profile Section -->
-      <div class="mdl-cell mdl-cell--6-col">
-        <div class="mdl-card mdl-shadow--6dp">
-          <div class="mdl-layout__content">
-            <div class="profile-details">
-              <img class="profile-picture" id="my-profile-picture"></img>
-              <div class="mdl-card__title-text" id="my-display-name"></div>
-        			<div class="" id="my-profile-name"></div>
-        		</div>
-            <div class="profile-contact">
-              <i class="material-icons">call</i><div>xxx-xxx-xxxx</div>
-              <i class="material-icons">mail_outline</i><div id="my-profile-email"></div>
-              <i class="material-icons">room</i><div>San Diego, CA</div>
+              <img id="my-profile-picture"></img>
+              <div class="profile-details-container">
+              <div id="my-display-name"></div>
+        			<div id="my-profile-name"></div>
+            <div class="profile-contact-container">
+              <div class="profile-contact-row">
+                <i class="material-icons">mail_outline</i>
+                <div class="profile-data" id="my-profile-email"></div>
+              </div>
+              <div class="profile-contact-row">
+                <i class="material-icons">call</i>
+                <div class="profile-data" id="my-profile-number">xxx-xxx-xxxx</div>
+              </div>
+              <div class="profile-contact-row">
+                <i class="material-icons">room</i>
+                <div class="profile-data" id="my-profile-city">San Diego, CA</div>
+              </div>
+            </div>
+            <div class="profile-third-party-container">
+
             </div>
         		<div class="profile-about">
               <div id="my-profile-about"></div>
@@ -104,10 +112,7 @@
                   <li><div id="my-profile-activity-2"></div></li>
                   <li><div id="my-profile-activity-3"></div></li>
                 </ul>
-        		</div>
-          </div>
-        </div>
-      </div>
+              </div>
     </section><!-- End Show Profile Section -->
     <script>
     auth.onAuthStateChanged(function(user) {

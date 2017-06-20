@@ -1,7 +1,6 @@
 // This is the script for dealing with users' profiles.
 
-//  Section for creating profile for first-time users:
-
+// Section for creating profile for first-time users:
 var createProfileForm = document.getElementById('create-profile-form');
 var createProfileName = document.getElementById('profile-name');
 var createProfileAbout = document.getElementById('profile-about');

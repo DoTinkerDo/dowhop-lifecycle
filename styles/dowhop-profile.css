@@ -1,7 +1,45 @@
 /* Custom profile stylings shall go here */
+.profile-details-container {
+    margin-left: 15px;
+}
 
-.profile-picture {
+.profile-contact-container {
+  display: table;
+}
+
+.profile-contact-row {
+  display: table-row;
+}
+
+#my-profile-picture {
   height: 250px;
   /*background-size: cover;*/
   background-repeat: no-repeat;
+  margin-bottom: 30px;
+}
+
+#my-display-name {
+  font-size: 17px;
+  font-weight: bold;
+  color: black;
+  background-color: white;
+}
+
+#my-profile-name {
+  visibility: hidden;
+}
+
+.material-icons {
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 22px;
+  padding-bottom: 5px;
+}
+
+.profile-data {
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  font-size: 13px;
 }
