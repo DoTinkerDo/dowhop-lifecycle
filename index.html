@@ -43,7 +43,7 @@
       <h4>Confirm your information to view your DoWhops</h4>
     </div>
     <div class=login-container>
-      <div id="firebaseui-auth-container"></div>;
+      <div id="firebaseui-auth-container"></div>
     </div>
   </section> <!-- End Login screen -->
 
@@ -405,6 +405,11 @@ function revealInput(x) {
         break;
     };
 }
+</script>
+<script>
+  messaging.onMessage(function(payload) {
+    console.log(payload);
+  })
 </script>
 </body>
 </html>

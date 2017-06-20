@@ -1,11 +1,16 @@
-importScripts('https://www.gstatic.com/firebasejs/3.6.6/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/3.6.6/firebase-messaging.js');
+importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js');
 
-// Initialize the Firebase app in the service worker by passing in the
-// messagingSenderId.
 firebase.initializeApp({
-  messagingSenderId: '670781077200'
+  messagingSenderId: '221310152590'
+  // messagingSenderId: '1090371045772'
 });
+
 var messaging = firebase.messaging();
-
-
+messaging.setBackgroundMessageHandler(function(payload) {
+  var title = 'hello, world';
+  var options = {
+    body: payload.data.status
+  };
+  return self.registration.showNotification(title, options);
+});
