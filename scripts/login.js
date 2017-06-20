@@ -43,7 +43,7 @@
     writeUserData(user);
     retrieveMyDoWhops(user.uid);
     // FCM permission registration
-    // registerMessaging(user);
+    registerMessaging(user);
   }
 
   function handleSignedOutUser() {
