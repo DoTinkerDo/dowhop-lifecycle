@@ -3,7 +3,6 @@
 var currentSessionID;
 
 function getSesh(node) {
-  FriendlyChat.prototype.loadMessages();
   FriendlyChat.prototype.getSession();
   // console.log("get sesh");
   // var chatIdCurrent;
@@ -42,9 +41,8 @@ function FriendlyChat() {
   this.submitRescind = document.getElementById('submit-rescind-button');
 
   // Load chat data:
-  // this.chatItemData = document.getElementById('coordinate-tab');
-  // this.chatItemData.addEventListener('click', this.loadMessages.bind(this)); // <-- Developer: return to this.
-
+  this.chatItemData = document.getElementById('coordinate-tab');
+  this.chatItemData.addEventListener('click', this.loadMessages.bind(this)); // <-- Developer: return to this.
   // Save message on form submit:
   this.messageForm.addEventListener('submit', this.saveMessage.bind(this));
 
@@ -153,15 +151,78 @@ FriendlyChat.prototype.removeChats = function() {
 FriendlyChat.prototype.getSession = function() {
   var myRef = firebase.database().ref('session/' + person.uid);
   var dowhopSelector = document.getElementById('dowhop-selector-container');
+
+  // Add parts for loading in messages for session:
+  var sessionRef = database.ref('/session').child(person.uid).child('current_dowhop');
+  var user = person.uid;
+  var messagesRef = this.messagesRef;
+  var messageList = this.messageList;
+  var messageInput = this.messageInput;
+  var displayMessage = function(key, name, text, picUrl, imageUri) {
+    var div = document.getElementById(key);
+    // If an element for that message does not exists yet we create it.
+    if (!div) {
+      var container = document.createElement('div');
+      container.innerHTML = FriendlyChat.MESSAGE_TEMPLATE;
+      div = container.firstChild;
+      div.setAttribute('id', key);
+      messageList.appendChild(div);
+    }
+    if (picUrl) {
+      div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
+    }
+    div.querySelector('.name').textContent = name;
+    var messageElement = div.querySelector('.message');
+    if (text) {
+      // If the message is text.
+      messageElement.textContent = text;
+      // Replace all line breaks by <br>.
+      messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
+    } else if (imageUri) {
+      // If the message is an image.
+      var image = document.createElement('img');
+      image.addEventListener(
+        'load',
+        function() {
+          messageList.scrollTop = messageList.scrollHeight;
+        }.bind(this)
+      );
+      this.setImageUrl(imageUri, image);
+      messageElement.innerHTML = '';
+      messageElement.appendChild(image);
+    }
+    // Show the card fading-in.
+    setTimeout(function() {
+      div.classList.add('visible');
+    }, 1);
+    messageList.scrollTop = messageList.scrollHeight;
+    messageInput.focus();
+  };
+
+
+  var loadMessagesOnClick = function(id) {
+
+      console.log('you chose', id);
+      let messagesRef = this.database.ref().child('messages/' + id);
+
+      // Make sure we remove all previous listeners and clear the UI.
+      messagesRef.off();
+      messageList.innerText = '';
+      // Loads the last x number of messages and listen for new ones:
+      var setMessage = function(data) {
+        var val = data.val();
+        displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl);
+      }.bind(this);
+      messagesRef.orderByKey().limitToLast(12).on('child_added', setMessage);
+      messagesRef.orderByKey().limitToLast(12).on('child_changed', setMessage);
+      // end new.
+  };
+
   // Add parts for the notification-pending displays:
   var pendingDiv = this.pendingDiv;
   var myApprovalForm = this.approvalForm;
   var myRescindingForm = this.rescindingForm;
   var pendingNotification = '';
-
-  // new
-  this.loadMessagesOnClick(); // end new
-
   var checkForPendings = function(id, data) {
     var pendingNotification = '';
     // Check if there are pending notifications:
@@ -234,7 +295,7 @@ FriendlyChat.prototype.getSession = function() {
       // Check for pending notifications:
       checkForPendings(data.key, data);
       // Load the relevant messages:
-      // loadMessagesOnClick(data.key);
+      loadMessagesOnClick(data.key);
       // Weave together header
       if (data.val()) {
         let imageUrl =
@@ -258,27 +319,9 @@ FriendlyChat.prototype.getSession = function() {
 
     dowhopSelector.innerHTML = dowhopSelectorDiv;
   });
+  this.loadMessages();
 };
 
-FriendlyChat.prototype.loadMessagesOnClick = function() {
-  console.log("hello there");
-  var chatIdCurrent;
-  var sessionRef = database.ref('/session').child(person.uid).child('current_dowhop');
-  sessionRef.once('value', snap => chatIdCurrent = snap.val());
-  messagesRef = firebase.database().ref().child('messages/' + chatIdCurrent);
-  messagesRef.off();
-
-  var messageList = document.getElementById('messages');
-  messageList.innerText = '';
-
-  // Loads the last x number of messages and listen for new ones:
-  var setMessage = function(data) {
-    var val = data.val();
-    this.displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl);
-  }.bind(this);
-  messagesRef.orderByKey().limitToLast(12).on('child_added', setMessage);
-  messagesRef.orderByKey().limitToLast(12).on('child_changed', setMessage);
-}
 // Loads messages history and listens for upcoming ones:
 FriendlyChat.prototype.loadMessages = function() {
   console.log("starting load messages...");
@@ -453,7 +496,7 @@ FriendlyChat.prototype.signIn = function() {
 
 // Signs-out of Friendly Chat and resets views:
 FriendlyChat.prototype.signOut = function() {
-  this.removeChats();
+  // this.removeChats();
   this.pendingDiv.setAttribute('hidden', 'true');
   this.approvalForm.setAttribute('hidden', 'true');
   this.rescindingForm.setAttribute('hidden', 'true');
@@ -528,6 +571,12 @@ FriendlyChat.prototype.requestNotificationsPermissions = function() {
     });
 };
 
+// Reset form.
+
+FriendlyChat.resetMaterialTextfield = function() {
+
+};
+
 // Resets the given MaterialTextField.
 FriendlyChat.resetMaterialTextfield = function(element) {
   element.value = '';
@@ -561,7 +610,7 @@ FriendlyChat.APPROVAL_TEMPLATE =
   '</div>' +
   '</div>';
 
-// Displays a Message in the UI.
+// Displays a Message in the UI. NOTE: Being deprecated.
 FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri) {
   var div = document.getElementById(key);
   // If an element for that message does not exists yet we create it.
