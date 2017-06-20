@@ -1,16 +1,23 @@
 importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js');
 
-firebase.initializeApp({
+const config = {
+  // johann test
   messagingSenderId: '221310152590'
+  //life
   // messagingSenderId: '1090371045772'
-});
+};
 
-var messaging = firebase.messaging();
-messaging.setBackgroundMessageHandler(function(payload) {
-  var title = 'hello, world';
-  var options = {
-    body: payload.data.status
+firebase.initializeApp(config);
+
+const messaging = firebase.messaging();
+
+messaging.setBackgroundMessageHandler(payload => {
+  const title = payload.title;
+  const options = {
+    body: payload.body,
+    icon: payload.status
   };
-  return self.registration.showNotification(title, options);
+
+  self.registration.showNotification(title, options);
 });

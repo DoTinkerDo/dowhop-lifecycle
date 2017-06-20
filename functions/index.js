@@ -1,8 +1,11 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
+admin.initializeApp(functions.config().firebase);
+
 exports.newDoWhopDescriptionAlert = functions.database.ref('/doWhopDescription/{description}').onWrite(function(event) {
   const message = event.data.val();
+  console.log('MESSAGE: -> ', message);
 
   const getTokens = admin.database().ref('app_users').once('value').then(snapshot => {
     const tokens = [];
@@ -23,9 +26,8 @@ exports.newDoWhopDescriptionAlert = functions.database.ref('/doWhopDescription/{
         icon: author
       }
     };
-
-    admin.messaging().sendToDoDevice(tokens, payload).catch(function(error) {
-      console.error;
+    admin.messaging().sendToDevice(tokens, payload).catch(function(error) {
+      console.log('ERROR IN INDEX -> ', error);
     });
   });
 });

@@ -97,7 +97,6 @@ function readUserData(user) {
     userData = _.pick(snapshot.val(), ['displayName', 'photoURL', 'uid', 'email']);
     uid = userData.uid;
   });
-  console.log('UID IN READUSERDATA -> ', userData.uid);
 }
 
 // Write comments

@@ -12,6 +12,6 @@ function registerMessaging(user) {
     });
 }
 
-// messaging.onMessage(function(payload) {
-//   console.log('ONMESSAGE: -> ', payload);
-// });
+messaging.onMessage(function(payload) {
+  console.log('ONMESSAGE: -> ', payload);
+});
