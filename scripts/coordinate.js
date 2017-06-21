@@ -200,19 +200,20 @@ FriendlyChat.prototype.getSession = function() {
   var checkForPendings = function(id, data) {
     var pendingNotification = '';
     // Check if there are pending notifications:
+    console.log('running checkforpendings');
     if (
       data.val() &&
       data.val().pending != null &&
       data.val().pending.status != 'approved' &&
       data.val().pending.status != 'denied'
     ) {
-      // console.log('pending status true. showing pending div.');
+      console.log('pending status true. showing pending div.');
       document.getElementById('pending-div').removeAttribute('hidden');
 
       // This means visiting user is the creator of event:
       if (firebase.auth().currentUser.email == data.val().creatorDescription) {
 
-        // console.log('visiting user is the creator. showing approval form, hiding rescind form.');
+        console.log('visiting user is the creator. showing approval form, hiding rescind form.');
         pendingNotification = 'Someone has requested this change.\nDo you want to approve it?';
         document.getElementById('pending-div').innerText =
           pendingNotification +
@@ -228,7 +229,7 @@ FriendlyChat.prototype.getSession = function() {
 
         // This means visiting user is a requestor of event change:
       } else if (firebase.auth().currentUser.uid == data.val().pending.requester) {
-        // console.log('visiting user requested a change. showing rescinding form, hiding approval form.');
+        console.log('visiting user requested a change. showing rescinding form, hiding approval form.');
         pendingNotification = 'You have requested this time!\nIt is pending. Do you want to change it?';
         document.getElementById('pending-div').innerText =
           pendingNotification +
@@ -250,6 +251,7 @@ FriendlyChat.prototype.getSession = function() {
       document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
       document.getElementById('rescind-pending-form').setAttribute('hidden', 'true');
     }
+    console.log('tell the user...',pendingNotification)
   };
 
     sessionRef.on('value', function(data) {
