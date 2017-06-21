@@ -194,30 +194,25 @@ FriendlyChat.prototype.getSession = function() {
     currentDoWhopID = snap.val().current_dowhop;
     currentTabID = snap.val().current_tab;
   });
-  console.log("current location:", currentDoWhopID, '---', currentTabID); // <-- Debugging.
+  // console.log("current location:", currentDoWhopID, '---', currentTabID); // <-- Debugging.
 
   // All cases, we load pending div forms for current session:
   var checkForPendings = function(data) {
     var pendingNotification = 'A change has been requested!\n';
     // Check if there are pending notifications:
-    console.log('running checkforpendings on');
-    console.log(data);
-    console.log(data.pending);
-    // console.log(data.pending);
-
     if (
       data &&
       data.pending != null &&
       data.pending.status != 'approved' &&
       data.pending.status != 'denied'
     ) {
-      console.log('pending status true. showing pending div.');
+      // console.log('pending status true. showing pending div.');
       document.getElementById('pending-div').removeAttribute('hidden');
 
       // This means visiting user is the creator of event:
       if (firebase.auth().currentUser.email == data.creatorDescription) {
 
-        console.log('visiting user is the creator. showing approval form, hiding rescind form.');
+        // console.log('visiting user is the creator. showing approval form, hiding rescind form.');
         pendingNotification += '\nDo you want to approve it?';
 
         if (data.pending.whenDatePending) pendingNotification += "\nPending day: " + data.pending.whenDatePending;
@@ -225,37 +220,29 @@ FriendlyChat.prototype.getSession = function() {
         if (data.pending.whereAddressPending) pendingNotification += "\nPending location: " + data.pending.whereAddressPending;
 
         document.getElementById('pending-div').innerText = pendingNotification;
-          // pendingNotification +
-          // '\nPending time: ' +
-          // data.pending.whenDatePending +
-          // ' at ' +
-          // data.pending.whenTimePending +
-          // '\nPending location: ' +
-          // data.pending.whereAddressPending;
-
         document.getElementById('approve-pending-form').removeAttribute('hidden');
         document.getElementById('rescind-pending-form').setAttribute('hidden', 'true');
 
         // This means visiting user is a requestor of event change:
       } else if (firebase.auth().currentUser.uid == data.pending.requester) {
-        console.log('visiting user requested a change. showing rescinding form, hiding approval form.');
+        // console.log('visiting user requested a change. showing rescinding form, hiding approval form.');
         pendingNotification += 'You requested it!\nIt is pending. Do you want to change it?\n';
         if (data.pending.whenDatePending) pendingNotification += "\nPending day: " + data.pending.whenDatePending;
         if (data.pending.whenTimePending) pendingNotification += "\nPending time: " + data.pending.whenTimePending;
         if (data.pending.whereAddressPending) pendingNotification += "\nPending location: " + data.pending.whereAddressPending;
+
         document.getElementById('pending-div').innerText = pendingNotification
         document.getElementById('rescind-pending-form').removeAttribute('hidden');
         document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
       }
       // All other cases:
     } else {
-      console.log('this means it has passed over logic tests.');
+      // console.log('this means it has passed over logic tests.');
       document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
       document.getElementById('pending-div').innerText = '';
       document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
       document.getElementById('rescind-pending-form').setAttribute('hidden', 'true');
     }
-    console.log('tell the user...',pendingNotification)
   };
 
     sessionRef.on('value', function(data) {
@@ -267,14 +254,12 @@ FriendlyChat.prototype.getSession = function() {
         .ref()
         .child('doWhopDescription/' + data.val().current_dowhop)
         .on('child_changed', function(data) {
-          console.log('prep to run check pendings once...');
           checkForPendings(data.val());
         });
 
       // Executing functions that are triggered by clicking on a selector block:
       firebase.database().ref().child('doWhopDescription/' + data.val().current_dowhop).on('value', function(data) {
         // Check for pending notifications:
-        console.log('prep to run check pendings second...', data.val());
         checkForPendings(data.val());
         // Weave together header
         if (data.val()) {
