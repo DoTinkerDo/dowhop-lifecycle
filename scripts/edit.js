@@ -178,7 +178,7 @@ function makeDoWhopSelector(container, data) {
     container.innerHTML +=
       '<aside class="mdl-card dowhop-selector" id="' +
       data.key +
-      '" onclick="sessionRef(this)">' +
+      '" onclick="setSession(this)">' +
       '<div class="dowhop-selector-header" style="background-image: url(' +
       imageURL +
       ');">' +
@@ -213,8 +213,9 @@ function makeDoWhopSelector(container, data) {
 // Sets the currently selected DoWhopDescription key in sessions
 // for the currentUser
 // plus showEditForm and FillInEditForm
-function sessionRef(doWhopSelector) {
+function setSession(doWhopSelector) {
   var key = doWhopSelector.id;
+  FriendlyChat.prototype.loadMessages();
   database.ref('session').child(person.uid).set({ current_dowhop: key });
   showEditForm(doWhopSelector);
   fillInEditForm(doWhopSelector);
