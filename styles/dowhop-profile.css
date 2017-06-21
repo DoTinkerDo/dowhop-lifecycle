@@ -1,10 +1,15 @@
 /* Custom profile stylings shall go here */
+.profile-right-container, .profile-left-container {
+  display: inline-block;
+}
+
 .profile-details-container {
-    margin-left: 15px;
+  margin-left: 15px;
 }
 
 .profile-contact-container {
   display: table;
+  width: 15%;
 }
 
 .profile-contact-row {
@@ -42,4 +47,38 @@
   padding-left: 10px;
   padding-bottom: 5px;
   font-size: 13px;
+}
+
+#my-profile-about {
+  visibility: hidden;
+}
+
+.profile-activity-header {
+  font-weight: bold;
+  color: #606060;
+}
+
+.profile-activity-subheader {
+  color: #ec2e28;
+}
+
+.profile-activity-list-container {
+  margin-left: 20px;
+  display: table;
+  display: inline-block;
+}
+
+.profile-activity-list {
+  display: table-row;
+}
+
+#my-profile-activity-1, #my-profile-activity-2, #my-profile-activity-3 {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.activity-image {
+  display: inline-block;
+  margin-bottom: 10px;
+  margin-right: 20px;
 }
