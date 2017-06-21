@@ -2,9 +2,6 @@ importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js');
 
 const config = {
-  // johann test
-  // messagingSenderId: '221310152590'
-  //life
   messagingSenderId: '1090371045772'
 };
 

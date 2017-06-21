@@ -6,20 +6,30 @@ admin.initializeApp(functions.config().firebase);
 exports.newDoWhopDescriptionAlert = functions.database.ref('/doWhopDescription/{pushKey}').onWrite(function(event) {
   const description = event.data.val();
   const key = event.params.pushKey;
-  console.log('DESCRIPTION: -> ', key, ' <-- ', description, ' --> ');
 
   const getTokens = admin.database().ref('app_users').once('value').then(snapshot => {
     const tokens = [];
     snapshot.forEach(user => {
       const token = user.child('token').val();
-      if (token) tokens.push(token);
+      if (
+        token &&
+        (description.doerDescription
+          .split(', ')
+          .some(doerDescriptionEmail => doerDescriptionEmail === user.val().email) ||
+          description.creatorDescription === user.val().email)
+      ) {
+        tokens.push(token);
+      }
     });
     return tokens;
   });
 
-  const getDoer = admin.auth().getUser('VYw0lPDFD3btHJadneuSFGjy8wk1');
+  const getUser = admin.auth().getUser('VYw0lPDFD3btHJadneuSFGjy8wk1');
 
-  Promise.all([getTokens, getDoer]).then(([tokens, doer]) => {
+  console.log('DESCRIPTION -> ', key, ' <-- ', description, ' --> ');
+
+  Promise.all([getTokens, getUser]).then(([tokens, user]) => {
+    console.log('TOKENS  AND USER -> ', tokens, ' -- ', getUser);
     const payload = {
       notification: {
         title: description.titleDescription,
