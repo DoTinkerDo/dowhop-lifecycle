@@ -518,7 +518,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
   var whereAddressPending = this.messageFormWherePending;
 
   // For only all three attributes: Time, Date, Where:
-  if (this.messageFormWhenDatePending.value || this.messageFormWhenTimePending.value || this.messageFormWherePending) {
+  if (this.messageFormWhenDatePending.value || this.messageFormWhenTimePending.value || this.messageFormWherePending.value) {
     var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
 
     var messageText = "";
