@@ -179,7 +179,7 @@ FriendlyChat.prototype.getSession2 = function() {
   // II. Grabbing relevant DOM elements for UI.
 
   // A) DoWhop Selector
-  var dowhopSelector = document.getElementById('dowhop-selector-container');
+  var doWhopSelector = document.getElementById('dowhop-selector-container');
 
   // B) Pending notifications
   var approvalForm = document.getElementById('approve-pending-form');
@@ -253,7 +253,7 @@ FriendlyChat.prototype.getSession2 = function() {
   };
 
     sessionRef.on('value', function(data) {
-      var dowhopSelectorDiv = '';
+      var doWhopSelectorDiv = '';
       // Setting the header and check for pendings for the current DoWhop session:
       // Checking for changed pendings in real-time:
       firebase
@@ -276,7 +276,7 @@ FriendlyChat.prototype.getSession2 = function() {
             data.val().downloadURL ||
             'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
           var doWhopDescriptionTitle = data.val().titleDescription || 'Your DoWhops Will Appear Here';
-          return (dowhopSelectorDiv +=
+          return (doWhopSelectorDiv +=
             "<section id='" +
             data.key +
             "' class='dowhop-selector-block' onclick='sessionRef(this)''>" +
@@ -291,12 +291,21 @@ FriendlyChat.prototype.getSession2 = function() {
         }
       });
 
-      dowhopSelector.innerHTML = dowhopSelectorDiv;
+      doWhopSelector.innerHTML = doWhopSelectorDiv;
     });
 
   // We only load messages if current tab is clicked:
-
+  if (currentTabID === "coordinate-tab") {
+    console.log("load messages now");
+  }
   // We only load edit form if edit tab is clicked:
+  else if (currentTabID === "edit-tab") {
+    console.log("load edit form now");
+    showEditForm(doWhopSelector.firstChild); // new
+    fillInEditForm(doWhopSelector.firstChild); // new
+  } else {
+    // TO-DO: Good to clear all forms if nothing's chosen.
+  }
 
 }
 //
