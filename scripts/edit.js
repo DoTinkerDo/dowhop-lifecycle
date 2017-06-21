@@ -216,8 +216,9 @@ function makeDoWhopSelector(container, data) {
 function setSession(doWhopSelector) {
   var key = doWhopSelector.id;
   database.ref('session').child(person.uid).update({ current_dowhop: key });
-  showEditForm(doWhopSelector);
-  fillInEditForm(doWhopSelector);
+  FriendlyChat.prototype.getSession2(); // new
+  // showEditForm(doWhopSelector); // new
+  // fillInEditForm(doWhopSelector); // new
 }
 
 function showEditForm(doWhopSelector) {

@@ -4,13 +4,29 @@
 
 var currentSessionID;
 
-function getSesh(node) {
-  FriendlyChat.prototype.getSession2(node);
-  // console.log("get sesh");
-  // var chatIdCurrent;
-  // var sessionRef = database.ref('/session').child(person.uid).child('current_dowhop');
-  // sessionRef.once('value', snap => chatIdCurrent = snap.val());
-  // loadMessagesOnClick(chatIdCurrent);
+function getSesh(clicked) {
+  FriendlyChat.prototype.setSessionTab(clicked);
+  FriendlyChat.prototype.getSession2();
+}
+
+FriendlyChat.prototype.setSessionTab = function(clicked) {
+  var currentTab = clicked.id || clicked.href; // DEV: choose which is better, then make it consistent.
+  var userID = person.uid;
+  var sessionRef = database.ref('/session').child(userID);
+
+  sessionRef.update({
+    current_tab: currentTab
+  })
+  console.log("updated session tab!");
+}
+
+FriendlyChat.prototype.getSessionTab = function() {
+  var userID = person.uid;
+  var sessionRef = database.ref('/session').child(userID);
+  var currentTab;
+  sessionRef.once('value', function(snap) { currentTab = snap.val()});
+  console.log("retrieving session tab")
+  return currentTab;
 }
 
 // Initializes FriendlyChat.
@@ -150,14 +166,12 @@ FriendlyChat.prototype.removeChats = function() {
   this.messageList.innerHTML = '';
 };
 
-FriendlyChat.prototype.getSession2 = function(node) {
-  console.log(node); //
-  console.log(node.id); //
-  var currentTab = node.id || node.href; // DEV: choose which is better, then make it consistent.
-
+FriendlyChat.prototype.getSession2 = function() {
   // I. Link to db where we want to listen.
   var user = person;
   var userID = person.uid;
+  var currentDoWhopID;
+  var currentTabID;
   // var mySessionRef = firebase.database().ref('session/' + userID);
   var messagesRef = firebase.database().ref().child('messages/');
   var sessionRef = database.ref('/session').child(userID);
@@ -176,23 +190,14 @@ FriendlyChat.prototype.getSession2 = function(node) {
   var messageList = document.getElementById('messages');
   var messageInput = document.getElementById('message');
 
-  // III. Setting the session.
-  console.log('setting the session...')
-  sessionRef.update({
-    current_tab: currentTab
-  })
+  // All cases, check which item we're currently on:
+  sessionRef.on('value', function(snap) {
+    currentDoWhopID = snap.val().current_dowhop;
+    currentTabID = snap.val().current_tab;
+  });
+  console.log("current location:", currentDoWhopID, '---', currentTabID); // <-- Debugging.
 
-}
-
-FriendlyChat.prototype.getSession = function() {
-
-  var myRef = firebase.database().ref('session/' + person.uid);
-  var dowhopSelector = document.getElementById('dowhop-selector-container');
-  // Add parts for the notification-pending displays:
-  var pendingDiv = this.pendingDiv;
-  var myApprovalForm = this.approvalForm;
-  var myRescindingForm = this.rescindingForm;
-  var pendingNotification = '';
+  // All cases, we load pending div forms for current session:
   var checkForPendings = function(id, data) {
     var pendingNotification = '';
     // Check if there are pending notifications:
@@ -247,113 +252,224 @@ FriendlyChat.prototype.getSession = function() {
     }
   };
 
-  myRef.on('value', function(data) {
-    // var dowhopSelector = document.getElementById('dowhop-selector-container');
-    var dowhopSelectorDiv = '';
-    // Setting the header and check for pendings for the current DoWhop session:
-    // Checking for changed pendings in real-time:
-    firebase
-      .database()
-      .ref()
-      .child('doWhopDescription/' + data.val().current_dowhop)
-      .on('child_changed', function(data) {
-        console.log('checking for pend first time');
+    sessionRef.on('value', function(data) {
+      var dowhopSelectorDiv = '';
+      // Setting the header and check for pendings for the current DoWhop session:
+      // Checking for changed pendings in real-time:
+      firebase
+        .database()
+        .ref()
+        .child('doWhopDescription/' + data.val().current_dowhop)
+        .on('child_changed', function(data) {
+          console.log('checking for pend first time');
+          checkForPendings(data.key, data);
+        });
+
+      // Executing functions that are triggered by clicking on a selector block:
+      firebase.database().ref().child('doWhopDescription/' + data.val().current_dowhop).on('value', function(data) {
+        // Check for pending notifications:
+        console.log('checking for pend second time');
         checkForPendings(data.key, data);
+        // Weave together header
+        if (data.val()) {
+          let imageUrl =
+            data.val().downloadURL ||
+            'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+          var doWhopDescriptionTitle = data.val().titleDescription || 'Your DoWhops Will Appear Here';
+          return (dowhopSelectorDiv +=
+            "<section id='" +
+            data.key +
+            "' class='dowhop-selector-block' onclick='sessionRef(this)''>" +
+            "<div class='dowhop-selector-header-top' style='background-image: url(" +
+            imageUrl +
+            ");'>" +
+            '<h1>' +
+            doWhopDescriptionTitle +
+            '</h1>' +
+            '</div>' +
+            '</section>');
+        }
       });
 
-    // Executing functions that are triggered by clicking on a selector block:
-    firebase.database().ref().child('doWhopDescription/' + data.val().current_dowhop).on('value', function(data) {
-      // Check for pending notifications:
-      console.log('checking for pend second time');
-      checkForPendings(data.key, data);
-      // Weave together header
-      if (data.val()) {
-        let imageUrl =
-          data.val().downloadURL ||
-          'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
-        var doWhopDescriptionTitle = data.val().titleDescription || 'Your DoWhops Will Appear Here';
-        return (dowhopSelectorDiv +=
-          "<section id='" +
-          data.key +
-          "' class='dowhop-selector-block' onclick='sessionRef(this)''>" +
-          "<div class='dowhop-selector-header-top' style='background-image: url(" +
-          imageUrl +
-          ");'>" +
-          '<h1>' +
-          doWhopDescriptionTitle +
-          '</h1>' +
-          '</div>' +
-          '</section>');
-      }
+      dowhopSelector.innerHTML = dowhopSelectorDiv;
     });
 
-    dowhopSelector.innerHTML = dowhopSelectorDiv;
-  });
-  // Add parts for loading in messages for session:
-  var sessionRef = database.ref('/session').child(person.uid).child('current_dowhop');
-  var user = person.uid;
-  var messagesRef = this.messagesRef;
-  var messageList = document.getElementById('messages');
-  var messageInput = this.messageInput;
-  var displayMessage = function(key, name, text, picUrl, imageUri) {
-    var div = document.getElementById(key);
-    // If an element for that message does not exists yet we create it.
-    if (!div) {
-      var container = document.createElement('div');
-      container.innerHTML = FriendlyChat.MESSAGE_TEMPLATE;
-      div = container.firstChild;
-      div.setAttribute('id', key);
-      messageList.appendChild(div);
-    }
-    if (picUrl) {
-      div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
-    }
-    div.querySelector('.name').textContent = name;
-    var messageElement = div.querySelector('.message');
-    if (text) {
-      // If the message is text.
-      messageElement.textContent = text;
-      // Replace all line breaks by <br>.
-      messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
-    } else if (imageUri) {
-      // If the message is an image.
-      var image = document.createElement('img');
-      image.addEventListener(
-        'load',
-        function() {
-          messageList.scrollTop = messageList.scrollHeight;
-        }.bind(this)
-      );
-      this.setImageUrl(imageUri, image);
-      messageElement.innerHTML = '';
-      messageElement.appendChild(image);
-    }
-    // Show the card fading-in.
-    setTimeout(function() {
-      div.classList.add('visible');
-    }, 1);
-    messageList.scrollTop = messageList.scrollHeight;
-    messageInput.focus();
-  };
+  // We only load messages if current tab is clicked:
 
-  var loadMessagesOnClick = function(id) {
+  // We only load edit form if edit tab is clicked:
 
-      console.log('you chose', id);
-      let messagesRef = this.database.ref().child('messages/' + id);
-
-      // Make sure we remove all previous listeners and clear the UI.
-      messagesRef.off();
-      messageList.innerText = '';
-      // Loads the last x number of messages and listen for new ones:
-      var setMessage = function(data) {
-        var val = data.val();
-        displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl);
-      }.bind(this);
-      messagesRef.orderByKey().limitToLast(12).on('child_added', setMessage);
-      messagesRef.orderByKey().limitToLast(12).on('child_changed', setMessage);
-      // end new.
-  };
-};
+}
+//
+// FriendlyChat.prototype.getSession = function() {
+//
+//   var myRef = firebase.database().ref('session/' + person.uid);
+//   var dowhopSelector = document.getElementById('dowhop-selector-container');
+//   // Add parts for the notification-pending displays:
+//   var pendingDiv = this.pendingDiv;
+//   var myApprovalForm = this.approvalForm;
+//   var myRescindingForm = this.rescindingForm;
+//   var pendingNotification = '';
+//   var checkForPendings = function(id, data) {
+//     var pendingNotification = '';
+//     // Check if there are pending notifications:
+//     if (
+//       data.val() &&
+//       data.val().pending != null &&
+//       data.val().pending.status != 'approved' &&
+//       data.val().pending.status != 'denied'
+//     ) {
+//       // console.log('pending status true. showing pending div.');
+//       document.getElementById('pending-div').removeAttribute('hidden');
+//
+//       // This means visiting user is the creator of event:
+//       if (firebase.auth().currentUser.email == data.val().creatorDescription) {
+//         // console.log('visiting user is the creator. showing approval form, hiding rescind form.');
+//         pendingNotification = 'Someone has requested this change.\nDo you want to approve it?';
+//         document.getElementById('pending-div').innerText =
+//           pendingNotification +
+//           '\nPending time: ' +
+//           data.val().pending.whenDatePending +
+//           ' at ' +
+//           data.val().pending.whenTimePending +
+//           '\nPending location: ' +
+//           data.val().pending.whereAddressPending;
+//
+//         document.getElementById('approve-pending-form').removeAttribute('hidden');
+//         document.getElementById('rescind-pending-form').setAttribute('hidden', 'true');
+//
+//         // This means visiting user is a requestor of event change:
+//       } else if (firebase.auth().currentUser.uid == data.val().pending.requester) {
+//         // console.log('visiting user requested a change. showing rescinding form, hiding approval form.');
+//         pendingNotification = 'You have requested this time!\nIt is pending. Do you want to change it?';
+//         document.getElementById('pending-div').innerText =
+//           pendingNotification +
+//           '\nPending time: ' +
+//           data.val().pending.whenDatePending +
+//           ' at ' +
+//           data.val().pending.whenDatePending +
+//           '\nPending location: ' +
+//           data.val().pending.whereAddressPending;
+//
+//         document.getElementById('rescind-pending-form').removeAttribute('hidden');
+//         document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
+//       }
+//       // All other cases:
+//     } else {
+//       // console.log('this means it has passed over logic tests.');
+//       document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
+//       document.getElementById('pending-div').innerText = '';
+//       document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
+//       document.getElementById('rescind-pending-form').setAttribute('hidden', 'true');
+//     }
+//   };
+//
+//   myRef.on('value', function(data) {
+//     // var dowhopSelector = document.getElementById('dowhop-selector-container');
+//     var dowhopSelectorDiv = '';
+//     // Setting the header and check for pendings for the current DoWhop session:
+//     // Checking for changed pendings in real-time:
+//     firebase
+//       .database()
+//       .ref()
+//       .child('doWhopDescription/' + data.val().current_dowhop)
+//       .on('child_changed', function(data) {
+//         console.log('checking for pend first time');
+//         checkForPendings(data.key, data);
+//       });
+//
+//     // Executing functions that are triggered by clicking on a selector block:
+//     firebase.database().ref().child('doWhopDescription/' + data.val().current_dowhop).on('value', function(data) {
+//       // Check for pending notifications:
+//       console.log('checking for pend second time');
+//       checkForPendings(data.key, data);
+//       // Weave together header
+//       if (data.val()) {
+//         let imageUrl =
+//           data.val().downloadURL ||
+//           'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+//         var doWhopDescriptionTitle = data.val().titleDescription || 'Your DoWhops Will Appear Here';
+//         return (dowhopSelectorDiv +=
+//           "<section id='" +
+//           data.key +
+//           "' class='dowhop-selector-block' onclick='sessionRef(this)''>" +
+//           "<div class='dowhop-selector-header-top' style='background-image: url(" +
+//           imageUrl +
+//           ");'>" +
+//           '<h1>' +
+//           doWhopDescriptionTitle +
+//           '</h1>' +
+//           '</div>' +
+//           '</section>');
+//       }
+//     });
+//
+//     dowhopSelector.innerHTML = dowhopSelectorDiv;
+//   });
+//   // Add parts for loading in messages for session:
+//   var sessionRef = database.ref('/session').child(person.uid).child('current_dowhop');
+//   var user = person.uid;
+//   var messagesRef = this.messagesRef;
+//   var messageList = document.getElementById('messages');
+//   var messageInput = this.messageInput;
+//   var displayMessage = function(key, name, text, picUrl, imageUri) {
+//     var div = document.getElementById(key);
+//     // If an element for that message does not exists yet we create it.
+//     if (!div) {
+//       var container = document.createElement('div');
+//       container.innerHTML = FriendlyChat.MESSAGE_TEMPLATE;
+//       div = container.firstChild;
+//       div.setAttribute('id', key);
+//       messageList.appendChild(div);
+//     }
+//     if (picUrl) {
+//       div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
+//     }
+//     div.querySelector('.name').textContent = name;
+//     var messageElement = div.querySelector('.message');
+//     if (text) {
+//       // If the message is text.
+//       messageElement.textContent = text;
+//       // Replace all line breaks by <br>.
+//       messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
+//     } else if (imageUri) {
+//       // If the message is an image.
+//       var image = document.createElement('img');
+//       image.addEventListener(
+//         'load',
+//         function() {
+//           messageList.scrollTop = messageList.scrollHeight;
+//         }.bind(this)
+//       );
+//       this.setImageUrl(imageUri, image);
+//       messageElement.innerHTML = '';
+//       messageElement.appendChild(image);
+//     }
+//     // Show the card fading-in.
+//     setTimeout(function() {
+//       div.classList.add('visible');
+//     }, 1);
+//     messageList.scrollTop = messageList.scrollHeight;
+//     messageInput.focus();
+//   };
+//
+//   var loadMessagesOnClick = function(id) {
+//
+//       console.log('you chose', id);
+//       let messagesRef = this.database.ref().child('messages/' + id);
+//
+//       // Make sure we remove all previous listeners and clear the UI.
+//       messagesRef.off();
+//       messageList.innerText = '';
+//       // Loads the last x number of messages and listen for new ones:
+//       var setMessage = function(data) {
+//         var val = data.val();
+//         displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl);
+//       }.bind(this);
+//       messagesRef.orderByKey().limitToLast(12).on('child_added', setMessage);
+//       messagesRef.orderByKey().limitToLast(12).on('child_changed', setMessage);
+//       // end new.
+//   };
+// };
 
 // Loads messages history and listens for upcoming ones:
 FriendlyChat.prototype.loadMessages = function() {
@@ -583,7 +699,7 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
     var userName = user.displayName;
     this.checkForAdmin();
     // Add event listener for event session changes:
-    this.getSession(currentSessionID);
+    // this.getSession(currentSessionID);
     // We save the Firebase Messaging Device token and enable notifications.
     this.saveMessagingDeviceToken();
   } else {
