@@ -224,12 +224,10 @@ function setSession(doWhopSelector) {
 function showEditForm(doWhopSelector) {
   var editForm = document.getElementById('edit-dowhop-form');
   var key = doWhopSelector.id;
-  console.log(doWhopSelector);
   var doWhopDescriptionRef = database.ref('doWhopDescription').child(key);
 
   doWhopDescriptionRef.once('value').then(function(snapshot) {
     var doWhopDescription = snapshot.val();
-    console.log(doWhopDescription);
     if (
       doWhopDescription.creatorDescription === auth.currentUser.email ||
       doWhopDescription.createdBy === auth.currentUser.uid

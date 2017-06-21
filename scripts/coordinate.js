@@ -297,6 +297,7 @@ FriendlyChat.prototype.getSession2 = function() {
   // We only load messages if current tab is clicked:
   if (currentTabID === "coordinate-tab") {
     console.log("load messages now");
+    FriendlyChat.prototype.loadMessages();
   }
   // We only load edit form if edit tab is clicked:
   else if (currentTabID === "edit-tab") {
@@ -484,15 +485,16 @@ FriendlyChat.prototype.getSession2 = function() {
 FriendlyChat.prototype.loadMessages = function() {
   console.log("starting load messages...");
   let user = person.uid;
+  var messageList = document.getElementById('messages');
   var chatIdCurrent;
   var sessionRef = firebase.database().ref('/session').child(person.uid).child('current_dowhop');
   sessionRef.once('value', snap => chatIdCurrent = snap.val());
   console.log("ChatIdCurrent", chatIdCurrent);
-  this.messagesRef = this.database.ref().child('messages/' + chatIdCurrent);
+  this.messagesRef = firebase.database().ref().child('messages/' + chatIdCurrent);
 
   // Make sure we remove all previous listeners and clear the UI.
   this.messagesRef.off();
-  this.messageList.innerText = '';
+  messageList.innerText = '';
 
   // Loads the last x number of messages and listen for new ones:
   var setMessage = function(data) {
@@ -802,6 +804,8 @@ FriendlyChat.APPROVAL_TEMPLATE =
 
 // Displays a Message in the UI.
 FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri) {
+  var messageList = document.getElementById('messages'); // new
+  var messageInput = document.getElementById('message'); // new
   var div = document.getElementById(key);
   // If an element for that message does not exists yet we create it.
   if (!div) {
@@ -809,7 +813,7 @@ FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageU
     container.innerHTML = FriendlyChat.MESSAGE_TEMPLATE;
     div = container.firstChild;
     div.setAttribute('id', key);
-    this.messageList.appendChild(div);
+    messageList.appendChild(div);
   }
   if (picUrl) {
     div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
@@ -827,7 +831,7 @@ FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageU
     image.addEventListener(
       'load',
       function() {
-        this.messageList.scrollTop = this.messageList.scrollHeight;
+        messageList.scrollTop = messageList.scrollHeight;
       }.bind(this)
     );
     this.setImageUrl(imageUri, image);
@@ -838,8 +842,8 @@ FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageU
   setTimeout(function() {
     div.classList.add('visible');
   }, 1);
-  this.messageList.scrollTop = this.messageList.scrollHeight;
-  this.messageInput.focus();
+  messageList.scrollTop = messageList.scrollHeight;
+  messageInput.focus();
 };
 
 // Enables or disables the submit button depending on the values of the input
