@@ -5,25 +5,37 @@ admin.initializeApp(functions.config().firebase);
 
 exports.newDoWhopDescriptionAlert = functions.database.ref('/doWhopDescription/{pushKey}').onWrite(function(event) {
   const description = event.data.val();
-  console.log('DESCRIPTION: -> ', event.params.pushKey, ' -- ', description, ' -- ');
+  const key = event.params.pushKey;
 
   const getTokens = admin.database().ref('app_users').once('value').then(snapshot => {
-    const tokens = [];
+    const tokens = [
+      'ctP8hLYg7CQ:APA91bHdby2BZuag0HJJxHudP4rBQxfnjFSbOFCkwfuUGIklDkqIS_x7OuODj9YO70eaHd9Pzs8SI5hzI_TsatW9tCTFU2amyVlzbjvwbZmske5dRi6J5ZIUlnIBUzIKsWgsxKSGqM1C'
+    ];
     snapshot.forEach(user => {
       const token = user.child('token').val();
-      if (token) tokens.push(token);
+      if (
+        token &&
+        (description.doerDescription
+          .split(', ')
+          .some(doerDescriptionEmail => doerDescriptionEmail === user.val().email) ||
+          description.creatorDescription === user.val().email)
+      ) {
+        tokens.push(token);
+      }
     });
     return tokens;
   });
 
-  const getDoer = admin.auth().getUser('VYw0lPDFD3btHJadneuSFGjy8wk1');
+  const getUser = admin.auth().getUser('VYw0lPDFD3btHJadneuSFGjy8wk1');
 
-  Promise.all([getTokens, getDoer]).then(([tokens, doer]) => {
+  console.log('DESCRIPTION -> ', key, ' <-- ', description, ' --> ');
+
+  Promise.all([getTokens, getUser]).then(([tokens, user]) => {
+    console.log('TOKENS  AND USER -> ', tokens, ' -- ', getUser);
     const payload = {
       notification: {
-        title: 'A new DoWhop Has Been Added!',
-        body: 'description will go here',
-        icon: 'doer icon can go here'
+        title: description.titleDescription,
+        body: 'Has been updated'
       }
     };
     admin.messaging().sendToDevice(tokens, payload).catch(function(error) {
