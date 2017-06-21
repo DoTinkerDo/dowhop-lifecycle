@@ -6,7 +6,7 @@
       signInSuccess: function(user, credential, redirectUrl) {
         handleSignedInUser(user);
         // Do not redirect.
-        return false;
+        return true;
       }
     },
     signInFlow: 'popup',
@@ -21,13 +21,18 @@
 
   var loginPage = document.getElementById('login-container');
   var applicationPage = document.getElementById('application-container');
-  var appUsersRef = database.ref('/app_users');
 
   function writeUserData(user) {
+    var appUsersRef = database.ref('/app_users');
     var appUserRef = appUsersRef.child(user.uid);
     appUserRef.once('value').then(function(snapshot) {
       if (snapshot.val()) return;
-      var userData = _.pick(user, ['displayName', 'photoURL', 'uid', 'email']);
+      var userData = {
+        displayName: user.displayName,
+        photoURL: user.photoURL ? user.photoURL : placeholderUserPhotoURL,
+        uid: user.uid,
+        email: user.email
+      };
       appUserRef.set(userData);
     });
   }
@@ -37,6 +42,8 @@
     applicationPage.style.display = 'block';
     writeUserData(user);
     retrieveMyDoWhops(user.uid);
+    // FCM permission registration
+    registerMessaging(user);
   }
 
   function handleSignedOutUser() {
@@ -72,7 +79,7 @@
 
 // TODO map what parts of app use this...
 // 1) person is used by session -> confirmed line 219!
-// 2) ?
+// 2) now also used by reviews when user signs in for the first time.
 
 // setting currentUser globals...
 var person = null;

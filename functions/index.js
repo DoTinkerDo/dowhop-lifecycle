@@ -1,25 +1,33 @@
-/**
- * Copyright 2017 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
 
-// Note: You will edit this file in the follow up codelab about the Cloud Functions for Firebase.
+admin.initializeApp(functions.config().firebase);
 
-// TODO(DEVELOPER): Import the Cloud Functions for Firebase and the Firebase Admin modules here.
+exports.newDoWhopDescriptionAlert = functions.database.ref('/doWhopDescription/{pushKey}').onWrite(function(event) {
+  const description = event.data.val();
+  console.log('DESCRIPTION: -> ', event.params.pushKey, ' -- ', description, ' -- ');
 
-// TODO(DEVELOPER): Write the addWelcomeMessages Function here.
+  const getTokens = admin.database().ref('app_users').once('value').then(snapshot => {
+    const tokens = [];
+    snapshot.forEach(user => {
+      const token = user.child('token').val();
+      if (token) tokens.push(token);
+    });
+    return tokens;
+  });
 
-// TODO(DEVELOPER): Write the blurOffensiveImages Function here.
+  const getDoer = admin.auth().getUser('VYw0lPDFD3btHJadneuSFGjy8wk1');
 
-// TODO(DEVELOPER): Write the sendNotifications Function here.
+  Promise.all([getTokens, getDoer]).then(([tokens, doer]) => {
+    const payload = {
+      notification: {
+        title: 'A new DoWhop Has Been Added!',
+        body: 'description will go here',
+        icon: 'doer icon can go here'
+      }
+    };
+    admin.messaging().sendToDevice(tokens, payload).catch(function(error) {
+      console.log('ERROR IN INDEX.js -> ', error);
+    });
+  });
+});
