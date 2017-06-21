@@ -13,14 +13,17 @@
 */
 
 .Button-Style {
+
   background-color: red;
-  left: 66px;
+  left: 10px;
+  bottom: 20px;
   position: absolute;
   height: 40px;
   min-height: 19px;
   width: 142px;
   color: white;
   font-size: 18px;
+  padding-top: 10px;
 }
 
 .Button-Style:hover {
