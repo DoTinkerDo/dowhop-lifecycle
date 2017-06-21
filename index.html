@@ -9,7 +9,7 @@
   <!-- Adding jQUery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-  
+
   <link rel="manifest" href="manifest.json">
 
   <!-- Adding font 'Avenir Light' -->
@@ -54,10 +54,10 @@
     <header class="mdl-grid">
       <div class="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--5-offset-desktop">
         <ul class="tabs">
-          <li><a class="tab" href="#create" onclick="getSesh(this)"><span>+</span></a></li>
-          <li><a class="tab" href="#edit" onclick="getSesh(this)"><span>✎</span></a></li>
-          <li><a class="tab" href="#coordinate" onclick="getSesh(this)" id="coordinate-tab">Coordinate</a></li>
-          <li><a class="tab" href="#review" onclick="getSesh(this)"><span>★</span></a></li>
+          <li><a class="tab" id="create-tab" href="#create" onclick="getSesh(this)"><span>+</span></a></li>
+          <li><a class="tab" id="edit-tab" href="#edit" onclick="getSesh(this)"><span>✎</span></a></li>
+          <li><a class="tab" id="coordinate-tab" href="#coordinate" onclick="getSesh(this)">Coordinate</a></li>
+          <li><a class="tab" id="review-tab" href="#review" onclick="getSesh(this)"><span>★</span></a></li>
           <li><a class="btn-logout" href="#" onclick="firebase.auth().signOut()"><span>Log Out</span></a></li>
         </ul>
       </div>
@@ -98,7 +98,7 @@
       <div class="mdl-cell mdl-cell--7-col mdl-cell--11-col-tablet mdl-cell--order-1-tablet mdl-cell--order-1-phone">
         <!-- Currently Selected DoWhop Top Image Container -->
         <div id="dowhop-selector-container"></div> <!-- End Image Container -->
-        
+
         <!-- Start Create Panel -->
         <section id="create" class="mdl-card panel">
           <div class="mdl-layout__content">
