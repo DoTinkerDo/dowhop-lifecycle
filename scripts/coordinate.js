@@ -198,7 +198,7 @@ FriendlyChat.prototype.getSession = function() {
 
   // All cases, we load pending div forms for current session:
   var checkForPendings = function(data) {
-    var pendingNotification = 'NOTHING yet';
+    var pendingNotification = 'A change has been requested!\n';
     // Check if there are pending notifications:
     console.log('running checkforpendings on');
     console.log(data);
@@ -218,15 +218,20 @@ FriendlyChat.prototype.getSession = function() {
       if (firebase.auth().currentUser.email == data.creatorDescription) {
 
         console.log('visiting user is the creator. showing approval form, hiding rescind form.');
-        pendingNotification = 'Someone has requested this change.\nDo you want to approve it?';
-        document.getElementById('pending-div').innerText =
-          pendingNotification +
-          '\nPending time: ' +
-          data.pending.whenDatePending +
-          ' at ' +
-          data.pending.whenTimePending +
-          '\nPending location: ' +
-          data.pending.whereAddressPending;
+        pendingNotification += '\nDo you want to approve it?';
+
+        if (data.pending.whenDatePending) pendingNotification += "\nPending day: " + data.pending.whenDatePending;
+        if (data.pending.whenTimePending) pendingNotification += "\nPending time: " + data.pending.whenTimePending;
+        if (data.pending.whereAddressPending) pendingNotification += "\nPending location: " + data.pending.whereAddressPending;
+
+        document.getElementById('pending-div').innerText = pendingNotification;
+          // pendingNotification +
+          // '\nPending time: ' +
+          // data.pending.whenDatePending +
+          // ' at ' +
+          // data.pending.whenTimePending +
+          // '\nPending location: ' +
+          // data.pending.whereAddressPending;
 
         document.getElementById('approve-pending-form').removeAttribute('hidden');
         document.getElementById('rescind-pending-form').setAttribute('hidden', 'true');
@@ -234,16 +239,11 @@ FriendlyChat.prototype.getSession = function() {
         // This means visiting user is a requestor of event change:
       } else if (firebase.auth().currentUser.uid == data.pending.requester) {
         console.log('visiting user requested a change. showing rescinding form, hiding approval form.');
-        pendingNotification = 'You have requested this time!\nIt is pending. Do you want to change it?';
-        document.getElementById('pending-div').innerText =
-          pendingNotification +
-          '\nPending time: ' +
-          data.pending.whenDatePending +
-          ' at ' +
-          data.pending.whenDatePending +
-          '\nPending location: ' +
-          data.pending.whereAddressPending;
-
+        pendingNotification += 'You requested it!\nIt is pending. Do you want to change it?\n';
+        if (data.pending.whenDatePending) pendingNotification += "\nPending day: " + data.pending.whenDatePending;
+        if (data.pending.whenTimePending) pendingNotification += "\nPending time: " + data.pending.whenTimePending;
+        if (data.pending.whereAddressPending) pendingNotification += "\nPending location: " + data.pending.whereAddressPending;
+        document.getElementById('pending-div').innerText = pendingNotification
         document.getElementById('rescind-pending-form').removeAttribute('hidden');
         document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
       }
