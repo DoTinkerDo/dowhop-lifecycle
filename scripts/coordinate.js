@@ -17,15 +17,13 @@ FriendlyChat.prototype.setSessionTab = function(clicked) {
   sessionRef.update({
     current_tab: currentTab
   })
-  console.log("updated session tab!");
 }
 
-FriendlyChat.prototype.getSessionTab = function() {
+FriendlyChat.prototype.getSessionTab = function() { // To-Do: Refactor like so.
   var userID = person.uid;
   var sessionRef = database.ref('/session').child(userID);
   var currentTab;
   sessionRef.once('value', function(snap) { currentTab = snap.val()});
-  console.log("retrieving session tab")
   return currentTab;
 }
 
@@ -163,6 +161,7 @@ FriendlyChat.prototype.sendRescind = function(e) {
 FriendlyChat.prototype.showDateTimeInputs = function() {};
 
 FriendlyChat.prototype.removeChats = function() {
+  messageList = document.getElementById('messages');
   this.messageList.innerHTML = '';
 };
 
@@ -195,7 +194,7 @@ FriendlyChat.prototype.getSession = function() {
     currentDoWhopID = snap.val().current_dowhop;
     currentTabID = snap.val().current_tab;
   });
-  console.log("current location:", currentDoWhopID, '---', currentTabID); // <-- Debugging.
+  // console.log("current location:", currentDoWhopID, '---', currentTabID); // <-- Debugging.
 
   // All cases, we load pending div forms for current session:
   var checkForPendings = function(id, data) {
@@ -261,14 +260,12 @@ FriendlyChat.prototype.getSession = function() {
         .ref()
         .child('doWhopDescription/' + data.val().current_dowhop)
         .on('child_changed', function(data) {
-          console.log('checking for pend first time');
           checkForPendings(data.key, data);
         });
 
       // Executing functions that are triggered by clicking on a selector block:
       firebase.database().ref().child('doWhopDescription/' + data.val().current_dowhop).on('value', function(data) {
         // Check for pending notifications:
-        console.log('checking for pend second time');
         checkForPendings(data.key, data);
         // Weave together header
         if (data.val()) {
@@ -290,22 +287,19 @@ FriendlyChat.prototype.getSession = function() {
             '</section>');
         }
       });
-
       doWhopSelector.innerHTML = doWhopSelectorDiv;
     });
 
   // We only load messages if current tab is clicked:
   if (currentTabID === "coordinate-tab") {
-    console.log("load messages now");
     FriendlyChat.prototype.loadMessages();
   }
   // We only load edit form if edit tab is clicked:
   else if (currentTabID === "edit-tab") {
-    console.log("load edit form now");
     showEditForm(doWhopSelector.firstChild); // new
     fillInEditForm(doWhopSelector.firstChild); // new
   } else {
-    // TO-DO: Good to clear all forms if nothing's chosen.
+    // TO-DO: Good to clear all unwanted UI elements if nothing's chosen.
   }
 
 }
@@ -483,13 +477,11 @@ FriendlyChat.prototype.getSession = function() {
 
 // Loads messages history and listens for upcoming ones:
 FriendlyChat.prototype.loadMessages = function() {
-  console.log("starting load messages...");
   let user = person.uid;
   var messageList = document.getElementById('messages');
   var chatIdCurrent;
   var sessionRef = firebase.database().ref('/session').child(person.uid).child('current_dowhop');
   sessionRef.once('value', snap => chatIdCurrent = snap.val());
-  console.log("ChatIdCurrent", chatIdCurrent);
   this.messagesRef = firebase.database().ref().child('messages/' + chatIdCurrent);
 
   // Make sure we remove all previous listeners and clear the UI.

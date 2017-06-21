@@ -214,13 +214,10 @@ function makeDoWhopSelector(container, data) {
 // for the currentUser
 // plus showEditForm and FillInEditForm
 function setSession(doWhopSelector) {
-
   // Note: this is an important order of operations:
   var key = doWhopSelector.id;
   database.ref('session').child(person.uid).update({ current_dowhop: key });
   FriendlyChat.prototype.getSession(); // new
-  // showEditForm(doWhopSelector); // new
-  // fillInEditForm(doWhopSelector); // new
 }
 
 function showEditForm(doWhopSelector) {
