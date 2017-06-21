@@ -111,6 +111,7 @@ main, #messages-card {
 
 .mdl-card {
   min-height: 0;
+  width: 100%;
 
 }
 .mdl-card {

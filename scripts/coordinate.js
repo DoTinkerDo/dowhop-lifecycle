@@ -10,7 +10,7 @@ function getSesh(clicked) {
 }
 
 FriendlyChat.prototype.setSessionTab = function(clicked) {
-  var currentTab = clicked.id || clicked.href; // DEV: choose which is better, then make it consistent.
+  var currentTab = clicked.id
   var userID = person.uid;
   var sessionRef = database.ref('/session').child(userID);
 
@@ -194,7 +194,7 @@ FriendlyChat.prototype.getSession = function() {
     currentDoWhopID = snap.val().current_dowhop;
     currentTabID = snap.val().current_tab;
   });
-  // console.log("current location:", currentDoWhopID, '---', currentTabID); // <-- Debugging.
+  console.log("current location:", currentDoWhopID, '---', currentTabID); // <-- Debugging.
 
   // All cases, we load pending div forms for current session:
   var checkForPendings = function(id, data) {
@@ -263,12 +263,14 @@ FriendlyChat.prototype.getSession = function() {
         .ref()
         .child('doWhopDescription/' + data.val().current_dowhop)
         .on('child_changed', function(data) {
-          checkForPendings(data.key, data);
+          console.log('prep to run check pendings once...');
+          checkForPendings(data.key, data.val());
         });
 
       // Executing functions that are triggered by clicking on a selector block:
       firebase.database().ref().child('doWhopDescription/' + data.val().current_dowhop).on('value', function(data) {
         // Check for pending notifications:
+        console.log('prep to run check pendings second...', data.val().current_dowhop);
         checkForPendings(data.key, data);
         // Weave together header
         if (data.val()) {
