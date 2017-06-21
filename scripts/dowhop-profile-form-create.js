@@ -4,6 +4,9 @@
 
 var createProfileForm = document.getElementById('create-profile-form');
 var createProfileName = document.getElementById('profile-name');
+var createProfilePhone = document.getElementById('profile-phone');
+var createProfileSocial = document.getElementById('profile-social');
+var createProfileWebsite = document.getElementById('profile-website');
 var createProfileAbout = document.getElementById('profile-about');
 var createProfileActivity1 = document.getElementById('profile-activity-1');
 var createProfileActivity2 = document.getElementById('profile-activity-2');
@@ -23,23 +26,41 @@ function addDoWhopImage(files_arr, node) {
 }
 
 function createProfile(e) {
-    e.preventDefault();
-    var currentProfile = firebase.auth().currentUser.uid;
-    var profileRef = firebase.database().ref('app_users/' + currentProfile);
+  e.preventDefault();
+  var currentProfile = firebase.auth().currentUser.uid;
+  var profileRef = firebase.database().ref('app_users/' + currentProfile);
 
-    // Prepare user data:
-    var profileData = {
-      update: true,
-      profileName: createProfileName.value,
-      profileAbout: createProfileAbout.value,
-      profileActivity1: createProfileActivity1.value,
-      profileActivity2: createProfileActivity2.value,
-      profileActivity3: createProfileActivity3.value
-    }
-    // Save information to db:
+  // Prepare user data:
+  var profileData = {
+    update: true,
+    profileName: createProfileName.value,
+    profilePhone: createProfilePhone.value,
+    profileSocial: createProfileSocial.value,
+    profileWebsite: createProfileWebsite.value,
+    profileAbout: createProfileAbout.value,
+    profileActivity1: createProfileActivity1.value,
+    profileActivity2: createProfileActivity2.value,
+    profileActivity3: createProfileActivity3.value
+  }
+  // Save information to db:
+  if(
+    createProfileName.value &&
+    createProfilePhone.value &&
+    createProfileSocial.value &&
+    createProfileWebsite.value &&
+    createProfileAbout.value &&
+    createProfileActivity1.value &&
+    createProfileActivity2.value &&
+    createProfileActivity3.value
+  )
+  {
     profileRef.update(profileData).then(function() {
     });
-  createProfileForm.reset();
+    createProfileForm.reset();
+  }else{
+    alert("Please Fill Out All Fields.")
+    return
+  }
 
 }
 
@@ -48,6 +69,9 @@ var currentProfile;
 var myProfileButton = document.getElementById('my-profile-button');
 var myDisplayName = document.getElementById('my-display-name');
 var myProfileName = document.getElementById('my-profile-name');
+var myProfilePhone = document.getElementById('my-profile-email');
+var myProfileSocial = document.getElementById('my-profile-social');
+var myProfileWebsite = document.getElementById('my-profile-website');
 var myProfileAbout = document.getElementById('my-profile-about');
 var myProfileEmail = document.getElementById('my-profile-email');
 var myProfileActivity1 = document.getElementById('my-profile-activity-1');
@@ -63,8 +87,12 @@ function retrieveProfile(currentProfile) {
 
   // Retrieving relevant data from the database:
   profileRef.on('value', function(snap) {
+
     myDisplayName.innerText = snap.val().displayName;
     myProfileName.innerText = snap.val().profileName;
+    myProfilePhone.innerText = snap.val().profilePhone;
+    myProfileSocial.innerText = snap.val().profileSocial;
+    myProfileWebsite.innerText = snap.val().profileWebsite;
     myProfileAbout.innerText = snap.val().profileAbout;
     myProfileEmail.innerText = snap.val().email;
     myProfileActivity1.innerText = snap.val().profileActivity1;
