@@ -51,8 +51,8 @@
     <header class="mdl-grid">
       <div class="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--5-offset-desktop">
         <ul class="tabs">
-          <li><a class="tab" href="#edit" onclick="getSesh(this)"><span>✎</span></a></li>
-          <li><a class="tab" href="#coordinate" onclick="getSesh(this)" id="coordinate-tab">Coordinate</a></li>
+          <li><a class="tab" id="edit-tab" href="#edit" onclick="getSesh(this)"><span>✎</span></a></li>
+          <li><a class="tab" id="coordinate-tab" href="#coordinate" onclick="getSesh(this)">Coordinate</a></li>
           <li><a class="tab" href="#review" onclick="getSesh(this)"><span>★</span></a></li>
           <li><a class="btn-logout" href="#" onclick="firebase.auth().signOut()"><span>Log Out</span></a></li>
         </ul>
