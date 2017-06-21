@@ -6,7 +6,7 @@ var currentSessionID;
 
 function getSesh(clicked) {
   FriendlyChat.prototype.setSessionTab(clicked);
-  FriendlyChat.prototype.getSession2();
+  FriendlyChat.prototype.getSession();
 }
 
 FriendlyChat.prototype.setSessionTab = function(clicked) {
@@ -166,7 +166,7 @@ FriendlyChat.prototype.removeChats = function() {
   this.messageList.innerHTML = '';
 };
 
-FriendlyChat.prototype.getSession2 = function() {
+FriendlyChat.prototype.getSession = function() {
   // I. Link to db where we want to listen.
   var user = person;
   var userID = person.uid;
