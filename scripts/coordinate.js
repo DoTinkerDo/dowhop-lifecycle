@@ -502,10 +502,16 @@ FriendlyChat.prototype.saveMessage = function(e) {
   e.preventDefault();
 
   // Mke sure this chat and message get sent to two appropriate places:
-  this.chatItemDataSpecific = document.getElementById('dowhop-selector-container').children[0].id; // <-- Refactor
+  var currentDoWhopID
+  var userID = person.uid;
+  var sessionRef = firebase.database().ref('/session').child(userID);
+  sessionRef.on('value', function(snap) {
+    currentDoWhopID = snap.val().current_dowhop;
+    // currentTabID = snap.val().current_tab;
+  });
 
   // Nesting the message content under chat-id node headings:
-  var messagesChatsRef = this.database.ref().child('messages/' + this.chatItemDataSpecific);
+  var messagesChatsRef = database.ref().child('messages').child(currentDoWhopID);
   var currentUser = person;
   var whenDatePending = this.whenDatePending;
   var whenTimePending = this.whenTimePending;
@@ -524,7 +530,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
     if (this.messageFormWhenDatePending.value) messageText += this.messageFormWhenDatePending.value + "\n";
 
     messagesChatsRef.push({
-      chatId: this.chatItemDataSpecific,
+      chatId: currentDoWhopID,
       name: currentUser.displayName,
       text: messageText,
       photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
@@ -542,7 +548,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
   if (this.messageInput.value && this.checkSignedInWithMessage()) {
     messagesChatsRef
       .push({
-        chatId: this.chatItemDataSpecific,
+        chatId: currentDoWhopID,
         name: currentUser.displayName,
         text: this.messageInput.value,
         photoUrl: currentUser.photoURL ||
