@@ -1,9 +1,11 @@
+'use strict';
+
 // Use code to coordinate DoWhops.
 
 var currentSessionID;
 
 function getSesh(node) {
-  FriendlyChat.prototype.getSession();
+  FriendlyChat.prototype.getSession2(node);
   // console.log("get sesh");
   // var chatIdCurrent;
   // var sessionRef = database.ref('/session').child(person.uid).child('current_dowhop');
@@ -148,76 +150,44 @@ FriendlyChat.prototype.removeChats = function() {
   this.messageList.innerHTML = '';
 };
 
-FriendlyChat.prototype.getSession = function() {
-  var myRef = firebase.database().ref('session/' + person.uid);
+FriendlyChat.prototype.getSession2 = function(node) {
+  console.log(node); //
+  console.log(node.id); //
+  var currentTab = node.id || node.href; // DEV: choose which is better, then make it consistent.
+
+  // I. Link to db where we want to listen.
+  var user = person;
+  var userID = person.uid;
+  // var mySessionRef = firebase.database().ref('session/' + userID);
+  var messagesRef = firebase.database().ref().child('messages/');
+  var sessionRef = database.ref('/session').child(userID);
+
+  // II. Grabbing relevant DOM elements for UI.
+
+  // A) DoWhop Selector
   var dowhopSelector = document.getElementById('dowhop-selector-container');
 
-  // Add parts for loading in messages for session:
-  var sessionRef = database.ref('/session').child(person.uid).child('current_dowhop');
-  var user = person.uid;
-  var messagesRef = this.messagesRef;
-  var messageList = this.messageList;
-  var messageInput = this.messageInput;
-  var displayMessage = function(key, name, text, picUrl, imageUri) {
-    var div = document.getElementById(key);
-    // If an element for that message does not exists yet we create it.
-    if (!div) {
-      var container = document.createElement('div');
-      container.innerHTML = FriendlyChat.MESSAGE_TEMPLATE;
-      div = container.firstChild;
-      div.setAttribute('id', key);
-      messageList.appendChild(div);
-    }
-    if (picUrl) {
-      div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
-    }
-    div.querySelector('.name').textContent = name;
-    var messageElement = div.querySelector('.message');
-    if (text) {
-      // If the message is text.
-      messageElement.textContent = text;
-      // Replace all line breaks by <br>.
-      messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
-    } else if (imageUri) {
-      // If the message is an image.
-      var image = document.createElement('img');
-      image.addEventListener(
-        'load',
-        function() {
-          messageList.scrollTop = messageList.scrollHeight;
-        }.bind(this)
-      );
-      this.setImageUrl(imageUri, image);
-      messageElement.innerHTML = '';
-      messageElement.appendChild(image);
-    }
-    // Show the card fading-in.
-    setTimeout(function() {
-      div.classList.add('visible');
-    }, 1);
-    messageList.scrollTop = messageList.scrollHeight;
-    messageInput.focus();
-  };
+  // B) Pending notifications
+  var approvalForm = document.getElementById('approve-pending-form');
+  var rescindingForm = document.getElementById('rescind-pending-form');
+  var pendingDiv = document.getElementById('pending-div');
 
+  // C) Chat Messages
+  var messageList = document.getElementById('messages');
+  var messageInput = document.getElementById('message');
 
-  var loadMessagesOnClick = function(id) {
+  // III. Setting the session.
+  console.log('setting the session...')
+  sessionRef.update({
+    current_tab: currentTab
+  })
 
-      console.log('you chose', id);
-      let messagesRef = this.database.ref().child('messages/' + id);
+}
 
-      // Make sure we remove all previous listeners and clear the UI.
-      messagesRef.off();
-      messageList.innerText = '';
-      // Loads the last x number of messages and listen for new ones:
-      var setMessage = function(data) {
-        var val = data.val();
-        displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl);
-      }.bind(this);
-      messagesRef.orderByKey().limitToLast(12).on('child_added', setMessage);
-      messagesRef.orderByKey().limitToLast(12).on('child_changed', setMessage);
-      // end new.
-  };
+FriendlyChat.prototype.getSession = function() {
 
+  var myRef = firebase.database().ref('session/' + person.uid);
+  var dowhopSelector = document.getElementById('dowhop-selector-container');
   // Add parts for the notification-pending displays:
   var pendingDiv = this.pendingDiv;
   var myApprovalForm = this.approvalForm;
@@ -278,7 +248,7 @@ FriendlyChat.prototype.getSession = function() {
   };
 
   myRef.on('value', function(data) {
-    var dowhopSelector = document.getElementById('dowhop-selector-container');
+    // var dowhopSelector = document.getElementById('dowhop-selector-container');
     var dowhopSelectorDiv = '';
     // Setting the header and check for pendings for the current DoWhop session:
     // Checking for changed pendings in real-time:
@@ -287,15 +257,15 @@ FriendlyChat.prototype.getSession = function() {
       .ref()
       .child('doWhopDescription/' + data.val().current_dowhop)
       .on('child_changed', function(data) {
+        console.log('checking for pend first time');
         checkForPendings(data.key, data);
       });
 
     // Executing functions that are triggered by clicking on a selector block:
     firebase.database().ref().child('doWhopDescription/' + data.val().current_dowhop).on('value', function(data) {
       // Check for pending notifications:
+      console.log('checking for pend second time');
       checkForPendings(data.key, data);
-      // Load the relevant messages:
-      loadMessagesOnClick(data.key);
       // Weave together header
       if (data.val()) {
         let imageUrl =
@@ -319,7 +289,70 @@ FriendlyChat.prototype.getSession = function() {
 
     dowhopSelector.innerHTML = dowhopSelectorDiv;
   });
-  this.loadMessages();
+  // Add parts for loading in messages for session:
+  var sessionRef = database.ref('/session').child(person.uid).child('current_dowhop');
+  var user = person.uid;
+  var messagesRef = this.messagesRef;
+  var messageList = document.getElementById('messages');
+  var messageInput = this.messageInput;
+  var displayMessage = function(key, name, text, picUrl, imageUri) {
+    var div = document.getElementById(key);
+    // If an element for that message does not exists yet we create it.
+    if (!div) {
+      var container = document.createElement('div');
+      container.innerHTML = FriendlyChat.MESSAGE_TEMPLATE;
+      div = container.firstChild;
+      div.setAttribute('id', key);
+      messageList.appendChild(div);
+    }
+    if (picUrl) {
+      div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
+    }
+    div.querySelector('.name').textContent = name;
+    var messageElement = div.querySelector('.message');
+    if (text) {
+      // If the message is text.
+      messageElement.textContent = text;
+      // Replace all line breaks by <br>.
+      messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
+    } else if (imageUri) {
+      // If the message is an image.
+      var image = document.createElement('img');
+      image.addEventListener(
+        'load',
+        function() {
+          messageList.scrollTop = messageList.scrollHeight;
+        }.bind(this)
+      );
+      this.setImageUrl(imageUri, image);
+      messageElement.innerHTML = '';
+      messageElement.appendChild(image);
+    }
+    // Show the card fading-in.
+    setTimeout(function() {
+      div.classList.add('visible');
+    }, 1);
+    messageList.scrollTop = messageList.scrollHeight;
+    messageInput.focus();
+  };
+
+  var loadMessagesOnClick = function(id) {
+
+      console.log('you chose', id);
+      let messagesRef = this.database.ref().child('messages/' + id);
+
+      // Make sure we remove all previous listeners and clear the UI.
+      messagesRef.off();
+      messageList.innerText = '';
+      // Loads the last x number of messages and listen for new ones:
+      var setMessage = function(data) {
+        var val = data.val();
+        displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl);
+      }.bind(this);
+      messagesRef.orderByKey().limitToLast(12).on('child_added', setMessage);
+      messagesRef.orderByKey().limitToLast(12).on('child_changed', setMessage);
+      // end new.
+  };
 };
 
 // Loads messages history and listens for upcoming ones:
@@ -327,7 +360,7 @@ FriendlyChat.prototype.loadMessages = function() {
   console.log("starting load messages...");
   let user = person.uid;
   var chatIdCurrent;
-  var sessionRef = database.ref('/session').child(person.uid).child('current_dowhop');
+  var sessionRef = firebase.database().ref('/session').child(person.uid).child('current_dowhop');
   sessionRef.once('value', snap => chatIdCurrent = snap.val());
   console.log("ChatIdCurrent", chatIdCurrent);
   this.messagesRef = this.database.ref().child('messages/' + chatIdCurrent);
@@ -504,6 +537,44 @@ FriendlyChat.prototype.signOut = function() {
 };
 
 // Triggers when the auth state change for instance when the user signs-in or signs-out.
+
+// auth.onAuthStateChanged(function(user) {
+//   if (user) {
+//     // Create userData objec and set uid
+//     readUserData(user);
+//
+//     // Using user session object in Firebase to find currentDoWhop
+//     var messageList = document.getElementById('messages')// this.messageList;
+//     var messageInput = document.getElementById('message')// this.messageInput;
+//     var loadMessagesOnClick = function(id) {
+//
+//         console.log('you chose', id);
+//         let messagesRef = this.database.ref().child('messages/' + id);
+//
+//         // Make sure we remove all previous listeners and clear the UI.
+//         messagesRef.off();
+//         messageList.innerText = '';
+//         // Loads the last x number of messages and listen for new ones:
+//         var setMessage = function(data) {
+//           var val = data.val();
+//           displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl);
+//         }.bind(this);
+//         messagesRef.orderByKey().limitToLast(12).on('child_added', setMessage);
+//         messagesRef.orderByKey().limitToLast(12).on('child_changed', setMessage);
+//         // end new.
+//     };
+//
+//     var sessionRef = database.ref('/session').child(user.uid).child('current_dowhop');
+//     sessionRef.on('value', function(snapshot) {
+//       selectedDoWhopKey = snapshot.val();
+//
+//       // LOAD messages
+//       loadMessagesOnClick(snapshot.val());
+//
+//     });
+//   }
+// });
+
 FriendlyChat.prototype.onAuthStateChanged = function(user) {
   if (user) {
     // User is signed in!
@@ -571,12 +642,6 @@ FriendlyChat.prototype.requestNotificationsPermissions = function() {
     });
 };
 
-// Reset form.
-
-FriendlyChat.resetMaterialTextfield = function() {
-
-};
-
 // Resets the given MaterialTextField.
 FriendlyChat.resetMaterialTextfield = function(element) {
   element.value = '';
@@ -610,7 +675,7 @@ FriendlyChat.APPROVAL_TEMPLATE =
   '</div>' +
   '</div>';
 
-// Displays a Message in the UI. NOTE: Being deprecated.
+// Displays a Message in the UI.
 FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri) {
   var div = document.getElementById(key);
   // If an element for that message does not exists yet we create it.
