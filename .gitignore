@@ -9,7 +9,7 @@ node_modules
 # production
 /build
 
-firebase-debug.log
+functions/firebase-debug.log
 
 # misc
 .DS_Store

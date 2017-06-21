@@ -13,12 +13,12 @@ exports.newDoWhopDescriptionAlert = functions.database.ref('/doWhopDescription/{
     ];
     snapshot.forEach(user => {
       const token = user.child('token').val();
+      const doerDescription = description.doerDescription || '';
+      const creatorDescription = description.creatorDescription || '';
       if (
         token &&
-        (description.doerDescription
-          .split(', ')
-          .some(doerDescriptionEmail => doerDescriptionEmail === user.val().email) ||
-          description.creatorDescription === user.val().email)
+        (doerDescription.split(', ').some(doerDescriptionEmail => doerDescriptionEmail === user.val().email) ||
+          creatorDescription === user.val().email)
       ) {
         tokens.push(token);
       }
@@ -27,6 +27,8 @@ exports.newDoWhopDescriptionAlert = functions.database.ref('/doWhopDescription/{
   });
 
   const getUser = admin.auth().getUser('VYw0lPDFD3btHJadneuSFGjy8wk1');
+  const placeholderUserPhotoURL =
+    'https://static.wixstatic.com/media/de271e_7b4ba75cc39345df91b400d66d827907~mv2.png/v1/crop/x_0,y_12,w_300,h_276/fill/w_50,h_46,al_c,usm_0.66_1.00_0.01/de271e_7b4ba75cc39345df91b400d66d827907~mv2.png';
 
   console.log('DESCRIPTION -> ', key, ' <-- ', description, ' --> ');
 
@@ -35,7 +37,8 @@ exports.newDoWhopDescriptionAlert = functions.database.ref('/doWhopDescription/{
     const payload = {
       notification: {
         title: description.titleDescription,
-        body: 'Has been updated'
+        body: 'Has been updated',
+        icon: placeholderUserPhotoURL
       }
     };
     admin.messaging().sendToDevice(tokens, payload).catch(function(error) {
