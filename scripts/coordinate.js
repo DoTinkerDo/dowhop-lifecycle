@@ -211,6 +211,7 @@ FriendlyChat.prototype.getSession = function() {
 
       // This means visiting user is the creator of event:
       if (firebase.auth().currentUser.email == data.val().creatorDescription) {
+
         // console.log('visiting user is the creator. showing approval form, hiding rescind form.');
         pendingNotification = 'Someone has requested this change.\nDo you want to approve it?';
         document.getElementById('pending-div').innerText =
@@ -524,13 +525,13 @@ FriendlyChat.prototype.saveMessage = function(e) {
   if (this.messageFormWhenDatePending.value || this.messageFormWhenTimePending.value || this.messageFormWherePending.value) {
     var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
 
-    var messageText = "";
+    var messageText = '';
 
-    messageText += currentUser.displayName + " has requested a change!\n";
-    if (this.messageFormWherePending.value) messageText += "Where: " + this.messageFormWherePending.value + "\n";
-    if (this.messageFormWhenTimePending.value || this.messageFormWhenDatePending.value) messageText += "On: ";
-    if (this.messageFormWhenTimePending.value) messageText += this.messageFormWhenTimePending.value + "\n";
-    if (this.messageFormWhenDatePending.value) messageText += this.messageFormWhenDatePending.value + "\n";
+    messageText += currentUser.displayName + ' has requested a change!\n';
+    if (this.messageFormWherePending.value) messageText += 'Where: ' + this.messageFormWherePending.value + '\n';
+    if (this.messageFormWhenTimePending.value || this.messageFormWhenDatePending.value) messageText += 'On: ';
+    if (this.messageFormWhenTimePending.value) messageText += this.messageFormWhenTimePending.value + '\n';
+    if (this.messageFormWhenDatePending.value) messageText += this.messageFormWhenDatePending.value + '\n';
 
     messagesChatsRef.push({
       chatId: currentDoWhopID,
@@ -539,12 +540,14 @@ FriendlyChat.prototype.saveMessage = function(e) {
       photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
     });
 
-    chatsRef.update({status: true, requester: currentUser.uid }); // Refactoring to make it a dis-aggregated update.
-    if (this.messageFormWhenDatePending.value) chatsRef.update({ whenDatePending: this.messageFormWhenDatePending.value }).then(this.resetDate);
-    if (this.messageFormWhenTimePending.value) chatsRef.update({  whenTimePending: this.messageFormWhenTimePending.value }).then(this.resetTime);
-    if (this.messageFormWherePending.value) chatsRef.update({ whereAddressPending: this.messageFormWherePending.value }).then(this.resetWhere);
+    chatsRef.update({ status: true, requester: currentUser.uid }); // Refactoring to make it a dis-aggregated update.
+    if (this.messageFormWhenDatePending.value)
+      chatsRef.update({ whenDatePending: this.messageFormWhenDatePending.value }).then(this.resetDate);
+    if (this.messageFormWhenTimePending.value)
+      chatsRef.update({ whenTimePending: this.messageFormWhenTimePending.value }).then(this.resetTime);
+    if (this.messageFormWherePending.value)
+      chatsRef.update({ whereAddressPending: this.messageFormWherePending.value }).then(this.resetWhere);
     this.resetDateTimeWhere; // Catch-all.
-
   }
 
   // Check that the user entered a message and is signed in:
