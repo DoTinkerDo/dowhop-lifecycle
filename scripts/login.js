@@ -90,21 +90,3 @@ auth.onAuthStateChanged(function(user) {
     console.log('PERSON signed out');
   }
 });
-
-// Probably no longer needed...
-// was used by react review app
-var currentUserDoWhopId = null;
-var currentDoWhopProto = null;
-firebase.database().ref().child('proto_user/').once('value', function(snapshot) {
-  snapshot.forEach(function(data) {
-    var name = '"' + person.displayName + '"';
-    var name = person.displayName;
-    if (data.key === name) {
-      currentUserDoWhopId = data.val();
-    }
-  });
-
-  firebase.database().ref().child('proto/' + currentUserDoWhopId).once('value', function(snapshot) {
-    currentDoWhopProto = snapshot.val();
-  });
-});
