@@ -54,6 +54,7 @@
     <header class="mdl-grid">
       <div class="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--5-offset-desktop">
         <ul class="tabs">
+          <li><a class="tab" href="#create" onclick="getSesh(this)"><span>+</span></a></li>
           <li><a class="tab" href="#edit" onclick="getSesh(this)"><span>✎</span></a></li>
           <li><a class="tab" href="#coordinate" onclick="getSesh(this)" id="coordinate-tab">Coordinate</a></li>
           <li><a class="tab" href="#review" onclick="getSesh(this)"><span>★</span></a></li>
@@ -97,6 +98,55 @@
       <div class="mdl-cell mdl-cell--7-col mdl-cell--11-col-tablet mdl-cell--order-1-tablet mdl-cell--order-1-phone">
         <!-- Currently Selected DoWhop Top Image Container -->
         <div id="dowhop-selector-container"></div> <!-- End Image Container -->
+
+        <section id="create" class="mdl-card panel">
+          <div class="mdl-cell mdl-cell--6-col">
+            <div class="mdl-card">
+              <div class="mdl-layout__content">
+                <div class="mdl-card__title">
+                  <h2 class="mdl-card__title-text">Create a new DoWhop</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                  <form action="#">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <input class="mdl-textfield__input" type="text" id="title-description" placeholder="Do this with me">
+                      <label class="mdl-textfield__label" for="title-description">DoWhop Title</label>
+                      <div class="mdl-tooltip" for="title-description">Write what you'll DO!</div>
+                    </div>
+
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <input class="mdl-textfield__input" type="text" id="who-description" placeholder="This many people with this skill level">
+                      <label class="mdl-textfield__label" for="who-description">Who Should Join?</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <input class="mdl-textfield__input" type="text" id="what-description" placeholder="I bring this, you bring that, we will make this">
+                      <label class="mdl-textfield__label" for="what-description">What will you provide?</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <input class="mdl-textfield__input" type="text" id="when-description" placeholder="It will take this many hours, on these days">
+                      <label class="mdl-textfield__label" for="when-description">When will you do?</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <input class="mdl-textfield__input" type="text" id="where-description" placeholder="Meet at this location">
+                      <label class="mdl-textfield__label" for="where-description">Where will you meet?</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <input class="mdl-textfield__input" type="text" id="how-much-description" placeholder="This much per person">
+                      <label class="mdl-textfield__label" for="how-description">How much will it cost?</label>
+                    </div>
+                    <div class="mdl-card__actions">
+                      <input id="dowhop-image-capture" type="file" accept="image/*,capture=camera" onchange="addDoWhopImage(this.files, this)">
+                      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="create-new-dowhop">
+                        Create New DoWhop
+                        <div class="mdl-tooltip" for="create-new-dowhop">Click here to share your DoWhop!</div>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <!-- Start Edit Panel -->
         <section id="edit" class="mdl-card panel">
@@ -334,6 +384,7 @@
 <script src="scripts/login.js"></script>
 <script src="scripts/firebase-cloud-messaging.js"></script>
 <script src="scripts/tabs.js"></script>
+<script src="scripts/dowhop-description-form-create.js"></script>
 <script src="scripts/edit.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-coo6M25h9GjP8AYxhzIQSbNVj-Ope3s&libraries=places&callback=initAutocomplete" async defer></script>
 <script src="scripts/google-map.js"></script>
