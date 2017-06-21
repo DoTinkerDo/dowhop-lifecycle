@@ -197,55 +197,59 @@ FriendlyChat.prototype.getSession = function() {
   console.log("current location:", currentDoWhopID, '---', currentTabID); // <-- Debugging.
 
   // All cases, we load pending div forms for current session:
-  var checkForPendings = function(id, data) {
-    var pendingNotification = '';
+  var checkForPendings = function(data) {
+    var pendingNotification = 'NOTHING yet';
     // Check if there are pending notifications:
-    console.log('running checkforpendings');
+    console.log('running checkforpendings on');
+    console.log(data);
+    console.log(data.pending);
+    // console.log(data.pending);
+
     if (
-      data.val() &&
-      data.val().pending != null &&
-      data.val().pending.status != 'approved' &&
-      data.val().pending.status != 'denied'
+      data &&
+      data.pending != null &&
+      data.pending.status != 'approved' &&
+      data.pending.status != 'denied'
     ) {
       console.log('pending status true. showing pending div.');
       document.getElementById('pending-div').removeAttribute('hidden');
 
       // This means visiting user is the creator of event:
-      if (firebase.auth().currentUser.email == data.val().creatorDescription) {
+      if (firebase.auth().currentUser.email == data.creatorDescription) {
 
         console.log('visiting user is the creator. showing approval form, hiding rescind form.');
         pendingNotification = 'Someone has requested this change.\nDo you want to approve it?';
         document.getElementById('pending-div').innerText =
           pendingNotification +
           '\nPending time: ' +
-          data.val().pending.whenDatePending +
+          data.pending.whenDatePending +
           ' at ' +
-          data.val().pending.whenTimePending +
+          data.pending.whenTimePending +
           '\nPending location: ' +
-          data.val().pending.whereAddressPending;
+          data.pending.whereAddressPending;
 
         document.getElementById('approve-pending-form').removeAttribute('hidden');
         document.getElementById('rescind-pending-form').setAttribute('hidden', 'true');
 
         // This means visiting user is a requestor of event change:
-      } else if (firebase.auth().currentUser.uid == data.val().pending.requester) {
+      } else if (firebase.auth().currentUser.uid == data.pending.requester) {
         console.log('visiting user requested a change. showing rescinding form, hiding approval form.');
         pendingNotification = 'You have requested this time!\nIt is pending. Do you want to change it?';
         document.getElementById('pending-div').innerText =
           pendingNotification +
           '\nPending time: ' +
-          data.val().pending.whenDatePending +
+          data.pending.whenDatePending +
           ' at ' +
-          data.val().pending.whenDatePending +
+          data.pending.whenDatePending +
           '\nPending location: ' +
-          data.val().pending.whereAddressPending;
+          data.pending.whereAddressPending;
 
         document.getElementById('rescind-pending-form').removeAttribute('hidden');
         document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
       }
       // All other cases:
     } else {
-      // console.log('this means it has passed over logic tests.');
+      console.log('this means it has passed over logic tests.');
       document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
       document.getElementById('pending-div').innerText = '';
       document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
@@ -264,14 +268,14 @@ FriendlyChat.prototype.getSession = function() {
         .child('doWhopDescription/' + data.val().current_dowhop)
         .on('child_changed', function(data) {
           console.log('prep to run check pendings once...');
-          checkForPendings(data.key, data.val());
+          checkForPendings(data.val());
         });
 
       // Executing functions that are triggered by clicking on a selector block:
       firebase.database().ref().child('doWhopDescription/' + data.val().current_dowhop).on('value', function(data) {
         // Check for pending notifications:
-        console.log('prep to run check pendings second...', data.val().current_dowhop);
-        checkForPendings(data.key, data);
+        console.log('prep to run check pendings second...', data.val());
+        checkForPendings(data.val());
         // Weave together header
         if (data.val()) {
           let imageUrl =
@@ -527,7 +531,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
   // For only all three attributes: Time, Date, Where:
   if (this.messageFormWhenDatePending.value || this.messageFormWhenTimePending.value || this.messageFormWherePending.value) {
-    var chatsRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/');
+    var chatsRef = this.database.ref().child('doWhopDescription/' + currentDoWhopID + '/pending/');
 
     var messageText = '';
 
