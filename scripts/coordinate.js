@@ -276,7 +276,7 @@ FriendlyChat.prototype.getSession = function() {
           return (doWhopSelectorDiv +=
             "<section id='" +
             data.key +
-            "' class='dowhop-selector-block' onclick='sessionRef(this)''>" +
+            "' class='dowhop-selector-block' onclick='setSession(this)''>" +
             "<div class='dowhop-selector-header-top' style='background-image: url(" +
             imageUrl +
             ");'>" +
@@ -292,14 +292,17 @@ FriendlyChat.prototype.getSession = function() {
 
   // We only load messages if current tab is clicked:
   if (currentTabID === "coordinate-tab") {
+    document.getElementById('messages-card').removeAttribute('hidden');
     FriendlyChat.prototype.loadMessages();
   }
   // We only load edit form if edit tab is clicked:
   else if (currentTabID === "edit-tab") {
+    document.getElementById('messages-card').setAttribute('hidden', 'true');
     showEditForm(doWhopSelector.firstChild); // new
     fillInEditForm(doWhopSelector.firstChild); // new
   } else {
     // TO-DO: Good to clear all unwanted UI elements if nothing's chosen.
+    document.getElementById('messages-card').setAttribute('hidden', 'true');
   }
 
 }
@@ -395,7 +398,7 @@ FriendlyChat.prototype.getSession = function() {
 //         return (dowhopSelectorDiv +=
 //           "<section id='" +
 //           data.key +
-//           "' class='dowhop-selector-block' onclick='sessionRef(this)''>" +
+//           "' class='dowhop-selector-block' onclick='setSession(this)''>" +
 //           "<div class='dowhop-selector-header-top' style='background-image: url(" +
 //           imageUrl +
 //           ");'>" +
