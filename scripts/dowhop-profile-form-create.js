@@ -41,27 +41,9 @@ function createProfile(e) {
     profileActivity2: createProfileActivity2.value || "",
     profileActivity3: createProfileActivity3.value || ""
   }
-  // Save information to db:
-  // if(
-  //   createProfileName.value &&
-  //   createProfilePhone.value &&
-  //   createProfileSocial.value &&
-  //   createProfileWebsite.value &&
-  //   createProfileAbout.value &&
-  //   createProfileActivity1.value &&
-  //   createProfileActivity2.value &&
-  //   createProfileActivity3.value
-  // )
-  // {
     profileRef.update(profileData).then(function() {
     });
     createProfileForm.reset();
-  // }
-  // else{
-  //   alert("Please Fill Out All Fields.")
-  //   return
-  // }
-
 }
 
 // Section for retrieving previously-existing user profiles:
