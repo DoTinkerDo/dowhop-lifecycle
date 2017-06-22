@@ -189,22 +189,7 @@ function makeDoWhopSelector(container, data) {
       data.val().titleDescription +
       '</h1>' +
       '</div>' +
-      '<div class="mdl-layout__content dowhop-selector-body">' +
-      '<h3>Who?</h3>' +
-      '<p>' +
-      (data.val().creatorDescription || 'TBD') +
-      ' and ' +
-      (data.val().doerDescription || 'TBD') +
-      '</p>' +
-      '<h3>What?</h3>' +
-      '<p>' +
-      data.val().whatDescription +
-      '</p>' +
-      '<h3>How much?</h3>' +
-      '<p>' +
-      (data.val().howMuchDescription || 'TBD') +
-      '</p>';
-    '</div>' + '</aside>';
+      '</aside>';
   } else {
     return container;
   }
