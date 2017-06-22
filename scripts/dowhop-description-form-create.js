@@ -50,6 +50,7 @@ function submitNewDoWhopEntry(e) {
       doerDescription: '' // Temp.
     });
     showConfirmationMessage();
+    createWelcomingMessage();
     clearNewDoWhopEntryForm();
   });
 }
@@ -104,6 +105,12 @@ function addToMyDoWhops(node) {
     .ref()
     .child('app_users/' + auth.currentUser.uid + '/doer/' + node.parentElement.id)
     .update({ doer: true });
+}
+
+function createWelcomingMessage() {
+  // New function to display a welcome message in chatroom.
+  console.log("creating welcome message!");
+
 }
 
 function showConfirmationMessage() {
