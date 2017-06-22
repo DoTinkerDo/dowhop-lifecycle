@@ -11,8 +11,17 @@ var createProfileActivity1 = document.getElementById('profile-activity-1');
 var createProfileActivity2 = document.getElementById('profile-activity-2');
 var createProfileActivity3 = document.getElementById('profile-activity-3');
 var createProfileFormBtn = document.getElementById('create-profile-form-button');
+var showProfileFormBtn = document.getElementById('edit-profile-button');
+var createProfileDiv = document.getElementById('create-profile-div');
 
+showProfileFormBtn.addEventListener('click', showForm);
 createProfileFormBtn.addEventListener('click', createProfile);
+
+function showForm(e){
+  e.preventDefault();
+  createProfileDiv.removeAttribute("hidden");
+  console.log("showing form")
+}
 
 function addDoWhopImage(files_arr, node) {
   console.log("You've uploaded a file...");
@@ -28,22 +37,49 @@ function createProfile(e) {
   e.preventDefault();
   var currentProfile = firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
-
+  console.log("creating profile")
   // Prepare user data:
-  var profileData = {
-    update: true,
-    profileName: createProfileName.value || "",
-    profilePhone: createProfilePhone.value || "",
-    profileSocial: createProfileSocial.value || "",
-    profileWebsite: createProfileWebsite.value || "",
-    profileAbout: createProfileAbout.value || "",
-    profileActivity1: createProfileActivity1.value || "",
-    profileActivity2: createProfileActivity2.value || "",
-    profileActivity3: createProfileActivity3.value || ""
-  }
-    profileRef.update(profileData).then(function() {
-    });
+
+  // var profileData = {
+  //   update: true,
+  //   profileName: createProfileName.value || "",
+  //   profilePhone: createProfilePhone.value || "",
+  //   profileSocial: createProfileSocial.value || "",
+  //   profileWebsite: createProfileWebsite.value || "",
+  //   profileAbout: createProfileAbout.value || "",
+  //   profileActivity1: createProfileActivity1.value || "",
+  //   profileActivity2: createProfileActivity2.value || "",
+  //   profileActivity3: createProfileActivity3.value || ""
+  // }
+  //   profileRef.update(profileData).then(function() {
+  //   });
+
+    if (createProfileName.value) {
+      profileRef.update({profileName: createProfileName.value}).then(createProfileForm.reset())
+    }
+    if (createProfilePhone.value) {
+      profileRef.update({profilePhone: createProfilePhone.value}).then(createProfileForm.reset())
+    }
+    if (createProfileSocial.value) {
+      profileRef.update({profileSocial: createProfileSocial.value}).then(createProfileForm.reset())
+    }
+    if (createProfileWebsite.value) {
+      profileRef.update({profileWebsite: createProfileWebsite.value}).then(createProfileForm.reset())
+    }
+    if (createProfileAbout.value) {
+      profileRef.update({profileAbout: createProfileAbout.value}).then(createProfileForm.reset())
+    }
+    if (createProfileActivity1.value) {
+      profileRef.update({profileActivity1: createProfileActivity1.value}).then(createProfileForm.reset())
+    }
+    if (createProfileActivity2.value) {
+      profileRef.update({profileActivity2: createProfileActivity2.value}).then(createProfileForm.reset())
+    }
+    if (createProfileActivity3.value) {
+      profileRef.update({profileActivity3: createProfileActivity3.value}).then(createProfileForm.reset())
+    }
     createProfileForm.reset();
+    createProfileDiv.setAttribute("hidden", "true");
 }
 
 // Section for retrieving previously-existing user profiles:

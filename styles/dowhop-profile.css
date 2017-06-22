@@ -34,12 +34,16 @@
     float: right;
 }
 
-.outline, .outline *{
+/*.outline, .outline *{
     outline: 1px solid #F6A1A1;
-}
+}*/
 
 .profile-details-container {
   margin-left: 15px;
+}
+
+.center {
+  text-align: center;
 }
 
 #my-profile-picture {
@@ -76,18 +80,13 @@
 }
 
 #my-profile-about {
-  display: table-cell;
-  vertical-align: bottom;
   font-style: italic;
   font-size: 17px;
-}
-
-#my-profile-about::before {
-  content: "";
-}
-
-#my-profile-about::after {
-  content: "";
+  width: 20%;
+  text-align: center;
+  display: inline-block;
+  margin-top: 200px;
+  margin-left: 20%;
 }
 
 .col-3, .col-4, .col-5 {
@@ -95,7 +94,7 @@
 }
 
 .activity-image {
-  height: 200px;
+  height: 175px;
 }
 
 .activity-caption {
@@ -104,14 +103,14 @@
 }
 
 .outer-box {
-  width: 200px;
-  height: 200px;
+  width: 175px;
+  height: 175px;
   display: block;
   position: relative;
 }
 
 .outer-box img {
-  width: 200px;
+  width: 175px;
   height: auto;
 }
 
@@ -145,4 +144,16 @@
   opacity: .9;
   transition: .5s;
   cursor: pointer;
+}
+
+#edit-profile-button {
+    color: black;
+    text-decoration: none;
+}
+
+#edit-profile-button:hover
+{
+     color: black;
+     text-decoration:none;
+     cursor:pointer;
 }
