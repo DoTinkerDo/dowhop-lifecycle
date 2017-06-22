@@ -34,6 +34,23 @@ function submitNewDoWhopEntry(e) {
   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
   var filepath;
 
+  /// new
+  function createWelcomingMessage() {
+    console.log("creating welcome message for....!", doWhopDescriptionKey);
+    var teamName = "TinkerDo Team";
+    var messageText = "Welcome to the chat thread for your DoWhop. You can use this space to coordinate the details of your DoWhop. Have fun!"
+    // Nesting the message content under chat-id node headings:
+    var messagesChatsRef = database.ref().child('messages').child(doWhopDescriptionKey);
+    // var currentUser = person;
+    messagesChatsRef.push({
+      chatId: doWhopDescriptionKey,
+      name: teamName,
+      text: messageText,
+      photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
+    });
+
+  }/// end.
+
   filePath = 'doWhopImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
   storage.ref(filePath).put(file).then(function(snapshot) {
     doWhopDescriptionRef.child(doWhopDescriptionKey).set({
@@ -48,8 +65,9 @@ function submitNewDoWhopEntry(e) {
       howMuchDescription: howMuchDescription.value,
       creatorDescription: creatorDescription,
       doerDescription: '' // Temp.
-    });
-    showConfirmationMessage();
+    }).then(
+      showConfirmationMessage()
+    );
     createWelcomingMessage();
     clearNewDoWhopEntryForm();
   });
@@ -107,9 +125,20 @@ function addToMyDoWhops(node) {
     .update({ doer: true });
 }
 
-function createWelcomingMessage() {
-  // New function to display a welcome message in chatroom.
-  console.log("creating welcome message!");
+// New function to display a welcome message in chatroom.
+function createWelcomingMessage(doWhopDescriptionKey) {
+  console.log("creating welcome message for....!", doWhopDescriptionKey);
+  var teamName = "TinkerDo Team";
+  var messageText = "Welcome to the chat thread for your DoWhop. You can use this space to coordinate the details of your DoWhop. Have fun!"
+  // Nesting the message content under chat-id node headings:
+  var messagesChatsRef = database.ref().child('messages').child(doWhopDescriptionKey);
+  // var currentUser = person;
+  messagesChatsRef.push({
+    chatId: doWhopDescriptionKey,
+    name: teamName,
+    text: messageText,
+    photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
+  });
 
 }
 
