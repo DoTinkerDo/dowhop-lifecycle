@@ -32,34 +32,35 @@ function createProfile(e) {
   // Prepare user data:
   var profileData = {
     update: true,
-    profileName: createProfileName.value,
-    profilePhone: createProfilePhone.value,
-    profileSocial: createProfileSocial.value,
-    profileWebsite: createProfileWebsite.value,
-    profileAbout: createProfileAbout.value,
-    profileActivity1: createProfileActivity1.value,
-    profileActivity2: createProfileActivity2.value,
-    profileActivity3: createProfileActivity3.value
+    profileName: createProfileName.value || "",
+    profilePhone: createProfilePhone.value || "",
+    profileSocial: createProfileSocial.value || "",
+    profileWebsite: createProfileWebsite.value || "",
+    profileAbout: createProfileAbout.value || "",
+    profileActivity1: createProfileActivity1.value || "",
+    profileActivity2: createProfileActivity2.value || "",
+    profileActivity3: createProfileActivity3.value || ""
   }
   // Save information to db:
-  if(
-    createProfileName.value &&
-    createProfilePhone.value &&
-    createProfileSocial.value &&
-    createProfileWebsite.value &&
-    createProfileAbout.value &&
-    createProfileActivity1.value &&
-    createProfileActivity2.value &&
-    createProfileActivity3.value
-  )
-  {
+  // if(
+  //   createProfileName.value &&
+  //   createProfilePhone.value &&
+  //   createProfileSocial.value &&
+  //   createProfileWebsite.value &&
+  //   createProfileAbout.value &&
+  //   createProfileActivity1.value &&
+  //   createProfileActivity2.value &&
+  //   createProfileActivity3.value
+  // )
+  // {
     profileRef.update(profileData).then(function() {
     });
     createProfileForm.reset();
-  }else{
-    alert("Please Fill Out All Fields.")
-    return
-  }
+  // }
+  // else{
+  //   alert("Please Fill Out All Fields.")
+  //   return
+  // }
 
 }
 
@@ -69,7 +70,7 @@ var myProfileButton = document.getElementById('my-profile-button');
 var myDisplayName = document.getElementById('my-display-name');
 var myProfileName = document.getElementById('my-profile-name');
 var myProfilePhone = document.getElementById('my-profile-email');
-var myProfileSocial = document.getElementById('my-profile-social');
+// var myProfileSocial = document.getElementById('my-profile-social');
 var myProfileWebsite = document.getElementById('my-profile-website');
 var myProfileAbout = document.getElementById('my-profile-about');
 var myProfileEmail = document.getElementById('my-profile-email');
@@ -90,7 +91,7 @@ function retrieveProfile(currentProfile) {
     myDisplayName.innerText = snap.val().displayName;
     myProfileName.innerText = snap.val().profileName;
     myProfilePhone.innerText = snap.val().profilePhone;
-    myProfileSocial.innerText = snap.val().profileSocial;
+    // myProfileSocial.innerText = snap.val().profileSocial;
     myProfileWebsite.innerText = snap.val().profileWebsite;
     myProfileAbout.innerText = snap.val().profileAbout;
     myProfileEmail.innerText = snap.val().email;
