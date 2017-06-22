@@ -278,7 +278,7 @@ FriendlyChat.prototype.getSession = function() {
             doWhopDescriptionTitle +
             '</h1>' +
             '</div>' +
-            '<div class="mdl-layout__content dowhop-selector-body">' +
+            '<div id="selector-body" class="mdl-layout__content dowhop-selector-body">' +
             '<h3>Who?</h3>' +
             '<p>' +
             (data.val().creatorDescription || 'TBD') +
@@ -312,16 +312,25 @@ FriendlyChat.prototype.getSession = function() {
   // We only load messages if current tab is clicked:
   if (currentTabID === "coordinate-tab") {
     document.getElementById('messages-card').removeAttribute('hidden');
+    document.getElementById('selector-body').setAttribute('hidden', 'true');
+
+
     FriendlyChat.prototype.loadMessages();
   }
   // We only load edit form if edit tab is clicked:
   else if (currentTabID === "edit-tab") {
     document.getElementById('messages-card').setAttribute('hidden', 'true');
+    document.getElementById('selector-body').removeAttribute('hidden');
     showEditForm(doWhopSelector.firstChild); // new
     fillInEditForm(doWhopSelector.firstChild); // new
-  } else {
+
+  } else if (currentTabID === "review-tab"){
     // TO-DO: Good to clear all unwanted UI elements if nothing's chosen.
     document.getElementById('messages-card').setAttribute('hidden', 'true');
+    document.getElementById('selector-body').setAttribute('hidden', 'true');
+  } else {
+    document.getElementById('messages-card').setAttribute('hidden', 'true');
+    document.getElementById('selector-body').setAttribute('hidden', 'true');
   }
 
 }
