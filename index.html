@@ -54,12 +54,26 @@
     <header class="mdl-grid">
       <div class="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--5-offset-desktop">
         <ul class="tabs">
-          <li><a class="tab" id="create-tab" href="#create" onclick="getSesh(this)"><span>+</span></a></li>
-          <li><a class="tab" id="edit-tab" href="#edit" onclick="getSesh(this)"><span>✎</span></a></li>
-          <li><a class="tab" id="coordinate-tab" href="#coordinate" onclick="getSesh(this)">Coordinate</a></li>
-          <li><a class="tab" id="review-tab" href="#review" onclick="getSesh(this)"><span>★</span></a></li>
-          <li><a class="btn-logout" href="#" onclick="firebase.auth().signOut()"><span>Log Out</span></a></li>
+          <li><a id="create-tab" class="tab" id="create-icon" href="#create" onclick="getSesh(this)">
+            <img src="../images/create-icon.png"></a>
+          </li>
+          <li><a id="edit-tab" class="tab" href="#edit" onclick="getSesh(this)">
+            <img id="edit-icon" src="../images/edit-icon.png"></a>
+          </li>
+          <li><a id="coordinate-tab" class="tab" href="#coordinate" onclick="getSesh(this)">
+            <img id="coordinate-icon" src="../images/coordinate-icon.png"></a>
+          </li>
+          <li><a id="review-tab" class="tab" href="#review" onclick="getSesh(this)">
+            <img id="review-icon" src="../images/review-icon.png"></a>
+          </li>
         </ul>
+            <div class="dropdown">
+              <img class="dropbtn" id="user-icon" src="../images/user-icon.png">
+              <div class="dropdown-content">
+                <a class="btn-logout" href="#" onclick="firebase.auth().signOut()">Log Out</a>
+                <a class="" href="" onclick="">My Profile </a>
+              </div>
+            </div>
       </div>
 
       <!-- Tutorial container -->
