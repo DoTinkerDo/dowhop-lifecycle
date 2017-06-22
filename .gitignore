@@ -7,7 +7,9 @@ node_modules
 /coverage
 
 # production
-# /build
+/build
+
+functions/firebase-debug.log
 
 # misc
 .DS_Store
@@ -15,3 +17,4 @@ node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+

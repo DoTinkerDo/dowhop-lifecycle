@@ -1,5 +1,5 @@
 /* Custom profile stylings shall go here */
-CHANGE MATERIAL ICONS CLASS
+
 /* Pure CSS grid */
 .grid-container {
   width: 100%;
@@ -81,6 +81,14 @@ CHANGE MATERIAL ICONS CLASS
   font-size: 17px;
 }
 
+#my-profile-about::before {
+  content: "";
+}
+
+#my-profile-about::after {
+  content: "";
+}
+
 .col-3, .col-4, .col-5 {
   margin-top: 10px;
 }
@@ -115,7 +123,7 @@ CHANGE MATERIAL ICONS CLASS
   left: 0;
   position: absolute;
   padding: 0;
-  transition: opacity .5s;
+  transition: .5s;
 }
 
 .outer-box .inner-box p {
@@ -128,6 +136,6 @@ CHANGE MATERIAL ICONS CLASS
 
 .outer-box:hover .inner-box {
   opacity: .9;
-  transition: opacity .5s;
+  transition: .5s;
   cursor: pointer;
 }

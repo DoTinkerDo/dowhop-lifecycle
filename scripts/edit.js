@@ -117,6 +117,7 @@ function retrieveMyDoWhops(uid) {
           doWhopDescription.val().creatorDescription === person.email ||
           doerDescriptionEmails.some(function(doerDescriptionEmail) {
             return doerDescriptionEmail === person.email;
+            console.log(person)
           })
         ) {
           makeDoWhopSelector(userDowhopCardDiv, doWhopDescription);
@@ -175,9 +176,9 @@ function makeDoWhopSelector(container, data) {
       'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
 
     container.innerHTML +=
-      '<aside class="mdl-card mdl-shadow--6dp dowhop-selector" id="' +
+      '<aside class="mdl-card dowhop-selector" id="' +
       data.key +
-      '" onclick="sessionRef(this)">' +
+      '" onclick="setSession(this)">' +
       '<div class="dowhop-selector-header" style="background-image: url(' +
       imageURL +
       ');">' +
@@ -212,11 +213,11 @@ function makeDoWhopSelector(container, data) {
 // Sets the currently selected DoWhopDescription key in sessions
 // for the currentUser
 // plus showEditForm and FillInEditForm
-function sessionRef(doWhopSelector) {
+function setSession(doWhopSelector) {
+  // Note: this is an important order of operations:
   var key = doWhopSelector.id;
-  database.ref('session').child(person.uid).set({ current_dowhop: key });
-  showEditForm(doWhopSelector);
-  fillInEditForm(doWhopSelector);
+  database.ref('session').child(person.uid).update({ current_dowhop: key });
+  FriendlyChat.prototype.getSession(); // new
 }
 
 function showEditForm(doWhopSelector) {

@@ -1,7 +1,7 @@
 {
-  "name": "DoWhop Chat Web App",
-  "short_name": "DoWhop Chat",
+  "name": "DoWhop Web App",
+  "short_name": "DoWhop App",
   "start_url": "/index.html",
   "display": "standalone",
-  "orientation": "portrait"
+  "gcm_sender_id": "103953800507"
 }
