@@ -25,12 +25,10 @@
     <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script> <!-- Firebase UI JS for Web Auth -->
   </head>
   <body>
-      <div class="mdl-grid">
-        <h1>Welcome to DoWhop!</h1>
-      </div>
+      <div class="grid-container outline">
+        <h1 class="center">Welcome to DoWhop!</h1>
+      <div class="col-2">
       <div id="create-profile-div" class="panel"><!-- Begin Create New Profile Form -->
-        <div class="mdl-cell mdl-cell--6-col">
-          <div class="mdl-card mdl-shadow--6dp">
             <div class="mdl-layout__content">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Make Your Profile</h2>
@@ -38,51 +36,51 @@
               <div class="mdl-card__supporting-text">
                 <form id="create-profile-form" action="#">
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="profile-name" placeholder="Your name"></input>
-                    <label class="mdl-textfield__label" for="profile-name">What's your name?</label>
-                    <div class="mdl-tooltip" for="profile-name">What's your preferred name?</div>
+                    <input class="mdl-textfield__input" type="text" id="my-profile-name" placeholder="Your name"></input>
+                    <label class="mdl-textfield__label" for="my-profile-name">What's your name?</label>
+                    <div class="mdl-tooltip" for="my-profile-name">What's your preferred name?</div>
                   </div>
 
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="profile-phone" placeholder="Phone"></input>
-                    <label class="mdl-textfield__label" for="profile-phone">What is your phone number?</label>
-                    <div class="mdl-tooltip" for="profile-phone">Perfered Phone Number?</div>
+                    <input class="mdl-textfield__input" type="text" id="my-profile-phone" placeholder="Phone"></input>
+                    <label class="mdl-textfield__label" for="my-profile-phone">What is your phone number?</label>
+                    <div class="mdl-tooltip" for="my-profile-phone">Preferred Phone Number?</div>
                   </div>
 
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="profile-social" placeholder="URL"></input>
-                    <label class="mdl-textfield__label" for="profile-spcial">Favorite Social media?</label>
-                    <div class="mdl-tooltip" for="profile-social">Perfered Social Media</div>
+                    <input class="mdl-textfield__input" type="text" id="my-profile-social" placeholder="URL"></input>
+                    <label class="mdl-textfield__label" for="my-profile-social">Favorite Social Media?</label>
+                    <div class="mdl-tooltip" for="my-profile-social">Preferred Social Media</div>
                   </div>
 
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="profile-website" placeholder="URL"></input>
-                    <label class="mdl-textfield__label" for="profile-website"> Personal Web Site?</label>
-                    <div class="mdl-tooltip" for="profile-website">Personal Website</div>
+                    <input class="mdl-textfield__input" type="text" id="my-profile-website" placeholder="URL"></input>
+                    <label class="mdl-textfield__label" for="my-profile-website"> Personal Web Site?</label>
+                    <div class="mdl-tooltip" for="my-profile-website">Personal Website</div>
                   </div>
 
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <textarea class="mdl-textfield__input" type="text" id="profile-about" placeholder="What kinds of DoWhops do you like to do?"></textarea>
-                    <label class="mdl-textfield__label" row="3" for="profile-about">What is your story?</label>
-                    <div class="mdl-tooltip" for="profile-about">Tell the community about yourself. What makes you unique?</div>
+                    <textarea class="mdl-textfield__input" type="text" id="my-profile-about" placeholder="What kinds of DoWhops do you like to do?"></textarea>
+                    <label class="mdl-textfield__label" row="3" for="my-profile-about">What is your story?</label>
+                    <div class="mdl-tooltip" for="my-profile-about">Tell the community about yourself. What makes you unique?</div>
                   </div>
 
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="profile-activity-1" placeholder="e.g., Casey is a dog enthusiast"><i class="material-icons">wallpaper</i>
-                    <label class="mdl-textfield__label" for="profile-activity-1">What's an activity you like to do'?</label>
-                    <div class="mdl-tooltip" for="profile-activity-1">Just add one here for now.</div>
+                    <input class="mdl-textfield__input" type="text" id="my-profile-activity-1" placeholder="e.g., Casey is a dog enthusiast"><i class="material-icons">wallpaper</i>
+                    <label class="mdl-textfield__label" for="my-profile-activity-1">What's an activity you like to do'?</label>
+                    <div class="mdl-tooltip" for="my-profile-activity-1">Just add one here for now.</div>
                   </div>
 
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="profile-activity-2" placeholder="e.g., Casey is a spearfisherman and snorkeller"><i class="material-icons">wallpaper</i>
-                    <label class="mdl-textfield__label" for="profile-activity-2">What's a second activity you like to do'?</label>
-                    <div class="mdl-tooltip" for="profile-activity-2">Just add one here for now.</div>
+                    <input class="mdl-textfield__input" type="text" id="my-profile-activity-2" placeholder="e.g., Casey is a spearfisherman and snorkeller"><i class="material-icons">wallpaper</i>
+                    <label class="mdl-textfield__label" for="my-profile-activity-2">What's a second activity you like to do'?</label>
+                    <div class="mdl-tooltip" for="my-profile-activity-2">Just add one here for now.</div>
                   </div>
 
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="profile-activity-3" placeholder="e.g., Casey is an underwater hockey player"><i class="material-icons">wallpaper</i>
-                    <label class="mdl-textfield__label" for="profile-activity-3">What's a third activity you like to do'?</label>
-                    <div class="mdl-tooltip" for="profile-activity-3">Just add one here for now.</div>
+                    <input class="mdl-textfield__input" type="text" id="my-profile-activity-3" placeholder="e.g., Casey is an underwater hockey player"><i class="material-icons">wallpaper</i>
+                    <label class="mdl-textfield__label" for="my-profile-activity-3">What's a third activity you like to do'?</label>
+                    <div class="mdl-tooltip" for="my-profile-activity-3">Just add one here for now.</div>
                   </div>
 
                   <div class="mdl-card__actions">
@@ -94,13 +92,13 @@
                   </div>
                 </form>
               </div>
-            </div>
           </div>
         </div>
-    </div> <!-- End Create New Profile Form -->
-    <section className="grid-container outline" id="my-profile"> <!-- Start Show Profile Section -->
+        </div>
+ <!-- End Create New Profile Form -->
+    <section class="col-1" id="my-profile"> <!-- Start Show Profile Section -->
             <div class="row">
-              <div class="col-1">
+              <div class="col-7">
                 <img id="my-profile-picture"></img>
               <div class="row profile-details-container">
                 <div id="my-display-name"></div>
@@ -128,7 +126,7 @@
             </div>
             <!-- put the facebook, twitter, etc. links here -->
             <!-- put the verified member part here -->
-        		<div class="col-2">
+        		<div class="col-8">
               <div class="row">
                 <div id="my-profile-about"></div>
                 </div>
@@ -136,7 +134,7 @@
                   <div class="col-3">
                     <!-- need to link images to user; currently hardcoded -->
                     <div class="outer-box">
-                      <img class="activity-image" src="https://static.wixstatic.com/media/de271e_3ae9c5ffde5b452b93e8e75c53220a93~mv2.jpg/v1/fill/w_120,h_120,al_c,q_80,usm_0.66_1.00_0.01/de271e_3ae9c5ffde5b452b93e8e75c53220a93~mv2.webp">
+                      <img onclick="" class="activity-image" src="https://static.wixstatic.com/media/de271e_3ae9c5ffde5b452b93e8e75c53220a93~mv2.jpg/v1/fill/w_120,h_120,al_c,q_80,usm_0.66_1.00_0.01/de271e_3ae9c5ffde5b452b93e8e75c53220a93~mv2.webp">
                       <div class="inner-box">
                         <p>Coordinate this DoWhop</p>
                       </div>
@@ -145,7 +143,7 @@
                   </div>
                   <div class="col-4">
                     <div class="outer-box">
-                    <img class="activity-image" src="https://static.wixstatic.com/media/de271e_00cb2862a0884df4a12b39b8a66940fa~mv2.jpg/v1/fill/w_120,h_120,al_c,q_80,usm_0.66_1.00_0.01/de271e_00cb2862a0884df4a12b39b8a66940fa~mv2.webp">
+                    <img onclick="" class="activity-image" src="https://static.wixstatic.com/media/de271e_00cb2862a0884df4a12b39b8a66940fa~mv2.jpg/v1/fill/w_120,h_120,al_c,q_80,usm_0.66_1.00_0.01/de271e_00cb2862a0884df4a12b39b8a66940fa~mv2.webp">
                     <div class="inner-box">
                       <p>Coordinate this DoWhop</p>
                     </div>

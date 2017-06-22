@@ -3,7 +3,7 @@
 /* Pure CSS grid */
 .grid-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   box-sizing: border-box;
 }
 
@@ -26,18 +26,24 @@
 }
 
 .col-1 {
-    width: 30%;
+    width: 50%;
+    float: left;
 }
 .col-2 {
-    width: 70%;
+    width: 50%;
+    float: right;
 }
 
 .outline, .outline *{
     outline: 1px solid #F6A1A1;
-    }
+}
 
 .profile-details-container {
   margin-left: 15px;
+}
+
+.center {
+  text-align: center;
 }
 
 #my-profile-picture {
@@ -74,7 +80,6 @@
 }
 
 #my-profile-about {
-  height: 250px;
   display: table-cell;
   vertical-align: bottom;
   font-style: italic;
@@ -135,6 +140,12 @@
 }
 
 .outer-box:hover .inner-box {
+  opacity: .9;
+  transition: .5s;
+  cursor: pointer;
+}
+
+.outer-box:target .inner-box {
   opacity: .9;
   transition: .5s;
   cursor: pointer;
