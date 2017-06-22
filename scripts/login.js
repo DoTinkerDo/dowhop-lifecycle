@@ -104,7 +104,7 @@ auth.onAuthStateChanged(function(user) {
 });
 
 function checkDefaultDoWhop() {
-  // console.log('running default dowhop check...');
+  console.log('running default dowhop check...');
   var uid = auth.currentUser.uid;
   var email = auth.currentUser.email;
   var creatorDescription = auth.currentUser.email;
@@ -117,8 +117,8 @@ function checkDefaultDoWhop() {
   // Let's check for whether user has a DoWhop:
   appUserRef.once('value', function(snapshot) {
     if (snapshot.val().hasDefaultDoWhop && snapshot.val().hasDefaultDoWhop === true) {
-      //  console.log("user has a dowhop already");
-      //  console.log(snapshot.val());
+       console.log("user has a dowhop already");
+       console.log(snapshot.val());
        return hasDoWhopAlready = true;
   //   } else {
   //
@@ -158,7 +158,7 @@ function checkDefaultDoWhop() {
 }
 
 function createDefaultDoWhop() {
-  // console.log('running default dowhop check...');
+  console.log('running default dowhop check...');
   var uid = auth.currentUser.uid;
   var email = auth.currentUser.email;
   var creatorDescription = auth.currentUser.email;
@@ -184,10 +184,10 @@ function createDefaultDoWhop() {
           creatorDescription: "tinkerdowhop@gmail.com",
           doerDescription: email
         });
-      // console.log('no default. created default dowhop');
+      console.log('no default. created default dowhop');
 
       // Updating user's status henceforth:
-      // console.log("updating user's dowhop status...");
+      console.log("updating user's dowhop status...");
       var userData = {
             hasDefaultDoWhop: true
           };
