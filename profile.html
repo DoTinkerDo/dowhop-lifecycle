@@ -98,34 +98,73 @@
           </div>
         </div>
     </div> <!-- End Create New Profile Form -->
-    <section id="my-profile"> <!-- Start Show Profile Section -->
-      <div class="mdl-cell mdl-cell--6-col">
-        <div class="mdl-card mdl-shadow--6dp">
-          <div class="mdl-layout__content">
-            <div class="profile-details">
-              <img class="profile-picture" id="my-profile-picture"></img>
-              <div class="mdl-card__title-text" id="my-display-name"></div>
-        			<div class="" id="my-profile-name"></div>
-        		</div>
-            <div class="profile-contact">
-              <i class="material-icons">call</i><div>xxx-xxx-xxxx</div>
-              <i class="material-icons">mail_outline</i><div id="my-profile-email"></div>
-              <i class="material-icons">room</i><div>San Diego, CA</div>
+    <section className="grid-container outline" id="my-profile"> <!-- Start Show Profile Section -->
+            <div class="row">
+              <div class="col-1">
+                <img id="my-profile-picture"></img>
+              <div class="row profile-details-container">
+                <div id="my-display-name"></div>
+        		    <div id="my-profile-name"></div>
+            <div class="row profile-contact-container">
+              <div class="row">
+                <i class="material-icons profile-icons">mode_edit</i>
+                <div class="profile-data profile-icons">Edit Profile</div>
+              </div>
+              <div class="row">
+                <i class="material-icons profile-icons">mail_outline</i>
+                <div class="profile-data" id="my-profile-email"></div>
+              </div>
+              <div class="row">
+                <i class="material-icons profile-icons">call</i>
+                <!-- link to the user's actual phone number -->
+                <div class="profile-data" id="my-profile-number">xxx-xxx-xxxx</div>
+              </div>
+              <div class="row">
+                <i class="material-icons profile-icons">room</i>
+                <div class="profile-data" id="my-profile-city">San Diego, CA</div>
+              </div>
+              </div>
             </div>
-        		<div class="profile-about">
-              <div id="my-profile-about"></div>
-        		</div>
-        		<div class="profile-activities">
-                <h6>Take a look at some of my DoWhoppable skills</h6>
-                <ul>
-                  <li><div id="my-profile-activity-1"></div></li>
-                  <li><div id="my-profile-activity-2"></div></li>
-                  <li><div id="my-profile-activity-3"></div></li>
-                </ul>
-        		</div>
+            </div>
+            <!-- put the facebook, twitter, etc. links here -->
+            <!-- put the verified member part here -->
+        		<div class="col-2">
+              <div class="row">
+                <div id="my-profile-about"></div>
+                </div>
+              <div class="row">
+                  <div class="col-3">
+                    <!-- need to link images to user; currently hardcoded -->
+                    <div class="outer-box">
+                      <img class="activity-image" src="https://static.wixstatic.com/media/de271e_3ae9c5ffde5b452b93e8e75c53220a93~mv2.jpg/v1/fill/w_120,h_120,al_c,q_80,usm_0.66_1.00_0.01/de271e_3ae9c5ffde5b452b93e8e75c53220a93~mv2.webp">
+                      <div class="inner-box">
+                        <p>Coordinate this DoWhop</p>
+                      </div>
+                    </div>
+                      <div class="activity-caption" id="my-profile-activity-1"></div>
+                  </div>
+                  <div class="col-4">
+                    <div class="outer-box">
+                    <img class="activity-image" src="https://static.wixstatic.com/media/de271e_00cb2862a0884df4a12b39b8a66940fa~mv2.jpg/v1/fill/w_120,h_120,al_c,q_80,usm_0.66_1.00_0.01/de271e_00cb2862a0884df4a12b39b8a66940fa~mv2.webp">
+                    <div class="inner-box">
+                      <p>Coordinate this DoWhop</p>
+                    </div>
+                    </div>
+                    <div class="activity-caption" id="my-profile-activity-2"></div>
+                  </div>
+                  <div class="col-5">
+                    <div class="outer-box">
+                    <img class="activity-image" src="https://static.wixstatic.com/media/de271e_197b08d22f27418eb9d45e9c52b135b8~mv2.jpg/v1/fill/w_120,h_120,al_c,q_80,usm_0.66_1.00_0.01/de271e_197b08d22f27418eb9d45e9c52b135b8~mv2.webp">
+                    <div class="inner-box">
+                      <p>Coordinate this DoWhop</p>
+                    </div>
+                    </div>
+                    <div class="activity-caption" id="my-profile-activity-3"></div>
+                  </div>
+              </div>
+            </div>
+            </div>
           </div>
-        </div>
-      </div>
     </section><!-- End Show Profile Section -->
     <script>
     auth.onAuthStateChanged(function(user) {
