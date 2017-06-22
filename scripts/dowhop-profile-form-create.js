@@ -48,12 +48,12 @@ function createProfile(e) {
 
 // Section for retrieving previously-existing user profiles:
 var currentProfile;
-var myProfileButton = document.getElementById('my-profile-button');
+// var myProfileButton = document.getElementById('my-profile-button');
 var myDisplayName = document.getElementById('my-display-name');
 var myProfileName = document.getElementById('my-profile-name');
-var myProfilePhone = document.getElementById('my-profile-email');
+var myProfilePhone = document.getElementById('my-profile-phone');
 // var myProfileSocial = document.getElementById('my-profile-social');
-var myProfileWebsite = document.getElementById('my-profile-website');
+// var myProfileWebsite = document.getElementById('my-profile-website');
 var myProfileAbout = document.getElementById('my-profile-about');
 var myProfileEmail = document.getElementById('my-profile-email');
 var myProfileActivity1 = document.getElementById('my-profile-activity-1');
@@ -74,14 +74,14 @@ function retrieveProfile(currentProfile) {
     myProfileName.innerText = snap.val().profileName;
     myProfilePhone.innerText = snap.val().profilePhone;
     // myProfileSocial.innerText = snap.val().profileSocial;
-    myProfileWebsite.innerText = snap.val().profileWebsite;
+    // myProfileWebsite.innerText = snap.val().profileWebsite;
     myProfileAbout.innerText = snap.val().profileAbout;
     myProfileEmail.innerText = snap.val().email;
     myProfileActivity1.innerText = snap.val().profileActivity1;
     myProfileActivity2.innerText = snap.val().profileActivity2;
     myProfileActivity3.innerText = snap.val().profileActivity3;
     myProfilePicture.src = snap.val().photoURL;
-    // myProfilePicture.style.backgroundImage = 'url(' + snap.val().photoURL + ')';
+    myProfilePicture.style.backgroundImage = 'url(' + snap.val().photoURL + ')';
   });
 }
 
