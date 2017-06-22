@@ -1,19 +1,43 @@
 /* Custom profile stylings shall go here */
-.profile-right-container, .profile-left-container {
-  display: inline-block;
+CHANGE MATERIAL ICONS CLASS
+/* Pure CSS grid */
+.grid-container {
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
 }
+
+.row:before,
+.row:after {
+    content:"";
+    display: table ;
+    clear:both;
+}
+
+[class*='col-'] {
+    float: left;
+    min-height: 1px;
+}
+
+[class*='col-'] {
+    float: left;
+    min-height: 1px;
+    padding: 12px;
+}
+
+.col-1 {
+    width: 30%;
+}
+.col-2 {
+    width: 70%;
+}
+
+.outline, .outline *{
+    outline: 1px solid #F6A1A1;
+    }
 
 .profile-details-container {
   margin-left: 15px;
-}
-
-.profile-contact-container {
-  display: table;
-  width: 15%;
-}
-
-.profile-contact-row {
-  display: table-row;
 }
 
 #my-profile-picture {
@@ -34,7 +58,7 @@
   visibility: hidden;
 }
 
-.material-icons {
+.profile-icons {
   display: table-cell;
   vertical-align: middle;
   font-size: 22px;
@@ -50,35 +74,60 @@
 }
 
 #my-profile-about {
-  visibility: hidden;
+  height: 250px;
+  display: table-cell;
+  vertical-align: bottom;
+  font-style: italic;
+  font-size: 17px;
 }
 
-.profile-activity-header {
-  font-weight: bold;
-  color: #606060;
-}
-
-.profile-activity-subheader {
-  color: #ec2e28;
-}
-
-.profile-activity-list-container {
-  margin-left: 20px;
-  display: table;
-  display: inline-block;
-}
-
-.profile-activity-list {
-  display: table-row;
-}
-
-#my-profile-activity-1, #my-profile-activity-2, #my-profile-activity-3 {
-  display: inline-block;
-  margin-bottom: 10px;
+.col-3, .col-4, .col-5 {
+  margin-top: 10px;
 }
 
 .activity-image {
-  display: inline-block;
-  margin-bottom: 10px;
-  margin-right: 20px;
+  height: 200px;
+}
+
+.activity-caption {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.outer-box {
+  width: 200px;
+  height: 200px;
+  display: block;
+  position: relative;
+}
+
+.outer-box img {
+  width: 200px;
+  height: auto;
+}
+
+.outer-box .inner-box {
+  background: white;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  position: absolute;
+  padding: 0;
+  transition: opacity .5s;
+}
+
+.outer-box .inner-box p {
+  color: black;
+  margin-top: 40%;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 20px;
+}
+
+.outer-box:hover .inner-box {
+  opacity: .9;
+  transition: opacity .5s;
+  cursor: pointer;
 }
