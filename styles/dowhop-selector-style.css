@@ -12,10 +12,8 @@
 
 */
 
-.Button-Style {
+.button-style {
   background-color: red;
-  left: 66px;
-  position: absolute;
   height: 40px;
   min-height: 19px;
   width: 142px;
@@ -23,7 +21,7 @@
   font-size: 18px;
 }
 
-.Button-Style:hover {
+.button-style:hover {
   background-color: white;
   color: red;
 
