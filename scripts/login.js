@@ -144,6 +144,8 @@ function createDefaultDoWhop() {
 
 
 
+// Checks for a default whop, if not exists, creates one.
+
 function checkDefaultDoWhop() {
   console.log('running default dowhop check...');
   var uid = auth.currentUser.uid;
