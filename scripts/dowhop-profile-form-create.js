@@ -9,8 +9,8 @@ var createProfileWebsite = document.getElementById('profile-website');
 var createProfilePayment = document.getElementById('profile-payment');
 var createProfileAbout = document.getElementById('profile-about');
 var createProfileActivity1 = document.getElementById('profile-activity-1');
-var createProfileActivity2 = document.getElementById('profile-activity-2');
-var createProfileActivity3 = document.getElementById('profile-activity-3');
+var createProfileActivity2 = document.getElementById('profile-activity-2').style.display = 'none';
+var createProfileActivity3 = document.getElementById('profile-activity-3').style.display = 'none';
 var createProfileFormBtn = document.getElementById('create-profile-form-button');
 var showProfileFormBtn = document.getElementById('edit-profile-button');
 var createProfileDiv = document.getElementById('create-profile-div');
@@ -33,6 +33,15 @@ function addDoWhopImage(files_arr, node) {
     return;
   }
 }
+
+function CollapseMyDiv(){
+        // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
+        document.getElementById('profile-activity-2').style.display = "block";
+        }
+function RestoreMyDiv(){
+        // Function to restore MyDiv visible again with height 100 px.
+        document.getElementById('profile-activity-3').style.display = "block";
+        }
 
 function createProfile(e) {
   e.preventDefault();
