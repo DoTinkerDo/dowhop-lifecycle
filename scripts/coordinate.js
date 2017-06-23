@@ -198,7 +198,7 @@ FriendlyChat.prototype.getSession = function() {
 
   // All cases, we load pending div forms for current session:
   var checkForPendings = function(data) {
-    var pendingNotification = user.displayName + ' has requested a change to';
+    var pendingNotification = user.displayName +' has requested a change to';
     // Check if there are pending notifications:
     if (
 

@@ -42,10 +42,24 @@
                   </div>
 
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <textarea class="mdl-textfield__input" type="text" id="my-profile-about" placeholder="What kinds of DoWhops do you like to do?"></textarea>
+                    <label class="mdl-textfield__label" row="3" for="my-profile-about">What is your story?</label>
+                    <div class="mdl-tooltip" for="my-profile-about">Tell the community about yourself. What makes you unique?</div>
+                  </div>
+
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="my-profile-phone" placeholder="Phone"></input>
                     <label class="mdl-textfield__label" for="my-profile-phone">What is your phone number?</label>
                     <div class="mdl-tooltip" for="my-profile-phone">Preferred Phone Number?</div>
                   </div>
+                  
+                  <script src="/wp-includes/js/addInput.js" language="Javascript" type="text/javascript"></script>
+                    <form method="POST">
+                      <div id="dynamicInput">
+                        Entry 1<br><input type="text" name="myInputs[]">
+                      </div>
+                        <input type="button" value="Add another text input" onClick="addInput('dynamicInput');">
+                    </form>
 
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="my-profile-social" placeholder="URL"></input>
@@ -57,12 +71,6 @@
                     <input class="mdl-textfield__input" type="text" id="my-profile-website" placeholder="URL"></input>
                     <label class="mdl-textfield__label" for="my-profile-website"> Personal Web Site?</label>
                     <div class="mdl-tooltip" for="my-profile-website">Personal Website</div>
-                  </div>
-
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <textarea class="mdl-textfield__input" type="text" id="my-profile-about" placeholder="What kinds of DoWhops do you like to do?"></textarea>
-                    <label class="mdl-textfield__label" row="3" for="my-profile-about">What is your story?</label>
-                    <div class="mdl-tooltip" for="my-profile-about">Tell the community about yourself. What makes you unique?</div>
                   </div>
 
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
