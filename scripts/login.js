@@ -46,9 +46,10 @@
     applicationPage.style.display = 'block';
     writeUserData(user);
     console.log('prepare to run check default');
-    if (checkDefaultDoWhop() === false) {
-      createDefaultDoWhop();
-    }
+    //if (checkDefaultDoWhop() === false) {
+    //  createDefaultDoWhop();
+    //}
+    checkDefaultDoWhop();
     console.log('coord js.');
     retrieveMyDoWhops(user.uid);
     // FCM permission registration
@@ -159,9 +160,10 @@ function checkDefaultDoWhop() {
 
   // Let's check for whether user has a DoWhop:
   appUserRef.once('value', function(snapshot) {
-    if (snapshot.val().hasDefaultDoWhop && snapshot.val().hasDefaultDoWhop === true) {
+    var snap = snapshot || null;
+    if (snap != null && snap.val() != null && snap.val().hasDefaultDoWhop && snap.val().hasDefaultDoWhop === true) {
        console.log("user has a dowhop already");
-       console.log(snapshot.val());
+       console.log(snap.val());
        hasDoWhopAlready = true;
        return hasDoWhopAlready;
     }
