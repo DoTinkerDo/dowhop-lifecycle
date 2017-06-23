@@ -34,6 +34,19 @@ function submitNewDoWhopEntry(e) {
   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
   var filepath;
 
+  // We are preparing a first message to the future chat thread:
+  function createWelcomingMessage() {
+    var teamName = "TinkerDo Team";
+    var messageText = "Welcome to the chat thread for your DoWhop. You can use this space to coordinate the details of your DoWhop. Have fun!"
+    var messagesChatsRef = database.ref().child('messages').child(doWhopDescriptionKey);
+    messagesChatsRef.push({
+      chatId: doWhopDescriptionKey,
+      name: teamName,
+      text: messageText,
+      photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
+    });
+  }
+
   filePath = 'doWhopImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
   storage.ref(filePath).put(file).then(function(snapshot) {
     doWhopDescriptionRef.child(doWhopDescriptionKey).set({
@@ -48,8 +61,10 @@ function submitNewDoWhopEntry(e) {
       howMuchDescription: howMuchDescription.value,
       creatorDescription: creatorDescription,
       doerDescription: '' // Temp.
-    });
-    showConfirmationMessage();
+    }).then(
+      showConfirmationMessage()
+    );
+    createWelcomingMessage();
     clearNewDoWhopEntryForm();
   });
 }
