@@ -6,6 +6,7 @@ var createProfileName = document.getElementById('profile-name');
 var createProfilePhone = document.getElementById('profile-phone');
 var createProfileSocial = document.getElementById('profile-social');
 var createProfileWebsite = document.getElementById('profile-website');
+var createProfilePayment = document.getElementById('profile-payment');
 var createProfileAbout = document.getElementById('profile-about');
 var createProfileActivity1 = document.getElementById('profile-activity-1');
 var createProfileActivity2 = document.getElementById('profile-activity-2');
@@ -66,6 +67,9 @@ function createProfile(e) {
     if (createProfileWebsite.value) {
       profileRef.update({profileWebsite: createProfileWebsite.value}).then(createProfileForm.reset())
     }
+    if (createProfilePayment.value) {
+      profileRef.update({profilePayment: createProfilePayment.value}).then(createProfileForm.reset())
+    }
     if (createProfileAbout.value) {
       profileRef.update({profileAbout: createProfileAbout.value}).then(createProfileForm.reset())
     }
@@ -92,6 +96,7 @@ var myProfilePhone = document.getElementById('my-profile-phone');
 // var myProfileWebsite = document.getElementById('my-profile-website');
 var myProfileAbout = document.getElementById('my-profile-about');
 var myProfileEmail = document.getElementById('my-profile-email');
+var myProfilePayment = document.getElementById('my-profile-payment');
 var myProfileActivity1 = document.getElementById('my-profile-activity-1');
 var myProfileActivity2 = document.getElementById('my-profile-activity-2');
 var myProfileActivity3 = document.getElementById('my-profile-activity-3');
@@ -113,6 +118,7 @@ function retrieveProfile(currentProfile) {
     // myProfileWebsite.innerText = snap.val().profileWebsite;
     myProfileAbout.innerText = snap.val().profileAbout;
     myProfileEmail.innerText = snap.val().email;
+    // myProfilePayment.innerText = snap.val().pofilePayment;
     myProfileActivity1.innerText = snap.val().profileActivity1;
     myProfileActivity2.innerText = snap.val().profileActivity2;
     myProfileActivity3.innerText = snap.val().profileActivity3;
