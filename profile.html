@@ -46,14 +46,6 @@
                     <div class="mdl-tooltip" for="profile-phone">Preferred Phone Number?</div>
                   </div>
 
-                  <!-- <script src="/wp-includes/js/addInput.js" language="Javascript" type="text/javascript"></script>
-                    <form method="POST">
-                      <div id="dynamicInput">
-                        Entry 1<br><input type="text" name="myInputs[]">
-                      </div>
-                        <input type="button" value="Add another text input" onClick="addInput('dynamicInput');">
-                    </form> -->
-
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="profile-social" placeholder="URL"></input>
                     <label class="mdl-textfield__label" for="profile-social">Favorite Social Media?</label>
@@ -64,6 +56,12 @@
                     <input class="mdl-textfield__input" type="text" id="profile-website" placeholder="URL"></input>
                     <label class="mdl-textfield__label" for="profile-website"> Personal Web Site?</label>
                     <div class="mdl-tooltip" for="profile-website">Personal Website</div>
+                  </div>
+
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="profile-payment" placeholder="EMAIL"></input>
+                    <label class="mdl-textfield__label" for="profile-payment">Payment Email?</label>
+                    <div class="mdl-tooltip" for="profile-payment">Payment Email</div>
                   </div>
 
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -78,21 +76,26 @@
                     <div class="mdl-tooltip" for="profile-activity-1">Just add one here for now.</div>
                   </div>
 
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <div id="profile-activity-2" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="profile-activity-2" placeholder="e.g., Casey is a spearfisherman and snorkeller"><i class="material-icons">wallpaper</i>
                     <label class="mdl-textfield__label" for="profile-activity-2">What's a second activity you like to do'?</label>
                     <div class="mdl-tooltip" for="profile-activity-2">Just add one here for now.</div>
                   </div>
 
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input id="Button1" type="button" value="Add New Activity" language="javascript" onclick="CollapseMyDiv();" /><br />
+
+
+                  <div id="profile-activity-3" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="profile-activity-3" placeholder="e.g., Casey is an underwater hockey player"><i class="material-icons">wallpaper</i>
                     <label class="mdl-textfield__label" for="profile-activity-3">What's a third activity you like to do'?</label>
                     <div class="mdl-tooltip" for="profile-activity-3">Just add one here for now.</div>
                   </div>
 
+                    <input id="Button2" type="button" value="Add New Activity" language="javascript" onclick="RestoreMyDiv();" /><br />
+
                   <div class="mdl-card__actions">
                     <!-- <input id="profile-image-capture" type="file" accept="image/*,capture=camera" onchange="addProfileImage(this.files, this)"> -->
-                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect button-style" id="create-profile-form-button">
+                    <button class="mdl-button mdl-js-button button-style" id="create-profile-form-button">
                       Submit Profile
                       <div class="mdl-tooltip" for="create-new-profile">Click here to save your info!</div>
                     </button>
