@@ -1,6 +1,6 @@
 'use strict';
 
-var doWhopDescriptionRef = database.ref('/doWhopDescription');
+var doWhopDescriptionRef = database.ref('/DoWhopDescriptions');
 var titleDescription = document.getElementById('title-description');
 var whoDescription = document.getElementById('who-description');
 var whatDescription = document.getElementById('what-description');
@@ -41,7 +41,7 @@ function submitNewDoWhopEntry(e) {
   var uid = auth.currentUser.uid;
   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
   // var defaultImageURL = 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
-  var filePath = 'doWhopImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
+  var filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
 
   storage.ref(filePath).put(file).then(function(snapshot) {
     doWhopDescriptionRef.child(doWhopDescriptionKey).set({
@@ -118,7 +118,7 @@ function revealEditEmailForm(node) {
   currentNode = node.parentElement.id;
   var currentNodeTitle = '';
   // Show current title in UI:
-  var ref = firebase.database().ref('doWhopDescription/' + currentNode);
+  var ref = firebase.database().ref('DoWhopDescriptions/' + currentNode);
   ref.once('value', function(data) {
     var currentNodeTitle = data.val().titleDescription;
     selectedForEdit.innerHTML = 'Edit: ' + currentNodeTitle;
@@ -129,7 +129,7 @@ function revealEditEmailForm(node) {
 function updateEmails(e) {
   e.preventDefault();
   adminEditDoWhopForm.removeAttribute('hidden');
-  var rootRefEvents = firebase.database().ref('doWhopDescription/');
+  var rootRefEvents = firebase.database().ref('DoWhopDescriptions/');
   var newCreatorEmail = document.getElementById('creatorDescriptionUpdate');
   var newDoerEmail = document.getElementById('doerDescriptionUpdate');
   rootRefEvents.child(currentNode).child('creatorDescription').set(newCreatorEmail.value);

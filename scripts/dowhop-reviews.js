@@ -59,7 +59,7 @@ auth.onAuthStateChanged(function(user) {
       selectedDoWhopKey = snapshot.val();
 
       // Toggle review inputs for Creator or Doer
-      var doWhopDescriptionRef = database.ref('doWhopDescription').child(selectedDoWhopKey);
+      var doWhopDescriptionRef = database.ref('DoWhopDescriptions').child(selectedDoWhopKey);
       doWhopDescriptionRef.on('value', function(snapshot) {
         var selectedDoWhop = snapshot.val();
         var currentUserEmail = user.email;
@@ -138,7 +138,7 @@ function callback(rating) {
 
 // Helper functions for Firebase reading and writing
 function readRatingsFromDatabase(reviewType, ratingInstance) {
-  var reviewRef = database.ref().child('doWhopDescription/' + selectedDoWhopKey + '/reviews');
+  var reviewRef = database.ref().child('DoWhopDescriptions/' + selectedDoWhopKey + '/reviews');
   var ratingRef = reviewRef.child(reviewType).child('/ratings');
   ratingRef.once('value').then(function(snapshot) {
     var ratings = _.map(snapshot.val(), function(rating) {
@@ -148,7 +148,7 @@ function readRatingsFromDatabase(reviewType, ratingInstance) {
   });
 }
 function readCommentsFromDatabase(reviewType, commentDiv) {
-  var reviewRef = database.ref().child('doWhopDescription/' + selectedDoWhopKey + '/reviews');
+  var reviewRef = database.ref().child('DoWhopDescriptions/' + selectedDoWhopKey + '/reviews');
   var commentRef = reviewRef.child(reviewType).child('/comments');
   commentRef.on('value', function(snapshot) {
     var div = document.createElement('div');
@@ -172,7 +172,7 @@ function readCommentsFromDatabase(reviewType, commentDiv) {
   });
 }
 function handleDatabaseRatingSubmit(rating, reviewType, ratingInstance) {
-  var reviewRef = database.ref().child('doWhopDescription/' + selectedDoWhopKey + '/reviews');
+  var reviewRef = database.ref().child('DoWhopDescriptions/' + selectedDoWhopKey + '/reviews');
   var ratingReviewTypeRef = reviewRef.child(reviewType);
   ratingReviewTypeRef.once('value').then(function(snapshot) {
     var noReviews = snapshot.val();
@@ -196,7 +196,7 @@ function handleDatabaseRatingSubmit(rating, reviewType, ratingInstance) {
 }
 function handleDatabaseCommentSubmit(comment, reviewType) {
   var commentDetails = { comment: comment, name: userData.displayName, photoURL: userData.photoURL };
-  var reviewRef = database.ref().child('doWhopDescription/' + selectedDoWhopKey + '/reviews');
+  var reviewRef = database.ref().child('DoWhopDescriptions/' + selectedDoWhopKey + '/reviews');
   var commentReviewTypeRef = reviewRef.child(reviewType);
   commentReviewTypeRef.once('value').then(function(snapshot) {
     var userHasCommented = snapshot.child('hasCommented').child(uid).val();

@@ -1,7 +1,7 @@
 'use strict';
 
 var rootRef = database.ref('app_users/');
-var doWhopDescriptionRootRef = database.ref('doWhopDescription/');
+var doWhopDescriptionRootRef = database.ref('DoWhopDescriptions/');
 var editDoWhopForm = document.getElementById('edit-dowhop-form');
 var submitUpdateDoWhopBtn = document.getElementById('submit-update-dowhop');
 
@@ -140,7 +140,7 @@ function retrieveMyDoWhops(uid) {
   });
   var retrieveElement = function(key) {
     var userDowhopCardDiv = document.getElementById('user-dowhop-cards');
-    var doWhopDescriptionRef = database.ref('doWhopDescription').child(key);
+    var doWhopDescriptionRef = database.ref('DoWhopDescriptions').child(key);
     doWhopDescriptionRef.once('value').then(function(doWhopDescription) {
       if (doWhopDescription.val()) {
         makeDoWhopSelector(userDowhopCardDiv, doWhopDescription);
@@ -208,7 +208,7 @@ function setSession(doWhopSelector) {
 function showEditForm(doWhopSelector) {
   var editForm = document.getElementById('edit-dowhop-form');
   var key = doWhopSelector.id;
-  var doWhopDescriptionRef = database.ref('doWhopDescription').child(key);
+  var doWhopDescriptionRef = database.ref('DoWhopDescriptions').child(key);
 
   doWhopDescriptionRef.once('value').then(function(snapshot) {
     var doWhopDescription = snapshot.val();

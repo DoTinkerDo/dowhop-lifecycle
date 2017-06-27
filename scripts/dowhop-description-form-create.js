@@ -1,4 +1,4 @@
-var doWhopDescriptionRef = database.ref('/doWhopDescription');
+var doWhopDescriptionRef = database.ref('/DoWhopDescriptions');
 
 var titleDescription = document.getElementById('title-description');
 var whoDescription = document.getElementById('who-description');
@@ -66,7 +66,7 @@ function submitNewDoWhopEntry(e) {
     });
   }
 
-  filePath = 'doWhopImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
+  filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
   storage.ref(filePath).put(file).then(function(snapshot) {
     doWhopDescriptionRef.child(doWhopDescriptionKey).set({
       createdBy: uid,

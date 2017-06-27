@@ -3,7 +3,7 @@ const admin = require('firebase-admin');
 
 admin.initializeApp(functions.config().firebase);
 
-exports.newDoWhopDescriptionAlert = functions.database.ref('/doWhopDescription/{pushKey}').onWrite(function(event) {
+exports.newDoWhopDescriptionAlert = functions.database.ref('/DoWhopDescriptions/{pushKey}').onWrite(function(event) {
   const description = event.data.val();
   const key = event.params.pushKey;
 
