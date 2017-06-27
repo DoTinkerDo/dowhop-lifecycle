@@ -1,10 +1,10 @@
 {
-  "name": "dowhop-app",
+  "name": "dowhop-web-application",
   "version": "0.0.1",
-  "description": "Create, Edit, Coordinate and Review DoWhops",
-  "main": "",
+  "description": "Buy and Sell what you love to Do on the Marketplace for Doing",
+  "main": "index.js",
   "scripts": {
-    "server": "http-server ./",
+    "server": "firebase serve",
     "build": "webpack",
     "dev": "webpack-dev-server",
     "format": "prettier --list-different --single-quote --print-width=120 \"js/**/*.{js,jsx}\"",
@@ -21,10 +21,12 @@
     "compression": "^1.6.2",
     "cors": "^2.8.3",
     "enzyme": "^2.8.2",
+    "firebase": "^4.1.3",
     "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
     "react": "^15.6.0",
     "react-addons-perf": "^15.4.2",
+    "react-bootstrap": "^0.31.0",
     "react-dom": "^15.6.0",
     "react-router-dom": "^4.1.1",
     "webpack": "^2.6.1"
@@ -59,6 +61,11 @@
     "webpack-dev-server": "^2.4.5"
   },
   "private": true,
-  "repository": "git@github.com:DoTinkerDo/dowhop-lifecycle.git",
-  "license": ""
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:DoTinkerDo/dowhop-lifecycle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DoTinkerDo/dowhop-lifecycle/issues"
+  }
 }
