@@ -128,7 +128,7 @@ function validateAddDoWhopDescription(
 function clearNewDoWhopEntryForm() {
   file = null;
   titleDescription.value = '';
-  whyDescription.value = '';s
+  whyDescription.value = '';
   whoDescription.value = '';
   whatDescription.value = '';
   whenDescription.value = '';

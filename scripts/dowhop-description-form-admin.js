@@ -178,11 +178,11 @@ function registerDoWhopDescriptionCallback() {
         "<div class='dowhop-selector-body'>" +
         '<h5>What?</h5>' +
         '<p>' +
-        data.whyDescription +
+        data.whatDescription +
         '</p>' +
         '<h5>Why?</h5>' +
         '<p>' +
-        data.whatDescription +
+        data.whyDescription +
         '</p>' +
         '<h5>Who?</h5>' +
         '<p>' +
