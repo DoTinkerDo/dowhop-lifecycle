@@ -8,10 +8,10 @@ exports.newDoWhopDescriptionAlert = functions.database.ref('/doWhopDescription/{
   const key = event.params.pushKey;
 
   const getTokens = admin.database().ref('app_users').once('value').then(snapshot => {
-    // const tokens = [
-    //   'ctP8hLYg7CQ:APA91bHdby2BZuag0HJJxHudP4rBQxfnjFSbOFCkwfuUGIklDkqIS_x7OuODj9YO70eaHd9Pzs8SI5hzI_TsatW9tCTFU2amyVlzbjvwbZmske5dRi6J5ZIUlnIBUzIKsWgsxKSGqM1C'
-    // ];
-    const tokens = [];
+    const tokens = [
+      'ctP8hLYg7CQ:APA91bHdby2BZuag0HJJxHudP4rBQxfnjFSbOFCkwfuUGIklDkqIS_x7OuODj9YO70eaHd9Pzs8SI5hzI_TsatW9tCTFU2amyVlzbjvwbZmske5dRi6J5ZIUlnIBUzIKsWgsxKSGqM1C'
+    ];
+    // const tokens = [];
     snapshot.forEach(user => {
       const token = user.child('token').val();
       const doerDescription = description.doerDescription || '';
