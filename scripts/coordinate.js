@@ -742,11 +742,11 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
     // Get profile pic and user's name from the Firebase user object.
     var profilePicUrl = user.photoURL;
     var userName = user.displayName;
-    this.checkForAdmin();
+    // this.checkForAdmin();
     // Add event listener for event session changes:
     // this.getSession(currentSessionID);
     // We save the Firebase Messaging Device token and enable notifications.
-    this.saveMessagingDeviceToken();
+    // this.saveMessagingDeviceToken();
   } else {
     // User is signed out!
   }
