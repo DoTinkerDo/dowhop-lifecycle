@@ -1,4 +1,4 @@
-var doWhopDescriptionRef = database.ref('/doWhopDescription');
+var doWhopDescriptionRef = database.ref('/DoWhopDescriptions');
 
 var titleDescription = document.getElementById('title-description');
 var whoDescription = document.getElementById('who-description');

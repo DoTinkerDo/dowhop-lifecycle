@@ -1,6 +1,6 @@
 'use strict';
 
-var doWhopDescriptionRef = database.ref('/doWhopDescription');
+var doWhopDescriptionRef = database.ref('/DoWhopDescriptions');
 var titleDescription = document.getElementById('title-description');
 var whoDescription = document.getElementById('who-description');
 var whatDescription = document.getElementById('what-description');
@@ -118,7 +118,7 @@ function revealEditEmailForm(node) {
   currentNode = node.parentElement.id;
   var currentNodeTitle = '';
   // Show current title in UI:
-  var ref = firebase.database().ref('doWhopDescription/' + currentNode);
+  var ref = firebase.database().ref('DoWhopDescriptions/' + currentNode);
   ref.once('value', function(data) {
     var currentNodeTitle = data.val().titleDescription;
     selectedForEdit.innerHTML = 'Edit: ' + currentNodeTitle;
@@ -129,7 +129,7 @@ function revealEditEmailForm(node) {
 function updateEmails(e) {
   e.preventDefault();
   adminEditDoWhopForm.removeAttribute('hidden');
-  var rootRefEvents = firebase.database().ref('doWhopDescription/');
+  var rootRefEvents = firebase.database().ref('DoWhopDescriptions/');
   var newCreatorEmail = document.getElementById('creatorDescriptionUpdate');
   var newDoerEmail = document.getElementById('doerDescriptionUpdate');
   rootRefEvents.child(currentNode).child('creatorDescription').set(newCreatorEmail.value);

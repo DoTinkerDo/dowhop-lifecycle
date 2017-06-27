@@ -100,8 +100,8 @@ FriendlyChat.prototype.sendApproval = function(e) {
   e.preventDefault();
   var choice, newDate, newTime, newWhere;
   this.chatItemDataSpecific = document.getElementById('dowhop-selector-container').children[0].id;
-  var myRef = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific);
-  var myRefPending = this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending');
+  var myRef = this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific);
+  var myRefPending = this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending');
   var messagesRef = this.database.ref().child('messages/' + this.chatItemDataSpecific);
   var status;
 
@@ -118,12 +118,12 @@ FriendlyChat.prototype.sendApproval = function(e) {
       whenTime: newTime,
       whereAddress: newWhere
     });
-    this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/').update({
+    this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending/').update({
       status: status
     });
   } else if (this.radioDeny.checked) {
     status = 'denied';
-    this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/').update({
+    this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending/').update({
       status: status
     });
   }
@@ -147,7 +147,7 @@ FriendlyChat.prototype.sendApproval = function(e) {
 FriendlyChat.prototype.sendRescind = function(e) {
   e.preventDefault();
   this.chatItemDataSpecific = document.getElementById('dowhop-selector-container').children[0].id; // <-- Refactor
-  this.database.ref().child('doWhopDescription/' + this.chatItemDataSpecific + '/pending/').remove();
+  this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending/').remove();
   // Send a notification to the user:
   window.alert('You have rescinded!');
   // Add UI reset information here:
@@ -255,13 +255,13 @@ FriendlyChat.prototype.getSession = function() {
       firebase
         .database()
         .ref()
-        .child('doWhopDescription/' + data.val().current_dowhop)
+        .child('DoWhopDescriptions/' + data.val().current_dowhop)
         .on('child_changed', function(data) {
           checkForPendings(data.val());
         });
 
       // Executing functions that are triggered by clicking on a selector block:
-      firebase.database().ref().child('doWhopDescription/' + data.val().current_dowhop).on('value', function(data) {
+      firebase.database().ref().child('DoWhopDescriptions/' + data.val().current_dowhop).on('value', function(data) {
         // Check for pending notifications:
         checkForPendings(data.val());
         // Weave together header
@@ -409,14 +409,14 @@ FriendlyChat.prototype.getSession = function() {
 //     firebase
 //       .database()
 //       .ref()
-//       .child('doWhopDescription/' + data.val().current_dowhop)
+//       .child('DoWhopDescriptions/' + data.val().current_dowhop)
 //       .on('child_changed', function(data) {
 //         console.log('checking for pend first time');
 //         checkForPendings(data.key, data);
 //       });
 //
 //     // Executing functions that are triggered by clicking on a selector block:
-//     firebase.database().ref().child('doWhopDescription/' + data.val().current_dowhop).on('value', function(data) {
+//     firebase.database().ref().child('DoWhopDescriptions/' + data.val().current_dowhop).on('value', function(data) {
 //       // Check for pending notifications:
 //       console.log('checking for pend second time');
 //       checkForPendings(data.key, data);
@@ -553,7 +553,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
   // For only all three attributes: Time, Date, Where:
   if (this.messageFormWhenDatePending.value || this.messageFormWhenTimePending.value || this.messageFormWherePending.value) {
-    var chatsRef = this.database.ref().child('doWhopDescription/' + currentDoWhopID + '/pending/');
+    var chatsRef = this.database.ref().child('DoWhopDescriptions/' + currentDoWhopID + '/pending/');
 
     var messageText = '';
 
