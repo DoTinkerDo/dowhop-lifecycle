@@ -288,6 +288,10 @@ FriendlyChat.prototype.getSession = function() {
             ' and ' +
             (data.val().doerDescription || 'TBD') +
             '</p>' +
+            '<h3>Why?</h3>' +
+            '<p>' +
+            data.val().whyDescription +
+            '</p>' +
             '<h3>What?</h3>' +
             '<p>' +
             data.val().whatDescription +
