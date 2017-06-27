@@ -6,7 +6,7 @@
       signInSuccess: function(user, credential, redirectUrl) {
         handleSignedInUser(user);
         // Do not redirect.
-        return false;
+        return true;
       }
     },
     signInFlow: 'popup',
@@ -21,23 +21,39 @@
 
   var loginPage = document.getElementById('login-container');
   var applicationPage = document.getElementById('application-container');
-  var appUsersRef = database.ref('/app_users');
 
   function writeUserData(user) {
+    var appUsersRef = database.ref('/app_users');
     var appUserRef = appUsersRef.child(user.uid);
     appUserRef.once('value').then(function(snapshot) {
       if (snapshot.val()) return;
-      var userData = _.pick(user, ['displayName', 'photoURL', 'uid', 'email']);
+      var userData = {
+        displayName: user.displayName,
+        photoURL: user.photoURL ? user.photoURL : placeholderUserPhotoURL,
+        uid: user.uid,
+        email: user.email
+      };
       appUserRef.set(userData);
     });
+    // console.log('prepare to run check default');
+    // if (checkDefaultDoWhop() === false) {
+    //   createDefaultDoWhop();
+    // }
   }
 
   function handleSignedInUser(user) {
     loginPage.style.display = 'none';
     applicationPage.style.display = 'block';
     writeUserData(user);
+    console.log('prepare to run check default');
+    //if (checkDefaultDoWhop() === false) {
+    //  createDefaultDoWhop();
+    //}
+    checkDefaultDoWhop();
+    console.log('coord js.');
     retrieveMyDoWhops(user.uid);
-    registerDoWhopDescriptionCallback();
+    // FCM permission registration
+    registerMessaging(user);
   }
 
   function handleSignedOutUser() {
@@ -47,6 +63,10 @@
   }
 
   function handleOnAuthStateChange() {
+    // console.log('prepare to run check default');
+    // if (checkDefaultDoWhop() === false) {
+    //   createDefaultDoWhop();
+    // }
     auth.onAuthStateChanged(function(user) {
       // Check if current user email is admin in Firebase:
       var approved = false;
@@ -72,8 +92,8 @@
 })();
 
 // TODO map what parts of app use this...
-// 1) person is used by session
-// 2) ?
+// 1) person is used by session -> confirmed line 219!
+// 2) now also used by reviews when user signs in for the first time.
 
 // setting currentUser globals...
 var person = null;
@@ -85,20 +105,72 @@ auth.onAuthStateChanged(function(user) {
   }
 });
 
-// Probably no longer needed...
-// was used by react review app
-var currentUserDoWhopId = null;
-var currentDoWhopProto = null;
-firebase.database().ref().child('proto_user/').once('value', function(snapshot) {
-  snapshot.forEach(function(data) {
-    var name = '"' + person.displayName + '"';
-    var name = person.displayName;
-    if (data.key === name) {
-      currentUserDoWhopId = data.val();
+
+function createDefaultDoWhop() {
+  console.log('creating default dowhop...');
+  var uid = auth.currentUser.uid;
+  var email = auth.currentUser.email;
+  var creatorDescription = auth.currentUser.email;
+  var defaultImageURL = 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+  // Then we add on note to user's profile that it has been added:
+  var appUsersRef = database.ref('/app_users');
+  var appUserRef = appUsersRef.child(uid);
+
+      // console.log("adding dowhop...");
+      // Adding a default DoWhop template as welcoming message:
+      var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
+      // First we create the new default DoWhop:
+      doWhopDescriptionRef.child(doWhopDescriptionKey).set({
+          createdBy: uid,
+          doWhopDescriptionKey: doWhopDescriptionKey,
+          downloadURL: defaultImageURL,
+          titleDescription: "DoWhop with us!",
+          whoDescription: "DoWhop Team is here to help you!",
+          whatDescription: "",
+          whenDescription: "",
+          whereDescription: "",
+          howMuchDescription: "",
+          creatorDescription: "tinkerdowhop@gmail.com",
+          doerDescription: email
+        });
+      console.log('no default. created default dowhop');
+
+      // Updating user's status henceforth:
+      console.log("updating user's dowhop status...");
+      var userData = {
+            hasDefaultDoWhop: true
+          };
+      appUserRef.update(userData);
+}
+
+
+
+// Checks for a default whop, if not exists, creates one.
+
+function checkDefaultDoWhop() {
+  console.log('running default dowhop check...');
+  var uid = auth.currentUser.uid;
+  var email = auth.currentUser.email;
+  var creatorDescription = auth.currentUser.email;
+  var defaultImageURL = 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+  // Then we add on note to user's profile that it has been added:
+  var appUsersRef = database.ref('/app_users');
+  var appUserRef = appUsersRef.child(uid);
+  var hasDoWhopAlready = false;
+
+  // Let's check for whether user has a DoWhop:
+  appUserRef.once('value', function(snapshot) {
+    var snap = snapshot || null;
+    if (snap != null && snap.val() != null && snap.val().hasDefaultDoWhop && snap.val().hasDefaultDoWhop === true) {
+       console.log("user has a dowhop already");
+       console.log(snap.val());
+       hasDoWhopAlready = true;
+       return hasDoWhopAlready;
+    }
+    else {
+       console.log('no dowhop exists.');
+       //hasDoWhopAlready = false;
+       createDefaultDoWhop();
     }
   });
-
-  firebase.database().ref().child('proto/' + currentUserDoWhopId).once('value', function(snapshot) {
-    currentDoWhopProto = snapshot.val();
-  });
-});
+}

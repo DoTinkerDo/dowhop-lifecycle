@@ -1,0 +1,159 @@
+/* Custom profile stylings shall go here */
+
+/* Pure CSS grid */
+.grid-container {
+  width: 100%;
+  max-width: 1400px;
+  box-sizing: border-box;
+}
+
+.row:before,
+.row:after {
+    content:"";
+    display: table ;
+    clear:both;
+}
+
+[class*='col-'] {
+    float: left;
+    min-height: 1px;
+}
+
+[class*='col-'] {
+    float: left;
+    min-height: 1px;
+    padding: 12px;
+}
+
+.col-1 {
+    width: 50%;
+    float: left;
+}
+.col-2 {
+    width: 50%;
+    float: right;
+}
+
+/*.outline, .outline *{
+    outline: 1px solid #F6A1A1;
+}*/
+
+.profile-details-container {
+  margin-left: 15px;
+}
+
+.center {
+  text-align: center;
+}
+
+#my-profile-picture {
+  height: 250px;
+  /*background-size: cover;*/
+  background-repeat: no-repeat;
+  margin-bottom: 30px;
+}
+
+#my-display-name {
+  font-size: 17px;
+  font-weight: bold;
+  color: black;
+  background-color: white;
+}
+
+#my-profile-name {
+  visibility: hidden;
+}
+
+.profile-icons {
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 22px;
+  padding-bottom: 5px;
+}
+
+.profile-data {
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  font-size: 13px;
+}
+
+#my-profile-about {
+  font-style: italic;
+  font-size: 17px;
+  width: 20%;
+  text-align: center;
+  display: inline-block;
+  margin-top: 200px;
+  margin-left: 20%;
+}
+
+.col-3, .col-4, .col-5 {
+  margin-top: 10px;
+}
+
+.activity-image {
+  height: 175px;
+}
+
+.activity-caption {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.outer-box {
+  width: 175px;
+  height: 175px;
+  display: block;
+  position: relative;
+}
+
+.outer-box img {
+  width: 175px;
+  height: auto;
+}
+
+.outer-box .inner-box {
+  background: white;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  position: absolute;
+  padding: 0;
+  transition: .5s;
+}
+
+.outer-box .inner-box p {
+  color: black;
+  margin-top: 40%;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 20px;
+}
+
+.outer-box:hover .inner-box {
+  opacity: .9;
+  transition: .5s;
+  cursor: pointer;
+}
+
+.outer-box:target .inner-box {
+  opacity: .9;
+  transition: .5s;
+  cursor: pointer;
+}
+
+#edit-profile-button {
+    color: black;
+    text-decoration: none;
+}
+
+#edit-profile-button:hover
+{
+     color: black;
+     text-decoration:none;
+     cursor:pointer;
+}

@@ -1,16 +1,3 @@
-/*
-  As a creator I want to create a DoWhop for the marketplace!
-  The form has to validate that I'm entering text into each field.
-
-  titleDescription
-  whoDescription
-  whatDescription
-  whenDescription
-  whereDescription
-  howDescription
-  howMuchDescription
-*/
-
 var doWhopDescriptionRef = database.ref('/doWhopDescription');
 
 var titleDescription = document.getElementById('title-description');
@@ -20,6 +7,7 @@ var whenDescription = document.getElementById('when-description');
 var whereDescription = document.getElementById('where-description');
 var howMuchDescription = document.getElementById('how-much-description');
 var dowhopImageCapture = document.getElementById('dowhop-image-capture');
+
 var submitNewDoWhopBtn = document.getElementById('create-new-dowhop');
 submitNewDoWhopBtn.addEventListener('click', submitNewDoWhopEntry);
 
@@ -42,9 +30,41 @@ function submitNewDoWhopEntry(e) {
   }
 
   var uid = auth.currentUser.uid;
+  var creatorDisplayName = auth.currentUser.displayName;
+  var creatorDescription = auth.currentUser.email;
   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
   var filepath;
-  // var defaultImageURL = 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+
+
+  // We are preparing a first message to the future chat thread:
+  function createWelcomingMessage() {
+
+    // Gathering the appropriate data to fill out message:
+    var DoWhopTitleDescription, DoWhopWhenDescription, DoWhopWhereDescription;
+
+    doWhopDescriptionRef.child(doWhopDescriptionKey).once('value', function(snap) {
+      DoWhopTitleDescription = snap.val().titleDescription;
+      DoWhopWhenDescription = snap.val().whenDescription;
+      DoWhopWhereDescription = snap.val().whereDescription;
+    });
+
+    var teamName = "Your DoWhop Team";
+    var welcomeMessageText = "Welcome to your "
+          + DoWhopTitleDescription
+          + " DoWhop!\n\n"
+          + "Currently, " + creatorDisplayName + " plans to meet \""
+          + DoWhopWhenDescription
+          + "\" at \"" + DoWhopWhereDescription + "\".\n"
+          + "Coordinate the details here!";
+
+    var messagesChatsRef = database.ref().child('messages').child(doWhopDescriptionKey);
+    messagesChatsRef.push({
+      chatId: doWhopDescriptionKey,
+      name: teamName,
+      text: welcomeMessageText,
+      photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
+    });
+  }
 
   filePath = 'doWhopImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
   storage.ref(filePath).put(file).then(function(snapshot) {
@@ -58,10 +78,12 @@ function submitNewDoWhopEntry(e) {
       whenDescription: whenDescription.value,
       whereDescription: whereDescription.value,
       howMuchDescription: howMuchDescription.value,
-      creatorDescription: '', // Temporary placeholder.
+      creatorDescription: creatorDescription,
       doerDescription: '' // Temp.
-    });
-    showConfirmationMessage();
+    }).then(
+      showConfirmationMessage()
+    );
+    createWelcomingMessage();
     clearNewDoWhopEntryForm();
   });
 }

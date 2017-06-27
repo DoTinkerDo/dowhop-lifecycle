@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DoWhop Profile</title>
+    <!-- Adding jQUery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <!-- Adding font 'Avenir Light' -->
+    <link rel="stylesheet" href="styles/font-styles.css">
+    <!-- Material Design Lite -->
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.red-blue.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" /> <!-- Firebase UI CSS for Web Auth -->
+    <link rel="stylesheet" href="styles/main.css"> <!--Catch-all stylings-->
+    <link rel="stylesheet" href="styles/login-tabs-styles.css">
+    <link rel="stylesheet" href="styles/dowhop-selector-style.css">
+    <link rel="stylesheet" href="styles/dowhop-profile.css">
+    <!-- Functional -->
+    <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>  <!-- Firebase library -->
+    <script src="scripts/firebase.js"></script> <!-- Initialize Firebase app -->
+    <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script> <!-- Lodash ._ -->
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script> <!-- Firebase UI JS for Web Auth -->
+  </head>
+  <body>
+      <div class="grid-container outline">
+      <div class="col-2">
+      <div hidden id="create-profile-div"><!-- Begin Create New Profile Form -->
+            <div class="mdl-layout__content">
+              <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Update My Profile</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                <form id="create-profile-form" action="#">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="profile-name" placeholder="Your name"></input>
+                    <label class="mdl-textfield__label" for="profile-name">What's your name?</label>
+                    <div class="mdl-tooltip" for="profile-name">What's your preferred name?</div>
+                  </div>
+
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="profile-phone" placeholder="Phone"></input>
+                    <label class="mdl-textfield__label" for="profile-phone">What is your phone number?</label>
+                    <div class="mdl-tooltip" for="profile-phone">Preferred Phone Number?</div>
+                  </div>
+
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="profile-social" placeholder="URL"></input>
+                    <label class="mdl-textfield__label" for="profile-social">Favorite Social Media?</label>
+                    <div class="mdl-tooltip" for="profile-social">Preferred Social Media</div>
+                  </div>
+
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="profile-website" placeholder="URL"></input>
+                    <label class="mdl-textfield__label" for="profile-website"> Personal Web Site?</label>
+                    <div class="mdl-tooltip" for="profile-website">Personal Website</div>
+                  </div>
+
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="profile-payment" placeholder="EMAIL"></input>
+                    <label class="mdl-textfield__label" for="profile-payment">Payment Email?</label>
+                    <div class="mdl-tooltip" for="profile-payment">Payment Email</div>
+                  </div>
+
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <textarea class="mdl-textfield__input" type="text" id="profile-about" placeholder="What kinds of DoWhops do you like to do?"></textarea>
+                    <label class="mdl-textfield__label" row="3" for="profile-about">What is your story?</label>
+                    <div class="mdl-tooltip" for="profile-about">Tell the community about yourself. What makes you unique?</div>
+                  </div>
+
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="profile-activity-1" placeholder="e.g., Casey is a dog enthusiast"><i class="material-icons">wallpaper</i>
+                    <label class="mdl-textfield__label" for="profile-activity-1">What's an activity you like to do'?</label>
+                    <div class="mdl-tooltip" for="profile-activity-1">Just add one here for now.</div>
+                  </div>
+
+                  <div id="profile-activity-2" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="profile-activity-2" placeholder="e.g., Casey is a spearfisherman and snorkeller"><i class="material-icons">wallpaper</i>
+                    <label class="mdl-textfield__label" for="profile-activity-2">What's a second activity you like to do'?</label>
+                    <div class="mdl-tooltip" for="profile-activity-2">Just add one here for now.</div>
+                  </div>
+
+                    <input id="Button1" type="button" value="Add New Activity" language="javascript" onclick="CollapseMyDiv();" /><br />
+
+
+                  <div id="profile-activity-3" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="profile-activity-3" placeholder="e.g., Casey is an underwater hockey player"><i class="material-icons">wallpaper</i>
+                    <label class="mdl-textfield__label" for="profile-activity-3">What's a third activity you like to do'?</label>
+                    <div class="mdl-tooltip" for="profile-activity-3">Just add one here for now.</div>
+                  </div>
+
+                    <input id="Button2" type="button" value="Add New Activity" language="javascript" onclick="RestoreMyDiv();" /><br />
+
+                  <div class="mdl-card__actions">
+                    <!-- <input id="profile-image-capture" type="file" accept="image/*,capture=camera" onchange="addProfileImage(this.files, this)"> -->
+                    <button class="mdl-button mdl-js-button button-style" id="create-profile-form-button">
+                      Submit Profile
+                      <div class="mdl-tooltip" for="create-new-profile">Click here to save your info!</div>
+                    </button>
+                  </div>
+                </form>
+              </div>
+          </div>
+        </div>
+        </div>
+ <!-- End Create New Profile Form -->
+    <section class="col-1" id="my-profile"> <!-- Start Show Profile Section -->
+            <div class="row">
+              <div class="col-7">
+                <img id="my-profile-picture"></img>
+              <div class="row profile-details-container">
+                <div id="my-display-name"></div>
+        		    <div id="my-profile-name"></div>
+            <div class="row profile-contact-container">
+              <div class="row">
+                <a id="edit-profile-button" href="">
+                  <i class="material-icons profile-icons">mode_edit</i>
+                  <div class="profile-data profile-icons">Edit Profile</div>
+                </a>
+              </div>
+              <div class="row">
+                <i class="material-icons profile-icons">mail_outline</i>
+                <div class="profile-data" id="my-profile-email"></div>
+              </div>
+              <div class="row">
+                <i class="material-icons profile-icons">call</i>
+                <!-- link to the user's actual phone number -->
+                <div class="profile-data" id="my-profile-phone">xxx-xxx-xxxx</div>
+              </div>
+              <div class="row">
+                <i class="material-icons profile-icons">room</i>
+                <div class="profile-data" id="my-profile-city">San Diego, CA</div>
+              </div>
+              </div>
+            </div>
+            </div>
+            <!-- put the facebook, twitter, etc. links here -->
+            <!-- put the verified member part here -->
+            <div id="my-profile-about"></div>
+            <div class="col-8">
+              <div class="row">
+                  <div class="col-3">
+                    <!-- need to link images to user; currently hardcoded -->
+                    <div class="outer-box">
+                      <img onclick="" class="activity-image" src="../images/placeholder-image.png">
+                      <div class="inner-box">
+                        <p>Coordinate this DoWhop</p>
+                      </div>
+                    </div>
+                      <div class="activity-caption" id="my-profile-activity-1"></div>
+                  </div>
+                  <div class="col-4">
+                    <div class="outer-box">
+                    <img onclick="" class="activity-image" src="../images/placeholder-image.png">
+                    <div class="inner-box">
+                      <p>Coordinate this DoWhop</p>
+                    </div>
+                    </div>
+                    <div class="activity-caption" id="my-profile-activity-2"></div>
+                  </div>
+                  <div class="col-5">
+                    <div class="outer-box">
+                    <img class="activity-image" src="../images/placeholder-image.png">
+                    <div class="inner-box">
+                      <p>Coordinate this DoWhop</p>
+                    </div>
+                    </div>
+                    <div class="activity-caption" id="my-profile-activity-3"></div>
+                  </div>
+              </div>
+            </div>
+            </div>
+          </div>
+    </section><!-- End Show Profile Section -->
+    <script>
+    auth.onAuthStateChanged(function(user) {
+      if (user) {
+        registerDoWhopDescriptionCallback();
+      }
+    });
+    </script>
+    <script src="scripts/dowhop-profile-form-create.js"></script>
+  </body>
+</html>

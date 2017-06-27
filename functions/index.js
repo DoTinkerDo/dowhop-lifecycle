@@ -1,25 +1,46 @@
-/**
- * Copyright 2017 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
 
-// Note: You will edit this file in the follow up codelab about the Cloud Functions for Firebase.
+admin.initializeApp(functions.config().firebase);
 
-// TODO(DEVELOPER): Import the Cloud Functions for Firebase and the Firebase Admin modules here.
+exports.newDoWhopDescriptionAlert = functions.database.ref('/doWhopDescription/{pushKey}').onWrite(function(event) {
+  const description = event.data.val();
+  const key = event.params.pushKey;
 
-// TODO(DEVELOPER): Write the addWelcomeMessages Function here.
+  const getTokens = admin.database().ref('app_users').once('value').then(snapshot => {
+    // const tokens = [
+    //   'ctP8hLYg7CQ:APA91bHdby2BZuag0HJJxHudP4rBQxfnjFSbOFCkwfuUGIklDkqIS_x7OuODj9YO70eaHd9Pzs8SI5hzI_TsatW9tCTFU2amyVlzbjvwbZmske5dRi6J5ZIUlnIBUzIKsWgsxKSGqM1C'
+    // ];
+    const tokens = [];
+    snapshot.forEach(user => {
+      const token = user.child('token').val();
+      const doerDescription = description.doerDescription || '';
+      const creatorDescription = description.creatorDescription || '';
+      if (
+        token &&
+        (doerDescription.split(', ').some(doerDescriptionEmail => doerDescriptionEmail === user.val().email) ||
+          creatorDescription === user.val().email)
+      ) {
+        tokens.push(token);
+      }
+    });
+    return tokens;
+  });
 
-// TODO(DEVELOPER): Write the blurOffensiveImages Function here.
+  const getUser = admin.auth().getUser('VYw0lPDFD3btHJadneuSFGjy8wk1');
+  const placeholderUserPhotoURL =
+    'https://static.wixstatic.com/media/de271e_7b4ba75cc39345df91b400d66d827907~mv2.png/v1/crop/x_0,y_12,w_300,h_276/fill/w_50,h_46,al_c,usm_0.66_1.00_0.01/de271e_7b4ba75cc39345df91b400d66d827907~mv2.png';
 
-// TODO(DEVELOPER): Write the sendNotifications Function here.
+  Promise.all([getTokens, getUser]).then(([tokens, user]) => {
+    const payload = {
+      notification: {
+        title: description.titleDescription,
+        body: 'Has been updated',
+        icon: placeholderUserPhotoURL
+      }
+    };
+    admin.messaging().sendToDevice(tokens, payload).catch(function(error) {
+      console.log('ERROR IN INDEX.js -> ', error);
+    });
+  });
+});

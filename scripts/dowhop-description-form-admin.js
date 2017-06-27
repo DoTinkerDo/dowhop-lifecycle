@@ -1,15 +1,4 @@
-/*
-  As a creator I want to create a DoWhop for the marketplace!
-  The form has to validate that I'm entering text into each field.
-
-  titleDescription
-  whoDescription
-  whatDescription
-  whenDescription
-  whereDescription
-  howDescription
-  howMuchDescription
-*/
+'use strict';
 
 var doWhopDescriptionRef = database.ref('/doWhopDescription');
 var titleDescription = document.getElementById('title-description');
@@ -28,7 +17,7 @@ var doerDescriptionUpdate = document.getElementById('doerDescriptionUpdate');
 submitNewDoWhopBtn.addEventListener('click', submitNewDoWhopEntry);
 var emailSubmitBtn = document.getElementById('emailSubmit');
 emailSubmitBtn.addEventListener('click', updateEmails);
-var selectedForEdit = document.getElementById('selected-for-edit')
+var selectedForEdit = document.getElementById('selected-for-edit');
 var error = document.getElementById('errorAdmin');
 
 function submitNewDoWhopEntry(e) {
@@ -51,10 +40,9 @@ function submitNewDoWhopEntry(e) {
 
   var uid = auth.currentUser.uid;
   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
-  var filepath;
   // var defaultImageURL = 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+  var filePath = 'doWhopImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
 
-  filePath = 'doWhopImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
   storage.ref(filePath).put(file).then(function(snapshot) {
     doWhopDescriptionRef.child(doWhopDescriptionKey).set({
       createdBy: uid,
@@ -126,28 +114,28 @@ function clearNewDoWhopEntryForm() {
 var currentNode;
 
 function revealEditEmailForm(node) {
-  adminEditDoWhopForm.removeAttribute("hidden");
+  adminEditDoWhopForm.removeAttribute('hidden');
   currentNode = node.parentElement.id;
-  var currentNodeTitle = "";
+  var currentNodeTitle = '';
   // Show current title in UI:
-  var ref =firebase.database().ref('doWhopDescription/' + currentNode)
+  var ref = firebase.database().ref('doWhopDescription/' + currentNode);
   ref.once('value', function(data) {
     var currentNodeTitle = data.val().titleDescription;
-    selectedForEdit.innerHTML = "Edit: " + currentNodeTitle;
+    selectedForEdit.innerHTML = 'Edit: ' + currentNodeTitle;
   });
   return currentNode;
 }
 
 function updateEmails(e) {
   e.preventDefault();
-  adminEditDoWhopForm.removeAttribute("hidden");
+  adminEditDoWhopForm.removeAttribute('hidden');
   var rootRefEvents = firebase.database().ref('doWhopDescription/');
   var newCreatorEmail = document.getElementById('creatorDescriptionUpdate');
   var newDoerEmail = document.getElementById('doerDescriptionUpdate');
   rootRefEvents.child(currentNode).child('creatorDescription').set(newCreatorEmail.value);
   rootRefEvents.child(currentNode).child('doerDescription').set(newDoerEmail.value);
-  selectedForEdit.innerHTML = "Edit your DoWhop"
-  error.innerHTML = "Emails have been updated!";
+  selectedForEdit.innerHTML = 'Edit your DoWhop';
+  error.innerHTML = 'Emails have been updated!';
   adminEditDoWhopForm.reset();
 }
 
@@ -192,7 +180,7 @@ function registerDoWhopDescriptionCallback() {
         '</p>' +
         '<h5>When?</h5>' +
         '<p>' +
-        (data.whenDescription || "By request") +
+        (data.whenDescription || 'By request') +
         '</p>' +
         '<h5>Where?</h5>' +
         '<p>' +
@@ -204,11 +192,11 @@ function registerDoWhopDescriptionCallback() {
         '</p>' +
         '<h5>Who is the creator?</h5>' +
         '<p>' +
-        (data.creatorDescription || "TBD") +
+        (data.creatorDescription || 'TBD') +
         '</p>' +
         '<h5>Who is doer?</h5>' +
         '<p>' +
-        (data.doerDescription || "TBD") +
+        (data.doerDescription || 'TBD') +
         '</p>' +
         '</div>' +
         '</section>';

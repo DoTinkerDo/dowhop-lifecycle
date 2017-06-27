@@ -24,11 +24,6 @@
     <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script> <!-- Firebase UI JS for Web Auth -->
   </head>
   <body>
-    <div class="mdl-grid">
-      <div class="mdl-grid">
-        <h1>Admin</h1>
-      </div>
-    </div>
     <div id="newdowhop" class="panel">
       <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--6-col">
@@ -70,10 +65,12 @@
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="doer-description" placeholder="doer@example.com">
                     <label class="mdl-textfield__label" for="doer-description">Who is the Doer (email)?</label>
+                    <span class="mdl-tooltip" for="doer-description">Enter multiple doers, seperated, by, Commas</span>
                   </div>
                   <div class="mdl-card__actions">
                     <input id="dowhop-image-capture" type="file" accept="image/*,capture=camera" onchange="addDoWhopImage(this.files, this)">
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="create-new-dowhop">
+                    <br></br>
+                    <button class="mdl-button mdl-js-button button-style" id="create-new-dowhop">
                       Create New DoWhop
                     </button>
                   </div>
@@ -102,7 +99,7 @@
                   <!-- END NEW -->
                   <div class="mdl-card__actions">
                     <!-- <input id="dowhop-image-capture" type="file" accept="image/*,capture=camera" onchange="addDoWhopImage(this.files, this)"> -->
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="emailSubmit">
+                    <button class="mdl-button mdl-js-button button-style" id="emailSubmit">
                       Update
                       <div class="mdl-tooltip" for="emailSubmit">Click here to update the DoWhop information!</div>
                     </button>
