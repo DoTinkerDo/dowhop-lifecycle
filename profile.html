@@ -70,34 +70,36 @@
                     <div class="mdl-tooltip" for="profile-about">Tell the community about yourself. What makes you unique?</div>
                   </div>
 
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="profile-activity-1" placeholder="e.g., Casey is a dog enthusiast"><i class="material-icons">wallpaper</i>
+                  <div  class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="profile-activity-1" placeholder="e.g., Casey is a dog enthusiast">
+                    <i class="material-icons">wallpaper</i>
                     <label class="mdl-textfield__label" for="profile-activity-1">What's an activity you like to do'?</label>
                     <div class="mdl-tooltip" for="profile-activity-1">Just add one here for now.</div>
+                    <span style="text-align: center"><input id="Button1" type="button" value="Add New Activity" language="javascript" onclick="CollapseMyDiv();" /></span>
                   </div>
 
-                  <div id="profile-activity-2" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="profile-activity-2" placeholder="e.g., Casey is a spearfisherman and snorkeller"><i class="material-icons">wallpaper</i>
+                  <div hidden class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="profile-activity-2" placeholder="e.g., Casey is a spearfisherman and snorkeller">
+                    <i class="material-icons">wallpaper</i>
                     <label class="mdl-textfield__label" for="profile-activity-2">What's a second activity you like to do'?</label>
                     <div class="mdl-tooltip" for="profile-activity-2">Just add one here for now.</div>
+                    <span><input id="Button2" type="button" value="Add New Activity" language="javascript" onclick="RestoreMyDiv();" /></span>
                   </div>
 
-                    <input id="Button1" type="button" value="Add New Activity" language="javascript" onclick="CollapseMyDiv();" /><br />
 
-
-                  <div id="profile-activity-3" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <div hidden class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="profile-activity-3" placeholder="e.g., Casey is an underwater hockey player"><i class="material-icons">wallpaper</i>
                     <label class="mdl-textfield__label" for="profile-activity-3">What's a third activity you like to do'?</label>
                     <div class="mdl-tooltip" for="profile-activity-3">Just add one here for now.</div>
                   </div>
 
-                    <input id="Button2" type="button" value="Add New Activity" language="javascript" onclick="RestoreMyDiv();" /><br />
+
 
                   <div class="mdl-card__actions">
                     <!-- <input id="profile-image-capture" type="file" accept="image/*,capture=camera" onchange="addProfileImage(this.files, this)"> -->
                     <button class="mdl-button mdl-js-button button-style" id="create-profile-form-button">
                       Submit Profile
-                      <div class="mdl-tooltip" for="create-new-profile">Click here to save your info!</div>
+                      <div class="mdl-tooltip" for="create-profile-form-button">Click here to save your info!</div>
                     </button>
                   </div>
                 </form>

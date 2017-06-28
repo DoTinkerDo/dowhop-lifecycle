@@ -9,8 +9,8 @@ var createProfileWebsite = document.getElementById('profile-website');
 var createProfilePayment = document.getElementById('profile-payment');
 var createProfileAbout = document.getElementById('profile-about');
 var createProfileActivity1 = document.getElementById('profile-activity-1');
-var createProfileActivity2 = document.getElementById('profile-activity-2').style.display = 'none';
-var createProfileActivity3 = document.getElementById('profile-activity-3').style.display = 'none';
+var createProfileActivity2 = document.getElementById('profile-activity-2');
+var createProfileActivity3 = document.getElementById('profile-activity-3');
 var createProfileFormBtn = document.getElementById('create-profile-form-button');
 var showProfileFormBtn = document.getElementById('edit-profile-button');
 var createProfileDiv = document.getElementById('create-profile-div');
@@ -36,15 +36,16 @@ function addDoWhopImage(files_arr, node) {
 
 function CollapseMyDiv(){
         // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
-        document.getElementById('profile-activity-2').style.display = "block";
+        document.getElementById('profile-activity-2').parentNode.removeAttribute('hidden');
         }
 function RestoreMyDiv(){
         // Function to restore MyDiv visible again with height 100 px.
-        document.getElementById('profile-activity-3').style.display = "block";
+        document.getElementById('profile-activity-3').parentNode.removeAttribute('hidden');
         }
 
 function createProfile(e) {
   e.preventDefault();
+
   var currentProfile = firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   console.log("creating profile")
@@ -64,34 +65,46 @@ function createProfile(e) {
   //   profileRef.update(profileData).then(function() {
   //   });
 
+console.log(createProfileActivity1.value)
     if (createProfileName.value) {
-      profileRef.update({profileName: createProfileName.value}).then(createProfileForm.reset())
+      profileRef.update({profileName: createProfileName.value})
+      // .then(createProfileForm.reset())
     }
     if (createProfilePhone.value) {
-      profileRef.update({profilePhone: createProfilePhone.value}).then(createProfileForm.reset())
+      profileRef.update({profilePhone: createProfilePhone.value})
+      // .then(createProfileForm.reset())
+      // console.log(createProfilePhone)
     }
     if (createProfileSocial.value) {
-      profileRef.update({profileSocial: createProfileSocial.value}).then(createProfileForm.reset())
+      profileRef.update({profileSocial: createProfileSocial.value})
+      // .then(createProfileForm.reset())
     }
     if (createProfileWebsite.value) {
-      profileRef.update({profileWebsite: createProfileWebsite.value}).then(createProfileForm.reset())
+      profileRef.update({profileWebsite: createProfileWebsite.value})
+      // .then(createProfileForm.reset())
     }
     if (createProfilePayment.value) {
-      profileRef.update({profilePayment: createProfilePayment.value}).then(createProfileForm.reset())
+      profileRef.update({profilePayment: createProfilePayment.value})
+      // .then(createProfileForm.reset())
     }
     if (createProfileAbout.value) {
-      profileRef.update({profileAbout: createProfileAbout.value}).then(createProfileForm.reset())
+      profileRef.update({profileAbout: createProfileAbout.value})
+      // .then(createProfileForm.reset())
     }
     if (createProfileActivity1.value) {
-      profileRef.update({profileActivity1: createProfileActivity1.value}).then(createProfileForm.reset())
+      profileRef.update({profileActivity1: createProfileActivity1.value})
+      // .then(createProfileForm.reset())
     }
+
     if (createProfileActivity2.value) {
-      profileRef.update({profileActivity2: createProfileActivity2.value}).then(createProfileForm.reset())
+      profileRef.update({profileActivity2: createProfileActivity2.value})
+      // .then(createProfileForm.reset())
     }
     if (createProfileActivity3.value) {
-      profileRef.update({profileActivity3: createProfileActivity3.value}).then(createProfileForm.reset())
+      profileRef.update({profileActivity3: createProfileActivity3.value})
+      // .then(createProfileForm.reset())
     }
-    createProfileForm.reset();
+    // createProfileForm.reset();
     createProfileDiv.setAttribute("hidden", "true");
 }
 
