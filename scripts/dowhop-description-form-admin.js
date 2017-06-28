@@ -42,6 +42,37 @@ function submitNewDoWhopEntry(e) {
   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
   // var defaultImageURL = 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
   var filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
+  var creatorDisplayName = auth.currentUser.displayName; // new
+
+  // We are preparing a first message to the future chat thread:
+  function createWelcomingMessage() {
+    console.log('creating welcome message!')
+    // Gathering the appropriate data to fill out message:
+    var DoWhopTitleDescription, DoWhopWhenDescription, DoWhopWhereDescription;
+
+    doWhopDescriptionRef.child(doWhopDescriptionKey).once('value', function(snap) {
+      DoWhopTitleDescription = snap.val().titleDescription;
+      DoWhopWhenDescription = snap.val().whenDescription;
+      DoWhopWhereDescription = snap.val().whereDescription;
+    });
+
+    var teamName = "Your DoWhop Team";
+    var welcomeMessageText = "Welcome to your "
+          + DoWhopTitleDescription
+          + " DoWhop!\n\n"
+          + "Currently, " + creatorDisplayName + " plans to meet \""
+          + DoWhopWhenDescription
+          + "\" at \"" + DoWhopWhereDescription + "\".\n"
+          + "Coordinate the details here!";
+
+    var messagesChatsRef = firebase.database().ref().child('messages').child(doWhopDescriptionKey);
+    messagesChatsRef.push({
+      chatId: doWhopDescriptionKey,
+      name: teamName,
+      text: welcomeMessageText,
+      photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
+    });
+  }
 
   storage.ref(filePath).put(file).then(function(snapshot) {
     doWhopDescriptionRef.child(doWhopDescriptionKey).set({
@@ -56,7 +87,10 @@ function submitNewDoWhopEntry(e) {
       howMuchDescription: howMuchDescription.value,
       creatorDescription: creatorDescription.value,
       doerDescription: doerDescription.value
-    });
+    }).then(
+      createWelcomingMessage()
+    );
+    // createWelcomingMessage();
     clearNewDoWhopEntryForm();
   });
 }
@@ -203,4 +237,8 @@ function registerDoWhopDescriptionCallback() {
       doWhopPlacard.append(div);
     });
   });
+}
+
+function showConfirmationMessage() {
+  window.alert('Thanks for submitting your DoWhop!');
 }
