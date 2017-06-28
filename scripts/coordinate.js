@@ -97,22 +97,31 @@ FriendlyChat.prototype.checkForAdmin = function() {
 };
 
 FriendlyChat.prototype.sendApproval = function(e) {
+  console.log("you clicked send approval!");
   e.preventDefault();
   var choice, newDate, newTime, newWhere;
   this.chatItemDataSpecific = document.getElementById('dowhop-selector-container').children[0].id;
-  var myRef = this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific);
+  var myRef = this.database.ref().child('DoWhopDescriptions').child(this.chatItemDataSpecific);
   var myRefPending = this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending');
   var messagesRef = this.database.ref().child('messages/' + this.chatItemDataSpecific);
   var status;
 
+  var radioApprove = document.getElementById('radioApprove');
+  var radioDeny = document.getElementById('radioDeny');
+  var approvalForm = document.getElementById('approve-pending-form');
+  var rescindingForm = document.getElementById('rescind-pending-form');
+  var pendingDiv = document.getElementById('pending-div');
+
   myRefPending.once('value', function(snap) {
-    newDate = snap.val().whenDatePending;
-    newTime = snap.val().whenTimePending;
-    newWhere = snap.val().whereAddressPending;
+    newDate = snap.val().whenDatePending || "By request";
+    newTime = snap.val().whenTimePending || "By request";
+    newWhere = snap.val().whereAddressPending || "By request";
   });
 
-  if (this.radioApprove.checked) {
+  console.log('checking status...', status); // t
+  if (radioApprove.checked) {
     status = 'approved';
+    console.log('check approved: ', status); // t
     myRef.update({
       whenDate: newDate,
       whenTime: newTime,
@@ -121,8 +130,9 @@ FriendlyChat.prototype.sendApproval = function(e) {
     this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending/').update({
       status: status
     });
-  } else if (this.radioDeny.checked) {
+  } else if (radioDeny.checked) {
     status = 'denied';
+    console.log('check denied: ', status); // t
     this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending/').update({
       status: status
     });
@@ -138,10 +148,10 @@ FriendlyChat.prototype.sendApproval = function(e) {
   window.alert('You have responded to the change request!');
 
   // Add UI reset information here:
-  this.approvalForm.setAttribute('hidden', 'true');
-  this.rescindingForm.setAttribute('hidden', 'true');
-  this.pendingDiv.innerHTML = '';
-  this.pendingDiv.setAttribute('hidden', 'true');
+  approvalForm.setAttribute('hidden', 'true');
+  rescindingForm.setAttribute('hidden', 'true');
+  pendingDiv.innerHTML = '';
+  pendingDiv.setAttribute('hidden', 'true');
 };
 
 FriendlyChat.prototype.sendRescind = function(e) {
