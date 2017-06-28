@@ -40,13 +40,13 @@ function submitNewDoWhopEntry(e) {
 
   var uid = auth.currentUser.uid;
   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
-  // var defaultImageURL = 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+  var defaultImageURL = 'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
   var filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
-  var creatorDisplayName = auth.currentUser.displayName; // new
+  var creatorDisplayName = auth.currentUser.displayName;
 
   // We are preparing a first message to the future chat thread:
   function createWelcomingMessage() {
-    console.log('creating welcome message!')
+    showConfirmationMessage();
     // Gathering the appropriate data to fill out message:
     var DoWhopTitleDescription, DoWhopWhenDescription, DoWhopWhereDescription;
 
@@ -70,7 +70,7 @@ function submitNewDoWhopEntry(e) {
       chatId: doWhopDescriptionKey,
       name: teamName,
       text: welcomeMessageText,
-      photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
+      photoUrl: defaultImageURL
     });
   }
 
@@ -90,7 +90,6 @@ function submitNewDoWhopEntry(e) {
     }).then(
       createWelcomingMessage()
     );
-    // createWelcomingMessage();
     clearNewDoWhopEntryForm();
   });
 }
