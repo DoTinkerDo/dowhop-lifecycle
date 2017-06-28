@@ -97,21 +97,28 @@ FriendlyChat.prototype.checkForAdmin = function() {
 };
 
 FriendlyChat.prototype.sendApproval = function(e) {
+  console.log("you clicked send approval!");
   e.preventDefault();
   var choice, newDate, newTime, newWhere;
   this.chatItemDataSpecific = document.getElementById('dowhop-selector-container').children[0].id;
-  var myRef = this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific);
+  var myRef = this.database.ref().child('DoWhopDescriptions').child(this.chatItemDataSpecific);
   var myRefPending = this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending');
   var messagesRef = this.database.ref().child('messages/' + this.chatItemDataSpecific);
   var status;
 
+  var radioApprove = document.getElementById('radioApprove');
+  var radioDeny = document.getElementById('radioDeny');
+  var approvalForm = document.getElementById('approve-pending-form');
+  var rescindingForm = document.getElementById('rescind-pending-form');
+  var pendingDiv = document.getElementById('pending-div');
+
   myRefPending.once('value', function(snap) {
-    newDate = snap.val().whenDatePending;
-    newTime = snap.val().whenTimePending;
-    newWhere = snap.val().whereAddressPending;
+    newDate = snap.val().whenDatePending || "By request";
+    newTime = snap.val().whenTimePending || "By request";
+    newWhere = snap.val().whereAddressPending || "By request";
   });
 
-  if (this.radioApprove.checked) {
+  if (radioApprove.checked) {
     status = 'approved';
     myRef.update({
       whenDate: newDate,
@@ -120,28 +127,29 @@ FriendlyChat.prototype.sendApproval = function(e) {
     });
     this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending/').update({
       status: status
-    });
-  } else if (this.radioDeny.checked) {
+    }).then(approvalForm.reset());
+
+  } else if (radioDeny.checked) {
     status = 'denied';
     this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending/').update({
       status: status
-    });
+    }).then(approvalForm.reset());
   }
   messagesRef.push({
     chatId: this.chatItemDataSpecific,
     name: '',
     text: person.displayName + ' has ' + status + ' the request.',
-    photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
+    photoUrl: '../images/searching-a-person.png'
   });
 
   // Notify the user of a change here:
   window.alert('You have responded to the change request!');
 
   // Add UI reset information here:
-  this.approvalForm.setAttribute('hidden', 'true');
-  this.rescindingForm.setAttribute('hidden', 'true');
-  this.pendingDiv.innerHTML = '';
-  this.pendingDiv.setAttribute('hidden', 'true');
+  approvalForm.setAttribute('hidden', 'true');
+  rescindingForm.setAttribute('hidden', 'true');
+  pendingDiv.innerHTML = '';
+  pendingDiv.setAttribute('hidden', 'true');
 };
 
 FriendlyChat.prototype.sendRescind = function(e) {
