@@ -13,29 +13,29 @@ const formStyles = {
     backgroundColor: '#ec1928',
     color: '#ffffff',
     borderRadius: '0',
-    border: 'none',
+    border: 'none'
   },
   image: {
-    width: '50px', 
+    width: '50px',
     height: '50px',
-    margin: '5px',
+    margin: '5px'
   },
   feedback: {
-    textAlign: 'left',
+    textAlign: 'left'
   },
   input: {
-    borderRadius: "0",
-  },
+    borderRadius: '0'
+  }
 };
 
 class ReviewForm extends Component {
   constructor(props) {
     super(props);
-     
+
     this.state = {
       rating: 0,
       comment: '',
-      validation: null,
+      validation: null
     };
 
     this.doWhopsRef = database.ref(`/proto/${this.props.eventId}/reviews`);
@@ -50,8 +50,7 @@ class ReviewForm extends Component {
     const length = comment.length;
     if (length >= 0 && length <= 10) {
       this.setState({ validation: null });
-    }
-    else if (length > 10 && length < 140) {
+    } else if (length > 10 && length < 140) {
       this.setState({ validation: 'success' });
     } else {
       this.setState({ validation: 'error' });
@@ -76,7 +75,7 @@ class ReviewForm extends Component {
       this.setState({
         rating: 0,
         comment: '',
-        validation: null,
+        validation: null
       });
     }
   }
@@ -100,22 +99,14 @@ class ReviewForm extends Component {
 
       if (userHasRated) {
         const ratingKey = snapshot.child(hasCompleted).child(user.uid).child('key').val();
-        reviewSelectedRef
-          .child(reviewType)
-          .child(ratingKey)
-          .set(newReviewPart);
+        reviewSelectedRef.child(reviewType).child(ratingKey).set(newReviewPart);
       } else {
-        const key = reviewSelectedRef
-          .child(reviewType)
-          .push(newReviewPart).key;
-        reviewSelectedRef
-          .child(hasCompleted)
-          .child(user.uid)
-          .set({
-            key: key,
-            user: user.displayName,
-            [user.uid]: true
-          });
+        const key = reviewSelectedRef.child(reviewType).push(newReviewPart).key;
+        reviewSelectedRef.child(hasCompleted).child(user.uid).set({
+          key: key,
+          user: user.displayName,
+          [user.uid]: true
+        });
       }
     });
   }
@@ -132,15 +123,15 @@ class ReviewForm extends Component {
               <Row>
                 <Col xs={4}>
                   <StarRating
-                      name={reviewSelected}
-                      starCount={5}
-                      value={rating}
-                      onStarClick={this.onStarClick}
-                      starColor="#ec1928"
-                      className="pull-left"
-                    />
+                    name={reviewSelected}
+                    starCount={5}
+                    value={rating}
+                    onStarClick={this.onStarClick}
+                    starColor="#ec1928"
+                    className="pull-left"
+                  />
                 </Col>
-                <Col xs={8}>    
+                <Col xs={8}>
                   <SelectionButtons
                     user={user}
                     creatorName={creatorName}
@@ -151,7 +142,7 @@ class ReviewForm extends Component {
               </Row>
               <Row>
                 <Col xs={12}>
-                <Image src={user.photoURL} alt={user.displayName} style={formStyles.image} circle />
+                  <Image src={user.photoURL} alt={user.displayName} style={formStyles.image} circle />
                 </Col>
               </Row>
               <Row>
@@ -163,10 +154,12 @@ class ReviewForm extends Component {
                     onChange={this.handleChange}
                     style={formStyles.input}
                   />
-                  <FormControl.Feedback style={formStyles.feedback}/>
-                  </Col>
-                  <Col xs={3} md={2}>
-                    <Button type="submit" style={formStyles.button} className="pull-right">Submit</Button>
+                  <FormControl.Feedback style={formStyles.feedback} />
+                </Col>
+                <Col xs={3} md={2}>
+                  <Button type="submit" style={formStyles.button} className="pull-right">
+                    Submit
+                  </Button>
                 </Col>
               </Row>
             </FormGroup>

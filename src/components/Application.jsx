@@ -10,11 +10,11 @@ import { weightedRating } from './helpers/weightedRating';
 class Application extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       currentUserUID: null,
       currentUser: null,
-      reviewSelected: 'doneWhop', 
+      reviewSelected: 'doneWhop',
       eventId: 'event1',
       creatorRating: null,
       doerRating: null,
@@ -22,7 +22,7 @@ class Application extends Component {
       creatorComments: [],
       doerComments: [],
       doneWhopComments: [],
-      isOpen: false,
+      isOpen: false
     };
 
     this.ratingRef = null;
@@ -38,7 +38,7 @@ class Application extends Component {
       console.log(snapshot.val());
     });
 
-    auth.onAuthStateChanged((user) => {
+    auth.onAuthStateChanged(user => {
       if (user) {
         this.setState({ currentUser: user });
       } else {
@@ -52,7 +52,7 @@ class Application extends Component {
     this.fetchComments();
 
     // this.timer = setTimeout(
-    //     () => this.forceUpdateHandler(), 
+    //     () => this.forceUpdateHandler(),
     //     100
     //   );
   }
@@ -63,16 +63,15 @@ class Application extends Component {
 
     this.ratingRef.on('value', snapshot => {
       const ratings = map(snapshot.val(), rating => rating);
-      this.setState({ [selectedRating]: ratings  });
+      this.setState({ [selectedRating]: ratings });
     });
   }
 
   fetchComments() {
-    this.doWhopsRef.on('value', (snapshot) => {
-
+    this.doWhopsRef.on('value', snapshot => {
       function getNode(reviewSelected, snapshot) {
         const nodes = snapshot.child(reviewSelected).child('/comments').val();
-        return map(nodes, (node) => node);
+        return map(nodes, node => node);
       }
 
       const creatorCommentState = getNode('creator', snapshot);
@@ -82,7 +81,7 @@ class Application extends Component {
       this.setState({
         creatorComments: creatorCommentState,
         doerComments: doerCommentState,
-        doneWhopComments: doneWhopCommentState,
+        doneWhopComments: doneWhopCommentState
       });
     });
   }
@@ -117,25 +116,25 @@ class Application extends Component {
       doerComments,
       doneWhopComments,
       reviewSelected,
-      isOpen,
+      isOpen
     } = this.state;
     // const currentUser = window.person;
 
     // console.log('currentUser -> ', currentUser && currentUser);
 
-      // var time = setTimeout(
-      //   () => this.forceUpdateHandler(), 
-      //   100
-      // )
-      // clearTimeout(time);
+    // var time = setTimeout(
+    //   () => this.forceUpdateHandler(),
+    //   100
+    // )
+    // clearTimeout(time);
 
     return (
       <Grid onClick={this.forceUpdateHandler}>
-        {currentUser === null ? (
-          <div>Please Sign In</div>
-         ) : (
-            <div>
-              <Header creatorName={window.currentDoWhopProto && window.currentDoWhopProto.creatorName}
+        {currentUser === null
+          ? <div>Please Sign In</div>
+          : <div>
+              <Header
+                creatorName={window.currentDoWhopProto && window.currentDoWhopProto.creatorName}
                 doWhopName={window.currentDoWhopProto && window.currentDoWhopProto.titleDescription}
                 bannerImageURL={window.currentDoWhopProto && window.currentDoWhopProto.bannerImageURL}
                 toggleOpen={this.toggleOpen}
@@ -157,8 +156,7 @@ class Application extends Component {
                 handleButtonClick={this.handleButtonClick}
                 eventId={window.currentUserDoWhopId}
               />
-            </div>
-          )}
+            </div>}
       </Grid>
     );
   }

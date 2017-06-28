@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "server": "firebase serve",
+    "format": "prettier --write --single-quote --print-width=120 --parser=flow --tab-width=2 \"src/**/*.{js,jsx}\"",
     "build": "webpack",
     "dev": "webpack-dev-server",
-    "format": "prettier --list-different --single-quote --print-width=120 \"js/**/*.{js,jsx}\"",
     "lint": "eslint **/*.{js,jsx} --quiet",
     "test": "jest",
     "test:update": "jest -u",
@@ -15,6 +15,7 @@
     "watch": "webpack --watch"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "babel-plugin-dynamic-import-webpack": "^1.0.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-register": "^6.24.1",

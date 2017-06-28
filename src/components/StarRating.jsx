@@ -11,7 +11,7 @@ class StarRating extends Component {
   componentWillReceiveProps(nextProps) {
     const { value } = nextProps;
 
-    if (value != null && (value !== this.state.value)) {
+    if (value != null && value !== this.state.value) {
       this.setState({ value });
     }
   }
@@ -90,11 +90,7 @@ class StarRating extends Component {
   renderIcon(index, value, name) {
     const { renderStarIcon, renderStarIconHalf } = this.props;
 
-    if (
-      typeof renderStarIconHalf === 'function' &&
-      Math.ceil(value) === index &&
-      value % 1 !== 0
-    ) {
+    if (typeof renderStarIconHalf === 'function' && Math.ceil(value) === index && value % 1 !== 0) {
       return renderStarIconHalf(index, value, name);
     }
 
@@ -102,14 +98,14 @@ class StarRating extends Component {
       return renderStarIcon(index, value, name);
     }
 
-    return <i style={{fontStyle: 'normal'}}>&#9733;</i>;
+    return <i style={{ fontStyle: 'normal' }}>&#9733;</i>;
   }
 
   render() {
     return (
-      <div style={{display: 'inline-block', position: 'relative', fontSize: '120%'}}>
+      <div style={{ display: 'inline-block', position: 'relative', fontSize: '120%' }}>
         {this.renderStars()}
-       </div>
+      </div>
     );
   }
 }
