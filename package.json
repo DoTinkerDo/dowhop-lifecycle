@@ -1,18 +1,18 @@
 {
-  "name": "dowhop-web-application",
-  "version": "0.0.1",
+  "name": "DoWhop-Web-App",
+  "version": "2.0.1",
   "description": "Buy and Sell what you love to Do on the Marketplace for Doing",
   "main": "index.js",
   "scripts": {
-    "server": "firebase serve",
     "format": "prettier --write --single-quote --print-width=120 --parser=flow --tab-width=2 \"src/**/*.{js,jsx}\"",
-    "build": "webpack",
-    "dev": "webpack-dev-server",
     "lint": "eslint **/*.{js,jsx} --quiet",
     "test": "jest",
     "test:update": "jest -u",
     "test:coverage": "jest --coverage",
-    "watch": "webpack --watch"
+    "server": "firebase serve",
+    "dev": "webpack-dev-server",
+    "watch": "webpack --watch",
+    "build": "webpack",
   },
   "dependencies": {
     "axios": "^0.16.2",
