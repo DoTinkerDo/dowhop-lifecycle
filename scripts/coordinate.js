@@ -129,13 +129,14 @@ FriendlyChat.prototype.sendApproval = function(e) {
     });
     this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending/').update({
       status: status
-    });
+    }).then(approvalForm.reset());
+
   } else if (radioDeny.checked) {
     status = 'denied';
     console.log('check denied: ', status); // t
     this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending/').update({
       status: status
-    });
+    }).then(approvalForm.reset());
   }
   messagesRef.push({
     chatId: this.chatItemDataSpecific,
