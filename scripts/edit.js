@@ -15,6 +15,8 @@ function createDoWhop(event) {
   // Collect form data and clear it:
   var titleDescription = document.getElementById('titleDescription');
   // var titleImage = document.getElementById('titleImage');
+  var whyDescription = document.getElementById('whyDescription');
+  // var whyImage = document.getElementById('whyImage');
   var whoDescription = document.getElementById('whoDescription');
   // var whoImage = document.getElementById('whoImage');
   var whatDescription = document.getElementById('whatDescription');
@@ -38,6 +40,8 @@ function createDoWhop(event) {
     event.createdBy = auth.currentUser.uid;
     event.titleDescription = titleDescription.value;
     // event.titleImage = titleImage.innerHTML;
+    event.whyDescription = whyDescription.value;
+    // event.whyDescription = whyDescription.value;
     event.whoDescription = whoDescription.value;
     // event.whoImage = whoImage.innerHTML;
     event.whatDescription = whatDescription.value;
@@ -63,6 +67,7 @@ function createDoWhop(event) {
 
   // Changing this to an edit/update form that will only set certain attributes.
   doWhopDescriptionRootRef.child(currentDoWhop).child('titleDescription').set(event.titleDescription);
+  doWhopDescriptionRootRef.child(currentDoWhop).child('whyDescription').set(event.whyDescription);
   doWhopDescriptionRootRef.child(currentDoWhop).child('whatDescription').set(event.whatDescription);
   doWhopDescriptionRootRef.child(currentDoWhop).child('whoDescription').set(event.whoDescription);
   doWhopDescriptionRootRef.child(currentDoWhop).child('whereDescription').set(event.whereDescription);
@@ -78,6 +83,8 @@ function createDoWhop(event) {
 
   titleDescription.value = '';
   // titleImage.innerHTML = '';
+  whyDescription.value = '';
+  // whyImage.innerHTML = '';
   whoDescription.value = '';
   // whoImage.innerHTML = '';
   whatDescription.value = '';
@@ -229,6 +236,7 @@ function fillInEditForm(doWhopSelector) {
       var doWhopDescription = data.val();
       if (data.key === doWhopSelector.id) {
         document.getElementById('titleDescription').value = doWhopDescription.titleDescription;
+        document.getElementById('whyDescription').value = doWhopDescription.whyDescription;
         document.getElementById('whoDescription').value = doWhopDescription.whoDescription;
         document.getElementById('whatDescription').value = doWhopDescription.whatDescription;
         document.getElementById('whereDescription').value = doWhopDescription.whereDescription;

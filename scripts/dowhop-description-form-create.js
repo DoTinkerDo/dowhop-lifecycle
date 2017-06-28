@@ -1,6 +1,7 @@
 var doWhopDescriptionRef = database.ref('/DoWhopDescriptions');
 
 var titleDescription = document.getElementById('title-description');
+var whyDescription = document.getElementById('why-description')
 var whoDescription = document.getElementById('who-description');
 var whatDescription = document.getElementById('what-description');
 var whenDescription = document.getElementById('when-description');
@@ -18,6 +19,7 @@ function submitNewDoWhopEntry(e) {
     !validateAddDoWhopDescription(
       file,
       titleDescription.value,
+      whyDescription.value,
       whoDescription.value,
       whatDescription.value,
       whenDescription.value,
@@ -73,6 +75,7 @@ function submitNewDoWhopEntry(e) {
       doWhopDescriptionKey: doWhopDescriptionKey,
       downloadURL: snapshot.metadata.downloadURLs[0],
       titleDescription: titleDescription.value,
+      whyDescription: whyDescription.value,
       whoDescription: whoDescription.value,
       whatDescription: whatDescription.value,
       whenDescription: whenDescription.value,
@@ -101,6 +104,7 @@ function addDoWhopImage(files_arr, node) {
 function validateAddDoWhopDescription(
   file,
   titleDescription,
+  whyDescription,
   whoDescription,
   whatDescription,
   whenDescription,
@@ -109,6 +113,7 @@ function validateAddDoWhopDescription(
 ) {
   if (
     titleDescription === '' ||
+    whyDescription === '' ||
     whoDescription === '' ||
     whatDescription === '' ||
     whenDescription === '' ||
@@ -123,6 +128,7 @@ function validateAddDoWhopDescription(
 function clearNewDoWhopEntryForm() {
   file = null;
   titleDescription.value = '';
+  whyDescription.value = '';
   whoDescription.value = '';
   whatDescription.value = '';
   whenDescription.value = '';
