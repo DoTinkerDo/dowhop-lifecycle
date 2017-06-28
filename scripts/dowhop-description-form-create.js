@@ -34,7 +34,7 @@ function submitNewDoWhopEntry(e) {
   var creatorDescription = auth.currentUser.email;
   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
   var filepath;
-
+  var defaultImageURL = '../images/dowhopicon.gif';
 
   // We are preparing a first message to the future chat thread:
   function createWelcomingMessage() {
@@ -62,7 +62,7 @@ function submitNewDoWhopEntry(e) {
       chatId: doWhopDescriptionKey,
       name: teamName,
       text: welcomeMessageText,
-      photoUrl: 'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
+      photoUrl: defaultImageURL
     });
   }
 
