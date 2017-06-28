@@ -12,7 +12,7 @@
     "server": "firebase serve",
     "dev": "webpack-dev-server",
     "watch": "webpack --watch",
-    "build": "webpack",
+    "build": "webpack"
   },
   "dependencies": {
     "axios": "^0.16.2",
