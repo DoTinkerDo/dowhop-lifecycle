@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { database } from './firebase';
+import { database } from '../firebase';
 import StarRating from './StarRating';
 import SelectionButtons from './SelectionButtons';
 import { Button, Col, Row, FormGroup, FormControl, Image } from 'react-bootstrap';

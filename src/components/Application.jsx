@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { auth, database } from './firebase';
+import { auth, database } from '../firebase';
 import { Grid } from 'react-bootstrap';
 import Reviews from './Reviews';
 import Header from './Header';
 import ReviewForm from './ReviewForm';
 import map from 'lodash/map';
-import { weightedRating } from './helpers/weightedRating';
+import { weightedRating } from '../helpers/weightedRating';
 
 class Application extends Component {
   constructor(props) {

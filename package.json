@@ -10,9 +10,9 @@
     "test:update": "jest -u",
     "test:coverage": "jest --coverage",
     "server": "firebase serve",
-    "dev": "webpack-dev-server",
-    "watch": "webpack --watch",
-    "build": "webpack"
+    "dev": "webpack-dev-server --progress --colors --hot --inline --watch --history-api-fallback",
+    "build": "webpack",
+    "watch": "webpack --watch"
   },
   "dependencies": {
     "axios": "^0.16.2",
@@ -30,7 +30,8 @@
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.6.0",
     "react-router-dom": "^4.1.1",
-    "webpack": "^2.6.1"
+    "webpack": "^2.6.1",
+    "webpack-hot-middleware": "^2.18.0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
