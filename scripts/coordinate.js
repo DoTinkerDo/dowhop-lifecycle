@@ -118,10 +118,8 @@ FriendlyChat.prototype.sendApproval = function(e) {
     newWhere = snap.val().whereAddressPending || "By request";
   });
 
-  console.log('checking status...', status); // t
   if (radioApprove.checked) {
     status = 'approved';
-    console.log('check approved: ', status); // t
     myRef.update({
       whenDate: newDate,
       whenTime: newTime,
@@ -133,7 +131,6 @@ FriendlyChat.prototype.sendApproval = function(e) {
 
   } else if (radioDeny.checked) {
     status = 'denied';
-    console.log('check denied: ', status); // t
     this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending/').update({
       status: status
     }).then(approvalForm.reset());
