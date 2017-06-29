@@ -41,7 +41,9 @@ function sendDirectMessage(e) {
   chatDMref.push({
     from: sender,
     to: recipient,
-    body: message.value});
+    body: message.value})
+      .then(document.getElementById('direct-message-form')
+      .reset());
 }
 
 function revealFormDM(e) {
