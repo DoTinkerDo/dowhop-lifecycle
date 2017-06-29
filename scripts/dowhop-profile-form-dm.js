@@ -30,22 +30,23 @@ function initiateChatDM() {
   // console.log("You will be chatting with:", getPersonTwo());
 }
 
-function sendDirectMessage() {
+function sendDirectMessage(e) {
+  e.preventDefault();
+  var message = document.getElementById('direct-message-form-input');
   let sender = getPersonOne();
   let recipient = getPersonTwo();
   let refTail = createPathDM(getPersonOne(), getPersonTwo());
   let chatDMref = firebase.database().ref('/direct-messages').child(refTail);
-  let message = document.getElementById('direct-message-form-input');
   console.log(refTail);
   chatDMref.push({
     from: sender,
     to: recipient,
-    body: message});
+    body: message.value});
 }
 
 function revealFormDM(e) {
   e.preventDefault();
-  document.getElementById('direct-message-form-button').addEventListener('click', sendDirectMessage());
+  document.getElementById('direct-message-form-button').addEventListener('click', sendDirectMessage);
   document.getElementById('direct-message-form-button-hide').addEventListener('click', hideFormDM);
   var directMessageForm = document.getElementById('direct-message-form');
   directMessageForm.removeAttribute('hidden');
