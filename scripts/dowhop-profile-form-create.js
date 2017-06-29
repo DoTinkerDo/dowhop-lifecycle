@@ -123,11 +123,13 @@ var myProfileActivity1 = document.getElementById('my-profile-activity-1');
 var myProfileActivity2 = document.getElementById('my-profile-activity-2');
 var myProfileActivity3 = document.getElementById('my-profile-activity-3');
 var myProfilePicture = document.getElementById('my-profile-picture');
+var sendDirectMessageDiv = document.getElementById('send-direct-message-div')
 
 function retrieveProfile(currentProfile) {
   // We are testing whether visiting user is looking at own profile (default), or other's via query parameter:
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   console.log('getting for', currentProfile);
+
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
 
   // Retrieving relevant data from the database:
@@ -146,6 +148,7 @@ function retrieveProfile(currentProfile) {
     myProfileActivity3.innerText = snap.val().profileActivity3;
     myProfilePicture.src = snap.val().photoURL;
     myProfilePicture.style.backgroundImage = 'url(' + snap.val().photoURL + ')';
+    sendDirectMessageDiv.id = snap.val().uid; // NEW. 
   });
 }
 
