@@ -148,7 +148,7 @@ function retrieveProfile(currentProfile) {
     myProfileActivity3.innerText = snap.val().profileActivity3;
     myProfilePicture.src = snap.val().photoURL;
     myProfilePicture.style.backgroundImage = 'url(' + snap.val().photoURL + ')';
-    sendDirectMessageDiv.id = snap.val().uid; // NEW. 
+    sendDirectMessageDiv.id = snap.val().uid; // NEW.
   });
 }
 
