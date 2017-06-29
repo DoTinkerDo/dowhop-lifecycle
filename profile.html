@@ -184,6 +184,18 @@
             </div>
           </div>
     </section><!-- End Show Profile Section -->
+    <section><!-- Start Direct Chat Message Form Section -->
+      <form hidden id="direct-message-form">
+        <h5>Type your message here:</h5>
+          <textarea id="direct-message-form-input"></textarea>
+          <button id="direct-message-form-button">
+            Send!
+          </button>
+          <button id="direct-message-form-button-hide">
+            Close
+          </button>
+      </form>
+    </section>
     <script>
     auth.onAuthStateChanged(function(user) {
       if (user) {
