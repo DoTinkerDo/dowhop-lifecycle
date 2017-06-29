@@ -652,3 +652,18 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 div#tutorial-container {
   padding: 15px;
 }
+
+#pending-div-container {
+  margin-top: -10px;
+  margin-bottom: -10px;
+  margin-left: 200px;
+}
+
+span.clear {
+    clear: both;
+}
+
+#pending-div-container span{
+  padding-left: 650px;
+  margin-bottom: 15px;
+}
