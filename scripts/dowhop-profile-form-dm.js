@@ -54,6 +54,8 @@ function revealFormDM(e) {
 	document.getElementById('direct-message-form-button').addEventListener('click', sendDirectMessage);
 	document.getElementById('direct-message-form-button-hide').addEventListener('click', hideFormDM);
 	var directMessageForm = document.getElementById('direct-message-form');
+	document.getElementById('direct-messages-div').removeAttribute('hidden');
+
 	directMessageForm.removeAttribute('hidden');
 	console.log('You have started a chat!', getPersonOne());
 	console.log('You will be chatting with:', getPersonTwo());
@@ -64,6 +66,8 @@ function hideFormDM(e) {
 	e.preventDefault();
 	var directMessageForm = document.getElementById('direct-message-form');
 	directMessageForm.setAttribute('hidden', 'true');
+	var directMessageDiv = document.getElementById('direct-messages-div');
+	directMessageDiv.setAttribute('hidden', 'true');
 }
 
 function loadDirectMessageHistory() {
