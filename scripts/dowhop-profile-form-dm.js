@@ -30,10 +30,14 @@ function sendDirectMessage(e) {
 	let refTail = createPathDM(getPersonOne(), getPersonTwo());
 	let chatDMref = firebase.database().ref('/direct-messages').child(refTail);
 
-	let senderName = '';
-	senderRef.once('value', function(snap) {
-		senderName = snap.val().displayName;
-	});
+	var senderName = '';
+	// senderRef.once('value', function(snap) { // LONG-TERM FIX.
+	// 	senderName = snap.val().displayName;
+	// });
+	// console.log(getPersonOne());
+	// console.log(senderName);
+
+	senderName = firebase.auth().currentUser.displayName; // Temp fix.
 
 	let recipientName = '';
 	recipientRef.once('value', function(snap) {
@@ -91,8 +95,8 @@ function displayMessage(key, from, to, body) {
 	var directMessagesDiv = document.getElementById('direct-messages-div');
 	var newDiv = document.createElement('div');
 	var bodyText = '';
-	bodyText += from + 'says: ';
+	bodyText += from + ' says: ';
 	bodyText += body;
 	newDiv.innerText = bodyText;
-	directMessagesDiv.append(newDiv);
+	directMessagesDiv.appendChild(newDiv);
 }
