@@ -21,17 +21,6 @@ function createPathDM(user1, user2) {
 	return 'chat_' + (user1 < user2 ? user1 + '_' + user2 : user2 + '_' + user1);
 }
 
-function initiateChatDM() {
-	// var directMessageButton =  document.getElementById('direct-message-form-button');
-	// directMessageButton.addEventListener('click', sendDirectMessage());
-	//
-	// var directMessageButtonHide =  document.getElementById('direct-message-form-button-hide');
-	// directMessageButtonHide.addEventListener('click', hideFormDM());
-	//
-	// console.log("You have started a chat!", getPersonOne());
-	// console.log("You will be chatting with:", getPersonTwo());
-}
-
 function sendDirectMessage(e) {
 	e.preventDefault();
 	var message = document.getElementById('direct-message-form-input');
@@ -39,7 +28,7 @@ function sendDirectMessage(e) {
 	let recipient = getPersonTwo();
 	let refTail = createPathDM(getPersonOne(), getPersonTwo());
 	let chatDMref = firebase.database().ref('/direct-messages').child(refTail);
-	console.log(refTail);
+
 	chatDMref
 		.push({
 			from: sender,
@@ -53,31 +42,29 @@ function revealFormDM(e) {
 	e.preventDefault();
 	document.getElementById('direct-message-form-button').addEventListener('click', sendDirectMessage);
 	document.getElementById('direct-message-form-button-hide').addEventListener('click', hideFormDM);
-	var directMessageForm = document.getElementById('direct-message-form');
+	document.getElementById('direct-message-form').removeAttribute('hidden');
 	document.getElementById('direct-messages-div').removeAttribute('hidden');
-
-	directMessageForm.removeAttribute('hidden');
-	console.log('You have started a chat!', getPersonOne());
-	console.log('You will be chatting with:', getPersonTwo());
-	loadDirectMessageHistory();
+	// console.log('You have started a chat!', getPersonOne());
+	// console.log('You will be chatting with:', getPersonTwo());
+	loadDirectMessagesHistory();
 }
 
 function hideFormDM(e) {
 	e.preventDefault();
 	var directMessageForm = document.getElementById('direct-message-form');
 	directMessageForm.setAttribute('hidden', 'true');
-	var directMessageDiv = document.getElementById('direct-messages-div');
-	directMessageDiv.setAttribute('hidden', 'true');
+	var directMessagesDiv = document.getElementById('direct-messages-div');
+	directMessagesDiv.setAttribute('hidden', 'true');
 }
 
-function loadDirectMessageHistory() {
-	var directMessageDiv = document.getElementById('direct-messages-div');
+function loadDirectMessagesHistory() {
+	var directMessagesDiv = document.getElementById('direct-messages-div');
 	let refTail = createPathDM(getPersonOne(), getPersonTwo());
 	let chatDMref = firebase.database().ref('/direct-messages').child(refTail);
 
 	// Reset elements.
 	chatDMref.off();
-	directMessageDiv.innerText = '';
+	directMessagesDiv.innerText = '';
 
 	// Loads the last x number of messages and listen for new ones:
 	var setMessage = function(data) {
@@ -90,9 +77,8 @@ function loadDirectMessageHistory() {
 }
 
 function displayMessage(key, from, to, body) {
-	var directMessageDiv = document.getElementById('direct-messages-div');
-	console.log(body);
-	var div = document.createElement('div');
-	div.innerText = body;
-	directMessageDiv.append(div);
+	var directMessagesDiv = document.getElementById('direct-messages-div');
+	var newDiv = document.createElement('div');
+	newDiv.innerText = body;
+	directMessagesDiv.append(newDiv);
 }
