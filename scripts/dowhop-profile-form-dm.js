@@ -30,14 +30,8 @@ function sendDirectMessage(e) {
 	let refTail = createPathDM(getPersonOne(), getPersonTwo());
 	let chatDMref = firebase.database().ref('/direct-messages').child(refTail);
 
-	var senderName = '';
-	// senderRef.once('value', function(snap) { // LONG-TERM FIX.
-	// 	senderName = snap.val().displayName;
-	// });
-	// console.log(getPersonOne());
-	// console.log(senderName);
-
-	senderName = firebase.auth().currentUser.displayName; // Temp fix.
+	let senderName = '';
+	senderName = firebase.auth().currentUser.displayName; // Check.
 
 	let recipientName = '';
 	recipientRef.once('value', function(snap) {
