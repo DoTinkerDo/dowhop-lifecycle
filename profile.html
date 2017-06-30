@@ -185,6 +185,8 @@
           </div>
     </section><!-- End Show Profile Section -->
     <section><!-- Start Direct Chat Message Form Section -->
+      <div id="direct-messages-div">
+      </div>
       <form hidden id="direct-message-form">
         <h5>Type your message here:</h5>
           <textarea id="direct-message-form-input"></textarea>
@@ -198,11 +200,11 @@
     </section>
     <script>
     auth.onAuthStateChanged(function(user) {
-      if (user) {
-        registerDoWhopDescriptionCallback();
-      }
-    });
-    </script>
+	if (user) {
+		registerDoWhopDescriptionCallback();
+	}
+});
+</script>
     <script src="scripts/dowhop-profile-form-create.js"></script>
     <script src="scripts/dowhop-profile-form-dm.js"></script>
   </body>
