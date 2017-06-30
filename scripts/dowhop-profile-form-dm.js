@@ -24,15 +24,26 @@ function createPathDM(user1, user2) {
 function sendDirectMessage(e) {
 	e.preventDefault();
 	var message = document.getElementById('direct-message-form-input');
-	let sender = getPersonOne();
-	let recipient = getPersonTwo();
+	let senderRef = firebase.database().ref('/app_users').child(getPersonOne());
+	let recipientRef = firebase.database().ref('/app_users').child(getPersonTwo());
+
 	let refTail = createPathDM(getPersonOne(), getPersonTwo());
 	let chatDMref = firebase.database().ref('/direct-messages').child(refTail);
 
+	let senderName = '';
+	senderRef.once('value', function(snap) {
+		senderName = snap.val().displayName;
+	});
+
+	let recipientName = '';
+	recipientRef.once('value', function(snap) {
+		recipientName = snap.val().displayName;
+	});
+
 	chatDMref
 		.push({
-			from: sender,
-			to: recipient,
+			from: senderName,
+			to: recipientName,
 			body: message.value
 		})
 		.then(document.getElementById('direct-message-form').reset());
