@@ -335,7 +335,7 @@ FriendlyChat.prototype.getSession = function() {
   } else if (currentTabID === 'edit-tab') {
     // We only load edit form if edit tab is clicked:
     document.getElementById('messages-card').setAttribute('hidden', 'true');
-    document.getElementById('selector-body').removeAttribute('hidden');
+    document.getElementById('selector-body') && document.getElementById('selector-body').removeAttribute('hidden');
     showEditForm(doWhopSelector.firstChild); // new
     fillInEditForm(doWhopSelector.firstChild); // new
   } else if (currentTabID === 'review-tab') {
