@@ -124,7 +124,7 @@ function retrieveMyDoWhops(uid) {
           doWhopDescription.val().creatorDescription === person.email ||
           doerDescriptionEmails.some(function(doerDescriptionEmail) {
             return doerDescriptionEmail === person.email;
-            console.log(person)
+            console.log(person);
           })
         ) {
           makeDoWhopSelector(userDowhopCardDiv, doWhopDescription);
@@ -236,8 +236,9 @@ function fillInEditForm(doWhopSelector) {
       var doWhopDescription = data.val();
       if (data.key === doWhopSelector.id) {
         document.getElementById('titleDescription').value = doWhopDescription.titleDescription;
-        document.getElementById('whyDescription').value = doWhopDescription.whyDescription;
         document.getElementById('whoDescription').value = doWhopDescription.whoDescription;
+        document.getElementById('whyDescription') &&
+          (document.getElementById('whyDescription').value = doWhopDescription.whyDescription);
         document.getElementById('whatDescription').value = doWhopDescription.whatDescription;
         document.getElementById('whereDescription').value = doWhopDescription.whereDescription;
         // document.getElementById('whereAddress').value = doWhopDescription.whereAddress;
