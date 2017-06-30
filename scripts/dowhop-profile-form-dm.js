@@ -79,6 +79,9 @@ function loadDirectMessagesHistory() {
 function displayMessage(key, from, to, body) {
 	var directMessagesDiv = document.getElementById('direct-messages-div');
 	var newDiv = document.createElement('div');
-	newDiv.innerText = body;
+	var bodyText = '';
+	bodyText += from + 'says: ';
+	bodyText += body;
+	newDiv.innerText = bodyText;
 	directMessagesDiv.append(newDiv);
 }
