@@ -58,14 +58,19 @@ function submitNewDoWhopEntry(e) {
       DoWhopWhereDescription = snap.val().whereDescription;
     });
 
-    var teamName = "Your DoWhop Team";
-    var welcomeMessageText = "Welcome to your "
-          + DoWhopTitleDescription
-          + " DoWhop!\n\n"
-          + "Currently, " + creatorDisplayName + " plans to meet \""
-          + DoWhopWhenDescription
-          + "\" at \"" + DoWhopWhereDescription + "\".\n"
-          + "Coordinate the details here!";
+    var teamName = 'Your DoWhop Team';
+    var welcomeMessageText =
+      'Welcome to your ' +
+      DoWhopTitleDescription +
+      ' DoWhop!\n\n' +
+      'Currently, ' +
+      creatorDisplayName +
+      ' plans to meet "' +
+      DoWhopWhenDescription +
+      '" at "' +
+      DoWhopWhereDescription +
+      '".\n' +
+      'Coordinate the details here!';
 
     var messagesChatsRef = firebase.database().ref().child('messages').child(doWhopDescriptionKey);
     messagesChatsRef.push({
@@ -77,22 +82,23 @@ function submitNewDoWhopEntry(e) {
   }
 
   storage.ref(filePath).put(file).then(function(snapshot) {
-    doWhopDescriptionRef.child(doWhopDescriptionKey).set({
-      createdBy: uid,
-      doWhopDescriptionKey: doWhopDescriptionKey,
-      downloadURL: snapshot.metadata.downloadURLs[0],
-      titleDescription: titleDescription.value,
-      whyDescription: whyDescription.value,
-      whoDescription: whoDescription.value,
-      whatDescription: whatDescription.value,
-      whenDescription: whenDescription.value,
-      whereDescription: whereDescription.value,
-      howMuchDescription: howMuchDescription.value,
-      creatorDescription: creatorDescription.value,
-      doerDescription: doerDescription.value
-    }).then(
-      createWelcomingMessage()
-    );
+    doWhopDescriptionRef
+      .child(doWhopDescriptionKey)
+      .set({
+        createdBy: uid,
+        doWhopDescriptionKey: doWhopDescriptionKey,
+        downloadURL: snapshot.metadata.downloadURLs[0],
+        titleDescription: titleDescription.value,
+        whyDescription: whyDescription.value,
+        whoDescription: whoDescription.value,
+        whatDescription: whatDescription.value,
+        whenDescription: whenDescription.value,
+        whereDescription: whereDescription.value,
+        howMuchDescription: howMuchDescription.value,
+        creatorDescription: creatorDescription.value,
+        doerDescription: doerDescription.value
+      })
+      .then(createWelcomingMessage());
     clearNewDoWhopEntryForm();
   });
 }
@@ -101,7 +107,7 @@ var file = null;
 
 function addDoWhopImage(files_arr, node) {
   return (file = files_arr[0]);
-  if (!file.type.match('image/.*')) {
+  if (!files_arr[0].type.match('image/.*')) {
     alert('You can only add images at the moment.');
     return;
   }

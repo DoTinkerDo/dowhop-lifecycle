@@ -164,19 +164,7 @@ function retrieveMyDoWhops(uid) {
 }
 
 function makeDoWhopSelector(container, data) {
-  // Add icon to image dependong on whether current user is Creator or Doer:
   var imageURL = '';
-  var relationshipIcon = '';
-  if (
-    data.val() &&
-    (data.val().creatorDescription === auth.currentUser.email || data.val().createdBy === auth.currentUser.uid)
-  ) {
-    relationshipIcon = 'check_box';
-  } else {
-    relationshipIcon = 'directions_walk';
-  }
-
-  // Put together elements to make a DoWhop Selector block:
   if (data.val() && data.val().downloadURL) {
     imageURL =
       data.val().downloadURL.image1 ||
@@ -190,9 +178,6 @@ function makeDoWhopSelector(container, data) {
       '<div class="dowhop-selector-header" style="background-image: url(' +
       imageURL +
       ');">' +
-      '<i class="material-icons dowhop-icon">' +
-      relationshipIcon +
-      '</i>' +
       '<h1>' +
       data.val().titleDescription +
       '</h1>' +
