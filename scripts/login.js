@@ -26,14 +26,14 @@
     var appUsersRef = database.ref('/app_users');
     var appUserRef = appUsersRef.child(user.uid);
     appUserRef.once('value').then(function(snapshot) {
-      if (snapshot.val()) return;
+      // if (snapshot.val()) return;
       var userData = {
         displayName: user.displayName,
         photoURL: user.photoURL ? user.photoURL : placeholderUserPhotoURL,
         uid: user.uid,
         email: user.email
       };
-      appUserRef.set(userData);
+      appUserRef.update(userData);
     });
     // console.log('prepare to run check default');
     // if (checkDefaultDoWhop() === false) {
@@ -123,7 +123,7 @@ function createDefaultDoWhop() {
   doWhopDescriptionRef.child(doWhopDescriptionKey).set({
     createdBy: uid,
     doWhopDescriptionKey: doWhopDescriptionKey,
-    downloadURL: defaultImageURL,
+    downloadURLs: defaultImageURL,
     titleDescription: 'DoWhop with us!',
     whoDescription: 'DoWhop Team is here to help you!',
     whatDescription: '',

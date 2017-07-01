@@ -1,7 +1,6 @@
 'use strict';
 
 var doWhopDescriptionRef = database.ref('/DoWhopDescriptions');
-
 var titleDescription = document.getElementById('title-description');
 var whyDescription = document.getElementById('why-description');
 var whoDescription = document.getElementById('who-description');
@@ -12,8 +11,8 @@ var howMuchDescription = document.getElementById('how-much-description');
 var dowhopImageCapture1 = document.getElementById('dowhop-image-capture1');
 var dowhopImageCapture2 = document.getElementById('dowhop-image-capture2');
 var dowhopImageCapture3 = document.getElementById('dowhop-image-capture3');
-
 var submitNewDoWhopBtn = document.getElementById('create-new-dowhop');
+
 submitNewDoWhopBtn.addEventListener('click', submitNewDoWhopEntry);
 
 function submitNewDoWhopEntry(e) {
@@ -39,7 +38,6 @@ function submitNewDoWhopEntry(e) {
   var creatorDisplayName = auth.currentUser.displayName;
   var creatorDescription = auth.currentUser.email;
   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
-  var filepath;
   var defaultImageURL = '../images/dowhopicon.gif';
 
   // We are preparing a first message to the future chat thread:
@@ -94,7 +92,7 @@ function submitNewDoWhopEntry(e) {
     .then(showConfirmationMessage());
 
   files.forEach(function(file, idx) {
-    filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
+    var filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
     storage.ref(filePath).put(file).then(function(snapshot) {
       var path = snapshot.metadata.fullPath;
       storage.ref(path).getDownloadURL().then(function(url) {
@@ -107,37 +105,6 @@ function submitNewDoWhopEntry(e) {
 
   createWelcomingMessage();
   clearNewDoWhopEntryForm();
-  // createWelcomingMessage();
-  // clearNewDoWhopEntryForm();
-  // var filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + files[0].name;
-  // storage.ref(filePath).put(files[0]).then(function(snapshot) {
-  //   console.log(snapshot);
-  // });
-  // storage.ref(filePath).getDownloadURL().then(function(url) {
-  //   console.log(url);
-  // });
-  // console.log(filePath);
-  // .then(function(snapshot) {
-  //   doWhopDescriptionRef
-  //     .child(doWhopDescriptionKey)
-  //     .set({
-  //       createdBy: uid,
-  //       doWhopDescriptionKey: doWhopDescriptionKey,
-  //       downloadURL: snapshot.metadata.downloadURLs[0],
-  //       titleDescription: titleDescription.value,
-  //       whyDescription: whyDescription.value,
-  //       whoDescription: whoDescription.value,
-  //       whatDescription: whatDescription.value,
-  //       whenDescription: whenDescription.value,
-  //       whereDescription: whereDescription.value,
-  //       howMuchDescription: howMuchDescription.value,
-  //       creatorDescription: creatorDescription,
-  //       doerDescription: '' // Temp.
-  //     })
-  //     .then(showConfirmationMessage());
-  // createWelcomingMessage();
-  // clearNewDoWhopEntryForm();
-  // });
 }
 
 var files = [];
