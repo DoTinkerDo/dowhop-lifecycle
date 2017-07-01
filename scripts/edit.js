@@ -259,7 +259,7 @@ function fillInEditForm(doWhopSelector) {
 function handleFile(files_arr, node) {
   var file = files_arr[0];
   var imagified = node.id.split('F')[0] + 'Image';
-  if (!file.type.match('image/.*')) {
+  if (!files_arr[0].type.match('image/.*')) {
     alert('You can only add images at the moment.');
     return;
   }

@@ -109,7 +109,6 @@ function submitNewDoWhopEntry(e) {
 
 var files = [];
 function addDoWhopImage(files_arr, node) {
-  console.log('FILES -> ', files_arr[0].type);
   return files.push(files_arr[0]);
   if (!files_arr[0].type.match('image/.*')) {
     alert('You can only add images at the moment.');
