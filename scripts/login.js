@@ -26,6 +26,8 @@
     var appUsersRef = database.ref('/app_users');
     var appUserRef = appUsersRef.child(user.uid);
     appUserRef.once('value').then(function(snapshot) {
+      // default doWhop writes first, so this check resulted in
+      // userData not being written changed set to update
       // if (snapshot.val()) return;
       var userData = {
         displayName: user.displayName,
@@ -45,6 +47,9 @@
     loginPage.style.display = 'none';
     applicationPage.style.display = 'block';
     writeUserData(user);
+    // FCM permission registration
+    registerMessaging(user);
+
     // console.log('prepare to run check default');
     //if (checkDefaultDoWhop() === false) {
     //  createDefaultDoWhop();
@@ -52,8 +57,6 @@
     checkDefaultDoWhop();
     // console.log('coord js.');
     retrieveMyDoWhops(user.uid);
-    // FCM permission registration
-    registerMessaging(user);
   }
 
   function handleSignedOutUser() {
@@ -71,9 +74,9 @@
       // Check if current user email is admin in Firebase:
       var approved = false;
 
-      firebase.database().ref().child('admin/').once('value', function(snap) {
+      database.ref().child('admin/').once('value', function(snapshot) {
         // Cycling through the data to see if admin is permitted:
-        snap.forEach(function(data) {
+        snapshot.forEach(function(data) {
           if (data.val() === user.email) {
             approved = true;
             window.location = 'admin.html';
@@ -87,7 +90,6 @@
       user ? handleSignedInUser(user) : handleSignedOutUser();
     });
   }
-
   window.addEventListener('load', handleOnAuthStateChange);
 })();
 
@@ -95,6 +97,7 @@
 // 1) person is used by session -> confirmed line 219!
 // 2) now also used by reviews when user signs in for the first time.
 
+('use strict');
 // setting currentUser globals...
 var person = null;
 auth.onAuthStateChanged(function(user) {

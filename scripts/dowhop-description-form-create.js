@@ -98,7 +98,7 @@ function submitNewDoWhopEntry(e) {
       storage.ref(path).getDownloadURL().then(function(url) {
         var obj = {};
         obj['image' + (idx + 1)] = url;
-        doWhopDescriptionRef.child(doWhopDescriptionKey).child('downloadURLs').update(obj);
+        doWhopDescriptionRef.child(doWhopDescriptionKey).child('downloadURL').update(obj);
       });
     });
   });
