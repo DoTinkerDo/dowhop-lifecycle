@@ -1,6 +1,7 @@
 'use strict';
 
 var doWhopDescriptionRef = database.ref('/DoWhopDescriptions');
+
 var titleDescription = document.getElementById('title-description');
 var whyDescription = document.getElementById('why-description');
 var whoDescription = document.getElementById('who-description');
@@ -102,7 +103,6 @@ function submitNewDoWhopEntry(e) {
       });
     });
   });
-
   createWelcomingMessage();
   clearNewDoWhopEntryForm();
 }
@@ -156,10 +156,12 @@ function clearNewDoWhopEntryForm() {
 
 // Adding function to add a chosen dowhop a user's list:
 function addToMyDoWhops(node) {
-  firebase
-    .database()
-    .ref()
-    .child('app_users/' + auth.currentUser.uid + '/doer/' + node.parentElement.id)
+  console.log('ADDTOMYDOWHOPS CALLED IN CREATE -> ', node);
+  database
+    .ref('app_users')
+    .child(auth.currentUser.uid)
+    .child('doer')
+    .child(node.parentElement.id)
     .update({ doer: true });
 }
 
