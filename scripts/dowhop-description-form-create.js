@@ -1,3 +1,5 @@
+'use strict';
+
 var doWhopDescriptionRef = database.ref('/DoWhopDescriptions');
 
 var titleDescription = document.getElementById('title-description');
@@ -7,7 +9,9 @@ var whatDescription = document.getElementById('what-description');
 var whenDescription = document.getElementById('when-description');
 var whereDescription = document.getElementById('where-description');
 var howMuchDescription = document.getElementById('how-much-description');
-var dowhopImageCapture = document.getElementById('dowhop-image-capture');
+var dowhopImageCapture1 = document.getElementById('dowhop-image-capture1');
+var dowhopImageCapture2 = document.getElementById('dowhop-image-capture2');
+var dowhopImageCapture3 = document.getElementById('dowhop-image-capture3');
 
 var submitNewDoWhopBtn = document.getElementById('create-new-dowhop');
 submitNewDoWhopBtn.addEventListener('click', submitNewDoWhopEntry);
@@ -17,7 +21,7 @@ function submitNewDoWhopEntry(e) {
 
   if (
     !validateAddDoWhopDescription(
-      file,
+      files,
       titleDescription.value,
       whyDescription.value,
       whoDescription.value,
@@ -72,34 +76,75 @@ function submitNewDoWhopEntry(e) {
     });
   }
 
-  filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
-  storage.ref(filePath).put(file).then(function(snapshot) {
-    doWhopDescriptionRef
-      .child(doWhopDescriptionKey)
-      .set({
-        createdBy: uid,
-        doWhopDescriptionKey: doWhopDescriptionKey,
-        downloadURL: snapshot.metadata.downloadURLs[0],
-        titleDescription: titleDescription.value,
-        whyDescription: whyDescription.value,
-        whoDescription: whoDescription.value,
-        whatDescription: whatDescription.value,
-        whenDescription: whenDescription.value,
-        whereDescription: whereDescription.value,
-        howMuchDescription: howMuchDescription.value,
-        creatorDescription: creatorDescription,
-        doerDescription: '' // Temp.
-      })
-      .then(showConfirmationMessage());
-    createWelcomingMessage();
-    clearNewDoWhopEntryForm();
+  doWhopDescriptionRef
+    .child(doWhopDescriptionKey)
+    .set({
+      createdBy: uid,
+      doWhopDescriptionKey: doWhopDescriptionKey,
+      titleDescription: titleDescription.value,
+      whyDescription: whyDescription.value,
+      whoDescription: whoDescription.value,
+      whatDescription: whatDescription.value,
+      whenDescription: whenDescription.value,
+      whereDescription: whereDescription.value,
+      howMuchDescription: howMuchDescription.value,
+      creatorDescription: creatorDescription,
+      doerDescription: '' // Temp.
+    })
+    .then(showConfirmationMessage());
+
+  files.forEach(function(file, idx) {
+    filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
+    storage.ref(filePath).put(file).then(function(snapshot) {
+      var path = snapshot.metadata.fullPath;
+      storage.ref(path).getDownloadURL().then(function(url) {
+        var obj = {};
+        obj['image' + (idx + 1)] = url;
+        doWhopDescriptionRef.child(doWhopDescriptionKey).child('downloadURLs').update(obj);
+      });
+    });
   });
+
+  createWelcomingMessage();
+  clearNewDoWhopEntryForm();
+  // createWelcomingMessage();
+  // clearNewDoWhopEntryForm();
+  // var filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + files[0].name;
+  // storage.ref(filePath).put(files[0]).then(function(snapshot) {
+  //   console.log(snapshot);
+  // });
+  // storage.ref(filePath).getDownloadURL().then(function(url) {
+  //   console.log(url);
+  // });
+  // console.log(filePath);
+  // .then(function(snapshot) {
+  //   doWhopDescriptionRef
+  //     .child(doWhopDescriptionKey)
+  //     .set({
+  //       createdBy: uid,
+  //       doWhopDescriptionKey: doWhopDescriptionKey,
+  //       downloadURL: snapshot.metadata.downloadURLs[0],
+  //       titleDescription: titleDescription.value,
+  //       whyDescription: whyDescription.value,
+  //       whoDescription: whoDescription.value,
+  //       whatDescription: whatDescription.value,
+  //       whenDescription: whenDescription.value,
+  //       whereDescription: whereDescription.value,
+  //       howMuchDescription: howMuchDescription.value,
+  //       creatorDescription: creatorDescription,
+  //       doerDescription: '' // Temp.
+  //     })
+  //     .then(showConfirmationMessage());
+  // createWelcomingMessage();
+  // clearNewDoWhopEntryForm();
+  // });
 }
 
-var file = null;
+var files = [];
 function addDoWhopImage(files_arr, node) {
-  return (file = files_arr[0]);
-  if (!file.type.match('image/.*')) {
+  console.log('FILES -> ', files_arr[0].type);
+  return files.push(files_arr[0]);
+  if (!files_arr[0].type.match('image/.*')) {
     alert('You can only add images at the moment.');
     return;
   }
@@ -123,14 +168,14 @@ function validateAddDoWhopDescription(
     whenDescription === '' ||
     whereDescription === '' ||
     howMuchDescription === '' ||
-    file === null
+    files.length < 1
   )
     return false;
   return true;
 }
 
 function clearNewDoWhopEntryForm() {
-  file = null;
+  files = [];
   titleDescription.value = '';
   whyDescription.value = '';
   whoDescription.value = '';
@@ -138,7 +183,9 @@ function clearNewDoWhopEntryForm() {
   whenDescription.value = '';
   whereDescription.value = '';
   howMuchDescription.value = '';
-  dowhopImageCapture.value = '';
+  dowhopImageCapture1.value = '';
+  dowhopImageCapture2.value = '';
+  dowhopImageCapture3.value = '';
 }
 
 // Adding function to add a chosen dowhop a user's list:
