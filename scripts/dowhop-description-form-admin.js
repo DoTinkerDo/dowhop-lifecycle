@@ -1,6 +1,7 @@
 'use strict';
 
-var doWhopDescriptionRef = database.ref('/DoWhopDescriptions');
+var doWhopDescriptionsRef = database.ref('/DoWhopDescriptions');
+
 var titleDescription = document.getElementById('title-description');
 var whyDescription = document.getElementById('why-description');
 var whoDescription = document.getElementById('who-description');
@@ -13,15 +14,21 @@ var doerDescription = document.getElementById('doer-description');
 var dowhopImageCapture1 = document.getElementById('dowhop-image-capture1');
 var dowhopImageCapture2 = document.getElementById('dowhop-image-capture2');
 var dowhopImageCapture3 = document.getElementById('dowhop-image-capture3');
-var submitNewDoWhopBtn = document.getElementById('create-new-dowhop');
-var creatorDescriptionUpdate = document.getElementById('creatorDescriptionUpdate');
-var doerDescriptionUpdate = document.getElementById('doerDescriptionUpdate');
-var emailSubmitBtn = document.getElementById('emailSubmit');
+
+var adminEditDoWhopForm = document.getElementById('admin-edit-dowhop-form');
+var selectedForEdit = document.getElementById('selected-for-edit');
+var creatorDescriptionUpdate = document.getElementById('creator-description-email-update');
+var doerDescriptionUpdate = document.getElementById('doer-description-email-update');
 
 var error = document.getElementById('errorAdmin');
 
+var doWhopPlacard = document.getElementById('dowhop-placard');
+
+var submitNewDoWhopBtn = document.getElementById('create-new-dowhop');
+var emailSubmitBtn = document.getElementById('emailSubmit');
+
 submitNewDoWhopBtn.addEventListener('click', submitNewDoWhopEntry);
-emailSubmitBtn.addEventListener('click', updateEmails);
+emailSubmitBtn.addEventListener('click', updateCreatorDoerEmails);
 
 function submitNewDoWhopEntry(e) {
   e.preventDefault();
@@ -35,9 +42,9 @@ function submitNewDoWhopEntry(e) {
       whatDescription.value,
       whenDescription.value,
       whereDescription.value,
-      howMuchDescription.value,
-      creatorDescription.value,
-      doerDescription.value
+      howMuchDescription.value
+      // creatorDescription.value,
+      // doerDescription.value
     )
   ) {
     alert('Please fill out all the fields and add an Image, Try again.');
@@ -45,7 +52,7 @@ function submitNewDoWhopEntry(e) {
   }
 
   var uid = auth.currentUser.uid;
-  var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
+  var doWhopDescriptionKey = doWhopDescriptionsRef.push().key;
   var defaultImageURL = '../images/dowhopicon.gif';
   var creatorDisplayName = auth.currentUser.displayName;
 
@@ -54,7 +61,7 @@ function submitNewDoWhopEntry(e) {
     // Gathering the appropriate data to fill out message:
     var DoWhopTitleDescription, DoWhopWhenDescription, DoWhopWhereDescription;
 
-    doWhopDescriptionRef.child(doWhopDescriptionKey).once('value', function(snap) {
+    doWhopDescriptionsRef.child(doWhopDescriptionKey).once('value', function(snap) {
       DoWhopTitleDescription = snap.val().titleDescription;
       DoWhopWhenDescription = snap.val().whenDescription;
       DoWhopWhereDescription = snap.val().whereDescription;
@@ -83,7 +90,7 @@ function submitNewDoWhopEntry(e) {
     });
   }
 
-  doWhopDescriptionRef
+  doWhopDescriptionsRef
     .child(doWhopDescriptionKey)
     .set({
       createdBy: uid,
@@ -107,7 +114,7 @@ function submitNewDoWhopEntry(e) {
       storage.ref(path).getDownloadURL().then(function(url) {
         var obj = {};
         obj['image' + (idx + 1)] = url;
-        doWhopDescriptionRef.child(doWhopDescriptionKey).child('downloadURL').update(obj);
+        doWhopDescriptionsRef.child(doWhopDescriptionKey).child('downloadURL').update(obj);
       });
     });
   });
@@ -132,9 +139,9 @@ function validateAddDoWhopDescription(
   whatDescription,
   whenDescription,
   whereDescription,
-  howMuchDescription,
-  creatorDescription,
-  doerDescription
+  howMuchDescription
+  // creatorDescription,
+  // doerDescription
 ) {
   if (
     titleDescription === '' ||
@@ -144,8 +151,8 @@ function validateAddDoWhopDescription(
     whenDescription === '' ||
     whereDescription === '' ||
     howMuchDescription === '' ||
-    creatorDescription === '' ||
-    doerDescription === '' ||
+    // creatorDescription === '' ||
+    // doerDescription === '' ||
     files.length < 1
   )
     return false;
@@ -168,30 +175,27 @@ function clearNewDoWhopEntryForm() {
   doerDescription.value = '';
 }
 
-var doWhopPlacard = document.getElementById('dowhop-placard');
-
 function registerDoWhopDescriptionCallback() {
-  doWhopDescriptionRef.on('value', function(snapshot) {
+  doWhopDescriptionsRef.on('value', function(snapshot) {
     var doWhopDescriptions = _.map(snapshot.val()).reverse();
     var div = document.createElement('div');
     doWhopPlacard.innerHTML = '';
     doWhopDescriptions.forEach(function(doWhopDescription) {
       var imageURL =
         (doWhopDescription.downloadURL && doWhopDescription.downloadURL.image1) || doWhopDescription.downloadURL;
+
       div.innerHTML +=
-        "<section id='" +
+        '<aside  class="mdl-card dowhop-selector" id="' +
         doWhopDescription.doWhopDescriptionKey +
-        "' class='dowhop-selector-block'>" +
-        "<i class='material-icons dowhop-action' onclick='addToMyDoWhops(this)'>person_add</i>" +
-        "<i class='material-icons dowhop-action' onclick='revealEditEmailForm(this)'>mode_edit</i>" +
-        "<div class='dowhop-selector-header' style='background-image: url(" +
+        '" onclick="revealEditEmailForm(this)" >' +
+        '<div class="dowhop-selector-header" style="background-image: url(' +
         imageURL +
-        ");'>" +
+        ');">' +
         '<h1>' +
         doWhopDescription.titleDescription +
         '</h1>' +
         '</div>' +
-        "<div class='dowhop-selector-body'>" +
+        '<div class="dowhop-selector-body mdl-layout__content">' +
         '<h5>What?</h5>' +
         '<p>' +
         doWhopDescription.whatDescription +
@@ -225,44 +229,47 @@ function registerDoWhopDescriptionCallback() {
         (doWhopDescription.doerDescription || 'TBD') +
         '</p>' +
         '</div>' +
-        '</section>';
+        '</aside>';
       doWhopPlacard.append(div);
     });
   });
 }
 
 // Add Doer(s) or a Creator email to a DoWhopDescription
-var adminEditDoWhopForm = document.getElementById('admin-edit-dowhop-form');
-var selectedForEdit = document.getElementById('selected-for-edit');
-var newCreatorEmail = document.getElementById('creatorDescriptionUpdate');
-var newDoerEmail = document.getElementById('doerDescriptionUpdate');
 var doWhopDescriptionKeyForUpdate = '';
 
 function revealEditEmailForm(node) {
   adminEditDoWhopForm.removeAttribute('hidden');
   var currentNodeTitle = '';
-  doWhopDescriptionKeyForUpdate = node.parentElement.id;
-  var doWhopDescriptionRef = database.ref('DoWhopDescriptions').child(doWhopDescriptionKeyForUpdate);
+  doWhopDescriptionKeyForUpdate = node.id;
+  var doWhopDescriptionRef = doWhopDescriptionsRef.child(doWhopDescriptionKeyForUpdate);
   doWhopDescriptionRef.once('value', function(data) {
     var doWhopDescription = data.val();
     var currentNodeTitle = doWhopDescription.titleDescription;
     selectedForEdit.innerHTML = 'Edit: ' + currentNodeTitle;
+    creatorDescriptionUpdate.value = doWhopDescription.creatorDescription;
+    doerDescriptionUpdate.value = doWhopDescription.doerDescription;
   });
 }
 
-function updateEmails(e) {
+function updateCreatorDoerEmails(e) {
   e.preventDefault();
   adminEditDoWhopForm.removeAttribute('hidden');
-  var doWhopDescriptionRef = database.ref('DoWhopDescriptions');
-
-  doWhopDescriptionRef.child(doWhopDescriptionKeyForUpdate).child('creatorDescription').set(newCreatorEmail.value);
-  doWhopDescriptionRef.child(doWhopDescriptionKeyForUpdate).child('doerDescription').set(newDoerEmail.value);
+  doWhopDescriptionsRef.child(doWhopDescriptionKeyForUpdate).update({
+    creatorDescription: creatorDescriptionUpdate.value,
+    doerDescription: doerDescriptionUpdate.value
+  });
   selectedForEdit.innerHTML = 'Edit your DoWhop';
   error.innerHTML = 'Emails have been updated!';
   adminEditDoWhopForm.reset();
 }
 
+function showConfirmationMessage() {
+  window.alert('Thanks for submitting your DoWhop!');
+}
+
 // Adding function to add a chosen dowhop a user's list.
+// TODO Determing if this is still used...
 function addToMyDoWhops(node) {
   console.log('ADDTOMYDOWHOPS CALLED IN ADMIN -> ', node);
   database
@@ -271,8 +278,4 @@ function addToMyDoWhops(node) {
     .child('doer')
     .child(node.parentElement.id)
     .update({ doer: true });
-}
-
-function showConfirmationMessage() {
-  window.alert('Thanks for submitting your DoWhop!');
 }

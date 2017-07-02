@@ -28,7 +28,7 @@
       <div class="mdl-grid">
 
         <div class="mdl-cell mdl-cell--6-col">
-          <div class="mdl-card mdl-shadow--6dp">
+          <div class="mdl-card">
             <div class="mdl-layout__content">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Create a new DoWhop</h2>
@@ -88,7 +88,7 @@
         
         <!-- Start Mini-Form for Admin Email Data Entry-->
         <div class="mdl-cell mdl-cell--6-col">
-          <div class="mdl-card mdl-shadow--6dp">
+          <div class="mdl-card">
             <div class="mdl-layout__content">
               <form id="admin-edit-dowhop-form" hidden="true" action="">
                 <div class="mdl-card__title">
@@ -96,13 +96,13 @@
                 </div>
                 <div class="mdl-card__supporting-text">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="email" id="creatorDescriptionUpdate" placeholder="creator@example.com">
-                  <label class="mdl-textfield__label" for="creatorDescriptionUpdate">What's the creator's email?</label>
+                  <input class="mdl-textfield__input" type="email" id="creator-description-email-update" placeholder="creator@example.com">
+                  <label class="mdl-textfield__label" for="creator-description-email-update">What's the creator's email?</label>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="doerDescriptionUpdate" placeholder="doer@example.com">
-                  <label class="mdl-textfield__label" for="doerDescriptionUpdate">Who is attending this DoWhop (email, please)?</label>
-                  <span class="mdl-tooltip" for="doerDescriptionUpdate">Enter multiple doers, seperated, by, Commas</span>
+                  <input class="mdl-textfield__input" type="text" id="doer-description-email-update" placeholder="doer@example.com">
+                  <label class="mdl-textfield__label" for="doer-description-email-update">Who is attending this DoWhop (email, please)?</label>
+                  <span class="mdl-tooltip" for="doer-description-email-update">Enter multiple doers, seperated, by, Commas</span>
                 </div>
                 <!-- END NEW -->
                 <div class="mdl-card__actions">
@@ -115,9 +115,9 @@
               </form>
             </div>
           </div>
+        <div id="dowhop-placard"></div>
         </div> <!-- End Mini-Form for Admin Email Data Entry-->
 
-        <div class="mdl-cell mdl-cell--6-col" id="dowhop-placard"></div>
       </div>  <!-- End MDL Grid -->
     </div> <!-- End Admin New DoWhop Panel -->
 

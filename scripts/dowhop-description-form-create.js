@@ -154,17 +154,18 @@ function clearNewDoWhopEntryForm() {
   dowhopImageCapture3.value = '';
 }
 
-// Adding function to add a chosen dowhop a user's list:
+function showConfirmationMessage() {
+  window.alert('Thanks for submitting your DoWhop!');
+}
+
+// Adding function to add a chosen dowhop a user's list.
+// TODO Determing if this is still used...
 function addToMyDoWhops(node) {
-  console.log('ADDTOMYDOWHOPS CALLED IN CREATE -> ', node);
+  console.log('ADDTOMYDOWHOPS CALLED IN ADMIN -> ', node);
   database
     .ref('app_users')
     .child(auth.currentUser.uid)
     .child('doer')
     .child(node.parentElement.id)
     .update({ doer: true });
-}
-
-function showConfirmationMessage() {
-  window.alert('Thanks for submitting your DoWhop!');
 }
