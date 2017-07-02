@@ -145,7 +145,7 @@ function retrieveMyDoWhops(uid) {
       retrieveElement(snapshot.key);
     });
   });
-  var retrieveElement = function(key) {
+  function retrieveElement(key) {
     var userDowhopCardDiv = document.getElementById('user-dowhop-cards');
     var doWhopDescriptionRef = database.ref('DoWhopDescriptions').child(key);
     doWhopDescriptionRef.once('value').then(function(doWhopDescription) {
@@ -153,7 +153,7 @@ function retrieveMyDoWhops(uid) {
         makeDoWhopSelector(userDowhopCardDiv, doWhopDescription);
       }
     });
-  };
+  }
   function addDoWhopImage(files_arr, node) {
     return (file = files_arr[0]);
     if (!file.type.match('image/.*')) {
@@ -166,10 +166,7 @@ function retrieveMyDoWhops(uid) {
 function makeDoWhopSelector(container, data) {
   var imageURL = '';
   if (data.val() && data.val().downloadURL) {
-    imageURL =
-      data.val().downloadURL.image1 ||
-      data.val().downloadURL ||
-      'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+    imageURL = data.val().downloadURL.image1 || data.val().downloadURL || defaultDoWhopDescriptionImage;
 
     container.innerHTML +=
       '<aside class="mdl-card dowhop-selector" id="' +
