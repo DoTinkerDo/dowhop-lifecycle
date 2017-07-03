@@ -84,11 +84,13 @@
     </header><!-- End Navigation -->
 
     <!-- Pending Notifications Container -->
-    <section id="pending-div-container" class="pending-notification mdl-cell--5-col">
-      <div id="pending-div"></div>
+    <section id="pending-div-container" class="pending-notification mdl-cell--8-col">
       <form hidden id="approve-pending-form" class="approval-form">
+        <div id="pending-div"></div>
+      <span>
         <input id="radioApprove" type="radio" name="approval" value="approve">Approve
         <input id="radioDeny" type="radio" name="denial" value="deny">Deny
+      </span>
         <button id="submit-approval-button" type="submit" class="mdl-button mdl-js-button button-style">Send
         </button>
       </form>
@@ -96,7 +98,8 @@
         <button id="submit-rescind-button" type="submit" class="mdl-button mdl-js-button button-style">Rescind
         </button>
       </form>
-    </section> <!-- End Notifications Container -->
+    </section>
+     <!-- End Notifications Container -->
 
     <!-- Main MDL Grid around DoWhop Selector cards and Life cycle apps -->
     <!-- 5 and 7 columns on desktop -->
