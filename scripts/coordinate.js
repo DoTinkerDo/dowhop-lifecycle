@@ -278,10 +278,12 @@ FriendlyChat.prototype.getSession = function() {
       // Weave together header
       if (data.val()) {
         let imageUrl =
-          data.val().downloadURL.image1 ||
+          (data.val().downloadURL && data.val().downloadURL.image1) ||
           data.val().downloadURL ||
-          'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+          defaultDoWhopDescriptionImage;
+
         var doWhopDescriptionTitle = data.val().titleDescription || 'Your DoWhops Will Appear Here';
+
         return (doWhopSelectorDiv +=
           "<section id='" +
           data.key +
