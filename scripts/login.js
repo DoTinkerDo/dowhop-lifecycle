@@ -97,7 +97,7 @@
 // 1) person is used by session -> confirmed line 219!
 // 2) now also used by reviews when user signs in for the first time.
 
-('use strict');
+// ('use strict');
 // setting currentUser globals...
 var person = null;
 auth.onAuthStateChanged(function(user) {
@@ -124,7 +124,7 @@ function createDefaultDoWhop() {
   doWhopDescriptionRef.child(doWhopDescriptionKey).set({
     createdBy: uid,
     doWhopDescriptionKey: doWhopDescriptionKey,
-    downloadURLs: defaultDoWhopDescriptionImage,
+    downloadURL: defaultDoWhopDescriptionImage,
     titleDescription: 'DoWhop with us!',
     whoDescription: 'DoWhop Team is here to help you!',
     whatDescription: '',
