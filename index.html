@@ -31,8 +31,9 @@
   <script src="scripts/firebase.js"></script> <!-- Initialize Firebase app -->
   <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script> <!-- Lodash ._ -->
   <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script> <!-- Firebase UI JS for Web Auth -->
-
-  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-coo6M25h9GjP8AYxhzIQSbNVj-Ope3s&libraries=places&callback=initAutocomplete" async defer></script> -->
+  <script>
+    var defaultDoWhopDescriptionImage = "https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp";
+  </script>
 </head>
 <body>
 
@@ -67,13 +68,13 @@
             <img id="review-icon" src="../images/review-icon.png"></a>
           </li>
         </ul>
-            <div class="dropdown">
-              <img class="dropbtn" id="user-icon" src="../images/user-icon.png">
-              <div class="dropdown-content">
-                <a class="btn-logout" href="#" onclick="firebase.auth().signOut()">Log Out</a>
-                <a class="" href="" onclick="">My Profile </a>
-              </div>
-            </div>
+        <div class="dropdown">
+          <img class="dropbtn" id="user-icon" src="../images/user-icon.png">
+          <div class="dropdown-content">
+            <a class="btn-logout" href="#" onclick="auth.signOut()">Log Out</a>
+            <a class="" href="" onclick="">My Profile </a>
+          </div>
+        </div>
       </div>
 
       <!-- Tutorial container -->
@@ -98,8 +99,7 @@
         <button id="submit-rescind-button" type="submit" class="mdl-button mdl-js-button button-style">Rescind
         </button>
       </form>
-    </section>
-     <!-- End Notifications Container -->
+    </section> <!-- End Notifications Container -->
 
     <!-- Main MDL Grid around DoWhop Selector cards and Life cycle apps -->
     <!-- 5 and 7 columns on desktop -->
@@ -157,7 +157,9 @@
                 </div>
                 <div class="mdl-card__actions">
                 <div>
-                  <input id="dowhop-image-capture" type="file" accept="image/*,capture=camera" onchange="addDoWhopImage(this.files, this)">
+                  <input id="dowhop-image-capture1" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
+                  <input id="dowhop-image-capture2" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
+                  <input id="dowhop-image-capture3" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
                 </div>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="create-new-dowhop">
                   Create New DoWhop
@@ -167,7 +169,7 @@
               </form>
             </div>
           </div>
-        </section> <!-- End Edit Panel tab -->
+        </section> <!-- End Create Panel tab -->
 
         <!-- Start Edit Panel -->
         <section id="edit" class="mdl-card panel">
@@ -184,7 +186,7 @@
                 <div class="mdl-tooltip" for="titleDescription">Change what you'll DO!</div>
               </div>
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="whydescription" placeholder="People who love doing this type of activity will think this part of the experience is awesome!">
+                <input class="mdl-textfield__input" type="text" id="whyDescription" placeholder="People who love doing this type of activity will think this part of the experience is awesome!">
                 <label class="mdl-textfield__label" for="whydescription">Why Do This DoWhop?</label>
               </div>
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -406,12 +408,12 @@
     </main>   <!-- End main MDL grid -->
   </section> <!-- End Application Container -->
 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-coo6M25h9GjP8AYxhzIQSbNVj-Ope3s&libraries=places&callback=initAutocomplete" async defer></script>
 <script src="scripts/login.js"></script>
 <script src="scripts/firebase-cloud-messaging.js"></script>
 <script src="scripts/tabs.js"></script>
 <script src="scripts/dowhop-description-form-create.js"></script>
 <script src="scripts/edit.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-coo6M25h9GjP8AYxhzIQSbNVj-Ope3s&libraries=places&callback=initAutocomplete" async defer></script>
 <script src="scripts/google-map.js"></script>
 <script src="scripts/coordinate.js"></script>
 <script src="ratings/rating-lib/rating.min.js"></script>

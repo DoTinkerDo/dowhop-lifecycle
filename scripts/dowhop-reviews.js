@@ -62,9 +62,10 @@ auth.onAuthStateChanged(function(user) {
       var doWhopDescriptionRef = database.ref('DoWhopDescriptions').child(selectedDoWhopKey);
       doWhopDescriptionRef.on('value', function(snapshot) {
         var selectedDoWhop = snapshot.val();
+        var doerDescription = (selectedDoWhop && selectedDoWhop.doerDescription) || '';
         var currentUserEmail = user.email;
         if (
-          selectedDoWhop.doerDescription.split(', ').some(function(doerDescriptionEmail) {
+          doerDescription.split(', ').some(function(doerDescriptionEmail) {
             return doerDescriptionEmail === currentUserEmail;
           })
         ) {
