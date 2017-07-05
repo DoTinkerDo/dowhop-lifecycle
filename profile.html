@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="styles/login-tabs-styles.css">
     <link rel="stylesheet" href="styles/dowhop-selector-style.css">
     <link rel="stylesheet" href="styles/dowhop-profile.css">
+    <link rel="stylesheet" href="styles/dowhop-profile-dm.css">
     <!-- Functional -->
     <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>  <!-- Firebase library -->
     <script src="scripts/firebase.js"></script> <!-- Initialize Firebase app -->
@@ -110,7 +111,7 @@
  <!-- End Create New Profile Form -->
     <section class="col-1" id="my-profile"> <!-- Start Show Profile Section -->
             <div class="row">
-              <div class="col-7">
+              <div class="col-4">
                 <img id="my-profile-picture"></img>
               <div class="row profile-details-container">
                 <div id="my-display-name"></div>
@@ -134,6 +135,14 @@
               <div class="row">
                 <i class="material-icons profile-icons">room</i>
                 <div class="profile-data" id="my-profile-city">San Diego, CA</div>
+              </div>
+              </div>
+              <div id="send-direct-message-div">
+                <button id="send-direct-message">
+                  <div class="row">
+                  Click here to send Direct Message.
+                  <i class="material-icons profile-icons">mail_outline</i>
+                  </button>
               </div>
               </div>
             </div>
@@ -176,13 +185,30 @@
             </div>
           </div>
     </section><!-- End Show Profile Section -->
+    <section class="direct-message col-6"><!-- Start Direct Chat Message Form Section -->
+
+      <form hidden id="direct-message-form" class='direct-message'>
+        <h4>Start your conversation!</h4>
+        <div id="direct-messages-div" class='direct-message'>
+        </div>
+        <h5>Type your message here:</h5>
+          <textarea id="direct-message-form-input"></textarea>
+          <button id="direct-message-form-button">
+            Send!
+          </button>
+          <button id="direct-message-form-button-hide">
+            Close
+          </button>
+      </form>
+    </section>
     <script>
     auth.onAuthStateChanged(function(user) {
-      if (user) {
-        registerDoWhopDescriptionCallback();
-      }
-    });
-    </script>
+	if (user) {
+		registerDoWhopDescriptionCallback();
+	}
+});
+</script>
     <script src="scripts/dowhop-profile-form-create.js"></script>
+    <script src="scripts/dowhop-profile-form-dm.js"></script>
   </body>
 </html>
