@@ -162,16 +162,17 @@ function retrieveMyDoWhops(uid) {
     }
   }
 }
-
+var imageURL = '';
 function makeDoWhopSelector(container, data) {
-  var imageURL = '';
+  // var imageURL = '';
   if (data.val() && data.val().downloadURL) {
     imageURL = data.val().downloadURL.image1 || data.val().downloadURL || defaultDoWhopDescriptionImage;
+    imageURL1 = imageURL;
 
     container.innerHTML +=
       '<aside class="mdl-card dowhop-selector" id="' +
       data.key +
-      '" onclick="setSession(this)">' +
+      '" onclick="setSession(this)" onmouseenter="changeImage(this)" onmouseleave="changeImage(this)">' +
       '<div class="dowhop-selector-header" style="background-image: url(' +
       imageURL +
       ');">' +
@@ -182,6 +183,27 @@ function makeDoWhopSelector(container, data) {
       '</aside>';
   } else {
     return container;
+  }
+}
+
+var imageURL1 = null;
+var imageURL2 = null;
+
+function changeImage(element) {
+  var div = element.firstChild;
+  var doWhopDescriptionKey = element.id;
+  var ref = doWhopDescriptionRootRef.child(doWhopDescriptionKey);
+
+  ref.on('value', function(snapshot) {
+    imageURL1 = snapshot.val().downloadURL.image1 || snapshot.val().downloadURL || defaultDoWhopDescriptionImage;
+    imageURL2 = snapshot.val().downloadURL.image2 || snapshot.val().downloadURL || defaultDoWhopDescriptionImage;
+  });
+
+  div.classList.toggle('swap-image');
+  if (div.classList.contains('swap-image')) {
+    div.style.backgroundImage = 'url(' + imageURL2 + ')';
+  } else {
+    div.style.backgroundImage = 'url(' + imageURL1 + ')';
   }
 }
 
