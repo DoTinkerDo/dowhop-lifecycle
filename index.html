@@ -32,8 +32,9 @@
   <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script> <!-- Lodash ._ -->
   <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script> <!-- Firebase UI JS for Web Auth -->
   <script>
-    var defaultDoWhopDescriptionImage = "https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp";
-  </script>
+  var defaultDoWhopDescriptionImage =
+  'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+</script>
 </head>
 <body>
 
@@ -86,11 +87,12 @@
 
     <!-- Pending Notifications Container -->
     <section id="pending-div-container" class="pending-notification mdl-cell--8-col">
+      <div id="pending-div"></div>
       <form hidden id="approve-pending-form" class="approval-form">
-        <div id="pending-div"></div>
+
       <span>
         <input id="radioApprove" type="radio" name="approval" value="approve">Approve
-        <input id="radioDeny" type="radio" name="denial" value="deny">Deny
+        <input id="radioDeny" type="radio" name="approval" value="deny">Deny
       </span>
         <button id="submit-approval-button" type="submit" class="btn-default">Send
         </button>
@@ -419,68 +421,68 @@
 <script src="ratings/rating-lib/weighted-ratings.js"></script>
 <script src="scripts/dowhop-reviews.js"></script>
 <script>
-  // Script to change SignIn button text to Login
-  var btnLogOut = document.querySelector('.btn-logout');
-  function changeLoginText() {
-    var btnSpans = document.querySelectorAll('.firebaseui-idp-text-long');
-    if (btnSpans.length > 0) {
-      btnSpans[0].innerHTML = 'Login with Google';
-      btnSpans[1].innerHTML = 'Login with Facebook';
-      btnSpans[2].innerHTML = 'Login with Email';
-    } else {
-      console.log('NO LOGIN BUTTONS SELECTED');
-    }
+// Script to change SignIn button text to Login
+var btnLogOut = document.querySelector('.btn-logout');
+function changeLoginText() {
+  var btnSpans = document.querySelectorAll('.firebaseui-idp-text-long');
+  if (btnSpans.length > 0) {
+    btnSpans[0].innerHTML = 'Login with Google';
+    btnSpans[1].innerHTML = 'Login with Facebook';
+    btnSpans[2].innerHTML = 'Login with Email';
+  } else {
+    console.log('NO LOGIN BUTTONS SELECTED');
   }
-  btnLogOut.addEventListener('click', changeLoginText);
-  window.addEventListener('load', changeLoginText);
+}
+btnLogOut.addEventListener('click', changeLoginText);
+window.addEventListener('load', changeLoginText);
 </script>
 <script>
 /* A script to use icon to select/toggle input fields */
 var date, time, where, image;
 function revealInput(x) {
-    switch(x) {
-      case 'date':
-        document.getElementById("whenDatePending").removeAttribute("hidden");
-        document.getElementById("whenTimePending").setAttribute("hidden","true");
-        document.getElementById("whereAddressPending").setAttribute("hidden","true");
-        document.getElementById("map").setAttribute("hidden","true");
-        document.getElementById("mediaCapture").setAttribute("hidden","true");
-        document.getElementById("submitImage").setAttribute("hidden","true");
-        break;
-      case 'time':
-        document.getElementById("whenTimePending").removeAttribute("hidden");
-        document.getElementById("whenDatePending").setAttribute("hidden","true");
-        document.getElementById("whereAddressPending").setAttribute("hidden","true");
-        document.getElementById("map").setAttribute("hidden","true");
-        document.getElementById("mediaCapture").setAttribute("hidden","true");
-        document.getElementById("submitImage").setAttribute("hidden","true");
-        break;
-      case 'where':
-        document.getElementById("whereAddressPending").removeAttribute("hidden");
-        document.getElementById("map").removeAttribute("hidden");
-        google.maps.event.trigger(map, 'resize');
-        document.getElementById("whenDatePending").setAttribute("hidden","true");
-        document.getElementById("whenTimePending").setAttribute("hidden","true");
-        document.getElementById("mediaCapture").setAttribute("hidden","true");
-        document.getElementById("submitImage").setAttribute("hidden","true");
-        break;
-      case 'image':
-        document.getElementById("mediaCapture").removeAttribute("hidden");
-        document.getElementById("submitImage").removeAttribute("hidden");
-        document.getElementById("whenDatePending").setAttribute("hidden","true");
-        document.getElementById("whenTimePending").setAttribute("hidden","true");
-        document.getElementById("whereAddressPending").setAttribute("hidden","true");
-        document.getElementById("map").setAttribute("hidden","true");
-        break;
-      default:
-        document.getElementById("whenDatePending").setAttribute("hidden", "true");
-        document.getElementById("whenTimePending").setAttribute("hidden","true");
-        document.getElementById("whereAddressPending").setAttribute("hidden","true");
-        document.getElementById("map").setAttribute("hidden","true");
-        document.getElementById("mediaCapture").setAttribute("hidden","true");
-        document.getElementById("submitImage").setAttribute("hidden","true");
-        break;
-    };
+  switch (x) {
+    case 'date':
+      document.getElementById('whenDatePending').removeAttribute('hidden');
+      document.getElementById('whenTimePending').setAttribute('hidden', 'true');
+      document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
+      document.getElementById('map').setAttribute('hidden', 'true');
+      document.getElementById('mediaCapture').setAttribute('hidden', 'true');
+      document.getElementById('submitImage').setAttribute('hidden', 'true');
+      break;
+    case 'time':
+      document.getElementById('whenTimePending').removeAttribute('hidden');
+      document.getElementById('whenDatePending').setAttribute('hidden', 'true');
+      document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
+      document.getElementById('map').setAttribute('hidden', 'true');
+      document.getElementById('mediaCapture').setAttribute('hidden', 'true');
+      document.getElementById('submitImage').setAttribute('hidden', 'true');
+      break;
+    case 'where':
+      document.getElementById('whereAddressPending').removeAttribute('hidden');
+      document.getElementById('map').removeAttribute('hidden');
+      google.maps.event.trigger(map, 'resize');
+      document.getElementById('whenDatePending').setAttribute('hidden', 'true');
+      document.getElementById('whenTimePending').setAttribute('hidden', 'true');
+      document.getElementById('mediaCapture').setAttribute('hidden', 'true');
+      document.getElementById('submitImage').setAttribute('hidden', 'true');
+      break;
+    case 'image':
+      document.getElementById('mediaCapture').removeAttribute('hidden');
+      document.getElementById('submitImage').removeAttribute('hidden');
+      document.getElementById('whenDatePending').setAttribute('hidden', 'true');
+      document.getElementById('whenTimePending').setAttribute('hidden', 'true');
+      document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
+      document.getElementById('map').setAttribute('hidden', 'true');
+      break;
+    default:
+      document.getElementById('whenDatePending').setAttribute('hidden', 'true');
+      document.getElementById('whenTimePending').setAttribute('hidden', 'true');
+      document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
+      document.getElementById('map').setAttribute('hidden', 'true');
+      document.getElementById('mediaCapture').setAttribute('hidden', 'true');
+      document.getElementById('submitImage').setAttribute('hidden', 'true');
+      break;
+  }
 }
 </script>
 </body>
