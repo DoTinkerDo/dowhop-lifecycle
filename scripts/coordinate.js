@@ -226,7 +226,7 @@ FriendlyChat.prototype.getSession = function() {
       // This means visiting user is the creator of event:
       if (firebase.auth().currentUser.email == data.creatorDescription) {
         // console.log('visiting user is the creator. showing approval form, hiding rescind form.');
-        // pendingNotification += '\nDo you want to approve it?';
+        pendingNotification += '\nDo you want to approve it?';
 
         if (data.pending.whenDatePending) pendingNotification += '\n' + data.pending.whenDatePending;
         if (data.pending.whenTimePending) pendingNotification += '\n' + data.pending.whenTimePending;
