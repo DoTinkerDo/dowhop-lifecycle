@@ -3,10 +3,10 @@
   max-width: 800px;
   margin: 0 auto;
 }
+
 ul {
   list-style: none;
   overflow: hidden;
-  margin-bottom: 10px;
   color: #605e5e;
 }
 .panel {
@@ -18,7 +18,6 @@ ul a {
   font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
   padding: 10px;
   float: left;
-  display: block;
 }
 
 ul a:hover,
@@ -32,8 +31,22 @@ ul.tabs a[aria-selected='true'] {
   color: #fff;
   text-decoration: none;
 }
+
 div[aria-hidden='true'] {
   display: none;
+}
+
+.tab::after{
+  stroke:#000000;
+  content: "";
+  width:23px;
+  height:23px;
+  display: inline-block;
+}
+.tab:hover,
+.tab:focus{
+  fill: #ec1928;
+  transition: all .5s ease 0s;
 }
 
 /* LOGIN SPLASH PAGE */
