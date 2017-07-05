@@ -368,8 +368,7 @@ body {
   min-width: 500px;
 }
 
-input,
-button {
+input {
   border: none;
   outline: none;
   background: none;
@@ -669,9 +668,15 @@ span.clear {
 
 /*
 
+  Button &
   Btn default
 
 */
+
+button {
+  border: none;
+  outline: none;
+}
 
 .btn-default {
   font: normal normal normal 14px/1.4em 'Avenir Light', Avenir Light, Arial, sans-serif;
@@ -693,6 +698,4 @@ span.clear {
   background-color: #ffffff;
   color: #ec1928;
 }
-
-
 
