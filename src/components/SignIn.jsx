@@ -6,16 +6,14 @@ const signInStyles = {
   position: 'absolute',
   top: '50%',
   left: '40%',
-  fontSize: '150%',
+  fontSize: '150%'
 };
 
 function SignIn() {
   return (
     <Row>
       <Col xs={12} style={signInStyles}>
-        <Button onClick={() => auth.signInWithPopup(googleAuthProvider)}>
-          Sign In
-        </Button>
+        <Button onClick={() => auth.signInWithPopup(googleAuthProvider)}>Sign In</Button>
       </Col>
     </Row>
   );

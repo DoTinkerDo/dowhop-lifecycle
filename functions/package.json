@@ -1,9 +1,17 @@
 {
   "name": "functions",
   "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "test": "cd .. && jasmine",
+    "deploy": "cd .. && firebase deploy --only functions"
+  },
   "dependencies": {
     "firebase-admin": "^4.2.1",
-    "firebase-functions": "^0.5.7"
+    "firebase-functions": "^0.5.7",
+    "jasmine": "^2.6.0"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "lodash": "^4.17.4"
+  }
 }

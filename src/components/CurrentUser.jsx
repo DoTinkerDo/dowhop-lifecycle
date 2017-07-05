@@ -6,11 +6,13 @@ import { Button } from 'react-bootstrap';
 function CurrentUser({ user }) {
   return (
     <div className="pull-right">
-      <h3>{user.displayName}</h3>
-      <p>{user.email}</p>
-      <Button onClick={() => auth.signOut()}>
-        Sign Out
-      </Button>
+      <h3>
+        {user.displayName}
+      </h3>
+      <p>
+        {user.email}
+      </p>
+      <Button onClick={() => auth.signOut()}>Sign Out</Button>
     </div>
   );
 }
@@ -18,8 +20,8 @@ function CurrentUser({ user }) {
 CurrentUser.propTypes = {
   user: PropTypes.shape({
     displayName: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-  }),
+    email: PropTypes.string.isRequired
+  })
 };
 
 export default CurrentUser;
