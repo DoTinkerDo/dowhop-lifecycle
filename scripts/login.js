@@ -97,7 +97,7 @@
 // 1) person is used by session -> confirmed line 219!
 // 2) now also used by reviews when user signs in for the first time.
 
-('use strict');
+// ('use strict');
 // setting currentUser globals...
 var person = null;
 auth.onAuthStateChanged(function(user) {
@@ -113,8 +113,6 @@ function createDefaultDoWhop() {
   var uid = auth.currentUser.uid;
   var email = auth.currentUser.email;
   var creatorDescription = auth.currentUser.email;
-  var defaultImageURL =
-    'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
   // Then we add on note to user's profile that it has been added:
   var appUsersRef = database.ref('/app_users');
   var appUserRef = appUsersRef.child(uid);
@@ -126,7 +124,7 @@ function createDefaultDoWhop() {
   doWhopDescriptionRef.child(doWhopDescriptionKey).set({
     createdBy: uid,
     doWhopDescriptionKey: doWhopDescriptionKey,
-    downloadURLs: defaultImageURL,
+    downloadURL: defaultDoWhopDescriptionImage,
     titleDescription: 'DoWhop with us!',
     whoDescription: 'DoWhop Team is here to help you!',
     whatDescription: '',
@@ -153,8 +151,7 @@ function checkDefaultDoWhop() {
   var uid = auth.currentUser.uid;
   var email = auth.currentUser.email;
   var creatorDescription = auth.currentUser.email;
-  var defaultImageURL =
-    'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+
   // Then we add on note to user's profile that it has been added:
   var appUsersRef = database.ref('/app_users');
   var appUserRef = appUsersRef.child(uid);
