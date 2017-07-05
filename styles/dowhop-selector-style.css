@@ -12,21 +12,6 @@
 
 */
 
-.button-style {
-  background-color: red;
-  height: 40px;
-  min-height: 19px;
-  width: 142px;
-  color: white;
-  font-size: 18px;
-  text-align: center;
-}
-
-.button-style:hover {
-  background-color: white;
-  color: red;
-}
-
 #dowhop-selector-container,
 .dowhop-selector {
   margin-bottom: 25px;
@@ -166,4 +151,3 @@ input[type=file]#dowhop-image-capture {
 .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.has-placeholder.is-upgraded {
   width: 100%;
 }
-  

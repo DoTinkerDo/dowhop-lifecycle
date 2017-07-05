@@ -666,3 +666,30 @@ span.clear {
   padding-left: 650px;
   margin-bottom: 15px;
 }
+
+/*
+
+  Btn default
+
+*/
+
+.btn-default {
+  font: normal normal normal 14px/1.4em 'Avenir Light', Avenir Light, Arial, sans-serif;
+  background-color: #ec1928;
+  height: 40px;
+  min-height: 19px;
+  width: 142px;
+  color: #ffffff;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.4s ease 0s;
+}
+
+.btn-default:hover,
+.btn-default:focus {
+  background-color: #ffffff;
+  color: #ec1928;
+}
+
+
+
