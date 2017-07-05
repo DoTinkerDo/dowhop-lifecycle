@@ -413,8 +413,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
       chatId: currentDoWhopID,
       name: currentUser.displayName,
       text: messageText,
-      photoUrl:
-        'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
+      photoUrl: '../images/searching-a-person.png'
     });
 
     chatsRef.update({ status: true, requester: currentUser.uid }); // Refactoring to make it a dis-aggregated update.
