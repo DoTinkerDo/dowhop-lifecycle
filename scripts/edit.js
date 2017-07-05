@@ -124,7 +124,7 @@ function retrieveMyDoWhops(uid) {
           doWhopDescription.val().creatorDescription === person.email ||
           doerDescriptionEmails.some(function(doerDescriptionEmail) {
             return doerDescriptionEmail === person.email;
-            console.log(person)
+            console.log(person);
           })
         ) {
           makeDoWhopSelector(userDowhopCardDiv, doWhopDescription);
@@ -145,7 +145,7 @@ function retrieveMyDoWhops(uid) {
       retrieveElement(snapshot.key);
     });
   });
-  var retrieveElement = function(key) {
+  function retrieveElement(key) {
     var userDowhopCardDiv = document.getElementById('user-dowhop-cards');
     var doWhopDescriptionRef = database.ref('DoWhopDescriptions').child(key);
     doWhopDescriptionRef.once('value').then(function(doWhopDescription) {
@@ -153,7 +153,7 @@ function retrieveMyDoWhops(uid) {
         makeDoWhopSelector(userDowhopCardDiv, doWhopDescription);
       }
     });
-  };
+  }
   function addDoWhopImage(files_arr, node) {
     return (file = files_arr[0]);
     if (!file.type.match('image/.*')) {
@@ -164,23 +164,9 @@ function retrieveMyDoWhops(uid) {
 }
 
 function makeDoWhopSelector(container, data) {
-  // Add icon to image dependong on whether current user is Creator or Doer:
   var imageURL = '';
-  var relationshipIcon = '';
-  if (
-    data.val() &&
-    (data.val().creatorDescription === auth.currentUser.email || data.val().createdBy === auth.currentUser.uid)
-  ) {
-    relationshipIcon = 'check_box';
-  } else {
-    relationshipIcon = 'directions_walk';
-  }
-
-  // Put together elements to make a DoWhop Selector block:
   if (data.val() && data.val().downloadURL) {
-    imageURL =
-      data.val().downloadURL ||
-      'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+    imageURL = data.val().downloadURL.image1 || data.val().downloadURL || defaultDoWhopDescriptionImage;
 
     container.innerHTML +=
       '<aside class="mdl-card dowhop-selector" id="' +
@@ -189,9 +175,6 @@ function makeDoWhopSelector(container, data) {
       '<div class="dowhop-selector-header" style="background-image: url(' +
       imageURL +
       ');">' +
-      '<i class="material-icons dowhop-icon">' +
-      relationshipIcon +
-      '</i>' +
       '<h1>' +
       data.val().titleDescription +
       '</h1>' +
@@ -236,8 +219,8 @@ function fillInEditForm(doWhopSelector) {
       var doWhopDescription = data.val();
       if (data.key === doWhopSelector.id) {
         document.getElementById('titleDescription').value = doWhopDescription.titleDescription;
-        document.getElementById('whyDescription').value = doWhopDescription.whyDescription;
         document.getElementById('whoDescription').value = doWhopDescription.whoDescription;
+        document.getElementById('whyDescription').value = doWhopDescription.whyDescription;
         document.getElementById('whatDescription').value = doWhopDescription.whatDescription;
         document.getElementById('whereDescription').value = doWhopDescription.whereDescription;
         // document.getElementById('whereAddress').value = doWhopDescription.whereAddress;
@@ -258,7 +241,7 @@ function fillInEditForm(doWhopSelector) {
 function handleFile(files_arr, node) {
   var file = files_arr[0];
   var imagified = node.id.split('F')[0] + 'Image';
-  if (!file.type.match('image/.*')) {
+  if (!files_arr[0].type.match('image/.*')) {
     alert('You can only add images at the moment.');
     return;
   }
@@ -305,55 +288,3 @@ function hideAll(underbar_options) {
     }
   });
 }
-
-// Array.from(document.getElementsByClassName('plus-button')).forEach(function(e) {
-//   e.addEventListener('click', function() {
-//     var self = this;
-//     for (var p of self.classList) {
-//       if (p == 'fa-plus-circle') {
-//         self.classList.remove('fa-plus-circle');
-//         self.classList.add('fa-minus-circle');
-//         self.parentElement.parentElement.parentElement.nextSibling.nextSibling.childNodes.forEach(function(c, self) {
-//           if (c.nodeName != '#text') {
-//             c.classList.add('slideDown');
-//             c.classList.remove('slideUp');
-//           }
-//         });
-//         break;
-//       } else if (p == 'fa-minus-circle') {
-//         self.classList.remove('fa-minus-circle');
-//         self.classList.add('fa-plus-circle');
-//         self.parentElement.parentElement.parentElement.nextSibling.nextSibling.childNodes.forEach(function(c, self) {
-//           if (c.nodeName != '#text') {
-//             if (c.classList[0] == 'underbar_options') {
-//               hideAll(c);
-//             }
-//             c.classList.add('slideUp');
-//             c.classList.remove('slideDown');
-//           }
-//         });
-//         break;
-//       }
-//     }
-//   });
-// });
-// Array.from(document.getElementsByClassName('img_icon')).forEach(function(e) {
-//   e.addEventListener('click', function() {
-//     var self = this;
-//     self.parentElement.nextElementSibling.childNodes.forEach(function(c) {
-//       if (c.nodeName != '#text' && c.id.split('_')[0] == self.id) {
-//         if (c.parentElement.dataset.openoption != '' && c.parentElement.dataset.openoption != c.id) {
-//           //closes other tabs
-//           hideOption(c.parentElement.childNodes[1], c.parentElement.dataset.openoption);
-//         }
-//         if (c.parentElement.dataset.openoption == c.id) {
-//           c.setAttribute('hidden', true);
-//           c.parentElement.dataset.openoption = '';
-//         } else {
-//           c.removeAttribute('hidden');
-//           c.parentElement.dataset.openoption = c.id;
-//         }
-//       }
-//     });
-//   });
-// });

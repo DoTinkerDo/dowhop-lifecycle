@@ -1,6 +1,7 @@
 'use strict';
 
-var doWhopDescriptionRef = database.ref('/DoWhopDescriptions');
+var doWhopDescriptionsRef = database.ref('/DoWhopDescriptions');
+
 var titleDescription = document.getElementById('title-description');
 var whyDescription = document.getElementById('why-description');
 var whoDescription = document.getElementById('who-description');
@@ -10,23 +11,31 @@ var whereDescription = document.getElementById('where-description');
 var howMuchDescription = document.getElementById('how-much-description');
 var creatorDescription = document.getElementById('creator-description');
 var doerDescription = document.getElementById('doer-description');
-var dowhopImageCapture = document.getElementById('dowhop-image-capture');
-var submitNewDoWhopBtn = document.getElementById('create-new-dowhop');
+var dowhopImageCapture1 = document.getElementById('dowhop-image-capture1');
+var dowhopImageCapture2 = document.getElementById('dowhop-image-capture2');
+var dowhopImageCapture3 = document.getElementById('dowhop-image-capture3');
+
 var adminEditDoWhopForm = document.getElementById('admin-edit-dowhop-form');
-var creatorDescriptionUpdate = document.getElementById('creatorDescriptionUpdate');
-var doerDescriptionUpdate = document.getElementById('doerDescriptionUpdate');
-submitNewDoWhopBtn.addEventListener('click', submitNewDoWhopEntry);
-var emailSubmitBtn = document.getElementById('emailSubmit');
-emailSubmitBtn.addEventListener('click', updateEmails);
 var selectedForEdit = document.getElementById('selected-for-edit');
+var creatorDescriptionUpdate = document.getElementById('creator-description-email-update');
+var doerDescriptionUpdate = document.getElementById('doer-description-email-update');
+
 var error = document.getElementById('errorAdmin');
+
+var doWhopPlacard = document.getElementById('dowhop-placard');
+
+var submitNewDoWhopBtn = document.getElementById('create-new-dowhop');
+var emailSubmitBtn = document.getElementById('emailSubmit');
+
+submitNewDoWhopBtn.addEventListener('click', submitNewDoWhopEntry);
+emailSubmitBtn.addEventListener('click', updateCreatorDoerEmails);
 
 function submitNewDoWhopEntry(e) {
   e.preventDefault();
 
   if (
     !validateAddDoWhopDescription(
-      file,
+      files,
       titleDescription.value,
       whyDescription.value,
       whoDescription.value,
@@ -34,6 +43,8 @@ function submitNewDoWhopEntry(e) {
       whenDescription.value,
       whereDescription.value,
       howMuchDescription.value
+      // creatorDescription.value,
+      // doerDescription.value
     )
   ) {
     alert('Please fill out all the fields and add an Image, Try again.');
@@ -41,31 +52,34 @@ function submitNewDoWhopEntry(e) {
   }
 
   var uid = auth.currentUser.uid;
-  var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
+  var doWhopDescriptionKey = doWhopDescriptionsRef.push().key;
   var defaultImageURL = '../images/dowhopicon.gif';
-  var filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
   var creatorDisplayName = auth.currentUser.displayName;
 
   // We are preparing a first message to the future chat thread:
   function createWelcomingMessage() {
-    showConfirmationMessage();
     // Gathering the appropriate data to fill out message:
     var DoWhopTitleDescription, DoWhopWhenDescription, DoWhopWhereDescription;
 
-    doWhopDescriptionRef.child(doWhopDescriptionKey).once('value', function(snap) {
+    doWhopDescriptionsRef.child(doWhopDescriptionKey).once('value', function(snap) {
       DoWhopTitleDescription = snap.val().titleDescription;
       DoWhopWhenDescription = snap.val().whenDescription;
       DoWhopWhereDescription = snap.val().whereDescription;
     });
 
-    var teamName = "Your DoWhop Team";
-    var welcomeMessageText = "Welcome to your "
-          + DoWhopTitleDescription
-          + " DoWhop!\n\n"
-          + "Currently, " + creatorDisplayName + " plans to meet \""
-          + DoWhopWhenDescription
-          + "\" at \"" + DoWhopWhereDescription + "\".\n"
-          + "Coordinate the details here!";
+    var teamName = 'Your DoWhop Team';
+    var welcomeMessageText =
+      'Welcome to your ' +
+      DoWhopTitleDescription +
+      ' DoWhop!\n\n' +
+      'Currently, ' +
+      creatorDisplayName +
+      ' plans to meet "' +
+      DoWhopWhenDescription +
+      '" at "' +
+      DoWhopWhereDescription +
+      '".\n' +
+      'Coordinate the details here!';
 
     var messagesChatsRef = firebase.database().ref().child('messages').child(doWhopDescriptionKey);
     messagesChatsRef.push({
@@ -76,11 +90,11 @@ function submitNewDoWhopEntry(e) {
     });
   }
 
-  storage.ref(filePath).put(file).then(function(snapshot) {
-    doWhopDescriptionRef.child(doWhopDescriptionKey).set({
+  doWhopDescriptionsRef
+    .child(doWhopDescriptionKey)
+    .set({
       createdBy: uid,
       doWhopDescriptionKey: doWhopDescriptionKey,
-      downloadURL: snapshot.metadata.downloadURLs[0],
       titleDescription: titleDescription.value,
       whyDescription: whyDescription.value,
       whoDescription: whoDescription.value,
@@ -90,34 +104,44 @@ function submitNewDoWhopEntry(e) {
       howMuchDescription: howMuchDescription.value,
       creatorDescription: creatorDescription.value,
       doerDescription: doerDescription.value
-    }).then(
-      createWelcomingMessage()
-    );
-    clearNewDoWhopEntryForm();
+    })
+    .then(showConfirmationMessage());
+
+  files.forEach(function(file, idx) {
+    var filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
+    storage.ref(filePath).put(file).then(function(snapshot) {
+      var path = snapshot.metadata.fullPath;
+      storage.ref(path).getDownloadURL().then(function(url) {
+        var obj = {};
+        obj['image' + (idx + 1)] = url;
+        doWhopDescriptionsRef.child(doWhopDescriptionKey).child('downloadURL').update(obj);
+      });
+    });
   });
+  createWelcomingMessage();
+  clearNewDoWhopEntryForm();
 }
 
-var file = null;
-
+var files = [];
 function addDoWhopImage(files_arr, node) {
-  return (file = files_arr[0]);
-  if (!file.type.match('image/.*')) {
+  return files.push(files_arr[0]);
+  if (!files_arr[0].type.match('image/.*')) {
     alert('You can only add images at the moment.');
     return;
   }
 }
 
 function validateAddDoWhopDescription(
-  file,
+  files,
   titleDescription,
   whyDescription,
   whoDescription,
   whatDescription,
   whenDescription,
   whereDescription,
-  howMuchDescription,
-  creatorDescription,
-  doerDescription
+  howMuchDescription
+  // creatorDescription,
+  // doerDescription
 ) {
   if (
     titleDescription === '' ||
@@ -127,16 +151,16 @@ function validateAddDoWhopDescription(
     whenDescription === '' ||
     whereDescription === '' ||
     howMuchDescription === '' ||
-    creatorDescription === '' ||
-    doerDescription === '' ||
-    file === null
+    // creatorDescription === '' ||
+    // doerDescription === '' ||
+    files.length < 1
   )
     return false;
   return true;
 }
 
 function clearNewDoWhopEntryForm() {
-  file = null;
+  files = [];
   titleDescription.value = '';
   whyDescription.value = '';
   whoDescription.value = '';
@@ -144,110 +168,114 @@ function clearNewDoWhopEntryForm() {
   whenDescription.value = '';
   whereDescription.value = '';
   howMuchDescription.value = '';
-  dowhopImageCapture.value = '';
+  dowhopImageCapture1.value = '';
+  dowhopImageCapture2.value = '';
+  dowhopImageCapture3.value = '';
   creatorDescription.value = '';
   doerDescription.value = '';
 }
 
-// Function for admins to hand-code Doer, Creator emails for Betas:
-var currentNode;
-
-function revealEditEmailForm(node) {
-  adminEditDoWhopForm.removeAttribute('hidden');
-  currentNode = node.parentElement.id;
-  var currentNodeTitle = '';
-  // Show current title in UI:
-  var ref = firebase.database().ref('DoWhopDescriptions/' + currentNode);
-  ref.once('value', function(data) {
-    var currentNodeTitle = data.val().titleDescription;
-    selectedForEdit.innerHTML = 'Edit: ' + currentNodeTitle;
-  });
-  return currentNode;
-}
-
-function updateEmails(e) {
-  e.preventDefault();
-  adminEditDoWhopForm.removeAttribute('hidden');
-  var rootRefEvents = firebase.database().ref('DoWhopDescriptions/');
-  var newCreatorEmail = document.getElementById('creatorDescriptionUpdate');
-  var newDoerEmail = document.getElementById('doerDescriptionUpdate');
-  rootRefEvents.child(currentNode).child('creatorDescription').set(newCreatorEmail.value);
-  rootRefEvents.child(currentNode).child('doerDescription').set(newDoerEmail.value);
-  selectedForEdit.innerHTML = 'Edit your DoWhop';
-  error.innerHTML = 'Emails have been updated!';
-  adminEditDoWhopForm.reset();
-}
-
-// Adding function to add a chosen dowhop a user's list.
-function addToMyDoWhops(node) {
-  firebase
-    .database()
-    .ref()
-    .child('app_users/' + auth.currentUser.uid + '/doer/' + node.parentElement.id)
-    .update({ doer: true });
-}
-
-var doWhopPlacard = document.getElementById('dowhop-placard');
-
 function registerDoWhopDescriptionCallback() {
-  doWhopDescriptionRef.on('value', function(snapshot) {
-    var doWhopPlacardsDesc = _.map(snapshot.val()).reverse();
+  doWhopDescriptionsRef.on('value', function(snapshot) {
+    var doWhopDescriptions = _.map(snapshot.val()).reverse();
     var div = document.createElement('div');
     doWhopPlacard.innerHTML = '';
-    doWhopPlacardsDesc.forEach(function(data) {
+    doWhopDescriptions.forEach(function(doWhopDescription) {
+      var imageURL =
+        (doWhopDescription.downloadURL && doWhopDescription.downloadURL.image1) || doWhopDescription.downloadURL;
+
       div.innerHTML +=
-        "<section id='" +
-        data.doWhopDescriptionKey +
-        "' class='dowhop-selector-block'>" +
-        "<i class='material-icons dowhop-action' onclick='addToMyDoWhops(this)'>person_add</i>" +
-        "<i class='material-icons dowhop-action' onclick='revealEditEmailForm(this)'>mode_edit</i>" +
-        "<div class='dowhop-selector-header' style='background-image: url(" +
-        data.downloadURL +
-        ");'>" +
+        '<aside  class="mdl-card dowhop-selector" id="' +
+        doWhopDescription.doWhopDescriptionKey +
+        '" onclick="revealEditEmailForm(this)" >' +
+        '<div class="dowhop-selector-header" style="background-image: url(' +
+        imageURL +
+        ');">' +
         '<h1>' +
-        data.titleDescription +
+        doWhopDescription.titleDescription +
         '</h1>' +
         '</div>' +
-        "<div class='dowhop-selector-body'>" +
+        '<div class="dowhop-selector-body mdl-layout__content">' +
         '<h5>What?</h5>' +
         '<p>' +
-        data.whatDescription +
+        doWhopDescription.whatDescription +
         '</p>' +
         '<h5>Why?</h5>' +
         '<p>' +
-        data.whyDescription +
+        doWhopDescription.whyDescription +
         '</p>' +
         '<h5>Who?</h5>' +
         '<p>' +
-        data.whoDescription +
+        doWhopDescription.whoDescription +
         '</p>' +
         '<h5>When?</h5>' +
         '<p>' +
-        (data.whenDescription || 'By request') +
+        (doWhopDescription.whenDescription || 'By request') +
         '</p>' +
         '<h5>Where?</h5>' +
         '<p>' +
-        data.whereDescription +
+        doWhopDescription.whereDescription +
         '</p>' +
         '<h5>How much?</h5>' +
         '<p>' +
-        data.howMuchDescription +
+        doWhopDescription.howMuchDescription +
         '</p>' +
         '<h5>Who is the creator?</h5>' +
         '<p>' +
-        (data.creatorDescription || 'TBD') +
+        (doWhopDescription.creatorDescription || 'TBD') +
         '</p>' +
         '<h5>Who is doer?</h5>' +
         '<p>' +
-        (data.doerDescription || 'TBD') +
+        (doWhopDescription.doerDescription || 'TBD') +
         '</p>' +
         '</div>' +
-        '</section>';
+        '</aside>';
       doWhopPlacard.append(div);
     });
   });
 }
 
+// Add Doer(s) or a Creator email to a DoWhopDescription
+var doWhopDescriptionKeyForUpdate = '';
+
+function revealEditEmailForm(node) {
+  adminEditDoWhopForm.removeAttribute('hidden');
+  var currentNodeTitle = '';
+  doWhopDescriptionKeyForUpdate = node.id;
+  var doWhopDescriptionRef = doWhopDescriptionsRef.child(doWhopDescriptionKeyForUpdate);
+  doWhopDescriptionRef.once('value', function(data) {
+    var doWhopDescription = data.val();
+    var currentNodeTitle = doWhopDescription.titleDescription;
+    selectedForEdit.innerHTML = 'Edit: ' + currentNodeTitle;
+    creatorDescriptionUpdate.value = doWhopDescription.creatorDescription;
+    doerDescriptionUpdate.value = doWhopDescription.doerDescription;
+  });
+}
+
+function updateCreatorDoerEmails(e) {
+  e.preventDefault();
+  adminEditDoWhopForm.removeAttribute('hidden');
+  doWhopDescriptionsRef.child(doWhopDescriptionKeyForUpdate).update({
+    creatorDescription: creatorDescriptionUpdate.value,
+    doerDescription: doerDescriptionUpdate.value
+  });
+  selectedForEdit.innerHTML = 'Edit your DoWhop';
+  error.innerHTML = 'Emails have been updated!';
+  adminEditDoWhopForm.reset();
+}
+
 function showConfirmationMessage() {
   window.alert('Thanks for submitting your DoWhop!');
+}
+
+// Adding function to add a chosen dowhop a user's list.
+// TODO Determing if this is still used...
+function addToMyDoWhops(node) {
+  console.log('ADDTOMYDOWHOPS CALLED IN ADMIN -> ', node);
+  database
+    .ref('app_users')
+    .child(auth.currentUser.uid)
+    .child('doer')
+    .child(node.parentElement.id)
+    .update({ doer: true });
 }
