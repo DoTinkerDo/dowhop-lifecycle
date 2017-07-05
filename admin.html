@@ -25,7 +25,7 @@
   </head>
   <body>
     <div class="mdl-grid">
-      <button class="mdl-cell mdl-cell--12-col mdl-button mdl-js-button button-style" onclick="auth.signOut()">Log Out</button>
+      <button class="mdl-cell mdl-cell--12-col btn-default" onclick="auth.signOut()">Log Out</button>
     </div>
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--6-col">
@@ -77,8 +77,8 @@
                   <input id="dowhop-image-capture1" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
                   <input id="dowhop-image-capture2" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
                   <input id="dowhop-image-capture3" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
-                  <button class="mdl-button mdl-js-button button-style" id="create-new-dowhop">
-                    Create New DoWhop
+                  <button class="btn-default" id="create-new-dowhop">
+                    Create DoWhop
                   </button>
                 </div>
               </form>
@@ -107,7 +107,7 @@
               </div>
               <!-- END NEW -->
               <div class="mdl-card__actions">
-                <button class="mdl-button mdl-js-button button-style" id="emailSubmit">
+                <button class="btn-default" id="emailSubmit">
                   Update
                   <div class="mdl-tooltip" for="emailSubmit">Click here to update the DoWhop information!</div>
                 </button>

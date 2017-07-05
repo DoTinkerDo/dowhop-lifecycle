@@ -92,11 +92,11 @@
         <input id="radioApprove" type="radio" name="approval" value="approve">Approve
         <input id="radioDeny" type="radio" name="denial" value="deny">Deny
       </span>
-        <button id="submit-approval-button" type="submit" class="mdl-button mdl-js-button button-style">Send
+        <button id="submit-approval-button" type="submit" class="btn-default">Send
         </button>
       </form>
       <form hidden id="rescind-pending-form" class="approval-form">
-        <button id="submit-rescind-button" type="submit" class="mdl-button mdl-js-button button-style">Rescind
+        <button id="submit-rescind-button" type="submit" class="btn-default">Rescind
         </button>
       </form>
     </section> <!-- End Notifications Container -->
@@ -161,9 +161,8 @@
                   <input id="dowhop-image-capture2" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
                   <input id="dowhop-image-capture3" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
                 </div>
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="create-new-dowhop">
-                  Create New DoWhop
-                  <div class="mdl-tooltip" for="create-new-dowhop">Click here to share your DoWhop!</div>
+                <button class="btn-default" id="create-new-dowhop">
+                  Create
                 </button>
                 </div>
               </form>
@@ -221,7 +220,7 @@
               <!-- END NEW -->
               <di v class="mdl-card__actions">
               <!-- <input id="dowhop-image-capture" type="file" accept="image/*,capture=camera" onchange="addDoWhopImage(this.files, this)"> -->
-                <button class="mdl-button mdl-js-button button-style" id="submit-update-dowhop">
+                <button class="btn-default" id="submit-update-dowhop">
                   Update
                   <div class="mdl-tooltip" for="submit">Click here to update your DoWhop!</div>
                 </button>
@@ -263,7 +262,7 @@
                           <img onclick="revealInput('image')" src="images/image-add-button.png" alt="" width="24" height="24">
                         </div>
                         <div id="send-message-button">
-                          <button id="submit-message-button" disabled type="submit" class="options-div-submit">
+                          <button class="btn-default" id="submit-message-button" type="submit">
                             Send
                           </button>
                         </div>
@@ -288,7 +287,7 @@
             </div>
             <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
               <div class="mdl-snackbar__text"></div>
-              <button class="mdl-snackbar__action button-style button-style" type="button"></button>
+              <button class="mdl-snackbar__action btn-default" type="button"></button>
             </div>
           </div>
         </section> <!-- End coordinate app  -->
@@ -345,7 +344,7 @@
                         <span class="mdl-textfield__error">Max characters for a comment is 140</span>
                       </div>
                       <div class="mdl-card__actions">
-                        <button class="mdl-button mdl-js-button button-style">
+                        <button class="btn-default">
                           Submit
                         </button>
                       </div>
@@ -369,7 +368,7 @@
                       <span class="mdl-textfield__error">Max characters for a comment is 140</span>
                     </div>
                     <div class="mdl-card__actions">
-                      <button class="mdl-button mdl-js-button button-style submit-comment doer" id="doer">
+                      <button class="btn-default submit-comment doer" id="doer">
                         Submit
                       </button>
                     </div>
@@ -393,7 +392,7 @@
                         <span class="mdl-textfield__error">Max characters for a comment is 140</span>
                       </div>
                       <div class="mdl-card__actions">
-                        <button class="mdl-button mdl-js-button button-style submit-comment dowhop" id="dowhop">
+                        <button class="btn-default submit-comment dowhop" id="dowhop">
                           Submit
                         </button>
                       </div>
