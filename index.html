@@ -53,7 +53,7 @@
 
     <!-- Navigation Container -->
     <header class="mdl-grid">
-      <div class="mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--3-offset-desktop">
+      <div class="mdl-cell mdl-cell--6-col mdl-cell--3-offset-desktop">
         <ul class="tabs">
           <li>
             <a id="create-tab" class="tab" id="create-icon" href="#create" onclick="getSesh(this)">
@@ -113,13 +113,13 @@
             </a>
           </li>
         </ul>
+      </div>
 
-        <div class="dropdown">
-          <img class="dropbtn" id="user-icon" src="/images/user-icon.png">
-          <div class="dropdown-content">
-            <a class="btn-logout" href="#" onclick="auth.signOut()">Log Out</a>
-            <a class="" href="" onclick="">My Profile </a>
-          </div>
+      <div class="mdl-cell mdl-cell--3-col dropdown">
+        <img class="dropbtn" id="user-icon" src="/images/user-icon.png" alt="">
+        <div class="dropdown-content">
+          <a class="btn-logout" href="#" onclick="auth.signOut()">Log Out</a>
+          <a href="#">My Profile</a>
         </div>
       </div>
     </header><!-- End Navigation -->
