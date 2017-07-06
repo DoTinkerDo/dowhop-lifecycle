@@ -430,7 +430,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
 	}
 
 	// Check that the user entered a message and is signed in:
-	if (this.messageInput.value && this.checkSignedInWithMessage()) {
+	if (this.messageInput && this.checkSignedInWithMessage()) {
 		messagesChatsRef
 			.push({
 				chatId: currentDoWhopID,
