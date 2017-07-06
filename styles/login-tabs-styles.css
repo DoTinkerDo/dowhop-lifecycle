@@ -1,55 +1,9 @@
-/* TAB NAVIATION */
-.tabs-container {
-  max-width: 800px;
-  margin: 0 auto;
-}
+/* 
+  
+  LOGIN SPLASH PAGE
 
-ul {
-  list-style: none;
-  overflow: hidden;
-  color: #605e5e;
-}
-.panel {
-  overflow: scroll;
-  margin-bottom: 10px;
-}
-ul a {
-  text-decoration: none;
-  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
-  padding: 10px;
-  float: left;
-}
+*/
 
-ul a:hover,
-ul a:focus {
-  color: #fff;
-  text-decoration: none;
-}
-
-ul.tabs a.selected,
-ul.tabs a[aria-selected='true'] {
-  color: #fff;
-  text-decoration: none;
-}
-
-div[aria-hidden='true'] {
-  display: none;
-}
-
-.tab::after{
-  stroke:#000000;
-  content: "";
-  width:23px;
-  height:23px;
-  display: inline-block;
-}
-.tab:hover,
-.tab:focus{
-  fill: #ec1928;
-  transition: all .5s ease 0s;
-}
-
-/* LOGIN SPLASH PAGE */
 #login-page {
   max-width: 800px;
   margin: 0 auto;
@@ -70,54 +24,109 @@ div[aria-hidden='true'] {
   margin-top: 5%;
   margin-bottom: 100px;
   font: normal normal normal 38px/1.4em 'Avenir Light', sans-serif;
-  line-height: .8em;
-  font-weight: normal;
-  font-size: 56px;
   text-align: center;
   color: #606060;
 }
 
-/* INDEX PAGE CONVENIENCE STYLES */
-.hide-component {
+/* 
+
+  TAB NAVIGATION 
+
+*/
+
+ul {
+  list-style: none;
+}
+
+ul a {
+  text-decoration: none;
+  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
+  color: #000000;
+  transition: all .4s ease 0s;
+  padding: 0 15px;
+  float: left;
+}
+
+ul a:hover,
+ul a:focus {
+  color: #ec1928;
+  text-decoration: none;
+}
+
+ul.tabs a.selected,
+ul.tabs a[aria-selected='true'] {
+  text-decoration: none;
+}
+
+div[aria-hidden='true'] {
   display: none;
 }
 
-.dropbtn {
-    cursor: pointer;
-    margin-top: -86px;
-    margin-left: 700px;
+/*  
+
+  SVG TAB ICON 
+  HOVER STYLES
+  
+*/
+
+li a {
+  width: 80px;
+  height: auto;
 }
 
-/* The container <div> - needed to position the dropdown content */
+.tab::after {
+  stroke: #000000;
+  display: inline-block;
+  content: "";
+  transition: all .4s ease 0s;
+}
+
+ul a:hover,
+ul a:focus {
+  fill: #ec1928;
+}
+
+/*The container <div> - needed to position the dropdown content */
+
 .dropdown {
-    position: relative;
-    display: inline-block;
-    margin-top: -86px;
+  position: relative;
+  display: inline-block;
 }
 
-/* Dropdown Content (Hidden by Default) */
+.dropbtn {
+  cursor: pointer;
+}
+
 .dropdown-content {
-    margin-top: -39px;
-    display: none;
-    position: absolute;
-    min-width: 120px;
-    box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    margin-left: 700px;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 1%;
+  min-width: 120px;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
-/* Links inside the dropdown */
 .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
 }
 
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
 
-/* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
-    display: block;
+  display: block;
+}
+/* 
+    INDEX PAGE 
+    CONVENIENCE STYLES
+*/
+
+.hide-component {
+  display: none;
 }
