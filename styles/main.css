@@ -1,11 +1,35 @@
-/* Adding in template presets */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-/* Color palette
-Replaced #hover-flag, #top-bar-hidden, #top-bar-dowhop  #FF0404 (red) with #ec1928
-Repalced #title and #pac-input focus #4d90fe (blue) with #ec1928
-Replaced #user-list border #cfd9df (blue-grey) with #c0c0c0*
+::placeholder {
+  color: #cfcfcf;
+}
 
-TODO: standardize grey pallette */
+body {
+  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
+}
+
+input {
+  border: none;
+  outline: none;
+  background: none;
+  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
+  color: #606060;
+}
+
+header {
+  text-align: center;
+  padding-top: 10px;
+}
+
+header h1 {
+  font-size: 24px;
+}
 
 main,
 #messages-card {
@@ -399,44 +423,6 @@ h5 {
 
 .message img {
   max-height: 20%;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  height: 100%;
-  background: #fff;
-}
-
-::placeholder {
-  color: #cfcfcf;
-}
-
-body {
-  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
-}
-
-input {
-  border: none;
-  outline: none;
-  background: none;
-  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
-  color: #606060;
-}
-
-header {
-  text-align: center;
-  padding-top: 10px;
-}
-
-header h1 {
-  font-size: 24px;
 }
 
 .wrap {
