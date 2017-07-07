@@ -739,3 +739,26 @@ button {
 	background-color: #ffffff;
 	color: #ec1928;
 }
+
+/* Smaller version of above button */
+
+.btn-small {
+	font: normal normal normal 14px/1.4em 'Avenir Light', Avenir Light, Arial, sans-serif;
+	background-color: #ec1928;
+	height: 40px;
+	min-height: 19px;
+	width: 71px;
+	color: #ffffff;
+	text-align: center;
+	cursor: pointer;
+	-webkit-transition: all 0.4s ease 0s;
+	-moz-transition: all 0.4s ease 0s;
+	-o-transition: all 0.4s ease 0s;
+	transition: all 0.4s ease 0s;
+}
+
+.btn-small:hover,
+.btn-small:focus {
+	background-color: #ffffff;
+	color: #ec1928;
+}
