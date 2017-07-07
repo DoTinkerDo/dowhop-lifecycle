@@ -175,20 +175,14 @@ FriendlyChat.prototype.sendApprovalAction = function(e) {
 FriendlyChat.prototype.sendDenialAction = function(e) {
   e.preventDefault();
   console.log('you clicked send denial!');
-};
-
-FriendlyChat.prototype.sendApproval = function(e) {
-  console.log('you clicked send approval!');
-  e.preventDefault();
   let choice, newDate, newTime, newWhere;
   this.chatItemDataSpecific = document.getElementById('dowhop-selector-container').children[0].id;
   var myRef = this.database.ref().child('DoWhopDescriptions').child(this.chatItemDataSpecific);
   var myRefPending = this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending');
   var messagesRef = this.database.ref().child('messages/' + this.chatItemDataSpecific);
   let status;
-
-  var radioApprove = document.getElementById('radioApprove');
-  var radioDeny = document.getElementById('radioDeny');
+  // var radioApprove = document.getElementById('radioApprove');
+  // var radioDeny = document.getElementById('radioDeny');
   var approvalForm = document.getElementById('approve-pending-form');
   var rescindingForm = document.getElementById('rescind-pending-form');
   var pendingDiv = document.getElementById('pending-div');
@@ -206,36 +200,15 @@ FriendlyChat.prototype.sendApproval = function(e) {
     }
   });
 
-  if (radioApprove.checked) {
-    status = 'approved';
+  status = 'denied';
+  this.database
+    .ref()
+    .child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending/')
+    .update({
+      status: status
+    })
+    .then(approvalForm.reset());
 
-    if (newDate != null) {
-      myRef.update({ whenDate: newDate });
-    }
-    if (newTime != null) {
-      myRef.update({ whenTime: newTime });
-    }
-    if (newWhere != null) {
-      myRef.update({ whereAddress: newWhere });
-    }
-
-    this.database
-      .ref()
-      .child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending/')
-      .update({
-        status: status
-      })
-      .then(approvalForm.reset());
-  } else if (radioDeny.checked) {
-    status = 'denied';
-    this.database
-      .ref()
-      .child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending/')
-      .update({
-        status: status
-      })
-      .then(approvalForm.reset());
-  }
   messagesRef.push({
     chatId: this.chatItemDataSpecific,
     name: '',
@@ -244,7 +217,7 @@ FriendlyChat.prototype.sendApproval = function(e) {
   });
 
   // Notify the user of a change here:
-  window.alert('You have responded to the change request!');
+  window.alert('You have denied the change request.');
 
   // Clear the leftover pending object data:
   myRefPending.remove();
@@ -254,6 +227,85 @@ FriendlyChat.prototype.sendApproval = function(e) {
   rescindingForm.setAttribute('hidden', 'true');
   pendingDiv.innerHTML = '';
   pendingDiv.setAttribute('hidden', 'true');
+};
+
+FriendlyChat.prototype.sendApproval = function(e) {
+  // console.log('you clicked send approval!');
+  // e.preventDefault();
+  // let choice, newDate, newTime, newWhere;
+  // this.chatItemDataSpecific = document.getElementById('dowhop-selector-container').children[0].id;
+  // var myRef = this.database.ref().child('DoWhopDescriptions').child(this.chatItemDataSpecific);
+  // var myRefPending = this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending');
+  // var messagesRef = this.database.ref().child('messages/' + this.chatItemDataSpecific);
+  // let status;
+  //
+  // var radioApprove = document.getElementById('radioApprove');
+  // var radioDeny = document.getElementById('radioDeny');
+  // var approvalForm = document.getElementById('approve-pending-form');
+  // var rescindingForm = document.getElementById('rescind-pending-form');
+  // var pendingDiv = document.getElementById('pending-div');
+  //
+  // // Updating these checks to make it more modular... (ie, avoid over-writing!).
+  // myRefPending.once('value', function(snap) {
+  //   if (snap.val().whenDatePending) {
+  //     newDate = snap.val().whenDatePending;
+  //   }
+  //   if (snap.val().whenTimePending) {
+  //     newTime = snap.val().whenTimePending;
+  //   }
+  //   if (snap.val().whereAddressPending) {
+  //     newWhere = snap.val().whereAddressPending;
+  //   }
+  // });
+  //
+  // if (radioApprove.checked) {
+  //   status = 'approved';
+  //
+  //   if (newDate != null) {
+  //     myRef.update({ whenDate: newDate });
+  //   }
+  //   if (newTime != null) {
+  //     myRef.update({ whenTime: newTime });
+  //   }
+  //   if (newWhere != null) {
+  //     myRef.update({ whereAddress: newWhere });
+  //   }
+  //
+  //   this.database
+  //     .ref()
+  //     .child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending/')
+  //     .update({
+  //       status: status
+  //     })
+  //     .then(approvalForm.reset());
+  // } else if (radioDeny.checked) {
+  //   status = 'denied';
+  //   this.database
+  //     .ref()
+  //     .child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending/')
+  //     .update({
+  //       status: status
+  //     })
+  //     .then(approvalForm.reset());
+  // }
+  // messagesRef.push({
+  //   chatId: this.chatItemDataSpecific,
+  //   name: '',
+  //   text: person.displayName + ' has ' + status + ' the request.',
+  //   photoUrl: '../images/searching-a-person.png'
+  // });
+  //
+  // // Notify the user of a change here:
+  // window.alert('You have responded to the change request!');
+  //
+  // // Clear the leftover pending object data:
+  // myRefPending.remove();
+  //
+  // // Add UI reset information here:
+  // approvalForm.setAttribute('hidden', 'true');
+  // rescindingForm.setAttribute('hidden', 'true');
+  // pendingDiv.innerHTML = '';
+  // pendingDiv.setAttribute('hidden', 'true');
 };
 
 FriendlyChat.prototype.sendRescind = function(e) {
