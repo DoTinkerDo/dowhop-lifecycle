@@ -291,28 +291,8 @@ h5 {
   PENDING NOTIFICATIONS STYLING
 */
 
-.donate-now {
-	list-style-type: none;
-	margin: 25px 0 0 0;
-	padding: 0;
-}
-
-.donate-now li {
+.approve-pending-form-list li {
 	float: left;
-	margin: 0 5px 0 0;
-	width: 100px;
-	height: 40px;
-	position: relative;
-}
-
-.donate-now label,
-.donate-now input {
-	display: block;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
 }
 
 .approve-pending-form-list input[type="radio"] {
@@ -320,38 +300,43 @@ h5 {
 	z-index: 100;
 }
 
+#radioApprove + label {
+	/*background-image: url('https://www.iconexperience.com/_img/g_collection_png/standard/64x64/checkbox.png');*/
+}
+
+#radioDeny + label {
+	/*background-image: url('https://www.iconexperience.com/_img/g_collection_png/standard/64x64/close.png');*/
+}
+
 .approve-pending-form-list input[type="radio"]:checked + label,
 .Checked + label {
-	background: yellow;
+	background: #ec1928;
+	background-image: none;
 }
 
 .approve-pending-form-list label {
-	padding: 5px;
-	border: 1px solid #ccc;
+	padding-top: 32px;
+	margin-top: 32px;
+	padding-left: 32px;
+	border: 1px solid #ec1928;
 	cursor: pointer;
 	z-index: 90;
 }
 
 .approve-pending-form-list label:hover {
-	background: #ddd;
+	background: #ec1928;
 }
 
 .pending-notification {
 	color: #ec1928;
-	/*font-size: 1.25em;*/
-	background-color: eggShell;
-	/*padding: 0 10%;*/
 }
 
 #pending-div {
 	color: #ec1928;
-	/*font-size: 1.25em;*/
-	background-color: eggShell;
 }
 
 .approval-form {
 	color: #ec1928;
-	background-color: eggShell;
 }
 
 /* Styling underbar icons, inputs  of message input area */
