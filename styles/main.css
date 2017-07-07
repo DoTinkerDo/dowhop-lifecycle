@@ -708,10 +708,12 @@ span.clear {
 
 /*
 
-  Buttons &
-  Btn default 
-  Btn small
+  Buttons
 
+  Usage -> 
+  class="btn btn-default"
+  class="btn btn-small"
+  
 */
 
 button {
