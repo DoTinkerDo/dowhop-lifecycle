@@ -70,8 +70,15 @@ div[aria-hidden='true'] {
 */
 
 li a {
-  width: 80px;
+  width: 70px;
   height: auto;
+}
+
+@media screen and (min-width: 376px) {
+  li a {
+    width: 80px;
+    height: auto;
+  }
 }
 
 .tab::after {
