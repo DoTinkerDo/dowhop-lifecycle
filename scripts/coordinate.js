@@ -102,12 +102,12 @@ FriendlyChat.prototype.checkForAdmin = function() {
 FriendlyChat.prototype.sendApproval = function(e) {
 	console.log('you clicked send approval!');
 	e.preventDefault();
-	var choice, newDate, newTime, newWhere;
+	let choice, newDate, newTime, newWhere;
 	this.chatItemDataSpecific = document.getElementById('dowhop-selector-container').children[0].id;
 	var myRef = this.database.ref().child('DoWhopDescriptions').child(this.chatItemDataSpecific);
 	var myRefPending = this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending');
 	var messagesRef = this.database.ref().child('messages/' + this.chatItemDataSpecific);
-	var status;
+	let status;
 
 	var radioApprove = document.getElementById('radioApprove');
 	var radioDeny = document.getElementById('radioDeny');
@@ -120,11 +120,9 @@ FriendlyChat.prototype.sendApproval = function(e) {
 		if (snap.val().whenDatePending) {
 			newDate = snap.val().whenDatePending;
 		}
-
 		if (snap.val().whenTimePending) {
 			newTime = snap.val().whenTimePending;
 		}
-
 		if (snap.val().whereAddressPending) {
 			newWhere = snap.val().whereAddressPending;
 		}
@@ -136,20 +134,12 @@ FriendlyChat.prototype.sendApproval = function(e) {
 		if (newDate != null) {
 			myRef.update({ whenDate: newDate });
 		}
-
 		if (newTime != null) {
 			myRef.update({ whenTime: newTime });
 		}
-
 		if (newWhere != null) {
 			myRef.update({ whereAddress: newWhere });
 		}
-
-		// myRef.update({
-		// 	whenDate: newDate,
-		// 	whenTime: newTime,
-		// 	whereAddress: newWhere
-		// });
 
 		this.database
 			.ref()
