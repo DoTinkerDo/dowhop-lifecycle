@@ -442,10 +442,8 @@ FriendlyChat.prototype.saveMessage = function(e) {
 			})
 			.then(
 				function() {
-					this.resetDateTimeWhere; // Catch-all.
-					console.log('saved your message...');
 					document.getElementById('message').value = ''; //  Clearing text field last because it would erase above otherwise.
-					// this.toggleButton();
+					this.resetDateTimeWhere; // Catch-all.
 				}.bind(this)
 			)
 			.catch(function(error) {
@@ -470,10 +468,6 @@ FriendlyChat.prototype.resetDateTimeWhere = function() {
 	document.getElementById('whenDatePending').value = null;
 	document.getElementById('whenTimePending').value = null;
 	document.getElementById('whereAddressPending').value = null;
-};
-
-FriendlyChat.prototype.resetMessageFormInput = function() {
-	document.getElementById('message').value = '';
 };
 
 // Sets the URL of the given img element with the URL of the image stored in Cloud Storage.
