@@ -301,14 +301,19 @@ FriendlyChat.prototype.getSession = function() {
 				var doWhopDescriptionTitle = data.val().titleDescription || 'Your DoWhops Will Appear Here';
 
 				// Adding these logic checks so that when users update their information, new times, dates, etc render in 'View':
-				let renderWhenInformation = data.val().whenDescription || 'By request!';
-				let renderWhereInformation = data.val().whereDescription || 'By request!';
+				let renderWhenInformation = data.val().whenDescription;
+				let renderWhereInformation = data.val().whereDescription;
 
-				if (data.val().whereAddressPending) {
-					renderWhereInformation = data.val().whereAddressPending;
+				if (data.val().whereAddress && data.val().whereAddress != 'By request') {
+					renderWhereInformation = data.val().whereAddress;
 				}
 
-				if (data.val().whenDate && data.val().whenTime) {
+				if (
+					data.val().whenDate &&
+					data.val().whenDate != 'By request' &&
+					data.val().whenTime &&
+					data.val().whenTime != 'By request'
+				) {
 					renderWhenInformation = data.val().whenDate + ' at: ' + data.val().whenTime;
 				} else if (data.val().whenDate || data.val().whenTime) {
 					renderWhenInformation = data.val().whenDate || data.val().whenTime;
