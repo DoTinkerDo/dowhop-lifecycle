@@ -115,19 +115,42 @@ FriendlyChat.prototype.sendApproval = function(e) {
 	var rescindingForm = document.getElementById('rescind-pending-form');
 	var pendingDiv = document.getElementById('pending-div');
 
+	// Updating these checks to make it more modular... (ie, avoid over-writing!).
 	myRefPending.once('value', function(snap) {
-		newDate = snap.val().whenDatePending || 'By request';
-		newTime = snap.val().whenTimePending || 'By request';
-		newWhere = snap.val().whereAddressPending || 'By request';
+		if (snap.val().whenDatePending) {
+			newDate = snap.val().whenDatePending;
+		}
+
+		if (snap.val().whenTimePending) {
+			newTime = snap.val().whenTimePending;
+		}
+
+		if (snap.val().whereAddressPending) {
+			newWhere = snap.val().whereAddressPending;
+		}
 	});
 
 	if (radioApprove.checked) {
 		status = 'approved';
-		myRef.update({
-			whenDate: newDate,
-			whenTime: newTime,
-			whereAddress: newWhere
-		});
+
+		if (newDate != null) {
+			myRef.update({ whenDate: newDate });
+		}
+
+		if (newTime != null) {
+			myRef.update({ whenTime: newTime });
+		}
+
+		if (newWhere != null) {
+			myRef.update({ whereAddress: newWhere });
+		}
+
+		// myRef.update({
+		// 	whenDate: newDate,
+		// 	whenTime: newTime,
+		// 	whereAddress: newWhere
+		// });
+
 		this.database
 			.ref()
 			.child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending/')
@@ -287,6 +310,20 @@ FriendlyChat.prototype.getSession = function() {
 
 				var doWhopDescriptionTitle = data.val().titleDescription || 'Your DoWhops Will Appear Here';
 
+				// Adding these logic checks so that when users update their information, new times, dates, etc render in 'View':
+				let renderWhenInformation = data.val().whenDescription || 'By request!';
+				let renderWhereInformation = data.val().whereDescription || 'By request!';
+
+				if (data.val().whereAddressPending) {
+					renderWhereInformation = data.val().whereAddressPending;
+				}
+
+				if (data.val().whenDate && data.val().whenTime) {
+					renderWhenInformation = data.val().whenDate + ' at: ' + data.val().whenTime;
+				} else if (data.val().whenDate || data.val().whenTime) {
+					renderWhenInformation = data.val().whenDate || data.val().whenTime;
+				}
+
 				return (doWhopSelectorDiv +=
 					"<section id='" +
 					data.key +
@@ -315,11 +352,11 @@ FriendlyChat.prototype.getSession = function() {
 					'</p>' +
 					'<h3>When?</h3>' +
 					'<p>' +
-					data.val().whenDescription +
+					renderWhenInformation +
 					'</p>' +
 					'<h3>Where?</h3>' +
 					'<p>' +
-					data.val().whereDescription +
+					renderWhereInformation +
 					'</p>' +
 					'<h3>How much?</h3>' +
 					'<p>' +
