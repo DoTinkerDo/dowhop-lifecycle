@@ -133,13 +133,21 @@
     <!-- Pending Notifications Container -->
     <section id="pending-div-container" class="mdl-grid">
 
-      <div class="mdl-cell--6-col">
+      <div class="mdl-cell mdl-cell--6-col">
         <div id="pending-div"></div>
       </div>
-      <div class="mdl-cell--6-col">
+      <div class="mdl-cell mdl-cell--6-col">
         <form hidden id="approve-pending-form" class="approval-form">
-          <input id="radioApprove" type="radio" name="approval" value="approve">Approve
-          <input id="radioDeny" type="radio" name="approval" value="deny">Deny
+          <ul class="approve-pending-form-list">
+            <li>
+              <input id="radioApprove" type="radio" name="approval" value="approve">Approve
+              <label for="radioApprove"></label>
+            </li>
+            <li>
+              <input id="radioDeny" type="radio" name="approval" value="deny">Deny
+              <label for="radioDeny"></label>
+            </li>
+          </ul>
           <button id="submit-approval-button" type="submit" class="btn-default">Send
           </button>
         </form>

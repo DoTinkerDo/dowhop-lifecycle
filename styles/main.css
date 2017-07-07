@@ -292,16 +292,16 @@ h5 {
 */
 
 .pending-notification {
-	/*color: #ec1928;
+	color: #ec1928;
 	/*font-size: 1.25em;*/
 	background-color: eggShell;
-	/*padding: 0 10%;*/*/
+	/*padding: 0 10%;*/
 }
 
 #pending-div {
-  color: #ec1928;
-  /*font-size: 1.25em;*/
-  background-color: eggShell;
+	color: #ec1928;
+	/*font-size: 1.25em;*/
+	background-color: eggShell;
 }
 
 .approval-form {
