@@ -63,7 +63,7 @@ div[aria-hidden='true'] {
 }
 
 /*  
-
+  NAV 
   SVG TAB ICON 
   HOVER STYLES
   
@@ -85,7 +85,6 @@ li a {
   stroke: #000000;
   display: inline-block;
   content: "";
-  transition: all .4s ease 0s;
 }
 
 ul a:hover,
@@ -93,47 +92,64 @@ ul a:focus {
   fill: #ec1928;
 }
 
-/*The container <div> - needed to position the dropdown content */
-
-.dropdown {
-  position: relative;
-  display: inline-block;
+.nav-tab-label {
+  font-size: 90%;
 }
 
-.dropbtn {
+@media screen and (min-width: 414px) {
+  .nav-tab-label {
+    font-size: 100%;
+  }
+}
+
+/*
+  
+  Main Logout Btn
+
+*/
+
+header.mdl-grid {
+  position: relative;
+}
+
+.nav-dropdown {
+  position: absolute;
+  right: 3%;
   cursor: pointer;
 }
 
-.dropdown-content {
+@media screen and (min-width: 768px) {
+  .nav-dropdown {
+    top: 10%;
+  }
+}
+
+.nav-dropdown-content {
   display: none;
   position: absolute;
-  top: 0;
-  left: 1%;
+  right: 1%;
   min-width: 120px;
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
-.dropdown-content a {
+.nav-dropdown-content a {
+  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, .7);
   color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
   text-align: left;
+  -moz-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
 }
 
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
+.nav-dropdown-content a:hover {
+  color: #ec1928;
 }
 
-.dropdown:hover .dropdown-content {
+.nav-dropdown:hover .nav-dropdown-content {
   display: block;
-}
-/* 
-    INDEX PAGE 
-    CONVENIENCE STYLES
-*/
-
-.hide-component {
-  display: none;
 }

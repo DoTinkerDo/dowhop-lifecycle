@@ -54,11 +54,11 @@
 
     <!-- Navigation Container -->
     <header class="mdl-grid">
-      <div class="mdl-cell mdl-cell--6-col mdl-cell--3-offset-desktop">
+      <nav class="mdl-cell mdl-cell--12-col mdl-cell--4-offset-desktop mdl-cell--2-offset-tablet">
         <ul class="tabs">
           <li>
             <a id="create-tab" class="tab" id="create-icon" href="#create" onclick="getSesh(this)">
-              Create
+              <span class="nav-tab-label">Create</span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44">
                 <path d="M22,44c-3.309,0-6-2.665-6-5.941V28H5.941C2.665,28,0,25.309,0,22s2.665-6,5.941-6H16V5.941C16,2.665,18.691,0,22,0
                   s6,2.665,6,5.941V16h10.059C41.335,16,44,18.691,44,22s-2.665,6-5.941,6H28v10.059C28,41.335,25.309,44,22,44z M5.941,18
@@ -69,7 +69,7 @@
           </li>
           <li>
             <a id="edit-tab" class="tab" href="#edit" onclick="getSesh(this)">
-              View
+              <span class="nav-tab-label">View</span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 469.331 469.331">
               <path d="M438.931,30.403c-40.4-40.5-106.1-40.5-146.5,0l-268.6,268.5c-2.1,2.1-3.4,4.8-3.8,7.7l-19.9,147.4
                 c-0.6,4.2,0.9,8.4,3.8,11.3c2.5,2.5,6,4,9.5,4c0.6,0,1.2,0,1.8-0.1l88.8-12c7.4-1,12.6-7.8,11.6-15.2c-1-7.4-7.8-12.6-15.2-11.6
@@ -82,7 +82,7 @@
           </li>
           <li>
             <a id="coordinate-tab" class="tab" href="#coordinate" onclick="getSesh(this)">
-              Coordinate
+              <span class="nav-tab-label">Coordinate</span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 489.6 489.6">
               <path d="M394.8,261.5V81.7c0-24.9-20.3-45.2-45.2-45.2H45.2C20.3,36.5,0,56.8,0,81.7v179.8c0,24.9,20.3,45.2,45.2,45.2h12.9v54.2
                 c0,10,8.1,18.1,18.2,18.1l0,0c5.2,0,10.2-2.3,13.7-6.3l57.1-66.1h202.6C374.5,306.7,394.8,286.4,394.8,261.5z M141.4,282.2
@@ -100,7 +100,7 @@
           </li>
           <li>
             <a id="review-tab" class="tab" href="#review" onclick="getSesh(this)">
-            Review
+            <span class="nav-tab-label">Review</span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55.867 55.867">
             <path d="M11.287,54.548c-0.207,0-0.414-0.064-0.588-0.191c-0.308-0.224-0.462-0.603-0.397-0.978l3.091-18.018L0.302,22.602
               c-0.272-0.266-0.37-0.663-0.253-1.024c0.118-0.362,0.431-0.626,0.808-0.681l18.09-2.629l8.091-16.393
@@ -114,25 +114,19 @@
             </a>
           </li>
         </ul>
-      </div>
+      </nav> <!-- End Navigation -->
 
-      <div class="mdl-cell mdl-cell--3-col dropdown">
-        <img class="dropbtn" id="user-icon" src="/images/user-icon.png" alt="">
-        <div class="dropdown-content">
+      <div class="nav-dropdown">
+        <img class="nav-dropbtn" id="user-icon" src="/images/user-icon.png" alt="">
+        <div class="nav-dropdown-content">
           <a class="btn-logout" href="#" onclick="auth.signOut()">Log Out</a>
-          <a href="#">My Profile</a>
+          <!-- <a href="#">My Profile</a> -->
         </div>
       </div>
-    </header><!-- End Navigation -->
-
-      <!-- Tutorial container -->
-      <!-- <div class="mdl-grid"> -->
-        <!-- <div class="mdl-card tutorial-text" id="tutorial-container"></div> -->
-      <!-- </div> End Tutorial container -->
+    </header>
 
     <!-- Pending Notifications Container -->
     <section id="pending-div-container" class="mdl-grid">
-
       <div class="mdl-cell mdl-cell--6-col">
         <div id="pending-div"></div>
       </div>
@@ -156,7 +150,6 @@
           </button>
         </form>
       </div>
-
     </section> <!-- End Notifications Container -->
 
     <!-- Main MDL Grid around DoWhop Selector cards and Life cycle apps -->
@@ -219,7 +212,7 @@
                   <input id="dowhop-image-capture2" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
                   <input id="dowhop-image-capture3" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
                 </div>
-                <button class="btn-default" id="create-new-dowhop">
+                <button class="btn btn-default" id="create-new-dowhop">
                   Create
                 </button>
                 </div>
@@ -278,7 +271,7 @@
               <!-- END NEW -->
               <di v class="mdl-card__actions">
               <!-- <input id="dowhop-image-capture" type="file" accept="image/*,capture=camera" onchange="addDoWhopImage(this.files, this)"> -->
-                <button class="btn-default" id="submit-update-dowhop">
+                <button class="btn btn-default" id="submit-update-dowhop">
                   Update
                   <div class="mdl-tooltip" for="submit">Click here to update your DoWhop!</div>
                 </button>
@@ -320,7 +313,7 @@
                           <img onclick="revealInput('image')" src="images/image-add-button.png" alt="" width="24" height="24">
                         </div>
                         <div id="send-message-button">
-                          <button class="btn-small" id="submit-message-button" type="submit">
+                          <button class="btn btn-small" id="submit-message-button" type="submit">
                             Send
                           </button>
                         </div>
@@ -345,7 +338,7 @@
             </div>
             <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
               <div class="mdl-snackbar__text"></div>
-              <button class="mdl-snackbar__action btn-default" type="button"></button>
+              <button class="mdl-snackbar__action btn btn-default" type="button"></button>
             </div>
           </div>
         </section> <!-- End coordinate app  -->
@@ -402,7 +395,7 @@
                         <span class="mdl-textfield__error">Max characters for a comment is 140</span>
                       </div>
                       <div class="mdl-card__actions">
-                        <button class="btn-default">
+                        <button class="btn btn-default">
                           Submit
                         </button>
                       </div>
@@ -426,7 +419,7 @@
                       <span class="mdl-textfield__error">Max characters for a comment is 140</span>
                     </div>
                     <div class="mdl-card__actions">
-                      <button class="btn-default submit-comment doer" id="doer">
+                      <button class="btn btn-default submit-comment doer" id="doer">
                         Submit
                       </button>
                     </div>
@@ -450,7 +443,7 @@
                         <span class="mdl-textfield__error">Max characters for a comment is 140</span>
                       </div>
                       <div class="mdl-card__actions">
-                        <button class="btn-default submit-comment dowhop" id="dowhop">
+                        <button class="btn btn-default submit-comment dowhop" id="dowhop">
                           Submit
                         </button>
                       </div>

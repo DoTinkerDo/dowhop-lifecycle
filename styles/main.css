@@ -1,11 +1,35 @@
-/* Adding in template presets */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-/* Color palette
-Replaced #hover-flag, #top-bar-hidden, #top-bar-dowhop  #FF0404 (red) with #ec1928
-Repalced #title and #pac-input focus #4d90fe (blue) with #ec1928
-Replaced #user-list border #cfd9df (blue-grey) with #c0c0c0*
+::placeholder {
+  color: #cfcfcf;
+}
 
-TODO: standardize grey pallette */
+body {
+  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
+}
+
+input {
+  border: none;
+  outline: none;
+  background: none;
+  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
+  color: #606060;
+}
+
+header {
+  text-align: center;
+  padding-top: 10px;
+}
+
+header h1 {
+  font-size: 24px;
+}
 
 main,
 #messages-card {
@@ -302,12 +326,12 @@ h5 {
 
 /*#radioApprove + label,
 .Checked {
-	background-image: url('https://www.iconexperience.com/_img/g_collection_png/standard/64x64/checkbox.png');
+  background-image: url('https://www.iconexperience.com/_img/g_collection_png/standard/64x64/checkbox.png');
 }
 
 #radioDeny + label,
 .Checked {
-	background-image: url('https://www.iconexperience.com/_img/g_collection_png/standard/64x64/close.png');
+  background-image: url('https://www.iconexperience.com/_img/g_collection_png/standard/64x64/close.png');
 }*/
 
 #radioApprove input[type="radio"]:checked + label,
@@ -324,8 +348,8 @@ h5 {
 
 /*.approve-pending-form-list input[type="radio"]:checked + label,
 .Checked + label {
-	background: #ec1928;
-	background-image: none;
+  background: #ec1928;
+  background-image: none;
 }*/
 
 .approve-pending-form-list label {
@@ -399,45 +423,6 @@ h5 {
 
 .message img {
   max-height: 20%;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  height: 100%;
-  background: #fff;
-}
-
-::placeholder {
-  color: #cfcfcf;
-}
-
-body {
-  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
-  min-width: 500px;
-}
-
-input {
-  border: none;
-  outline: none;
-  background: none;
-  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
-  color: #606060;
-}
-
-header {
-  text-align: center;
-  padding-top: 10px;
-}
-
-header h1 {
-  font-size: 24px;
 }
 
 .wrap {
@@ -723,8 +708,11 @@ span.clear {
 
 /*
 
-  Button &
-  Btn default
+  Buttons
+
+  Usage -> 
+  class="btn btn-default"
+  class="btn btn-small"
 
 */
 
@@ -733,48 +721,34 @@ button {
   outline: none;
 }
 
-.btn-default {
+.btn {
   font: normal normal normal 14px/1.4em 'Avenir Light', Avenir Light, Arial, sans-serif;
   background-color: #ec1928;
+  color: #ffffff;
+  text-align: center;
+  cursor: pointer;
+  -webkit-transition: all 0.4s ease 0s;
+  -moz-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: #ffffff;
+  color: #ec1928;
+}
+
+.btn-default {
   height: 40px;
   min-height: 19px;
   width: 142px;
-  color: #ffffff;
-  text-align: center;
-  cursor: pointer;
-  -webkit-transition: all 0.4s ease 0s;
-  -moz-transition: all 0.4s ease 0s;
-  -o-transition: all 0.4s ease 0s;
-  transition: all 0.4s ease 0s;
 }
-
-.btn-default:hover,
-.btn-default:focus {
-  background-color: #ffffff;
-  color: #ec1928;
-}
-
-/* Smaller version of above button */
 
 .btn-small {
-  font: normal normal normal 14px/1.4em 'Avenir Light', Avenir Light, Arial, sans-serif;
-  background-color: #ec1928;
-  height: 40px;
+  height: 27px;
   min-height: 19px;
   width: 71px;
-  color: #ffffff;
-  text-align: center;
-  cursor: pointer;
-  -webkit-transition: all 0.4s ease 0s;
-  -moz-transition: all 0.4s ease 0s;
-  -o-transition: all 0.4s ease 0s;
-  transition: all 0.4s ease 0s;
-}
-
-.btn-small:hover,
-.btn-small:focus {
-  background-color: #ffffff;
-  color: #ec1928;
 }
 
 .btn-approve {
@@ -784,3 +758,13 @@ button {
 .btn-deny {
   background-color: #ec1928; /* Change. */
 }
+
+/* 
+    INDEX PAGE 
+    CONVENIENCE STYLES
+*/
+
+.hide-component {
+  display: none;
+}
+
