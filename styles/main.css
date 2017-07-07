@@ -776,3 +776,11 @@ button {
   background-color: #ffffff;
   color: #ec1928;
 }
+
+.btn-approve {
+  background-color: #80ff80; /* Change. */
+}
+
+.btn-deny {
+  background-color: #80ff80; /* Change. */
+}
