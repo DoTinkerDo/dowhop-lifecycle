@@ -713,7 +713,7 @@ span.clear {
   Usage -> 
   class="btn btn-default"
   class="btn btn-small"
-  
+
 */
 
 button {
@@ -758,3 +758,13 @@ button {
 .btn-deny {
   background-color: #ec1928; /* Change. */
 }
+
+/* 
+    INDEX PAGE 
+    CONVENIENCE STYLES
+*/
+
+.hide-component {
+  display: none;
+}
+
