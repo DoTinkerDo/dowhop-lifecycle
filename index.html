@@ -131,21 +131,32 @@
       <!-- </div> End Tutorial container -->
 
     <!-- Pending Notifications Container -->
-    <section id="pending-div-container" class="pending-notification mdl-cell--8-col">
-      <div id="pending-div"></div>
-      <form hidden id="approve-pending-form" class="approval-form">
+    <section id="pending-div-container" class="mdl-grid">
 
-      <span>
-        <input id="radioApprove" type="radio" name="approval" value="approve">Approve
-        <input id="radioDeny" type="radio" name="approval" value="deny">Deny
-      </span>
-        <button id="submit-approval-button" type="submit" class="btn-default">Send
-        </button>
-      </form>
-      <form hidden id="rescind-pending-form" class="approval-form">
-        <button id="submit-rescind-button" type="submit" class="btn-default">Rescind
-        </button>
-      </form>
+      <div class="mdl-cell mdl-cell--6-col">
+        <div id="pending-div"></div>
+      </div>
+      <div class="mdl-cell mdl-cell--6-col">
+        <form hidden id="approve-pending-form" class="approval-form">
+          <ul class="approve-pending-form-list">
+            <li>
+              <button class="btn-default btn-approve" id="send-approval-button" type="submit" value="approve">Approve</button>
+              <!-- <label for="radioApprove"></label> -->
+            </li>
+            <li>
+              <button class="btn-default btn-deny" id="send-denial-button" type="submit"  value="deny">Deny</button>
+              <!-- <label for="radioDeny"></label> -->
+            </li>
+          </ul>
+          <!-- <button id="submit-approval-button" type="submit" class="btn-default">Confirm -->
+          </button>
+        </form>
+        <form hidden id="rescind-pending-form" class="approval-form">
+          <button id="submit-rescind-button" type="submit" class="btn-default">Rescind
+          </button>
+        </form>
+      </div>
+
     </section> <!-- End Notifications Container -->
 
     <!-- Main MDL Grid around DoWhop Selector cards and Life cycle apps -->
@@ -309,7 +320,7 @@
                           <img onclick="revealInput('image')" src="images/image-add-button.png" alt="" width="24" height="24">
                         </div>
                         <div id="send-message-button">
-                          <button class="btn-default" id="submit-message-button" type="submit">
+                          <button class="btn-small" id="submit-message-button" type="submit">
                             Send
                           </button>
                         </div>
