@@ -49,6 +49,7 @@ function addProfileImage() {
 		alert('You can only add images at the moment.');
 		return;
 	}
+	this.parentNode.style.color = '#ec1928';
 	return profileImageFiles.push(this.files[0]);
 }
 
