@@ -22,7 +22,6 @@ createProfileFormBtn.addEventListener('click', createProfile);
 function showForm(e) {
 	e.preventDefault();
 	createProfileDiv.removeAttribute('hidden');
-	console.log('showing form');
 }
 
 // Image activity upload logic
@@ -61,7 +60,7 @@ function createProfile(e) {
 	e.preventDefault();
 	var currentProfile = auth.currentUser.uid;
 	var profileRef = database.ref('app_users/' + currentProfile);
-	console.log('CREATING PROFILE FOR -> ', currentProfile);
+
 	// Prepare user data:
 	// var profileData = {
 	//   update: true,
@@ -77,7 +76,18 @@ function createProfile(e) {
 	//   profileRef.update(profileData).then(function() {
 	//   });
 
-	console.log(createProfileActivity1.value);
+	profileImageFiles.forEach(function(file, idx) {
+		var filePath = 'userImages/' + currentProfile + '/' + 'profileImages/' + file.name;
+		storage.ref(filePath).put(file).then(function(snapshot) {
+			var path = snapshot.metadata.fullPath;
+			storage.ref(path).getDownloadURL().then(function(url) {
+				var obj = {};
+				obj['image' + (idx + 1)] = url;
+				profileRef.child('profileActivityImageURLs').update(obj);
+			});
+		});
+	});
+
 	if (createProfileName.value) {
 		profileRef.update({ profileName: createProfileName.value });
 		// .then(createProfileForm.reset())
