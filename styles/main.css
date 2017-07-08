@@ -315,6 +315,10 @@ h5 {
   PENDING NOTIFICATIONS STYLING
 */
 
+#approve-pending-form ul {
+  display: flex;
+  justify-content: center;
+}
 .approve-pending-form-list li {
   float: left;
 }
