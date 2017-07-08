@@ -59,12 +59,10 @@ inputImageCaptureArr.forEach(function(inputImageCapture) {
 
 function createProfile(e) {
 	e.preventDefault();
-
-	var currentProfile = firebase.auth().currentUser.uid;
-	var profileRef = firebase.database().ref('app_users/' + currentProfile);
-	console.log('creating profile');
+	var currentProfile = auth.currentUser.uid;
+	var profileRef = database.ref('app_users/' + currentProfile);
+	console.log('CREATING PROFILE FOR -> ', currentProfile);
 	// Prepare user data:
-
 	// var profileData = {
 	//   update: true,
 	//   profileName: createProfileName.value || "",
