@@ -301,7 +301,7 @@ FriendlyChat.prototype.getSession = function() {
         // This means visiting user is a requestor of event change:
       } else if (firebase.auth().currentUser.uid == data.pending.requester) {
         // console.log('visiting user requested a change. showing rescinding form, hiding approval form.');
-        pendingNotification += 'Do you want to change it?\n';
+        pendingNotification += '\nDo you want to change it?';
         if (data.pending.whenDatePending) pendingNotification += '\nPending day: ' + data.pending.whenDatePending;
         if (data.pending.whenTimePending) pendingNotification += '\nPending time: ' + data.pending.whenTimePending;
         if (data.pending.whereAddressPending)

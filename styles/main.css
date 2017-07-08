@@ -315,6 +315,10 @@ h5 {
   PENDING NOTIFICATIONS STYLING
 */
 
+#approve-pending-form ul {
+  display: flex;
+  justify-content: center;
+}
 .approve-pending-form-list li {
   float: left;
 }
@@ -375,6 +379,8 @@ h5 {
 
 .approval-form {
   color: #ec1928;
+  display: flex;
+  justify-content: center;
 }
 
 /* Styling underbar icons, inputs  of message input area */
@@ -683,34 +689,34 @@ input:focus ~ .bar:after {
 
 /* Any other general stylings */
 
-.tutorial-text {
+/*.tutorial-text {
   opacity: 0.5;
 }
 
 div#tutorial-container {
   padding: 15px;
-}
+}*/
 
-#pending-div-container {
+/*#pending-div-container {
   margin-top: -10px;
   margin-bottom: -10px;
   margin-left: 200px;
-}
+}*/
 
 span.clear {
   clear: both;
 }
 
-#pending-div-container span {
+/*#pending-div-container span {
   padding-left: 650px;
   margin-bottom: 15px;
-}
+}*/
 
 /*
 
   Buttons
 
-  Usage -> 
+  Usage ->
   class="btn btn-default"
   class="btn btn-small"
 
@@ -759,12 +765,11 @@ button {
   background-color: #ec1928; /* Change. */
 }
 
-/* 
-    INDEX PAGE 
+/*
+    INDEX PAGE
     CONVENIENCE STYLES
 */
 
 .hide-component {
   display: none;
 }
-
