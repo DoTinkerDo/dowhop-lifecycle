@@ -379,6 +379,8 @@ h5 {
 
 .approval-form {
   color: #ec1928;
+  display: flex;
+  justify-content: center;
 }
 
 /* Styling underbar icons, inputs  of message input area */

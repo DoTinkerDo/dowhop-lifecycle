@@ -128,25 +128,21 @@
     <!-- Pending Notifications Container -->
     <section id="pending-div-container" class="mdl-grid">
       <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--order-1-tablet mdl-cell--order-1-phone">
-        <div id="pending-div"></div>
+        <div id="pending-div" class="approval-form"></div>
       </div>
       <div class="mdl-cell  mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--order-2-tablet mdl-cell--order-2-phone">
         <form hidden id="approve-pending-form" class="approval-form">
           <ul class="approve-pending-form-list">
             <li>
               <button class="btn-default btn-approve" id="send-approval-button" type="submit" value="approve">Approve</button>
-              <!-- <label for="radioApprove"></label> -->
             </li>
             <li>
               <button class="btn-default btn-deny" id="send-denial-button" type="submit"  value="deny">Deny</button>
-              <!-- <label for="radioDeny"></label> -->
             </li>
           </ul>
-          <!-- <button id="submit-approval-button" type="submit" class="btn-default">Confirm -->
-          </button>
         </form>
         <form hidden id="rescind-pending-form" class="approval-form">
-          <button id="submit-rescind-button" type="submit" class="btn-default">Rescind
+          <button id="submit-rescind-button" type="submit" class="btn-default">Undo
           </button>
         </form>
       </div>
