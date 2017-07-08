@@ -45,11 +45,11 @@ var inputImageCaptureArr = Array.prototype.slice.call(inputImageCaptureList);
 var profileImageFiles = [];
 
 function addProfileImage() {
-	return profileImageFiles.push(this.files[0]);
 	if (!this.files[0].type.match('image/.*')) {
 		alert('You can only add images at the moment.');
 		return;
 	}
+	return profileImageFiles.push(this.files[0]);
 }
 
 inputImageCaptureArr.forEach(function(inputImageCapture) {
