@@ -95,7 +95,6 @@ function createProfile(e) {
 	if (createProfilePhone.value) {
 		profileRef.update({ profilePhone: createProfilePhone.value });
 		// .then(createProfileForm.reset())
-		// console.log(createProfilePhone)
 	}
 	if (createProfileSocial.value) {
 		profileRef.update({ profileSocial: createProfileSocial.value });
@@ -144,32 +143,37 @@ var myProfilePayment = document.getElementById('my-profile-payment');
 var myProfileActivity1 = document.getElementById('my-profile-activity-1');
 var myProfileActivity2 = document.getElementById('my-profile-activity-2');
 var myProfileActivity3 = document.getElementById('my-profile-activity-3');
+var activityImage1 = document.getElementById('activity-image-1');
+var activityImage2 = document.getElementById('activity-image-2');
+var activityImage3 = document.getElementById('activity-image-3');
 var myProfilePicture = document.getElementById('my-profile-picture');
 var sendDirectMessageDiv = document.getElementById('send-direct-message-div');
 
 function retrieveProfile(currentProfile) {
 	// We are testing whether visiting user is looking at own profile (default), or other's via query parameter:
 	currentProfile = retrieveUrl(window.location.href) || auth.currentUser.uid;
-	console.log('getting for', currentProfile);
-
 	var profileRef = database.ref('app_users/' + currentProfile);
 
 	// Retrieving relevant data from the database:
 	profileRef.on('value', function(snap) {
-		myDisplayName.innerText = snap.val().displayName;
-		myProfileName.innerText = snap.val().profileName;
-		myProfilePhone.innerText = snap.val().profilePhone;
-		// myProfileSocial.innerText = snap.val().profileSocial;
-		// myProfileWebsite.innerText = snap.val().profileWebsite;
-		myProfileAbout.innerText = snap.val().profileAbout;
-		myProfileEmail.innerText = snap.val().email;
-		// myProfilePayment.innerText = snap.val().pofilePayment;
-		myProfileActivity1.innerText = snap.val().profileActivity1;
-		myProfileActivity2.innerText = snap.val().profileActivity2;
-		myProfileActivity3.innerText = snap.val().profileActivity3;
-		myProfilePicture.src = snap.val().photoURL;
-		myProfilePicture.style.backgroundImage = 'url(' + snap.val().photoURL + ')';
-		sendDirectMessageDiv.id = snap.val().uid; // NEW.
+		var appUser = snap.val();
+		myDisplayName.innerText = appUser.displayName;
+		myProfileName.innerText = appUser.profileName;
+		myProfilePhone.innerText = appUser.profilePhone;
+		// myProfileSocial.innerText = appUser.profileSocial;
+		// myProfileWebsite.innerText = appUser.profileWebsite;
+		myProfileAbout.innerText = appUser.profileAbout;
+		myProfileEmail.innerText = appUser.email;
+		// myProfilePayment.innerText = appUser.pofilePayment;
+		myProfileActivity1.innerText = appUser.profileActivity1;
+		myProfileActivity2.innerText = appUser.profileActivity2;
+		myProfileActivity3.innerText = appUser.profileActivity3;
+		activityImage1.src = appUser.profileActivityImageURLs.image1;
+		activityImage2.src = appUser.profileActivityImageURLs.image2;
+		activityImage3.src = appUser.profileActivityImageURLs.image3;
+		myProfilePicture.src = appUser.photoURL;
+		myProfilePicture.style.backgroundImage = 'url(' + appUser.photoURL + ')';
+		sendDirectMessageDiv.id = appUser.uid; // NEW.
 	});
 }
 
