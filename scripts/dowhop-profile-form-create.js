@@ -25,24 +25,36 @@ function showForm(e) {
 	console.log('showing form');
 }
 
-function addDoWhopImage(files_arr, node) {
-	console.log("You've uploaded a file...");
-	console.log(files_arr[0]);
-	return (file = files_arr[0]);
-	if (!file.type.match('image/.*')) {
+// Image activity upload logic
+var addNewActivityList = document.querySelectorAll('.add-new-activity');
+var addNewActivityArr = Array.prototype.slice.call(addNewActivityList);
+
+function showCreateProfileActivity(e) {
+	e.preventDefault();
+	this.id === 'button-1'
+		? (createProfileActivity2.parentNode.parentNode.style.display = 'block')
+		: (createProfileActivity3.parentNode.parentNode.style.display = 'block');
+}
+
+addNewActivityArr.forEach(function(addNewActivity) {
+	addNewActivity.addEventListener('click', showCreateProfileActivity);
+});
+
+var inputImageCaptureList = document.querySelectorAll('input.image-capture');
+var inputImageCaptureArr = Array.prototype.slice.call(inputImageCaptureList);
+var profileImageFiles = [];
+
+function addProfileImage() {
+	return profileImageFiles.push(this.files[0]);
+	if (!this.files[0].type.match('image/.*')) {
 		alert('You can only add images at the moment.');
 		return;
 	}
 }
 
-function CollapseMyDiv() {
-	// Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
-	document.getElementById('profile-activity-2').parentNode.removeAttribute('hidden');
-}
-function RestoreMyDiv() {
-	// Function to restore MyDiv visible again with height 100 px.
-	document.getElementById('profile-activity-3').parentNode.removeAttribute('hidden');
-}
+inputImageCaptureArr.forEach(function(inputImageCapture) {
+	inputImageCapture.addEventListener('change', addProfileImage);
+});
 
 function createProfile(e) {
 	e.preventDefault();

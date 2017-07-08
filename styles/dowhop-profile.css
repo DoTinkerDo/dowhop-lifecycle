@@ -158,3 +158,40 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+/*
+
+  Image capture
+  Adding activity
+
+*/
+
+input#profile-image-capture-1,
+input#profile-image-capture-2,
+input#profile-image-capture-3 {
+  display: none;
+}
+
+i.material-icons {
+  cursor: pointer;
+}
+
+label > i.material-icons,
+label > i.material-icons,
+label > i.material-icons {
+  top: -17px;
+  padding-left: 10px;
+  font-size: 44px;
+}
+
+#button-1 i.material-icons,
+#button-2 i.material-icons {
+  cursor: pointer;
+  font-size: 22px;
+}
+
+button#button-1,
+button#button-2 {
+  top: -35px;
+  left: 15px;
+}
