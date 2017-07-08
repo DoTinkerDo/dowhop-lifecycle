@@ -58,8 +58,8 @@ inputImageCaptureArr.forEach(function(inputImageCapture) {
 
 function createProfile(e) {
 	e.preventDefault();
-	var currentProfile = auth.currentUser.uid;
-	var profileRef = database.ref('app_users/' + currentProfile);
+	var uid = auth.currentUser.uid;
+	var profileRef = database.ref('app_users/' + uid);
 
 	// Prepare user data:
 	// var profileData = {
@@ -77,7 +77,7 @@ function createProfile(e) {
 	//   });
 
 	profileImageFiles.forEach(function(file, idx) {
-		var filePath = 'userImages/' + currentProfile + '/' + 'profileImages/' + file.name;
+		var filePath = 'userImages/' + uid + '/' + 'profileImages/' + file.name;
 		storage.ref(filePath).put(file).then(function(snapshot) {
 			var path = snapshot.metadata.fullPath;
 			storage.ref(path).getDownloadURL().then(function(url) {
@@ -149,10 +149,10 @@ var sendDirectMessageDiv = document.getElementById('send-direct-message-div');
 
 function retrieveProfile(currentProfile) {
 	// We are testing whether visiting user is looking at own profile (default), or other's via query parameter:
-	currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
+	currentProfile = retrieveUrl(window.location.href) || auth.currentUser.uid;
 	console.log('getting for', currentProfile);
 
-	var profileRef = firebase.database().ref('app_users/' + currentProfile);
+	var profileRef = database.ref('app_users/' + currentProfile);
 
 	// Retrieving relevant data from the database:
 	profileRef.on('value', function(snap) {
