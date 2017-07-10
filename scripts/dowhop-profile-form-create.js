@@ -35,6 +35,11 @@ function showCreateProfileActivity(e) {
 		: (createProfileActivity3.parentNode.parentNode.style.display = 'block');
 }
 
+function hideCreateProfileActivity() {
+	createProfileActivity2.parentNode.parentNode.style.display = 'none';
+	createProfileActivity3.parentNode.parentNode.style.display = 'none';
+}
+
 addNewActivityArr.forEach(function(addNewActivity) {
 	addNewActivity.addEventListener('click', showCreateProfileActivity);
 });
@@ -132,6 +137,10 @@ function clearCreateProfileForm() {
 	createProfileActivity1.value = '';
 	createProfileActivity1.value = '';
 	createProfileActivity1.value = '';
+	inputImageCaptureList[0].parentNode.style.color = '#757575';
+	inputImageCaptureList[1].parentNode.style.color = '#757575';
+	inputImageCaptureList[2].parentNode.style.color = '#757575';
+	hideCreateProfileActivity();
 }
 
 // Section for retrieving previously-existing user profiles:
