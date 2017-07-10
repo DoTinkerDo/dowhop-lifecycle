@@ -22,36 +22,46 @@ createProfileFormBtn.addEventListener('click', createProfile);
 function showForm(e) {
 	e.preventDefault();
 	createProfileDiv.removeAttribute('hidden');
-	console.log('showing form');
 }
 
-function addDoWhopImage(files_arr, node) {
-	console.log("You've uploaded a file...");
-	console.log(files_arr[0]);
-	return (file = files_arr[0]);
-	if (!file.type.match('image/.*')) {
+// Image activity upload logic
+var addNewActivityList = document.querySelectorAll('.add-new-activity');
+var addNewActivityArr = Array.prototype.slice.call(addNewActivityList);
+
+function showCreateProfileActivity(e) {
+	e.preventDefault();
+	this.id === 'button-1'
+		? (createProfileActivity2.parentNode.parentNode.style.display = 'block')
+		: (createProfileActivity3.parentNode.parentNode.style.display = 'block');
+}
+
+addNewActivityArr.forEach(function(addNewActivity) {
+	addNewActivity.addEventListener('click', showCreateProfileActivity);
+});
+
+var inputImageCaptureList = document.querySelectorAll('input.image-capture');
+var inputImageCaptureArr = Array.prototype.slice.call(inputImageCaptureList);
+var profileImageFiles = [];
+
+function addProfileImage() {
+	if (!this.files[0].type.match('image/.*')) {
 		alert('You can only add images at the moment.');
 		return;
 	}
+	this.parentNode.style.color = '#ec1928';
+	return profileImageFiles.push(this.files[0]);
 }
 
-function CollapseMyDiv() {
-	// Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
-	document.getElementById('profile-activity-2').parentNode.removeAttribute('hidden');
-}
-function RestoreMyDiv() {
-	// Function to restore MyDiv visible again with height 100 px.
-	document.getElementById('profile-activity-3').parentNode.removeAttribute('hidden');
-}
+inputImageCaptureArr.forEach(function(inputImageCapture) {
+	inputImageCapture.addEventListener('change', addProfileImage);
+});
 
 function createProfile(e) {
 	e.preventDefault();
+	var uid = auth.currentUser.uid;
+	var profileRef = database.ref('app_users/' + uid);
 
-	var currentProfile = firebase.auth().currentUser.uid;
-	var profileRef = firebase.database().ref('app_users/' + currentProfile);
-	console.log('creating profile');
 	// Prepare user data:
-
 	// var profileData = {
 	//   update: true,
 	//   profileName: createProfileName.value || "",
@@ -66,47 +76,62 @@ function createProfile(e) {
 	//   profileRef.update(profileData).then(function() {
 	//   });
 
-	console.log(createProfileActivity1.value);
+	profileImageFiles.forEach(function(file, idx) {
+		var filePath = 'userImages/' + uid + '/' + 'profileActivityImages/' + file.name;
+		storage.ref(filePath).put(file).then(function(snapshot) {
+			var path = snapshot.metadata.fullPath;
+			storage.ref(path).getDownloadURL().then(function(url) {
+				var obj = {};
+				obj['image' + (idx + 1)] = url;
+				profileRef.child('profileActivityImageURLs').update(obj);
+			});
+		});
+	});
+
 	if (createProfileName.value) {
 		profileRef.update({ profileName: createProfileName.value });
-		// .then(createProfileForm.reset())
 	}
 	if (createProfilePhone.value) {
 		profileRef.update({ profilePhone: createProfilePhone.value });
-		// .then(createProfileForm.reset())
-		// console.log(createProfilePhone)
 	}
 	if (createProfileSocial.value) {
 		profileRef.update({ profileSocial: createProfileSocial.value });
-		// .then(createProfileForm.reset())
 	}
 	if (createProfileWebsite.value) {
 		profileRef.update({ profileWebsite: createProfileWebsite.value });
-		// .then(createProfileForm.reset())
 	}
 	if (createProfilePayment.value) {
 		profileRef.update({ profilePayment: createProfilePayment.value });
-		// .then(createProfileForm.reset())
 	}
 	if (createProfileAbout.value) {
 		profileRef.update({ profileAbout: createProfileAbout.value });
-		// .then(createProfileForm.reset())
 	}
 	if (createProfileActivity1.value) {
 		profileRef.update({ profileActivity1: createProfileActivity1.value });
-		// .then(createProfileForm.reset())
 	}
 
 	if (createProfileActivity2.value) {
 		profileRef.update({ profileActivity2: createProfileActivity2.value });
-		// .then(createProfileForm.reset())
 	}
 	if (createProfileActivity3.value) {
 		profileRef.update({ profileActivity3: createProfileActivity3.value });
-		// .then(createProfileForm.reset())
 	}
-	// createProfileForm.reset();
+
+	clearCreateProfileForm();
 	createProfileDiv.setAttribute('hidden', 'true');
+}
+
+function clearCreateProfileForm() {
+	profileImageFiles = [];
+	createProfileName.value = '';
+	createProfilePhone.value = '';
+	createProfileSocial.value = '';
+	createProfileWebsite.value = '';
+	createProfilePayment.value = '';
+	createProfileAbout.value = '';
+	createProfileActivity1.value = '';
+	createProfileActivity1.value = '';
+	createProfileActivity1.value = '';
 }
 
 // Section for retrieving previously-existing user profiles:
@@ -123,32 +148,37 @@ var myProfilePayment = document.getElementById('my-profile-payment');
 var myProfileActivity1 = document.getElementById('my-profile-activity-1');
 var myProfileActivity2 = document.getElementById('my-profile-activity-2');
 var myProfileActivity3 = document.getElementById('my-profile-activity-3');
+var activityImage1 = document.getElementById('activity-image-1');
+var activityImage2 = document.getElementById('activity-image-2');
+var activityImage3 = document.getElementById('activity-image-3');
 var myProfilePicture = document.getElementById('my-profile-picture');
 var sendDirectMessageDiv = document.getElementById('send-direct-message-div');
 
 function retrieveProfile(currentProfile) {
 	// We are testing whether visiting user is looking at own profile (default), or other's via query parameter:
-	currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
-	console.log('getting for', currentProfile);
-
-	var profileRef = firebase.database().ref('app_users/' + currentProfile);
+	currentProfile = retrieveUrl(window.location.href) || auth.currentUser.uid;
+	var profileRef = database.ref('app_users/' + currentProfile);
 
 	// Retrieving relevant data from the database:
 	profileRef.on('value', function(snap) {
-		myDisplayName.innerText = snap.val().displayName;
-		myProfileName.innerText = snap.val().profileName;
-		myProfilePhone.innerText = snap.val().profilePhone;
-		// myProfileSocial.innerText = snap.val().profileSocial;
-		// myProfileWebsite.innerText = snap.val().profileWebsite;
-		myProfileAbout.innerText = snap.val().profileAbout;
-		myProfileEmail.innerText = snap.val().email;
-		// myProfilePayment.innerText = snap.val().pofilePayment;
-		myProfileActivity1.innerText = snap.val().profileActivity1;
-		myProfileActivity2.innerText = snap.val().profileActivity2;
-		myProfileActivity3.innerText = snap.val().profileActivity3;
-		myProfilePicture.src = snap.val().photoURL;
-		myProfilePicture.style.backgroundImage = 'url(' + snap.val().photoURL + ')';
-		sendDirectMessageDiv.id = snap.val().uid; // NEW.
+		var appUser = snap.val();
+		myDisplayName.innerText = appUser.displayName;
+		myProfileName.innerText = appUser.profileName;
+		myProfilePhone.innerText = appUser.profilePhone;
+		// myProfileSocial.innerText = appUser.profileSocial;
+		// myProfileWebsite.innerText = appUser.profileWebsite;
+		myProfileAbout.innerText = appUser.profileAbout;
+		myProfileEmail.innerText = appUser.email;
+		// myProfilePayment.innerText = appUser.pofilePayment;
+		myProfileActivity1.innerText = appUser.profileActivity1;
+		myProfileActivity2.innerText = appUser.profileActivity2;
+		myProfileActivity3.innerText = appUser.profileActivity3;
+		activityImage1.src = appUser.profileActivityImageURLs.image1 || '/images/placeholder-image1.png';
+		activityImage2.src = appUser.profileActivityImageURLs.image2 || '/images/placeholder-image2.png';
+		activityImage3.src = appUser.profileActivityImageURLs.image3 || '/images/placeholder-image3.png';
+		myProfilePicture.src = appUser.photoURL;
+		myProfilePicture.style.backgroundImage = 'url(' + appUser.photoURL + ')';
+		sendDirectMessageDiv.id = appUser.uid; // NEW.
 	});
 }
 
