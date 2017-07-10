@@ -175,10 +175,11 @@ function makeDoWhopSelector(container, data) {
       '" onclick="setSession(this)" onmouseenter="changeImage(this)" onmouseleave="changeImage(this)">' +
       '<div class="dowhop-selector-header" style="background-image: url(' +
       imageURL +
-      ');">' +
-      '<h1>' +
+      ');">'+
+      '<h1 id="dowhop-title">' +
       data.val().titleDescription +
-      '</h1>' +
+      '<div class="coordinate-text">Coordinate this DoWhop' +
+      '</div>' +
       '</div>' +
       '</aside>';
   } else {

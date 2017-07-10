@@ -17,10 +17,6 @@
   margin-bottom: 25px;
 }
 
-.dowhop-selector:hover {
-  cursor: pointer;
-}
-
 .dowhop-selector-header-top {
   height: 250px;
   background-size: cover;
@@ -32,9 +28,14 @@
 h2 {
   background-color: #ffffff;
   background-color: rgba(255, 255, 255, .3);
+  color:#606060;
+  font-size: 30px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .dowhop-selector-header {
+  transition: all .6s ease 0s;
   height: 250px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -43,28 +44,56 @@ h2 {
   margin-top: 0;
 }
 
-.dowhop-selector-header h1,
-h2 {
-  background-color: #ffffff;
-  background-color: rgba(255, 255, 255, .3);
+.dowhop-selector-header:hover{
+  cursor: pointer;
+  filter: opacity(.3);
 }
 
-.dowhop-selector-header h1,
-.dowhop-selector-header-top h1 {
+.dowhop-selector-header #dowhop-title,
+h2 {
+  height:250px;
+  /*background-color: #ffffff;
+  background-color: rgba(255, 255, 255, .3);*/
+  transition: all .5s ease 0s;
+}
+
+.dowhop-selector-header #dowhop-title:hover{
+  color:transparent;
+  background-color: transparent;
+}
+
+.dowhop-selector-header #dowhop-title,
+.dowhop-selector-header-top #dowhop-title {
   margin: 0;
   padding: 5px 10px;
+  color:#606060;
+  font-size: 30px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .dowhop-selector-body {
   padding: 5%;
 }
 
-/*
+.coordinate-text {
+  height: 100%;
+  font-size: 0px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 150px;
+  color:#606060;
+}
 
+.coordinate-text:hover{
+  font-size: 19px;
+}
+
+
+/*
   Styling the material icons
   throughout pages with added
   .dowhop- classes
-
 */
 
 i.dowhop-icon {
