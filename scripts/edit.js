@@ -176,10 +176,12 @@ function makeDoWhopSelector(container, data) {
       '<div class="dowhop-selector-header" style="background-image: url(' +
       imageURL +
       ');">'+
-      '<h1 id="dowhop-title">' +
-      data.val().titleDescription +
-      '<div class="coordinate-text">Coordinate this DoWhop' +
-      '</div>' +
+        '<h1 id="dowhop-title">' +
+          data.val().titleDescription +
+        '</h1>' +
+        '<div class="middle">' +
+          '<div class="coordinate-text" >Coordinate this DoWhop<div>'+
+        '</div>' +
       '</div>' +
       '</aside>';
   } else {
