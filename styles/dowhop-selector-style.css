@@ -17,10 +17,6 @@
   margin-bottom: 25px;
 }
 
-.dowhop-selector:hover {
-  cursor: pointer;
-}
-
 .dowhop-selector-header-top {
   height: 250px;
   background-size: cover;
@@ -32,39 +28,88 @@
 h2 {
   background-color: #ffffff;
   background-color: rgba(255, 255, 255, .3);
+  color:#606060;
+  font-size: 30px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .dowhop-selector-header {
+  /*position: relative;
+*/transition: all .6s ease 0s;
+  background-color: #ffffff;
   height: 250px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   padding-top: 0;
+  opacity: 1;
   margin-top: 0;
+  backface-visibility: hidden;
 }
 
-.dowhop-selector-header h1,
+.dowhop-selector-header:hover{
+  cursor: pointer;
+  z-index: -1;
+  filter: opacity(.4);
+}
+
+.dowhop-selector-header #dowhop-title,
 h2 {
-  background-color: #ffffff;
-  background-color: rgba(255, 255, 255, .3);
+  height:100%;
+  width: 100%;
+  /*background-color: #ffffff;
+  background-color: rgba(255, 255, 255, .3);*/
+  transition: all .5s ease 0s;
 }
 
-.dowhop-selector-header h1,
-.dowhop-selector-header-top h1 {
+.dowhop-selector-header:hover #dowhop-title{
+  color:transparent;
+  background-color: transparent;
+}
+
+.dowhop-selector-header #dowhop-title,
+.dowhop-selector-header-top #dowhop-title {
   margin: 0;
   padding: 5px 10px;
+  color:#606060;
+  font-size: 30px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .dowhop-selector-body {
   padding: 5%;
 }
 
-/*
+.middle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  transition: all .6s ease 0s;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+}
 
+.dowhop-selector-header:hover .middle{
+  opacity: 1;
+}
+
+.coordinate-text {
+  font-size: 19px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 250px;
+  color:#000000;
+  opacity: 1;
+}
+
+/*
   Styling the material icons
   throughout pages with added
   .dowhop- classes
-
 */
 
 i.dowhop-icon {

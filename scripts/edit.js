@@ -180,10 +180,13 @@ function makeDoWhopSelector(container, data) {
       '">' +
       '<div class="dowhop-selector-header" style="background-image: url(' +
       image1 +
-      ');">' +
-      '<h1>' +
-      data.val().titleDescription +
-      '</h1>' +
+      ');">'+
+        '<h1 id="dowhop-title">' +
+          data.val().titleDescription +
+        '</h1>' +
+        '<div class="middle">' +
+          '<div class="coordinate-text" >Coordinate this DoWhop<div>'+
+        '</div>' +
       '</div>' +
       '</aside>';
   } else {
