@@ -185,7 +185,7 @@ function makeDoWhopSelector(container, data) {
           data.val().titleDescription +
         '</h1>' +
         '<div class="middle">' +
-          '<div class="coordinate-text" >Coordinate this DoWhop<div>'+
+          '<p class="coordinate-text"> Coordinate this DoWhop </p>'+
         '</div>' +
       '</div>' +
       '</aside>';
