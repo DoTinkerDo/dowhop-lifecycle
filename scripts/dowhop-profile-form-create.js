@@ -90,44 +90,48 @@ function createProfile(e) {
 
 	if (createProfileName.value) {
 		profileRef.update({ profileName: createProfileName.value });
-		// .then(createProfileForm.reset())
 	}
 	if (createProfilePhone.value) {
 		profileRef.update({ profilePhone: createProfilePhone.value });
-		// .then(createProfileForm.reset())
 	}
 	if (createProfileSocial.value) {
 		profileRef.update({ profileSocial: createProfileSocial.value });
-		// .then(createProfileForm.reset())
 	}
 	if (createProfileWebsite.value) {
 		profileRef.update({ profileWebsite: createProfileWebsite.value });
-		// .then(createProfileForm.reset())
 	}
 	if (createProfilePayment.value) {
 		profileRef.update({ profilePayment: createProfilePayment.value });
-		// .then(createProfileForm.reset())
 	}
 	if (createProfileAbout.value) {
 		profileRef.update({ profileAbout: createProfileAbout.value });
-		// .then(createProfileForm.reset())
 	}
 	if (createProfileActivity1.value) {
 		profileRef.update({ profileActivity1: createProfileActivity1.value });
-		// .then(createProfileForm.reset())
 	}
 
 	if (createProfileActivity2.value) {
 		profileRef.update({ profileActivity2: createProfileActivity2.value });
-		// .then(createProfileForm.reset())
 	}
 	if (createProfileActivity3.value) {
 		profileRef.update({ profileActivity3: createProfileActivity3.value });
-		// .then(createProfileForm.reset())
 	}
-	// createProfileForm.reset();
-	profileImageFiles = [];
+
+	clearCreateProfileForm();
 	createProfileDiv.setAttribute('hidden', 'true');
+}
+
+function clearCreateProfileForm() {
+	profileImageFiles = [];
+	createProfileName.value = '';
+	createProfilePhone.value = '';
+	createProfileSocial.value = '';
+	createProfileWebsite.value = '';
+	createProfilePayment.value = '';
+	createProfileAbout.value = '';
+	createProfileActivity1.value = '';
+	createProfileActivity1.value = '';
+	createProfileActivity1.value = '';
 }
 
 // Section for retrieving previously-existing user profiles:
