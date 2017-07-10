@@ -514,9 +514,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
         chatId: currentDoWhopID,
         name: currentUser.displayName,
         text: this.messageInput.value,
-        photoUrl:
-          currentUser.photoURL ||
-          'https://static.wixstatic.com/media/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png/v1/fill/w_512,h_512,al_c/de271e_daded027ba1f4feab7b1c26683bc84da~mv2.png' // <- Customized.
+        photoUrl: currentUser.photoURL || '/images/placeholder-image1.jpg' // Check.
       })
       .then(
         function() {
