@@ -28,9 +28,7 @@ exports.newDoWhopDescriptionAlert = functions.database.ref('/DoWhopDescriptions/
   });
 
   const getUser = admin.auth().getUser('VYw0lPDFD3btHJadneuSFGjy8wk1');
-  const placeholderUserPhotoURL =
-    'https://static.wixstatic.com/media/de271e_7b4ba75cc39345df91b400d66d827907~mv2.png/v1/crop/x_0,y_12,w_300,h_276/fill/w_50,h_46,al_c,usm_0.66_1.00_0.01/de271e_7b4ba75cc39345df91b400d66d827907~mv2.png';
-
+  const placeholderUserPhotoURL = '/images/placeholder-image1.jpg'; // Check.
   Promise.all([getTokens, getUser]).then(([tokens, user]) => {
     const payload = {
       notification: {
