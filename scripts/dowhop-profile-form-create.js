@@ -126,6 +126,7 @@ function createProfile(e) {
 		// .then(createProfileForm.reset())
 	}
 	// createProfileForm.reset();
+	profileImageFiles = [];
 	createProfileDiv.setAttribute('hidden', 'true');
 }
 
