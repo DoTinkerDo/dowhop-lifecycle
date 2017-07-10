@@ -494,7 +494,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
       chatId: currentDoWhopID,
       name: currentUser.displayName,
       text: messageText,
-      photoUrl: '../images/searching-a-person.png'
+      photoUrl: '../images/searching-a-person.png' // Change?
     });
 
     chatsRef.update({ status: true, requester: currentUser.uid }); // Refactoring to make it a dis-aggregated update.
@@ -525,6 +525,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
       .catch(function(error) {
         console.error('Error writing new message to Firebase Database', error);
       });
+    this.resetDateTimeWhere; // Check.
   }
 };
 
@@ -598,6 +599,7 @@ FriendlyChat.prototype.saveImageMessage = function(event) {
     .catch(function(error) {
       console.error('There was an error uploading a file to Cloud Storage:', error);
     });
+  this.resetDateTimeWhere; // Check.
 };
 
 // Signs-in Friendly Chat.
