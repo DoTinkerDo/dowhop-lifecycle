@@ -494,7 +494,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
       chatId: currentDoWhopID,
       name: currentUser.displayName,
       text: messageText,
-      photoUrl: '../images/searching-a-person.png'
+      photoUrl: '/images/placeholder-image1.jpg'
     });
 
     chatsRef.update({ status: true, requester: currentUser.uid }); // Refactoring to make it a dis-aggregated update.
@@ -514,7 +514,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
         chatId: currentDoWhopID,
         name: currentUser.displayName,
         text: this.messageInput.value,
-        photoUrl: currentUser.photoURL || '/images/placeholder-image1.jpg' // Check.
+        photoUrl: currentUser.photoURL || '/images/user-icon.png' // Check.
       })
       .then(
         function() {
@@ -525,6 +525,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
       .catch(function(error) {
         console.error('Error writing new message to Firebase Database', error);
       });
+    this.resetDateTimeWhere; // Check.
   }
 };
 
@@ -551,8 +552,8 @@ FriendlyChat.prototype.setImageUrl = function(imageUri, imgElement) {
   // If the image is a Cloud Storage URI we fetch the URL.
   if (imageUri.startsWith('gs://')) {
     imgElement.src = FriendlyChat.LOADING_IMAGE_URL; // Display a loading image first.
-    this.storage.refFromURL(imageUri).getMetadata().then(function(metadata) {
-      imgElement.src = metadata.downloadURL[0];
+    firebase.storage().refFromURL(imageUri).getMetadata().then(function(metadata) {
+      imgElement.src = metadata.downloadURLs[0];
     });
   } else {
     imgElement.src = imageUri;
@@ -570,40 +571,35 @@ FriendlyChat.prototype.saveImageMessage = function(event) {
 
   // Check if the file is an image.
   if (!file.type.match('image.*')) {
-    var data = {
-      message: 'You can only share images',
-      timeout: 2000
-    };
-    this.signInSnackbar.MaterialSnackbar.showSnackbar(data);
+    window.alert('You can only share images. Please try again.');
     return;
   }
   // Check if the user is signed-in
-  if (this.checkSignedInWithMessage()) {
-    // We add a message with a loading icon that will get updated with the shared image.
-    var currentUser = person;
-    this.messagesRef
-      .push({
-        name: currentUser.displayName,
-        imageUrl: FriendlyChat.LOADING_IMAGE_URL,
-        photoUrl: currentUser.photoURL || '/images/profile_placeholder.png'
-      })
-      .then(
-        function(data) {
-          // Upload the image to Cloud Storage.
-          var filePath = currentUser.uid + '/' + data.key + '/' + file.name;
-          return this.storage.ref(filePath).put(file).then(
-            function(snapshot) {
-              // Get the file's Storage URI and update the chat message placeholder.
-              var fullPath = snapshot.metadata.fullPath;
-              return data.update({ imageUrl: this.storage.ref(fullPath).toString() });
-            }.bind(this)
-          );
-        }.bind(this)
-      )
-      .catch(function(error) {
-        console.error('There was an error uploading a file to Cloud Storage:', error);
-      });
-  }
+  // We add a message with a loading icon that will get updated with the shared image.
+  var currentUser = person;
+  this.messagesRef
+    .push({
+      name: currentUser.displayName,
+      imageUrl: FriendlyChat.LOADING_IMAGE_URL,
+      photoUrl: currentUser.photoURL || '/images/user-icon.png'
+    })
+    .then(
+      function(data) {
+        // Upload the image to Cloud Storage.
+        var filePath = 'userImages/' + currentUser.uid + '/' + 'messageImages/' + data.key + '/' + file.name;
+        return this.storage.ref(filePath).put(file).then(
+          function(snapshot) {
+            // Get the file's Storage URI and update the chat message placeholder.
+            var fullPath = snapshot.metadata.fullPath;
+            return data.update({ imageUrl: this.storage.ref(fullPath).toString() });
+          }.bind(this)
+        );
+      }.bind(this)
+    )
+    .catch(function(error) {
+      console.error('There was an error uploading a file to Cloud Storage:', error);
+    });
+  this.resetDateTimeWhere; // Check.
 };
 
 // Signs-in Friendly Chat.
