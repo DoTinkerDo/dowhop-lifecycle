@@ -580,7 +580,7 @@ FriendlyChat.prototype.saveImageMessage = function(event) {
     .push({
       name: currentUser.displayName,
       imageUrl: FriendlyChat.LOADING_IMAGE_URL,
-      photoUrl: currentUser.photoURL || '/images/profile_placeholder.png'
+      photoUrl: currentUser.photoURL || '/images/user-icon.png'
     })
     .then(
       function(data) {
