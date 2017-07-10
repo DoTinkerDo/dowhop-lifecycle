@@ -514,7 +514,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
         chatId: currentDoWhopID,
         name: currentUser.displayName,
         text: this.messageInput.value,
-        photoUrl: currentUser.photoURL || '/images/placeholder-image1.jpg' // Check.
+        photoUrl: currentUser.photoURL || '/images/user-icon.png' // Check.
       })
       .then(
         function() {
