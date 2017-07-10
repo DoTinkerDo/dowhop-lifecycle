@@ -494,7 +494,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
       chatId: currentDoWhopID,
       name: currentUser.displayName,
       text: messageText,
-      photoUrl: '../images/searching-a-person.png' // Change?
+      photoUrl: '/images/placeholder-image1.jpg'
     });
 
     chatsRef.update({ status: true, requester: currentUser.uid }); // Refactoring to make it a dis-aggregated update.
