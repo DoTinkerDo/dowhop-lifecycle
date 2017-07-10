@@ -24,11 +24,15 @@
   cursor: default;
 }
 
+.dowhop-selector-header-top h1 {
+  margin-top: 0;
+}
+
 .dowhop-selector-header-top h1,
 h2 {
   background-color: #ffffff;
   background-color: rgba(255, 255, 255, .3);
-  color:#606060;
+  color: #606060;
   font-size: 30px;
   text-align: center;
   vertical-align: middle;
@@ -47,22 +51,22 @@ h2 {
   backface-visibility: hidden;
 }
 
-.dowhop-selector-header:hover{
+.dowhop-selector-header:hover {
   cursor: pointer;
   opacity: .4;
 }
 
 .dowhop-selector-header #dowhop-title,
 h2 {
-  height:100%;
+  height: 100%;
   width: 100%;
   /*background-color: #ffffff;
   background-color: rgba(255, 255, 255, .3);*/
   transition: color background-color .4s ease 0s;
-  }
+}
 
-.dowhop-selector-header:hover #dowhop-title{
-  color:transparent;
+.dowhop-selector-header:hover #dowhop-title {
+  color: transparent;
   background-color: transparent;
 }
 
@@ -70,7 +74,7 @@ h2 {
 .dowhop-selector-header-top #dowhop-title {
   margin: 0;
   padding: 5px 10px;
-  color:#606060;
+  color: #606060;
   font-size: 30px;
   text-align: center;
   vertical-align: middle;
@@ -91,7 +95,7 @@ h2 {
   height: 100%;
 }
 
-.dowhop-selector-header:hover .middle{
+.dowhop-selector-header:hover .middle {
   opacity: 1;
 }
 
@@ -100,7 +104,7 @@ h2 {
   text-align: center;
   vertical-align: middle;
   line-height: 250px;
-  color:#000000;
+  color: #000000;
   opacity: 1;
 }
 
