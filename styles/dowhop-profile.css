@@ -117,7 +117,7 @@
 }
 
 .outer-box .inner-box {
-  background: white;
+  background-color: #ffffff;
   height: 100%;
   width: 100%;
   opacity: 0;
@@ -125,11 +125,14 @@
   left: 0;
   position: absolute;
   padding: 0;
-  transition: .5s;
+  -webkit-transition: all 0.4s ease 0s;
+  -moz-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
 }
 
 .outer-box .inner-box p {
-  color: black;
+  color: #000000;
   margin-top: 40%;
   text-align: center;
   vertical-align: middle;
@@ -138,23 +141,20 @@
 
 .outer-box:hover .inner-box {
   opacity: .9;
-  transition: .5s;
   cursor: pointer;
-}
-
-.outer-box:target .inner-box {
-  opacity: .9;
-  transition: .5s;
-  cursor: pointer;
+  -webkit-transition: all 0.4s ease 0s;
+  -moz-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
 }
 
 #edit-profile-button {
-  color: black;
+  color: #606060;
   text-decoration: none;
 }
 
 #edit-profile-button:hover {
-  color: black;
+  color: #606060;
   text-decoration: none;
   cursor: pointer;
 }
