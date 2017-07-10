@@ -77,7 +77,7 @@ function createProfile(e) {
 	//   });
 
 	profileImageFiles.forEach(function(file, idx) {
-		var filePath = 'userImages/' + uid + '/' + 'profileImages/' + file.name;
+		var filePath = 'userImages/' + uid + '/' + 'profileActivityImages/' + file.name;
 		storage.ref(filePath).put(file).then(function(snapshot) {
 			var path = snapshot.metadata.fullPath;
 			storage.ref(path).getDownloadURL().then(function(url) {
