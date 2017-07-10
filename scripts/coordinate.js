@@ -552,7 +552,6 @@ FriendlyChat.prototype.setImageUrl = function(imageUri, imgElement) {
   if (imageUri.startsWith('gs://')) {
     imgElement.src = FriendlyChat.LOADING_IMAGE_URL; // Display a loading image first.
     firebase.storage().refFromURL(imageUri).getMetadata().then(function(metadata) {
-      console.log(metadata);
       imgElement.src = metadata.downloadURLs[0];
     });
   } else {
@@ -564,27 +563,17 @@ FriendlyChat.prototype.setImageUrl = function(imageUri, imgElement) {
 // This first saves the image in Firebase storage.
 FriendlyChat.prototype.saveImageMessage = function(event) {
   event.preventDefault();
-  console.log('files...', event.target.files);
-
   var file = event.target.files[0];
-
-  console.log('file:', file);
 
   // Clear the selection in the file picker input.
   this.imageForm.reset();
 
   // Check if the file is an image.
   if (!file.type.match('image.*')) {
-    window.alert('You can only share images.');
-    // var data = {
-    //   message: 'You can only share images',
-    //   timeout: 2000
-    // };
-    // this.signInSnackbar.MaterialSnackbar.showSnackbar(data);
+    window.alert('You can only share images. Please try again.');
     return;
   }
   // Check if the user is signed-in
-  // if (this.checkSignedInWithMessage()) {
   // We add a message with a loading icon that will get updated with the shared image.
   var currentUser = person;
   this.messagesRef
@@ -600,9 +589,7 @@ FriendlyChat.prototype.saveImageMessage = function(event) {
         return this.storage.ref(filePath).put(file).then(
           function(snapshot) {
             // Get the file's Storage URI and update the chat message placeholder.
-            console.log('filePath:', filePath);
             var fullPath = snapshot.metadata.fullPath;
-            console.log('fullPath:', fullPath);
             return data.update({ imageUrl: this.storage.ref(fullPath).toString() });
           }.bind(this)
         );
@@ -611,7 +598,6 @@ FriendlyChat.prototype.saveImageMessage = function(event) {
     .catch(function(error) {
       console.error('There was an error uploading a file to Cloud Storage:', error);
     });
-  // }
 };
 
 // Signs-in Friendly Chat.
