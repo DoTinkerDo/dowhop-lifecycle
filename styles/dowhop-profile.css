@@ -112,7 +112,7 @@
 }
 
 .outer-box img {
-  width: 175px;
+  max-width: 100%;
   height: auto;
 }
 
