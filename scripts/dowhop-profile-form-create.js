@@ -132,6 +132,9 @@ function clearCreateProfileForm() {
 	createProfileActivity1.value = '';
 	createProfileActivity1.value = '';
 	createProfileActivity1.value = '';
+	inputImageCaptureList[0].parentNode.style.color = '#757575';
+	inputImageCaptureList[1].parentNode.style.color = '#757575';
+	inputImageCaptureList[2].parentNode.style.color = '#757575';
 }
 
 // Section for retrieving previously-existing user profiles:
