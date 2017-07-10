@@ -1,11 +1,35 @@
-/* Adding in template presets */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-/* Color palette
-Replaced #hover-flag, #top-bar-hidden, #top-bar-dowhop  #FF0404 (red) with #ec1928
-Repalced #title and #pac-input focus #4d90fe (blue) with #ec1928
-Replaced #user-list border #cfd9df (blue-grey) with #c0c0c0*
+::placeholder {
+  color: #cfcfcf;
+}
 
-TODO: standardize grey pallette */
+body {
+  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
+}
+
+input {
+  border: none;
+  outline: none;
+  background: none;
+  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
+  color: #606060;
+}
+
+header {
+  text-align: center;
+  padding-top: 10px;
+}
+
+header h1 {
+  font-size: 24px;
+}
 
 main,
 #messages-card {
@@ -270,7 +294,7 @@ h5 {
 
 #whereAddressPending:focus {
   border-color: red;
-  border-width: 2px;
+  border-width: 6px;
 }
 
 /* Be sure to update upon style guide changes */
@@ -287,15 +311,76 @@ h5 {
   color: blue;
 }
 
+/*
+  PENDING NOTIFICATIONS STYLING
+*/
+
+#approve-pending-form ul {
+  display: flex;
+  justify-content: center;
+}
+.approve-pending-form-list li {
+  float: left;
+}
+
+.approve-pending-form-list input[type="radio"] {
+  opacity: 0.01;
+  z-index: 100;
+}
+
+/*#radioApprove + label,
+.Checked {
+  background-image: url('https://www.iconexperience.com/_img/g_collection_png/standard/64x64/checkbox.png');
+}
+
+#radioDeny + label,
+.Checked {
+  background-image: url('https://www.iconexperience.com/_img/g_collection_png/standard/64x64/close.png');
+}*/
+
+#radioApprove input[type="radio"]:checked + label,
+.Checked + label {
+  background: #ec1928;
+  background-image: none;
+}
+
+#radioDeny input[type="radio"]:checked + label,
+.Checked + label {
+  background: #ffffff;
+  background-image: none;
+}
+
+/*.approve-pending-form-list input[type="radio"]:checked + label,
+.Checked + label {
+  background: #ec1928;
+  background-image: none;
+}*/
+
+.approve-pending-form-list label {
+  padding-top: 32px;
+  margin-top: 32px;
+  padding-left: 32px;
+  border: 1px solid #ec1928;
+  cursor: pointer;
+  z-index: 90;
+}
+
+.approve-pending-form-list label:hover {
+  background: #ec1928;
+}
+
 .pending-notification {
   color: #ec1928;
-  font-size: 1.25em;
-  background-color: eggShell;
-  padding: 0 10%;
+}
+
+#pending-div {
+  color: #ec1928;
 }
 
 .approval-form {
-  background-color: eggShell;
+  color: #ec1928;
+  display: flex;
+  justify-content: center;
 }
 
 /* Styling underbar icons, inputs  of message input area */
@@ -344,45 +429,6 @@ h5 {
 
 .message img {
   max-height: 20%;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  height: 100%;
-  background: #fff;
-}
-
-::placeholder {
-  color: #cfcfcf;
-}
-
-body {
-  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
-  min-width: 500px;
-}
-
-input {
-  border: none;
-  outline: none;
-  background: none;
-  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
-  color: #606060;
-}
-
-header {
-  text-align: center;
-  padding-top: 10px;
-}
-
-header h1 {
-  font-size: 24px;
 }
 
 .wrap {
@@ -643,33 +689,36 @@ input:focus ~ .bar:after {
 
 /* Any other general stylings */
 
-.tutorial-text {
+/*.tutorial-text {
   opacity: 0.5;
 }
 
 div#tutorial-container {
   padding: 15px;
-}
+}*/
 
-#pending-div-container {
+/*#pending-div-container {
   margin-top: -10px;
   margin-bottom: -10px;
   margin-left: 200px;
-}
+}*/
 
 span.clear {
   clear: both;
 }
 
-#pending-div-container span {
+/*#pending-div-container span {
   padding-left: 650px;
   margin-bottom: 15px;
-}
+}*/
 
 /*
 
-  Button &
-  Btn default
+  Buttons
+
+  Usage ->
+  class="btn btn-default"
+  class="btn btn-small"
 
 */
 
@@ -678,12 +727,9 @@ button {
   outline: none;
 }
 
-.btn-default {
+.btn {
   font: normal normal normal 14px/1.4em 'Avenir Light', Avenir Light, Arial, sans-serif;
   background-color: #ec1928;
-  height: 40px;
-  min-height: 19px;
-  width: 142px;
   color: #ffffff;
   text-align: center;
   cursor: pointer;
@@ -693,9 +739,37 @@ button {
   transition: all 0.4s ease 0s;
 }
 
-.btn-default:hover,
-.btn-default:focus {
+.btn:hover,
+.btn:focus {
   background-color: #ffffff;
   color: #ec1928;
 }
 
+.btn-default {
+  height: 40px;
+  min-height: 19px;
+  width: 142px;
+}
+
+.btn-small {
+  height: 27px;
+  min-height: 19px;
+  width: 71px;
+}
+
+.btn-approve {
+  background-color: #80ff80; /* Change. */
+}
+
+.btn-deny {
+  background-color: #ec1928; /* Change. */
+}
+
+/*
+    INDEX PAGE
+    CONVENIENCE STYLES
+*/
+
+.hide-component {
+  display: none;
+}

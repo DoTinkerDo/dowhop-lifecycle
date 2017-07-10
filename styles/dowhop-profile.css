@@ -112,12 +112,12 @@
 }
 
 .outer-box img {
-  width: 175px;
+  max-width: 100%;
   height: auto;
 }
 
 .outer-box .inner-box {
-  background: white;
+  background-color: #ffffff;
   height: 100%;
   width: 100%;
   opacity: 0;
@@ -125,11 +125,14 @@
   left: 0;
   position: absolute;
   padding: 0;
-  transition: .5s;
+  -webkit-transition: all 0.4s ease 0s;
+  -moz-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
 }
 
 .outer-box .inner-box p {
-  color: black;
+  color: #000000;
   margin-top: 40%;
   text-align: center;
   vertical-align: middle;
@@ -138,23 +141,57 @@
 
 .outer-box:hover .inner-box {
   opacity: .9;
-  transition: .5s;
   cursor: pointer;
-}
-
-.outer-box:target .inner-box {
-  opacity: .9;
-  transition: .5s;
-  cursor: pointer;
+  -webkit-transition: all 0.4s ease 0s;
+  -moz-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
 }
 
 #edit-profile-button {
-  color: black;
+  color: #606060;
   text-decoration: none;
 }
 
 #edit-profile-button:hover {
-  color: black;
+  color: #606060;
   text-decoration: none;
   cursor: pointer;
+}
+
+/*
+
+  Image capture
+  Adding activity
+
+*/
+
+input#profile-image-capture-1,
+input#profile-image-capture-2,
+input#profile-image-capture-3 {
+  display: none;
+}
+
+i.material-icons {
+  cursor: pointer;
+}
+
+label > i.material-icons,
+label > i.material-icons,
+label > i.material-icons {
+  top: -17px;
+  padding-left: 10px;
+  font-size: 44px;
+}
+
+#button-1 i.material-icons,
+#button-2 i.material-icons {
+  cursor: pointer;
+  font-size: 22px;
+}
+
+button#button-1,
+button#button-2 {
+  top: -35px;
+  left: 15px;
 }

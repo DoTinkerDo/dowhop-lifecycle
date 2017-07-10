@@ -162,19 +162,24 @@ function retrieveMyDoWhops(uid) {
     }
   }
 }
-var imageURL = '';
-function makeDoWhopSelector(container, data) {
-  // var imageURL = '';
-  if (data.val() && data.val().downloadURL) {
-    imageURL = data.val().downloadURL.image1 || data.val().downloadURL || defaultDoWhopDescriptionImage;
-    imageURL1 = imageURL;
 
+function makeDoWhopSelector(container, data) {
+  var doWhopDescription = data.val();
+  var image1 = '';
+  var image2 = '';
+  if (doWhopDescription && doWhopDescription.downloadURL) {
+    image1 = doWhopDescription.downloadURL.image1 || doWhopDescription.downloadURL || defaultDoWhopDescriptionImage;
+    image2 = doWhopDescription.downloadURL.image2 || doWhopDescription.downloadURL || defaultDoWhopDescriptionImage;
     container.innerHTML +=
       '<aside class="mdl-card dowhop-selector" id="' +
       data.key +
-      '" onclick="setSession(this)" onmouseenter="changeImage(this)" onmouseleave="changeImage(this)">' +
+      '" onclick="setSession(this)" onmouseenter="toggleDoWhopDescriptionImage(this)" onmouseleave="toggleDoWhopDescriptionImage(this)" data-url1="' +
+      image1 +
+      '" data-url2="' +
+      image2 +
+      '">' +
       '<div class="dowhop-selector-header" style="background-image: url(' +
-      imageURL +
+      image1 +
       ');">'+
         '<h1 id="dowhop-title">' +
           data.val().titleDescription +
@@ -189,24 +194,13 @@ function makeDoWhopSelector(container, data) {
   }
 }
 
-var imageURL1 = null;
-var imageURL2 = null;
-
-function changeImage(element) {
+function toggleDoWhopDescriptionImage(element) {
   var div = element.firstChild;
-  var doWhopDescriptionKey = element.id;
-  var ref = doWhopDescriptionRootRef.child(doWhopDescriptionKey);
-
-  ref.on('value', function(snapshot) {
-    imageURL1 = snapshot.val().downloadURL.image1 || snapshot.val().downloadURL || defaultDoWhopDescriptionImage;
-    imageURL2 = snapshot.val().downloadURL.image2 || snapshot.val().downloadURL || defaultDoWhopDescriptionImage;
-  });
-
   div.classList.toggle('swap-image');
   if (div.classList.contains('swap-image')) {
-    div.style.backgroundImage = 'url(' + imageURL2 + ')';
+    div.style.backgroundImage = 'url(' + element.dataset.url2 + ')';
   } else {
-    div.style.backgroundImage = 'url(' + imageURL1 + ')';
+    div.style.backgroundImage = 'url(' + element.dataset.url1 + ')';
   }
 }
 
