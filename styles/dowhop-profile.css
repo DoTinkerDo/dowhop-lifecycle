@@ -7,12 +7,12 @@
   box-sizing: border-box;
 }
 
-.row:before,
+/*.row:before,
 .row:after {
   content: "";
   display: table;
   clear: both;
-}
+}*/
 
 [class*='col-'] {
   float: left;
@@ -30,7 +30,7 @@
   float: left;
 }
 .col-2 {
-  width: 50%;
+  width: 80%;
   float: right;
 }
 
@@ -82,9 +82,9 @@
 #my-profile-about {
   font-style: italic;
   font-size: 17px;
-  width: 20%;
-  text-align: center;
-  display: inline-block;
+  /*width: 20%;*/
+  text-align: right;
+  /*display: inline-block;*/
   margin-top: 200px;
   margin-left: 20%;
 }

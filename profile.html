@@ -29,11 +29,8 @@
 </head>
   <body>
     <div class="mdl-grid">
-
-      <div id="my-profile"> <!-- Start profile section -->
-        <div class="row">
-          <div class="col-4">
-
+       <!-- Start profile section -->
+          <div class="mdl-cell mdl-cell--2-col">
             <!-- Profile container -->
             <img id="my-profile-picture" src="" alt="User profile image.">
             <div class="row profile-details-container">
@@ -66,48 +63,19 @@
                 </div>
                 </button>
               </div>
-            </div> <!-- END Profile container -->
+            </div>
+          </div>
+        <div class="mdl-cell mdl-cell--6-col">
+          <div id="my-profile-about"></div>
+        </div>
+
+       <!-- END Profile container -->
 
 
             <!-- put the facebook, twitter, etc. links here -->
             <!-- put the verified member part here -->
-            <div id="my-profile-about"></div>
-            <div class="col-8">
-              <div class="row">
-                <div class="col-3">
-                  <div class="outer-box">
-                    <img class="activity-image" id="activity-image-1" src="/images/placeholder-image1.jpg" alt="">
-                    <div class="inner-box">
-                      <p>Love to Do</p>
-                    </div>
-                  </div>
-                  <div class="activity-caption" id="my-profile-activity-1"></div>
-                </div>
-                <div class="col-4">
-                  <div class="outer-box">
-                    <img class="activity-image" id="activity-image-2" src="/images/placeholder-image2.png" alt="">
-                    <div class="inner-box">
-                      <p>Love to Do</p>
-                    </div>
-                  </div>
-                  <div class="activity-caption" id="my-profile-activity-2"></div>
-                </div>
-                <div class="col-5">
-                  <div class="outer-box">
-                    <img class="activity-image" id="activity-image-3" src="/images/placeholder-image3.png" alt="">
-                    <div class="inner-box">
-                      <p>Love to Do</p>
-                    </div>
-                  </div>
-                  <div class="activity-caption" id="my-profile-activity-3"></div>
-                </div>
-              </div>
-            </div>
-          <div>
-        </div>
-      </div> <!-- End Show Profile Section -->
-
-      <div id="create-profile-div"><!-- Begin Create New Profile Form -->
+    <div class="mdl-cell mdl-cell--4-col">
+      <div hidden id="create-profile-div"><!-- Begin Create New Profile Form -->
         <div class="mdl-layout__content">
           <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Update My Profile</h2>
@@ -203,7 +171,47 @@
             </form>
           </div>
         </div>
-      </div> <!-- END Create Submit Profile Form -->
+      </div>
+    </div>
+  </div><!-- END Create Submit Profile Form -->
+
+
+      <div class="col-8">
+        <div class="row">
+          <div class="col-3">
+            <div class="outer-box">
+              <img class="activity-image" id="activity-image-1" src="/images/placeholder-image1.jpg" alt="">
+              <div class="inner-box">
+                <p>Love to Do</p>
+              </div>
+            </div>
+            <div class="activity-caption" id="my-profile-activity-1"></div>
+          </div>
+          <div class="col-4">
+            <div class="outer-box">
+              <img class="activity-image" id="activity-image-2" src="/images/placeholder-image2.png" alt="">
+              <div class="inner-box">
+                <p>Love to Do</p>
+              </div>
+            </div>
+            <div class="activity-caption" id="my-profile-activity-2"></div>
+          </div>
+          <div class="col-5">
+            <div class="outer-box">
+              <img class="activity-image" id="activity-image-3" src="/images/placeholder-image3.png" alt="">
+              <div class="inner-box">
+                <p>Love to Do</p>
+              </div>
+            </div>
+            <div class="activity-caption" id="my-profile-activity-3"></div>
+          </div>
+        </div>
+      </div>
+    <div>
+    </div>
+    <!-- End Show Profile Section -->
+
+
 
       <div class="direct-message col-6"><!-- Start Direct Chat Message Form div -->
         <form hidden id="direct-message-form" class='direct-message'>
@@ -220,7 +228,7 @@
         </form>
       </div>
 
-    </div> <!-- END MDL Grid -->
+     <!-- END MDL Grid -->
 
     <script src="scripts/dowhop-profile-form-create.js"></script>
     <script src="scripts/dowhop-profile-form-dm.js"></script>
