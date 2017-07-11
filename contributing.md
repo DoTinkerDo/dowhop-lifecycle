@@ -18,7 +18,10 @@ We recommend that contributors open a pull request and require a review by anoth
 General stylings regarding best code practices **coming soon**. For now:
 
 * Use DRY code (i.e., "Do Not Repeat Yourself")
-* Commit often and clearly (e.g., "Add X to Y so that Z")
+* Commit often and early
+* Write clear commit messages (e.g., "Add X to Y so that Z")
+* Name branches starting with your own name
+* Push up branches at the end of the day
 * Embrace Agile development
 
 ## Questions?
