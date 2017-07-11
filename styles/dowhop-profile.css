@@ -7,12 +7,12 @@
   box-sizing: border-box;
 }
 
-.row:before,
+/*.row:before,
 .row:after {
   content: "";
   display: table;
   clear: both;
-}
+}*/
 
 [class*='col-'] {
   float: left;
@@ -30,7 +30,7 @@
   float: left;
 }
 .col-2 {
-  width: 50%;
+  width: 80%;
   float: right;
 }
 
@@ -82,9 +82,9 @@
 #my-profile-about {
   font-style: italic;
   font-size: 17px;
-  width: 20%;
-  text-align: center;
-  display: inline-block;
+  /*width: 20%;*/
+  text-align: right;
+  /*display: inline-block;*/
   margin-top: 200px;
   margin-left: 20%;
 }
@@ -157,6 +157,38 @@
   color: #606060;
   text-decoration: none;
   cursor: pointer;
+}
+#my-profile-social-TW {
+  height: 20px;
+  width: 20px;
+  margin-left: 10px;
+}
+#my-profile-social-TW placeholder {
+  background-image: url('../images/Twitter_logo_White_On_Blue.svg');
+  background-position: 7px 7px;
+  background-repeat: no-repeat;
+}
+
+#my-profile-social-FB {
+  height: 20px;
+  width: 20px;
+  margin-left: 10px;
+}
+
+#my-profile-social-LI {
+  height: 20px;
+  width: 20px;
+  margin-left: 10px;
+}
+
+#my-profile-social-IG {
+  height: 20px;
+  width: 20px;
+  margin-left: 10px;
+}
+.social-media-twitter {
+  min-height: .5px;
+  min-width: .5px;
 }
 
 /*
