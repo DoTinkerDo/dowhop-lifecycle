@@ -247,7 +247,12 @@ function socialMediaTW() {
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
     let twitter = String(snap.val().profileSocialTW);
-    window.open(twitter, '_blank');
+    if (!snap.val().profileSocialTW) {
+
+    }
+    else {
+        window.open(twitter, '_blank');
+    }
   });
 }
 
@@ -256,7 +261,12 @@ function socialMediaFB() {
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
     let facebook = String(snap.val().profileSocialFB);
-    window.open(facebook, '_blank');
+    if (!snap.val().profileSocialFB) {
+
+    }
+    else {
+        window.open(facebook, '_blank');
+    }
   });
 }
 
@@ -265,7 +275,12 @@ function socialMediaLI() {
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
     let linkedIn = String(snap.val().profileSocialLI);
-    window.open(linkedIn, '_blank');
+    if (!snap.val().profileSocialLI) {
+
+    }
+    else {
+        window.open(linkedIn, '_blank');
+    }
   });
 }
 
@@ -274,6 +289,23 @@ function socialMediaIG() {
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
     let instagram = String(snap.val().profileSocialIG);
-    window.open(instagram, '_blank');
+    if (!snap.val().profileSocialIG) {
+
+    }
+    else {
+        window.open(instagram, '_blank');
+    }
+  });
+}
+
+function verifySocial() {
+  alert("Function executed");
+  currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
+  var profileRef = firebase.database().ref('app_users/' + currentProfile);
+  profileRef.on('value', function(snap) {
+    if (!snap.val().profileSocialFB) {
+      console.log("HERE"+ createProfileSocialFB.src);
+      createProfileSocialFB.src = "../images/Instagram_logo_2016.svg";
+    }
   });
 }
