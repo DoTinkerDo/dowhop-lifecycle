@@ -5,7 +5,10 @@
 var createProfileForm = document.getElementById('create-profile-form');
 var createProfileName = document.getElementById('profile-name');
 var createProfilePhone = document.getElementById('profile-phone');
-var createProfileSocial = document.getElementById('profile-social');
+var createProfileSocialFB = document.getElementById('profile-social-FB');
+var createProfileSocialTW = document.getElementById('profile-social-TW');
+var createProfileSocialIG = document.getElementById('profile-social-IG');
+var createProfileSocialLI = document.getElementById('profile-social-LI');
 var createProfileWebsite = document.getElementById('profile-website');
 var createProfilePayment = document.getElementById('profile-payment');
 var createProfileAbout = document.getElementById('profile-about');
@@ -20,8 +23,8 @@ showProfileFormBtn.addEventListener('click', showForm);
 createProfileFormBtn.addEventListener('click', createProfile);
 
 function showForm(e) {
-	e.preventDefault();
-	createProfileDiv.removeAttribute('hidden');
+  e.preventDefault();
+  createProfileDiv.removeAttribute('hidden');
 }
 
 // Image activity upload logic
@@ -29,19 +32,19 @@ var addNewActivityList = document.querySelectorAll('.add-new-activity');
 var addNewActivityArr = Array.prototype.slice.call(addNewActivityList);
 
 function showCreateProfileActivity(e) {
-	e.preventDefault();
-	this.id === 'button-1'
-		? (createProfileActivity2.parentNode.parentNode.style.display = 'block')
-		: (createProfileActivity3.parentNode.parentNode.style.display = 'block');
+  e.preventDefault();
+  this.id === 'button-1'
+    ? (createProfileActivity2.parentNode.parentNode.style.display = 'block')
+    : (createProfileActivity3.parentNode.parentNode.style.display = 'block');
 }
 
 function hideCreateProfileActivity() {
-	createProfileActivity2.parentNode.parentNode.style.display = 'none';
-	createProfileActivity3.parentNode.parentNode.style.display = 'none';
+  createProfileActivity2.parentNode.parentNode.style.display = 'none';
+  createProfileActivity3.parentNode.parentNode.style.display = 'none';
 }
 
 addNewActivityArr.forEach(function(addNewActivity) {
-	addNewActivity.addEventListener('click', showCreateProfileActivity);
+  addNewActivity.addEventListener('click', showCreateProfileActivity);
 });
 
 var inputImageCaptureList = document.querySelectorAll('input.image-capture');
@@ -49,98 +52,123 @@ var inputImageCaptureArr = Array.prototype.slice.call(inputImageCaptureList);
 var profileImageFiles = [];
 
 function addProfileImage() {
-	if (!this.files[0].type.match('image/.*')) {
-		alert('You can only add images at the moment.');
-		return;
-	}
-	this.parentNode.style.color = '#ec1928';
-	return profileImageFiles.push(this.files[0]);
+  if (!this.files[0].type.match('image/.*')) {
+    alert('You can only add images at the moment.');
+    return;
+  }
+  this.parentNode.style.color = '#ec1928';
+  return profileImageFiles.push(this.files[0]);
 }
 
 inputImageCaptureArr.forEach(function(inputImageCapture) {
-	inputImageCapture.addEventListener('change', addProfileImage);
+  inputImageCapture.addEventListener('change', addProfileImage);
 });
 
+function expandFacebook() {
+  // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
+  document.getElementById('profile-social-FB').parentNode.removeAttribute('hidden');
+}
+function expandLinkedIn() {
+  // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
+  document.getElementById('profile-social-LI').parentNode.removeAttribute('hidden');
+}
+function expandInstagram() {
+  // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
+  document.getElementById('profile-social-IG').parentNode.removeAttribute('hidden');
+}
+
 function createProfile(e) {
-	e.preventDefault();
-	var uid = auth.currentUser.uid;
-	var profileRef = database.ref('app_users/' + uid);
+  e.preventDefault();
+  var uid = auth.currentUser.uid;
+  var profileRef = database.ref('app_users/' + uid);
 
-	// Prepare user data:
-	// var profileData = {
-	//   update: true,
-	//   profileName: createProfileName.value || "",
-	//   profilePhone: createProfilePhone.value || "",
-	//   profileSocial: createProfileSocial.value || "",
-	//   profileWebsite: createProfileWebsite.value || "",
-	//   profileAbout: createProfileAbout.value || "",
-	//   profileActivity1: createProfileActivity1.value || "",
-	//   profileActivity2: createProfileActivity2.value || "",
-	//   profileActivity3: createProfileActivity3.value || ""
-	// }
-	//   profileRef.update(profileData).then(function() {
-	//   });
+  // Prepare user data:
+  // var profileData = {
+  //   update: true,
+  //   profileName: createProfileName.value || "",
+  //   profilePhone: createProfilePhone.value || "",
+  //   profileSocial: createProfileSocial.value || "",
+  //   profileWebsite: createProfileWebsite.value || "",
+  //   profileAbout: createProfileAbout.value || "",
+  //   profileActivity1: createProfileActivity1.value || "",
+  //   profileActivity2: createProfileActivity2.value || "",
+  //   profileActivity3: createProfileActivity3.value || ""
+  // }
+  //   profileRef.update(profileData).then(function() {
+  //   });
 
-	profileImageFiles.forEach(function(file, idx) {
-		var filePath = 'userImages/' + uid + '/' + 'profileActivityImages/' + file.name;
-		storage.ref(filePath).put(file).then(function(snapshot) {
-			var path = snapshot.metadata.fullPath;
-			storage.ref(path).getDownloadURL().then(function(url) {
-				var obj = {};
-				obj['image' + (idx + 1)] = url;
-				profileRef.child('profileActivityImageURLs').update(obj);
-			});
-		});
-	});
+  profileImageFiles.forEach(function(file, idx) {
+    var filePath = 'userImages/' + uid + '/' + 'profileActivityImages/' + file.name;
+    storage.ref(filePath).put(file).then(function(snapshot) {
+      var path = snapshot.metadata.fullPath;
+      storage.ref(path).getDownloadURL().then(function(url) {
+        var obj = {};
+        obj['image' + (idx + 1)] = url;
+        profileRef.child('profileActivityImageURLs').update(obj);
+      });
+    });
+  });
 
-	if (createProfileName.value) {
-		profileRef.update({ profileName: createProfileName.value });
-	}
-	if (createProfilePhone.value) {
-		profileRef.update({ profilePhone: createProfilePhone.value });
-	}
-	if (createProfileSocial.value) {
-		profileRef.update({ profileSocial: createProfileSocial.value });
-	}
-	if (createProfileWebsite.value) {
-		profileRef.update({ profileWebsite: createProfileWebsite.value });
-	}
-	if (createProfilePayment.value) {
-		profileRef.update({ profilePayment: createProfilePayment.value });
-	}
-	if (createProfileAbout.value) {
-		profileRef.update({ profileAbout: createProfileAbout.value });
-	}
-	if (createProfileActivity1.value) {
-		profileRef.update({ profileActivity1: createProfileActivity1.value });
-	}
+  if (createProfileName.value) {
+    profileRef.update({ profileName: createProfileName.value });
+  }
+  if (createProfilePhone.value) {
+    profileRef.update({ profilePhone: createProfilePhone.value });
+  }
+  if (createProfileSocialFB.value) {
+    profileRef.update({ profileSocialFB: createProfileSocialFB.value });
+  }
+  if (createProfileSocialTW.value) {
+    profileRef.update({ profileSocialTW: createProfileSocialTW.value });
+  }
+  if (createProfileSocialLI.value) {
+    profileRef.update({ profileSocialLI: createProfileSocialLI.value });
+  }
+  if (createProfileSocialIG.value) {
+    profileRef.update({ profileSocialIG: createProfileSocialIG.value });
+  }
+  if (createProfileWebsite.value) {
+    profileRef.update({ profileWebsite: createProfileWebsite.value });
+  }
+  if (createProfilePayment.value) {
+    profileRef.update({ profilePayment: createProfilePayment.value });
+  }
+  if (createProfileAbout.value) {
+    profileRef.update({ profileAbout: createProfileAbout.value });
+  }
+  if (createProfileActivity1.value) {
+    profileRef.update({ profileActivity1: createProfileActivity1.value });
+  }
 
-	if (createProfileActivity2.value) {
-		profileRef.update({ profileActivity2: createProfileActivity2.value });
-	}
-	if (createProfileActivity3.value) {
-		profileRef.update({ profileActivity3: createProfileActivity3.value });
-	}
+  if (createProfileActivity2.value) {
+    profileRef.update({ profileActivity2: createProfileActivity2.value });
+  }
+  if (createProfileActivity3.value) {
+    profileRef.update({ profileActivity3: createProfileActivity3.value });
+  }
 
-	clearCreateProfileForm();
-	createProfileDiv.setAttribute('hidden', 'true');
+  clearCreateProfileForm();
+  createProfileDiv.setAttribute('hidden', 'true');
 }
 
 function clearCreateProfileForm() {
-	profileImageFiles = [];
-	createProfileName.value = '';
-	createProfilePhone.value = '';
-	createProfileSocial.value = '';
-	createProfileWebsite.value = '';
-	createProfilePayment.value = '';
-	createProfileAbout.value = '';
-	createProfileActivity1.value = '';
-	createProfileActivity1.value = '';
-	createProfileActivity1.value = '';
-	inputImageCaptureList[0].parentNode.style.color = '#757575';
-	inputImageCaptureList[1].parentNode.style.color = '#757575';
-	inputImageCaptureList[2].parentNode.style.color = '#757575';
-	hideCreateProfileActivity();
+  profileImageFiles = [];
+  createProfileName.value = '';
+  createProfilePhone.value = '';
+  createProfileSocialFB.value = '';
+  createProfileSocialTW.value = '';
+  createProfileSocialLI.value = '';
+  createProfileSocialIG.value = '';
+  createProfileWebsite.value = '';
+  createProfilePayment.value = '';
+  createProfileAbout.value = '';
+  createProfileActivity1.value = '';
+  createProfileActivity1.value = '';
+  createProfileActivity1.value = '';
+  inputImageCaptureList[0].parentNode.style.color = '#757575';
+  inputImageCaptureList[1].parentNode.style.color = '#757575';
+  inputImageCaptureList[2].parentNode.style.color = '#757575';
+  hideCreateProfileActivity();
 }
 
 // Section for retrieving previously-existing user profiles:
@@ -149,7 +177,11 @@ var currentProfile;
 var myDisplayName = document.getElementById('my-display-name');
 var myProfileName = document.getElementById('my-profile-name');
 var myProfilePhone = document.getElementById('my-profile-phone');
-// var myProfileSocial = document.getElementById('my-profile-social');
+var myProfileSocialFB = document.getElementById('my-profile-social-FB');
+var myProfileSocialTW = document.getElementById('my-profile-social-TW');
+var myProfileSocialIG = document.getElementById('my-profile-social-IG');
+var myProfileSocialLI = document.getElementById('my-profile-social-LI');
+
 // var myProfileWebsite = document.getElementById('my-profile-website');
 var myProfileAbout = document.getElementById('my-profile-about');
 var myProfileEmail = document.getElementById('my-profile-email');
@@ -164,49 +196,90 @@ var myProfilePicture = document.getElementById('my-profile-picture');
 var sendDirectMessageDiv = document.getElementById('send-direct-message-div');
 
 function retrieveProfile(currentProfile) {
-	// We are testing whether visiting user is looking at own profile (default), or other's via query parameter:
-	currentProfile = retrieveUrl(window.location.href) || auth.currentUser.uid;
-	var profileRef = database.ref('app_users/' + currentProfile);
+  // We are testing whether visiting user is looking at own profile (default), or other's via query parameter:
+  currentProfile = retrieveUrl(window.location.href) || auth.currentUser.uid;
+  var profileRef = database.ref('app_users/' + currentProfile);
 
-	// Retrieving relevant data from the database:
-	profileRef.on('value', function(snap) {
-		var appUser = snap.val();
-		myDisplayName.innerText = appUser.displayName;
-		myProfileName.innerText = appUser.profileName;
-		myProfilePhone.innerText = appUser.profilePhone;
-		// myProfileSocial.innerText = appUser.profileSocial;
-		// myProfileWebsite.innerText = appUser.profileWebsite;
-		myProfileAbout.innerText = appUser.profileAbout;
-		myProfileEmail.innerText = appUser.email;
-		// myProfilePayment.innerText = appUser.pofilePayment;
-		myProfileActivity1.innerText = appUser.profileActivity1;
-		myProfileActivity2.innerText = appUser.profileActivity2;
-		myProfileActivity3.innerText = appUser.profileActivity3;
-		activityImage1.src =
+  // Retrieving relevant data from the database:
+  profileRef.on('value', function(snap) {
+    var appUser = snap.val();
+    myDisplayName.innerText = appUser.displayName;
+    myProfileName.innerText = appUser.profileName;
+    myProfilePhone.innerText = appUser.profilePhone;
+    myProfileSocialFB.innerText = snap.val().profileSocialFB;
+    myProfileSocialTW.innerText = snap.val().profileSocialTW;
+    myProfileSocialIG.innerText = snap.val().profileSocialIG;
+    myProfileSocialLI.innerText = snap.val().profileSocialLI;
+    myProfileAbout.innerText = appUser.profileAbout;
+    myProfileEmail.innerText = appUser.email;
+    // myProfilePayment.innerText = appUser.pofilePayment;
+    myProfileActivity1.innerText = appUser.profileActivity1;
+    myProfileActivity2.innerText = appUser.profileActivity2;
+    myProfileActivity3.innerText = appUser.profileActivity3;
+    activityImage1.src = appUser.profileActivityImageURLs.image1 || '/images/placeholder-image1.png';
+    activityImage2.src = appUser.profileActivityImageURLs.image2 || '/images/placeholder-image2.png';
+    activityImage3.src = appUser.profileActivityImageURLs.image3 || '/images/placeholder-image3.png';
+    activityImage1.src =
 			(appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image1) || '/images/placeholder-image1.png';
 		activityImage2.src =
 			(appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image2) || '/images/placeholder-image2.png';
 		activityImage3.src =
 			(appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image3) || '/images/placeholder-image3.png';
-		myProfilePicture.src = appUser.photoURL;
-		myProfilePicture.style.backgroundImage = 'url(' + appUser.photoURL + ')';
-		sendDirectMessageDiv.id = appUser.uid; // NEW.
-	});
+    myProfilePicture.src = appUser.photoURL;
+    myProfilePicture.style.backgroundImage = 'url(' + appUser.photoURL + ')';
+    sendDirectMessageDiv.id = appUser.uid; // NEW.
+  });
 }
 
 // For looking at someone else's profile via query parameter:
 function retrieveUrl(loc) {
-	if (loc.match(/\?(.+)/)) {
-		var y = loc.match(/\?(.+)/)[1];
-		return y;
-	} else {
-		return null;
-	}
+  if (loc.match(/\?(.+)/)) {
+    var y = loc.match(/\?(.+)/)[1];
+    return y;
+  } else {
+    return null;
+  }
 }
 
 // For looking at your own profile (user is logged in):
 auth.onAuthStateChanged(function(user) {
-	if (user) {
-		retrieveProfile();
-	}
+  if (user) {
+    retrieveProfile();
+  }
 });
+
+function socialMediaTW() {
+  currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
+  var profileRef = firebase.database().ref('app_users/' + currentProfile);
+  profileRef.on('value', function(snap) {
+    let twitter = String(snap.val().profileSocialTW);
+    window.open(twitter, '_blank');
+  });
+}
+
+function socialMediaFB() {
+  currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
+  var profileRef = firebase.database().ref('app_users/' + currentProfile);
+  profileRef.on('value', function(snap) {
+    let facebook = String(snap.val().profileSocialFB);
+    window.open(facebook, '_blank');
+  });
+}
+
+function socialMediaLI() {
+  currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
+  var profileRef = firebase.database().ref('app_users/' + currentProfile);
+  profileRef.on('value', function(snap) {
+    let linkedIn = String(snap.val().profileSocialLI);
+    window.open(linkedIn, '_blank');
+  });
+}
+
+function socialMediaIG() {
+  currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
+  var profileRef = firebase.database().ref('app_users/' + currentProfile);
+  profileRef.on('value', function(snap) {
+    let instagram = String(snap.val().profileSocialIG);
+    window.open(instagram, '_blank');
+  });
+}
