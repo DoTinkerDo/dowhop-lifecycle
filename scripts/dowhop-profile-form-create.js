@@ -287,7 +287,7 @@ function socialMediaLI() {
 function socialMediaIG() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
-  profileRef.on('value', function(snap) {
+  profileRef.once('value', function(snap) {
     let instagram = String(snap.val().profileSocialIG);
     if (!snap.val().profileSocialIG) {
 
@@ -297,15 +297,33 @@ function socialMediaIG() {
     }
   });
 }
+var profilePerson = null;
+auth.onAuthStateChanged(function(user) {
+  if (user) {
+    currentProfile = user.uid;
+    var profileRef = firebase.database().ref('app_users/' + currentProfile);
+    profileRef.on('value', function(snap) {
+      if (snap.val().profileSocialFB) {
+        myProfileSocialFB.src = "../images/facebook-logo-verified.svg";
+      }
+      if (snap.val().profileSocialIG) {
+        myProfileSocialIG.src = "../images/instagram-verified.svg";
+      }
+      if (snap.val().profileSocialTW) {
+        myProfileSocialTW.src = "../images/twitter-verified.svg";
+      }
+      if (snap.val().profileSocialLI) {
+        myProfileSocialLI.src = "../images/linkedin-verified.svg";
+      }
+    });
+    profilePerson = user;
+  } else {
+    console.log('PERSON signed out');
+  }
+});
 
-function verifySocial() {
-  alert("Function executed");
-  currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
-  var profileRef = firebase.database().ref('app_users/' + currentProfile);
-  profileRef.on('value', function(snap) {
-    if (!snap.val().profileSocialFB) {
-      console.log("HERE"+ createProfileSocialFB.src);
-      createProfileSocialFB.src = "../images/Instagram_logo_2016.svg";
-    }
-  });
-}
+// window.addEventListener('load', verifySocial);
+
+// function verifySocial() {
+
+// }
