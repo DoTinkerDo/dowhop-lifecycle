@@ -182,9 +182,12 @@ function retrieveProfile(currentProfile) {
 		myProfileActivity1.innerText = appUser.profileActivity1;
 		myProfileActivity2.innerText = appUser.profileActivity2;
 		myProfileActivity3.innerText = appUser.profileActivity3;
-		activityImage1.src = appUser.profileActivityImageURLs.image1 || '/images/placeholder-image1.png';
-		activityImage2.src = appUser.profileActivityImageURLs.image2 || '/images/placeholder-image2.png';
-		activityImage3.src = appUser.profileActivityImageURLs.image3 || '/images/placeholder-image3.png';
+		activityImage1.src =
+			(appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image1) || '/images/placeholder-image1.png';
+		activityImage2.src =
+			(appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image2) || '/images/placeholder-image2.png';
+		activityImage3.src =
+			(appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image3) || '/images/placeholder-image3.png';
 		myProfilePicture.src = appUser.photoURL;
 		myProfilePicture.style.backgroundImage = 'url(' + appUser.photoURL + ')';
 		sendDirectMessageDiv.id = appUser.uid; // NEW.
