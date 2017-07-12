@@ -216,7 +216,10 @@ label > i.material-icons {
 }
 
 #button-1 i.material-icons,
-#button-2 i.material-icons {
+#button-2 i.material-icons,
+#social-button-1 i.material-icons,
+#social-button-2 i.material-icons,
+#social-button-3 i.material-icons {
   cursor: pointer;
   font-size: 22px;
 }
@@ -225,4 +228,11 @@ button#button-1,
 button#button-2 {
   top: -35px;
   left: 15px;
+}
+
+#social-button-1,
+#social-button-2,
+#social-button-3 {
+  top: -12px;
+  left: 5px;
 }

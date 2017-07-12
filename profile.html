@@ -102,33 +102,55 @@
                 <label class="mdl-textfield__label" for="profile-phone">What is your phone number?</label>
                 <div class="mdl-tooltip" for="profile-phone">Preferred Phone Number?</div>
               </div>
+
+            <div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="profile-social-FB" placeholder="URL"></input>
+                <label class="mdl-textfield__label" for="profile-social-FB">FaceBook</label>
+                <div class="mdl-tooltip" for="profile-social-FB">FaceBook URL</div>
+                <!-- <span style="text-align: center"><input id="Button3" type="button" value="Add Twitter URL" language="javascript" onclick="expandTwitter();" /></span> -->
+              </div>
+              <button class="social-button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" id="social-button-1" onclick="expandTwitter();">
+                  <i class="material-icons">add</i>
+                  <span class="mdl-tooltip" for="social-button-1">Add Twitter</span>
+                </button>
+            </div>
+
+            <div hidden id="twitter-card">
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="text" id="profile-social-TW" placeholder="URL"></input>
                 <label class="mdl-textfield__label" for="profile-social-TW">Twitter</label>
                 <div class="mdl-tooltip" for="profile-social-TW">Twitter URL</div>
-                <span style="text-align: center"><input id="Button3" type="button" value="Add Facebook URL" language="javascript" onclick="expandFacebook();" /></span>
+                 <!-- <span style="text-align: center"><input id="Button3" type="button" value="Add Instagram URL" language="javascript" onclick="expandInstagram();" /></span> -->
               </div>
+                <button class="social-button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" id="social-button-2" onclick="expandInstagram();">
+                  <i class="material-icons">add</i>
+                  <span class="mdl-tooltip" for="social-button-2">Add Instagram</span>
+                </button>
+            </div>
 
-
-              <div hidden class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="profile-social-FB" placeholder="URL"></input>
-                <label class="mdl-textfield__label" for="profile-social-FB">FaceBook</label>
-                <div class="mdl-tooltip" for="profile-social-FB">FaceBook URL</div>
-                <span style="text-align: center"><input id="Button3" type="button" value="Add LinkedIn URL" language="javascript" onclick="expandLinkedIn();" /></span>
-              </div>
-
-              <div hidden class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="profile-social-LI" placeholder="URL"></input>
-                <label class="mdl-textfield__label" for="profile-social-LI">LinkedIn</label>
-                <div class="mdl-tooltip" for="profile-social-LI">LinkedIn URL</div>
-                <span style="text-align: center"><input id="Button3" type="button" value="Add Instagram URL" language="javascript" onclick="expandInstagram();" /></span>
-              </div>
-
-              <div hidden class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <div hidden id="instagram-card">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="text" id="profile-social-IG" placeholder="URL"></input>
                 <label class="mdl-textfield__label" for="profile-social-IG">Instagram</label>
                 <div class="mdl-tooltip" for="profile-social-IG">Instagram URL</div>
+                <!-- <span style="text-align: center"><input id="Button3" type="button" value="Add LinkedIn URL" language="javascript" onclick="expandLinkedIn();" /></span> -->
               </div>
+              <button class="social-button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" id="social-button-3" onclick="expandLinkedIn();">
+                  <i class="material-icons">add</i>
+                  <span class="mdl-tooltip" for="social-button-3">Add LinkedIn</span>
+                </button>
+            </div>
+
+            <div hidden id="linkedin-card">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="profile-social-LI" placeholder="URL"></input>
+                <label class="mdl-textfield__label" for="profile-social-LI">LinkedIn</label>
+                <div class="mdl-tooltip" for="profile-social-LI">LinkedIn URL</div>
+              </div>
+            </div>  
+
+
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="text" id="profile-website" placeholder="URL"></input>
                 <label class="mdl-textfield__label" for="profile-website"> Personal Web Site?</label>
@@ -139,6 +161,7 @@
                 <label class="mdl-textfield__label" for="profile-payment">Payment Email?</label>
                 <div class="mdl-tooltip" for="profile-payment">Payment Email</div>
               </div>
+
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <textarea class="mdl-textfield__input" type="text" id="profile-about" placeholder="What kinds of DoWhops do you like to do?"></textarea>
                 <label class="mdl-textfield__label" row="3" for="profile-about">What is your story?</label>
