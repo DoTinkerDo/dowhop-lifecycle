@@ -205,7 +205,7 @@ function retrieveProfile(currentProfile) {
     var appUser = snap.val();
     myDisplayName.innerText = appUser.displayName;
     myProfileName.innerText = appUser.profileName;
-    myProfilePhone.innerText = appUser.profilePhone;
+    myProfilePhone.innerText = phoneX(appUser.profilePhone);
     myProfileSocialFB.innerText = snap.val().profileSocialFB;
     myProfileSocialTW.innerText = snap.val().profileSocialTW;
     myProfileSocialIG.innerText = snap.val().profileSocialIG;
@@ -250,7 +250,10 @@ function socialMediaTW() {
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
     let twitter = String(snap.val().profileSocialTW);
-    window.open(twitter, '_blank');
+    if (!snap.val().profileSocialTW) {
+    } else {
+      window.open(twitter, '_blank');
+    }
   });
 }
 
@@ -259,7 +262,10 @@ function socialMediaFB() {
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
     let facebook = String(snap.val().profileSocialFB);
-    window.open(facebook, '_blank');
+    if (!snap.val().profileSocialFB) {
+    } else {
+      window.open(facebook, '_blank');
+    }
   });
 }
 
@@ -268,15 +274,62 @@ function socialMediaLI() {
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
     let linkedIn = String(snap.val().profileSocialLI);
-    window.open(linkedIn, '_blank');
+    if (!snap.val().profileSocialLI) {
+    } else {
+      window.open(linkedIn, '_blank');
+    }
   });
 }
 
 function socialMediaIG() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
-  profileRef.on('value', function(snap) {
+  profileRef.once('value', function(snap) {
     let instagram = String(snap.val().profileSocialIG);
-    window.open(instagram, '_blank');
+    if (!snap.val().profileSocialIG) {
+    } else {
+      window.open(instagram, '_blank');
+    }
   });
 }
+var profilePerson = null;
+auth.onAuthStateChanged(function(user) {
+  if (user) {
+    currentProfile = user.uid;
+    var profileRef = firebase.database().ref('app_users/' + currentProfile);
+    profileRef.on('value', function(snap) {
+      if (snap.val().profileSocialFB) {
+        myProfileSocialFB.src = '../images/facebook-logo-verified.svg';
+      }
+      if (snap.val().profileSocialIG) {
+        myProfileSocialIG.src = '../images/instagram-verified.svg';
+      }
+      if (snap.val().profileSocialTW) {
+        myProfileSocialTW.src = '../images/twitter-verified.svg';
+      }
+      if (snap.val().profileSocialLI) {
+        myProfileSocialLI.src = '../images/linkedin-verified.svg';
+      }
+    });
+    profilePerson = user;
+  } else {
+    console.log('PERSON signed out');
+  }
+});
+
+function phoneX(phone) {
+  var str = '';
+  var count = 0;
+  for (let i = 0; i < phone.length; i++) {
+    if (phone.charAt(i) != '-' && count < 6) {
+      str += 'x';
+      count++;
+    } else str += phone.charAt(i);
+  }
+  return str;
+}
+// window.addEventListener('load', verifySocial);
+
+// function verifySocial() {
+//
+// }

@@ -103,7 +103,6 @@ var person = null;
 auth.onAuthStateChanged(function(user) {
   if (user) {
     person = user;
-    retrieveMyDoWhops(person.uid);
   } else {
     console.log('PERSON signed out');
   }
