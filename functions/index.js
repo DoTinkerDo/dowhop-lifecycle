@@ -3,6 +3,48 @@ const admin = require('firebase-admin');
 
 admin.initializeApp(functions.config().firebase);
 
+exports.DoWhopDescriptionNewDateAlert = functions.database
+  .ref('/DoWhopDescriptions/{pushKey}/whenDate')
+  .onWrite(event => {
+    const originalDate = event.data.val();
+    const key = event.params.pushKey;
+    const doWhopIcon = '/functions/images/doWhopIcon.png';
+    const tokens = [
+      'ctP8hLYg7CQ:APA91bHdby2BZuag0HJJxHudP4rBQxfnjFSbOFCkwfuUGIklDkqIS_x7OuODj9YO70eaHd9Pzs8SI5hzI_TsatW9tCTFU2amyVlzbjvwbZmske5dRi6J5ZIUlnIBUzIKsWgsxKSGqM1C',
+      'cU1YolfMcGM:APA91bH-uMLNUivsr1L4gGlESiDl-GbgQGl4Qhr1wT165AHyFsOeBPKMBLIXRkHjHERV-u-kdMUtUKZehpTCmNqjGqQb9-8atr2zCB0lwcqdZSQwOqRIeEnB_DgWF21dSlWlsQU6_oQk'
+    ];
+
+    const payload = {
+      notification: {
+        title: (originalDate && originalDate.titleDescription) || 'Coordinate Date',
+        body: 'DoWhop Date has been added and or Updated',
+        icon: doWhopIcon
+      }
+    };
+    return admin.messaging().sendToDevice(tokens, payload).catch(error => console.log('ERROR IN INDEX.js -> ', error));
+  });
+
+exports.DoWhopDescriptionNewTimeAlert = functions.database
+  .ref('/DoWhopDescriptions/{pushKey}/whereAddress')
+  .onWrite(event => {
+    const originalTime = event.data.val();
+    const key = event.params.pushKey;
+    const doWhopIcon = '/functions/images/doWhopIcon.png';
+    const tokens = [
+      'ctP8hLYg7CQ:APA91bHdby2BZuag0HJJxHudP4rBQxfnjFSbOFCkwfuUGIklDkqIS_x7OuODj9YO70eaHd9Pzs8SI5hzI_TsatW9tCTFU2amyVlzbjvwbZmske5dRi6J5ZIUlnIBUzIKsWgsxKSGqM1C',
+      'cU1YolfMcGM:APA91bH-uMLNUivsr1L4gGlESiDl-GbgQGl4Qhr1wT165AHyFsOeBPKMBLIXRkHjHERV-u-kdMUtUKZehpTCmNqjGqQb9-8atr2zCB0lwcqdZSQwOqRIeEnB_DgWF21dSlWlsQU6_oQk'
+    ];
+
+    const payload = {
+      notification: {
+        title: (originalTime && originalTime.titleDescription) || 'Coordinate Location',
+        body: ``,
+        icon: doWhopIcon
+      }
+    };
+    return admin.messaging().sendToDevice(tokens, payload).catch(error => console.log('ERROR IN INDEX.js -> ', error));
+  });
+
 exports.DoWhopDescriptionAlert = functions.database.ref('/DoWhopDescriptions/{pushKey}').onWrite(event => {
   const originalDescription = event.data.val();
   const key = event.params.pushKey;
