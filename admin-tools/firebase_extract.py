@@ -1,5 +1,7 @@
-# Omar Malik. 2017.
-# Run this script using `python this_file.py`. Written for Python version 3.6.
+# Firebase Database Extraction. 
+# A script for admins of the DoWhop.com. Run using `python this_file.py` using Python version 3.6 or above.
+# DoWhop.com, (c) 2017. San Diego, CA. 
+ 
 import pyrebase
 import requests
 import json
