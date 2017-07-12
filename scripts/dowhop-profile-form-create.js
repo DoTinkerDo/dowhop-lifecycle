@@ -319,17 +319,10 @@ auth.onAuthStateChanged(function(user) {
 
 function phoneX(phone) {
   var str = '';
-  var count = 0;
-  for (let i = 0; i < phone.length; i++) {
-    if (phone.charAt(i) != '-' && count < 6) {
-      str += 'x';
-      count++;
-    } else str += phone.charAt(i);
+  var i;
+  var x = phone.split('');
+  for (i = 0; i < x.length - 4; i++) {
+    x[i] = 'x';
   }
-  return str;
+  return x.join('');
 }
-// window.addEventListener('load', verifySocial);
-
-// function verifySocial() {
-//
-// }
