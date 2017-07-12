@@ -205,7 +205,7 @@ function retrieveProfile(currentProfile) {
     var appUser = snap.val();
     myDisplayName.innerText = appUser.displayName;
     myProfileName.innerText = appUser.profileName;
-    myProfilePhone.innerText = appUser.profilePhone;
+    myProfilePhone.innerText = phoneX(appUser.profilePhone);
     myProfileSocialFB.innerText = snap.val().profileSocialFB;
     myProfileSocialTW.innerText = snap.val().profileSocialTW;
     myProfileSocialIG.innerText = snap.val().profileSocialIG;
@@ -314,6 +314,17 @@ auth.onAuthStateChanged(function(user) {
   }
 });
 
+function phoneX(phone) {
+  var str = '';
+  var count = 0;
+  for (let i = 0; i < phone.length; i++) {
+    if (phone.charAt(i) != '-' && count < 6) {
+      str += 'x';
+      count++;
+    } else str += phone.charAt(i);
+  }
+  return str;
+}
 // window.addEventListener('load', verifySocial);
 
 // function verifySocial() {
