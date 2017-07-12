@@ -194,6 +194,7 @@ var activityImage2 = document.getElementById('activity-image-2');
 var activityImage3 = document.getElementById('activity-image-3');
 var myProfilePicture = document.getElementById('my-profile-picture');
 var sendDirectMessageDiv = document.getElementById('send-direct-message-div');
+var myProfileSocial = document.getElementById('my-profile-social');
 
 function retrieveProfile(currentProfile) {
   // We are testing whether visiting user is looking at own profile (default), or other's via query parameter:
@@ -299,15 +300,19 @@ auth.onAuthStateChanged(function(user) {
     var profileRef = firebase.database().ref('app_users/' + currentProfile);
     profileRef.on('value', function(snap) {
       if (snap.val().profileSocialFB) {
+        myProfileSocialFB.classList.add('social-hover');
         myProfileSocialFB.src = '../images/facebook-logo-verified.svg';
       }
       if (snap.val().profileSocialIG) {
+        myProfileSocialIG.classList.add('social-hover');
         myProfileSocialIG.src = '../images/instagram-verified.svg';
       }
       if (snap.val().profileSocialTW) {
+        myProfileSocialTW.classList.add('social-hover');
         myProfileSocialTW.src = '../images/twitter-verified.svg';
       }
       if (snap.val().profileSocialLI) {
+        myProfileSocialLI.classList.add('social-hover');
         myProfileSocialLI.src = '../images/linkedin-verified.svg';
       }
     });
