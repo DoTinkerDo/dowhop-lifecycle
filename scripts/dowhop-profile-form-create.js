@@ -63,18 +63,31 @@ function addProfileImage() {
 inputImageCaptureArr.forEach(function(inputImageCapture) {
   inputImageCapture.addEventListener('change', addProfileImage);
 });
+var socialButtonTwitter = document.getElementById('social-button-1');
+socialButtonTwitter.addEventListener('click', expandTwitter);
 
-function expandTwitter() {
+var socialButtonInstagram = document.getElementById('social-button-2');
+socialButtonInstagram.addEventListener('click', expandInstagram);
+
+var socialButtonLinkedIn = document.getElementById('social-button-3');
+socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
+
+function expandTwitter(e) {
+  e.preventDefault();
   // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
   document.getElementById('twitter-card').removeAttribute('hidden');
 }
-function expandLinkedIn() {
-  // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
-  document.getElementById('linkedin-card').removeAttribute('hidden');
-}
-function expandInstagram() {
+
+function expandInstagram(e) {
+  e.preventDefault();
   // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
   document.getElementById('instagram-card').removeAttribute('hidden');
+}
+
+function expandLinkedIn(e) {
+  e.preventDefault();
+  // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
+  document.getElementById('linkedin-card').removeAttribute('hidden');
 }
 
 function createProfile(e) {
