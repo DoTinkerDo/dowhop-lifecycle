@@ -83,11 +83,11 @@
 #my-profile-about {
   font-style: italic;
   font-size: 17px;
+  padding-top: auto;
+  padding-left: 20%;
   /*width: 20%;*/
-  text-align: right;
+  text-align: center;
   /*display: inline-block;*/
-  margin-top: 200px;
-  margin-left: 30%;
 }
 
 .col-3,

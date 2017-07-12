@@ -224,7 +224,7 @@ function retrieveProfile(currentProfile) {
     activityImage3.src =
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image3) || '/images/placeholder-image3.png';
     myProfilePicture.src = appUser.photoURL;
-    myProfilePicture.style.backgroundImage = 'url(' + appUser.photoURL + ')';
+    // myProfilePicture.style.backgroundImage = 'url(' + appUser.photoURL + ')';
     sendDirectMessageDiv.id = appUser.uid; // NEW.
   });
 }
