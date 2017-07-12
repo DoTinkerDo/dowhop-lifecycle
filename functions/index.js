@@ -3,8 +3,8 @@ const admin = require('firebase-admin');
 
 admin.initializeApp(functions.config().firebase);
 
-exports.newDoWhopDescriptionAlert = functions.database.ref('/DoWhopDescriptions/{pushKey}').onWrite(function(event) {
-  const description = event.data.val();
+exports.DoWhopDescriptionAlert = functions.database.ref('/DoWhopDescriptions/{pushKey}').onWrite(event => {
+  const originalDescription = event.data.val();
   const key = event.params.pushKey;
 
   const getTokens = admin.database().ref('app_users').once('value').then(snapshot => {
@@ -13,8 +13,8 @@ exports.newDoWhopDescriptionAlert = functions.database.ref('/DoWhopDescriptions/
     ];
     snapshot.forEach(user => {
       const token = user.child('token').val();
-      const doerDescription = description.doerDescription || '';
-      const creatorDescription = description.creatorDescription || '';
+      const doerDescription = (originalDescription && originalDescription.doerDescription) || '';
+      const creatorDescription = (originalDescription && originalDescription.creatorDescription) || '';
       if (
         token &&
         (doerDescription.split(', ').some(doerDescriptionEmail => doerDescriptionEmail === user.val().email) ||
@@ -26,18 +26,17 @@ exports.newDoWhopDescriptionAlert = functions.database.ref('/DoWhopDescriptions/
     return tokens;
   });
 
+  const doWhopIcon = '/functions/images/doWhopIcon.png';
   const getUser = admin.auth().getUser('VYw0lPDFD3btHJadneuSFGjy8wk1');
-  const doWhopIcon = '/images/doWhopIcon.jpg'; // Check.
+
   Promise.all([getTokens, getUser]).then(([tokens, user]) => {
     const payload = {
       notification: {
-        title: description.titleDescription,
-        body: 'Has been updated',
+        title: (originalDescription && originalDescription.titleDescription) || 'DoWhopTitle Placeholder',
+        body: 'Has been created and or updated',
         icon: doWhopIcon
       }
     };
-    admin.messaging().sendToDevice(tokens, payload).catch(function(error) {
-      console.log('ERROR IN INDEX.js -> ', error);
-    });
+    admin.messaging().sendToDevice(tokens, payload).catch(error => console.log('ERROR IN INDEX.js -> ', error));
   });
 });
