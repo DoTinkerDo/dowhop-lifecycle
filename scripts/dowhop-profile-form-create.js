@@ -64,17 +64,17 @@ inputImageCaptureArr.forEach(function(inputImageCapture) {
   inputImageCapture.addEventListener('change', addProfileImage);
 });
 
-function expandFacebook() {
+function expandTwitter() {
   // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
-  document.getElementById('profile-social-FB').parentNode.removeAttribute('hidden');
+  document.getElementById('twitter-card').removeAttribute('hidden');
 }
 function expandLinkedIn() {
   // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
-  document.getElementById('profile-social-LI').parentNode.removeAttribute('hidden');
+  document.getElementById('linkedin-card').removeAttribute('hidden');
 }
 function expandInstagram() {
   // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
-  document.getElementById('profile-social-IG').parentNode.removeAttribute('hidden');
+  document.getElementById('instagram-card').removeAttribute('hidden');
 }
 
 function createProfile(e) {
