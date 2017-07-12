@@ -109,14 +109,14 @@ auth.onAuthStateChanged(function(user) {
 });
 
 function createDefaultDoWhop() {
-  console.log('creating default dowhop...');
+  // console.log('creating default dowhop...');
   var uid = auth.currentUser.uid;
   var email = auth.currentUser.email;
   var creatorDescription = auth.currentUser.email;
   // Then we add on note to user's profile that it has been added:
   var appUsersRef = database.ref('/app_users');
   var appUserRef = appUsersRef.child(uid);
-
+  var defaultDoWhopImage = 'images/DefaultDoWhop_banner.jpg';
   // console.log("adding dowhop...");
   // Adding a default DoWhop template as welcoming message:
   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
@@ -124,7 +124,7 @@ function createDefaultDoWhop() {
   doWhopDescriptionRef.child(doWhopDescriptionKey).set({
     createdBy: uid,
     doWhopDescriptionKey: doWhopDescriptionKey,
-    downloadURL: defaultDoWhopDescriptionImage,
+    downloadURL: defaultDoWhopImage,
     titleDescription: 'DoWhop with us!',
     whoDescription: 'DoWhop Team is here to help you!',
     whatDescription: '',
