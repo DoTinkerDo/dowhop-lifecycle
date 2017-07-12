@@ -248,10 +248,8 @@ function socialMediaTW() {
   profileRef.on('value', function(snap) {
     let twitter = String(snap.val().profileSocialTW);
     if (!snap.val().profileSocialTW) {
-
-    }
-    else {
-        window.open(twitter, '_blank');
+    } else {
+      window.open(twitter, '_blank');
     }
   });
 }
@@ -262,10 +260,8 @@ function socialMediaFB() {
   profileRef.on('value', function(snap) {
     let facebook = String(snap.val().profileSocialFB);
     if (!snap.val().profileSocialFB) {
-
-    }
-    else {
-        window.open(facebook, '_blank');
+    } else {
+      window.open(facebook, '_blank');
     }
   });
 }
@@ -276,10 +272,8 @@ function socialMediaLI() {
   profileRef.on('value', function(snap) {
     let linkedIn = String(snap.val().profileSocialLI);
     if (!snap.val().profileSocialLI) {
-
-    }
-    else {
-        window.open(linkedIn, '_blank');
+    } else {
+      window.open(linkedIn, '_blank');
     }
   });
 }
@@ -290,10 +284,8 @@ function socialMediaIG() {
   profileRef.once('value', function(snap) {
     let instagram = String(snap.val().profileSocialIG);
     if (!snap.val().profileSocialIG) {
-
-    }
-    else {
-        window.open(instagram, '_blank');
+    } else {
+      window.open(instagram, '_blank');
     }
   });
 }
@@ -304,16 +296,16 @@ auth.onAuthStateChanged(function(user) {
     var profileRef = firebase.database().ref('app_users/' + currentProfile);
     profileRef.on('value', function(snap) {
       if (snap.val().profileSocialFB) {
-        myProfileSocialFB.src = "../images/facebook-logo-verified.svg";
+        myProfileSocialFB.src = '../images/facebook-logo-verified.svg';
       }
       if (snap.val().profileSocialIG) {
-        myProfileSocialIG.src = "../images/instagram-verified.svg";
+        myProfileSocialIG.src = '../images/instagram-verified.svg';
       }
       if (snap.val().profileSocialTW) {
-        myProfileSocialTW.src = "../images/twitter-verified.svg";
+        myProfileSocialTW.src = '../images/twitter-verified.svg';
       }
       if (snap.val().profileSocialLI) {
-        myProfileSocialLI.src = "../images/linkedin-verified.svg";
+        myProfileSocialLI.src = '../images/linkedin-verified.svg';
       }
     });
     profilePerson = user;
@@ -325,5 +317,5 @@ auth.onAuthStateChanged(function(user) {
 // window.addEventListener('load', verifySocial);
 
 // function verifySocial() {
-
+//
 // }
