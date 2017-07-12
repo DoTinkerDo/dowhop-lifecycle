@@ -18,9 +18,15 @@ var createProfileActivity3 = document.getElementById('profile-activity-3');
 var createProfileFormBtn = document.getElementById('create-profile-form-button');
 var showProfileFormBtn = document.getElementById('edit-profile-button');
 var createProfileDiv = document.getElementById('create-profile-div');
+var socialButtonTwitter = document.getElementById('social-button-1');
+var socialButtonInstagram = document.getElementById('social-button-2');
+var socialButtonLinkedIn = document.getElementById('social-button-3');
 
+socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 showProfileFormBtn.addEventListener('click', showForm);
 createProfileFormBtn.addEventListener('click', createProfile);
+socialButtonTwitter.addEventListener('click', expandTwitter);
+socialButtonInstagram.addEventListener('click', expandInstagram);
 
 function showForm(e) {
   e.preventDefault();
@@ -63,14 +69,6 @@ function addProfileImage() {
 inputImageCaptureArr.forEach(function(inputImageCapture) {
   inputImageCapture.addEventListener('change', addProfileImage);
 });
-var socialButtonTwitter = document.getElementById('social-button-1');
-socialButtonTwitter.addEventListener('click', expandTwitter);
-
-var socialButtonInstagram = document.getElementById('social-button-2');
-socialButtonInstagram.addEventListener('click', expandInstagram);
-
-var socialButtonLinkedIn = document.getElementById('social-button-3');
-socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 
 function expandTwitter(e) {
   e.preventDefault();
