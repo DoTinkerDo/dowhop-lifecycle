@@ -40,7 +40,6 @@ h2 {
 
 .dowhop-selector-header {
   transition: opacity .4s ease 0s;
-  background-color: #ffffff;
   height: 250px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -58,10 +57,8 @@ h2 {
 
 .dowhop-selector-header #dowhop-title,
 h2 {
-  height: 100%;
-  width: 100%;
-  /*background-color: #ffffff;
-  background-color: rgba(255, 255, 255, .3);*/
+  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, .3);
   transition: color background-color .4s ease 0s;
 }
 
@@ -100,6 +97,7 @@ h2 {
 }
 
 .coordinate-text {
+  background-color: transparent;
   font-size: 19px;
   text-align: center;
   vertical-align: middle;
