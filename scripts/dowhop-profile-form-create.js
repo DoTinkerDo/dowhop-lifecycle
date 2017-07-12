@@ -21,7 +21,7 @@ var createProfileDiv = document.getElementById('create-profile-div');
 var socialButtonTwitter = document.getElementById('social-button-1');
 var socialButtonInstagram = document.getElementById('social-button-2');
 var socialButtonLinkedIn = document.getElementById('social-button-3');
-
+var expandTwitter = document.getElementById('twitter-card');
 socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 showProfileFormBtn.addEventListener('click', showForm);
 createProfileFormBtn.addEventListener('click', createProfile);
@@ -119,6 +119,8 @@ function createProfile(e) {
       });
     });
   });
+
+  document.getElementById('twitter-card').setAttribute('hidden', 'true');
 
   if (createProfileName.value) {
     profileRef.update({ profileName: createProfileName.value });
