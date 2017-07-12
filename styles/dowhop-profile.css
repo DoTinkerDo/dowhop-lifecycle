@@ -233,6 +233,10 @@ button#button-2 {
 #social-button-1,
 #social-button-2,
 #social-button-3 {
-  top: -12px;
-  left: 5px;
+  top: -15px;
+  left: 18px;
+}
+svg.social-media-svg {
+  margin-top: -25px;
+  margin-left: 9px;
 }
