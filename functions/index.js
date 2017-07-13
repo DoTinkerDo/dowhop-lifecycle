@@ -7,6 +7,7 @@ exports.DoWhopDescriptionNewDateAlert = functions.database
   .ref('/DoWhopDescriptions/{pushKey}/whenDate')
   .onWrite(event => {
     const originalDate = event.data.val();
+    console.log('ORIGINALDATE', originalDate);
     const key = event.params.pushKey;
     const doWhopIcon = '/functions/images/doWhopIcon.png';
     const tokens = [
@@ -24,10 +25,11 @@ exports.DoWhopDescriptionNewDateAlert = functions.database
     return admin.messaging().sendToDevice(tokens, payload).catch(error => console.log('ERROR IN INDEX.js -> ', error));
   });
 
-exports.DoWhopDescriptionNewTimeAlert = functions.database
+exports.DoWhopDescriptionNewLocationAlert = functions.database
   .ref('/DoWhopDescriptions/{pushKey}/whereAddress')
   .onWrite(event => {
-    const originalTime = event.data.val();
+    const originaLocation = event.data.val();
+    console.log('ORIGINALOCATION', originaLocation);
     const key = event.params.pushKey;
     const doWhopIcon = '/functions/images/doWhopIcon.png';
     const tokens = [
@@ -37,7 +39,7 @@ exports.DoWhopDescriptionNewTimeAlert = functions.database
 
     const payload = {
       notification: {
-        title: (originalTime && originalTime.titleDescription) || 'Coordinate Location',
+        title: (originaLocation && originaLocation.titleDescription) || 'Coordinate Location',
         body: `'DoWhop Location has been added and or Updated'`,
         icon: doWhopIcon
       }
@@ -48,6 +50,7 @@ exports.DoWhopDescriptionNewTimeAlert = functions.database
 exports.DoWhopDescriptionAlert = functions.database.ref('/DoWhopDescriptions/{pushKey}').onWrite(event => {
   const originalDescription = event.data.val();
   const key = event.params.pushKey;
+  console.log('ORIGINALDESCRIPTION', originalDescription);
 
   const getTokens = admin.database().ref('app_users').once('value').then(snapshot => {
     const tokens = [
