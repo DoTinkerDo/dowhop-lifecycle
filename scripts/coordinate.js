@@ -448,7 +448,7 @@ FriendlyChat.prototype.loadMessages = function() {
   // Loads the last x number of messages and listen for new ones:
   var setMessage = function(data) {
     var val = data.val();
-    this.displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl);
+    this.displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl, val.senderId); // NEW.
   }.bind(this);
   this.messagesRef.orderByKey().limitToLast(12).on('child_added', setMessage);
   this.messagesRef.orderByKey().limitToLast(12).on('child_changed', setMessage);
@@ -492,6 +492,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
     messagesChatsRef.push({
       chatId: currentDoWhopID,
+      senderId: currentUser.uid, // NEW.
       name: currentUser.displayName,
       text: messageText,
       photoUrl: '/images/placeholder-image1.jpg'
@@ -512,6 +513,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
     messagesChatsRef
       .push({
         chatId: currentDoWhopID,
+        senderId: currentUser.uid, // NEW.
         name: currentUser.displayName,
         text: this.messageInput.value,
         photoUrl: currentUser.photoURL || '/images/user-icon.png' // Check.
@@ -735,7 +737,7 @@ FriendlyChat.resetMaterialTextfield = function(element) {
 // Template for messages.
 FriendlyChat.MESSAGE_TEMPLATE =
   '<div class="message-container">' +
-  '<div class="spacing"><div class="pic"></div></div>' +
+  '<a class="spacing"><div class="pic"></div></a>' +
   '<div class="message"></div>' +
   '<div class="name"></div>' +
   '</div>';
@@ -758,7 +760,7 @@ FriendlyChat.APPROVAL_TEMPLATE =
   '</div>';
 
 // Displays a Message in the UI.
-FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri) {
+FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri, senderId) {
   var messageList = document.getElementById('messages'); // new
   var messageInput = document.getElementById('message'); // new
   var div = document.getElementById(key);
@@ -767,9 +769,13 @@ FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageU
     var container = document.createElement('div');
     container.innerHTML = FriendlyChat.MESSAGE_TEMPLATE;
     div = container.firstChild;
+    container.firstChild.firstChild.setAttribute('href', 'https://mydowhop.com/profile.html?' + senderId); // NEW
     div.setAttribute('id', key);
     messageList.appendChild(div);
   }
+  // if (senderId) {
+  //   container.firstChild.firstChild.setAttribute('href', 'https://mydowhop.com/profile.html?' + senderId); // NEW
+  // }
   if (picUrl) {
     div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
   }
