@@ -54,7 +54,7 @@
     //if (checkDefaultDoWhop() === false) {
     //  createDefaultDoWhop();
     //}
-    checkDefaultDoWhop();
+    // checkDefaultDoWhop();
     // console.log('coord js.');
     retrieveMyDoWhops(user.uid);
   }
@@ -104,16 +104,17 @@ auth.onAuthStateChanged(function(user) {
   if (user) {
     person = user;
     retrieveMyDoWhops(person.uid);
+    checkDefaultDoWhop(person);
   } else {
     console.log('PERSON signed out');
   }
 });
 
-function createDefaultDoWhop() {
-  // console.log('creating default dowhop...');
-  var uid = auth.currentUser.uid;
-  var email = auth.currentUser.email;
-  var creatorDescription = auth.currentUser.email;
+function createDefaultDoWhop(person) {
+  console.log('creating default dowhop...');
+  var uid = person.uid;
+  var email = person.email;
+  var creatorDescription = person.email;
   // Then we add on note to user's profile that it has been added:
   var appUsersRef = database.ref('/app_users');
   var appUserRef = appUsersRef.child(uid);
@@ -135,10 +136,10 @@ function createDefaultDoWhop() {
     creatorDescription: 'tinkerdowhop@gmail.com',
     doerDescription: email
   });
-  // console.log('no default. created default dowhop');
+  console.log('no default. created default dowhop');
 
   // Updating user's status henceforth:
-  // console.log("updating user's dowhop status...");
+  console.log("updating user's dowhop status...");
   var userData = {
     hasDefaultDoWhop: true
   };
@@ -147,11 +148,11 @@ function createDefaultDoWhop() {
 
 // Checks for a default whop, if not exists, creates one.
 
-function checkDefaultDoWhop() {
-  // console.log('running default dowhop check...');
-  var uid = auth.currentUser.uid;
-  var email = auth.currentUser.email;
-  var creatorDescription = auth.currentUser.email;
+function checkDefaultDoWhop(person) {
+  console.log('running default dowhop check...');
+  var uid = person.uid;
+  var email = person.email;
+  var creatorDescription = person.email;
 
   // Then we add on note to user's profile that it has been added:
   var appUsersRef = database.ref('/app_users');
@@ -169,7 +170,7 @@ function checkDefaultDoWhop() {
     } else {
       // console.log('no dowhop exists.');
       //hasDoWhopAlready = false;
-      createDefaultDoWhop();
+      createDefaultDoWhop(person);
     }
   });
 }
