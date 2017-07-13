@@ -26,7 +26,20 @@
   <script src="scripts/firebase.js"></script> <!-- Initialize Firebase app -->
   <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script> <!-- Lodash ._ -->
   <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script> <!-- Firebase UI JS for Web Auth -->
-</head>
+</head>    <!-- Navigation Container -->
+    <header class="mdl-grid">
+      <nav class="mdl-cell mdl-cell--12-col mdl-cell--4-offset-desktop mdl-cell--2-offset-tablet">
+        <a href='/#coordinate'>Go Back</a>
+      </nav> <!-- End Navigation -->
+
+      <div class="nav-dropdown">
+        <img class="nav-dropbtn" id="user-icon" src="/images/user-icon.png" alt="">
+        <div class="nav-dropdown-content">
+          <a class="btn-logout" href="#" onclick="auth.signOut()">Log Out</a>
+          <!-- <a href="#">My Profile</a> -->
+        </div>
+      </div>
+    </header>
 <body>
   <div class="mdl-grid">
     <!-- Start profile section -->
@@ -60,7 +73,7 @@
             <img onclick= socialMediaFB() class="social-media-test" id="my-profile-social-FB" src='../images/facebook-logo.svg' />
             <img onclick= socialMediaTW() id="my-profile-social-TW" src='../images/twitter.svg' />
             <img onclick= socialMediaIG() id="my-profile-social-IG" src='../images/instagram.svg' />
-            <img onclick= socialMediaLI() id="my-profile-social-LI" src='../images/linkedin.svg' />
+            <img onclick= socialMediaLI() id="my-profile-social-LI" src='../images/Linkedin.svg' />
 
           </div>
         </div>
