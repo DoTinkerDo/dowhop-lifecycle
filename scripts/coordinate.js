@@ -769,7 +769,7 @@ FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageU
     var container = document.createElement('div');
     container.innerHTML = FriendlyChat.MESSAGE_TEMPLATE;
     div = container.firstChild;
-    container.firstChild.firstChild.setAttribute('href', 'https://mydowhop.com/profile.html?' + senderId); // Check routes.
+    container.firstChild.firstChild.setAttribute('href', '/profile.html?' + senderId); // Check routes.
     div.setAttribute('id', key);
     messageList.appendChild(div);
   }
