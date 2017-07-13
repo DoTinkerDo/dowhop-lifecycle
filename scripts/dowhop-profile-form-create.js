@@ -21,10 +21,11 @@ var createProfileDiv = document.getElementById('create-profile-div');
 var socialButtonTwitter = document.getElementById('social-button-1');
 var socialButtonInstagram = document.getElementById('social-button-2');
 var socialButtonLinkedIn = document.getElementById('social-button-3');
-var expandTwitter = document.getElementById('twitter-card');
-socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
+// var expandTwitter = document.getElementById('twitter-card');
+
 showProfileFormBtn.addEventListener('click', showForm);
 createProfileFormBtn.addEventListener('click', createProfile);
+socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
 
@@ -120,8 +121,6 @@ function createProfile(e) {
     });
   });
 
-  document.getElementById('twitter-card').setAttribute('hidden', 'true');
-
   if (createProfileName.value) {
     profileRef.update({ profileName: createProfileName.value });
   }
@@ -182,6 +181,7 @@ function clearCreateProfileForm() {
   inputImageCaptureList[1].parentNode.style.color = '#757575';
   inputImageCaptureList[2].parentNode.style.color = '#757575';
   hideCreateProfileActivity();
+  // reset social here
 }
 
 // Section for retrieving previously-existing user profiles:
