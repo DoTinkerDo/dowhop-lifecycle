@@ -38,7 +38,7 @@ exports.DoWhopDescriptionNewTimeAlert = functions.database
     const payload = {
       notification: {
         title: (originalTime && originalTime.titleDescription) || 'Coordinate Location',
-        body: ``,
+        body: `'DoWhop Location has been added and or Updated'`,
         icon: doWhopIcon
       }
     };
