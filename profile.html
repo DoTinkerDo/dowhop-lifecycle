@@ -94,19 +94,20 @@
             <form id="create-profile-form" action="#">
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="text" id="profile-name" placeholder="Your name"></input>
-                <label class="mdl-textfield__label" for="profile-name">What's your name?</label>
+                <label class="mdl-textfield__label" for="profile-name">First and Last Name:</label>
                 <div class="mdl-tooltip" for="profile-name">What's your preferred name?</div>
               </div>
+
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="profile-phone" placeholder="Phone"></input>
-                <label class="mdl-textfield__label" for="profile-phone">What is your phone number?</label>
-                <div class="mdl-tooltip" for="profile-phone">Preferred Phone Number?</div>
+                <textarea class="mdl-textfield__input" type="text" id="profile-about" placeholder="What kinds of DoWhops do you like to do?"></textarea>
+                <label class="mdl-textfield__label" row="3" for="profile-about">My Story:</label>
+                <div class="mdl-tooltip" for="profile-about">Tell the community about yourself. What makes you unique?</div>
               </div>
 
             <div>
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="text" id="profile-social-FB" placeholder="URL"></input>
-                <label class="mdl-textfield__label" for="profile-social-FB">FaceBook</label>
+                <label class="mdl-textfield__label" for="profile-social-FB">FaceBook:</label>
                 <div class="mdl-tooltip" for="profile-social-FB">FaceBook URL</div>
               </div>
               <svg class="social-media-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="44px" height="44px" viewBox="0 0 512.002 512.002" style="enable-background:new 0 0 512.002 512.002;" xml:space="preserve">
@@ -121,7 +122,7 @@
             <div hidden id="twitter-card">
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="text" id="profile-social-TW" placeholder="URL"></input>
-                <label class="mdl-textfield__label" for="profile-social-TW">Twitter</label>
+                <label class="mdl-textfield__label" for="profile-social-TW">Twitter:</label>
                 <div class="mdl-tooltip" for="profile-social-TW">Twitter URL</div>
               </div>
               <svg class="social-media-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 300 300" style="enable-background:new 0 0 300 300;" xml:space="preserve" width="44px" height="44px">
@@ -136,7 +137,7 @@
             <div hidden id="instagram-card">
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="text" id="profile-social-IG" placeholder="URL"></input>
-                <label class="mdl-textfield__label" for="profile-social-IG">Instagram</label>
+                <label class="mdl-textfield__label" for="profile-social-IG">Instagram:</label>
                 <div class="mdl-tooltip" for="profile-social-IG">Instagram URL</div>
               </div>
               <svg class="social-media-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 310 310" style="enable-background:new 0 0 310 310;" xml:space="preserve" width="44px" height="44px">
@@ -153,34 +154,23 @@
             <div hidden id="linkedin-card">
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="text" id="profile-social-LI" placeholder="URL"></input>
-                <label class="mdl-textfield__label" for="profile-social-LI">LinkedIn</label>
+                <label class="mdl-textfield__label" for="profile-social-LI">LinkedIn:</label>
                 <div class="mdl-tooltip" for="profile-social-LI">LinkedIn URL</div>
               </div>
             </div>
 
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="text" id="profile-website" placeholder="URL"></input>
-                <label class="mdl-textfield__label" for="profile-website"> Personal Web Site?</label>
-                <div class="mdl-tooltip" for="profile-website">Personal Website</div>
+                <label class="mdl-textfield__label" for="profile-website"> Personal Web Site:</label>
+                <div class="mdl-tooltip" for="profile-website">Personal URL</div>
               </div>
 
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="profile-payment" placeholder="EMAIL"></input>
-                <label class="mdl-textfield__label" for="profile-payment">Payment Email?</label>
-                <div class="mdl-tooltip" for="profile-payment">Payment Email</div>
-              </div>
-
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <textarea class="mdl-textfield__input" type="text" id="profile-about" placeholder="What kinds of DoWhops do you like to do?"></textarea>
-                <label class="mdl-textfield__label" row="3" for="profile-about">What is your story?</label>
-                <div class="mdl-tooltip" for="profile-about">Tell the community about yourself. What makes you unique?</div>
-              </div>
               <!-- Adding Images -->
               <div>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input class="mdl-textfield__input" type="text" id="profile-activity-1" placeholder="e.g., Casey is a dog enthusiast">
-                  <label class="mdl-textfield__label" for="profile-activity-1">What's an activity you like to do?</label>
-                  <span class="mdl-tooltip" for="profile-activity-1">Just add one here for now.</span>
+                  <label class="mdl-textfield__label" for="profile-activity-1">Activity #1:</label>
+                  <span class="mdl-tooltip" for="profile-activity-1">Just add one here for now</span>
                 </div>
                 <label for="profile-image-capture-1">
                   <i class="material-icons">perm_media</i>
@@ -195,8 +185,8 @@
               <div class="hide-component">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input class="mdl-textfield__input" type="text" id="profile-activity-2" placeholder="e.g., Casey is a spearfisherman and snorkeller">
-                  <label class="mdl-textfield__label" for="profile-activity-2">What's a second activity you like to do'?</label>
-                  <span class="mdl-tooltip" for="profile-activity-2">Just add one here for now.</span>
+                  <label class="mdl-textfield__label" for="profile-activity-2">Activity #2:</label>
+                  <span class="mdl-tooltip" for="profile-activity-2">Just add one here for now</span>
                 </div>
                 <label for="profile-image-capture-2">
                   <i class="material-icons">perm_media</i>
@@ -211,8 +201,20 @@
               <div class="hide-component">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input class="mdl-textfield__input" type="text" id="profile-activity-3" placeholder="e.g., Casey is an underwater hockey player">
-                  <label class="mdl-textfield__label" for="profile-activity-3">What's a third activity you like to do'?</label>
-                  <span class="mdl-tooltip" for="profile-activity-3">Just add one here for now.</span>
+                  <label class="mdl-textfield__label" for="profile-activity-3">Activity #3:</label>
+                  <span class="mdl-tooltip" for="profile-activity-3">Just add one here for now</span>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="profile-phone" placeholder="Phone"></input>
+                  <label class="mdl-textfield__label" for="profile-phone">Phone Number:</label>
+                  <div class="mdl-tooltip" for="profile-phone">Preferred Phone Number</div>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="profile-payment" placeholder="EMAIL"></input>
+                  <label class="mdl-textfield__label" for="profile-payment">Venmo Email:</label>
+                  <div class="mdl-tooltip" for="profile-payment">Payment Email</div>
                 </div>
 
                 <label for="profile-image-capture-3">
