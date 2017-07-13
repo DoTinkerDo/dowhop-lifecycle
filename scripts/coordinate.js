@@ -420,8 +420,8 @@ FriendlyChat.prototype.getSession = function() {
     // We only load edit form if edit tab is clicked:
     document.getElementById('messages-card').setAttribute('hidden', 'true');
     document.getElementById('selector-body') && document.getElementById('selector-body').removeAttribute('hidden');
-    showEditForm(doWhopSelector.firstChild); // new
-    fillInEditForm(doWhopSelector.firstChild); // new
+    showEditForm(doWhopSelector.firstChild);
+    fillInEditForm(doWhopSelector.firstChild);
   } else if (currentTabID === 'review-tab') {
     // TO-DO: Good to clear all unwanted UI elements if nothing's chosen.
     document.getElementById('messages-card').setAttribute('hidden', 'true');
@@ -448,7 +448,7 @@ FriendlyChat.prototype.loadMessages = function() {
   // Loads the last x number of messages and listen for new ones:
   var setMessage = function(data) {
     var val = data.val();
-    this.displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl, val.senderId); // NEW.
+    this.displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl, val.senderId);
   }.bind(this);
   this.messagesRef.orderByKey().limitToLast(12).on('child_added', setMessage);
   this.messagesRef.orderByKey().limitToLast(12).on('child_changed', setMessage);
@@ -492,7 +492,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
     messagesChatsRef.push({
       chatId: currentDoWhopID,
-      senderId: currentUser.uid, // NEW.
+      senderId: currentUser.uid, // We need this in order to interact with users objects.
       name: currentUser.displayName,
       text: messageText,
       photoUrl: '/images/placeholder-image1.jpg'
@@ -513,7 +513,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
     messagesChatsRef
       .push({
         chatId: currentDoWhopID,
-        senderId: currentUser.uid, // NEW.
+        senderId: currentUser.uid,
         name: currentUser.displayName,
         text: this.messageInput.value,
         photoUrl: currentUser.photoURL || '/images/user-icon.png' // Check.
@@ -761,21 +761,18 @@ FriendlyChat.APPROVAL_TEMPLATE =
 
 // Displays a Message in the UI.
 FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri, senderId) {
-  var messageList = document.getElementById('messages'); // new
-  var messageInput = document.getElementById('message'); // new
+  var messageList = document.getElementById('messages');
+  var messageInput = document.getElementById('message');
   var div = document.getElementById(key);
   // If an element for that message does not exists yet we create it.
   if (!div) {
     var container = document.createElement('div');
     container.innerHTML = FriendlyChat.MESSAGE_TEMPLATE;
     div = container.firstChild;
-    container.firstChild.firstChild.setAttribute('href', 'https://mydowhop.com/profile.html?' + senderId); // NEW
+    container.firstChild.firstChild.setAttribute('href', 'https://mydowhop.com/profile.html?' + senderId); // Check routes.
     div.setAttribute('id', key);
     messageList.appendChild(div);
   }
-  // if (senderId) {
-  //   container.firstChild.firstChild.setAttribute('href', 'https://mydowhop.com/profile.html?' + senderId); // NEW
-  // }
   if (picUrl) {
     div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
   }
