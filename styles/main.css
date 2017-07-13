@@ -370,17 +370,18 @@ h5 {
 }
 
 .pending-notification {
-  color: #ec1928;
+  color: #606060;
 }
 
 #pending-div {
-  color: #ec1928;
+  color: #606060;
 }
 
 .approval-form {
-  color: #ec1928;
+  /*color: #ec1928;*/
   display: flex;
   justify-content: center;
+  color: #606060;
 }
 
 /* Styling underbar icons, inputs  of message input area */
@@ -697,11 +698,11 @@ div#tutorial-container {
   padding: 15px;
 }*/
 
-/*#pending-div-container {
-  margin-top: -10px;
+#pending-div-container {
+  /*margin-top: -10px;
   margin-bottom: -10px;
-  margin-left: 200px;
-}*/
+  margin-left: 200px;*/
+}
 
 span.clear {
   clear: both;
@@ -772,4 +773,8 @@ button {
 
 .hide-component {
   display: none;
+}
+
+#why-description {
+  font-family: inherit;
 }
