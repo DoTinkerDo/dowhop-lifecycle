@@ -37,10 +37,6 @@
       };
       appUserRef.update(userData);
     });
-    // console.log('prepare to run check default');
-    // if (checkDefaultDoWhop() === false) {
-    //   createDefaultDoWhop();
-    // }
   }
 
   function handleSignedInUser(user) {
@@ -49,13 +45,6 @@
     writeUserData(user);
     // FCM permission registration
     registerMessaging(user);
-
-    // console.log('prepare to run check default');
-    //if (checkDefaultDoWhop() === false) {
-    //  createDefaultDoWhop();
-    //}
-    // checkDefaultDoWhop();
-    // console.log('coord js.');
     retrieveMyDoWhops(user.uid);
   }
 
@@ -66,10 +55,6 @@
   }
 
   function handleOnAuthStateChange() {
-    // console.log('prepare to run check default');
-    // if (checkDefaultDoWhop() === false) {
-    //   createDefaultDoWhop();
-    // }
     auth.onAuthStateChanged(function(user) {
       // Check if current user email is admin in Firebase:
       var approved = false;
@@ -111,7 +96,6 @@ auth.onAuthStateChanged(function(user) {
 });
 
 function createDefaultDoWhop(person) {
-  console.log('creating default dowhop...');
   var uid = person.uid;
   var email = person.email;
   var creatorDescription = person.email;
@@ -119,7 +103,6 @@ function createDefaultDoWhop(person) {
   var appUsersRef = database.ref('/app_users');
   var appUserRef = appUsersRef.child(uid);
   var defaultDoWhopImage = 'images/DefaultDoWhop_banner.jpg';
-  // console.log("adding dowhop...");
   // Adding a default DoWhop template as welcoming message:
   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
   // First we create the new default DoWhop:
@@ -136,10 +119,8 @@ function createDefaultDoWhop(person) {
     creatorDescription: 'tinkerdowhop@gmail.com',
     doerDescription: email
   });
-  console.log('no default. created default dowhop');
 
   // Updating user's status henceforth:
-  console.log("updating user's dowhop status...");
   var userData = {
     hasDefaultDoWhop: true
   };
@@ -149,7 +130,6 @@ function createDefaultDoWhop(person) {
 // Checks for a default whop, if not exists, creates one.
 
 function checkDefaultDoWhop(person) {
-  console.log('running default dowhop check...');
   var uid = person.uid;
   var email = person.email;
   var creatorDescription = person.email;
@@ -163,13 +143,9 @@ function checkDefaultDoWhop(person) {
   appUserRef.once('value', function(snapshot) {
     var snap = snapshot || null;
     if (snap != null && snap.val() != null && snap.val().hasDefaultDoWhop && snap.val().hasDefaultDoWhop === true) {
-      // console.log('user has a dowhop already');
-      // console.log(snap.val());
       hasDoWhopAlready = true;
       return hasDoWhopAlready;
     } else {
-      // console.log('no dowhop exists.');
-      //hasDoWhopAlready = false;
       createDefaultDoWhop(person);
     }
   });
