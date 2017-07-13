@@ -40,6 +40,7 @@
 
 .profile-details-container {
   margin-left: 15px;
+  height: auto;
 }
 
 .center {
@@ -80,13 +81,14 @@
 }
 
 #my-profile-about {
+  text-align: center;
   font-style: italic;
   font-size: 17px;
+  padding: auto;
+  padding-top: 15%;
   /*width: 20%;*/
-  text-align: right;
+  text-align: center;
   /*display: inline-block;*/
-  margin-top: 200px;
-  margin-left: 20%;
 }
 
 .col-3,
@@ -158,6 +160,10 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+#my-profile-social {
+  cursor: pointer;
+}
 #my-profile-social-TW {
   height: 20px;
   width: 20px;
@@ -188,6 +194,14 @@
 .social-media-twitter {
   min-height: .5px;
   min-width: .5px;
+}
+
+.social-hover:hover,
+.social-hover:focus {
+  zoom: 105%;
+}
+.profile-icons {
+  margin: auto;
 }
 
 /*

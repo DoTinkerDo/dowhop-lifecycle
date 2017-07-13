@@ -18,9 +18,16 @@ var createProfileActivity3 = document.getElementById('profile-activity-3');
 var createProfileFormBtn = document.getElementById('create-profile-form-button');
 var showProfileFormBtn = document.getElementById('edit-profile-button');
 var createProfileDiv = document.getElementById('create-profile-div');
+var socialButtonTwitter = document.getElementById('social-button-1');
+var socialButtonInstagram = document.getElementById('social-button-2');
+var socialButtonLinkedIn = document.getElementById('social-button-3');
+// var expandTwitter = document.getElementById('twitter-card');
 
 showProfileFormBtn.addEventListener('click', showForm);
 createProfileFormBtn.addEventListener('click', createProfile);
+socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
+socialButtonTwitter.addEventListener('click', expandTwitter);
+socialButtonInstagram.addEventListener('click', expandInstagram);
 
 function showForm(e) {
   e.preventDefault();
@@ -64,17 +71,22 @@ inputImageCaptureArr.forEach(function(inputImageCapture) {
   inputImageCapture.addEventListener('change', addProfileImage);
 });
 
-function expandTwitter() {
+function expandTwitter(e) {
+  e.preventDefault();
   // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
   document.getElementById('twitter-card').removeAttribute('hidden');
 }
-function expandLinkedIn() {
-  // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
-  document.getElementById('linkedin-card').removeAttribute('hidden');
-}
-function expandInstagram() {
+
+function expandInstagram(e) {
+  e.preventDefault();
   // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
   document.getElementById('instagram-card').removeAttribute('hidden');
+}
+
+function expandLinkedIn(e) {
+  e.preventDefault();
+  // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
+  document.getElementById('linkedin-card').removeAttribute('hidden');
 }
 
 function createProfile(e) {
@@ -169,6 +181,7 @@ function clearCreateProfileForm() {
   inputImageCaptureList[1].parentNode.style.color = '#757575';
   inputImageCaptureList[2].parentNode.style.color = '#757575';
   hideCreateProfileActivity();
+  // reset social here
 }
 
 // Section for retrieving previously-existing user profiles:
@@ -194,6 +207,7 @@ var activityImage2 = document.getElementById('activity-image-2');
 var activityImage3 = document.getElementById('activity-image-3');
 var myProfilePicture = document.getElementById('my-profile-picture');
 var sendDirectMessageDiv = document.getElementById('send-direct-message-div');
+var myProfileSocial = document.getElementById('my-profile-social');
 
 function retrieveProfile(currentProfile) {
   // We are testing whether visiting user is looking at own profile (default), or other's via query parameter:
@@ -223,7 +237,7 @@ function retrieveProfile(currentProfile) {
     activityImage3.src =
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image3) || '/images/placeholder-image3.png';
     myProfilePicture.src = appUser.photoURL;
-    myProfilePicture.style.backgroundImage = 'url(' + appUser.photoURL + ')';
+    // myProfilePicture.style.backgroundImage = 'url(' + appUser.photoURL + ')';
     sendDirectMessageDiv.id = appUser.uid; // NEW.
   });
 }
@@ -299,15 +313,19 @@ auth.onAuthStateChanged(function(user) {
     var profileRef = firebase.database().ref('app_users/' + currentProfile);
     profileRef.on('value', function(snap) {
       if (snap.val().profileSocialFB) {
+        myProfileSocialFB.classList.add('social-hover');
         myProfileSocialFB.src = '../images/facebook-logo-verified.svg';
       }
       if (snap.val().profileSocialIG) {
+        myProfileSocialIG.classList.add('social-hover');
         myProfileSocialIG.src = '../images/instagram-verified.svg';
       }
       if (snap.val().profileSocialTW) {
+        myProfileSocialTW.classList.add('social-hover');
         myProfileSocialTW.src = '../images/twitter-verified.svg';
       }
       if (snap.val().profileSocialLI) {
+        myProfileSocialLI.classList.add('social-hover');
         myProfileSocialLI.src = '../images/linkedin-verified.svg';
       }
     });
@@ -319,17 +337,10 @@ auth.onAuthStateChanged(function(user) {
 
 function phoneX(phone) {
   var str = '';
-  var count = 0;
-  for (let i = 0; i < phone.length; i++) {
-    if (phone.charAt(i) != '-' && count < 6) {
-      str += 'x';
-      count++;
-    } else str += phone.charAt(i);
+  var i;
+  var x = phone.split('');
+  for (i = 0; i < x.length - 4; i++) {
+    x[i] = 'x';
   }
-  return str;
+  return x.join('');
 }
-// window.addEventListener('load', verifySocial);
-
-// function verifySocial() {
-//
-// }
