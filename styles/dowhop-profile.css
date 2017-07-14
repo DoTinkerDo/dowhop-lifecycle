@@ -258,3 +258,15 @@ svg.social-media-svg {
 #profile-about {
   font-family: inherit;
 }
+
+.about {
+  margin-left: 55px;
+  text-align: center;
+}
+.form {
+  margin-left: 25px;
+}
+
+#tablet-size {
+  width: 800px;
+}
