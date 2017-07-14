@@ -10,7 +10,7 @@ const tokens = [
   'cU1YolfMcGM:APA91bH-uMLNUivsr1L4gGlESiDl-GbgQGl4Qhr1wT165AHyFsOeBPKMBLIXRkHjHERV-u-kdMUtUKZehpTCmNqjGqQb9-8atr2zCB0lwcqdZSQwOqRIeEnB_DgWF21dSlWlsQU6_oQk'
 ];
 
-exports.chatMessageAlert = functions.database.ref('/messages/{pushKey}/').onWrite(event => {
+exports.ChatMessageAlert = functions.database.ref('/messages/{pushKey}/').onWrite(event => {
   const newMessage = event.data.val();
   const previousMessage = event.data.previous.val();
   const key = event.params.pushKey;
