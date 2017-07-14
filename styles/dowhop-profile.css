@@ -40,6 +40,7 @@
 
 .profile-details-container {
   margin-left: 15px;
+  height: auto;
 }
 
 .center {
@@ -80,13 +81,14 @@
 }
 
 #my-profile-about {
+  text-align: center;
   font-style: italic;
   font-size: 17px;
+  padding: auto;
+  padding-top: 15%;
   /*width: 20%;*/
-  text-align: right;
+  text-align: center;
   /*display: inline-block;*/
-  margin-top: 200px;
-  margin-left: 20%;
 }
 
 .col-3,
@@ -158,6 +160,10 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+#my-profile-social {
+  cursor: pointer;
+}
 #my-profile-social-TW {
   height: 20px;
   width: 20px;
@@ -190,6 +196,14 @@
   min-width: .5px;
 }
 
+.social-hover:hover,
+.social-hover:focus {
+  zoom: 105%;
+}
+.profile-icons {
+  margin: auto;
+}
+
 /*
 
   Image capture
@@ -216,7 +230,10 @@ label > i.material-icons {
 }
 
 #button-1 i.material-icons,
-#button-2 i.material-icons {
+#button-2 i.material-icons,
+#social-button-1 i.material-icons,
+#social-button-2 i.material-icons,
+#social-button-3 i.material-icons {
   cursor: pointer;
   font-size: 22px;
 }
@@ -225,4 +242,15 @@ button#button-1,
 button#button-2 {
   top: -35px;
   left: 15px;
+}
+
+#social-button-1,
+#social-button-2,
+#social-button-3 {
+  top: -15px;
+  left: 18px;
+}
+svg.social-media-svg {
+  margin-top: -25px;
+  margin-left: 9px;
 }
