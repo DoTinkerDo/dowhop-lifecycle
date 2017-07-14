@@ -338,9 +338,15 @@ auth.onAuthStateChanged(function(user) {
 function phoneX(phone) {
   var str = '';
   var i;
-  var x = phone.split('');
-  for (i = 0; i < x.length - 4; i++) {
-    x[i] = 'x';
+  var x;
+  if (phone) {
+    var x = phone.split('');
+    for (i = 0; i < x.length - 4; i++) {
+      x[i] = 'x';
+    }
+  } else {
+    x = 'xxx-xxx-xxxx';
+    return x;
   }
   return x.join('');
 }
