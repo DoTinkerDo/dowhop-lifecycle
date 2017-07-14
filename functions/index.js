@@ -3,11 +3,14 @@ const admin = require('firebase-admin');
 
 admin.initializeApp(functions.config().firebase);
 
+const doWhopIcon =
+  'https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/dowhop-icons%2Fdowhop-icon.png?alt=media&token=4ce2cb46-d5f0-4bbc-bb9d-b25ca886e634';
+
 exports.DoWhopDescriptionDateAlert = functions.database.ref('/DoWhopDescriptions/{pushKey}/whenDate').onWrite(event => {
   const originalDate = event.data.val();
-  console.log('ORIGINALDATE', originalDate);
+  console.log('ORIGINAL-DATE', originalDate);
   const key = event.params.pushKey;
-  const doWhopIcon = '/functions/images/doWhopIcon.png';
+
   const tokens = [
     'ctP8hLYg7CQ:APA91bHdby2BZuag0HJJxHudP4rBQxfnjFSbOFCkwfuUGIklDkqIS_x7OuODj9YO70eaHd9Pzs8SI5hzI_TsatW9tCTFU2amyVlzbjvwbZmske5dRi6J5ZIUlnIBUzIKsWgsxKSGqM1C',
     'cU1YolfMcGM:APA91bH-uMLNUivsr1L4gGlESiDl-GbgQGl4Qhr1wT165AHyFsOeBPKMBLIXRkHjHERV-u-kdMUtUKZehpTCmNqjGqQb9-8atr2zCB0lwcqdZSQwOqRIeEnB_DgWF21dSlWlsQU6_oQk'
@@ -27,9 +30,9 @@ exports.DoWhopDescriptionLocationAlert = functions.database
   .ref('/DoWhopDescriptions/{pushKey}/whereAddress')
   .onWrite(event => {
     const originaLocation = event.data.val();
-    console.log('ORIGINALOCATION', originaLocation);
+    console.log('ORIGINAL-LOCATION', originaLocation);
     const key = event.params.pushKey;
-    const doWhopIcon = '/functions/images/doWhopIcon.png';
+
     const tokens = [
       'ctP8hLYg7CQ:APA91bHdby2BZuag0HJJxHudP4rBQxfnjFSbOFCkwfuUGIklDkqIS_x7OuODj9YO70eaHd9Pzs8SI5hzI_TsatW9tCTFU2amyVlzbjvwbZmske5dRi6J5ZIUlnIBUzIKsWgsxKSGqM1C',
       'cU1YolfMcGM:APA91bH-uMLNUivsr1L4gGlESiDl-GbgQGl4Qhr1wT165AHyFsOeBPKMBLIXRkHjHERV-u-kdMUtUKZehpTCmNqjGqQb9-8atr2zCB0lwcqdZSQwOqRIeEnB_DgWF21dSlWlsQU6_oQk'
@@ -69,7 +72,6 @@ exports.DoWhopDescriptionAlert = functions.database.ref('/DoWhopDescriptions/{pu
     return tokens;
   });
 
-  const doWhopIcon = '/functions/images/doWhopIcon.png';
   const getUser = admin.auth().getUser('VYw0lPDFD3btHJadneuSFGjy8wk1');
 
   Promise.all([getTokens, getUser]).then(([tokens, user]) => {
