@@ -10,12 +10,40 @@ const tokens = [
   'cU1YolfMcGM:APA91bH-uMLNUivsr1L4gGlESiDl-GbgQGl4Qhr1wT165AHyFsOeBPKMBLIXRkHjHERV-u-kdMUtUKZehpTCmNqjGqQb9-8atr2zCB0lwcqdZSQwOqRIeEnB_DgWF21dSlWlsQU6_oQk'
 ];
 
+exports.chatMessageAlert = functions.database.ref('/messages/{pushKey}/').onWrite(event => {
+  const newMessage = event.data.val();
+  const previousMessage = event.data.previous.val();
+  const key = event.params.pushKey;
+
+  console.log('NEW-MESSAGE -> ', newMessage, ' ====== ', previousMessage, ' ====== ', key);
+
+  const getDoWhopDescriptionTitle = admin
+    .database()
+    .ref('DoWhopDescriptions')
+    .child(key)
+    .once('value')
+    .then(snapshot => {
+      return snapshot.val().titleDescription;
+    });
+
+  Promise.all([tokens, getDoWhopDescriptionTitle]).then(([tokens, title]) => {
+    const payload = {
+      notification: {
+        title: title || 'Coordinate Message Change',
+        body: `Message changed to ${newMessage} from ${previousMessage}`,
+        icon: doWhopIcon
+      }
+    };
+    admin.messaging().sendToDevice(tokens, payload).catch(error => console.log('ERROR IN INDEX.js -> ', error));
+  });
+});
+
 exports.DoWhopDescriptionDateAlert = functions.database.ref('/DoWhopDescriptions/{pushKey}/whenDate').onWrite(event => {
   const newDate = event.data.val();
   const previousDate = event.data.previous.val();
   const key = event.params.pushKey;
 
-  // console.log('NEW-DATE', newDate, ' ====== ', previousDate, ' ====== ', key);
+  console.log('NEW-DATE', newDate, ' ====== ', previousDate, ' ====== ', key);
 
   const getDoWhopDescriptionTitle = admin
     .database()
@@ -45,7 +73,7 @@ exports.DoWhopDescriptionLocationAlert = functions.database
     const previousLocation = event.data.previous.val();
     const key = event.params.pushKey;
 
-    // console.log('NEW-LOCATION', newLocation, ' ====== ', previousLocation, ' ====== ', key);
+    console.log('NEW-LOCATION', newLocation, ' ====== ', previousLocation, ' ====== ', key);
 
     const getDoWhopDescriptionTitle = admin
       .database()
