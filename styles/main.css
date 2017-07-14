@@ -773,3 +773,10 @@ button {
 .hide-component {
   display: none;
 }
+
+/* Update these with proper id's later */
+input#dowhop-image-capture1,
+input#dowhop-image-capture2,
+input#dowhop-image-capture3 {
+  display: none;
+}
