@@ -278,7 +278,7 @@ FriendlyChat.prototype.getSession = function() {
 
   // All cases, we load pending div forms for current session:
   var checkForPendings = function(data) {
-    var pendingNotification = user.displayName + ' has requested a change.';
+    var pendingNotification = user.displayName + ' requested to meet:';
     // Check if there are pending notifications:
     if (data && data.pending != null && data.pending.status != 'approved' && data.pending.status != 'denied') {
       // console.log('pending status true. showing pending div.');
@@ -288,11 +288,11 @@ FriendlyChat.prototype.getSession = function() {
       // This means visiting user is the creator of event:
       if (firebase.auth().currentUser.email == data.creatorDescription) {
         // console.log('visiting user is the creator. showing approval form, hiding rescind form.');
-        pendingNotification += '\nDo you want to approve it?';
+        // pendingNotification += '\nDo you want to approve it?';
 
-        if (data.pending.whenDatePending) pendingNotification += '\n' + data.pending.whenDatePending;
-        if (data.pending.whenTimePending) pendingNotification += '\n' + data.pending.whenTimePending;
-        if (data.pending.whereAddressPending) pendingNotification += '\n' + data.pending.whereAddressPending;
+        if (data.pending.whenDatePending) pendingNotification += '\nOn: ' + data.pending.whenDatePending;
+        if (data.pending.whenTimePending) pendingNotification += '\nAt: ' + data.pending.whenTimePending;
+        if (data.pending.whereAddressPending) pendingNotification += '\nAt: ' + data.pending.whereAddressPending;
 
         document.getElementById('pending-div').innerText = pendingNotification;
         document.getElementById('approve-pending-form').removeAttribute('hidden');
@@ -301,7 +301,7 @@ FriendlyChat.prototype.getSession = function() {
         // This means visiting user is a requestor of event change:
       } else if (firebase.auth().currentUser.uid == data.pending.requester) {
         // console.log('visiting user requested a change. showing rescinding form, hiding approval form.');
-        pendingNotification += '\nDo you want to change it?';
+        // pendingNotification += '\nDo you want to change it?';
         if (data.pending.whenDatePending) pendingNotification += '\nPending day: ' + data.pending.whenDatePending;
         if (data.pending.whenTimePending) pendingNotification += '\nPending time: ' + data.pending.whenTimePending;
         if (data.pending.whereAddressPending)
