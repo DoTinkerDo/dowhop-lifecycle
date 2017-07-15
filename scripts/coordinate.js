@@ -2,6 +2,22 @@
 
 // Use code to coordinate DoWhops.
 
+var today = new Date();
+
+flatpickr('#whenDatePending', {
+  minDate: today,
+  dateFormat: 'Y-m-d'
+});
+flatpickr('#whenTimePending', {
+  enableTime: true,
+  noCalendar: true,
+  enableSeconds: false,
+  time_24hr: false,
+  dateFormat: 'h:i',
+  defaultHour: 12,
+  defaultMinute: 0
+});
+
 var currentSessionID;
 
 function getSesh(clicked) {
