@@ -54,7 +54,8 @@ function FriendlyChat() {
 
   flatpickr('#whenDatePending', {
     minDate: currentDate,
-    dateFormat: 'Y-m-d'
+    dateFormat: 'Y-m-d',
+    disableMobile: 'true'
   });
   flatpickr('#whenTimePending', {
     enableTime: true,
@@ -63,7 +64,8 @@ function FriendlyChat() {
     time_24hr: false,
     dateFormat: 'h:i',
     defaultHour: 12,
-    defaultMinute: 0
+    defaultMinute: 0,
+    disableMobile: 'true'
   });
 
   // Shortcuts to DOM elements for notification messages:
