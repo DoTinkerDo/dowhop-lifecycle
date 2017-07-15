@@ -2,22 +2,6 @@
 
 // Use code to coordinate DoWhops.
 
-var today = new Date();
-
-flatpickr('#whenDatePending', {
-  minDate: today,
-  dateFormat: 'Y-m-d'
-});
-flatpickr('#whenTimePending', {
-  enableTime: true,
-  noCalendar: true,
-  enableSeconds: false,
-  time_24hr: false,
-  dateFormat: 'h:i',
-  defaultHour: 12,
-  defaultMinute: 0
-});
-
 var currentSessionID;
 
 function getSesh(clicked) {
@@ -65,6 +49,22 @@ function FriendlyChat() {
   this.messageFormWhenDatePending = document.getElementById('whenDatePending');
   this.messageFormWhenTimePending = document.getElementById('whenTimePending');
   this.messageFormWherePending = document.getElementById('whereAddressPending');
+
+  var currentDate = new Date();
+
+  flatpickr('#whenDatePending', {
+    minDate: currentDate,
+    dateFormat: 'Y-m-d'
+  });
+  flatpickr('#whenTimePending', {
+    enableTime: true,
+    noCalendar: true,
+    enableSeconds: false,
+    time_24hr: false,
+    dateFormat: 'h:i',
+    defaultHour: 12,
+    defaultMinute: 0
+  });
 
   // Shortcuts to DOM elements for notification messages:
   this.approvalForm = document.getElementById('approve-pending-form');
