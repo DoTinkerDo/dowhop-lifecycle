@@ -21,6 +21,7 @@
 
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" /> <!-- Firebase UI CSS for Web Auth -->
+  <link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" href="styles/main.css"> <!--Catch-all stylings-->
   <link rel="stylesheet" href="styles/login-tabs-styles.css">
   <link rel="stylesheet" href="styles/dowhop-selector-style.css">
@@ -318,8 +319,8 @@
                   <!-- End of Message Form Div -->
                   </div>
                   <div id="hidden-inputs">
-                    <input hidden type="date" id="whenDatePending">
-                    <input hidden type="time" id='whenTimePending' size="50">
+                    <input hidden type="text" id="whenDatePending" placeholder="enter date">
+                    <input hidden type="text" id="whenTimePending" placeholder="enter time">
                     <input hidden id="whereAddressPending" class="controls" type="text" placeholder="Set a place...">
                       <div hidden id="map"></div>
                   </div>
@@ -455,6 +456,7 @@
   </section> <!-- End Application Container -->
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-coo6M25h9GjP8AYxhzIQSbNVj-Ope3s&libraries=places&callback=initAutocomplete" async defer></script>
+<script src="https://unpkg.com/flatpickr"></script>
 <script src="scripts/login.js"></script>
 <script src="scripts/firebase-cloud-messaging.js"></script>
 <script src="scripts/tabs.js"></script>
