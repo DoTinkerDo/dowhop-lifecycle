@@ -2,7 +2,7 @@
 # Run with `python firebase_extract.py` using Python version 3.6 or above.
 # (c) 2017, DoWhop.com. San Diego, CA.
 
-import pyrebase, requests, json, getpass, datetime, os
+import pyrebase, requests, json, getpass, datetime
 
 # Configuring Firebase database settings:
 config = {
@@ -29,9 +29,7 @@ allData = r.json()
 
 # Exporting file to results subfolder:
 t = datetime.datetime.now()
-os.makedirs('extracts/')
-fileName = "extracts/"
-fileName += "result_%s_%s_%s-%s_%s.json" % (t.year, t.month, t.day, t.hour, t.minute)
+fileName = "result_%s_%s_%s-%s_%s.json" % (t.year, t.month, t.day, t.hour, t.minute)
 
 with open(fileName, 'w') as outfile:
     json.dump(allData, outfile)
