@@ -2,7 +2,7 @@
 # Run with `python firebase_extract.py` using Python version 3.6 or above.
 # (c) 2017, DoWhop.com. San Diego, CA.
 
-import pyrebase, requests, json, getpass, datetime
+import pyrebase, requests, json, getpass, datetime, os
 
 # Configuring Firebase database settings:
 config = {
@@ -27,9 +27,11 @@ print('Fetching the data...\n')
 r = requests.get(url='https://dowhop-lifecycle.firebaseio.com/.json?print=pretty&format=export&download=dowhop-lifecycle-export.json&auth=%s' % userIdToken)
 allData = r.json()
 
-# Exporting file to current folder:
+# Exporting file to results subfolder:
 t = datetime.datetime.now()
-fileName = "result_%s_%s_%s-%s_%s.json" % (t.year, t.month, t.day, t.hour, t.minute)
+os.makedirs('extracts/')
+fileName = "extracts/"
+fileName += "result_%s_%s_%s-%s_%s.json" % (t.year, t.month, t.day, t.hour, t.minute)
 
 with open(fileName, 'w') as outfile:
     json.dump(allData, outfile)
