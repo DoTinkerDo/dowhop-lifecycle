@@ -160,25 +160,25 @@ i.dowhop-icon:active {
 }
 ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
-  color: #757575;
+  color: #949393;
   font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
   font-size: 0.875em;
 }
 ::-moz-placeholder {
   /* Firefox 19+ */
-  color: #757575;
+  color: #949393;
   font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
   font-size: 0.875em;
 }
 :-ms-input-placeholder {
   /* IE 10+ */
-  color: #757575;
+  color: #949393;
   font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
   font-size: 0.875em;
 }
 :-moz-placeholder {
   /* Firefox 18- */
-  color: #757575;
+  color: #949393;
   font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
   font-size: 0.875em;
 }
