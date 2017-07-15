@@ -184,6 +184,11 @@ main,
   margin-right: 12px;
 }
 
+input#whenDatePending,
+input#whenTimePending {
+  font-size: 16px;
+}
+
 .whereAddressPending {
   display: inline-block;
   padding: 5px 11px;
