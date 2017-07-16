@@ -297,17 +297,17 @@
                     <!-- Adding options div here -->
                     <div class="options-coordinate">
                       <div class="underbar">
-                        <div id="optione-calendar" class="img_icon">
-                          <img onclick="revealInput('date')" src='images/calendar.png' alt="" width="24" height="24">
+                        <div id="option-calendar" class="img_icon">
+                          <img data-input="date" src="images/calendar.png" alt="calendar" width="24" height="24">
                         </div>
                         <div id="clock" class="img_icon">
-                          <img onclick="revealInput('time')" src="images/clock-circular-outline.png" alt="" width="24" height="24">
+                          <img data-input="time" src="images/clock-circular-outline.png" alt="clock" width="24" height="24">
                         </div>
                         <div id="map-div" class="img_icon">
-                          <img onclick="revealInput('where')" src="https://static.wixstatic.com/media/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png/v1/fill/w_512,h_512,al_c/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png" alt="" width="24" height="24">
+                          <img data-input="where" src="https://static.wixstatic.com/media/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png/v1/fill/w_512,h_512,al_c/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png" alt="map" width="24" height="24">
                         </div>
                         <div id="image" class="img_icon">
-                          <img onclick="revealInput('image')" src="images/image-add-button.png" alt="" width="24" height="24">
+                          <img data-input="image" src="images/image-add-button.png" alt="folder" width="24" height="24">
                         </div>
                         <div id="send-message-button">
                           <button class="btn btn-small" id="submit-message-button" type="submit">
@@ -319,8 +319,8 @@
                   <!-- End of Message Form Div -->
                   </div>
                   <div id="hidden-inputs">
-                    <input hidden type="text" id="whenDatePending" placeholder="Enter date">
-                    <input hidden type="text" id="whenTimePending" placeholder="Enter time">
+                    <input type="text" id="whenDatePending" placeholder="Enter date">
+                    <input type="text" id="whenTimePending" placeholder="Enter time">
                     <input hidden id="whereAddressPending" class="controls" type="text" placeholder="Set a place...">
                     <div hidden id="map"></div>
                   </div>
@@ -468,26 +468,32 @@
 <script src="ratings/rating-lib/weighted-ratings.js"></script>
 <script src="scripts/dowhop-reviews.js"></script>
 <script>
-// Script to change SignIn button text to Login
-var btnLogOut = document.querySelector('.btn-logout');
-function changeLoginText() {
-  var btnSpans = document.querySelectorAll('.firebaseui-idp-text-long');
-  if (btnSpans.length > 0) {
-    btnSpans[0].innerHTML = 'Login with Google';
-    btnSpans[1].innerHTML = 'Login with Facebook';
-    btnSpans[2].innerHTML = 'Login with Email';
-  } else {
-    console.log('NO LOGIN BUTTONS SELECTED');
+  // Script to change SignIn button text to Login
+  var btnLogOut = document.querySelector('.btn-logout');
+  function changeLoginText() {
+    var btnSpans = document.querySelectorAll('.firebaseui-idp-text-long');
+    if (btnSpans.length > 0) {
+      btnSpans[0].innerHTML = 'Login with Google';
+      btnSpans[1].innerHTML = 'Login with Facebook';
+      btnSpans[2].innerHTML = 'Login with Email';
+    } else {
+      console.log('NO LOGIN BUTTONS SELECTED');
+    }
   }
-}
-btnLogOut.addEventListener('click', changeLoginText);
-window.addEventListener('load', changeLoginText);
+  btnLogOut.addEventListener('click', changeLoginText);
+  window.addEventListener('load', changeLoginText);
 </script>
 <script>
-/* A script to use icon to select/toggle input fields */
+var underbar = document.querySelectorAll('.underbar img');
+var underBarIcons = Array.prototype.slice.call(underbar);
+
+underBarIcons.forEach(function(icon) {
+  icon.addEventListener('click', revealInput);
+});
 var date, time, where, image;
-function revealInput(x) {
-  switch (x) {
+function revealInput() {
+  console.log('THIS.DATASET.INPUT -> ', this.dataset.input)
+  switch (this.dataset.input) {
     case 'date':
       document.getElementById('whenDatePending').removeAttribute('hidden');
       document.getElementById('whenTimePending').setAttribute('hidden', 'true');

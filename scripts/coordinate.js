@@ -1,8 +1,24 @@
 'use strict';
 
 // Use code to coordinate DoWhops.
-
 var currentSessionID;
+
+var currentDate = new Date();
+var datePicker = new flatpickr('#whenDatePending', {
+  minDate: currentDate,
+  dateFormat: 'Y-m-d'
+  // disableMobile: 'true'
+});
+var timePicker = new flatpickr('#whenTimePending', {
+  enableTime: true,
+  noCalendar: true,
+  enableSeconds: false,
+  time_24hr: false,
+  dateFormat: 'h:i',
+  defaultHour: 12,
+  defaultMinute: 0
+  // disableMobile: 'true'
+});
 
 function getSesh(clicked) {
   FriendlyChat.prototype.setSessionTab(clicked);
@@ -49,25 +65,6 @@ function FriendlyChat() {
   this.messageFormWhenDatePending = document.getElementById('whenDatePending');
   this.messageFormWhenTimePending = document.getElementById('whenTimePending');
   this.messageFormWherePending = document.getElementById('whereAddressPending');
-
-  var currentDate = new Date();
-
-  this.datePicker = new flatpickr('#whenDatePending', {
-    minDate: currentDate,
-    dateFormat: 'Y-m-d',
-    disableMobile: 'true'
-  });
-  console.log(this.datePicker);
-  this.timePicker = new flatpickr('#whenTimePending', {
-    enableTime: true,
-    noCalendar: true,
-    enableSeconds: false,
-    time_24hr: false,
-    dateFormat: 'h:i',
-    defaultHour: 12,
-    defaultMinute: 0,
-    disableMobile: 'true'
-  });
 
   // Shortcuts to DOM elements for notification messages:
   this.approvalForm = document.getElementById('approve-pending-form');
@@ -550,15 +547,10 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
 FriendlyChat.prototype.resetDate = function() {
   document.getElementById('whenDatePending').value = null;
-  // this.datePicker.clear();
-  // this.datePicker.close();
 };
 
 FriendlyChat.prototype.resetTime = function() {
   document.getElementById('whenTimePending').value = null;
-  console.log(this);
-  // this.timePicker.clear();
-  // this.timePicker.close();
 };
 
 FriendlyChat.prototype.resetWhere = function() {
