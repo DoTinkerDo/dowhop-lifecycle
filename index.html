@@ -203,6 +203,10 @@
                   <input class="mdl-textfield__input" type="text" id="how-much-description" placeholder="This much per person">
                   <label class="mdl-textfield__label" for="how-description">How much will it cost?</label>
                 </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="date-picker" placeholder="Enter date">
+                  <label class="mdl-textfield__label" for="date-picker">When will you meet?</label>
+                </div>
                 <div class="mdl-card__actions">
                 <div>
                   <input id="dowhop-image-capture1" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
@@ -321,7 +325,7 @@
                   <div id="hidden-inputs">
                     <input type="text" id="whenDatePending" placeholder="Enter date">
                     <input type="text" id="whenTimePending" placeholder="Enter time">
-                    <input hidden id="whereAddressPending" class="controls" type="text" placeholder="Set a place...">
+                    <input hidden type="text" id="whereAddressPending" class="controls" placeholder="Set a place...">
                     <div hidden id="map"></div>
                   </div>
                 </form>

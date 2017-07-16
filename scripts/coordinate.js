@@ -19,6 +19,10 @@ var timePicker = new flatpickr('#whenTimePending', {
   defaultMinute: 0
   // disableMobile: 'true'
 });
+flatpickr('#date-picker', {
+  minDate: currentDate,
+  dateFormat: 'Y-m-d'
+});
 
 function getSesh(clicked) {
   FriendlyChat.prototype.setSessionTab(clicked);
