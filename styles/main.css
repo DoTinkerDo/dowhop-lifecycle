@@ -184,9 +184,27 @@ main,
   margin-right: 12px;
 }
 
+/* 
+
+  Date & Time
+  Picker 
+
+*/
 input#whenDatePending,
 input#whenTimePending {
   font-size: 16px;
+}
+
+@media screen and (max-width: 760px) {
+  .flatpickr-calendar.animate.arrowBottom.rightMost {
+    right: 0 !important;
+    left: 1px !important;
+  }
+
+  .flatpickr-calendar.hasTime.noCalendar.animate.arrowTop.showTimeInput.open.rightMost {
+    right: 0 !important;
+    left: 1px !important;
+  }
 }
 
 .whereAddressPending {

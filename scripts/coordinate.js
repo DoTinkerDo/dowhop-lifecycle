@@ -52,12 +52,13 @@ function FriendlyChat() {
 
   var currentDate = new Date();
 
-  flatpickr('#whenDatePending', {
+  this.datePicker = new flatpickr('#whenDatePending', {
     minDate: currentDate,
     dateFormat: 'Y-m-d',
     disableMobile: 'true'
   });
-  flatpickr('#whenTimePending', {
+  console.log(this.datePicker);
+  this.timePicker = new flatpickr('#whenTimePending', {
     enableTime: true,
     noCalendar: true,
     enableSeconds: false,
@@ -549,10 +550,15 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
 FriendlyChat.prototype.resetDate = function() {
   document.getElementById('whenDatePending').value = null;
+  // this.datePicker.clear();
+  // this.datePicker.close();
 };
 
 FriendlyChat.prototype.resetTime = function() {
   document.getElementById('whenTimePending').value = null;
+  console.log(this);
+  // this.timePicker.clear();
+  // this.timePicker.close();
 };
 
 FriendlyChat.prototype.resetWhere = function() {
