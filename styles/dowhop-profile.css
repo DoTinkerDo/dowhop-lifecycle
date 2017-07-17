@@ -7,37 +7,6 @@
   box-sizing: border-box;
 }
 
-/*.row:before,
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}*/
-
-[class*='col-'] {
-  float: left;
-  min-height: 1px;
-}
-
-[class*='col-'] {
-  float: left;
-  min-height: 1px;
-  padding: 12px;
-}
-
-.col-1 {
-  width: 50%;
-  float: left;
-}
-.col-2 {
-  width: 80%;
-  float: right;
-}
-
-/*.outline, .outline *{
-    outline: 1px solid #F6A1A1;
-}*/
-
 .profile-details-container {
   margin-left: 15px;
   height: auto;
@@ -104,15 +73,19 @@
   height: 175px;
 }
 
+.activity {
+  padding-bottom: 35px;
+}
+
 .activity-caption {
   text-align: center;
   margin-top: 10px;
-  max-width: auto;
 }
 
 .outer-box {
-  width: 175px;
-  height: 175px;
+  max-width: 175px;
+  max-height: 175px;
+  margin: 10px;
   display: block;
   position: relative;
 }
@@ -207,13 +180,6 @@
 .profile-icons {
   margin: auto;
 }
-
-/*
-
-  Image capture
-  Adding activity
-
-*/
 
 input#profile-image-capture-1,
 input#profile-image-capture-2,
