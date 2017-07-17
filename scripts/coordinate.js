@@ -4,8 +4,9 @@
 var currentSessionID;
 
 var currentDate = new Date();
+
 var datePicker = new flatpickr('#whenDatePending', {
-  minDate: currentDate,
+  minDate: currentDate.setDate(currentDate.getDate() - 1),
   dateFormat: 'Y-m-d'
 });
 var timePicker = new flatpickr('#whenTimePending', {
@@ -16,10 +17,6 @@ var timePicker = new flatpickr('#whenTimePending', {
   dateFormat: 'h:i',
   defaultHour: 12,
   defaultMinute: 0
-});
-flatpickr('#date-picker', {
-  minDate: currentDate,
-  dateFormat: 'Y-m-d'
 });
 
 function getSesh(clicked) {
@@ -548,11 +545,13 @@ FriendlyChat.prototype.saveMessage = function(e) {
 };
 
 FriendlyChat.prototype.resetDate = function() {
-  document.getElementById('whenDatePending').value = null;
+  document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
+  // document.getElementById('whenDatePending').value = null;
 };
 
 FriendlyChat.prototype.resetTime = function() {
-  document.getElementById('whenTimePending').value = null;
+  document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
+  // document.getElementById('whenTimePending').value = null;
 };
 
 FriendlyChat.prototype.resetWhere = function() {
