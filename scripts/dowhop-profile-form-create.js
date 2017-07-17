@@ -221,6 +221,9 @@ function retrieveProfile(currentProfile) {
     myProfileName.innerText = appUser.profileName;
     myProfilePhone.innerText = phoneX(appUser.profilePhone);
     myProfileSocialFB.innerText = snap.val().profileSocialFB;
+
+    // console.log(snap.val().profileSocialFB);
+    // console.log(currentProfile);
     myProfileSocialTW.innerText = snap.val().profileSocialTW;
     myProfileSocialIG.innerText = snap.val().profileSocialIG;
     myProfileSocialLI.innerText = snap.val().profileSocialLI;
@@ -259,10 +262,40 @@ auth.onAuthStateChanged(function(user) {
   }
 });
 
+var profilePerson = null;
+auth.onAuthStateChanged(function(user) {
+  if (user) {
+    currentProfile = retrieveUrl(window.location.href) || auth.currentUser.uid;
+    var profileRef = firebase.database().ref('app_users/' + currentProfile);
+    profileRef.on('value', function(snap) {
+      if (snap.val().profileSocialFB) {
+        myProfileSocialFB.classList.add('social-hover');
+        myProfileSocialFB.src = '../images/facebook-logo-verified.svg';
+      }
+      if (snap.val().profileSocialIG) {
+        myProfileSocialIG.classList.add('social-hover');
+        myProfileSocialIG.src = '../images/instagram-verified.svg';
+      }
+      if (snap.val().profileSocialTW) {
+        myProfileSocialTW.classList.add('social-hover');
+        myProfileSocialTW.src = '../images/twitter-verified.svg';
+      }
+      if (snap.val().profileSocialLI) {
+        myProfileSocialLI.classList.add('social-hover');
+        myProfileSocialLI.src = '../images/linkedin-verified.svg';
+      }
+    });
+    profilePerson = user;
+  } else {
+    console.log('PERSON signed out');
+  }
+});
+
 function socialMediaTW() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
+    console.log(currentProfile);
     let twitter = String(snap.val().profileSocialTW);
     if (!snap.val().profileSocialTW) {
     } else {
@@ -274,6 +307,7 @@ function socialMediaTW() {
 function socialMediaFB() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
+  console.log(currentProfile);
   profileRef.on('value', function(snap) {
     let facebook = String(snap.val().profileSocialFB);
     if (!snap.val().profileSocialFB) {
@@ -306,34 +340,6 @@ function socialMediaIG() {
     }
   });
 }
-var profilePerson = null;
-auth.onAuthStateChanged(function(user) {
-  if (user) {
-    currentProfile = user.uid;
-    var profileRef = firebase.database().ref('app_users/' + currentProfile);
-    profileRef.on('value', function(snap) {
-      if (snap.val().profileSocialFB) {
-        myProfileSocialFB.classList.add('social-hover');
-        myProfileSocialFB.src = '../images/facebook-logo-verified.svg';
-      }
-      if (snap.val().profileSocialIG) {
-        myProfileSocialIG.classList.add('social-hover');
-        myProfileSocialIG.src = '../images/instagram-verified.svg';
-      }
-      if (snap.val().profileSocialTW) {
-        myProfileSocialTW.classList.add('social-hover');
-        myProfileSocialTW.src = '../images/twitter-verified.svg';
-      }
-      if (snap.val().profileSocialLI) {
-        myProfileSocialLI.classList.add('social-hover');
-        myProfileSocialLI.src = '../images/linkedin-verified.svg';
-      }
-    });
-    profilePerson = user;
-  } else {
-    console.log('PERSON signed out');
-  }
-});
 
 function phoneX(phone) {
   var str = '';
