@@ -200,26 +200,7 @@ input#whenTimePending {
   cursor: pointer;
 }
 
-/*@media screen and (max-width: 760px) {
-  .flatpickr-calendar.animate.arrowBottom.rightMost {
-    right: 0 !important;
-    left: 1px !important;
-  }
-
-  .flatpickr-calendar.hasTime.noCalendar.animate.arrowTop.showTimeInput.open.rightMost {
-    right: 0 !important;
-    left: 1px !important;
-  }
-}*/
-
-/* For debuggin */
-
-input#whenDatePending,
-input#whenTimePending {
-  border: 1px solid black;
-}
-
-.whereAddressPending {
+/*.whereAddressPending {
   display: inline-block;
   padding: 5px 11px;
 }
@@ -228,7 +209,7 @@ input#whenTimePending {
   font-family: Roboto;
   font-size: 13px;
   font-weight: 300;
-}
+}*/
 
 #whereAddressPending {
   background-color: #fff;
@@ -347,7 +328,9 @@ h5 {
 }
 
 /*
-  PENDING NOTIFICATIONS STYLING
+
+  PENDING NOTIFICATIONS
+
 */
 
 #approve-pending-form ul {
@@ -453,8 +436,8 @@ h5 {
   width: auto;
   height: auto;
 }
-
-/*#hidden-inputs {
+/*
+#hidden-inputs {
   display: flex;
   justify-content: center;
   padding-top: 5%;
@@ -466,7 +449,7 @@ h5 {
 .message img {
   max-height: 20%;
 }
-
+/*
 .wrap {
   width: 100%;
   margin: 25px auto;
@@ -510,7 +493,6 @@ h5 {
 
 .form-wrap .form-line > span {
   color: #606060;
-  /*text-transform: uppercase;*/
   display: inline-block;
   width: 100%;
   font-size: 16px;
@@ -570,6 +552,8 @@ input:focus ~ .bar:before,
 input:focus ~ .bar:after {
   width: 50%;
 }
+
+*/
 
 .submit {
   display: inline-block;

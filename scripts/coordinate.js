@@ -7,7 +7,6 @@ var currentDate = new Date();
 var datePicker = new flatpickr('#whenDatePending', {
   minDate: currentDate,
   dateFormat: 'Y-m-d'
-  // disableMobile: 'true'
 });
 var timePicker = new flatpickr('#whenTimePending', {
   enableTime: true,
@@ -17,7 +16,6 @@ var timePicker = new flatpickr('#whenTimePending', {
   dateFormat: 'h:i',
   defaultHour: 12,
   defaultMinute: 0
-  // disableMobile: 'true'
 });
 flatpickr('#date-picker', {
   minDate: currentDate,
