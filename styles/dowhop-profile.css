@@ -48,7 +48,8 @@
 }
 
 #my-profile-picture {
-  height: 250px;
+  max-height: 250px;
+  min-height: 50px;
   /*background-size: cover;*/
   background-repeat: no-repeat;
   margin-bottom: 30px;
@@ -259,12 +260,11 @@ svg.social-media-svg {
   font-family: inherit;
 }
 
+.profile {
+}
 .about {
   margin-left: 55px;
   text-align: center;
-}
-.form {
-  margin-left: 25px;
 }
 
 #tablet-size {
