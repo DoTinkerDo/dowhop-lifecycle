@@ -50,6 +50,7 @@
 #my-profile-picture {
   /*max-height: 250px;*/
   width: 100%;
+  max-width: 75%;
   /*min-height: 50px;*/
   /*background-size: cover;*/
   background-repeat: no-repeat;
@@ -264,7 +265,6 @@ svg.social-media-svg {
 .profile {
 }
 .about {
-  margin-left: 55px;
   text-align: center;
 }
 
