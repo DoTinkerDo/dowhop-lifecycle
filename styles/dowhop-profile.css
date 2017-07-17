@@ -48,8 +48,9 @@
 }
 
 #my-profile-picture {
-  max-height: 250px;
-  min-height: 50px;
+  /*max-height: 250px;*/
+  width: 100%;
+  /*min-height: 50px;*/
   /*background-size: cover;*/
   background-repeat: no-repeat;
   margin-bottom: 30px;
