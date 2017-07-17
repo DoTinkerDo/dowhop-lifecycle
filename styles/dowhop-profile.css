@@ -107,6 +107,7 @@
 .activity-caption {
   text-align: center;
   margin-top: 10px;
+  max-width: auto;
 }
 
 .outer-box {
@@ -118,7 +119,7 @@
 
 .outer-box img {
   max-width: 100%;
-  height: auto;
+  max-height: 75%;
 }
 
 .outer-box .inner-box {
