@@ -548,12 +548,16 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
 FriendlyChat.prototype.resetDate = function() {
   document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
-  // document.getElementById('whenDatePending').value = null;
+  let datePending = document.getElementById('whenDatePending');
+  datePending.value = null;
+  datePending.placeholder = 'Select to enter date';
 };
 
 FriendlyChat.prototype.resetTime = function() {
   document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
-  // document.getElementById('whenTimePending').value = null;
+  let timePending = document.getElementById('whenTimePending');
+  timePending.value = null;
+  timePending.placeholder = 'Select to enter time';
 };
 
 FriendlyChat.prototype.resetWhere = function() {
@@ -561,8 +565,15 @@ FriendlyChat.prototype.resetWhere = function() {
 };
 
 FriendlyChat.prototype.resetDateTimeWhere = function() {
-  document.getElementById('whenDatePending').value = null;
-  document.getElementById('whenTimePending').value = null;
+  // document.getElementById('whenDatePending').value = null;
+  // document.getElementById('whenTimePending').value = null;
+  let datePending = document.getElementById('whenDatePending');
+  datePending.value = null;
+  datePending.placeholder = 'Select to enter date';
+
+  let timePending = document.getElementById('whenTimePending');
+  timePending.value = null;
+  timePending.placeholder = 'Select to enter time';
   document.getElementById('whereAddressPending').value = null;
 };
 
