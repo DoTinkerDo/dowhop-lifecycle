@@ -109,7 +109,6 @@ function submitNewDoWhopEntry(e) {
 
 var files = [];
 function addDoWhopImage(files_arr, node) {
-  console.log("here");
   if (!files_arr[0].type.match('image/.*')) {
     alert('You can only add images at the moment.');
     return;
@@ -154,6 +153,9 @@ function clearNewDoWhopEntryForm() {
   dowhopImageCapture1.value = '';
   dowhopImageCapture2.value = '';
   dowhopImageCapture3.value = '';
+  dowhopImageCapture1.parentElement.style.color = '#757575';
+  dowhopImageCapture2.parentElement.style.color = '#757575';
+  dowhopImageCapture3.parentElement.style.color = '#757575';
 }
 
 function showConfirmationMessage() {
