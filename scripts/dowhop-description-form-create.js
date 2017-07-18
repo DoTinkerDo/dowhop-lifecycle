@@ -109,10 +109,12 @@ function submitNewDoWhopEntry(e) {
 
 var files = [];
 function addDoWhopImage(files_arr, node) {
+  console.log("here");
   if (!files_arr[0].type.match('image/.*')) {
     alert('You can only add images at the moment.');
     return;
   }
+  node.parentNode.style.color = '#ec1928';
   return files.push(files_arr[0]);
 }
 

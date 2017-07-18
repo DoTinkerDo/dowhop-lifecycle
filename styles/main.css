@@ -797,3 +797,27 @@ button {
 #why-description {
   font-family: inherit;
 }
+
+#create-outer-div {
+  text-align:center;
+  height: 50px;
+  width: 300px;
+}
+
+#create-div-1 {
+  float: left;
+  height: 50px;
+  width: 50px;
+}
+
+#create-div-2 {
+  display: inline;
+  height: 50px;
+  width: 50px;
+}
+
+#create-div-3 {
+  float: right;
+  height: 50px;
+  width: 50px;
+}
