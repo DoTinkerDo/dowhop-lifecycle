@@ -28,6 +28,19 @@ FriendlyChat.prototype.setSessionTab = function(clicked) {
   var currentTab = clicked.id;
   var userID = person.uid;
   var sessionRef = database.ref('/session').child(userID);
+  var allTabs = document.getElementsByClassName('tab');
+
+  // ... We also need to toggle the rest:
+  console.log(allTabs);
+  for (var i = 0; i < allTabs.length; i++) {
+    allTabs[i].style.stroke = '#000000';
+    allTabs[i].style.fill = '#000000';
+  }
+
+  // In order to show user which tab they're on:
+  console.log(currentTab);
+  document.getElementById(currentTab).style.stroke = 'pink';
+  document.getElementById(currentTab).style.fill = 'pink';
 
   sessionRef.update({
     current_tab: currentTab
