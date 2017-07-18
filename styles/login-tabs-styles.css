@@ -81,7 +81,8 @@ li a {
   }
 }
 
-.tab:hover {
+.tab:hover,
+.tab:focus {
   fill: #ec1928 !important;
   stroke: #ec1928 !important;
 }
@@ -93,6 +94,7 @@ li a {
 
 ul a:hover,
 ul a:focus {
+  color: #ec1928 !important;
 }
 
 .nav-tab-label {
