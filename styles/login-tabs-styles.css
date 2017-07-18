@@ -84,7 +84,6 @@ li a {
 .tab:hover,
 .tab:focus {
   fill: #ec1928 !important;
-  stroke: #ec1928 !important;
 }
 
 .tab::after {

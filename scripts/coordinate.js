@@ -33,13 +33,11 @@ FriendlyChat.prototype.setSessionTab = function(clicked) {
 
   // We need to toggle the tabs to default color if un-selected...
   for (var i = 0; i < allTabs.length; i++) {
-    allTabs[i].style.stroke = '#000000';
     allTabs[i].style.fill = '#000000';
     allTabs[i].style.color = '#000000';
   }
 
   // ...And set the current session tab:
-  currentTabElement.style.stroke = '#ec1928';
   currentTabElement.style.fill = '#ec1928';
   currentTabElement.style.color = '#ec1928';
 
