@@ -26,6 +26,7 @@ function getSesh(clicked) {
 
 FriendlyChat.prototype.setSessionTab = function(clicked) {
   var currentTab = clicked.id;
+  var currentTabElement = document.getElementById(currentTab);
   var userID = person.uid;
   var sessionRef = database.ref('/session').child(userID);
   var allTabs = document.getElementsByClassName('tab');
@@ -36,9 +37,9 @@ FriendlyChat.prototype.setSessionTab = function(clicked) {
     allTabs[i].style.fill = '#000000';
   }
 
-  // ...And dynamically set the selected tab:
-  document.getElementById(currentTab).style.stroke = '#ec1928';
-  document.getElementById(currentTab).style.fill = '#ec1928';
+  // ...And set the current session tab:
+  currentTabElement.style.stroke = '#ec1928';
+  currentTabElement.style.fill = '#ec1928';
 
   sessionRef.update({
     current_tab: currentTab

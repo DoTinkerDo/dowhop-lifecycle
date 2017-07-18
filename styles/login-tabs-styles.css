@@ -86,21 +86,13 @@ li a {
   stroke: #ec1928 !important;
 }
 
-/*.tab {
-  fill: #ec1928;
-  stroke: #ec1928;
-}*/
-
 .tab::after {
-  /*stroke: #000000;
-  fill: #000000;*/
   display: inline-block;
   content: "";
 }
 
 ul a:hover,
 ul a:focus {
-  /*fill: #ec1928;*/
 }
 
 .nav-tab-label {
