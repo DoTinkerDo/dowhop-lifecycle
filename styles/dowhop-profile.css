@@ -123,6 +123,10 @@
   transition: all 0.4s ease 0s;
 }
 
+.inner-box {
+  text-align: center;
+}
+
 #edit-profile-button {
   color: #606060;
   text-decoration: none;
