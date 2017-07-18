@@ -347,7 +347,7 @@ function phoneX(phone) {
   var x;
   if (phone) {
     var x = phone.split('');
-    for (i = 0; i < x.length - 4; i++) {
+    for (i = 0; i < x.length - 2; i++) {
       x[i] = 'x';
     }
   } else {
