@@ -238,3 +238,7 @@ svg.social-media-svg {
 #tablet-size {
   width: 800px;
 }
+
+.mdl-grid #center-dowhop{
+  margin-left: 20%;
+}
