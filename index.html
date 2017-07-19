@@ -204,10 +204,25 @@
                   <label class="mdl-textfield__label" for="how-description">How much will it cost?</label>
                 </div>
                 <div class="mdl-card__actions">
-                <div>
-                  <input id="dowhop-image-capture1" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
-                  <input id="dowhop-image-capture2" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
-                  <input id="dowhop-image-capture3" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
+                <div id="create-outer-div">
+                  <div id="create-div-1">
+                     <label for="dowhop-image-capture1">
+                       <i class="material-icons">perm_media</i>
+                       <input class="image-capture hide-component" id="dowhop-image-capture1" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
+                     </label>
+                   </div>
+                   <div id="create-div-2">
+                     <label for="dowhop-image-capture2">
+                       <i class="material-icons">perm_media</i>
+                       <input class="image-capture hide-component" id="dowhop-image-capture2" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
+                     </label>
+                   </div>
+                   <div id="create-div-3">
+                     <label for="dowhop-image-capture3">
+                       <i class="material-icons">perm_media</i>
+                       <input class="image-capture hide-component" id="dowhop-image-capture3" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
+                     </label>
+                   </div>
                 </div>
                 <button class="btn btn-default" id="create-new-dowhop">
                   Create
@@ -347,7 +362,7 @@
                 </form>
 
                 <form id="image-form" action="#">
-                  <input hidden id="mediaCapture" type="file" accept="image/*,capture=camera">
+                  <input class="hide-component" id="mediaCapture" type="file" accept="image/*,capture=camera">
                   <button hidden  id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--red-200 mdl-color-text--white">
                     <i class="material-icons">perm_media</i>
                   </button>
