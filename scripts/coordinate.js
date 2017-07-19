@@ -396,9 +396,6 @@ FriendlyChat.prototype.getSession = function() {
           '<h3>Who?</h3>' +
           '<p>' +
           renderWhoInformation +
-          // (data.val().creatorDescription || 'TBD') +
-          // ' and ' +
-          // (data.val().doerDescription || 'TBD') +
           '</p>' +
           '<h3>Why?</h3>' +
           '<p>' +
