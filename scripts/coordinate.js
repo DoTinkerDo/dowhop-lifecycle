@@ -364,6 +364,7 @@ FriendlyChat.prototype.getSession = function() {
         // Adding these logic checks so that when users update their information, new times, dates, etc render in 'View':
         let renderWhenInformation = data.val().whenDescription;
         let renderWhereInformation = data.val().whereDescription;
+        let renderWhoInformation = data.val().whoDescription; // To-Do: Update with first names dynamically.
 
         if (data.val().whereAddress && data.val().whereAddress != 'By request') {
           renderWhereInformation = data.val().whereAddress;
@@ -394,9 +395,10 @@ FriendlyChat.prototype.getSession = function() {
           '<div id="selector-body" class="mdl-layout__content dowhop-selector-body">' +
           '<h3>Who?</h3>' +
           '<p>' +
-          (data.val().creatorDescription || 'TBD') +
-          ' and ' +
-          (data.val().doerDescription || 'TBD') +
+          renderWhoInformation +
+          // (data.val().creatorDescription || 'TBD') +
+          // ' and ' +
+          // (data.val().doerDescription || 'TBD') +
           '</p>' +
           '<h3>Why?</h3>' +
           '<p>' +
