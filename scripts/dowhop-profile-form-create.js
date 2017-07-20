@@ -228,7 +228,7 @@ function retrieveProfile(currentProfile) {
     myProfileSocialIG.innerText = snap.val().profileSocialIG;
     myProfileSocialLI.innerText = snap.val().profileSocialLI;
     myProfileAbout.innerText = appUser.profileAbout;
-    myProfileEmail.innerText = appUser.email;
+    myProfileEmail.innerHTML = "<a href='mailto:" + appUser.email + " '>Send Message</a> ";
     // myProfilePayment.innerText = appUser.pofilePayment;
     myProfileActivity1.innerText = appUser.profileActivity1;
     myProfileActivity2.innerText = appUser.profileActivity2;
@@ -348,8 +348,10 @@ function phoneX(phone) {
   if (phone) {
     var x = phone.split('');
     for (i = 0; i < x.length - 2; i++) {
-      x[i] = 'x';
+      x[i] = 'X';
     }
+    x.splice(3, 0, '-');
+    x.splice(7, 0, '-');
   } else {
     x = 'xxx-xxx-xxxx';
     return x;
