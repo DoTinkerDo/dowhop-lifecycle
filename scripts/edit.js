@@ -180,13 +180,13 @@ function makeDoWhopSelector(container, data) {
       '">' +
       '<div class="dowhop-selector-header" style="background-image: url(' +
       image1 +
-      ');">'+
-        '<h1 id="dowhop-title">' +
-          data.val().titleDescription +
-        '</h1>' +
-        '<div class="middle">' +
-          '<p class="coordinate-text"> Coordinate this DoWhop </p>'+
-        '</div>' +
+      ');">' +
+      '<h1 id="dowhop-title">' +
+      data.val().titleDescription +
+      '</h1>' +
+      '<div class="middle">' +
+      '<p class="coordinate-text"> Coordinate this DoWhop </p>' +
+      '</div>' +
       '</div>' +
       '</aside>';
   } else {
@@ -225,9 +225,9 @@ function showEditForm(doWhopSelector) {
       doWhopDescription.creatorDescription === auth.currentUser.email ||
       doWhopDescription.createdBy === auth.currentUser.uid
     ) {
-      editForm.removeAttribute('hidden');
+      editForm.style.visibility('hidden', 'true');
     } else {
-      editForm.setAttribute('hidden', 'true');
+      editForm.style.setAttribute('hidden', 'false');
     }
   });
 }

@@ -31,6 +31,7 @@ socialButtonInstagram.addEventListener('click', expandInstagram);
 
 function showForm(e) {
   e.preventDefault();
+  console.log(auth.currentUser.uid);
   createProfileDiv.removeAttribute('hidden');
 }
 
@@ -283,6 +284,11 @@ auth.onAuthStateChanged(function(user) {
       if (snap.val().profileSocialLI) {
         myProfileSocialLI.classList.add('social-hover');
         myProfileSocialLI.src = '../images/linkedin-verified.svg';
+      }
+      if (currentProfile !== auth.currentUser.uid) {
+        showProfileFormBtn.setAttribute('hidden', 'true');
+      } else {
+        showProfileFormBtn.removeAttribute('hidden');
       }
     });
     profilePerson = user;
