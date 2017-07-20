@@ -782,7 +782,8 @@ button {
 }
 
 .btn-deny {
-  background-color: #ec1928; /* Change. */
+  background-color: #ec1928;
+  margin-left: 10px; /* Change. */
 }
 
 /*

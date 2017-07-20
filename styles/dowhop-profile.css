@@ -7,37 +7,6 @@
   box-sizing: border-box;
 }
 
-/*.row:before,
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}*/
-
-[class*='col-'] {
-  float: left;
-  min-height: 1px;
-}
-
-[class*='col-'] {
-  float: left;
-  min-height: 1px;
-  padding: 12px;
-}
-
-.col-1 {
-  width: 50%;
-  float: left;
-}
-.col-2 {
-  width: 80%;
-  float: right;
-}
-
-/*.outline, .outline *{
-    outline: 1px solid #F6A1A1;
-}*/
-
 .profile-details-container {
   margin-left: 15px;
   height: auto;
@@ -48,7 +17,10 @@
 }
 
 #my-profile-picture {
-  height: 250px;
+  /*max-height: 250px;*/
+  width: 100%;
+  max-width: 75%;
+  /*min-height: 50px;*/
   /*background-size: cover;*/
   background-repeat: no-repeat;
   margin-bottom: 30px;
@@ -97,25 +69,26 @@
   margin-top: 10px;
 }
 
-.activity-image {
-  height: 175px;
-}
-
 .activity-caption {
   text-align: center;
-  margin-top: 10px;
 }
 
 .outer-box {
-  width: 175px;
-  height: 175px;
+  max-width: 175px;
+  max-height: 175px;
+  margin: 10px;
   display: block;
   position: relative;
 }
 
+.activity-image {
+  height: 100%;
+  width: 150%;
+}
+
 .outer-box img {
   max-width: 100%;
-  height: auto;
+  max-height: 75%;
 }
 
 .outer-box .inner-box {
@@ -148,6 +121,10 @@
   -moz-transition: all 0.4s ease 0s;
   -o-transition: all 0.4s ease 0s;
   transition: all 0.4s ease 0s;
+}
+
+.inner-box {
+  text-align: center;
 }
 
 #edit-profile-button {
@@ -204,13 +181,6 @@
   margin: auto;
 }
 
-/*
-
-  Image capture
-  Adding activity
-
-*/
-
 input#profile-image-capture-1,
 input#profile-image-capture-2,
 input#profile-image-capture-3 {
@@ -227,6 +197,8 @@ label > i.material-icons {
   top: -17px;
   padding-left: 10px;
   font-size: 44px;
+  fill:#606060;
+  color: #606060; 
 }
 
 #button-1 i.material-icons,
@@ -257,4 +229,19 @@ svg.social-media-svg {
 
 #profile-about {
   font-family: inherit;
+}
+
+.profile {
+}
+.about {
+  text-align: center;
+}
+
+#tablet-size {
+  width: 800px;
+}
+
+.profile-activities-div {
+  display: flex;
+  justify-content: center;
 }
