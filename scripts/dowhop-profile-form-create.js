@@ -29,9 +29,18 @@ socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
 
+//Toggle for showing and hiding edit form in profile
+var toggle = 0;
+
 function showForm(e) {
   e.preventDefault();
-  createProfileDiv.removeAttribute('hidden');
+  if (toggle % 2 === 0) {
+    createProfileDiv.removeAttribute('hidden');
+  }
+  if (toggle % 2 === 1) {
+    createProfileDiv.setAttribute('hidden', 'true');
+  }
+  toggle++;
 }
 
 // Image activity upload logic
@@ -228,7 +237,7 @@ function retrieveProfile(currentProfile) {
     myProfileSocialIG.innerText = snap.val().profileSocialIG;
     myProfileSocialLI.innerText = snap.val().profileSocialLI;
     myProfileAbout.innerText = appUser.profileAbout;
-    myProfileEmail.innerText = appUser.email;
+    myProfileEmail.innerHTML = "<a href='mailto:" + appUser.email + " '>Send Message</a> ";
     // myProfilePayment.innerText = appUser.pofilePayment;
     myProfileActivity1.innerText = appUser.profileActivity1;
     myProfileActivity2.innerText = appUser.profileActivity2;
@@ -283,6 +292,11 @@ auth.onAuthStateChanged(function(user) {
       if (snap.val().profileSocialLI) {
         myProfileSocialLI.classList.add('social-hover');
         myProfileSocialLI.src = '../images/linkedin-verified.svg';
+      }
+      if (currentProfile !== auth.currentUser.uid) {
+        showProfileFormBtn.setAttribute('hidden', 'true');
+      } else {
+        showProfileFormBtn.removeAttribute('hidden');
       }
     });
     profilePerson = user;
@@ -348,8 +362,10 @@ function phoneX(phone) {
   if (phone) {
     var x = phone.split('');
     for (i = 0; i < x.length - 2; i++) {
-      x[i] = 'x';
+      x[i] = 'X';
     }
+    x.splice(3, 0, '-');
+    x.splice(7, 0, '-');
   } else {
     x = 'xxx-xxx-xxxx';
     return x;
