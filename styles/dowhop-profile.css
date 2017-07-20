@@ -239,6 +239,7 @@ svg.social-media-svg {
   width: 800px;
 }
 
-.mdl-grid #center-dowhop{
-  margin-left: 20%;
+.profile-activities-div {
+  display: flex;
+  justify-content: center;
 }
