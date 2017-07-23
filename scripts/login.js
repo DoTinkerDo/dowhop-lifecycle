@@ -154,9 +154,8 @@ function checkDefaultDoWhop(person) {
 
 // For checking the pre-specified routing location. New.
 function retrieveUrl(location) {
-  if (location.match(/#(.+)/)[1]) {
+  if (location.match(/#(.+)/) != null && location.match(/#(.+)/)[1] != null) {
     var y = location.match(/#(.+)/)[1];
-    console.log('current location is', y);
     return y;
   } else {
     return null;
@@ -164,16 +163,17 @@ function retrieveUrl(location) {
 }
 
 function setLandingTab(input) {
-  // To-Do: REFACTOR with regard to sesSessionTab() in coordinate.js
+  // We are covering two situations:
+  // One for direct URL to particular tab, second for clicking on particular tab:
   var currentTab;
   if (input.match(/-tab/)) {
     currentTab = input;
   } else {
     currentTab = input + '-tab';
   }
-  // var currentTab = URL + '-tab';
+
   var currentTabElement = document.getElementById(currentTab);
-  var userID = person.uid;
+  var userID = person.uid || user.uid;
   var sessionRef = database.ref('/session').child(userID);
   var allTabs = document.getElementsByClassName('tab');
 
