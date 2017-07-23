@@ -46,7 +46,7 @@
     // FCM permission registration
     registerMessaging(user);
     retrieveMyDoWhops(user.uid);
-    setSessionTab(retrieveUrl(window.location.href));
+    setLandingTab(retrieveUrl(window.location.href)); // Check.
   }
 
   function handleSignedOutUser() {
@@ -88,12 +88,9 @@
 var person = null;
 auth.onAuthStateChanged(function(user) {
   if (user) {
-    // loc = window.location.href; // New.
     person = user;
-    // retrieveUrl(loc); // New.
     retrieveMyDoWhops(person.uid);
     checkDefaultDoWhop(person);
-    // setSessionTab(retrieveUrl(loc));
   } else {
     console.log('PERSON signed out');
   }
@@ -166,8 +163,8 @@ function retrieveUrl(location) {
   }
 }
 
-function setSessionTab(URL) {
-  // To-Do: REFACTOR.
+function setLandingTab(URL) {
+  // To-Do: REFACTOR with regard to sesSessionTab() in coordinate.js
   var currentTab = URL + '-tab';
   var currentTabElement = document.getElementById(currentTab);
   var userID = person.uid;
