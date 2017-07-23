@@ -87,7 +87,9 @@
 var person = null;
 auth.onAuthStateChanged(function(user) {
   if (user) {
+    loc = window.location.href; // New.
     person = user;
+    retrieveUrl(loc); // New.
     retrieveMyDoWhops(person.uid);
     checkDefaultDoWhop(person);
   } else {
@@ -149,4 +151,15 @@ function checkDefaultDoWhop(person) {
       createDefaultDoWhop(person);
     }
   });
+}
+
+// For checking the pre-specified routing location. New.
+function retrieveUrl(location) {
+  if (location.match(/#(.+)/)[1]) {
+    var y = loc.match(/#(.+)/)[1];
+    console.log('current location is', y);
+    return y;
+  } else {
+    return null;
+  }
 }
