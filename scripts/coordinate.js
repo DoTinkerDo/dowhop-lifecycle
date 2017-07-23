@@ -19,32 +19,33 @@ var timePicker = new flatpickr('#whenTimePending', {
   defaultMinute: 0
 });
 
-function getSesh(clicked) {
-  FriendlyChat.prototype.setSessionTab(clicked);
+function getSesh(clickedID) {
+  // FriendlyChat.prototype.setSessionTab(clickedID); // Old.
+  setLandingTab(clickedID); // New.
   FriendlyChat.prototype.getSession();
 }
 
-FriendlyChat.prototype.setSessionTab = function(clicked) {
-  var currentTab = clicked.id;
-  var currentTabElement = document.getElementById(currentTab);
-  var userID = person.uid;
-  var sessionRef = database.ref('/session').child(userID);
-  var allTabs = document.getElementsByClassName('tab');
-
-  // We need to toggle the tabs to default color if un-selected...
-  for (var i = 0; i < allTabs.length; i++) {
-    allTabs[i].style.fill = '#000000';
-    allTabs[i].style.color = '#000000';
-  }
-
-  // ...And set the current session tab:
-  currentTabElement.style.fill = '#ec1928';
-  currentTabElement.style.color = '#ec1928';
-
-  sessionRef.update({
-    current_tab: currentTab
-  });
-};
+// FriendlyChat.prototype.setSessionTab = function(clickedID) {
+//   var currentTab = clickedID;
+//   var currentTabElement = document.getElementById(currentTab);
+//   var userID = person.uid;
+//   var sessionRef = database.ref('/session').child(userID);
+//   var allTabs = document.getElementsByClassName('tab');
+//
+//   // We need to toggle the tabs to default color if un-selected...
+//   for (var i = 0; i < allTabs.length; i++) {
+//     allTabs[i].style.fill = '#000000';
+//     allTabs[i].style.color = '#000000';
+//   }
+//
+//   // ...And set the current session tab:
+//   currentTabElement.style.fill = '#ec1928';
+//   currentTabElement.style.color = '#ec1928';
+//
+//   sessionRef.update({
+//     current_tab: currentTab
+//   });
+// };
 
 FriendlyChat.prototype.getSessionTab = function() {
   // To-Do: Refactor like so.
