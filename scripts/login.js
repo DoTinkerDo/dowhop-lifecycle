@@ -170,8 +170,8 @@ function setSessionTab(URL) {
   // To-Do: REFACTOR.
   var currentTab = URL + '-tab';
   var currentTabElement = document.getElementById(currentTab);
-  // var userID = person.uid;
-  // var sessionRef = database.ref('/session').child(userID);
+  var userID = person.uid;
+  var sessionRef = database.ref('/session').child(userID);
   var allTabs = document.getElementsByClassName('tab');
 
   // We need to toggle the tabs to default color if un-selected...
@@ -184,7 +184,7 @@ function setSessionTab(URL) {
   currentTabElement.style.fill = '#ec1928';
   currentTabElement.style.color = '#ec1928';
 
-  // sessionRef.update({
-  //   current_tab: currentTab
-  // });
+  sessionRef.update({
+    current_tab: currentTab
+  });
 }
