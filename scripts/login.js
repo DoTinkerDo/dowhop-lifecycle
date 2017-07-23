@@ -163,9 +163,15 @@ function retrieveUrl(location) {
   }
 }
 
-function setLandingTab(URL) {
+function setLandingTab(input) {
   // To-Do: REFACTOR with regard to sesSessionTab() in coordinate.js
-  var currentTab = URL + '-tab';
+  var currentTab;
+  if (input.match(/-tab/)) {
+    currentTab = input;
+  } else {
+    currentTab = input + '-tab';
+  }
+  // var currentTab = URL + '-tab';
   var currentTabElement = document.getElementById(currentTab);
   var userID = person.uid;
   var sessionRef = database.ref('/session').child(userID);
