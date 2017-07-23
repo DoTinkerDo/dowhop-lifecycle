@@ -46,6 +46,7 @@
     // FCM permission registration
     registerMessaging(user);
     retrieveMyDoWhops(user.uid);
+    setSessionTab(retrieveUrl(window.location.href));
   }
 
   function handleSignedOutUser() {
@@ -87,11 +88,12 @@
 var person = null;
 auth.onAuthStateChanged(function(user) {
   if (user) {
-    loc = window.location.href; // New.
+    // loc = window.location.href; // New.
     person = user;
-    retrieveUrl(loc); // New.
+    // retrieveUrl(loc); // New.
     retrieveMyDoWhops(person.uid);
     checkDefaultDoWhop(person);
+    // setSessionTab(retrieveUrl(loc));
   } else {
     console.log('PERSON signed out');
   }
@@ -156,10 +158,33 @@ function checkDefaultDoWhop(person) {
 // For checking the pre-specified routing location. New.
 function retrieveUrl(location) {
   if (location.match(/#(.+)/)[1]) {
-    var y = loc.match(/#(.+)/)[1];
+    var y = location.match(/#(.+)/)[1];
     console.log('current location is', y);
     return y;
   } else {
     return null;
   }
+}
+
+function setSessionTab(URL) {
+  // To-Do: REFACTOR.
+  var currentTab = URL + '-tab';
+  var currentTabElement = document.getElementById(currentTab);
+  // var userID = person.uid;
+  // var sessionRef = database.ref('/session').child(userID);
+  var allTabs = document.getElementsByClassName('tab');
+
+  // We need to toggle the tabs to default color if un-selected...
+  for (var i = 0; i < allTabs.length; i++) {
+    allTabs[i].style.fill = '#000000';
+    allTabs[i].style.color = '#000000';
+  }
+
+  // ...And set the current session tab:
+  currentTabElement.style.fill = '#ec1928';
+  currentTabElement.style.color = '#ec1928';
+
+  // sessionRef.update({
+  //   current_tab: currentTab
+  // });
 }
