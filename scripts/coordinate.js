@@ -322,12 +322,11 @@ FriendlyChat.prototype.getSession = function() {
         // pendingNotification += '\nDo you want to approve it?';
 
         if (data.pending.whenDatePending) {
-          var testDate = new Date(data.pending.whenDatePending);
           pendingNotification +=
             '\nOn: ' +
-            testDate.toLocaleDateString('en-US', options) +
+            new Date(data.pending.whenDatePending).toLocaleDateString('en-US', options) +
             ' at ' +
-            testDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' }) +
+            new Date(data.pending.whenDatePending).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' }) +
             '\n';
         }
         if (data.pending.whereAddressPending) pendingNotification += '\nAt: ' + data.pending.whereAddressPending;
@@ -340,8 +339,14 @@ FriendlyChat.prototype.getSession = function() {
       } else if (firebase.auth().currentUser.uid == data.pending.requester) {
         // console.log('visiting user requested a change. showing rescinding form, hiding approval form.');
         // pendingNotification += '\nDo you want to change it?';
-        if (data.pending.whenDatePending) pendingNotification += '\nPending day: ' + data.pending.whenDatePending;
-        if (data.pending.whenTimePending) pendingNotification += '\nPending time: ' + data.pending.whenTimePending;
+        if (data.pending.whenDatePending) {
+          pendingNotification +=
+            '\nOn: ' +
+            new Date(data.pending.whenDatePending).toLocaleDateString('en-US', options) +
+            ' at ' +
+            new Date(data.pending.whenDatePending).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' }) +
+            '\n';
+        }
         if (data.pending.whereAddressPending)
           pendingNotification += '\nPending location: ' + data.pending.whereAddressPending;
 
