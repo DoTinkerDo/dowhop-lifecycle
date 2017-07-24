@@ -225,9 +225,9 @@ function showEditForm(doWhopSelector) {
       doWhopDescription.creatorDescription === auth.currentUser.email ||
       doWhopDescription.createdBy === auth.currentUser.uid
     ) {
-      editForm.style.visibility('hidden', 'true');
+      editForm.removeAttribute('hidden', 'true');
     } else {
-      editForm.style.setAttribute('hidden', 'false');
+      editForm.setAttribute('hidden', 'false');
     }
   });
 }
@@ -236,6 +236,7 @@ function fillInEditForm(doWhopSelector) {
   doWhopDescriptionRootRef.orderByKey().on('value', function(snapshot) {
     snapshot.forEach(function(data) {
       var doWhopDescription = data.val();
+
       if (data.key === doWhopSelector.id) {
         document.getElementById('titleDescription').value = doWhopDescription.titleDescription;
         document.getElementById('whoDescription').value = doWhopDescription.whoDescription;

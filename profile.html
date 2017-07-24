@@ -39,7 +39,7 @@
           <div id="my-display-name"></div>
           <div id="my-profile-name"></div>
           <div>
-            <a id="edit-profile-button" href="#">
+            <a onclick= fillInProfileForm() id="edit-profile-button" href="#">
               <i class="material-icons profile-icons">mode_edit</i>
               <div class="profile-data profile-icons">Edit Profile</div>
             </a>
@@ -125,9 +125,9 @@
 
         <form id="create-profile-form" action="#">
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" id="profile-name" placeholder="Your name"></input>
+            <input class="mdl-textfield__input" type="text" id="profile-name" for="profile-name"></input>
             <label class="mdl-textfield__label" for="profile-name">First and Last Name:</label>
-            <div class="mdl-tooltip" for="profile-name">What's your preferred name?</div>
+            <div class="mdl-tooltip" for="">What's your preferred name?</div>
           </div>
 
           <div>
