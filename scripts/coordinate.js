@@ -7,7 +7,9 @@ var currentDate = new Date();
 
 var datePicker = new flatpickr('#whenDatePending', {
   minDate: currentDate.setDate(currentDate.getDate() - 1),
-  dateFormat: 'Y-m-d'
+  enableTime: true,
+  altInput: true,
+  dateFormat: 'Y-m-d h:i'
 });
 var timePicker = new flatpickr('#whenTimePending', {
   enableTime: true,
