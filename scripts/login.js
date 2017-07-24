@@ -194,3 +194,10 @@ function setLandingTab(href) {
     current_tab: currentTab
   });
 }
+
+// We are ensuring direct routing also happens without refresh:
+window.addEventListener('hashchange', function(e) {
+  if (window.location.href.match(/#(.+)/)) {
+    setLandingTab(retrieveUrlAnchor(window.location.href));
+  }
+});
