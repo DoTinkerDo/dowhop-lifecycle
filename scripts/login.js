@@ -49,7 +49,7 @@
 
     // We are checking if there is a direct routing to the site.
     if (window.location.href.match(/#(.+)/)) {
-      setLandingTab(retrieveUrl(window.location.href)); // Check.
+      setLandingTab(retrieveUrlAnchor(window.location.href)); // Check.
     } // TO-DO: Alternative option is to restore a "saved session."
   }
 
@@ -157,7 +157,7 @@ function checkDefaultDoWhop(person) {
 }
 
 // For checking the pre-specified routing location. New.
-function retrieveUrl(location) {
+function retrieveUrlAnchor(location) {
   if (location.match(/#(.+)/) && location.match(/#(.+)/)[1] != null) {
     return location.match(/#(.+)/)[1];
   } else {
@@ -165,15 +165,14 @@ function retrieveUrl(location) {
   }
 }
 
-function setLandingTab(input) {
+function setLandingTab(href) {
   // We are covering two situations:
   // One for direct URL to particular tab, second for clicking on particular tab:
-  console.log('running setLandingTab for input:', input);
   var currentTab;
-  if (typeof input === 'string' && input.match(/-tab/)) {
-    currentTab = input;
+  if (typeof href === 'string' && href.match(/-tab/)) {
+    currentTab = href;
   } else {
-    currentTab = input + '-tab';
+    currentTab = href + '-tab';
   }
 
   var currentTabElement = document.getElementById(currentTab);
