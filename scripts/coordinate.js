@@ -11,6 +11,7 @@ var datePicker = new flatpickr('#whenDatePending', {
   altInput: true,
   dateFormat: 'Y-m-d h:i'
 });
+
 var timePicker = new flatpickr('#whenTimePending', {
   enableTime: true,
   noCalendar: true,
@@ -499,13 +500,14 @@ FriendlyChat.prototype.saveMessage = function(e) {
   var messagesChatsRef = database.ref().child('messages').child(currentDoWhopID);
   var currentUser = person;
   var whenDatePending = this.whenDatePending;
-  var whenTimePending = this.whenTimePending;
+  // var whenTimePending = this.whenTimePending;
   var whereAddressPending = this.messageFormWherePending;
 
   // For only all three attributes: Time, Date, Where:
+
   if (
     this.messageFormWhenDatePending.value ||
-    this.messageFormWhenTimePending.value ||
+    // this.messageFormWhenTimePending.value ||
     this.messageFormWherePending.value
   ) {
     var chatsRef = this.database.ref().child('DoWhopDescriptions/' + currentDoWhopID + '/pending/');
@@ -514,9 +516,15 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
     messageText += currentUser.displayName + ' has requested a change!\n';
     if (this.messageFormWherePending.value) messageText += 'Where: ' + this.messageFormWherePending.value + '\n';
-    if (this.messageFormWhenTimePending.value || this.messageFormWhenDatePending.value) messageText += 'On: ';
-    if (this.messageFormWhenTimePending.value) messageText += this.messageFormWhenTimePending.value + '\n';
-    if (this.messageFormWhenDatePending.value) messageText += this.messageFormWhenDatePending.value + '\n';
+    if (this.messageFormWhenDatePending.value) {
+      messageText +=
+        'On: ' +
+        datePicker.formatDate(new Date(datePicker.selectedDates), 'l F n, Y') +
+        ' at ' +
+        datePicker.formatDate(new Date(datePicker.selectedDates), 'h:iK') +
+        '\n';
+    }
+    // if (this.messageFormWhenDatePending.value) messageText += this.messageFormWhenDatePending.value + '\n';
 
     messagesChatsRef.push({
       chatId: currentDoWhopID,
