@@ -47,10 +47,10 @@
     registerMessaging(user);
     retrieveMyDoWhops(user.uid);
 
-    // We are checking if there is a direct routing to the site.
-    if (window.location.href.match(/#(.+)/)) {
-      setLandingTab(retrieveUrlAnchor(window.location.href)); // Check.
-    } // TO-DO: Alternative option is to restore a "saved session."
+    if (window.location.hash != '' && window.location.hash.length > 0) {
+      setLandingTab(window.location.hash.match(/#(.+)/)[1]);
+    }
+    // TO-DO: Alternative option is to restore a "saved session."
   }
 
   function handleSignedOutUser() {
@@ -157,13 +157,13 @@ function checkDefaultDoWhop(person) {
 }
 
 // For checking the pre-specified routing location. New.
-function retrieveUrlAnchor(location) {
-  if (location.match(/#(.+)/) && location.match(/#(.+)/)[1] != null) {
-    return location.match(/#(.+)/)[1];
-  } else {
-    return null;
-  }
-}
+// function retrieveUrlAnchor(location) {
+//   if (location.match(/#(.+)/) && location.match(/#(.+)/)[1] != null) {
+//     return location.match(/#(.+)/)[1];
+//   } else {
+//     return null;
+//   }
+// }
 
 function setLandingTab(href) {
   // We are covering two situations:
@@ -197,7 +197,7 @@ function setLandingTab(href) {
 
 // We are ensuring direct routing also happens without refresh:
 window.addEventListener('hashchange', function(e) {
-  if (window.location.href.match(/#(.+)/)) {
-    setLandingTab(retrieveUrlAnchor(window.location.href));
+  if (window.location.hash != '' && window.location.hash.length > 0) {
+    setLandingTab(window.location.hash.match(/#(.+)/)[1]);
   }
 });
