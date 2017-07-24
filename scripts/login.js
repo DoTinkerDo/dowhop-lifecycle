@@ -48,10 +48,9 @@
     retrieveMyDoWhops(user.uid);
 
     // We are checking if there is a direct routing to the site.
-    // TO-DO: Alternative option is to restore a "saved session."
     if (window.location.href.match(/#(.+)/)) {
       setLandingTab(retrieveUrl(window.location.href)); // Check.
-    }
+    } // TO-DO: Alternative option is to restore a "saved session."
   }
 
   function handleSignedOutUser() {
@@ -159,11 +158,8 @@ function checkDefaultDoWhop(person) {
 
 // For checking the pre-specified routing location. New.
 function retrieveUrl(location) {
-  console.log('running retrieveUrl...');
-  console.log(location.match(/#(.+)/));
   if (location.match(/#(.+)/) && location.match(/#(.+)/)[1] != null) {
-    var y = location.match(/#(.+)/)[1];
-    return y;
+    return location.match(/#(.+)/)[1];
   } else {
     return null;
   }
