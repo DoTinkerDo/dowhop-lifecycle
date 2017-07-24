@@ -46,7 +46,12 @@
     // FCM permission registration
     registerMessaging(user);
     retrieveMyDoWhops(user.uid);
-    setLandingTab(retrieveUrl(window.location.href)); // Check.
+
+    // We are checking if there is a direct routing to the site.
+    // TO-DO: Alternative option is to restore a "saved session."
+    if (window.location.href.match(/#(.+)/)) {
+      setLandingTab(retrieveUrl(window.location.href)); // Check.
+    }
   }
 
   function handleSignedOutUser() {
@@ -154,7 +159,9 @@ function checkDefaultDoWhop(person) {
 
 // For checking the pre-specified routing location. New.
 function retrieveUrl(location) {
-  if (location.match(/#(.+)/) != null && location.match(/#(.+)/)[1] != null) {
+  console.log('running retrieveUrl...');
+  console.log(location.match(/#(.+)/));
+  if (location.match(/#(.+)/) && location.match(/#(.+)/)[1] != null) {
     var y = location.match(/#(.+)/)[1];
     return y;
   } else {
@@ -165,8 +172,9 @@ function retrieveUrl(location) {
 function setLandingTab(input) {
   // We are covering two situations:
   // One for direct URL to particular tab, second for clicking on particular tab:
+  console.log('running setLandingTab for input:', input);
   var currentTab;
-  if (input.match(/-tab/)) {
+  if (typeof input === 'string' && input.match(/-tab/)) {
     currentTab = input;
   } else {
     currentTab = input + '-tab';
