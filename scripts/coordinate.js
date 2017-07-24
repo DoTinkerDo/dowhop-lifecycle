@@ -308,6 +308,7 @@ FriendlyChat.prototype.getSession = function() {
 
   // All cases, we load pending div forms for current session:
   var checkForPendings = function(data) {
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     var pendingNotification = user.displayName + ' requested to meet:';
     // Check if there are pending notifications:
     if (data && data.pending != null && data.pending.status != 'approved' && data.pending.status != 'denied') {
@@ -320,8 +321,15 @@ FriendlyChat.prototype.getSession = function() {
         // console.log('visiting user is the creator. showing approval form, hiding rescind form.');
         // pendingNotification += '\nDo you want to approve it?';
 
-        if (data.pending.whenDatePending) pendingNotification += '\nOn: ' + data.pending.whenDatePending;
-        if (data.pending.whenTimePending) pendingNotification += '\nAt: ' + data.pending.whenTimePending;
+        if (data.pending.whenDatePending) {
+          var testDate = new Date(data.pending.whenDatePending);
+          pendingNotification +=
+            '\nOn: ' +
+            testDate.toLocaleDateString('en-US', options) +
+            ' at ' +
+            testDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' }) +
+            '\n';
+        }
         if (data.pending.whereAddressPending) pendingNotification += '\nAt: ' + data.pending.whereAddressPending;
 
         document.getElementById('pending-div').innerText = pendingNotification;
@@ -523,7 +531,6 @@ FriendlyChat.prototype.saveMessage = function(e) {
         ' at ' +
         datePicker.formatDate(new Date(datePicker.selectedDates), 'h:iK') +
         '\n';
-      console.log(datePicker.selectedDates);
     }
     // if (this.messageFormWhenDatePending.value) messageText += this.messageFormWhenDatePending.value + '\n';
 
