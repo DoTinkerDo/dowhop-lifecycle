@@ -519,10 +519,11 @@ FriendlyChat.prototype.saveMessage = function(e) {
     if (this.messageFormWhenDatePending.value) {
       messageText +=
         'On: ' +
-        datePicker.formatDate(new Date(datePicker.selectedDates), 'l F n, Y') +
+        datePicker.formatDate(new Date(datePicker.selectedDates), 'l F j, Y') +
         ' at ' +
         datePicker.formatDate(new Date(datePicker.selectedDates), 'h:iK') +
         '\n';
+      console.log(datePicker.selectedDates);
     }
     // if (this.messageFormWhenDatePending.value) messageText += this.messageFormWhenDatePending.value + '\n';
 
