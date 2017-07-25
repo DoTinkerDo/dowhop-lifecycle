@@ -317,7 +317,7 @@
                     <input class="mdl-textfield__input" type="text" id="message">
                     <label class="mdl-textfield__label" for="message">Enter message...</label>
                   </div>
-                  
+
                   <!-- Adding options div here -->
                   <div class="options-coordinate">
                     <div class="underbar">
@@ -348,7 +348,7 @@
 
                   <div hidden class="mdl-textfield mdl-js-textfield" id="when-date-pending-hidden">
                     <input class="mdl-textfield__input" type="text" id="whenDatePending">
-                    <label class="mdl-textfield__label" for="whenDatePending">Select to enter date</label>
+                    <label class="mdl-textfield__label" for="whenDatePending">Select to enter date and time</label>
                   </div>
                   <div  hidden class="mdl-textfield mdl-js-textfield" id="when-time-pending-hidden">
                     <input class="mdl-textfield__input" type="text" id="whenTimePending">
@@ -503,20 +503,20 @@
 <script src="ratings/rating-lib/weighted-ratings.js"></script>
 <script src="scripts/dowhop-reviews.js"></script>
 <script>
-  // Script to change SignIn button text to Login
-  var btnLogOut = document.querySelector('.btn-logout');
-  function changeLoginText() {
-    var btnSpans = document.querySelectorAll('.firebaseui-idp-text-long');
-    if (btnSpans.length > 0) {
-      btnSpans[0].innerHTML = 'Login with Google';
-      btnSpans[1].innerHTML = 'Login with Facebook';
-      btnSpans[2].innerHTML = 'Login with Email';
-    } else {
-      console.log('NO LOGIN BUTTONS SELECTED');
-    }
+// Script to change SignIn button text to Login
+var btnLogOut = document.querySelector('.btn-logout');
+function changeLoginText() {
+  var btnSpans = document.querySelectorAll('.firebaseui-idp-text-long');
+  if (btnSpans.length > 0) {
+    btnSpans[0].innerHTML = 'Login with Google';
+    btnSpans[1].innerHTML = 'Login with Facebook';
+    btnSpans[2].innerHTML = 'Login with Email';
+  } else {
+    console.log('NO LOGIN BUTTONS SELECTED');
   }
-  btnLogOut.addEventListener('click', changeLoginText);
-  window.addEventListener('load', changeLoginText);
+}
+btnLogOut.addEventListener('click', changeLoginText);
+window.addEventListener('load', changeLoginText);
 </script>
 <script>
 var underbar = document.querySelectorAll('.underbar img');
