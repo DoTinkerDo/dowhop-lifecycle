@@ -9,17 +9,7 @@ var datePicker = new flatpickr('#whenDatePending', {
   minDate: currentDate.setDate(currentDate.getDate() - 1),
   enableTime: true,
   altInput: true,
-  dateFormat: 'Y-m-d h:i'
-});
-
-var timePicker = new flatpickr('#whenTimePending', {
-  enableTime: true,
-  noCalendar: true,
-  enableSeconds: false,
-  time_24hr: false,
-  dateFormat: 'h:i',
-  defaultHour: 12,
-  defaultMinute: 0
+  dateFormat: 'Y-m-d H:i'
 });
 
 function getSesh(clicked) {
@@ -77,7 +67,6 @@ function FriendlyChat() {
   this.userName = document.getElementById('user-name');
   this.signInSnackbar = document.getElementById('must-signin-snackbar');
   this.messageFormWhenDatePending = document.getElementById('whenDatePending');
-  this.messageFormWhenTimePending = document.getElementById('whenTimePending');
   this.messageFormWherePending = document.getElementById('whereAddressPending');
 
   // Shortcuts to DOM elements for notification messages:
@@ -151,9 +140,6 @@ FriendlyChat.prototype.sendApprovalAction = function(e) {
     if (snap.val().whenDatePending) {
       newDate = snap.val().whenDatePending;
     }
-    if (snap.val().whenTimePending) {
-      newTime = snap.val().whenTimePending;
-    }
     if (snap.val().whereAddressPending) {
       newWhere = snap.val().whereAddressPending;
     }
@@ -217,9 +203,7 @@ FriendlyChat.prototype.sendDenialAction = function(e) {
     if (snap.val().whenDatePending) {
       newDate = snap.val().whenDatePending;
     }
-    if (snap.val().whenTimePending) {
-      newTime = snap.val().whenTimePending;
-    }
+
     if (snap.val().whereAddressPending) {
       newWhere = snap.val().whereAddressPending;
     }
@@ -342,9 +326,9 @@ FriendlyChat.prototype.getSession = function() {
         if (data.pending.whenDatePending) {
           pendingNotification +=
             '\nOn: ' +
-            new Date(data.pending.whenDatePending).toLocaleDateString('en-US', options) +
+            moment(data.pending.whenDatePending).format('dddd MMMM D, YYYY') +
             ' at ' +
-            new Date(data.pending.whenDatePending).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' }) +
+            moment(data.pending.whenDatePending).format('hh:mmA') +
             '\n';
         }
         if (data.pending.whereAddressPending)
@@ -513,16 +497,11 @@ FriendlyChat.prototype.saveMessage = function(e) {
   var messagesChatsRef = database.ref().child('messages').child(currentDoWhopID);
   var currentUser = person;
   var whenDatePending = this.whenDatePending;
-  // var whenTimePending = this.whenTimePending;
   var whereAddressPending = this.messageFormWherePending;
 
   // For only all three attributes: Time, Date, Where:
 
-  if (
-    this.messageFormWhenDatePending.value ||
-    // this.messageFormWhenTimePending.value ||
-    this.messageFormWherePending.value
-  ) {
+  if (this.messageFormWhenDatePending.value || this.messageFormWherePending.value) {
     var chatsRef = this.database.ref().child('DoWhopDescriptions/' + currentDoWhopID + '/pending/');
 
     var messageText = '';
@@ -550,8 +529,6 @@ FriendlyChat.prototype.saveMessage = function(e) {
     chatsRef.update({ status: true, requester: currentUser.uid }); // Refactoring to make it a dis-aggregated update.
     if (this.messageFormWhenDatePending.value)
       chatsRef.update({ whenDatePending: this.messageFormWhenDatePending.value }).then(this.resetDate);
-    if (this.messageFormWhenTimePending.value)
-      chatsRef.update({ whenTimePending: this.messageFormWhenTimePending.value }).then(this.resetTime);
     if (this.messageFormWherePending.value)
       chatsRef.update({ whereAddressPending: this.messageFormWherePending.value }).then(this.resetWhere);
     this.resetDateTimeWhere; // Catch-all.
@@ -587,13 +564,6 @@ FriendlyChat.prototype.resetDate = function() {
   datePending.placeholder = 'Select to enter date';
 };
 
-FriendlyChat.prototype.resetTime = function() {
-  document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
-  let timePending = document.getElementById('whenTimePending');
-  timePending.value = null;
-  timePending.placeholder = 'Select to enter time';
-};
-
 FriendlyChat.prototype.resetWhere = function() {
   document.getElementById('whereAddressPending').value = null;
 };
@@ -602,10 +572,6 @@ FriendlyChat.prototype.resetDateTimeWhere = function() {
   let datePending = document.getElementById('whenDatePending');
   datePending.value = null;
   datePending.placeholder = 'Select to enter date';
-
-  let timePending = document.getElementById('whenTimePending');
-  timePending.value = null;
-  timePending.placeholder = 'Select to enter time';
 
   document.getElementById('whereAddressPending').value = null;
 };
