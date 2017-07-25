@@ -36,6 +36,7 @@
   var defaultDoWhopDescriptionImage =
   'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
 </script>
+<script src="/src/moment.js"></script>
 </head>
 <body>
 
@@ -321,10 +322,7 @@
                   <div class="options-coordinate">
                     <div class="underbar">
                       <div id="option-calendar" class="img_icon">
-                        <img data-input="date" src="images/calendar.png" alt="calendar" width="24" height="24">
-                      </div>
-                      <div id="clock" class="img_icon">
-                        <img data-input="time" src="images/clock-circular-outline.png" alt="clock" width="24" height="24">
+                        <img data-input="date" src="images/datetime.svg" alt="calendar" width="24" height="24">
                       </div>
                       <div id="map-div" class="img_icon">
                         <img data-input="where" src="https://static.wixstatic.com/media/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png/v1/fill/w_512,h_512,al_c/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png" alt="map" width="24" height="24">
@@ -350,7 +348,7 @@
 
                   <div hidden class="mdl-textfield mdl-js-textfield" id="when-date-pending-hidden">
                     <input class="mdl-textfield__input" type="text" id="whenDatePending">
-                    <label class="mdl-textfield__label" for="whenDatePending">Select to enter date</label>
+                    <label class="mdl-textfield__label" for="whenDatePending">Select to enter date and time</label>
                   </div>
                   <div  hidden class="mdl-textfield mdl-js-textfield" id="when-time-pending-hidden">
                     <input class="mdl-textfield__input" type="text" id="whenTimePending">
