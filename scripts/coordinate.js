@@ -308,7 +308,7 @@ FriendlyChat.prototype.getSession = function() {
 
   // All cases, we load pending div forms for current session:
   var checkForPendings = function(data) {
-    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    // var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     var pendingNotification = user.displayName + ' requested to meet:';
     // Check if there are pending notifications:
     if (data && data.pending != null && data.pending.status != 'approved' && data.pending.status != 'denied') {
@@ -324,9 +324,9 @@ FriendlyChat.prototype.getSession = function() {
         if (data.pending.whenDatePending) {
           pendingNotification +=
             '\nOn: ' +
-            new Date(data.pending.whenDatePending).toLocaleDateString('en-US', options) +
+            moment(data.pending.whenDatePending).format('dddd MMMM D, YYYY') +
             ' at ' +
-            new Date(data.pending.whenDatePending).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' }) +
+            moment(data.pending.whenDatePending).format('hh:mmA') +
             '\n';
         }
         if (data.pending.whereAddressPending) pendingNotification += '\nAt: ' + data.pending.whereAddressPending;
