@@ -175,24 +175,26 @@ function setLandingTab(href) {
     currentTab = href + '-tab';
   }
 
-  var currentTabElement = document.getElementById(currentTab);
-  var userID = person.uid || user.uid;
-  var sessionRef = database.ref('/session').child(userID);
-  var allTabs = document.getElementsByClassName('tab');
+  if (document.getElementById(currentTab)) {
+    var currentTabElement = document.getElementById(currentTab);
+    var userID = person.uid || user.uid;
+    var sessionRef = database.ref('/session').child(userID);
+    var allTabs = document.getElementsByClassName('tab');
 
-  // We need to toggle the tabs to default color if un-selected...
-  for (var i = 0; i < allTabs.length; i++) {
-    allTabs[i].style.fill = '#000000';
-    allTabs[i].style.color = '#000000';
+    // We need to toggle the tabs to default color if un-selected...
+    for (var i = 0; i < allTabs.length; i++) {
+      allTabs[i].style.fill = '#000000';
+      allTabs[i].style.color = '#000000';
+    }
+
+    // ...And set the current session tab:
+    currentTabElement.style.fill = '#ec1928';
+    currentTabElement.style.color = '#ec1928';
+
+    sessionRef.update({
+      current_tab: currentTab
+    });
   }
-
-  // ...And set the current session tab:
-  currentTabElement.style.fill = '#ec1928';
-  currentTabElement.style.color = '#ec1928';
-
-  sessionRef.update({
-    current_tab: currentTab
-  });
 }
 
 // We are ensuring direct routing also happens without refresh:
