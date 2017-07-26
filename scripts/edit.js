@@ -233,6 +233,7 @@ function fillInEditForm(doWhopSelector) {
   doWhopDescriptionRootRef.orderByKey().on('value', function(snapshot) {
     snapshot.forEach(function(data) {
       var doWhopDescription = data.val();
+
       if (data.key === doWhopSelector.id) {
         document.getElementById('titleDescription').value = doWhopDescription.titleDescription;
         document.getElementById('whoDescription').value = doWhopDescription.whoDescription;

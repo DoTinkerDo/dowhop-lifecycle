@@ -21,6 +21,7 @@ var createProfileDiv = document.getElementById('create-profile-div');
 var socialButtonTwitter = document.getElementById('social-button-1');
 var socialButtonInstagram = document.getElementById('social-button-2');
 var socialButtonLinkedIn = document.getElementById('social-button-3');
+
 // var expandTwitter = document.getElementById('twitter-card');
 
 showProfileFormBtn.addEventListener('click', showForm);
@@ -371,4 +372,26 @@ function phoneX(phone) {
     return x;
   }
   return x.join('');
+}
+
+function fillInProfileForm(e) {
+  var currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
+  var profileRef = firebase.database().ref('app_users/' + currentProfile);
+  profileRef.once('value', function(snap) {
+    console.log(currentProfile.displayName);
+    if ((profileRef = currentProfile)) {
+      // document.querySelector('placeholder-Name').value = currentProfile.displayName;
+      // document.getElementById('whoDescription').value = doWhopDescription.whoDescription;
+      // document.getElementById('whyDescription').value = doWhopDescription.whyDescription;
+      // document.getElementById('whatDescription').value = doWhopDescription.whatDescription;
+      // document.getElementById('whereDescription').value = doWhopDescription.whereDescription;
+      // // document.getElementById('whereAddress').value = doWhopDescription.whereAddress;
+      // document.getElementById('whenDescription').value = doWhopDescription.whenDescription;
+      // // document.getElementById('whenTime').value = doWhopDescription.whenTime;
+      // document.getElementById('howMuchDescription').value = doWhopDescription.howMuchDescription;
+      // document.getElementById('creatorDescription').value = doWhopDescription.creatorDescription;
+      // document.getElementById('doerDescription').value = doWhopDescription.doerDescription;
+      // document.getElementById('howMuchCost').value = doWhopDescription.howMuchCost;
+    }
+  });
 }
