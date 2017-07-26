@@ -56,6 +56,12 @@
   display: inline-flex;
   vertical-align: middle;
 }
+
+.content-column {
+  display: flex;
+  vertical-align: inherit;
+}
+
 .about-div {
   /*font-style: italic;
   font-size: 17px;
@@ -73,6 +79,11 @@
   justify-content: center;
 }
 
+.profile-activities-div2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 .about-div.activity {
   max-width: 50%;
 }
