@@ -30,9 +30,18 @@ socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
 
+//Toggle for showing and hiding edit form in profile
+var toggle = 0;
+
 function showForm(e) {
   e.preventDefault();
-  createProfileDiv.removeAttribute('hidden');
+  if (toggle % 2 === 0) {
+    createProfileDiv.removeAttribute('hidden');
+  }
+  if (toggle % 2 === 1) {
+    createProfileDiv.setAttribute('hidden', 'true');
+  }
+  toggle++;
 }
 
 // Image activity upload logic
