@@ -337,14 +337,6 @@
                       </div>
                     </div>
                   </div>
-                  <!-- End of Message Form Div -->
-
-                  <!-- <div id="hidden-inputs"> -->
-                    <!-- <input hidden type="text" class="" id="whenDatePending" placeholder="Enter date"> -->
-                    <!-- <input hidden type="text" class="" id="whenTimePending" placeholder="Enter time"> -->
-                    <!-- <input hidden type="text" class="controls" id="whereAddressPending"  placeholder="Set a place..."> -->
-                    <!-- <div hidden id="map"></div> -->
-                  <!-- </div> -->
 
                   <div hidden class="mdl-textfield mdl-js-textfield" id="when-date-pending-hidden">
                     <input class="mdl-textfield__input" type="text" id="whenDatePending">
@@ -355,8 +347,7 @@
                     <label class="mdl-textfield__label" for="whenTimePending">Select to enter time</label>
                   </div>
                   <input hidden type="text" class="controls" id="whereAddressPending"  placeholder="Set a place...">
-                  <div hidden id="map"></div>
-
+                  <div hidden id="map-goog"></div>
                 </form>
 
                 <form id="image-form" action="#">
@@ -497,8 +488,8 @@
 <script src="scripts/tabs.js"></script>
 <script src="scripts/dowhop-description-form-create.js"></script>
 <script src="scripts/edit.js"></script>
-<script src="scripts/google-map.js"></script>
 <script src="scripts/coordinate.js"></script>
+<script src="scripts/google-map.js"></script><!-- Make sure this comes after coordinate.js -->
 <script src="ratings/rating-lib/rating.min.js"></script>
 <script src="ratings/rating-lib/weighted-ratings.js"></script>
 <script src="scripts/dowhop-reviews.js"></script>
