@@ -102,11 +102,15 @@ function revealInput() {
       document.getElementById('submitImage').setAttribute('hidden', 'true');
       break;
     case 'where':
-      initialize();
-      // initAutocomplete();
       document.getElementById('whereAddressPending').removeAttribute('hidden');
+      initialize();
+      initAutocomplete();
       document.getElementById('map').removeAttribute('hidden');
       google.maps.event.trigger(map, 'resize');
+      // google.maps.event.addDomListener(map, 'load', initialize);
+      // google.maps.event.addListenerOnce(map, 'idle', function() {
+      //   google.maps.event.trigger(map, 'resize');
+      // });
       document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
