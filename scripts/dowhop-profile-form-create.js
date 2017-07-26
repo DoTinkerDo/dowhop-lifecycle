@@ -378,7 +378,7 @@ function fillInProfileForm(e) {
   var currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.once('value', function(snap) {
-    console.log(currentProfile.displayName);
+    // console.log(currentProfile.displayName);
     if ((profileRef = currentProfile)) {
       // document.querySelector('placeholder-Name').value = currentProfile.displayName;
       // document.getElementById('whoDescription').value = doWhopDescription.whoDescription;

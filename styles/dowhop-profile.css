@@ -222,8 +222,8 @@ label > i.material-icons {
   top: -17px;
   padding-left: 10px;
   font-size: 44px;
-  fill:#606060;
-  color: #606060; 
+  fill: #606060;
+  color: #606060;
 }
 
 #button-1 i.material-icons,
@@ -269,4 +269,9 @@ svg.social-media-svg {
 .demo-card-square > .mdl-card__title {
   color: #fff;
   background: url('../assets/demos/dog.png') bottom right 15% no-repeat #46b6ac;
+}
+
+.edit-form {
+  display: flex;
+  justify-content: flex-end;
 }
