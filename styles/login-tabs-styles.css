@@ -1,5 +1,5 @@
-/* 
-  
+/*
+
   LOGIN SPLASH PAGE
 
 */
@@ -28,9 +28,9 @@
   color: #606060;
 }
 
-/* 
+/*
 
-  TAB NAVIGATION 
+  TAB NAVIGATION
 
 */
 
@@ -62,11 +62,11 @@ div[aria-hidden='true'] {
   display: none;
 }
 
-/*  
-  NAV 
-  SVG TAB ICON 
+/*
+  NAV
+  SVG TAB ICON
   HOVER STYLES
-  
+
 */
 
 li a {
@@ -81,15 +81,19 @@ li a {
   }
 }
 
+.tab:hover,
+.tab:focus {
+  fill: #ec1928 !important;
+}
+
 .tab::after {
-  stroke: #000000;
   display: inline-block;
   content: "";
 }
 
 ul a:hover,
 ul a:focus {
-  fill: #ec1928;
+  color: #ec1928 !important;
 }
 
 .nav-tab-label {
@@ -103,7 +107,7 @@ ul a:focus {
 }
 
 /*
-  
+
   Main Logout Btn
 
 */

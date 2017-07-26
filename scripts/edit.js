@@ -221,13 +221,10 @@ function showEditForm(doWhopSelector) {
 
   doWhopDescriptionRef.once('value').then(function(snapshot) {
     var doWhopDescription = snapshot.val();
-    if (
-      doWhopDescription.creatorDescription === auth.currentUser.email ||
-      doWhopDescription.createdBy === auth.currentUser.uid
-    ) {
-      editForm.removeAttribute('hidden', 'true');
+    if (doWhopDescription.creatorDescription === auth.currentUser.email) {
+      editForm.removeAttribute('hidden');
     } else {
-      editForm.setAttribute('hidden', 'false');
+      editForm.setAttribute('hidden', 'true');
     }
   });
 }

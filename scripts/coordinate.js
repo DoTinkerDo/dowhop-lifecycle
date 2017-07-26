@@ -1,23 +1,21 @@
 'use strict';
 
 // Use code to coordinate DoWhops.
-
 var currentSessionID;
 
-function getSesh(clicked) {
-  FriendlyChat.prototype.setSessionTab(clicked);
+var currentDate = new Date();
+
+var datePicker = new flatpickr('#whenDatePending', {
+  minDate: currentDate.setDate(currentDate.getDate() - 1),
+  enableTime: true,
+  altInput: true,
+  dateFormat: 'Y-m-d H:i'
+});
+
+function getSesh(clickedID) {
+  setLandingTab(clickedID); // New.
   FriendlyChat.prototype.getSession();
 }
-
-FriendlyChat.prototype.setSessionTab = function(clicked) {
-  var currentTab = clicked.id;
-  var userID = person.uid;
-  var sessionRef = database.ref('/session').child(userID);
-
-  sessionRef.update({
-    current_tab: currentTab
-  });
-};
 
 FriendlyChat.prototype.getSessionTab = function() {
   // To-Do: Refactor like so.
@@ -47,7 +45,6 @@ function FriendlyChat() {
   this.userName = document.getElementById('user-name');
   this.signInSnackbar = document.getElementById('must-signin-snackbar');
   this.messageFormWhenDatePending = document.getElementById('whenDatePending');
-  this.messageFormWhenTimePending = document.getElementById('whenTimePending');
   this.messageFormWherePending = document.getElementById('whereAddressPending');
 
   // Shortcuts to DOM elements for notification messages:
@@ -121,9 +118,6 @@ FriendlyChat.prototype.sendApprovalAction = function(e) {
     if (snap.val().whenDatePending) {
       newDate = snap.val().whenDatePending;
     }
-    if (snap.val().whenTimePending) {
-      newTime = snap.val().whenTimePending;
-    }
     if (snap.val().whereAddressPending) {
       newWhere = snap.val().whereAddressPending;
     }
@@ -187,9 +181,7 @@ FriendlyChat.prototype.sendDenialAction = function(e) {
     if (snap.val().whenDatePending) {
       newDate = snap.val().whenDatePending;
     }
-    if (snap.val().whenTimePending) {
-      newTime = snap.val().whenTimePending;
-    }
+
     if (snap.val().whereAddressPending) {
       newWhere = snap.val().whereAddressPending;
     }
@@ -278,6 +270,7 @@ FriendlyChat.prototype.getSession = function() {
 
   // All cases, we load pending div forms for current session:
   var checkForPendings = function(data) {
+    // var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     var pendingNotification = user.displayName + ' requested to meet:';
     // Check if there are pending notifications:
     if (data && data.pending != null && data.pending.status != 'approved' && data.pending.status != 'denied') {
@@ -290,8 +283,14 @@ FriendlyChat.prototype.getSession = function() {
         // console.log('visiting user is the creator. showing approval form, hiding rescind form.');
         // pendingNotification += '\nDo you want to approve it?';
 
-        if (data.pending.whenDatePending) pendingNotification += '\nOn: ' + data.pending.whenDatePending;
-        if (data.pending.whenTimePending) pendingNotification += '\nAt: ' + data.pending.whenTimePending;
+        if (data.pending.whenDatePending) {
+          pendingNotification +=
+            '\nOn: ' +
+            moment(data.pending.whenDatePending).format('dddd MMMM D, YYYY') +
+            ' at ' +
+            moment(data.pending.whenDatePending).format('hh:mmA') +
+            '\n';
+        }
         if (data.pending.whereAddressPending) pendingNotification += '\nAt: ' + data.pending.whereAddressPending;
 
         document.getElementById('pending-div').innerText = pendingNotification;
@@ -302,8 +301,14 @@ FriendlyChat.prototype.getSession = function() {
       } else if (firebase.auth().currentUser.uid == data.pending.requester) {
         // console.log('visiting user requested a change. showing rescinding form, hiding approval form.');
         // pendingNotification += '\nDo you want to change it?';
-        if (data.pending.whenDatePending) pendingNotification += '\nPending day: ' + data.pending.whenDatePending;
-        if (data.pending.whenTimePending) pendingNotification += '\nPending time: ' + data.pending.whenTimePending;
+        if (data.pending.whenDatePending) {
+          pendingNotification +=
+            '\nOn: ' +
+            moment(data.pending.whenDatePending).format('dddd MMMM D, YYYY') +
+            ' at ' +
+            moment(data.pending.whenDatePending).format('hh:mmA') +
+            '\n';
+        }
         if (data.pending.whereAddressPending)
           pendingNotification += '\nPending location: ' + data.pending.whereAddressPending;
 
@@ -349,6 +354,7 @@ FriendlyChat.prototype.getSession = function() {
         // Adding these logic checks so that when users update their information, new times, dates, etc render in 'View':
         let renderWhenInformation = data.val().whenDescription;
         let renderWhereInformation = data.val().whereDescription;
+        let renderWhoInformation = data.val().whoDescription; // To-Do: Update with first names dynamically.
 
         if (data.val().whereAddress && data.val().whereAddress != 'By request') {
           renderWhereInformation = data.val().whereAddress;
@@ -379,9 +385,7 @@ FriendlyChat.prototype.getSession = function() {
           '<div id="selector-body" class="mdl-layout__content dowhop-selector-body">' +
           '<h3>Who?</h3>' +
           '<p>' +
-          (data.val().creatorDescription || 'TBD') +
-          ' and ' +
-          (data.val().doerDescription || 'TBD') +
+          renderWhoInformation +
           '</p>' +
           '<h3>Why?</h3>' +
           '<p>' +
@@ -420,8 +424,8 @@ FriendlyChat.prototype.getSession = function() {
     // We only load edit form if edit tab is clicked:
     document.getElementById('messages-card').setAttribute('hidden', 'true');
     document.getElementById('selector-body') && document.getElementById('selector-body').removeAttribute('hidden');
-    showEditForm(doWhopSelector.firstChild); // new
-    fillInEditForm(doWhopSelector.firstChild); // new
+    showEditForm(doWhopSelector.firstChild);
+    fillInEditForm(doWhopSelector.firstChild);
   } else if (currentTabID === 'review-tab') {
     // TO-DO: Good to clear all unwanted UI elements if nothing's chosen.
     document.getElementById('messages-card').setAttribute('hidden', 'true');
@@ -448,10 +452,10 @@ FriendlyChat.prototype.loadMessages = function() {
   // Loads the last x number of messages and listen for new ones:
   var setMessage = function(data) {
     var val = data.val();
-    this.displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl);
+    this.displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl, val.senderId);
   }.bind(this);
-  this.messagesRef.orderByKey().limitToLast(12).on('child_added', setMessage);
-  this.messagesRef.orderByKey().limitToLast(12).on('child_changed', setMessage);
+  this.messagesRef.orderByKey().on('child_added', setMessage);
+  this.messagesRef.orderByKey().on('child_changed', setMessage); // TIP: To restrict number of messages, include .limitToLast(X) in db query.
 };
 
 // Saves a new message on the Firebase DB:
@@ -471,27 +475,30 @@ FriendlyChat.prototype.saveMessage = function(e) {
   var messagesChatsRef = database.ref().child('messages').child(currentDoWhopID);
   var currentUser = person;
   var whenDatePending = this.whenDatePending;
-  var whenTimePending = this.whenTimePending;
   var whereAddressPending = this.messageFormWherePending;
 
   // For only all three attributes: Time, Date, Where:
-  if (
-    this.messageFormWhenDatePending.value ||
-    this.messageFormWhenTimePending.value ||
-    this.messageFormWherePending.value
-  ) {
+
+  if (this.messageFormWhenDatePending.value || this.messageFormWherePending.value) {
     var chatsRef = this.database.ref().child('DoWhopDescriptions/' + currentDoWhopID + '/pending/');
 
     var messageText = '';
 
     messageText += currentUser.displayName + ' has requested a change!\n';
     if (this.messageFormWherePending.value) messageText += 'Where: ' + this.messageFormWherePending.value + '\n';
-    if (this.messageFormWhenTimePending.value || this.messageFormWhenDatePending.value) messageText += 'On: ';
-    if (this.messageFormWhenTimePending.value) messageText += this.messageFormWhenTimePending.value + '\n';
-    if (this.messageFormWhenDatePending.value) messageText += this.messageFormWhenDatePending.value + '\n';
+    if (this.messageFormWhenDatePending.value) {
+      messageText +=
+        'On: ' +
+        datePicker.formatDate(new Date(datePicker.selectedDates), 'l F j, Y') +
+        ' at ' +
+        datePicker.formatDate(new Date(datePicker.selectedDates), 'h:iK') +
+        '\n';
+    }
+    // if (this.messageFormWhenDatePending.value) messageText += this.messageFormWhenDatePending.value + '\n';
 
     messagesChatsRef.push({
       chatId: currentDoWhopID,
+      senderId: currentUser.uid, // We need this in order to interact with users objects.
       name: currentUser.displayName,
       text: messageText,
       photoUrl: '/images/placeholder-image1.jpg'
@@ -500,8 +507,6 @@ FriendlyChat.prototype.saveMessage = function(e) {
     chatsRef.update({ status: true, requester: currentUser.uid }); // Refactoring to make it a dis-aggregated update.
     if (this.messageFormWhenDatePending.value)
       chatsRef.update({ whenDatePending: this.messageFormWhenDatePending.value }).then(this.resetDate);
-    if (this.messageFormWhenTimePending.value)
-      chatsRef.update({ whenTimePending: this.messageFormWhenTimePending.value }).then(this.resetTime);
     if (this.messageFormWherePending.value)
       chatsRef.update({ whereAddressPending: this.messageFormWherePending.value }).then(this.resetWhere);
     this.resetDateTimeWhere; // Catch-all.
@@ -512,6 +517,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
     messagesChatsRef
       .push({
         chatId: currentDoWhopID,
+        senderId: currentUser.uid,
         name: currentUser.displayName,
         text: this.messageInput.value,
         photoUrl: currentUser.photoURL || '/images/user-icon.png' // Check.
@@ -530,11 +536,10 @@ FriendlyChat.prototype.saveMessage = function(e) {
 };
 
 FriendlyChat.prototype.resetDate = function() {
-  document.getElementById('whenDatePending').value = null;
-};
-
-FriendlyChat.prototype.resetTime = function() {
-  document.getElementById('whenTimePending').value = null;
+  document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
+  let datePending = document.getElementById('whenDatePending');
+  datePending.value = null;
+  datePending.placeholder = 'Select to enter date';
 };
 
 FriendlyChat.prototype.resetWhere = function() {
@@ -542,8 +547,10 @@ FriendlyChat.prototype.resetWhere = function() {
 };
 
 FriendlyChat.prototype.resetDateTimeWhere = function() {
-  document.getElementById('whenDatePending').value = null;
-  document.getElementById('whenTimePending').value = null;
+  let datePending = document.getElementById('whenDatePending');
+  datePending.value = null;
+  datePending.placeholder = 'Select to enter date';
+
   document.getElementById('whereAddressPending').value = null;
 };
 
@@ -735,7 +742,7 @@ FriendlyChat.resetMaterialTextfield = function(element) {
 // Template for messages.
 FriendlyChat.MESSAGE_TEMPLATE =
   '<div class="message-container">' +
-  '<div class="spacing"><div class="pic"></div></div>' +
+  '<a class="spacing"><div class="pic"></div></a>' +
   '<div class="message"></div>' +
   '<div class="name"></div>' +
   '</div>';
@@ -758,15 +765,16 @@ FriendlyChat.APPROVAL_TEMPLATE =
   '</div>';
 
 // Displays a Message in the UI.
-FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri) {
-  var messageList = document.getElementById('messages'); // new
-  var messageInput = document.getElementById('message'); // new
+FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri, senderId) {
+  var messageList = document.getElementById('messages');
+  var messageInput = document.getElementById('message');
   var div = document.getElementById(key);
   // If an element for that message does not exists yet we create it.
   if (!div) {
     var container = document.createElement('div');
     container.innerHTML = FriendlyChat.MESSAGE_TEMPLATE;
     div = container.firstChild;
+    container.firstChild.firstChild.setAttribute('href', '/profile.html?' + senderId); // Check routes.
     div.setAttribute('id', key);
     messageList.appendChild(div);
   }
