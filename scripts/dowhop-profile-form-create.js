@@ -238,7 +238,7 @@ function retrieveProfile(currentProfile) {
     myProfileSocialIG.innerText = snap.val().profileSocialIG;
     myProfileSocialLI.innerText = snap.val().profileSocialLI;
     myProfileAbout.innerText = appUser.profileAbout;
-    myProfileEmail.innerHTML = "<a href='mailto:" + appUser.email + " '>Send Message</a> ";
+    myProfileEmail.innerHTML = "<a href='mailto:" + 'connect@dowhop.com' + " '>Send Message</a> ";
     // myProfilePayment.innerText = appUser.pofilePayment;
     myProfileActivity1.innerText = appUser.profileActivity1;
     myProfileActivity2.innerText = appUser.profileActivity2;
