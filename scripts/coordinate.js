@@ -271,7 +271,7 @@ FriendlyChat.prototype.getSession = function() {
   // All cases, we load pending div forms for current session:
   var checkForPendings = function(data) {
     // var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    var pendingNotification = user.displayName + ' requested to meet:';
+    var pendingNotification = user.displayName + ' requested to meet ';
     // Check if there are pending notifications:
     if (data && data.pending != null && data.pending.status != 'approved' && data.pending.status != 'denied') {
       // console.log('pending status true. showing pending div.');
@@ -285,7 +285,7 @@ FriendlyChat.prototype.getSession = function() {
 
         if (data.pending.whenDatePending) {
           pendingNotification +=
-            '\nOn: ' +
+            'on ' +
             moment(data.pending.whenDatePending).format('dddd MMMM D, YYYY') +
             ' at ' +
             moment(data.pending.whenDatePending).format('hh:mmA') +
@@ -484,11 +484,11 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
     var messageText = '';
 
-    messageText += currentUser.displayName + ' has requested a change!\n';
+    messageText += currentUser.displayName + ' has requested to meet ';
     if (this.messageFormWherePending.value) messageText += 'Where: ' + this.messageFormWherePending.value + '\n';
     if (this.messageFormWhenDatePending.value) {
       messageText +=
-        'On: ' +
+        '\non ' +
         datePicker.formatDate(new Date(datePicker.selectedDates), 'l F j, Y') +
         ' at ' +
         datePicker.formatDate(new Date(datePicker.selectedDates), 'h:iK') +
