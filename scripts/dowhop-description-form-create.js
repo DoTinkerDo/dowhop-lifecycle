@@ -113,6 +113,7 @@ function addDoWhopImage(files_arr, node) {
     alert('You can only add images at the moment.');
     return;
   }
+  node.parentNode.style.color = '#ec1928';
   return files.push(files_arr[0]);
 }
 
@@ -152,6 +153,9 @@ function clearNewDoWhopEntryForm() {
   dowhopImageCapture1.value = '';
   dowhopImageCapture2.value = '';
   dowhopImageCapture3.value = '';
+  dowhopImageCapture1.parentElement.style.color = '#757575';
+  dowhopImageCapture2.parentElement.style.color = '#757575';
+  dowhopImageCapture3.parentElement.style.color = '#757575';
 }
 
 function showConfirmationMessage() {

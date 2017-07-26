@@ -46,6 +46,11 @@
     // FCM permission registration
     registerMessaging(user);
     retrieveMyDoWhops(user.uid);
+
+    if (window.location.hash != '' && window.location.hash.length > 0) {
+      setLandingTab(window.location.hash.match(/#(.+)/)[1]);
+    }
+    // TO-DO: Alternative option is to restore a "saved session."
   }
 
   function handleSignedOutUser() {
@@ -150,3 +155,51 @@ function checkDefaultDoWhop(person) {
     }
   });
 }
+
+// For checking the pre-specified routing location. New.
+// function retrieveUrlAnchor(location) {
+//   if (location.match(/#(.+)/) && location.match(/#(.+)/)[1] != null) {
+//     return location.match(/#(.+)/)[1];
+//   } else {
+//     return null;
+//   }
+// }
+
+function setLandingTab(href) {
+  // We are covering two situations:
+  // One for direct URL to particular tab, second for clicking on particular tab:
+  var currentTab;
+  if (typeof href === 'string' && href.match(/-tab/)) {
+    currentTab = href;
+  } else {
+    currentTab = href + '-tab';
+  }
+
+  if (document.getElementById(currentTab)) {
+    var currentTabElement = document.getElementById(currentTab);
+    var userID = person.uid || user.uid;
+    var sessionRef = database.ref('/session').child(userID);
+    var allTabs = document.getElementsByClassName('tab');
+
+    // We need to toggle the tabs to default color if un-selected...
+    for (var i = 0; i < allTabs.length; i++) {
+      allTabs[i].style.fill = '#000000';
+      allTabs[i].style.color = '#000000';
+    }
+
+    // ...And set the current session tab:
+    currentTabElement.style.fill = '#ec1928';
+    currentTabElement.style.color = '#ec1928';
+
+    sessionRef.update({
+      current_tab: currentTab
+    });
+  }
+}
+
+// We are ensuring direct routing also happens without refresh:
+window.addEventListener('hashchange', function(e) {
+  if (window.location.hash != '' && window.location.hash.length > 0) {
+    setLandingTab(window.location.hash.match(/#(.+)/)[1]);
+  }
+});

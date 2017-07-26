@@ -11,6 +11,9 @@ node_modules
 
 functions/firebase-debug.log
 
+# data backups
+/admin-tools/extracts
+
 # misc
 .DS_Store
 .env

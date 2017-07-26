@@ -3,6 +3,8 @@
 ## About DoWhop
 DoWhop is the P2P marketplace where you buy and sell what you do. We connect people who wish to host an activity with others who want to join them. This app allows users to interact with their experiences online, from creating DoWhops to coordinating their in-person meeting and reviews.
 
+![The home page for DoWhop creation](https://docs.google.com/drawings/d/1RsYc3EmoHGsE4lY9u1XRtdMRAN_bJB53I12G3SjLJUQ/pub?w=950&h=896)
+
 ## Features
 ### Create
 Here you can create a DoWhop featuring an event's description and images.

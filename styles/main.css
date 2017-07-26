@@ -184,7 +184,23 @@ main,
   margin-right: 12px;
 }
 
-.whereAddressPending {
+/* 
+
+  Date & Time
+  Picker 
+
+*/
+input#whenDatePending,
+input#whenTimePending {
+  font-size: 16px;
+}
+
+.underbar img {
+  display: inline-block;
+  cursor: pointer;
+}
+
+/*.whereAddressPending {
   display: inline-block;
   padding: 5px 11px;
 }
@@ -193,7 +209,7 @@ main,
   font-family: Roboto;
   font-size: 13px;
   font-weight: 300;
-}
+}*/
 
 #whereAddressPending {
   background-color: #fff;
@@ -312,7 +328,9 @@ h5 {
 }
 
 /*
-  PENDING NOTIFICATIONS STYLING
+
+  PENDING NOTIFICATIONS
+
 */
 
 #approve-pending-form ul {
@@ -418,7 +436,7 @@ h5 {
   width: auto;
   height: auto;
 }
-
+/*
 #hidden-inputs {
   display: flex;
   justify-content: center;
@@ -426,12 +444,12 @@ h5 {
   font-size: 2em;
   width: 100%;
   height: 100%;
-}
+}*/
 
 .message img {
   max-height: 20%;
 }
-
+/*
 .wrap {
   width: 100%;
   margin: 25px auto;
@@ -475,7 +493,6 @@ h5 {
 
 .form-wrap .form-line > span {
   color: #606060;
-  /*text-transform: uppercase;*/
   display: inline-block;
   width: 100%;
   font-size: 16px;
@@ -535,6 +552,8 @@ input:focus ~ .bar:before,
 input:focus ~ .bar:after {
   width: 50%;
 }
+
+*/
 
 .submit {
   display: inline-block;
@@ -780,4 +799,28 @@ button {
 
 #why-description {
   font-family: inherit;
+}
+
+#create-outer-div {
+  text-align:center;
+  height: 50px;
+  width: 300px;
+}
+
+#create-div-1 {
+  float: left;
+  height: 50px;
+  width: 50px;
+}
+
+#create-div-2 {
+  display: inline;
+  height: 50px;
+  width: 50px;
+}
+
+#create-div-3 {
+  float: right;
+  height: 50px;
+  width: 50px;
 }

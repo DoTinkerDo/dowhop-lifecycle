@@ -21,6 +21,7 @@
 
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" /> <!-- Firebase UI CSS for Web Auth -->
+  <link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" href="styles/main.css"> <!--Catch-all stylings-->
   <link rel="stylesheet" href="styles/login-tabs-styles.css">
   <link rel="stylesheet" href="styles/dowhop-selector-style.css">
@@ -35,6 +36,7 @@
   var defaultDoWhopDescriptionImage =
   'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
 </script>
+<script src="/src/moment.js"></script>
 </head>
 <body>
 
@@ -57,7 +59,7 @@
       <nav class="mdl-cell mdl-cell--12-col mdl-cell--4-offset-desktop mdl-cell--2-offset-tablet">
         <ul class="tabs">
           <li>
-            <a id="create-tab" class="tab" id="create-icon" href="#create" onclick="getSesh(this)">
+            <a id="create-tab" class="tab" id="create-icon" href="#create" onclick="getSesh(this.id)">
               <span class="nav-tab-label">Create</span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44">
                 <path d="M22,44c-3.309,0-6-2.665-6-5.941V28H5.941C2.665,28,0,25.309,0,22s2.665-6,5.941-6H16V5.941C16,2.665,18.691,0,22,0
@@ -68,7 +70,7 @@
             </a>
           </li>
           <li>
-            <a id="edit-tab" class="tab" href="#edit" onclick="getSesh(this)">
+            <a id="edit-tab" class="tab" href="#edit" onclick="getSesh(this.id)">
               <span class="nav-tab-label">View</span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 469.331 469.331">
               <path d="M438.931,30.403c-40.4-40.5-106.1-40.5-146.5,0l-268.6,268.5c-2.1,2.1-3.4,4.8-3.8,7.7l-19.9,147.4
@@ -81,7 +83,7 @@
             </a>
           </li>
           <li>
-            <a id="coordinate-tab" class="tab" href="#coordinate" onclick="getSesh(this)">
+            <a id="coordinate-tab" class="tab" href="#coordinate" onclick="getSesh(this.id)">
               <span class="nav-tab-label">Coordinate</span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 489.6 489.6">
               <path d="M394.8,261.5V81.7c0-24.9-20.3-45.2-45.2-45.2H45.2C20.3,36.5,0,56.8,0,81.7v179.8c0,24.9,20.3,45.2,45.2,45.2h12.9v54.2
@@ -99,7 +101,7 @@
             </a>
           </li>
           <li>
-            <a id="review-tab" class="tab" href="#review" onclick="getSesh(this)">
+            <a id="review-tab" class="tab" href="#review" onclick="getSesh(this.id)">
             <span class="nav-tab-label">Review</span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55.867 55.867">
             <path d="M11.287,54.548c-0.207,0-0.414-0.064-0.588-0.191c-0.308-0.224-0.462-0.603-0.397-0.978l3.091-18.018L0.302,22.602
@@ -203,10 +205,25 @@
                   <label class="mdl-textfield__label" for="how-description">How much will it cost?</label>
                 </div>
                 <div class="mdl-card__actions">
-                <div>
-                  <input id="dowhop-image-capture1" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
-                  <input id="dowhop-image-capture2" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
-                  <input id="dowhop-image-capture3" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
+                <div id="create-outer-div">
+                  <div id="create-div-1">
+                     <label for="dowhop-image-capture1">
+                       <i class="material-icons">perm_media</i>
+                       <input class="image-capture hide-component" id="dowhop-image-capture1" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
+                     </label>
+                   </div>
+                   <div id="create-div-2">
+                     <label for="dowhop-image-capture2">
+                       <i class="material-icons">perm_media</i>
+                       <input class="image-capture hide-component" id="dowhop-image-capture2" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
+                     </label>
+                   </div>
+                   <div id="create-div-3">
+                     <label for="dowhop-image-capture3">
+                       <i class="material-icons">perm_media</i>
+                       <input class="image-capture hide-component" id="dowhop-image-capture3" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
+                     </label>
+                   </div>
                 </div>
                 <button class="btn btn-default" id="create-new-dowhop">
                   Create
@@ -288,48 +305,67 @@
                   <span id="message-filler"></span>
                 </div>
                 <form id="message-form" action="#">
-                  <div id="message-form-div" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+
+                  <!-- <div id="message-form-div" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <label class="form-line" for="message">Message
                       <input type="text" id="message">
-                      <span class="bar">
+                      <span class="bar"></span>
                     </label>
-                    <!-- Adding options div here -->
-                    <div class="options-coordinate">
-                      <div class="underbar">
-                        <div id="optione-calendar" class="img_icon">
-                          <img onclick="revealInput('date')" src='images/calendar.png' alt="" width="24" height="24">
-                        </div>
-                        <div id="clock" class="img_icon">
-                          <img onclick="revealInput('time')" src="images/clock-circular-outline.png" alt="" width="24" height="24">
-                        </div>
-                        <div id="map-div" class="img_icon">
-                          <img onclick="revealInput('where')" src="https://static.wixstatic.com/media/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png/v1/fill/w_512,h_512,al_c/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png" alt="" width="24" height="24">
-                        </div>
-                        <div id="image" class="img_icon">
-                          <img onclick="revealInput('image')" src="images/image-add-button.png" alt="" width="24" height="24">
-                        </div>
-                        <div id="send-message-button">
-                          <button class="btn btn-small" id="submit-message-button" type="submit">
-                            Send
-                          </button>
-                        </div>
+                  </div> -->
+
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="message">
+                    <label class="mdl-textfield__label" for="message">Enter message...</label>
+                  </div>
+
+                  <!-- Adding options div here -->
+                  <div class="options-coordinate">
+                    <div class="underbar">
+                      <div id="option-calendar" class="img_icon">
+                        <img data-input="date" src="images/datetime.svg" alt="calendar" width="24" height="24">
+                      </div>
+                      <div id="map-div" class="img_icon">
+                        <img data-input="where" src="https://static.wixstatic.com/media/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png/v1/fill/w_512,h_512,al_c/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png" alt="map" width="24" height="24">
+                      </div>
+                      <div id="image" class="img_icon">
+                        <img data-input="image" src="images/image-add-button.png" alt="folder" width="24" height="24">
+                      </div>
+                      <div id="send-message-button">
+                        <button class="btn btn-small" id="submit-message-button" type="submit">
+                          Send
+                        </button>
                       </div>
                     </div>
+                  </div>
                   <!-- End of Message Form Div -->
+
+                  <!-- <div id="hidden-inputs"> -->
+                    <!-- <input hidden type="text" class="" id="whenDatePending" placeholder="Enter date"> -->
+                    <!-- <input hidden type="text" class="" id="whenTimePending" placeholder="Enter time"> -->
+                    <!-- <input hidden type="text" class="controls" id="whereAddressPending"  placeholder="Set a place..."> -->
+                    <!-- <div hidden id="map"></div> -->
+                  <!-- </div> -->
+
+                  <div hidden class="mdl-textfield mdl-js-textfield" id="when-date-pending-hidden">
+                    <input class="mdl-textfield__input" type="text" id="whenDatePending">
+                    <label class="mdl-textfield__label" for="whenDatePending">Select to enter date and time</label>
                   </div>
-                  <div id="hidden-inputs">
-                    <input hidden type="date" id="whenDatePending">
-                    <input hidden type="time" id='whenTimePending' size="50">
-                    <input hidden id="whereAddressPending" class="controls" type="text" placeholder="Set a place...">
-                      <div hidden id="map"></div>
+                  <div  hidden class="mdl-textfield mdl-js-textfield" id="when-time-pending-hidden">
+                    <input class="mdl-textfield__input" type="text" id="whenTimePending">
+                    <label class="mdl-textfield__label" for="whenTimePending">Select to enter time</label>
                   </div>
+                  <input hidden type="text" class="controls" id="whereAddressPending"  placeholder="Set a place...">
+                  <div hidden id="map"></div>
+
                 </form>
+
                 <form id="image-form" action="#">
-                  <input hidden id="mediaCapture" type="file" accept="image/*,capture=camera">
+                  <input class="hide-component" id="mediaCapture" type="file" accept="image/*,capture=camera">
                   <button hidden  id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--red-200 mdl-color-text--white">
                     <i class="material-icons">perm_media</i>
                   </button>
                 </form>
+
               </div>
             </div>
             <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
@@ -455,6 +491,7 @@
   </section> <!-- End Application Container -->
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-coo6M25h9GjP8AYxhzIQSbNVj-Ope3s&libraries=places&callback=initAutocomplete" async defer></script>
+<script src="https://unpkg.com/flatpickr"></script>
 <script src="scripts/login.js"></script>
 <script src="scripts/firebase-cloud-messaging.js"></script>
 <script src="scripts/tabs.js"></script>
@@ -482,21 +519,26 @@ btnLogOut.addEventListener('click', changeLoginText);
 window.addEventListener('load', changeLoginText);
 </script>
 <script>
-/* A script to use icon to select/toggle input fields */
+var underbar = document.querySelectorAll('.underbar img');
+var underBarIcons = Array.prototype.slice.call(underbar);
+
+underBarIcons.forEach(function(icon) {
+  icon.addEventListener('click', revealInput);
+});
 var date, time, where, image;
-function revealInput(x) {
-  switch (x) {
+function revealInput() {
+  switch (this.dataset.input) {
     case 'date':
-      document.getElementById('whenDatePending').removeAttribute('hidden');
-      document.getElementById('whenTimePending').setAttribute('hidden', 'true');
+      document.getElementById('when-date-pending-hidden').removeAttribute('hidden');
+      document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
       document.getElementById('map').setAttribute('hidden', 'true');
       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
       document.getElementById('submitImage').setAttribute('hidden', 'true');
       break;
     case 'time':
-      document.getElementById('whenTimePending').removeAttribute('hidden');
-      document.getElementById('whenDatePending').setAttribute('hidden', 'true');
+      document.getElementById('when-time-pending-hidden').removeAttribute('hidden');
+      document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
       document.getElementById('map').setAttribute('hidden', 'true');
       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
@@ -506,22 +548,22 @@ function revealInput(x) {
       document.getElementById('whereAddressPending').removeAttribute('hidden');
       document.getElementById('map').removeAttribute('hidden');
       google.maps.event.trigger(map, 'resize');
-      document.getElementById('whenDatePending').setAttribute('hidden', 'true');
-      document.getElementById('whenTimePending').setAttribute('hidden', 'true');
+      document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
+      document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
       document.getElementById('submitImage').setAttribute('hidden', 'true');
       break;
     case 'image':
       document.getElementById('mediaCapture').removeAttribute('hidden');
       document.getElementById('submitImage').removeAttribute('hidden');
-      document.getElementById('whenDatePending').setAttribute('hidden', 'true');
-      document.getElementById('whenTimePending').setAttribute('hidden', 'true');
+      document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
+      document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
       document.getElementById('map').setAttribute('hidden', 'true');
       break;
     default:
-      document.getElementById('whenDatePending').setAttribute('hidden', 'true');
-      document.getElementById('whenTimePending').setAttribute('hidden', 'true');
+      document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
+      document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
       document.getElementById('map').setAttribute('hidden', 'true');
       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
