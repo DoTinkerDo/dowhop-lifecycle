@@ -48,45 +48,48 @@
   </div>
 </header>
 <body>
+<div class='container'>
   <div class='mdl-grid'>
   <div class='mdl-cell mdl-cell--12-col'>
     <img class='background-photo'src="/images/DefaultDoWhop_banner.jpg">
   </div>
-</div>
 
-  <div class="mdl-grid center">
 
-    <div class ="mdl-card mdl-cell mdl-cell--4-col">
+  <div class="mdl-grid">
+
+    <div class ="pic-card mdl-cell mdl-cell--4-col">
       <img class="my-profile-picture" id="my-profile-picture" src="" alt="User profile image."/>
     </div>
     <div class="about-div mdl-cell mdl-cell--8-col mdl-cell--bottom">
       <div id="my-profile-about">About Me:</div>
     </div>
   </div>
+  </div>
+</div>
 
 
-  <div class='mdl-grid'>
-    <div class='mdl-cell mdl-cell--4-col mdl-card-2'>
+  <div class='mdl-grid grid1'>
+    <div class= 'mdl-cell mdl-cell--4-col'>
       <div id="my-display-name"></div>
-      <div id="my-profile-name"></div>
+      <div class= 'grid2' id="my-profile-name"></div>
       <div>
-        <a onclick= fillInProfileForm() id="edit-profile-button" href="#">
+        <a id="edit-profile-button" href="#">
           <i class="material-icons profile-icons">mode_edit</i>
-          <div class="profile-data profile-icons">Edit Profile</div>
+          <div class="grid2 profile-data profile-icons">Edit Profile</div>
         </a>
       </div>
       <div>
         <i class="material-icons profile-icons">mail_outline</i>
-        <div class="profile-data" id="my-profile-email">
+        <div class="grid2 profile-data" id="my-profile-email">
         </div>
       </div>
       <div>
         <i class="material-icons profile-icons">call</i>
-        <div class="profile-data" id="my-profile-phone">xxx-xxx-xxxx</div>
+        <div class="grid2 profile-data" id="my-profile-phone">xxx-xxx-xxxx</div>
       </div>
       <div>
         <i class="material-icons profile-icons">room</i>
-        <div class="profile-data" id="my-profile-city">San Diego, CA</div>
+        <div class="grid2 profile-data" id="my-profile-city">San Diego, CA</div>
       </div>
       <div class="material-icons profile-icons">
         <div id="my-profile-social">
@@ -114,7 +117,7 @@
 
 
     <div class='mdl-card-3 profile-activities-div2'>
-      <div class="mdl-cell mdl-cell--6-col outer-box ">
+      <div class="mdl-cell mdl-cell--7-col outer-box ">
         <img class="activity-image" id="activity-image-1" src="/images/placeholder-image1.png" alt="">
         <div class="inner-box">
           <p>Love to Do</p>

@@ -20,18 +20,21 @@
 .mdl-card-2 {
   width: 300px;
   height: 250px;
+  margin-right: -5px;
 }
 
 .my-profile-picture {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 90%;
+  max-height: 90%;
   background-repeat: no-repeat;
-  margin-bottom: 30px;
+  margin-top: 30px;
+  border-radius: 50%;
 }
 
 #my-profile-about {
   display: inline-flex;
   text-align: inherit;
+  padding-bottom: 15px;
 }
 
 #my-display-name {
@@ -49,7 +52,7 @@
   display: table-cell;
   vertical-align: middle;
   font-size: 22px;
-  padding-bottom: 5px;
+  margin-right: 20px;
 }
 
 .profile-data {
@@ -59,12 +62,12 @@
   padding-bottom: 5px;
   font-size: 13px;
 }
-
-.content-column {
-  display: flex;
-  vertical-align: inherit;
+.grid1 {
+  padding-left: 25px;
 }
-
+.grid2 {
+  padding-left: 20px;
+}
 .about-div {
   /*font-style: italic;
   font-size: 17px;
@@ -84,6 +87,8 @@
 .profile-activities-div2 {
   display: flex;
   flex-flow: wrap;
+  justify-content: center;
+  margin-right: -10px;
 }
 
 .activity-caption {
@@ -150,8 +155,9 @@
 }
 
 .background-photo {
-  height: 200px;
+  height: 150px;
   width: 100%;
+  margin-bottom: -85px;
 }
 
 #edit-profile-button {
