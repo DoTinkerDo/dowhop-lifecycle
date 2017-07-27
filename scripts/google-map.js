@@ -1,5 +1,6 @@
 'use strict';
 var mapElement = document.getElementById('map');
+var map = null;
 
 function initializeGoogle() {
   initMap();
@@ -12,9 +13,9 @@ function initAuto() {
 
 function initMap() {
   var input = document.getElementById('whereAddressPending');
-  var map = new google.maps.Map(mapElement, {
+  map = new google.maps.Map(mapElement, {
     center: { lat: 32.73597, lng: -117.15071 },
-    zoom: 13,
+    zoom: 8,
     mapTypeControl: false,
     mapTypeId: 'roadmap'
   });
@@ -91,7 +92,7 @@ function revealInput() {
   switch (this.dataset.input) {
     case 'date':
       document.getElementById('when-date-pending-hidden').removeAttribute('hidden');
-      document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
+      // document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
       document.getElementById('map').setAttribute('hidden', 'true');
       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
@@ -106,10 +107,8 @@ function revealInput() {
     //   document.getElementById('submitImage').setAttribute('hidden', 'true');
     //   break;
     case 'where':
-      console.log('case where');
+      document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('whereAddressPending').removeAttribute('hidden');
-      // initialize();
-      // initAutocomplete();
       document.getElementById('map').removeAttribute('hidden');
       initializeGoogle(); // OK.
       google.maps.event.trigger(map, 'resize');
@@ -117,8 +116,6 @@ function revealInput() {
       google.maps.event.addListenerOnce(map, 'idle', function() {
         google.maps.event.trigger(map, 'resize');
       });
-      document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
-      document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
       document.getElementById('submitImage').setAttribute('hidden', 'true');
       break;
@@ -126,17 +123,17 @@ function revealInput() {
       document.getElementById('mediaCapture').removeAttribute('hidden');
       document.getElementById('submitImage').removeAttribute('hidden');
       document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
-      document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
+      // document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
       document.getElementById('map').setAttribute('hidden', 'true');
       break;
     default:
       document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
-      document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
+      // document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
-      document.getElementById('map').setAttribute('hidden', 'true');
       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
       document.getElementById('submitImage').setAttribute('hidden', 'true');
+      document.getElementById('map').setAttribute('hidden', 'true');
       break;
   }
 }
