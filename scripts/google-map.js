@@ -1,9 +1,34 @@
 'use strict';
 var mapElement = document.getElementById('map');
 var map = null;
+var localCoords = {};
+localCoords.lat = 32.73597; // Setting default to San Diego unless navigator below works.
+localCoords.lng = -117.15071;
 
 function initializeGoogle() {
-  // initMap();
+  if (window.navigator.geolocation) {
+    console.log('getting location...');
+
+    var options = {
+      enableHighAccuracy: false,
+      timeout: 1000,
+      maximumAge: 0
+    };
+
+    window.navigator.geolocation.getCurrentPosition(updateLocation, errorHandle, options);
+
+    function updateLocation(position) {
+      localCoords.lat = position.coords.latitude;
+      localCoords.long = position.coords.longitude;
+    }
+
+    function errorHandle(error) {
+      console.log(error);
+      localCoords.lat = 32.73597; // Checking default if no result.
+      localCoords.lng = -117.15071;
+    }
+  }
+
   if (!map) {
     initAutocomplete(); // To ensure we don't keep re-loading the API.
   }
@@ -14,9 +39,16 @@ function initializeGoogle() {
 // }
 
 function initAutocomplete() {
+  // if (!localCoords) {
+  //   console.log('no coordinates...using default');
+  // }
+  // if (localCoords && localCoords.lat) {
+  //   console.log('latitude..', localCoords.lat);
+  // }
+
   map = new google.maps.Map(document.getElementById('map'), {
-    center: { lat: -33.8688, lng: 151.2195 },
-    zoom: 8,
+    center: localCoords,
+    zoom: 10,
     mapTypeControl: false,
     mapTypeId: 'roadmap'
   });
@@ -100,7 +132,6 @@ function revealInput() {
       document.getElementById('where-pending-hidden').removeAttribute('hidden');
       document.getElementById('whereAddressPending').removeAttribute('hidden');
       document.getElementById('map').removeAttribute('hidden');
-      // google.maps.event.trigger(map, 'resize');
       // google.maps.event.addDomListener(map, 'load', initializeGoogle);
       // google.maps.event.addListenerOnce(map, 'idle', function() {
       //   google.maps.event.trigger(map, 'resize');
@@ -108,6 +139,7 @@ function revealInput() {
       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
       document.getElementById('submitImage').setAttribute('hidden', 'true');
       initializeGoogle(); // OK.
+      google.maps.event.trigger(map, 'resize');
       break;
     case 'image':
       document.getElementById('mediaCapture').removeAttribute('hidden');
