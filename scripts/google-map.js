@@ -3,34 +3,31 @@ var mapElement = document.getElementById('map');
 var map = null;
 
 function initializeGoogle() {
-  initMap();
-  initAuto();
+  // initMap();
+  if (!map) {
+    initAutocomplete(); // To ensure we don't keep re-loading the API.
+  }
 }
-function initAuto() {
-  var input = document.getElementById('whereAddressPending');
-  var autocomplete = new google.maps.places.Autocomplete();
-}
+// function initAuto() {
+//   var input = document.getElementById('whereAddressPending');
+//   var autocomplete = new google.maps.places.Autocomplete();
+// }
 
-function initMap() {
-  var input = document.getElementById('whereAddressPending');
-  map = new google.maps.Map(mapElement, {
-    center: { lat: 32.73597, lng: -117.15071 },
-    zoom: 8,
-    mapTypeControl: false,
+function initAutocomplete() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: -33.8688, lng: 151.2195 },
+    zoom: 13,
     mapTypeId: 'roadmap'
   });
 
   // Create the search box and link it to the UI element.
+  var input = document.getElementById('whereAddressPending');
   var searchBox = new google.maps.places.SearchBox(input);
-  map.controls[google.maps.ControlPosition.LEFT_CENTER].push(input);
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
 
   // Bias the SearchBox results towards current map's viewport.
   map.addListener('bounds_changed', function() {
     searchBox.setBounds(map.getBounds());
-  });
-  google.maps.event.addDomListener(map, 'load', initialize);
-  google.maps.event.addListenerOnce(map, 'idle', function() {
-    google.maps.event.trigger(map, 'resize');
   });
 
   var markers = [];
@@ -92,29 +89,30 @@ function revealInput() {
   switch (this.dataset.input) {
     case 'date':
       document.getElementById('when-date-pending-hidden').removeAttribute('hidden');
-      document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
+      document.getElementById('where-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('map').setAttribute('hidden', 'true');
       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
       document.getElementById('submitImage').setAttribute('hidden', 'true');
       break;
     case 'where':
       document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
+      document.getElementById('where-pending-hidden').removeAttribute('hidden');
       document.getElementById('whereAddressPending').removeAttribute('hidden');
       document.getElementById('map').removeAttribute('hidden');
-      initializeGoogle(); // OK.
-      google.maps.event.trigger(map, 'resize');
-      google.maps.event.addDomListener(map, 'load', initialize);
-      google.maps.event.addListenerOnce(map, 'idle', function() {
-        google.maps.event.trigger(map, 'resize');
-      });
+      // google.maps.event.trigger(map, 'resize');
+      // google.maps.event.addDomListener(map, 'load', initializeGoogle);
+      // google.maps.event.addListenerOnce(map, 'idle', function() {
+      //   google.maps.event.trigger(map, 'resize');
+      // });
       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
       document.getElementById('submitImage').setAttribute('hidden', 'true');
+      initializeGoogle(); // OK.
       break;
     case 'image':
       document.getElementById('mediaCapture').removeAttribute('hidden');
       document.getElementById('submitImage').removeAttribute('hidden');
       document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
-      document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
+      document.getElementById('where-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('map').setAttribute('hidden', 'true');
       break;
     default:
