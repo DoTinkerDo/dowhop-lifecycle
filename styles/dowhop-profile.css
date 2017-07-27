@@ -10,18 +10,16 @@
 .profile-details-container {
   margin-left: 15px;
   height: auto;
+  width: auto;
 }
 
 .center {
   text-align: center;
 }
 
-#my-profile-picture {
-  /*max-height: 250px;*/
+.my-profile-picture {
   width: 100%;
   max-width: 75%;
-  /*min-height: 50px;*/
-  /*background-size: cover;*/
   background-repeat: no-repeat;
   margin-bottom: 30px;
 }

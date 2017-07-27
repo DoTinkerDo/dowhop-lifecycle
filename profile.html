@@ -5,50 +5,62 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DoWhop Profile</title>
-  <!-- Adding jQUery -->
+    <!-- Adding jQUery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-  <!-- Adding font 'Avenir Light' -->
+    <!-- Adding font 'Avenir Light' -->
   <link rel="stylesheet" href="styles/font-styles.css">
-  <!-- Material Design Lite -->
+    <!-- Material Design Lite -->
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.red-blue.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" /> <!-- Firebase UI CSS for Web Auth -->
-  <link rel="stylesheet" href="styles/main.css"> <!--Catch-all stylings-->
+  <!-- <link rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" />   Firebase UI CSS for Web Auth -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- Catch-all stylings -->
   <link rel="stylesheet" href="styles/login-tabs-styles.css">
   <link rel="stylesheet" href="styles/dowhop-selector-style.css">
   <link rel="stylesheet" href="styles/dowhop-profile.css">
   <link rel="stylesheet" href="styles/dowhop-profile-dm.css">
-  <!-- Functional -->
-  <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>  <!-- Firebase library -->
-  <script src="scripts/firebase.js"></script> <!-- Initialize Firebase app -->
-  <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script> <!-- Lodash ._ -->
-  <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script> <!-- Firebase UI JS for Web Auth -->
-</head>    <!-- Navigation Container -->
+    <!-- Functional -->
+  <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+  <!-- Firebase library -->
+  <script src="scripts/firebase.js"></script>
+   <!-- Initialize Firebase app -->
+  <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+  <!-- Lodash ._ -->
+  <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script>
+  <!-- Firebase UI JS for Web Auth -->
+</head>
+<!-- Navigation Container -->
     <header class="mdl-grid">
-      <!-- <nav class="mdl-cell mdl-cell--12-col mdl-cell--4-offset-desktop mdl-cell--2-offset-tablet">
+        <nav class="mdl-cell mdl-cell--12-col mdl-cell--4-offset-desktop mdl-cell--2-offset-tablet">
         <a href='/#coordinate'>Go Back</a>
-      </nav> <!-- End Navigation -->
+      </nav>
+       <!-- End Navigation -->
 
       <div class="nav-dropdown">
         <img class="nav-dropbtn" id="user-icon" src="/images/user-icon.png" alt="">
         <div class="nav-dropdown-content">
           <a class="btn-logout" href="#" onclick="auth.signOut()">Log Out</a>
-          <!-- <a href="#">My Profile</a> -->
+            <a href="#">My Profile</a>
         </div>
       </div>
     </header>
 <body>
-  <div class="mdl-grid">
-    <!-- Start profile section -->
-    <div class="mdl-cell mdl-cell--4-col mdl-cell--order-1-desktop mdl-cell--order-1-tablet mdl-cell--order-1-phone">
-      <div>
-        <!-- Profile container -->
-        <div class="profile-details-container">
-          <img id="my-profile-picture" src="" alt="User profile image."/>
 
+  <div class="mdl-grid">
+      <!-- Start profile section
+          Profile container -->
+        <div class="profile-details-container">
+        <div class ="mdl-cell mdl-cell--4-col">
+          <img class='my-profile-picture' id="my-profile-picture" src="" alt="User profile image."/>
+        </div>
+        <div class="mdl-cell mdl-cell--6-col">
+          <div id="my-profile-about">About Me:</div>
+        </div>
+        <div class='mdl-grid'>
+          <div class='mdl-cell mdl-cell--6-col'>
           <div id="my-display-name"></div>
           <div id="my-profile-name"></div>
           <div>
@@ -64,7 +76,6 @@
           </div>
           <div>
             <i class="material-icons profile-icons">call</i>
-            <!-- link to the user's actual phone number -->
             <div class="profile-data" id="my-profile-phone">xxx-xxx-xxxx</div>
           </div>
           <div>
@@ -81,6 +92,8 @@
             </div>
           </div>
         </div>
+      </div>
+
         <div hidden id="send-direct-message-div">
           <button id="send-direct-message">
             <div class="row">
@@ -92,12 +105,11 @@
       </div>
     </div>
 
-    <div class="mdl-grid mdl-cell mdl-cell--bottom mdl-cell--8-col mdl-cell--order-2-desktop mdl-cell--order-2-tablet mdl-cell--order-2-phone">
-      <div id="my-profile-about">About Me:</div>
 
-      <div class="mdl-grid profile-activities-div">
-        <div class="outer-box mdl-cell mdl-cell--4-col mdl-cell--order-4-desktop mdl-cell--order-4-tablet mdl-cell--order-4-phone">
-          <img class="activity-image" id="activity-image-1" src="/images/placeholder-image1.png" alt="">
+
+      <div class="mdl-grid">
+        <div class="profile-details-container outer-box mdl-cell mdl-cell--4-col mdl-cell--order-4-desktop mdl-cell--order-4-tablet mdl-cell--order-4-phone">
+        <img class="activity-image" id="activity-image-1" src="/images/placeholder-image1.png" alt="">
           <div class="inner-box">
             <p>Love to Do</p>
           </div>
@@ -113,7 +125,7 @@
 
         <div class="outer-box mdl-cell mdl-cell--4-col mdl-cell--order-6-desktop mdl-cell--order-6-tablet mdl-cell--order-6-phone">
           <img class="activity-image" id="activity-image-3" src="/images/placeholder-image3.png" alt="">
-          <div class="inner-box" >
+          <div class="inner-box">
             <p>Love to Do</p>
           </div>
           <div class="activity activity-caption" id="my-profile-activity-3">
@@ -123,21 +135,22 @@
     </div>
   </div>
 
-<!-- END Profile container -->
+  <!-- END Profile container
 
 
-<!-- put the facebook, twitter, etc. links here -->
-<!-- put the verified member part here -->
+  put the facebook, twitter, etc. links here
+  put the verified member part here -->
 <div class='mdl-grid edit-form'>
-  <!-- <div class='mdl-grid'>
-  </div> -->
+  <div class='mdl-grid'>
+  </div>
   <div class="mdl-cell mdl-cell--4-col mdl-cell--order-3-desktop mdl-cell--order-3-tablet mdl-cell--order-3-phone">
-    <div hidden id="create-profile-div"><!-- Begin Create New Profile Form -->
-      <!-- <div class="mdl-layout__content"> -->
+    <div hidden id="create-profile-div">
+      <!-- egin Create New Profile Form -->
+      <div class="mdl-layout__content">
       <div class="mdl-card__title">
         <h2 class="mdl-card__title-text">Update My Profile</h2>
       </div>
-      <!-- <div class="mdl-card__supporting-text"> -->
+      <div class="mdl-card__supporting-text">
 
       <form id="create-profile-form" action="#">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -218,8 +231,8 @@
           <div class="mdl-tooltip" for="profile-website">Personal URL</div>
         </div>
 
-        <!-- Adding Images -->
-        <div>
+          <!-- Adding Images -->
+         <div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <input class="mdl-textfield__input" type="text" id="profile-activity-1" placeholder="e.g., Casey is a dog enthusiast">
             <label class="mdl-textfield__label" for="profile-activity-1">Activity #1:</label>
@@ -235,7 +248,7 @@
           </button>
         </div>
 
-        <div class="hide-component">
+          <div class="hide-component">
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <input class="mdl-textfield__input" type="text" id="profile-activity-2" placeholder="e.g., Casey is a spearfisherman and snorkeller">
             <label class="mdl-textfield__label" for="profile-activity-2">Activity #2:</label>
@@ -251,7 +264,7 @@
           </button>
         </div>
 
-        <div class="hide-component">
+          <div class="hide-component">
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <input class="mdl-textfield__input" type="text" id="profile-activity-3" placeholder="e.g., Casey is an underwater hockey player">
             <label class="mdl-textfield__label" for="profile-activity-3">Activity #3:</label>
@@ -263,45 +276,45 @@
           </label>
         </div>
 
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
           <input class="mdl-textfield__input" type="text" id="profile-phone" placeholder="Phone"></input>
           <label class="mdl-textfield__label" for="profile-phone">Phone Number:</label>
           <div class="mdl-tooltip" for="profile-phone">Preferred Phone Number</div>
         </div>
 
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
           <input class="mdl-textfield__input" type="text" id="profile-payment" placeholder="EMAIL"></input>
           <label class="mdl-textfield__label" for="profile-payment">Venmo Email:</label>
           <div class="mdl-tooltip" for="profile-payment">Payment Email</div>
         </div>
 
-        <!-- <label for="profile-image-capture-3">
+          <label for="profile-image-capture-3">
         <i class="material-icons">perm_media</i>
         <input class="image-capture" id="profile-image-capture-3" type="file" accept="image/*" capture="camera">
-      </label> -->
+      </label>
 
-      <!-- END adding images -->
+        <!-- END adding images -->
 
       <div class="mdl-card__actions">
         <button class="btn btn-default" id="create-profile-form-button">
-          Submit Profile
+          <!-- Submit Profile -->
           <div class="mdl-tooltip" for="create-profile-form-button">Click here to save your info!</div>
         </button>
       </div>
 
     </form>
-    <!-- </div> -->
+      </div>
   </div>
-  <!-- </div> -->
+    </div>
 </div>
 </div>
-<!-- END Create Submit Profile Form -->
+  <!-- END Create Submit Profile Form -->
 
 
+<!--
+  PLACEHOLDER activities for future DoneWhops -->
 
-<!-- PLACEHOLDER activities for future DoneWhops -->
-
-<!-- <div class="mdl-grid profile-activities-div2">
+  <div class="mdl-grid profile-activities-div2">
 <div class="outer-box mdl-cell mdl-cell--8-col mdl-cell--order-4-desktop mdl-cell--order-4-tablet mdl-cell--order-4-phone">
 <img class="activity-image" id="activity-image-1" src="/images/placeholder-image1.png" alt="">
 <div class="inner-box">
@@ -326,15 +339,15 @@
 <div class="activity activity-caption" id="my-profile-activity-3">
 </div>
 </div>
-</div> -->
+</div>
 
 
-<!-- End Show Profile Section -->
+  <!-- End Show Profile Section -->
 
 
-
-<div hidden class="direct-message col-6"><!-- Start Direct Chat Message Form div -->
-  <form hidden id="direct-message-form" class='direct-message'>
+  <!-- DIRECT CHAT MESSAGE -->
+  <div hidden class="direct-message col-6">      <!-- Start Direct Chat Message Form div -->
+    <form hidden id="direct-message-form" class='direct-message'>
     <h4>Start your conversation!</h4>
     <div id="direct-messages-div" class='direct-message'></div>
     <h5>Type your message here:</h5>
@@ -348,7 +361,7 @@
   </form>
 </div>
 
-<!-- END MDL Grid -->
+  <!-- END MDL Grid -->
 
 <script src="scripts/dowhop-profile-form-create.js"></script>
 <script src="scripts/dowhop-profile-form-dm.js"></script>
