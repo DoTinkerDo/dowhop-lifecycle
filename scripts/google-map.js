@@ -33,19 +33,8 @@ function initializeGoogle() {
     initAutocomplete(); // To ensure we don't keep re-loading the API.
   }
 }
-// function initAuto() {
-//   var input = document.getElementById('whereAddressPending');
-//   var autocomplete = new google.maps.places.Autocomplete();
-// }
 
 function initAutocomplete() {
-  // if (!localCoords) {
-  //   console.log('no coordinates...using default');
-  // }
-  // if (localCoords && localCoords.lat) {
-  //   console.log('latitude..', localCoords.lat);
-  // }
-
   map = new google.maps.Map(document.getElementById('map'), {
     center: localCoords,
     zoom: 10,
@@ -132,10 +121,6 @@ function revealInput() {
       document.getElementById('where-pending-hidden').removeAttribute('hidden');
       document.getElementById('whereAddressPending').removeAttribute('hidden');
       document.getElementById('map').removeAttribute('hidden');
-      // google.maps.event.addDomListener(map, 'load', initializeGoogle);
-      // google.maps.event.addListenerOnce(map, 'idle', function() {
-      //   google.maps.event.trigger(map, 'resize');
-      // });
       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
       document.getElementById('submitImage').setAttribute('hidden', 'true');
       initializeGoogle(); // OK.
