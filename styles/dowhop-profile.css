@@ -53,14 +53,39 @@
 }
 
 #my-profile-about {
-  text-align: center;
-  font-style: italic;
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.content-column {
+  display: flex;
+  vertical-align: inherit;
+}
+
+.about-div {
+  /*font-style: italic;
   font-size: 17px;
-  padding: auto;
-  padding-top: 15%;
-  /*width: 20%;*/
-  text-align: center;
-  /*display: inline-block;*/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  vertical-align: bottom;*/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.profile-activities-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.profile-activities-div2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.about-div.activity {
+  max-width: 50%;
 }
 
 .col-3,
@@ -231,24 +256,15 @@ svg.social-media-svg {
   font-family: inherit;
 }
 
-.profile {
-}
-.about {
-  text-align: center;
-}
-
 #tablet-size {
   width: 800px;
 }
 
-.profile-activities-div {
-  display: flex;
-  justify-content: center;
-}
-
 .demo-card-square.mdl-card {
-  width: 300px;
+  width: 275px;
   height: 475px;
+  margin: 10px;
+  margin-right: -15px;
 }
 .demo-card-square > .mdl-card__title {
   color: #fff;
