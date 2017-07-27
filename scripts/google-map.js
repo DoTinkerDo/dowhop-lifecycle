@@ -1,31 +1,35 @@
 'use strict';
-
 var mapElement = document.getElementById('map');
 
-function initialize() {
+function initializeGoogle() {
+  initMap();
+  initAuto();
+}
+function initAuto() {
   var input = document.getElementById('whereAddressPending');
-  var autocomplete = new google.maps.places.Autocomplete(input);
+  var autocomplete = new google.maps.places.Autocomplete();
 }
 
-function initAutocomplete() {
+function initMap() {
+  var input = document.getElementById('whereAddressPending');
   var map = new google.maps.Map(mapElement, {
     center: { lat: 32.73597, lng: -117.15071 },
     zoom: 13,
     mapTypeControl: false,
     mapTypeId: 'roadmap'
   });
-  google.maps.event.addDomListener(map, 'load', initialize);
-  google.maps.event.addListenerOnce(map, 'idle', function() {
-    google.maps.event.trigger(map, 'resize');
-  });
+
   // Create the search box and link it to the UI element.
-  var input = document.getElementById('whereAddressPending');
   var searchBox = new google.maps.places.SearchBox(input);
   map.controls[google.maps.ControlPosition.LEFT_CENTER].push(input);
 
   // Bias the SearchBox results towards current map's viewport.
   map.addListener('bounds_changed', function() {
     searchBox.setBounds(map.getBounds());
+  });
+  google.maps.event.addDomListener(map, 'load', initialize);
+  google.maps.event.addListenerOnce(map, 'idle', function() {
+    google.maps.event.trigger(map, 'resize');
   });
 
   var markers = [];
@@ -82,7 +86,7 @@ function initAutocomplete() {
 
 // Adding protocol to hide/reveal image icons below message form:
 
-var date, time, where, image;
+var date, where, image;
 function revealInput() {
   switch (this.dataset.input) {
     case 'date':
@@ -93,24 +97,26 @@ function revealInput() {
       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
       document.getElementById('submitImage').setAttribute('hidden', 'true');
       break;
-    case 'time':
-      document.getElementById('when-time-pending-hidden').removeAttribute('hidden');
-      document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
-      document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
-      document.getElementById('map').setAttribute('hidden', 'true');
-      document.getElementById('mediaCapture').setAttribute('hidden', 'true');
-      document.getElementById('submitImage').setAttribute('hidden', 'true');
-      break;
+    // case 'time':
+    //   document.getElementById('when-time-pending-hidden').removeAttribute('hidden');
+    //   document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
+    //   document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
+    //   document.getElementById('map').setAttribute('hidden', 'true');
+    //   document.getElementById('mediaCapture').setAttribute('hidden', 'true');
+    //   document.getElementById('submitImage').setAttribute('hidden', 'true');
+    //   break;
     case 'where':
+      console.log('case where');
       document.getElementById('whereAddressPending').removeAttribute('hidden');
-      initialize();
-      initAutocomplete();
+      // initialize();
+      // initAutocomplete();
       document.getElementById('map').removeAttribute('hidden');
+      initializeGoogle(); // OK.
       google.maps.event.trigger(map, 'resize');
-      // google.maps.event.addDomListener(map, 'load', initialize);
-      // google.maps.event.addListenerOnce(map, 'idle', function() {
-      //   google.maps.event.trigger(map, 'resize');
-      // });
+      google.maps.event.addDomListener(map, 'load', initialize);
+      google.maps.event.addListenerOnce(map, 'idle', function() {
+        google.maps.event.trigger(map, 'resize');
+      });
       document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
