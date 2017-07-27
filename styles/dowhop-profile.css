@@ -63,11 +63,12 @@
   font-size: 13px;
 }
 .grid1 {
-  padding-left: 25px;
+  padding-left: 20px;
 }
 .grid2 {
   padding-left: 10px;
 }
+
 .about-div {
   /*font-style: italic;
   font-size: 17px;
@@ -87,8 +88,8 @@
 .profile-activities-div2 {
   display: flex;
   flex-flow: wrap;
-  justify-content: center;
-  margin-right: -10px;
+  justify-content: flex-start;
+  margin: 5px;
 }
 
 .activity-caption {
