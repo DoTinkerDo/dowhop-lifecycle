@@ -92,20 +92,11 @@ function revealInput() {
   switch (this.dataset.input) {
     case 'date':
       document.getElementById('when-date-pending-hidden').removeAttribute('hidden');
-      // document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
       document.getElementById('map').setAttribute('hidden', 'true');
       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
       document.getElementById('submitImage').setAttribute('hidden', 'true');
       break;
-    // case 'time':
-    //   document.getElementById('when-time-pending-hidden').removeAttribute('hidden');
-    //   document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
-    //   document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
-    //   document.getElementById('map').setAttribute('hidden', 'true');
-    //   document.getElementById('mediaCapture').setAttribute('hidden', 'true');
-    //   document.getElementById('submitImage').setAttribute('hidden', 'true');
-    //   break;
     case 'where':
       document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('whereAddressPending').removeAttribute('hidden');
@@ -123,13 +114,11 @@ function revealInput() {
       document.getElementById('mediaCapture').removeAttribute('hidden');
       document.getElementById('submitImage').removeAttribute('hidden');
       document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
-      // document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
       document.getElementById('map').setAttribute('hidden', 'true');
       break;
     default:
       document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
-      // document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
       document.getElementById('submitImage').setAttribute('hidden', 'true');
