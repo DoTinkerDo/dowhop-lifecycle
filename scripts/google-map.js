@@ -6,28 +6,29 @@ localCoords.lat = 32.73597; // Setting default to San Diego unless navigator bel
 localCoords.lng = -117.15071;
 
 function initializeGoogle() {
-  if (window.navigator.geolocation) {
-    console.log('getting location...');
-
-    var options = {
-      enableHighAccuracy: false,
-      timeout: 1000,
-      maximumAge: 0
-    };
-
-    window.navigator.geolocation.getCurrentPosition(updateLocation, errorHandle, options);
-
-    function updateLocation(position) {
-      localCoords.lat = position.coords.latitude;
-      localCoords.long = position.coords.longitude;
-    }
-
-    function errorHandle(error) {
-      console.log(error);
-      localCoords.lat = 32.73597; // Checking default if no result.
-      localCoords.lng = -117.15071;
-    }
-  }
+  // To-Do: Make dynamic location for scalable use of the site.
+  // if (window.navigator.geolocation) {
+  //   console.log('getting location...');
+  //
+  //   var options = {
+  //     enableHighAccuracy: false,
+  //     timeout: 1000,
+  //     maximumAge: 0
+  //   };
+  //
+  //   window.navigator.geolocation.getCurrentPosition(updateLocation, errorHandle, options);
+  //
+  //   function updateLocation(position) {
+  //     localCoords.lat = position.coords.latitude;
+  //     localCoords.long = position.coords.longitude;
+  //   }
+  //
+  //   function errorHandle(error) {
+  //     console.log(error);
+  //     localCoords.lat = 32.73597; // Checking default if no result.
+  //     localCoords.lng = -117.15071;
+  //   }
+  // }
 
   if (!map) {
     initAutocomplete(); // To ensure we don't keep re-loading the API.
