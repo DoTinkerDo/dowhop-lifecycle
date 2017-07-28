@@ -303,7 +303,7 @@ FriendlyChat.prototype.getSession = function() {
         // pendingNotification += '\nDo you want to change it?';
         if (data.pending.whenDatePending) {
           pendingNotification +=
-            '\nOn: ' +
+            ' on ' +
             moment(data.pending.whenDatePending).format('dddd MMMM D, YYYY') +
             ' at ' +
             moment(data.pending.whenDatePending).format('hh:mmA') +
