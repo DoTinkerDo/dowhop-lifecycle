@@ -272,25 +272,32 @@ FriendlyChat.prototype.getSession = function() {
   var checkForPendings = function(data) {
     // var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     // Getting the data.requestor's displayName (by walking up the tree)
-    var requester = data.pending.requester;
+    var requesterName = 'Someone';
+    if (data.pending && data.pending.requesterName) {
+      requesterName = data.pending.requesterName;
+    }
+    var pendingNotification;
     console.log(data);
-    console.log('checking for pendings..');
-    var userRef = database.ref('app_users').child(requester);
-    console.log('checking for requestor in pendings...');
-    userRef.once('value', function(snap) {
-      requester = snap.val().displayName;
-    });
+    // console.log('checking for pendings..');
+    // var userRef = database.ref('app_users').child(requester);
+    // console.log('checking for requestor in pendings...');
+    // userRef
+    //   .once('value', function(snap) {
+    //     console.log('snap', snap.val());
+    //     return (requester = snap.val().displayName);
+    //   })
+    //   .then((pendingNotification = requesterName + ' requested to meet '));
 
-    var pendingNotification = requester + ' requested to meet ';
+    var pendingNotification = requesterName + ' requested to meet ';
     // Check if there are pending notifications:
     if (data && data.pending != null && data.pending.status != 'approved' && data.pending.status != 'denied') {
-      // console.log('pending status true. showing pending div.');
+      console.log('pending status true. showing pending div.');
 
       document.getElementById('pending-div').removeAttribute('hidden');
 
       // This means visiting user is the creator of event:
       if (firebase.auth().currentUser.email == data.creatorDescription) {
-        // console.log('visiting user is the creator. showing approval form, hiding rescind form.');
+        console.log('visiting user is the creator. showing approval form, hiding rescind form.');
         // pendingNotification += '\nDo you want to approve it?';
 
         if (data.pending.whenDatePending) {
@@ -309,7 +316,7 @@ FriendlyChat.prototype.getSession = function() {
 
         // This means visiting user is a requestor of event change:
       } else if (firebase.auth().currentUser.uid == data.pending.requester) {
-        // console.log('visiting user requested a change. showing rescinding form, hiding approval form.');
+        console.log('visiting user requested a change. showing rescinding form, hiding approval form.');
         // pendingNotification += '\nDo you want to change it?';
         if (data.pending.whenDatePending) {
           pendingNotification +=
@@ -328,7 +335,7 @@ FriendlyChat.prototype.getSession = function() {
       }
       // All other cases:
     } else {
-      // console.log('this means it has passed over logic tests.');
+      console.log('this means it has passed over logic tests.');
       document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
       document.getElementById('pending-div').innerText = '';
       document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
@@ -514,7 +521,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
       photoUrl: '/images/placeholder-image1.jpg'
     });
 
-    chatsRef.update({ status: true, requester: currentUser.uid }); // Refactoring to make it a dis-aggregated update.
+    chatsRef.update({ status: true, requester: currentUser.uid, requesterName: currentUser.displayName }); // Refactoring to make it a dis-aggregated update.
     if (this.messageFormWhenDatePending.value)
       chatsRef.update({ whenDatePending: this.messageFormWhenDatePending.value }).then(this.resetDate);
     if (this.messageFormWherePending.value)
