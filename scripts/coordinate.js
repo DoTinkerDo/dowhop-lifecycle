@@ -292,9 +292,19 @@ FriendlyChat.prototype.getSession = function() {
     // Check if there are pending notifications:
     if (data && data.pending != null && data.pending.status != 'approved' && data.pending.status != 'denied') {
       console.log('pending status true. showing pending div.');
+      // NEW: Default status is that the creator of the event changes their own
+      if (data.pending.whenDatePending) {
+        pendingNotification +=
+          'on ' +
+          moment(data.pending.whenDatePending).format('dddd MMMM D, YYYY') +
+          ' at ' +
+          moment(data.pending.whenDatePending).format('hh:mmA') +
+          '\n';
+      }
+      if (data.pending.whereAddressPending) pendingNotification += '\nAt: ' + data.pending.whereAddressPending;
 
       document.getElementById('pending-div').removeAttribute('hidden');
-
+      document.getElementById('pending-div').innerText = pendingNotification;
       // This means visiting user is the creator of event:
       if (firebase.auth().currentUser.email == data.creatorDescription) {
         console.log('visiting user is the creator. showing approval form, hiding rescind form.');
