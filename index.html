@@ -325,7 +325,7 @@
                         <img data-input="date" src="images/datetime.svg" alt="calendar" width="24" height="24">
                       </div>
                       <div id="map-div" class="img_icon">
-                        <img data-input="where" src="https://static.wixstatic.com/media/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png/v1/fill/w_512,h_512,al_c/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png" alt="map" width="24" height="24">
+                        <img data-input="where" src="https://static.wixstatic.com/media/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png/v1/fill/w_512,h_512,al_c/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png" alt="google-map" width="24" height="24">
                       </div>
                       <div id="image" class="img_icon">
                         <img data-input="image" src="images/image-add-button.png" alt="folder" width="24" height="24">
@@ -337,26 +337,15 @@
                       </div>
                     </div>
                   </div>
-                  <!-- End of Message Form Div -->
-
-                  <!-- <div id="hidden-inputs"> -->
-                    <!-- <input hidden type="text" class="" id="whenDatePending" placeholder="Enter date"> -->
-                    <!-- <input hidden type="text" class="" id="whenTimePending" placeholder="Enter time"> -->
-                    <!-- <input hidden type="text" class="controls" id="whereAddressPending"  placeholder="Set a place..."> -->
-                    <!-- <div hidden id="map"></div> -->
-                  <!-- </div> -->
 
                   <div hidden class="mdl-textfield mdl-js-textfield" id="when-date-pending-hidden">
                     <input class="mdl-textfield__input" type="text" id="whenDatePending">
                     <label class="mdl-textfield__label" for="whenDatePending">Select to enter date and time</label>
                   </div>
-                  <div  hidden class="mdl-textfield mdl-js-textfield" id="when-time-pending-hidden">
-                    <input class="mdl-textfield__input" type="text" id="whenTimePending">
-                    <label class="mdl-textfield__label" for="whenTimePending">Select to enter time</label>
-                  </div>
+                  <div hidden id="where-pending-hidden">
                   <input hidden type="text" class="controls" id="whereAddressPending"  placeholder="Set a place...">
+                  </div>
                   <div hidden id="map"></div>
-
                 </form>
 
                 <form id="image-form" action="#">
@@ -365,13 +354,12 @@
                     <i class="material-icons">perm_media</i>
                   </button>
                 </form>
-
               </div>
             </div>
-            <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
-              <div class="mdl-snackbar__text"></div>
-              <button class="mdl-snackbar__action btn btn-default" type="button"></button>
-            </div>
+            <!-- <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar"> -->
+              <!-- <div class="mdl-snackbar__text"></div> -->
+              <!-- <button class="mdl-snackbar__action btn btn-default" type="button"></button> -->
+            <!-- </div> -->
           </div>
         </section> <!-- End coordinate app  -->
 
@@ -490,15 +478,15 @@
     </main>   <!-- End main MDL grid -->
   </section> <!-- End Application Container -->
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-coo6M25h9GjP8AYxhzIQSbNVj-Ope3s&libraries=places&callback=initAutocomplete" async defer></script>
 <script src="https://unpkg.com/flatpickr"></script>
 <script src="scripts/login.js"></script>
 <script src="scripts/firebase-cloud-messaging.js"></script>
 <script src="scripts/tabs.js"></script>
 <script src="scripts/dowhop-description-form-create.js"></script>
 <script src="scripts/edit.js"></script>
-<script src="scripts/google-map.js"></script>
 <script src="scripts/coordinate.js"></script>
+<script src="scripts/google-map.js"></script><!-- Make sure this comes after coordinate.js -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4idZqS8uAiN5Y50XhG_csgRRKpjWaaxE&libraries=places" async defer></script>
 <script src="ratings/rating-lib/rating.min.js"></script>
 <script src="ratings/rating-lib/weighted-ratings.js"></script>
 <script src="scripts/dowhop-reviews.js"></script>
@@ -525,52 +513,6 @@ var underBarIcons = Array.prototype.slice.call(underbar);
 underBarIcons.forEach(function(icon) {
   icon.addEventListener('click', revealInput);
 });
-var date, time, where, image;
-function revealInput() {
-  switch (this.dataset.input) {
-    case 'date':
-      document.getElementById('when-date-pending-hidden').removeAttribute('hidden');
-      document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
-      document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
-      document.getElementById('map').setAttribute('hidden', 'true');
-      document.getElementById('mediaCapture').setAttribute('hidden', 'true');
-      document.getElementById('submitImage').setAttribute('hidden', 'true');
-      break;
-    case 'time':
-      document.getElementById('when-time-pending-hidden').removeAttribute('hidden');
-      document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
-      document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
-      document.getElementById('map').setAttribute('hidden', 'true');
-      document.getElementById('mediaCapture').setAttribute('hidden', 'true');
-      document.getElementById('submitImage').setAttribute('hidden', 'true');
-      break;
-    case 'where':
-      document.getElementById('whereAddressPending').removeAttribute('hidden');
-      document.getElementById('map').removeAttribute('hidden');
-      google.maps.event.trigger(map, 'resize');
-      document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
-      document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
-      document.getElementById('mediaCapture').setAttribute('hidden', 'true');
-      document.getElementById('submitImage').setAttribute('hidden', 'true');
-      break;
-    case 'image':
-      document.getElementById('mediaCapture').removeAttribute('hidden');
-      document.getElementById('submitImage').removeAttribute('hidden');
-      document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
-      document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
-      document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
-      document.getElementById('map').setAttribute('hidden', 'true');
-      break;
-    default:
-      document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
-      document.getElementById('when-time-pending-hidden').setAttribute('hidden', 'true');
-      document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
-      document.getElementById('map').setAttribute('hidden', 'true');
-      document.getElementById('mediaCapture').setAttribute('hidden', 'true');
-      document.getElementById('submitImage').setAttribute('hidden', 'true');
-      break;
-  }
-}
 </script>
 </body>
 </html>

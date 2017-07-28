@@ -43,7 +43,7 @@ function FriendlyChat() {
   this.mediaCapture = document.getElementById('mediaCapture');
   this.userPic = document.getElementById('user-pic');
   this.userName = document.getElementById('user-name');
-  this.signInSnackbar = document.getElementById('must-signin-snackbar');
+  // this.signInSnackbar = document.getElementById('must-signin-snackbar');
   this.messageFormWhenDatePending = document.getElementById('whenDatePending');
   this.messageFormWherePending = document.getElementById('whereAddressPending');
 
@@ -690,7 +690,7 @@ FriendlyChat.prototype.checkSignedInWithMessage = function() {
     message: 'You must sign-in first, please!',
     timeout: 2000
   };
-  this.signInSnackbar.MaterialSnackbar.showSnackbar(data);
+  // this.signInSnackbar.MaterialSnackbar.showSnackbar(data);
   return false;
 };
 
