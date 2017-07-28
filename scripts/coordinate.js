@@ -271,7 +271,17 @@ FriendlyChat.prototype.getSession = function() {
   // All cases, we load pending div forms for current session:
   var checkForPendings = function(data) {
     // var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    var pendingNotification = user.displayName + ' requested to meet ';
+    // Getting the data.requestor's displayName (by walking up the tree)
+    var requester = data.pending.requester;
+    console.log(data);
+    console.log('checking for pendings..');
+    var userRef = database.ref('app_users').child(requester);
+    console.log('checking for requestor in pendings...');
+    userRef.once('value', function(snap) {
+      requester = snap.val().displayName;
+    });
+
+    var pendingNotification = requester + ' requested to meet ';
     // Check if there are pending notifications:
     if (data && data.pending != null && data.pending.status != 'approved' && data.pending.status != 'denied') {
       // console.log('pending status true. showing pending div.');
