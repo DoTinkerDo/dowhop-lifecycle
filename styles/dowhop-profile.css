@@ -82,12 +82,6 @@ img {
 }
 
 .about-div {
-  /*font-style: italic;
-  font-size: 17px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  vertical-align: bottom;*/
   display: flex;
   justify-content: flex-start;
 }
