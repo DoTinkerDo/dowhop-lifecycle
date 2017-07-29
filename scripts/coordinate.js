@@ -271,28 +271,17 @@ FriendlyChat.prototype.getSession = function() {
   // All cases, we load pending div forms for current session:
   var checkForPendings = function(data) {
     // var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    // Getting the data.requestor's displayName (by walking up the tree)
-    var requesterName = 'Someone';
+    var requesterName = 'Someone'; // NOTE: just in case we are looking at old data.
+
     if (data.pending && data.pending.requesterName) {
       requesterName = data.pending.requesterName;
     }
-    var pendingNotification;
-    console.log(data);
-    // console.log('checking for pendings..');
-    // var userRef = database.ref('app_users').child(requester);
-    // console.log('checking for requestor in pendings...');
-    // userRef
-    //   .once('value', function(snap) {
-    //     console.log('snap', snap.val());
-    //     return (requester = snap.val().displayName);
-    //   })
-    //   .then((pendingNotification = requesterName + ' requested to meet '));
-
     var pendingNotification = requesterName + ' requested to meet ';
-    // Check if there are pending notifications:
+
+    // Check if there are pending data:
     if (data && data.pending != null && data.pending.status != 'approved' && data.pending.status != 'denied') {
-      console.log('pending status true. showing pending div.');
-      // NEW: Default status is that the creator of the event changes their own
+      // console.log('pending status true. showing pending div.');
+      // NEW: Default status is that the creator of the event changes their own info (so we still show it at top):
       if (data.pending.whenDatePending) {
         pendingNotification +=
           'on ' +
@@ -307,45 +296,21 @@ FriendlyChat.prototype.getSession = function() {
       document.getElementById('pending-div').innerText = pendingNotification;
       // This means visiting user is the creator of event:
       if (firebase.auth().currentUser.email == data.creatorDescription) {
-        console.log('visiting user is the creator. showing approval form, hiding rescind form.');
-        // pendingNotification += '\nDo you want to approve it?';
-
-        // if (data.pending.whenDatePending) {
-        //   pendingNotification +=
-        //     'on ' +
-        //     moment(data.pending.whenDatePending).format('dddd MMMM D, YYYY') +
-        //     ' at ' +
-        //     moment(data.pending.whenDatePending).format('hh:mmA') +
-        //     '\n';
-        // }
-        // if (data.pending.whereAddressPending) pendingNotification += '\nAt: ' + data.pending.whereAddressPending;
-
+        // console.log('visiting user is the creator. showing approval form, hiding rescind form.');
         document.getElementById('pending-div').innerText = pendingNotification;
         document.getElementById('approve-pending-form').removeAttribute('hidden');
         document.getElementById('rescind-pending-form').setAttribute('hidden', 'true');
 
         // This means visiting user is a requestor of event change:
       } else if (firebase.auth().currentUser.uid == data.pending.requester) {
-        console.log('visiting user requested a change. showing rescinding form, hiding approval form.');
-        // pendingNotification += '\nDo you want to change it?';
-        // if (data.pending.whenDatePending) {
-        //   pendingNotification +=
-        //     ' on ' +
-        //     moment(data.pending.whenDatePending).format('dddd MMMM D, YYYY') +
-        //     ' at ' +
-        //     moment(data.pending.whenDatePending).format('hh:mmA') +
-        //     '\n';
-        // }
-        // if (data.pending.whereAddressPending)
-        //   pendingNotification += '\nPending location: ' + data.pending.whereAddressPending;
-
+        // console.log('visiting user requested a change. showing rescinding form, hiding approval form.'
         document.getElementById('pending-div').innerText = pendingNotification;
         document.getElementById('rescind-pending-form').removeAttribute('hidden');
         document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
       }
       // All other cases:
     } else {
-      console.log('this means it has passed over logic tests.');
+      // console.log('this means it has passed over logic tests.');
       document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
       document.getElementById('pending-div').innerText = '';
       document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
