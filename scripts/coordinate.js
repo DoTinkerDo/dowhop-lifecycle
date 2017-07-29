@@ -310,15 +310,15 @@ FriendlyChat.prototype.getSession = function() {
         console.log('visiting user is the creator. showing approval form, hiding rescind form.');
         // pendingNotification += '\nDo you want to approve it?';
 
-        if (data.pending.whenDatePending) {
-          pendingNotification +=
-            'on ' +
-            moment(data.pending.whenDatePending).format('dddd MMMM D, YYYY') +
-            ' at ' +
-            moment(data.pending.whenDatePending).format('hh:mmA') +
-            '\n';
-        }
-        if (data.pending.whereAddressPending) pendingNotification += '\nAt: ' + data.pending.whereAddressPending;
+        // if (data.pending.whenDatePending) {
+        //   pendingNotification +=
+        //     'on ' +
+        //     moment(data.pending.whenDatePending).format('dddd MMMM D, YYYY') +
+        //     ' at ' +
+        //     moment(data.pending.whenDatePending).format('hh:mmA') +
+        //     '\n';
+        // }
+        // if (data.pending.whereAddressPending) pendingNotification += '\nAt: ' + data.pending.whereAddressPending;
 
         document.getElementById('pending-div').innerText = pendingNotification;
         document.getElementById('approve-pending-form').removeAttribute('hidden');
@@ -328,16 +328,16 @@ FriendlyChat.prototype.getSession = function() {
       } else if (firebase.auth().currentUser.uid == data.pending.requester) {
         console.log('visiting user requested a change. showing rescinding form, hiding approval form.');
         // pendingNotification += '\nDo you want to change it?';
-        if (data.pending.whenDatePending) {
-          pendingNotification +=
-            ' on ' +
-            moment(data.pending.whenDatePending).format('dddd MMMM D, YYYY') +
-            ' at ' +
-            moment(data.pending.whenDatePending).format('hh:mmA') +
-            '\n';
-        }
-        if (data.pending.whereAddressPending)
-          pendingNotification += '\nPending location: ' + data.pending.whereAddressPending;
+        // if (data.pending.whenDatePending) {
+        //   pendingNotification +=
+        //     ' on ' +
+        //     moment(data.pending.whenDatePending).format('dddd MMMM D, YYYY') +
+        //     ' at ' +
+        //     moment(data.pending.whenDatePending).format('hh:mmA') +
+        //     '\n';
+        // }
+        // if (data.pending.whereAddressPending)
+        //   pendingNotification += '\nPending location: ' + data.pending.whereAddressPending;
 
         document.getElementById('pending-div').innerText = pendingNotification;
         document.getElementById('rescind-pending-form').removeAttribute('hidden');
@@ -512,7 +512,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
     var messageText = '';
 
     messageText += currentUser.displayName + ' has requested to meet ';
-    if (this.messageFormWherePending.value) messageText += 'Where: ' + this.messageFormWherePending.value + '\n';
+    if (this.messageFormWherePending.value) messageText += '\nWhere: ' + this.messageFormWherePending.value;
     if (this.messageFormWhenDatePending.value) {
       messageText +=
         '\non ' +
