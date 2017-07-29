@@ -7,14 +7,19 @@
   box-sizing: border-box;
 }
 
+img {
+  max-width: 100%;
+  max-height: auto;
+}
+
 .profile-details-container {
   margin-left: 15px;
   height: auto;
   width: auto;
 }
 .mdl-card {
-  width: 300px;
-  height: 300px;
+  max-width: 300px;
+  max-height: 300px;
 }
 
 .mdl-card-2 {
@@ -24,11 +29,18 @@
 }
 
 .my-profile-picture {
-  max-width: 100%;
-  max-height: 100%;
-  background-repeat: no-repeat;
-  margin-top: 30px;
+  max-width: 300px;
+  max-height: 300px;
+  min-width: 250px;
+  min-height: 250px;
+  position: relative;
+}
+#my-profile-picture {
   border-radius: 50%;
+  max-width: 300px;
+  max-height: 300px;
+  min-width: 250px;
+  min-height: 250px;
 }
 
 #my-profile-about {
