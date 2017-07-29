@@ -117,6 +117,7 @@ function createDefaultDoWhop(person) {
     downloadURL: defaultDoWhopImage,
     titleDescription: 'DoWhop with us!',
     whoDescription: 'DoWhop Team is here to help you!',
+    whyDescription: '',
     whatDescription: '',
     whenDescription: '',
     whereDescription: '',

@@ -7,23 +7,46 @@
   box-sizing: border-box;
 }
 
+img {
+  max-width: 100%;
+  max-height: auto;
+}
+
 .profile-details-container {
   margin-left: 15px;
   height: auto;
+  width: auto;
+}
+.mdl-card {
+  max-width: 300px;
+  max-height: 300px;
 }
 
-.center {
-  text-align: center;
+.mdl-card-2 {
+  width: 300px;
+  height: 250px;
+  margin-right: -5px;
 }
 
+.my-profile-picture {
+  max-width: 300px;
+  max-height: 300px;
+  min-width: 250px;
+  min-height: 250px;
+  position: relative;
+}
 #my-profile-picture {
-  /*max-height: 250px;*/
-  width: 100%;
-  max-width: 75%;
-  /*min-height: 50px;*/
-  /*background-size: cover;*/
-  background-repeat: no-repeat;
-  margin-bottom: 30px;
+  border-radius: 50%;
+  max-width: 300px;
+  max-height: 300px;
+  min-width: 250px;
+  min-height: 250px;
+}
+
+#my-profile-about {
+  display: inline-flex;
+  text-align: inherit;
+  padding-bottom: 15px;
 }
 
 #my-display-name {
@@ -41,7 +64,7 @@
   display: table-cell;
   vertical-align: middle;
   font-size: 22px;
-  padding-bottom: 5px;
+  margin-right: 20px;
 }
 
 .profile-data {
@@ -51,27 +74,16 @@
   padding-bottom: 5px;
   font-size: 13px;
 }
-
-#my-profile-about {
-  display: inline-flex;
-  vertical-align: middle;
+.grid1 {
+  padding-left: 20px;
 }
-
-.content-column {
-  display: flex;
-  vertical-align: inherit;
+.grid2 {
+  padding-left: 10px;
 }
 
 .about-div {
-  /*font-style: italic;
-  font-size: 17px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  vertical-align: bottom;*/
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .profile-activities-div {
   display: flex;
@@ -81,17 +93,9 @@
 
 .profile-activities-div2 {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-.about-div.activity {
-  max-width: 50%;
-}
-
-.col-3,
-.col-4,
-.col-5 {
-  margin-top: 10px;
+  flex-flow: wrap;
+  justify-content: flex-start;
+  margin: 5px;
 }
 
 .activity-caption {
@@ -150,6 +154,17 @@
 
 .inner-box {
   text-align: center;
+}
+
+.edit-form {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.background-photo {
+  height: 300px;
+  width: 100%;
+  margin-bottom: -180px;
 }
 
 #edit-profile-button {
@@ -222,8 +237,8 @@ label > i.material-icons {
   top: -17px;
   padding-left: 10px;
   font-size: 44px;
-  fill:#606060;
-  color: #606060; 
+  fill: #606060;
+  color: #606060;
 }
 
 #button-1 i.material-icons,
@@ -258,15 +273,4 @@ svg.social-media-svg {
 
 #tablet-size {
   width: 800px;
-}
-
-.demo-card-square.mdl-card {
-  width: 275px;
-  height: 475px;
-  margin: 10px;
-  margin-right: -15px;
-}
-.demo-card-square > .mdl-card__title {
-  color: #fff;
-  background: url('../assets/demos/dog.png') bottom right 15% no-repeat #46b6ac;
 }

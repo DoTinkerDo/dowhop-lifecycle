@@ -237,8 +237,10 @@ function retrieveProfile(currentProfile) {
     myProfileSocialTW.innerText = snap.val().profileSocialTW;
     myProfileSocialIG.innerText = snap.val().profileSocialIG;
     myProfileSocialLI.innerText = snap.val().profileSocialLI;
-    myProfileAbout.innerText = appUser.profileAbout;
-    myProfileEmail.innerHTML = "<a href='mailto:" + appUser.email + " '>Send Message</a> ";
+    myProfileAbout.innerText =
+      appUser.profileAbout ||
+      'About Me: Welcome to DoWhop where we sell what you love to do. Use this space to give users a little insight to who you are and what you love too do!';
+    myProfileEmail.innerHTML = "<a href='mailto:" + 'connect@dowhop.com' + " '>Send Message</a> ";
     // myProfilePayment.innerText = appUser.pofilePayment;
     myProfileActivity1.innerText = appUser.profileActivity1;
     myProfileActivity2.innerText = appUser.profileActivity2;
@@ -378,7 +380,7 @@ function fillInProfileForm(e) {
   var currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.once('value', function(snap) {
-    console.log(currentProfile.displayName);
+    // console.log(currentProfile.displayName);
     if ((profileRef = currentProfile)) {
       // document.querySelector('placeholder-Name').value = currentProfile.displayName;
       // document.getElementById('whoDescription').value = doWhopDescription.whoDescription;
