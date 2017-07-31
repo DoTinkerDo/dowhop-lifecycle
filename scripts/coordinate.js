@@ -362,7 +362,6 @@ FriendlyChat.prototype.getSession = function() {
             moment(data.val().whenDate).format('dddd MMMM D, YYYY') +
             ' at: ' +
             moment(data.val().whenDate).format('h:mmA');
-          console.log('HERE');
         } else if (data.val().whenDate || data.val().whenTime) {
           renderWhenInformation =
             moment(data.val().whenDate).format('dddd MMMM D, YYYY') +
