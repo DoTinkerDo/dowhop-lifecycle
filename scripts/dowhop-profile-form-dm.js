@@ -44,14 +44,14 @@ function sendDirectMessage(e) {
       to: recipientName,
       body: message.value
     })
-    .then(document.getElementById('direct-message-form').reset());
+    .then(document.getElementById('direct-message-form-div').reset());
 }
 
 function revealFormDM(e) {
   e.preventDefault();
   document.getElementById('direct-message-form-button').addEventListener('click', sendDirectMessage);
   document.getElementById('direct-message-form-button-hide').addEventListener('click', hideFormDM);
-  document.getElementById('direct-message-form').removeAttribute('hidden');
+  document.getElementById('direct-message-form-div').removeAttribute('hidden');
   document.getElementById('direct-messages-div').removeAttribute('hidden');
   // console.log('You have started a chat!', getPersonOne());
   // console.log('You will be chatting with:', getPersonTwo());
@@ -60,7 +60,7 @@ function revealFormDM(e) {
 
 function hideFormDM(e) {
   e.preventDefault();
-  var directMessageForm = document.getElementById('direct-message-form');
+  var directMessageForm = document.getElementById('direct-message-form-div');
   directMessageForm.setAttribute('hidden', 'true');
   var directMessagesDiv = document.getElementById('direct-messages-div');
   directMessagesDiv.setAttribute('hidden', 'true');
