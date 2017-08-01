@@ -5,6 +5,8 @@
 // Gathering our DOM elements.
 var sendDMButton = document.getElementById('send-direct-message');
 sendDMButton.addEventListener('click', revealFormDM);
+var closingButton = document.getElementById('direct-message-form-div-span');
+closingButton.addEventListener('click', closeModalView);
 
 function getPersonOne() {
   let user1 = firebase.auth().currentUser.uid;
@@ -57,6 +59,13 @@ function revealFormDM(e) {
   // console.log('You have started a chat!', getPersonOne());
   // console.log('You will be chatting with:', getPersonTwo());
   loadDirectMessagesHistory();
+
+  // New.
+  window.onclick = function(event) {
+    if (event.target == document.getElementById('direct-message-form-div')) {
+      document.getElementById('direct-message-form-div').style.display = 'none';
+    }
+  };
 }
 
 function hideFormDM(e) {
@@ -97,4 +106,9 @@ function displayMessage(key, from, to, body) {
   newDiv.innerHTML = "<div class='message'>" + bodyText + '</div>';
   // newDiv.innerText = bodyText;
   directMessagesDiv.appendChild(newDiv);
+}
+
+function closeModalView() {
+  console.log('test');
+  document.getElementById('direct-message-form-div').style.display = 'none';
 }
