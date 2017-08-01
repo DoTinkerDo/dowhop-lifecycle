@@ -26,3 +26,22 @@
   background: rgb(0, 0, 0); /* Fallback color */
   background: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
+
+.dm-close-span {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dm-close {
+  color: #fffcfc;
+  float: right;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.dm-close:hover,
+.dm-close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
