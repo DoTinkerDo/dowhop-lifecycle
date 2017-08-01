@@ -290,7 +290,7 @@ FriendlyChat.prototype.getSession = function() {
           moment(data.pending.whenDatePending).format('hh:mmA') +
           '\n';
       }
-      if (data.pending.whereAddressPending) pendingNotification += '\nAt: ' + data.pending.whereAddressPending;
+      if (data.pending.whereAddressPending) pendingNotification += '\nWhere: ' + data.pending.whereAddressPending;
 
       document.getElementById('pending-div').removeAttribute('hidden');
       document.getElementById('pending-div').innerText = pendingNotification;
