@@ -44,7 +44,7 @@ function sendDirectMessage(e) {
       to: recipientName,
       body: message.value
     })
-    .then(document.getElementById('direct-message-form-div').reset());
+    .then(document.getElementById('direct-message-form').reset());
 }
 
 function revealFormDM(e) {
