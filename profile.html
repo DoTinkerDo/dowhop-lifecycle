@@ -59,7 +59,7 @@
           </div>
           <div>
             <!-- <div class="profile-data" id="my-profile-email"> -->
-            <div id="send-direct-message-div">
+            <div id="send-direct-message-div" class="mdl-cell">
               <button id="send-direct-message" class="btn btn-default">
                 <span><i class="material-icons profile-icons">mail_outline</i>
                 Send Message</span>
@@ -293,29 +293,25 @@
   <!-- </div> -->
 </div>
 
-<div hidden id="direct-message-form-div" class="mdl-card mdl-card--border mdl-shadow--24dp through mdl-shadow--24dp"><!-- Start Direct Chat Message Form div -->
+<span id="direct-message-form-div-span">
+<div hidden id="direct-message-form-div" class="mdl-card mdl-card--border dm-modal"><!-- Start Direct Chat Message Form div -->
   <div class="mdl-layout__content">
     <div class="mdl-card__title">
       <h2 class="mdl-card__title-text">Send a Message</h2>
     </div>
     <form action="#" class='' id="direct-message-form">
       <!-- This will be populated by dynamic messages -->
-
       <div class="mdl-card">
         <div class="mdl-card__border">
           <div id="direct-messages-div" class='direct-message'></div>
         </div>
       </div>
-
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <input class="mdl-textfield__input" type="text" id="direct-message-form-input" placeholder="Enter message here...">
         <label class="mdl-textfield__label" for="direct-message-form-input"></label>
         <div class="mdl-tooltip" for="direct-message-form-input">Send a message to prepare for your DoWhop booking!</div>
       </div>
-
       <div class="mdl-card__subtitle-text">Start doing!</div>
-
-
       <div class="mdl-card__actions">
         <button id="direct-message-form-button" class="btn btn-default">
           Send!
@@ -327,6 +323,7 @@
     </form>
   </div>
 </div>
+</span>
 
 </div>
 <!-- END Create Submit Profile Form -->

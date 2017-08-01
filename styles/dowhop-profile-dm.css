@@ -1,18 +1,32 @@
 /* Styling for the direct message forms. */
 
 .direct-message {
-	background-color: eggShell;
+  background-color: eggShell;
 }
 
 #direct-message-form {
-	border: 0.5px dotted grey;
-	padding: 0% 5% 5%;
+  border: 0.5px dotted grey;
+  padding: 0% 5% 5%;
 }
 
 #direct-message-form-input {
-	background-color: #fff9fa;
-	color: red;
-	display: flex;
-	width: 100%;
-	justify-content: center;
+  background-color: #fff9fa;
+  color: #ec1928;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.dm-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  padding-bottom: 10%;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background: rgb(0, 0, 0); /* Fallback color */
+  background: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
