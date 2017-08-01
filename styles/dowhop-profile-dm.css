@@ -1,11 +1,6 @@
 /* Styling for the direct message forms. */
 
-.direct-message {
-  background-color: eggShell;
-}
-
 #direct-message-form {
-  border: 0.5px dotted grey;
   padding: 0% 5% 5%;
 }
 
@@ -18,14 +13,15 @@
 }
 
 .dm-modal {
-  display: none; /* Hidden by default */
+  display: none; /* This gets swtiched on/off */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  padding: 0% 5% 5%;
+  z-index: 1;
   left: 0;
   top: 0;
   padding-bottom: 10%;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
+  width: 100%;
+  height: 100%;
   overflow: auto; /* Enable scroll if needed */
   background: rgb(0, 0, 0); /* Fallback color */
   background: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
