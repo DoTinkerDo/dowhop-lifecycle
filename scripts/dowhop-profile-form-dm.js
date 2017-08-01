@@ -5,6 +5,8 @@
 // Gathering our DOM elements.
 var sendDMButton = document.getElementById('send-direct-message');
 sendDMButton.addEventListener('click', revealFormDM);
+
+var directMessageFormDiv = document.getElementById('direct-message-form-div');
 var closingButton = document.getElementById('direct-message-form-div-span');
 closingButton.addEventListener('click', closeModalView);
 
@@ -53,24 +55,22 @@ function revealFormDM(e) {
   e.preventDefault();
   document.getElementById('direct-message-form-button').addEventListener('click', sendDirectMessage);
   document.getElementById('direct-message-form-button-hide').addEventListener('click', hideFormDM);
-  document.getElementById('direct-message-form-div').removeAttribute('hidden');
-  document.getElementById('direct-message-form-div').style.display = 'block';
+  directMessageFormDiv.removeAttribute('hidden');
+  directMessageFormDiv.style.display = 'block';
   document.getElementById('direct-messages-div').removeAttribute('hidden');
-  // console.log('You have started a chat!', getPersonOne());
-  // console.log('You will be chatting with:', getPersonTwo());
   loadDirectMessagesHistory();
 
   // New.
   window.onclick = function(event) {
-    if (event.target == document.getElementById('direct-message-form-div')) {
-      document.getElementById('direct-message-form-div').style.display = 'none';
+    if (event.target == directMessageFormDiv) {
+      directMessageFormDiv.style.display = 'none';
     }
   };
 }
 
 function hideFormDM(e) {
   e.preventDefault();
-  var directMessageForm = document.getElementById('direct-message-form-div');
+  var directMessageForm = directMessageFormDiv;
   directMessageForm.setAttribute('hidden', 'true');
   var directMessagesDiv = document.getElementById('direct-messages-div');
   directMessagesDiv.setAttribute('hidden', 'true');
@@ -110,5 +110,5 @@ function displayMessage(key, from, to, body) {
 
 function closeModalView() {
   console.log('test');
-  document.getElementById('direct-message-form-div').style.display = 'none';
+  directMessageFormDiv.style.display = 'none';
 }
