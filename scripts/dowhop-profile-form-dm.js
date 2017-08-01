@@ -81,8 +81,8 @@ function loadDirectMessagesHistory() {
     displayMessage(data.key, val.from, val.to, val.body);
   }.bind(this);
 
-  chatDMref.orderByKey().limitToLast(12).on('child_added', setMessage);
-  chatDMref.orderByKey().limitToLast(12).on('child_changed', setMessage);
+  chatDMref.orderByKey().limitToLast(30).on('child_added', setMessage);
+  chatDMref.orderByKey().limitToLast(30).on('child_changed', setMessage);
 }
 
 function displayMessage(key, from, to, body) {
