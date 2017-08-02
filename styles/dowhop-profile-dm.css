@@ -1,17 +1,14 @@
 /* Styling for the direct message forms. */
 
 #direct-message-form-div {
-  /*min-width: 500px;*/
-  opacity: 1.0;
 }
+
 #direct-message-form {
   padding: 0% 5% 5%;
-  opacity: 1.0;
 }
 
 #direct-messages-div {
   z-index: 2;
-  opacity: 1.0;
 }
 
 #direct-message-form-input {
@@ -64,11 +61,7 @@
 }
 
 .message-container.mdl {
-  /*background: pink;*/
-  opacity: 1.0;
 }
 
 .message:hover {
-  /*background: pink;*/
-  opacity: 1.0;
 }
