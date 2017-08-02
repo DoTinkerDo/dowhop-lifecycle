@@ -271,47 +271,39 @@ FriendlyChat.prototype.getSession = function() {
   // All cases, we load pending div forms for current session:
   var checkForPendings = function(data) {
     // var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    var pendingNotification = user.displayName + ' requested to meet:';
-    // Check if there are pending notifications:
+    var requesterName = 'Someone'; // NOTE: just in case we are looking at old data.
+
+    if (data.pending && data.pending.requesterName) {
+      requesterName = data.pending.requesterName;
+    }
+    var pendingNotification = requesterName + ' requested to meet ';
+
+    // Check if there are pending data:
     if (data && data.pending != null && data.pending.status != 'approved' && data.pending.status != 'denied') {
       // console.log('pending status true. showing pending div.');
+      // NEW: Default status is that the creator of the event changes their own info (so we still show it at top):
+      if (data.pending.whenDatePending) {
+        pendingNotification +=
+          'on ' +
+          moment(data.pending.whenDatePending).format('dddd MMMM D, YYYY') +
+          ' at ' +
+          moment(data.pending.whenDatePending).format('hh:mmA') +
+          '\n';
+      }
+      if (data.pending.whereAddressPending) pendingNotification += '\nWhere: ' + data.pending.whereAddressPending;
 
       document.getElementById('pending-div').removeAttribute('hidden');
-
+      document.getElementById('pending-div').innerText = pendingNotification;
       // This means visiting user is the creator of event:
       if (firebase.auth().currentUser.email == data.creatorDescription) {
         // console.log('visiting user is the creator. showing approval form, hiding rescind form.');
-        // pendingNotification += '\nDo you want to approve it?';
-
-        if (data.pending.whenDatePending) {
-          pendingNotification +=
-            '\nOn: ' +
-            moment(data.pending.whenDatePending).format('dddd MMMM D, YYYY') +
-            ' at ' +
-            moment(data.pending.whenDatePending).format('hh:mmA') +
-            '\n';
-        }
-        if (data.pending.whereAddressPending) pendingNotification += '\nAt: ' + data.pending.whereAddressPending;
-
         document.getElementById('pending-div').innerText = pendingNotification;
         document.getElementById('approve-pending-form').removeAttribute('hidden');
         document.getElementById('rescind-pending-form').setAttribute('hidden', 'true');
 
         // This means visiting user is a requestor of event change:
       } else if (firebase.auth().currentUser.uid == data.pending.requester) {
-        // console.log('visiting user requested a change. showing rescinding form, hiding approval form.');
-        // pendingNotification += '\nDo you want to change it?';
-        if (data.pending.whenDatePending) {
-          pendingNotification +=
-            '\nOn: ' +
-            moment(data.pending.whenDatePending).format('dddd MMMM D, YYYY') +
-            ' at ' +
-            moment(data.pending.whenDatePending).format('hh:mmA') +
-            '\n';
-        }
-        if (data.pending.whereAddressPending)
-          pendingNotification += '\nPending location: ' + data.pending.whereAddressPending;
-
+        // console.log('visiting user requested a change. showing rescinding form, hiding approval form.'
         document.getElementById('pending-div').innerText = pendingNotification;
         document.getElementById('rescind-pending-form').removeAttribute('hidden');
         document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
@@ -366,9 +358,15 @@ FriendlyChat.prototype.getSession = function() {
           data.val().whenTime &&
           data.val().whenTime != 'By request'
         ) {
-          renderWhenInformation = data.val().whenDate + ' at: ' + data.val().whenTime;
+          renderWhenInformation =
+            moment(data.val().whenDate).format('dddd MMMM D, YYYY') +
+            ' at: ' +
+            moment(data.val().whenDate).format('h:mmA');
         } else if (data.val().whenDate || data.val().whenTime) {
-          renderWhenInformation = data.val().whenDate || data.val().whenTime;
+          renderWhenInformation =
+            moment(data.val().whenDate).format('dddd MMMM D, YYYY') +
+            ' at: ' +
+            moment(data.val().whenDate).format('h:mmA');
         }
 
         return (doWhopSelectorDiv +=
@@ -484,11 +482,11 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
     var messageText = '';
 
-    messageText += currentUser.displayName + ' has requested a change!\n';
-    if (this.messageFormWherePending.value) messageText += 'Where: ' + this.messageFormWherePending.value + '\n';
+    messageText += currentUser.displayName + ' has requested to meet ';
+    if (this.messageFormWherePending.value) messageText += '\nWhere: ' + this.messageFormWherePending.value;
     if (this.messageFormWhenDatePending.value) {
       messageText +=
-        'On: ' +
+        '\non ' +
         datePicker.formatDate(new Date(datePicker.selectedDates), 'l F j, Y') +
         ' at ' +
         datePicker.formatDate(new Date(datePicker.selectedDates), 'h:iK') +
@@ -504,7 +502,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
       photoUrl: '/images/placeholder-image1.jpg'
     });
 
-    chatsRef.update({ status: true, requester: currentUser.uid }); // Refactoring to make it a dis-aggregated update.
+    chatsRef.update({ status: true, requester: currentUser.uid, requesterName: currentUser.displayName }); // Refactoring to make it a dis-aggregated update.
     if (this.messageFormWhenDatePending.value)
       chatsRef.update({ whenDatePending: this.messageFormWhenDatePending.value }).then(this.resetDate);
     if (this.messageFormWherePending.value)

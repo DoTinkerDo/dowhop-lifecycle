@@ -113,15 +113,14 @@ function retrieveMyDoWhops(uid) {
       var doWhopDescriptions = snapshot.val();
       var userDowhopCardDiv = document.getElementById('user-dowhop-cards');
       userDowhopCardDiv.innerHTML = '';
-
-      snapshot.forEach(function(doWhopDescription) {
+      _.map(snapshot.val()).reverse().forEach(function(doWhopDescription) {
         var doerDescriptionEmails = [];
-        if (doWhopDescription.val().doerDescription) {
-          doerDescriptionEmails = doWhopDescription.val().doerDescription.split(', ');
+        if (doWhopDescription.doerDescription) {
+          doerDescriptionEmails = doWhopDescription.doerDescription.split(', ');
         }
 
         if (
-          doWhopDescription.val().creatorDescription === person.email ||
+          doWhopDescription.creatorDescription === person.email ||
           doerDescriptionEmails.some(function(doerDescriptionEmail) {
             return doerDescriptionEmail === person.email;
             console.log(person);
@@ -149,7 +148,7 @@ function retrieveMyDoWhops(uid) {
     var userDowhopCardDiv = document.getElementById('user-dowhop-cards');
     var doWhopDescriptionRef = database.ref('DoWhopDescriptions').child(key);
     doWhopDescriptionRef.once('value').then(function(doWhopDescription) {
-      if (doWhopDescription.val()) {
+      if (doWhopDescription) {
         makeDoWhopSelector(userDowhopCardDiv, doWhopDescription);
       }
     });
@@ -164,15 +163,14 @@ function retrieveMyDoWhops(uid) {
 }
 
 function makeDoWhopSelector(container, data) {
-  var doWhopDescription = data.val();
   var image1 = '';
   var image2 = '';
-  if (doWhopDescription && doWhopDescription.downloadURL) {
-    image1 = doWhopDescription.downloadURL.image1 || doWhopDescription.downloadURL || defaultDoWhopDescriptionImage;
-    image2 = doWhopDescription.downloadURL.image2 || doWhopDescription.downloadURL || defaultDoWhopDescriptionImage;
+  if (data && data.downloadURL) {
+    image1 = data.downloadURL.image1 || data.downloadURL || defaultdataImage;
+    image2 = data.downloadURL.image2 || data.downloadURL || defaultdataImage;
     container.innerHTML +=
       '<aside class="mdl-card dowhop-selector" id="' +
-      data.key +
+      data.doWhopDescriptionKey +
       '" onclick="setSession(this)" onmouseenter="toggleDoWhopDescriptionImage(this)" onmouseleave="toggleDoWhopDescriptionImage(this)" data-url1="' +
       image1 +
       '" data-url2="' +
@@ -182,7 +180,7 @@ function makeDoWhopSelector(container, data) {
       image1 +
       ');">' +
       '<h1 id="dowhop-title">' +
-      data.val().titleDescription +
+      data.titleDescription +
       '</h1>' +
       '<div class="middle">' +
       '<p class="coordinate-text"> Coordinate this DoWhop </p>' +
