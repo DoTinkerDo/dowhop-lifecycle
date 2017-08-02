@@ -24,12 +24,14 @@
 
 .dm-modal-sub {
   opacity: 0.95; /* Customize this. */
+  width: 100%;
 }
 
 .dm-modal {
   display: none; /* This gets swtiched on/off */
   position: fixed; /* Stay in place */
-  padding-left: 20%;
+  padding-left: 10%;
+  padding-right: 11%; /* Asymmetrical because scrollbar might appear on right */
   z-index: 1;
   left: 0;
   top: 0;
