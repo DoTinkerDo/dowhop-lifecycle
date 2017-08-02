@@ -47,6 +47,14 @@ img {
   display: inline-flex;
   text-align: inherit;
   padding-bottom: 15px;
+  max-width: 700px;
+  max-height: auto;
+  min-width: 650px;
+  min-height: auto;
+}
+.about-div {
+  display: flex;
+  justify-content: flex-start;
 }
 
 #my-display-name {
@@ -81,10 +89,6 @@ img {
   padding-left: 10px;
 }
 
-.about-div {
-  display: flex;
-  justify-content: flex-start;
-}
 .profile-activities-div {
   display: flex;
   flex-direction: row;
