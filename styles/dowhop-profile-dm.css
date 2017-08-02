@@ -2,10 +2,16 @@
 
 #direct-message-form-div {
   /*min-width: 500px;*/
+  opacity: 1.0;
 }
 #direct-message-form {
   padding: 0% 5% 5%;
-  /*width: 1;*/
+  opacity: 1.0;
+}
+
+#direct-messages-div {
+  z-index: 2;
+  opacity: 1.0;
 }
 
 #direct-message-form-input {
@@ -14,6 +20,10 @@
   display: flex;
   width: 100%;
   justify-content: center;
+}
+
+.dm-modal-sub {
+  opacity: 0.95; /* Customize this. */
 }
 
 .dm-modal {
@@ -49,4 +59,14 @@
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+.message-container.mdl {
+  /*background: pink;*/
+  opacity: 1.0;
+}
+
+.message:hover {
+  /*background: pink;*/
+  opacity: 1.0;
 }
