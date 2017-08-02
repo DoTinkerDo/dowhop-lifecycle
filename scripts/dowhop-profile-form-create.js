@@ -231,9 +231,6 @@ function retrieveProfile(currentProfile) {
     myProfileName.innerText = appUser.profileName;
     myProfilePhone.innerText = phoneX(appUser.profilePhone);
     myProfileSocialFB.innerText = snap.val().profileSocialFB;
-
-    // console.log(snap.val().profileSocialFB);
-    // console.log(currentProfile);
     myProfileSocialTW.innerText = snap.val().profileSocialTW;
     myProfileSocialIG.innerText = snap.val().profileSocialIG;
     myProfileSocialLI.innerText = snap.val().profileSocialLI;
@@ -379,9 +376,6 @@ function fillInProfileForm(e) {
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
 
   profileRef.once('value', function(snap) {
-    console.log(currentProfile);
-    console.log(snap.val().profileSocialIG);
-    console.log(snap.val().profileSocialLI);
     if ((profileRef = currentProfile)) {
       if (snap.val().displayName) {
         document.getElementById('profile-name').value = snap.val().displayName;
