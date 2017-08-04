@@ -231,14 +231,16 @@ function retrieveProfile(currentProfile) {
     myProfileName.innerText = appUser.profileName;
     myProfilePhone.innerText = phoneX(appUser.profilePhone);
     myProfileSocialFB.innerText = snap.val().profileSocialFB;
-
-    // console.log(snap.val().profileSocialFB);
-    // console.log(currentProfile);
     myProfileSocialTW.innerText = snap.val().profileSocialTW;
     myProfileSocialIG.innerText = snap.val().profileSocialIG;
     myProfileSocialLI.innerText = snap.val().profileSocialLI;
+<<<<<<< HEAD
     myProfileAbout.innerText = appUser.profileAbout;
     // myProfileEmail.innerHTML = "<a href='mailto:" + appUser.email + " '>Send Message</a> ";
+=======
+    myProfileAbout.innerText = appUser.profileAbout || 'About Me: ';
+    myProfileEmail.innerHTML = "<a href='mailto:" + 'connect@dowhop.com' + " '>Send Message</a> ";
+>>>>>>> 19923a54f26e78b72833ada2d264d6977adec427
     // myProfilePayment.innerText = appUser.pofilePayment;
     myProfileActivity1.innerText = appUser.profileActivity1;
     myProfileActivity2.innerText = appUser.profileActivity2;
@@ -377,21 +379,45 @@ function phoneX(phone) {
 function fillInProfileForm(e) {
   var currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
+
   profileRef.once('value', function(snap) {
-    console.log(currentProfile.displayName);
     if ((profileRef = currentProfile)) {
-      // document.querySelector('placeholder-Name').value = currentProfile.displayName;
-      // document.getElementById('whoDescription').value = doWhopDescription.whoDescription;
-      // document.getElementById('whyDescription').value = doWhopDescription.whyDescription;
-      // document.getElementById('whatDescription').value = doWhopDescription.whatDescription;
-      // document.getElementById('whereDescription').value = doWhopDescription.whereDescription;
-      // // document.getElementById('whereAddress').value = doWhopDescription.whereAddress;
-      // document.getElementById('whenDescription').value = doWhopDescription.whenDescription;
-      // // document.getElementById('whenTime').value = doWhopDescription.whenTime;
-      // document.getElementById('howMuchDescription').value = doWhopDescription.howMuchDescription;
-      // document.getElementById('creatorDescription').value = doWhopDescription.creatorDescription;
-      // document.getElementById('doerDescription').value = doWhopDescription.doerDescription;
-      // document.getElementById('howMuchCost').value = doWhopDescription.howMuchCost;
+      if (snap.val().displayName) {
+        document.getElementById('profile-name').value = snap.val().displayName;
+      }
+      if (snap.val().profileAbout) {
+        document.getElementById('profile-about').value = snap.val().profileAbout;
+      }
+      if (snap.val().profileSocialFB) {
+        document.getElementById('profile-social-FB').value = snap.val().profileSocialFB;
+      }
+      if (snap.val().profileSocialTW) {
+        document.getElementById('profile-social-TW').value = snap.val().profileSocialTW;
+      }
+      if (snap.val().profileSocialIG) {
+        document.getElementById('profile-social-IG').value = snap.val().profileSocialIG;
+      }
+      if (snap.val().profileSocialLI) {
+        document.getElementById('profile-social-LI').value = snap.val().profileSocialLI;
+      }
+      if (snap.val().profileWebsite) {
+        document.getElementById('profile-website').value = snap.val().profileWebsite;
+      }
+      if (snap.val().profileActivity1) {
+        document.getElementById('profile-activity-1').value = snap.val().profileActivity1;
+      }
+      if (snap.val().profileActivity2) {
+        document.getElementById('profile-activity-2').value = snap.val().profileActivity2;
+      }
+      if (snap.val().profileActivity3) {
+        document.getElementById('profile-activity-3').value = snap.val().profileActivity3;
+      }
+      if (snap.val().profilePhone) {
+        document.getElementById('profile-phone').value = snap.val().profilePhone;
+      }
+      if (snap.val().profilePayment) {
+        document.getElementById('profile-payment').value = snap.val().profilePayment;
+      }
     }
   });
 }

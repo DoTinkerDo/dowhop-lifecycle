@@ -23,7 +23,7 @@ function submitNewDoWhopEntry(e) {
     !validateAddDoWhopDescription(
       files,
       titleDescription.value,
-      whyDescription.value,
+      // whyDescription.value,
       whoDescription.value,
       whatDescription.value,
       whenDescription.value,
@@ -48,6 +48,7 @@ function submitNewDoWhopEntry(e) {
 
     doWhopDescriptionRef.child(doWhopDescriptionKey).once('value', function(snap) {
       DoWhopTitleDescription = snap.val().titleDescription;
+      // DoWhopWhyDescription = sanp.val().whyDescription;
       DoWhopWhenDescription = snap.val().whenDescription;
       DoWhopWhereDescription = snap.val().whereDescription;
     });
