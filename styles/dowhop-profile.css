@@ -17,10 +17,11 @@ img {
   height: auto;
   width: auto;
 }
-.mdl-card {
+
+/*.mdl-card {
   max-width: 300px;
   max-height: 300px;
-}
+}*/
 
 .mdl-card-2 {
   width: 300px;
