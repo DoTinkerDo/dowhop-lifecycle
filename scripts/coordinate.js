@@ -842,11 +842,40 @@ window.onload = function() {
 
 // DEV: Helper function to relate given email to  user object.
 
-function checkUserEmails() {
-  var appRef = firebase.database().ref('app_users').orderByValue();
-  x.once('value').then(function(snap) {
+function checkUserEmails(email) {
+  let result;
+  var appRef = firebase.database().ref('app_users');
+  appRef.once('value').then(function(snap) {
     snap.forEach(function(childSnap) {
-      console.log(childSnap.val().email);
+      // console.log(email);
+      // console.log(childSnap.val().email);
+      if (childSnap.val().email === email) {
+        console.log('match!!!');
+        result = childSnap.val().uid;
+      }
     });
+    console.log('returning result 1', result);
+    return result;
   });
+  console.log('returning result 2', result);
+  // return result;
+}
+
+// Method 2?
+function cleanResult(result) {
+  var x = _.findKey(result);
+  return x;
+}
+
+function fetchUserFromEmail(email) {
+  var result = '';
+  var appRef = firebase.database().ref('app_users/');
+  appRef
+    .orderByChild('email')
+    .equalTo(email)
+    .once('value', function(snap) {
+      result = snap.val();
+    })
+    .then(cleanResult(result));
+  // return _.findKey(result);
 }
