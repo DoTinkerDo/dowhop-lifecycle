@@ -109,6 +109,5 @@ function displayMessage(key, from, to, body) {
 }
 
 function closeModalView() {
-  console.log('test');
   directMessageFormDiv.style.display = 'none';
 }
