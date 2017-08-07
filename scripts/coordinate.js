@@ -839,3 +839,14 @@ FriendlyChat.prototype.checkSetup = function() {
 window.onload = function() {
   window.friendlyChat = new FriendlyChat();
 };
+
+// DEV: Helper function to relate given email to  user object.
+
+function checkUserEmails() {
+  var appRef = firebase.database().ref('app_users').orderByValue();
+  x.once('value').then(function(snap) {
+    snap.forEach(function(childSnap) {
+      console.log(childSnap.val().email);
+    });
+  });
+}
