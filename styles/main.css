@@ -9,6 +9,10 @@
 ::placeholder {
   color: #cfcfcf;
 }
+.panel {
+  max-width: 600px;
+  max-height: 500px;
+}
 
 body {
   font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
@@ -184,10 +188,10 @@ main,
   margin-right: 12px;
 }
 
-/* 
+/*
 
   Date & Time
-  Picker 
+  Picker
 
 */
 input#whenDatePending,
@@ -802,7 +806,7 @@ button {
 }
 
 #create-outer-div {
-  text-align:center;
+  text-align: center;
   height: 50px;
   width: 300px;
 }
