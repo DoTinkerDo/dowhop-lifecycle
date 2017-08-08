@@ -851,8 +851,42 @@ window.onload = function() {
 
 function prepareUserIcons(information) {
   var div = '<h1>Test</h1>';
+  var people = [];
+  var outputs = [];
+
   information.split(', ').map(function(i) {
-    div += '<div>' + i + '</div>';
+    // div += '<div>' + i + '</div>';
+    console.log('mapping mails', i);
+    people.push(i);
+  });
+
+  people.map(function(j) {
+    checkUserEmails(j, outputs);
+    console.log('mapping mails level 2', j);
+    div += '<div>' + j + '</div>';
+  });
+
+  // outputs.map(function(k) {
+  //   div += '<div>' + k + '</div>';
+  // });
+
+  console.log('here are your results', outputs);
+  //
+  // if (outputs.length != 0) {
+  //   for (var i = 0; i < outputs.length; i++) {
+  //     console.log('pushing to div...', outputs[i]);
+  //     // div += '<div>' + outputs[i].displayName + '</div>';
+  //   }
+  // }
+  return div;
+}
+
+function prepareUserIconsTwo(outputs) {
+  var div = '<h1>Test</h1>';
+
+  outputs.map(function(k) {
+    console.log(k);
+    // div += '<div>' + k + '</div>';
   });
   return div;
 }
