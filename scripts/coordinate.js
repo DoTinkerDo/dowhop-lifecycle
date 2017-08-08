@@ -842,40 +842,46 @@ window.onload = function() {
 
 // DEV: Helper function to relate given email to  user object.
 
-function checkUserEmails(email) {
-  let result;
+// function getUserInformation(email) {
+//   var resultArray = [];
+//   checkUserEmails(email, resultArray)
+//   console.log(resultArray)
+//   return resultArray[0];
+// }
+
+function checkUserEmails(email, array) {
   var appRef = firebase.database().ref('app_users');
   appRef.once('value').then(function(snap) {
     snap.forEach(function(childSnap) {
       // console.log(email);
       // console.log(childSnap.val().email);
       if (childSnap.val().email === email) {
-        console.log('match!!!');
-        result = childSnap.val().uid;
+        // console.log('match!!!');
+        array.push(childSnap.val());
       }
     });
-    console.log('returning result 1', result);
-    return result;
+    // console.log('returning result 1', array);
+    return array;
   });
-  console.log('returning result 2', result);
+  // console.log('returning result 2', array);
   // return result;
 }
 
-// Method 2?
-function cleanResult(result) {
-  var x = _.findKey(result);
-  return x;
-}
-
-function fetchUserFromEmail(email) {
-  var result = '';
-  var appRef = firebase.database().ref('app_users/');
-  appRef
-    .orderByChild('email')
-    .equalTo(email)
-    .once('value', function(snap) {
-      result = snap.val();
-    })
-    .then(cleanResult(result));
-  // return _.findKey(result);
-}
+// // Method 2: To-Do for Developers.
+// function cleanResult(result) {
+//   var x = _.findKey(result);
+//   return x;
+// }
+//
+// function fetchUserFromEmail(email) {
+//   var result = '';
+//   var appRef = firebase.database().ref('app_users/');
+//   appRef
+//     .orderByChild('email')
+//     .equalTo(email)
+//     .once('value', function(snap) {
+//       result = snap.val();
+//     })
+//     .then(cleanResult(result));
+//   // return _.findKey(result);
+// }
