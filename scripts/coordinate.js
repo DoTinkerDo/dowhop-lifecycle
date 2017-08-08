@@ -346,7 +346,7 @@ FriendlyChat.prototype.getSession = function() {
         // Adding these logic checks so that when users update their information, new times, dates, etc render in 'View':
         let renderWhenInformation = data.val().whenDescription;
         let renderWhereInformation = data.val().whereDescription;
-        let renderWhoInformation = data.val().whoDescription; // To-Do: Update with first names dynamically.
+        let renderWhoInformation = prepareUserIcons(data.val().whoDescription); // To-Do: Update with first names dynamically.
 
         if (data.val().whereAddress && data.val().whereAddress != 'By request') {
           renderWhereInformation = data.val().whereAddress;
@@ -848,6 +848,12 @@ window.onload = function() {
 //   console.log(resultArray)
 //   return resultArray[0];
 // }
+
+function prepareUserIcons(information) {
+  let div = '<h1>Test</h1>';
+  div += '<div>' + information + '</div>';
+  return div;
+}
 
 function checkUserEmails(email, array) {
   var appRef = firebase.database().ref('app_users');
