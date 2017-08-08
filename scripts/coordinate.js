@@ -836,6 +836,24 @@ FriendlyChat.prototype.checkSetup = function() {
   }
 };
 
-window.onload = function() {
+function initFriendlyChat() {
   window.friendlyChat = new FriendlyChat();
-};
+  console.log('FRIENDLY CHAT INITIALIZED');
+  console.log(friendlyChat);
+}
+
+if (window.attachEvent) {
+  window.attachEvent('onload', initFriendlyChat);
+} else if (window.addEventListener) {
+  window.addEventListener('load', initFriendlyChat, false);
+} else {
+  document.addEventListener('load', initFriendlyChat, false);
+}
+
+// window.onload = function() {
+//   window.friendlyChat = new FriendlyChat();
+// };
+
+// window.onload = function() {
+//   window.friendlyChat = new FriendlyChat();
+// };
