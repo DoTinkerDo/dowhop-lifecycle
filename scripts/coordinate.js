@@ -101,12 +101,12 @@ FriendlyChat.prototype.checkForAdmin = function() {
 FriendlyChat.prototype.sendApprovalAction = function(e) {
   e.preventDefault();
   console.log('you clicked send approval!');
-  let choice, newDate, newTime, newWhere;
+  var choice, newDate, newTime, newWhere;
   this.chatItemDataSpecific = document.getElementById('dowhop-selector-container').children[0].id;
   var myRef = this.database.ref().child('DoWhopDescriptions').child(this.chatItemDataSpecific);
   var myRefPending = this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending');
   var messagesRef = this.database.ref().child('messages/' + this.chatItemDataSpecific);
-  let status;
+  var status;
   // var radioApprove = document.getElementById('radioApprove');
   // var radioDeny = document.getElementById('radioDeny');
   var approvalForm = document.getElementById('approve-pending-form');
@@ -166,12 +166,12 @@ FriendlyChat.prototype.sendApprovalAction = function(e) {
 FriendlyChat.prototype.sendDenialAction = function(e) {
   e.preventDefault();
   console.log('you clicked send denial!');
-  let choice, newDate, newTime, newWhere;
+  var choice, newDate, newTime, newWhere;
   this.chatItemDataSpecific = document.getElementById('dowhop-selector-container').children[0].id;
   var myRef = this.database.ref().child('DoWhopDescriptions').child(this.chatItemDataSpecific);
   var myRefPending = this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending');
   var messagesRef = this.database.ref().child('messages/' + this.chatItemDataSpecific);
-  let status;
+  var status;
   var approvalForm = document.getElementById('approve-pending-form');
   var rescindingForm = document.getElementById('rescind-pending-form');
   var pendingDiv = document.getElementById('pending-div');
@@ -336,7 +336,7 @@ FriendlyChat.prototype.getSession = function() {
       checkForPendings(data.val());
       // Weave together header
       if (data.val()) {
-        let imageUrl =
+        var imageUrl =
           (data.val().downloadURL && data.val().downloadURL.image1) ||
           data.val().downloadURL ||
           defaultDoWhopDescriptionImage;
@@ -344,9 +344,9 @@ FriendlyChat.prototype.getSession = function() {
         var doWhopDescriptionTitle = data.val().titleDescription || 'Your DoWhops Will Appear Here';
 
         // Adding these logic checks so that when users update their information, new times, dates, etc render in 'View':
-        let renderWhenInformation = data.val().whenDescription;
-        let renderWhereInformation = data.val().whereDescription;
-        let renderWhoInformation = prepareUserIcons(data.val().doerDescription); // In progress:  Update with first names dynamically.
+        var renderWhenInformation = data.val().whenDescription;
+        var renderWhereInformation = data.val().whereDescription;
+        var renderWhoInformation = prepareUserIcons(data.val().doerDescription); // In progress:  Update with first names dynamically.
 
         if (data.val().whereAddress && data.val().whereAddress != 'By request') {
           renderWhereInformation = data.val().whereAddress;
@@ -436,7 +436,7 @@ FriendlyChat.prototype.getSession = function() {
 
 // Loads messages history and listens for upcoming ones:
 FriendlyChat.prototype.loadMessages = function() {
-  let user = person.uid;
+  var user = person.uid;
   var messageList = document.getElementById('messages');
   var chatIdCurrent;
   var sessionRef = firebase.database().ref('/session').child(person.uid).child('current_dowhop');
@@ -535,7 +535,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
 FriendlyChat.prototype.resetDate = function() {
   document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
-  let datePending = document.getElementById('whenDatePending');
+  var datePending = document.getElementById('whenDatePending');
   datePending.value = null;
   datePending.placeholder = 'Select to enter date';
 };
@@ -545,7 +545,7 @@ FriendlyChat.prototype.resetWhere = function() {
 };
 
 FriendlyChat.prototype.resetDateTimeWhere = function() {
-  let datePending = document.getElementById('whenDatePending');
+  var datePending = document.getElementById('whenDatePending');
   datePending.value = null;
   datePending.placeholder = 'Select to enter date';
 
@@ -636,7 +636,7 @@ FriendlyChat.prototype.signOut = function() {
 //     var loadMessagesOnClick = function(id) {
 //
 //         console.log('you chose', id);
-//         let messagesRef = this.database.ref().child('messages/' + id);
+//         var messagesRef = this.database.ref().child('messages/' + id);
 //
 //         // Make sure we remove all previous listeners and clear the UI.
 //         messagesRef.off();
@@ -850,7 +850,7 @@ window.onload = function() {
 // }
 
 function prepareUserIcons(information) {
-  let div = '<h1>Test</h1>';
+  var div = '<h1>Test</h1>';
   information.split(', ').map(function(i) {
     div += '<div>' + i + '</div>';
   });
