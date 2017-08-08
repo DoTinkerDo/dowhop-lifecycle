@@ -33,23 +33,18 @@ emailSubmitBtn.addEventListener('click', updateCreatorDoerEmails);
 function submitNewDoWhopEntry(e) {
   e.preventDefault();
 
-  if (
-    !validateAddDoWhopDescription(
-      files,
-      titleDescription.value,
-      whyDescription.value,
-      whoDescription.value,
-      whatDescription.value,
-      whenDescription.value,
-      whereDescription.value,
-      howMuchDescription.value
-      // creatorDescription.value,
-      // doerDescription.value
-    )
-  ) {
-    alert('Please fill out all the fields and add an Image, Try again.');
-    return;
-  }
+  validateAddDoWhopDescription(
+    files,
+    titleDescription.value,
+    whyDescription.value,
+    whoDescription.value,
+    whatDescription.value,
+    whenDescription.value,
+    whereDescription.value,
+    howMuchDescription.value
+    // creatorDescription.value,
+    // doerDescription.value
+  );
 
   var uid = auth.currentUser.uid;
   var doWhopDescriptionKey = doWhopDescriptionsRef.push().key;
