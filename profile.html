@@ -34,11 +34,6 @@
 </head>
 <!-- Navigation Container -->
 <header class="mdl-grid">
-  <!-- <nav class="mdl-cell mdl-cell--12-col mdl-cell--4-offset-desktop mdl-cell--2-offset-tablet">
-    <a href='/#coordinate'>Go Back</a>
-  </nav> -->
-  <!-- End Navigation -->
-
   <div class="nav-dropdown">
     <img class="nav-dropbtn" id="user-icon" src="/images/user-icon.png" alt="">
     <div class="nav-dropdown-content">
@@ -47,6 +42,7 @@
     </div>
   </div>
 </header>
+
 <body>
 <div class='container'>
   <div class='mdl-grid'>
@@ -54,16 +50,13 @@
     <img class='background-photo'src="https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/DefaultDoWhop_banner.jpg?alt=media&token=80201f64-7b50-4d35-9fe4-c55ec4449514">
   </div>
 
-
   <div class="mdl-grid">
-
     <div class ="my-profile-picture mdl-cell mdl-cell--8-col">
       <img id="my-profile-picture" src="" alt="User profile image."/>
     </div>
     <div class="about-div mdl-cell mdl-cell--8-col mdl-cell--bottom">
       <div id="my-profile-about"></div>
     </div>
-  </div>
   </div>
 </div>
 
@@ -79,8 +72,14 @@
         </a>
       </div>
       <div class="grid2">
-        <i class="material-icons profile-icons">mail_outline</i>
-        <div class="profile-data" id="my-profile-email">
+        <!-- <i class="material-icons profile-icons">mail_outline</i> -->
+        <!-- <div class="profile-data" id="my-profile-email"> -->
+        <!-- </div> -->
+        <div id="send-direct-message-div" class="mdl-cell">
+          <button id="send-direct-message" class="btn btn-default">
+            <span><i class="material-icons profile-icons">mail_outline</i>
+            Send Message</span>
+          </button>
         </div>
       </div>
       <div class="grid2">
@@ -97,7 +96,6 @@
           <img onclick= socialMediaTW() id="my-profile-social-TW" src='../images/twitter.svg' />
           <img onclick= socialMediaIG() id="my-profile-social-IG" src='../images/instagram.svg' />
           <img onclick= socialMediaLI() id="my-profile-social-LI" src='../images/linkedin.svg' />
-
         </div>
       </div>
     </div>
@@ -141,11 +139,7 @@
 
 
 
-  <!-- END Profile container
-
-
-  put the facebook, twitter, etc. links here
-  put the verified member part here -->
+  <!-- END Profile container put the facebook, twitter, etc. links here  put the verified member part here -->
   <div class='edit-form mdl-grid'>
     <div class="mdl-cell mdl-cell--6-col">
 
@@ -291,14 +285,11 @@
               <label class="mdl-textfield__label" for="profile-payment">Venmo Email:</label>
               <div class="mdl-tooltip" for="profile-payment">Payment Email</div>
             </div>
-
-            <label for="profile-image-capture-3">
-              <i class="material-icons">perm_media</i>
-              <input class="image-capture" id="profile-image-capture-3" type="file" accept="image/*" capture="camera">
-            </label>
-
+            <!-- <label for="profile-image-capture-3"> -->
+              <!-- <i class="material-icons">perm_media</i> -->
+              <!-- <input class="image-capture" id="profile-image-capture-3" type="file" accept="image/*" capture="camera"> -->
+            <!-- </label> -->
             <!-- END adding images -->
-
             <div class="mdl-card__actions">
               <button class="btn btn-default" id="create-profile-form-button">
                 <!-- Submit Profile -->
@@ -306,41 +297,47 @@
                 <div class="mdl-tooltip" for="create-profile-form-button">Click here to save your info!</div>
               </button>
             </div>
-
           </form>
         </div>
       </div>
     </div>
   </div>
   <!-- END Create Submit Profile Form -->
+  <!--  PLACEHOLDER activities for future DoneWhops -->
 
+  <div hidden id="direct-message-form-div" class="mdl-card mdl-card--border dm-modal"><!-- Start Direct Chat Message Form div -->
 
-  <!--
-  PLACEHOLDER activities for future DoneWhops -->
+    <div class="mdl-layout__content dm-modal-sub">
+        <div class="mdl-card__title dm-close-span">
+          <span class="mdl-card__title-text">Send a Message</span><div id="direct-message-form-div-span" class="dm-close">x</div></span>
+        </div>
 
-
-
-  <!-- End Show Profile Section -->
-
-
-  <!-- DIRECT CHAT MESSAGE -->
-  <div hidden class="direct-message col-6">      <!-- Start Direct Chat Message Form div -->
-    <form hidden id="direct-message-form" class='direct-message'>
-      <h4>Start your conversation!</h4>
-      <div id="direct-messages-div" class='direct-message'></div>
-      <h5>Type your message here:</h5>
-      <textarea id="direct-message-form-input"></textarea>
-      <button id="direct-message-form-button">
-        Send!
-      </button>
-      <button id="direct-message-form-button-hide">
-        Close
-      </button>
-    </form>
+      <form action="#" class='' id="direct-message-form">
+        <!-- This will be populated by dynamic messages -->
+        <div class="mdl-card">
+          <div class="mdl-card__border">
+            <div id="direct-messages-div" class=''></div>
+          </div>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="direct-message-form-input" placeholder="Enter message here...">
+          <label class="mdl-textfield__label" for="direct-message-form-input"></label>
+          <div class="mdl-tooltip" for="direct-message-form-input">Send a message to prepare for your DoWhop booking!</div>
+        </div>
+        <div class="mdl-card__subtitle-text">Start doing!</div>
+        <div class="mdl-card__actions">
+          <button id="direct-message-form-button" class="btn btn-small">
+            Send!
+          </button>
+          <button id="direct-message-form-button-hide" class="btn btn-small">
+            Close
+          </button>
+      </div>
+      </form>
+    </div>
   </div>
 
-  <!-- END MDL Grid -->
-
+  <!-- End Show Profile Section -->
   <script src="scripts/dowhop-profile-form-create.js"></script>
   <script src="scripts/dowhop-profile-form-dm.js"></script>
 </body>
