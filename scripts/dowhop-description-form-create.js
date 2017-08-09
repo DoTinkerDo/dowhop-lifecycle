@@ -40,6 +40,7 @@ function submitNewDoWhopEntry(e) {
   var creatorDescription = auth.currentUser.email;
   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
   var defaultImageURL = '../images/dowhopicon.gif';
+  var currentTime = moment().format('YYYY-MM-DD--HH:mm'); // Using library.
 
   // We are preparing a first message to the future chat thread:
   function createWelcomingMessage() {
@@ -89,7 +90,8 @@ function submitNewDoWhopEntry(e) {
       whereDescription: whereDescription.value,
       howMuchDescription: howMuchDescription.value,
       creatorDescription: creatorDescription,
-      doerDescription: '' // Temp.
+      doerDescription: 'no-one',
+      createdAt: currentTime
     })
     .then(showConfirmationMessage());
 
