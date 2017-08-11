@@ -334,6 +334,7 @@ FriendlyChat.prototype.getSession = function() {
     firebase.database().ref().child('DoWhopDescriptions/' + data.val().current_dowhop).on('value', function(data) {
       // Check for pending notifications:
       checkForPendings(data.val());
+
       // Weave together header
       if (data.val()) {
         var imageUrl =
@@ -346,7 +347,39 @@ FriendlyChat.prototype.getSession = function() {
         // Adding these logic checks so that when users update their information, new times, dates, etc render in 'View':
         var renderWhenInformation = data.val().whenDescription;
         var renderWhereInformation = data.val().whereDescription;
-        var renderWhoInformation = prepareUserIcons(data.val().doerDescription); // In progress:  Update with first names dynamically.
+        var whoInformation = data.val().doerDescription; // In progress:  Update with first names dynamically.
+        var renderWhoInformation;
+        var appUsersRef = database.ref('app_users');
+        var doerUserObjects = [];
+        var doerEmails = whoInformation.split(', ');
+
+        appUsersRef
+          .once('value')
+          .then(function(snap) {
+            snap.forEach(function(childSnap) {
+              console.log('Checking childSnaps...');
+              // console.log(doerEmails);
+              doerEmails.filter(function(doerEmail) {
+                if (doerEmail === childSnap.val().email) {
+                  console.log('it matches!');
+                  console.log(childSnap.val());
+                  doerUserObjects.push(childSnap.val());
+                }
+              });
+              console.log(doerUserObjects);
+            });
+            // console.log(doerUserObjects);
+            return doerUserObjects;
+          })
+          .then((renderWhoInformation = doerUserObjects[0]));
+
+        console.log('final results....', doerUserObjects);
+        //
+        // if (doerUserObjects) {
+        //   renderWhoInformation;
+        // } else {
+        //   renderWhoInformation = 'NONE';
+        // }
 
         if (data.val().whereAddress && data.val().whereAddress != 'By request') {
           renderWhereInformation = data.val().whereAddress;
@@ -849,65 +882,66 @@ window.onload = function() {
 //   return resultArray[0];
 // }
 
-function prepareUserIcons(information) {
-  var div = '<h1>Test</h1>';
-  var people = [];
-  var outputs = [];
-
-  information.split(', ').map(function(i) {
-    // div += '<div>' + i + '</div>';
-    console.log('mapping mails', i);
-    people.push(i);
-  });
-
-  people.map(function(j) {
-    checkUserEmails(j, outputs);
-    console.log('mapping mails level 2', j);
-    div += '<div>' + j + '</div>';
-  });
-
-  // outputs.map(function(k) {
-  //   div += '<div>' + k + '</div>';
-  // });
-
-  console.log('here are your results', outputs);
-  //
-  // if (outputs.length != 0) {
-  //   for (var i = 0; i < outputs.length; i++) {
-  //     console.log('pushing to div...', outputs[i]);
-  //     // div += '<div>' + outputs[i].displayName + '</div>';
-  //   }
-  // }
-  return div;
-}
-
-function prepareUserIconsTwo(outputs) {
-  var div = '<h1>Test</h1>';
-
-  outputs.map(function(k) {
-    console.log(k);
-    // div += '<div>' + k + '</div>';
-  });
-  return div;
-}
-
-function checkUserEmails(email, array) {
-  var appRef = firebase.database().ref('app_users');
-  appRef.once('value').then(function(snap) {
-    snap.forEach(function(childSnap) {
-      // console.log(email);
-      // console.log(childSnap.val().email);
-      if (childSnap.val().email === email) {
-        // console.log('match!!!');
-        array.push(childSnap.val());
-      }
-    });
-    // console.log('returning result 1', array);
-    return array;
-  });
-  // console.log('returning result 2', array);
-  // return result;
-}
+// function prepareUserIcons(information) {
+//   var div = '<h1>Test</h1>';
+//   var people = [];
+//   var outputs = [];
+//
+//   information.split(', ').map(function(i) {
+//     // div += '<div>' + i + '</div>';
+//     console.log('mapping mails', i);
+//     people.push(i);
+//   });
+//
+//   people.map(function(j) {
+//     checkUserEmail(j, outputs);
+//     console.log('mapping mails level 2', j);
+//     div += '<div>' + j + '</div>';
+//   });
+//
+//   // outputs.map(function(k) {
+//   //   div += '<div>' + k + '</div>';
+//   // });
+//
+//   console.log('here are your results', outputs);
+//   //
+//   // if (outputs.length != 0) {
+//   //   for (var i = 0; i < outputs.length; i++) {
+//   //     console.log('pushing to div...', outputs[i]);
+//   //     // div += '<div>' + outputs[i].displayName + '</div>';
+//   //   }
+//   // }
+//   return div;
+// }
+//
+// function prepareUserIconsTwo(outputs) {
+//   var div = '<h1>Test</h1>';
+//
+//   outputs.map(function(k) {
+//     console.log(k);
+//     // div += '<div>' + k + '</div>';
+//   });
+//   return div;
+// }
+//
+// function checkUserEmail(email, array) {
+//   var appRef = database.ref('app_users');
+//   appRef.once('value').then(function(snap) {
+//     snap.forEach(function(childSnap) {
+//       var doerDescriptionEmail = childSnap.val().email;
+//       console.log(doerDescriptionEmail);
+//       // console.log(childSnap.val().email);
+//       if (childSnap.val().email === email) {
+//         console.log('match!!!');
+//         array.push(childSnap.val());
+//       }
+//     });
+//     console.log('returning result 1', array);
+//     return array;
+//   });
+//   console.log('returning result 2', array);
+//   // return result;
+// }
 
 // // Method 2: To-Do for Developers.
 // function cleanResult(result) {
