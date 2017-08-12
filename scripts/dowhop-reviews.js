@@ -182,8 +182,8 @@ function handleDatabaseRatingSubmit(rating, reviewType, ratingInstance) {
       let key = snapshot.child('hasRated').child(uid).child('key').val();
       ratingReviewTypeRef.child('ratings').child(key).set(rating);
     } else {
-      // Check: if no reviews, then set initial rating to 1
-      !noReviews ? (rating = 1) : rating;
+      // Check: if no reviews, then set initial rating to 5
+      !noReviews ? (rating = 5) : rating;
       let key = ratingReviewTypeRef.child('ratings').push(rating).key;
       var ratingObj = {};
       ratingObj.key = key;
