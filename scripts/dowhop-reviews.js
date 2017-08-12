@@ -8,7 +8,8 @@
 // ratingInstance = ratingCreator/ratingDoer/ratingDoWhop/ &
 //                  showRatingCreator/showRatingDoer/showRatingDoWhop
 
-var placeholderUserPhotoURL = '/images/placeholder-image1.jpg'; // Update.
+var placeholderUserPhotoURL =
+  'https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/dowhop-icons%2Fdowhop-icon.png?alt=media&token=4ce2cb46-d5f0-4bbc-bb9d-b25ca886e634';
 var userData = null;
 var uid = person && person.uid;
 var selectedDoWhopKey = null;
