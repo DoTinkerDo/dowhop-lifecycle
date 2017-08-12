@@ -110,7 +110,7 @@ function handleCommentSubmit(e) {
   var commentInput = this.parentNode.parentNode.firstChild.nextSibling.firstChild.nextSibling;
   var reviewType = this.id;
   if (!validateHandleCommentSubmit(commentInput.value)) {
-    alert('Your comment is longer than 140 characters, Try again.');
+    alert('Your comment is longer than 500 characters, Try again.');
     return;
   }
   handleDatabaseCommentSubmit(commentInput.value, reviewType);
@@ -118,7 +118,7 @@ function handleCommentSubmit(e) {
 }
 
 function validateHandleCommentSubmit(comment) {
-  if (comment.length >= 140) return false;
+  if (comment.length >= 500) return false;
   return true;
 }
 
