@@ -21,6 +21,7 @@ How to get started with development:
 
 * Clone this repository: `git clone https://github.com/DoTinkerDo/dowhop-lifecycle.git` then `cd dowhop-lifecycle/`
 * Make sure firebase tools are installed: `npm install -g firebase-tools`
+* Make sure you're added as a user to the Firebase database before you're able to develope locally
 * Deploy to local server: `firebase serve`
 
 (c) DoWhop.com, 2017.
