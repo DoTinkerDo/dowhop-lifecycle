@@ -22,7 +22,10 @@ FriendlyChat.prototype.getSessionTab = function() {
   var userID = person.uid;
   var sessionRef = database.ref('/session').child(userID);
   var currentTab;
-  sessionRef.once('value', function(snap) {
+  // sessionRef.on('value', function(snap) {
+  //   currentTab = snap.val();
+  // });
+  sessionRef.once('value').then(function(snap) {
     currentTab = snap.val();
   });
   return currentTab;
@@ -114,7 +117,7 @@ FriendlyChat.prototype.sendApprovalAction = function(e) {
   var pendingDiv = document.getElementById('pending-div');
 
   // Updating these checks to make it more modular... (ie, avoid over-writing!).
-  myRefPending.once('value', function(snap) {
+  myRefPending.once('value').then(function(snap) {
     if (snap.val().whenDatePending) {
       newDate = snap.val().whenDatePending;
     }
@@ -473,7 +476,9 @@ FriendlyChat.prototype.loadMessages = function() {
   var messageList = document.getElementById('messages');
   var chatIdCurrent;
   var sessionRef = firebase.database().ref('/session').child(person.uid).child('current_dowhop');
-  sessionRef.once('value', snap => (chatIdCurrent = snap.val()));
+  sessionRef.on('value', function(snap) {
+    return (chatIdCurrent = snap.val());
+  });
   this.messagesRef = firebase.database().ref().child('messages/' + chatIdCurrent);
 
   // Make sure we remove all previous listeners and clear the UI.

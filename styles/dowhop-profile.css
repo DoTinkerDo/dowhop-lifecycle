@@ -17,10 +17,11 @@ img {
   height: auto;
   width: auto;
 }
-.mdl-card {
+
+/*.mdl-card {
   max-width: 300px;
   max-height: 300px;
-}
+}*/
 
 .mdl-card-2 {
   width: 300px;
@@ -266,7 +267,7 @@ button#button-2 {
   left: 18px;
 }
 svg.social-media-svg {
-  margin-top: -25px;
+  margin-top: -20px;
   margin-left: 9px;
 }
 

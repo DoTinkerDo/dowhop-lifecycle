@@ -8,7 +8,8 @@
 // ratingInstance = ratingCreator/ratingDoer/ratingDoWhop/ &
 //                  showRatingCreator/showRatingDoer/showRatingDoWhop
 
-var placeholderUserPhotoURL = '/images/placeholder-image1.jpg'; // Update.
+var placeholderUserPhotoURL =
+  'https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/dowhop-icons%2Fdowhop-icon.png?alt=media&token=4ce2cb46-d5f0-4bbc-bb9d-b25ca886e634';
 var userData = null;
 var uid = person && person.uid;
 var selectedDoWhopKey = null;
@@ -109,7 +110,7 @@ function handleCommentSubmit(e) {
   var commentInput = this.parentNode.parentNode.firstChild.nextSibling.firstChild.nextSibling;
   var reviewType = this.id;
   if (!validateHandleCommentSubmit(commentInput.value)) {
-    alert('Your comment is longer than 140 characters, Try again.');
+    alert('Your comment is longer than 500 characters, Try again.');
     return;
   }
   handleDatabaseCommentSubmit(commentInput.value, reviewType);
@@ -117,7 +118,7 @@ function handleCommentSubmit(e) {
 }
 
 function validateHandleCommentSubmit(comment) {
-  if (comment.length >= 140) return false;
+  if (comment.length >= 500) return false;
   return true;
 }
 
@@ -181,8 +182,8 @@ function handleDatabaseRatingSubmit(rating, reviewType, ratingInstance) {
       let key = snapshot.child('hasRated').child(uid).child('key').val();
       ratingReviewTypeRef.child('ratings').child(key).set(rating);
     } else {
-      // Check: if no reviews, then set initial rating to 1
-      !noReviews ? (rating = 1) : rating;
+      // Check: if no reviews, then set initial rating to 5
+      !noReviews ? (rating = 5) : rating;
       let key = ratingReviewTypeRef.child('ratings').push(rating).key;
       var ratingObj = {};
       ratingObj.key = key;

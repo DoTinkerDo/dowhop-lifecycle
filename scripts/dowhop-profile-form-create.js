@@ -207,7 +207,7 @@ var myProfileSocialLI = document.getElementById('my-profile-social-LI');
 
 // var myProfileWebsite = document.getElementById('my-profile-website');
 var myProfileAbout = document.getElementById('my-profile-about');
-var myProfileEmail = document.getElementById('my-profile-email');
+// var myProfileEmail = document.getElementById('my-profile-email');
 var myProfilePayment = document.getElementById('my-profile-payment');
 var myProfileActivity1 = document.getElementById('my-profile-activity-1');
 var myProfileActivity2 = document.getElementById('my-profile-activity-2');
@@ -234,8 +234,8 @@ function retrieveProfile(currentProfile) {
     myProfileSocialTW.innerText = snap.val().profileSocialTW;
     myProfileSocialIG.innerText = snap.val().profileSocialIG;
     myProfileSocialLI.innerText = snap.val().profileSocialLI;
+    // myProfileEmail.innerHTML = "<a href='mailto:" + appUser.email + " '>Send Message</a> ";
     myProfileAbout.innerText = appUser.profileAbout || 'About Me: ';
-    myProfileEmail.innerHTML = "<a href='mailto:" + 'connect@dowhop.com' + " '>Send Message</a> ";
     // myProfilePayment.innerText = appUser.pofilePayment;
     myProfileActivity1.innerText = appUser.profileActivity1;
     myProfileActivity2.innerText = appUser.profileActivity2;
