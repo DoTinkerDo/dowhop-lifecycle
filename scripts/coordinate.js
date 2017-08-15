@@ -385,18 +385,27 @@ FriendlyChat.prototype.getSession = function() {
           })
           .then(
             (function() {
-              renderCreatorIcon =
-                '<div>' +
-                "<a href='/profile.html?" +
-                creatorUserObjects[0].uid +
-                "'>" +
-                creatorUserObjects[0].displayName +
-                '</a>' +
-                '</div>';
-              renderDoerIcons = '<div>' + "<a href=''>" + doerUserObjects[0].displayName + '</a>' + '</div>';
-              // New
-              // renderCreatorIcon = creatorUserObjects[0].displayName;
-              // renderDoerIcons = doerUserObjects[0].displayName;
+              if (creatorUserObjects && creatorUserObjects.length > 0) {
+                renderCreatorIcon =
+                  '<div>' +
+                  "<a href='/profile.html?" +
+                  creatorUserObjects[0].uid +
+                  "'>" +
+                  creatorUserObjects[0].displayName +
+                  '</a>' +
+                  '</div>';
+              }
+
+              if (doerUserObjects && creatorUserObjects.length > 0) {
+                renderDoerIcons =
+                  '<div>' +
+                  "<a href='/profile.html?" +
+                  doerUserObjects[0].uid +
+                  "'>" +
+                  doerUserObjects[0].displayName +
+                  '</a>' +
+                  '</div>';
+              }
 
               // For initial testing:
               // var newResult = doerUserObjects.concat(creatorUserObjects);
