@@ -383,8 +383,9 @@ FriendlyChat.prototype.getSession = function() {
           })
           .then(
             (function() {
-              renderWhoInformation = JSON.stringify(doerUserObjects);
-              renderWhoInformation.concat(JSON.stringify(creatorUserObjects));
+              var newResult = doerUserObjects.concat(creatorUserObjects);
+              // renderWhoInformation = JSON.stringify(doerUserObjects);
+              renderWhoInformation = JSON.stringify(newResult);
             })()
           );
 
