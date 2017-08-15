@@ -365,23 +365,19 @@ FriendlyChat.prototype.getSession = function() {
             doerUserObjects.length = 0; // Resetting the global variable.
             creatorUserObjects.length = 0;
             snap.forEach(function(childSnap) {
-              console.log('Checking childSnaps...');
+              // console.log('Checking childSnaps...');
               // console.log(doerEmails);
               doerEmails.filter(function(doerEmail) {
                 if (doerEmail === childSnap.val().email) {
-                  console.log('it matches!');
-                  console.log(childSnap.val());
+                  // console.log('it matches!');
+                  // console.log(childSnap.val());
                   doerUserObjects.push(childSnap.val());
                 }
               });
-              console.log(doerUserObjects);
-              // creatorEmail.filter(function(givenEmail) {
               if (creatorEmail === childSnap.val().email) {
                 creatorUserObjects.push(childSnap.val());
               }
-              // })
             });
-            // console.log(doerUserObjects);
           })
           .then(
             (function() {
@@ -925,92 +921,3 @@ FriendlyChat.prototype.checkSetup = function() {
 window.onload = function() {
   window.friendlyChat = new FriendlyChat();
 };
-
-// DEV: Helper function to relate given email to  user object.
-
-// function getUserInformation(email) {
-//   var resultArray = [];
-//   checkUserEmails(email, resultArray)
-//   console.log(resultArray)
-//   return resultArray[0];
-// }
-
-// function prepareUserIcons(information) {
-//   var div = '<h1>Test</h1>';
-//   var people = [];
-//   var outputs = [];
-//
-//   information.split(', ').map(function(i) {
-//     // div += '<div>' + i + '</div>';
-//     console.log('mapping mails', i);
-//     people.push(i);
-//   });
-//
-//   people.map(function(j) {
-//     checkUserEmail(j, outputs);
-//     console.log('mapping mails level 2', j);
-//     div += '<div>' + j + '</div>';
-//   });
-//
-//   // outputs.map(function(k) {
-//   //   div += '<div>' + k + '</div>';
-//   // });
-//
-//   console.log('here are your results', outputs);
-//   //
-//   // if (outputs.length != 0) {
-//   //   for (var i = 0; i < outputs.length; i++) {
-//   //     console.log('pushing to div...', outputs[i]);
-//   //     // div += '<div>' + outputs[i].displayName + '</div>';
-//   //   }
-//   // }
-//   return div;
-// }
-//
-// function prepareUserIconsTwo(outputs) {
-//   var div = '<h1>Test</h1>';
-//
-//   outputs.map(function(k) {
-//     console.log(k);
-//     // div += '<div>' + k + '</div>';
-//   });
-//   return div;
-// }
-//
-// function checkUserEmail(email, array) {
-//   var appRef = database.ref('app_users');
-//   appRef.once('value').then(function(snap) {
-//     snap.forEach(function(childSnap) {
-//       var doerDescriptionEmail = childSnap.val().email;
-//       console.log(doerDescriptionEmail);
-//       // console.log(childSnap.val().email);
-//       if (childSnap.val().email === email) {
-//         console.log('match!!!');
-//         array.push(childSnap.val());
-//       }
-//     });
-//     console.log('returning result 1', array);
-//     return array;
-//   });
-//   console.log('returning result 2', array);
-//   // return result;
-// }
-
-// // Method 2: To-Do for Developers.
-// function cleanResult(result) {
-//   var x = _.findKey(result);
-//   return x;
-// }
-//
-// function fetchUserFromEmail(email) {
-//   var result = '';
-//   var appRef = firebase.database().ref('app_users/');
-//   appRef
-//     .orderByChild('email')
-//     .equalTo(email)
-//     .once('value', function(snap) {
-//       result = snap.val();
-//     })
-//     .then(cleanResult(result));
-//   // return _.findKey(result);
-// }
