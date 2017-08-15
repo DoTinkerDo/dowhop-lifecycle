@@ -391,6 +391,12 @@ FriendlyChat.prototype.getSession = function() {
                   "<a href='/profile.html?" +
                   creatorUserObjects[0].uid +
                   "'>" +
+                  "<div class='avatar'>" +
+                  "<img src='" +
+                  creatorUserObjects[0].photoURL +
+                  "'>" +
+                  '</img>' +
+                  '</div>' +
                   creatorUserObjects[0].displayName +
                   '</a>' +
                   '</div>';
@@ -402,6 +408,12 @@ FriendlyChat.prototype.getSession = function() {
                   "<a href='/profile.html?" +
                   doerUserObjects[0].uid +
                   "'>" +
+                  "<div class='avatar'>" +
+                  "<img src='" +
+                  doerUserObjects[0].photoURL +
+                  "'>" +
+                  '</img>' +
+                  '</div>' +
                   doerUserObjects[0].displayName +
                   '</a>' +
                   '</div>';
