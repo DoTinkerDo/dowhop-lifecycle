@@ -3,6 +3,7 @@
 // Use code to coordinate DoWhops.
 var currentSessionID;
 var doerUserObjects = [];
+var creatorUserObjects = [];
 var currentDate = new Date();
 
 var datePicker = new flatpickr('#whenDatePending', {
@@ -351,15 +352,16 @@ FriendlyChat.prototype.getSession = function() {
         var renderWhenInformation = data.val().whenDescription;
         var renderWhereInformation = data.val().whereDescription;
         var whoInformation = data.val().doerDescription; // In progress:  Update with first names dynamically.
-        var renderWhoInformation = 'who?\n';
+        var renderWhoInformation;
         var appUsersRef = database.ref('app_users');
         var doerEmails = whoInformation.split(', ');
+        var creatorEmail = data.val().creatorDescription;
 
         appUsersRef
           .once('value')
           .then(function(snap) {
             doerUserObjects.length = 0; // Resetting the global variable.
-
+            creatorUserObjects.length = 0;
             snap.forEach(function(childSnap) {
               console.log('Checking childSnaps...');
               // console.log(doerEmails);
@@ -371,12 +373,22 @@ FriendlyChat.prototype.getSession = function() {
                 }
               });
               console.log(doerUserObjects);
+              // creatorEmail.filter(function(givenEmail) {
+              if (creatorEmail === childSnap.val().email) {
+                creatorUserObjects.push(childSnap.val());
+              }
+              // })
             });
             // console.log(doerUserObjects);
           })
-          .then((renderWhoInformation = JSON.stringify(doerUserObjects)));
+          .then(
+            (function() {
+              renderWhoInformation = JSON.stringify(doerUserObjects);
+              renderWhoInformation.concat(JSON.stringify(creatorUserObjects));
+            })()
+          );
 
-        console.log('final results....', doerUserObjects);
+        console.log('final results....', doerUserObjects, creatorUserObjects);
         //
         // if (doerUserObjects) {
         //   renderWhoInformation;
