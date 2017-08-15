@@ -2,7 +2,7 @@
 
 // Use code to coordinate DoWhops.
 var currentSessionID;
-
+var doerUserObjects = [];
 var currentDate = new Date();
 
 var datePicker = new flatpickr('#whenDatePending', {
@@ -351,14 +351,15 @@ FriendlyChat.prototype.getSession = function() {
         var renderWhenInformation = data.val().whenDescription;
         var renderWhereInformation = data.val().whereDescription;
         var whoInformation = data.val().doerDescription; // In progress:  Update with first names dynamically.
-        var renderWhoInformation;
+        var renderWhoInformation = 'who?\n';
         var appUsersRef = database.ref('app_users');
-        var doerUserObjects = [];
         var doerEmails = whoInformation.split(', ');
 
         appUsersRef
           .once('value')
           .then(function(snap) {
+            doerUserObjects.length = 0; // Resetting the global variable.
+
             snap.forEach(function(childSnap) {
               console.log('Checking childSnaps...');
               // console.log(doerEmails);
@@ -372,9 +373,8 @@ FriendlyChat.prototype.getSession = function() {
               console.log(doerUserObjects);
             });
             // console.log(doerUserObjects);
-            return doerUserObjects;
           })
-          .then((renderWhoInformation = doerUserObjects[0]));
+          .then((renderWhoInformation = JSON.stringify(doerUserObjects)));
 
         console.log('final results....', doerUserObjects);
         //
