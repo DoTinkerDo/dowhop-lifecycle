@@ -386,54 +386,45 @@ FriendlyChat.prototype.getSession = function() {
           .then(
             (function() {
               if (creatorUserObjects && creatorUserObjects.length > 0) {
-                renderCreatorIcon =
-                  '<div class="user-avatar-container">' +
-                  "<a href='/profile.html?" +
-                  creatorUserObjects[0].uid +
-                  "'>" +
-                  "<div class='user-avatar'>" +
-                  "<img src='" +
-                  creatorUserObjects[0].photoURL +
-                  "'>" +
-                  '</img>' +
-                  '</div>' +
-                  creatorUserObjects[0].displayName +
-                  '</a>' +
-                  '</div>';
+                _.map(creatorUserObjects, function(userObject) {
+                  renderCreatorIcon +=
+                    '<div class="user-avatar-container">' +
+                    "<a href='/profile.html?" +
+                    userObject.uid +
+                    "'>" +
+                    "<div class='user-avatar'>" +
+                    "<img src='" +
+                    userObject.photoURL +
+                    "'>" +
+                    '</img>' +
+                    '</div>' +
+                    userObject.displayName +
+                    '</a>' +
+                    '</div>';
+                });
               }
 
-              if (doerUserObjects && creatorUserObjects.length > 0) {
-                renderDoerIcons =
-                  '<div class="user-avatar-container">' +
-                  "<a href='/profile.html?" +
-                  doerUserObjects[0].uid +
-                  "'>" +
-                  "<div class='user-avatar'>" +
-                  "<img src='" +
-                  doerUserObjects[0].photoURL +
-                  "'>" +
-                  '</img>' +
-                  '</div>' +
-                  doerUserObjects[0].displayName +
-                  '</a>' +
-                  '</div>';
+              if (doerUserObjects && doerUserObjects.length > 0) {
+                _.map(doerUserObjects, function(userObject) {
+                  renderCreatorIcon +=
+                    '<div class="user-avatar-container">' +
+                    "<a href='/profile.html?" +
+                    userObject.uid +
+                    "'>" +
+                    "<div class='user-avatar'>" +
+                    "<img src='" +
+                    userObject.photoURL +
+                    "'>" +
+                    '</img>' +
+                    '</div>' +
+                    userObject.displayName +
+                    '</a>' +
+                    '</div>';
+                });
               }
-
-              // For initial testing:
-              // var newResult = doerUserObjects.concat(creatorUserObjects);
-              // renderWhoInformation = JSON.stringify(doerUserObjects);
-              // renderWhoInformation = JSON.stringify(newResult);
             })()
           );
-
-        console.log('final results....', doerUserObjects, creatorUserObjects);
-        //
-        // if (doerUserObjects) {
-        //   renderWhoInformation;
-        // } else {
-        //   renderWhoInformation = 'NONE';
-        // }
-
+        // console.log('final results....', doerUserObjects, creatorUserObjects);
         if (data.val().whereAddress && data.val().whereAddress != 'By request') {
           renderWhereInformation = data.val().whereAddress;
         }
@@ -524,6 +515,8 @@ FriendlyChat.prototype.getSession = function() {
     document.getElementById('selector-body') && document.getElementById('selector-body').setAttribute('hidden', 'true');
   }
 };
+
+function generateUserIcon(userObjectsArray) {}
 
 // Loads messages history and listens for upcoming ones:
 FriendlyChat.prototype.loadMessages = function() {
