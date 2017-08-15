@@ -351,8 +351,9 @@ FriendlyChat.prototype.getSession = function() {
         // Adding these logic checks so that when users update their information, new times, dates, etc render in 'View':
         var renderWhenInformation = data.val().whenDescription;
         var renderWhereInformation = data.val().whereDescription;
+        var renderWhoDescription = data.val().whoDescription;
         var whoInformation = data.val().doerDescription; // In progress:  Update with first names dynamically.
-        var renderWhoInformation;
+        var renderUserInformation;
         var appUsersRef = database.ref('app_users');
         var doerEmails = whoInformation.split(', ');
         var creatorEmail = data.val().creatorDescription;
@@ -383,9 +384,18 @@ FriendlyChat.prototype.getSession = function() {
           })
           .then(
             (function() {
-              var newResult = doerUserObjects.concat(creatorUserObjects);
+              // var newResult;
+              var creatorUserDiv = document.createElement('div');
+              creatorUserDiv.innerHTML = '<div>' + creatorUserObjects + '</div>';
+              // var doerUsersDiv = document.createElement('div');
+
+              // newResult = creatorUserDiv;
+              renderUserInformation = creatorUserDiv;
+
+              // For initial testing:
+              // var newResult = doerUserObjects.concat(creatorUserObjects);
               // renderWhoInformation = JSON.stringify(doerUserObjects);
-              renderWhoInformation = JSON.stringify(newResult);
+              // renderWhoInformation = JSON.stringify(newResult);
             })()
           );
 
@@ -430,9 +440,11 @@ FriendlyChat.prototype.getSession = function() {
           '</h1>' +
           '</div>' +
           '<div id="selector-body" class="mdl-layout__content dowhop-selector-body">' +
+          '<h3>Users</h3>' +
+          renderUserInformation +
           '<h3>Who?</h3>' +
           '<p>' +
-          renderWhoInformation +
+          renderWhoDescription +
           '</p>' +
           '<h3>Why?</h3>' +
           '<p>' +
