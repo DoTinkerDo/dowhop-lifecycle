@@ -353,7 +353,8 @@ FriendlyChat.prototype.getSession = function() {
         var renderWhereInformation = data.val().whereDescription;
         var renderWhoDescription = data.val().whoDescription;
         var whoInformation = data.val().doerDescription; // In progress:  Update with first names dynamically.
-        var renderUserInformation;
+        var renderCreatorIcon = '';
+        var renderDoerIcons = '';
         var appUsersRef = database.ref('app_users');
         var doerEmails = whoInformation.split(', ');
         var creatorEmail = data.val().creatorDescription;
@@ -384,13 +385,18 @@ FriendlyChat.prototype.getSession = function() {
           })
           .then(
             (function() {
-              // var newResult;
-              var creatorUserDiv = document.createElement('div');
-              creatorUserDiv.innerHTML = '<div>' + creatorUserObjects + '</div>';
-              // var doerUsersDiv = document.createElement('div');
-
-              // newResult = creatorUserDiv;
-              renderUserInformation = creatorUserDiv;
+              renderCreatorIcon =
+                '<div>' +
+                "<a href='/profile.html?" +
+                creatorUserObjects[0].uid +
+                "'>" +
+                creatorUserObjects[0].displayName +
+                '</a>' +
+                '</div>';
+              renderDoerIcons = '<div>' + "<a href=''>" + doerUserObjects[0].displayName + '</a>' + '</div>';
+              // New
+              // renderCreatorIcon = creatorUserObjects[0].displayName;
+              // renderDoerIcons = doerUserObjects[0].displayName;
 
               // For initial testing:
               // var newResult = doerUserObjects.concat(creatorUserObjects);
@@ -441,7 +447,8 @@ FriendlyChat.prototype.getSession = function() {
           '</div>' +
           '<div id="selector-body" class="mdl-layout__content dowhop-selector-body">' +
           '<h3>Users</h3>' +
-          renderUserInformation +
+          renderCreatorIcon +
+          renderDoerIcons +
           '<h3>Who?</h3>' +
           '<p>' +
           renderWhoDescription +
