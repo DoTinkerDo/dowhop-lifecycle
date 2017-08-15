@@ -387,11 +387,11 @@ FriendlyChat.prototype.getSession = function() {
             (function() {
               if (creatorUserObjects && creatorUserObjects.length > 0) {
                 renderCreatorIcon =
-                  '<div>' +
+                  '<div class="user-avatar-container">' +
                   "<a href='/profile.html?" +
                   creatorUserObjects[0].uid +
                   "'>" +
-                  "<div class='avatar'>" +
+                  "<div class='user-avatar'>" +
                   "<img src='" +
                   creatorUserObjects[0].photoURL +
                   "'>" +
@@ -404,11 +404,11 @@ FriendlyChat.prototype.getSession = function() {
 
               if (doerUserObjects && creatorUserObjects.length > 0) {
                 renderDoerIcons =
-                  '<div>' +
+                  '<div class="user-avatar-container">' +
                   "<a href='/profile.html?" +
                   doerUserObjects[0].uid +
                   "'>" +
-                  "<div class='avatar'>" +
+                  "<div class='user-avatar'>" +
                   "<img src='" +
                   doerUserObjects[0].photoURL +
                   "'>" +
@@ -468,8 +468,10 @@ FriendlyChat.prototype.getSession = function() {
           '</div>' +
           '<div id="selector-body" class="mdl-layout__content dowhop-selector-body">' +
           '<h3>Users</h3>' +
+          '<div class="user-avatar-section">' +
           renderCreatorIcon +
           renderDoerIcons +
+          '</div>' +
           '<h3>Who?</h3>' +
           '<p>' +
           renderWhoDescription +

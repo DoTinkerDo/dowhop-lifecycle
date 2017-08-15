@@ -1,12 +1,34 @@
-.avatar {
-  height: 200px;
-  width: 200px;
+/* For styling user icons throughout the application */
+
+.user-avatar-section {
+  /* user this to style the layout for multiple user icons (spacing, sizings, etc) on View page. */
+}
+
+.user-avatar-container {
+  display: flex;
+  justify-content: center;
+  padding: 3%;
+}
+
+.user-avatar-container a {
+  text-decoration: none;
+  color: #ec1928;
+}
+
+.user-avatar-container a:visited {
+  text-decoration: none;
+  color: #ec1928;
+}
+
+.user-avatar {
+  height: 100px;
+  width: 100px;
   margin: 0 auto 2em;
 }
 
-.avatar img {
-  height: 200px;
-  width: 200px;
+.user-avatar img {
+  height: 100px;
+  width: 100px;
   margin: 0 auto;
   border-radius: 50%;
 }
