@@ -454,32 +454,31 @@ FriendlyChat.prototype.getSession = function() {
           '</h1>' +
           '</div>' +
           '<div id="selector-body" class="mdl-layout__content dowhop-selector-body">' +
-          '<h3>Users</h3>' +
           '<div class="user-avatar-section">' +
           renderCreatorIcon +
           renderDoerIcons +
           '</div>' +
-          '<h3>Who?</h3>' +
-          '<p>' +
-          renderWhoDescription +
-          '</p>' +
-          '<h3>Why?</h3>' +
+          '<h4>Why?</h4>' +
           '<p>' +
           data.val().whyDescription +
           '</p>' +
-          '<h3>What?</h3>' +
+          '<h4>Who?</h4>' +
+          '<p>' +
+          renderWhoDescription +
+          '</p>' +
+          '<h4>What?</h4>' +
           '<p>' +
           data.val().whatDescription +
           '</p>' +
-          '<h3>When?</h3>' +
+          '<h4>When?</h4>' +
           '<p>' +
           renderWhenInformation +
           '</p>' +
-          '<h3>Where?</h3>' +
+          '<h4>Where?</h4>' +
           '<p>' +
           renderWhereInformation +
           '</p>' +
-          '<h3>How much?</h3>' +
+          '<h4>How much?</h4>' +
           '<p>' +
           data.val().howMuchDescription +
           '</p>' +
