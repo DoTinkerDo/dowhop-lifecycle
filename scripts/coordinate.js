@@ -394,7 +394,9 @@ FriendlyChat.prototype.getSession = function() {
                     "'>" +
                     '</img>' +
                     '</div>' +
+                    '<div class="user-handle">' +
                     userObject.displayName +
+                    '</div>' +
                     '</a>' +
                     '</div>';
                 });
@@ -408,12 +410,14 @@ FriendlyChat.prototype.getSession = function() {
                     userObject.uid +
                     "'>" +
                     "<div class='user-avatar'>" +
-                    "<img src='" +
+                    "<img class='user-avatar' src='" +
                     userObject.photoURL +
                     "'>" +
                     '</img>' +
                     '</div>' +
+                    '<div class="user-handle">' +
                     userObject.displayName +
+                    '</div>' +
                     '</a>' +
                     '</div>';
                 });
@@ -464,6 +468,7 @@ FriendlyChat.prototype.getSession = function() {
           renderCreatorIcon +
           renderDoerIcons +
           '</div>' +
+          '<div class="mdl-card__supporting-text">' +
           '<h4>Why?</h4>' +
           '<p>' +
           data.val().whyDescription +
@@ -488,6 +493,7 @@ FriendlyChat.prototype.getSession = function() {
           '<p>' +
           data.val().howMuchDescription +
           '</p>' +
+          '</div>' +
           '</div>' +
           '</section>');
       }

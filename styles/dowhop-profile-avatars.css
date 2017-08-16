@@ -1,23 +1,33 @@
 /* For styling user icons throughout the application */
 
+/* user this to style the layout for multiple user icons (spacing, sizings, etc) on View page. */
+
 .user-avatar-section {
-  /* user this to style the layout for multiple user icons (spacing, sizings, etc) on View page. */
+  display: inline-flex;
+  justify-content: flex-start;
 }
 
 .user-avatar-container {
   display: flex;
   justify-content: center;
-  padding: 3%;
+  flex-wrap: wrap;
+  padding: 5%;
 }
 
 .user-avatar-container a {
   text-decoration: none;
   color: #ec1928;
+  display: block;
 }
 
 .user-avatar-container a:visited {
   text-decoration: none;
   color: #ec1928;
+}
+
+.user-handle {
+  display: flex;
+  justify-content: center;
 }
 
 .user-avatar {
@@ -31,4 +41,5 @@
   width: 100px;
   margin: 0 auto;
   border-radius: 50%;
+  padding: 5%;
 }
