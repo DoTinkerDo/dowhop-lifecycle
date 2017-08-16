@@ -43,3 +43,8 @@
   border-radius: 50%;
   padding: 5%;
 }
+
+.user-avatar-separator {
+  height: 100%;
+  color: #000000;
+}

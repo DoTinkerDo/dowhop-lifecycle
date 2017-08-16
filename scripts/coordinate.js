@@ -400,6 +400,9 @@ FriendlyChat.prototype.getSession = function() {
                     '</a>' +
                     '</div>';
                 });
+                // Adding a closing segment that will separate Creators from Doers in View:
+                renderCreatorIcon +=
+                  '<div class="user-avatar-container user-avatar-separator">' + 'will meet' + '</div>';
               }
 
               if (doerUserObjects && doerUserObjects.length > 0) {
