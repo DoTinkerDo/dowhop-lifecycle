@@ -454,6 +454,12 @@ FriendlyChat.prototype.getSession = function() {
           '</h1>' +
           '</div>' +
           '<div id="selector-body" class="mdl-layout__content dowhop-selector-body">' +
+          '<div class="mdl-card__title">' +
+          '<h1 class="mdl-card__title-text">' +
+          doWhopDescriptionTitle +
+          ' Description' +
+          '</h1>' +
+          '</div>' +
           '<div class="user-avatar-section">' +
           renderCreatorIcon +
           renderDoerIcons +

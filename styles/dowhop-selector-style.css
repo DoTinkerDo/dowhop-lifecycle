@@ -78,7 +78,9 @@ h2 {
 }
 
 .dowhop-selector-body {
-  padding: 5%;
+  width: 100%;
+  padding: 0;
+  padding-top: 2%;
 }
 
 .middle {
