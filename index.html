@@ -176,7 +176,6 @@
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input class="mdl-textfield__input" type="text" id="title-description" placeholder="Do this with me">
                   <label class="mdl-textfield__label" for="title-description">DoWhop Title</label>
-                  <div class="mdl-tooltip" for="title-description">Write what you'll DO!</div>
                 </div>
 
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -187,6 +186,10 @@
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input class="mdl-textfield__input" type="text" id="who-description" placeholder="This many people with this skill level">
                   <label class="mdl-textfield__label" for="who-description">Who Should Join?</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="who-am-i-description" placeholder="I have this skill level and this background/experience">
+                  <label class="mdl-textfield__label" for="who-am-i-description">Who Am I?</label>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                   <input class="mdl-textfield__input" type="text" id="what-description" placeholder="I bring this, you bring that, we will make this">
@@ -205,29 +208,29 @@
                   <label class="mdl-textfield__label" for="how-description">How much will it cost?</label>
                 </div>
                 <div class="mdl-card__actions">
-                <div id="create-outer-div">
-                  <div id="create-div-1">
-                     <label for="dowhop-image-capture1">
-                       <i class="material-icons">perm_media</i>
-                       <input class="image-capture hide-component" id="dowhop-image-capture1" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
-                     </label>
-                   </div>
-                   <div id="create-div-2">
-                     <label for="dowhop-image-capture2">
-                       <i class="material-icons">perm_media</i>
-                       <input class="image-capture hide-component" id="dowhop-image-capture2" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
-                     </label>
-                   </div>
-                   <div id="create-div-3">
-                     <label for="dowhop-image-capture3">
-                       <i class="material-icons">perm_media</i>
-                       <input class="image-capture hide-component" id="dowhop-image-capture3" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
-                     </label>
-                   </div>
-                </div>
-                <button class="btn btn-default" id="create-new-dowhop">
-                  Create
-                </button>
+                  <div id="add-images-div">
+                    <div id="add-image-1-div">
+                      <label for="dowhop-image-capture1">
+                        <i class="material-icons">perm_media</i>
+                        <input class="image-capture hide-component" id="dowhop-image-capture1" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
+                      </label>
+                    </div>
+                    <div id="add-image-2-div">
+                      <label for="dowhop-image-capture2">
+                        <i class="material-icons">perm_media</i>
+                        <input class="image-capture hide-component" id="dowhop-image-capture2" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
+                      </label>
+                    </div>
+                    <div id="add-image-3-div">
+                      <label for="dowhop-image-capture3">
+                        <i class="material-icons">perm_media</i>
+                        <input class="image-capture hide-component" id="dowhop-image-capture3" type="file" accept="image/*" capture="camera" onchange="addDoWhopImage(this.files, this)">
+                      </label>
+                    </div>
+                  </div>
+                  <button class="btn btn-default" id="create-new-dowhop">
+                    Add To Marketplace
+                  </button>
                 </div>
               </form>
             </div>
