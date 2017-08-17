@@ -16,7 +16,8 @@ var datePicker = new flatpickr('#whenDatePending', {
 function getSesh(clickedID) {
   setLandingTab(clickedID); // New.
   console.log('running getSesh...');
-  FriendlyChat.prototype.getSession();
+  console.log(creatorUserObjects, doerUserObjects);
+  FriendlyChat.prototype.getSession(key);
 }
 
 FriendlyChat.prototype.getSessionTab = function() {
@@ -242,11 +243,12 @@ FriendlyChat.prototype.removeChats = function() {
   this.messageList.innerHTML = '';
 };
 
-FriendlyChat.prototype.getSession = function() {
+FriendlyChat.prototype.getSession = function(DoWhopID) {
+  console.log('Running getsession');
   // I. Link to db where we want to listen.
   var user = person;
   var userID = person.uid;
-  var currentDoWhopID;
+  var currentDoWhopID = DoWhopID;
   var currentTabID;
   // var mySessionRef = firebase.database().ref('session/' + userID);
   var messagesRef = firebase.database().ref().child('messages/');
@@ -268,7 +270,7 @@ FriendlyChat.prototype.getSession = function() {
 
   // All cases, check which item we're currently on:
   sessionRef.on('value', function(snap) {
-    currentDoWhopID = snap.val().current_dowhop;
+    // currentDoWhopID = snap.val().current_dowhop;
     currentTabID = snap.val().current_tab;
   });
   // console.log("current location:", currentDoWhopID, '---', currentTabID); // <-- Debugging.
@@ -363,11 +365,10 @@ FriendlyChat.prototype.getSession = function() {
         appUsersRef
           .once('value')
           .then(function(snap) {
+            console.log('Resetting the values...');
             doerUserObjects.length = 0; // Resetting the global variable.
             creatorUserObjects.length = 0;
             snap.forEach(function(childSnap) {
-              // console.log('Checking childSnaps...');
-              // console.log(doerEmails);
               doerEmails.filter(function(doerEmail) {
                 if (doerEmail === childSnap.val().email) {
                   // console.log('it matches!');
@@ -383,6 +384,7 @@ FriendlyChat.prototype.getSession = function() {
           .then(
             (function() {
               if (creatorUserObjects && creatorUserObjects.length > 0) {
+                console.log('Composing Creator Objects...');
                 _.map(creatorUserObjects, function(userObject) {
                   renderCreatorIcon +=
                     '<div class="user-avatar-container">' +
@@ -407,6 +409,7 @@ FriendlyChat.prototype.getSession = function() {
               }
 
               if (doerUserObjects && doerUserObjects.length > 0) {
+                console.log('Composing Doer Objects...');
                 _.map(doerUserObjects, function(userObject) {
                   renderCreatorIcon +=
                     '<div class="user-avatar-container">' +
@@ -449,7 +452,7 @@ FriendlyChat.prototype.getSession = function() {
             ' at: ' +
             moment(data.val().whenDate).format('h:mmA');
         }
-
+        console.log('Returning View div...');
         return (doWhopSelectorDiv +=
           "<section id='" +
           data.key +

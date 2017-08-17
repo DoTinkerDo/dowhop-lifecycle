@@ -206,10 +206,12 @@ function toggleDoWhopDescriptionImage(element) {
 // for the currentUser
 // plus showEditForm and FillInEditForm
 function setSession(doWhopSelector) {
+  console.log('Running setSession....');
   // Note: this is an important order of operations:
   var key = doWhopSelector.id;
   database.ref('session').child(person.uid).update({ current_dowhop: key });
-  FriendlyChat.prototype.getSession(); // new
+  console.log(creatorUserObjects, doerUserObjects);
+  FriendlyChat.prototype.getSession(key); // new
 }
 
 function showEditForm(doWhopSelector) {
