@@ -154,7 +154,7 @@ exports.DoWhopDescriptionAlert = functions.database.ref('/DoWhopDescriptions/{pu
     return tokens;
   });
 
-  logRef.push(logDetails);
+  const logRef = admin.database().ref('log/');
 
   // getUser is for testing purposes only...
   const getUser = admin.auth().getUser('VYw0lPDFD3btHJadneuSFGjy8wk1');
