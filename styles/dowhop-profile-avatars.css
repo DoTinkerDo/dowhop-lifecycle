@@ -3,21 +3,18 @@
 /* user this to style the layout for multiple user icons (spacing, sizings, etc) on View page. */
 
 .user-avatar-section {
-  display: inline-flex;
-  justify-content: flex-start;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .user-avatar-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 5%;
+  padding: 2%;
+  flex-shrink: 10;
 }
 
 .user-avatar-container a {
   text-decoration: none;
   color: #ec1928;
-  display: block;
 }
 
 .user-avatar-container a:visited {
@@ -45,6 +42,7 @@
 }
 
 .user-avatar-separator {
-  height: 100%;
+  height: 50%;
   color: #000000;
+  margin-top: 5%;
 }

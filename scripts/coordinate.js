@@ -15,6 +15,7 @@ var datePicker = new flatpickr('#whenDatePending', {
 
 function getSesh(clickedID) {
   setLandingTab(clickedID); // New.
+  console.log('running getSesh...');
   FriendlyChat.prototype.getSession();
 }
 
@@ -467,7 +468,7 @@ FriendlyChat.prototype.getSession = function() {
           ' Description' +
           '</h1>' +
           '</div>' +
-          '<div class="user-avatar-section">' +
+          '<div class=" user-avatar-section">' +
           renderCreatorIcon +
           renderDoerIcons +
           '</div>' +
