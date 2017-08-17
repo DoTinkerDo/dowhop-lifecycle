@@ -801,8 +801,8 @@ button {
   font-family: inherit;
 }
 
-#create-outer-div {
-  text-align:center;
+#add-images-div {
+  text-align: center;
   height: 50px;
   width: 300px;
 }
