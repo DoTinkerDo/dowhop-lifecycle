@@ -310,6 +310,7 @@ function socialMediaTW() {
     console.log(currentProfile);
     let twitter = String(snap.val().profileSocialTW);
     if (!snap.val().profileSocialTW) {
+      console.log("hello");
     } else {
       window.open(twitter, '_blank');
     }
