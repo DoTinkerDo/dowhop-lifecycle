@@ -5,10 +5,6 @@ var doWhopDescriptionRootRef = database.ref('DoWhopDescriptions/');
 var editDoWhopForm = document.getElementById('edit-dowhop-form');
 var submitUpdateDoWhopBtn = document.getElementById('submit-update-dowhop');
 
-editDoWhopForm.addEventListener('click', function(e) {
-  e.preventDefault();
-});
-
 submitUpdateDoWhopBtn.addEventListener('click', createDoWhop);
 
 function createDoWhop(event) {
