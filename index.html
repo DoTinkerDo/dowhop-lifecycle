@@ -281,6 +281,38 @@
                 <input class="mdl-textfield__input" type="text" id="doerDescription" placeholder="doer@example.com">
                 <label class="mdl-textfield__label" for="doerDescription">Who is attending this DoWhop (email, please)?</label>
               </div>
+
+              <div class="edit-form-images">
+                <!--These images get their src dynamically through edit.js from firebase storage  -->
+                <div>
+                  <img id="image1" src="">
+                  <div id="edit-div-1">
+                    <label for="dowhop-image-capture1">
+                      <i class="material-icons">perm_media</i>
+                      <input class="image-capture hide-component" id="edit-image-capture1" type="file" accept="image/*" capture="camera" onchange="">
+                    </label>
+                  </div>
+                </div>
+                <div>
+                  <img id="image2" src="">
+                  <div id="edit-div-2">
+                    <label for="dowhop-image-capture2">
+                      <i class="material-icons">perm_media</i>
+                      <input class="image-capture hide-component" id="edit-image-capture2" type="file" accept="image/*" capture="camera" onchange="">
+                    </label>
+                  </div>
+                </div>
+                <div>
+                  <img id="image3" src="">
+                  <div id="edit-div-3">
+                    <label for="dowhop-image-capture3">
+                      <i class="material-icons">perm_media</i>
+                      <input class="image-capture hide-component" id="edit-image-capture3" type="file" accept="image/*" capture="camera" onchange="">
+                    </label>
+                  </div>                
+                </div>
+              </div>
+
               <!-- END NEW -->
               <di v class="mdl-card__actions">
               <!-- <input id="dowhop-image-capture" type="file" accept="image/*,capture=camera" onchange="addDoWhopImage(this.files, this)"> -->

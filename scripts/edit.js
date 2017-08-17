@@ -245,6 +245,9 @@ function fillInEditForm(doWhopSelector) {
         document.getElementById('howMuchDescription').value = doWhopDescription.howMuchDescription;
         document.getElementById('creatorDescription').value = doWhopDescription.creatorDescription;
         document.getElementById('doerDescription').value = doWhopDescription.doerDescription;
+        document.getElementById('image1').src = doWhopDescription.downloadURL.image1;
+        document.getElementById('image2').src = doWhopDescription.downloadURL.image2;
+        document.getElementById('image3').src = doWhopDescription.downloadURL.image3;
         // document.getElementById('howMuchCost').value = doWhopDescription.howMuchCost;
       }
     });
