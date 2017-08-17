@@ -28,27 +28,32 @@ function createPathDM(user1, user2) {
 function sendDirectMessage(e) {
   e.preventDefault();
   var message = document.getElementById('direct-message-form-input');
-  var senderRef = firebase.database().ref('/app_users').child(getPersonOne());
-  var recipientRef = firebase.database().ref('/app_users').child(getPersonTwo());
 
-  var refTail = createPathDM(getPersonOne(), getPersonTwo());
-  var chatDMref = firebase.database().ref('/direct-messages').child(refTail);
+  if (message.value && (message.value !== '' && message.value !== ' ')) {
+    var senderRef = firebase.database().ref('/app_users').child(getPersonOne());
+    var recipientRef = firebase.database().ref('/app_users').child(getPersonTwo());
 
-  var senderName = '';
-  senderName = firebase.auth().currentUser.displayName; // Check.
+    var refTail = createPathDM(getPersonOne(), getPersonTwo());
+    var chatDMref = firebase.database().ref('/direct-messages').child(refTail);
 
-  var recipientName = '';
-  recipientRef.once('value', function(snap) {
-    recipientName = snap.val().displayName;
-  });
+    var senderName = '';
+    senderName = firebase.auth().currentUser.displayName; // Check.
 
-  chatDMref
-    .push({
-      from: senderName,
-      to: recipientName,
-      body: message.value
-    })
-    .then(document.getElementById('direct-message-form').reset());
+    var recipientName = '';
+    recipientRef.once('value', function(snap) {
+      recipientName = snap.val().displayName;
+    });
+
+    chatDMref
+      .push({
+        from: senderName,
+        to: recipientName,
+        body: message.value
+      })
+      .then(document.getElementById('direct-message-form').reset());
+  } else {
+    window.alert('You must fill out the message input!');
+  }
 }
 
 function revealFormDM(e) {
