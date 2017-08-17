@@ -128,42 +128,52 @@ exports.DoWhopDescriptionLocationAlert = functions.database
     });
   });
 
-// exports.DoWhopDescriptionAlert = functions.database.ref('/DoWhopDescriptions/{pushKey}').onWrite(event => {
-//   const newDescription = event.data.val();
-//   const key = event.params.pushKey;
+exports.DoWhopDescriptionAlert = functions.database.ref('/DoWhopDescriptions/{pushKey}').onWrite(event => {
+  const newDescription = event.data.val();
+  const key = event.params.pushKey;
 
-//   // console.log('DESCRIPTION-ALERT', newDescription);
+  // console.log('DESCRIPTION-ALERT', newDescription);
+  console.log('DESCRIPTION-ALERT -> ', newDescription);
 
-//   const getTokens = admin.database().ref('app_users').once('value').then(snapshot => {
-//     const tokens = [
-//       'ctP8hLYg7CQ:APA91bHdby2BZuag0HJJxHudP4rBQxfnjFSbOFCkwfuUGIklDkqIS_x7OuODj9YO70eaHd9Pzs8SI5hzI_TsatW9tCTFU2amyVlzbjvwbZmske5dRi6J5ZIUlnIBUzIKsWgsxKSGqM1C'
-//     ];
-//     snapshot.forEach(user => {
-//       const token = user.child('token').val();
-//       const doerDescription = (newDescription && newDescription.doerDescription) || '';
-//       const creatorDescription = (newDescription && newDescription.creatorDescription) || '';
-//       if (
-//         token &&
-//         (doerDescription.split(', ').some(doerDescriptionEmail => doerDescriptionEmail === user.val().email) ||
-//           creatorDescription === user.val().email)
-//       ) {
-//         tokens.push(token);
-//       }
-//     });
-//     return tokens;
-//   });
+  const getTokens = admin.database().ref('app_users').once('value').then(snapshot => {
+    const tokens = [
+      'ctP8hLYg7CQ:APA91bHdby2BZuag0HJJxHudP4rBQxfnjFSbOFCkwfuUGIklDkqIS_x7OuODj9YO70eaHd9Pzs8SI5hzI_TsatW9tCTFU2amyVlzbjvwbZmske5dRi6J5ZIUlnIBUzIKsWgsxKSGqM1C'
+    ];
+    snapshot.forEach(user => {
+      const token = user.child('token').val();
+      const doerDescription = (newDescription && newDescription.doerDescription) || '';
+      const creatorDescription = (newDescription && newDescription.creatorDescription) || '';
+      if (
+        token &&
+        (doerDescription.split(', ').some(doerDescriptionEmail => doerDescriptionEmail === user.val().email) ||
+          creatorDescription === user.val().email)
+      ) {
+        tokens.push(token);
+      }
+    });
+    return tokens;
+  });
 
-//   // getUser is for testing purposes only...
-//   const getUser = admin.auth().getUser('VYw0lPDFD3btHJadneuSFGjy8wk1');
+  logRef.push(logDetails);
 
-//   Promise.all([getTokens, getUser]).then(([tokens, user]) => {
-//     const payload = {
-//       notification: {
-//         title: (newDescription && newDescription.titleDescription) || 'DoWhopTitle Placeholder',
-//         body: 'Has been created and or updated',
-//         icon: doWhopIcon
-//       }
-//     };
-//     admin.messaging().sendToDevice(tokens, payload).catch(error => console.log('ERROR IN INDEX.js -> ', error));
-//   });
-// });
+  // getUser is for testing purposes only...
+  const getUser = admin.auth().getUser('VYw0lPDFD3btHJadneuSFGjy8wk1');
+
+  Promise.all([getTokens, getUser]).then(([tokens, user]) => {
+    const payload = {
+      notification: {
+        title: (newDescription && newDescription.titleDescription) || 'Title not found :(',
+        body: 'Has been created and or updated',
+        icon: doWhopIcon
+      }
+    };
+    const logDetails = {
+      DoWhop: (newDescription && newDescription.titleDescription) || 'Title not found :(',
+      alert: 'Has been created and or updated',
+      dateUTC: moment().format('dddd, MMMM Do YYYY, h:mm:ss a'),
+      icon: doWhopIcon
+    };
+    logRef.push(logDetails);
+    admin.messaging().sendToDevice(tokens, payload).catch(error => console.log('ERROR IN INDEX.js -> ', error));
+  });
+});
