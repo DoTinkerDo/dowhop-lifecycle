@@ -51,6 +51,16 @@
       setLandingTab(window.location.hash.match(/#(.+)/)[1]);
     }
     // TO-DO: Alternative option is to restore a "saved session."
+
+    var sessionRef = database.ref('/session').child(user.uid);
+    var currentTab;
+    // sessionRef.on('value', function(snap) {
+    //   currentTab = snap.val();
+    // });
+    sessionRef.once('value').then(function(snap) {
+      currentTab = snap.val();
+      console.log('current DoWhop upon first visit', currentTab.current_dowhop);
+    });
   }
 
   function handleSignedOutUser() {
