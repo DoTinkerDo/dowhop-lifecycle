@@ -1,7 +1,8 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const config = functions.config();
 
-admin.initializeApp(functions.config().firebase);
+admin.initializeApp(config.firebase);
 
 const doWhopIcon =
   'https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/dowhop-icons%2Fdowhop-icon.png?alt=media&token=4ce2cb46-d5f0-4bbc-bb9d-b25ca886e634';
