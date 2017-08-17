@@ -46,12 +46,12 @@
 <body>
 <div class='container'>
   <div class='content-grid mdl-grid'>
-  <div class='mdl-cell mdl-cell--12-col '>
-    <img class='background-photo' src="https://static.wixstatic.com/media/de271e_197b08d22f27418eb9d45e9c52b135b8~mv2.jpg/v1/fill/w_790,h_243,al_c,lg_1,q_80/de271e_197b08d22f27418eb9d45e9c52b135b8~mv2.webp">
+  <div class='mdl-cell mdl-cell--12-col mdl-cell--4-col-phone'>
+    <img class='background-photo' id="background-photo" src="https://static.wixstatic.com/media/de271e_197b08d22f27418eb9d45e9c52b135b8~mv2.jpg/v1/fill/w_790,h_243,al_c,lg_1,q_80/de271e_197b08d22f27418eb9d45e9c52b135b8~mv2.webp">
   </div>
 
   <div class="content-grid mdl-grid" style="justify-content:center; align-items:center;">
-    <div class ="my-profile-picture mdl-cell mdl-cell--8-col">
+    <div class ="my-profile-picture mdl-cell mdl-cell--8-col mdl-cell--1-col-phone">
       <img id="my-profile-picture" src="" alt="User profile image."/>
     </div>
     <div class="about-div mdl-cell mdl-cell--8-col mdl-cell--2-col-phone">
@@ -62,7 +62,7 @@
 
 
   <div class='mdl-grid grid1'>
-    <div class= 'mdl-cell mdl-cell--4-col' style = "margin-top:-15px;">
+    <div class= 'mdl-cell mdl-cell--4-col mdl-cell--2-col-phone' style = "margin-top:-15px;">
       <div class="grid2" id="my-display-name"></div>
       <div class='grid2' id="my-profile-name"></div>
       <div class="grid2">
@@ -115,15 +115,15 @@
       </button>
     </div>
 
-    <div class='profile-activities-div2'>
-      <div class="mdl-cell mdl-cell--7-col outer-box ">
+    <div class='profile-activities-div2 mdl cellmdl-cell--2-col-phone'>
+      <div class="mdl-cell mdl-cell--7-col outer-box personalAct" id="activity1">
         <img class="activity-image" id="activity-image-1" src="/images/placeholder-image1.png" alt="">
         <div class="inner-box">
           <p>Love to Do</p>
         </div>
         <div class="activity activity-caption" id="my-profile-activity-1"></div>
       </div>
-      <div class="outer-box mdl-cell mdl-cell--4-col">
+      <div class="outer-box mdl-cell mdl-cell--4-col personalAct">
         <img class="activity-image" id="activity-image-2" src="/images/placeholder-image2.png" alt="">
         <div class="inner-box">
           <p>Love to Do</p>
@@ -131,7 +131,7 @@
         <div class="activity activity-caption" id="my-profile-activity-2"></div>
       </div>
 
-      <div class="outer-box mdl-cell mdl-cell--4-col">
+      <div class="outer-box mdl-cell mdl-cell--4-col personalAct">
         <img class="activity-image" id="activity-image-3" src="/images/placeholder-image3.png" alt="">
         <div class="inner-box">
           <p>Love to Do</p>
