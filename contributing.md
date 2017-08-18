@@ -1,19 +1,36 @@
 # DoWhop.com Contributor's Guide
-##### July 2017
+##### Updated Aug. 2017
 
 ## Members
 
-Current members of the DoWhop team are called TinkerDos. They are:
+Current members of the DoWhop Tech Team:
 
 * [@johannbillar](https://github.com/johannbillar)
-* [@omarchaeopteryx](https://github.com/omarchaeopteryx)
-* [@belalaboabdo](https://github.com/belalaboabdo)
-* [@kearobi](https://github.com/kearobi)
+* [@omarchaeopteryx](https://github.com/omarcodex)
 * [@tinkerdo](https://github.com/tinkerdo)
+* []() { Mike }
+* { Shahariyar }
+* { Tarek }
 
-## Practices
+## Preferred Practices
 
-We recommend that contributors open a pull request and require a review by another member of the team for adding in new features. For bug squashing, we can discuss this on a case-by-case basis.
+### Overview
+
+We approach development using an Agile philosophy. We try to commit often, communicate clearly, and embrace DoWhop's core values of being kind, bold, and daring.
+
+### GitHub
+
+Branching
+* Our approach is to name a branch using your name followed by a dash followed by the feature and/or page you're working on. For example, `keaton-add-profile-icons` or `erik-update-dowhop-create-form`.
+
+Committing
+* Write clear messages in the active voice (e.g., "Add profile nickname edit form"). Commit often so that other members of the team can easily know what you did.
+
+Pull Requests
+* When submitting a pull request, please tag another member of the team for a code review. That member should test the code locally before approving and merging the request.
+
+
+### Coding
 
 General stylings regarding best code practices **coming soon**. For now:
 
