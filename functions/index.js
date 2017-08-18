@@ -43,34 +43,36 @@ exports.ChatMessageAlert = functions.database.ref('/messages/{pushKey}/').onWrit
   });
 });
 
-exports.DoWhopDescriptionDateAlert = functions.database.ref('/DoWhopDescriptions/{pushKey}/whenDate').onWrite(event => {
-  const newDate = event.data.val();
-  const previousDate = event.data.previous.val();
-  const key = event.params.pushKey;
+exports.DoWhopDescriptionDateAlert = functions.database
+  .ref('/DoWhopDescriptions/{pushKey}/whenDateTime')
+  .onWrite(event => {
+    const newDate = event.data.val();
+    const previousDate = event.data.previous.val();
+    const key = event.params.pushKey;
 
-  console.log('NEW-DATE -> ', newDate, ' ====== ', previousDate, ' ====== ', key);
+    console.log('NEW-DATE -> ', newDate, ' ====== ', previousDate, ' ====== ', key);
 
-  const getDoWhopDescriptionTitle = admin
-    .database()
-    .ref('DoWhopDescriptions')
-    .child(key)
-    .once('value')
-    .then(snapshot => {
-      return snapshot.val().titleDescription;
+    const getDoWhopDescriptionTitle = admin
+      .database()
+      .ref('DoWhopDescriptions')
+      .child(key)
+      .once('value')
+      .then(snapshot => {
+        return snapshot.val().titleDescription;
+      });
+
+    const logRef = admin.database().ref('log/');
+
+    Promise.all([tokens, getDoWhopDescriptionTitle]).then(([tokens, title]) => {
+      const logDetails = {
+        DoWhop: title || 'Title not found :(',
+        alert: `Date changed to ${newDate} from ${previousDate}`,
+        dateUTC: moment().format('dddd, MMMM Do YYYY, h:mm:ss a'),
+        icon: doWhopIcon
+      };
+      logRef.push(logDetails);
     });
-
-  const logRef = admin.database().ref('log/');
-
-  Promise.all([tokens, getDoWhopDescriptionTitle]).then(([tokens, title]) => {
-    const logDetails = {
-      DoWhop: title || 'Title not found :(',
-      alert: `Date changed to ${newDate} from ${previousDate}`,
-      dateUTC: moment().format('dddd, MMMM Do YYYY, h:mm:ss a'),
-      icon: doWhopIcon
-    };
-    logRef.push(logDetails);
   });
-});
 
 exports.DoWhopDescriptionLocationAlert = functions.database
   .ref('/DoWhopDescriptions/{pushKey}/whereAddress')
