@@ -256,15 +256,16 @@ function fillInEditForm(doWhopSelector) {
 function addImageToFirebase(file) {
   var currentImageNumber = event.target.getAttribute('data-image-num');
   var currentDoWhopID = document.getElementById('dowhop-selector-container').firstChild.id;
-  // console.log('file', file);
-  // console.log('doWhopSelector', doWhopSelector);
-  // var filePath = 'userImages/' + uid + '/' + 'profileActivityImages/' + file[0].name;
   var filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + currentDoWhopID + '/' + file[0].name;
-  // console.log(filePath);
+
   storage.ref(filePath).put(file[0]).then(function(snapshot) {
     var path = snapshot.metadata.fullPath;
     storage.ref(path).getDownloadURL().then(function(url) {
-      // console.log('url', url);
+      //set potential download URL to sessionStorage for current image number. Potential download URL will become actually URL
+      //when form is submitted
+      sessionStorage.setItem('potentialUrlForImage' + currentImageNumber, url);
+      //set changed flag to true for current image
+      sessionStorage.setItem('image' + currentImageNumber + 'Changed', true);
     });
   });
 }
