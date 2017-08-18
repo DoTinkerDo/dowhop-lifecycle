@@ -12,6 +12,18 @@ const tokens = [
   'cU1YolfMcGM:APA91bH-uMLNUivsr1L4gGlESiDl-GbgQGl4Qhr1wT165AHyFsOeBPKMBLIXRkHjHERV-u-kdMUtUKZehpTCmNqjGqQb9-8atr2zCB0lwcqdZSQwOqRIeEnB_DgWF21dSlWlsQU6_oQk'
 ];
 
+exports.userCreateAlert = functions.auth.user().onCreate(event => {
+  const uid = event.data.uid;
+  const displayName = event.data.displayName;
+  const logRef = admin.database().ref('log/');
+
+  const logDetails = {
+    uid: uid || 'uid',
+    displayName: displayName || 'displayName'
+  };
+  return logRef.push(logDetails);
+});
+
 // top level pushKey  for chat messages is really dowhopdescription id
 // TODO test and change name
 exports.ChatMessageAlert = functions.database.ref('/messages/{pushKey}/').onWrite(event => {
