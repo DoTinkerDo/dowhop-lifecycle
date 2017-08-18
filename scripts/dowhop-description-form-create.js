@@ -47,6 +47,7 @@ function submitNewDoWhopEntry(e) {
   // We are preparing a first message to the future chat thread:
   function createWelcomingMessage() {
     // Gathering the appropriate data to fill out message:
+
     var DoWhopTitleDescription, DoWhopWhenDescription, DoWhopWhereDescription;
 
     doWhopDescriptionRef.child(doWhopDescriptionKey).once('value', function(snap) {
@@ -63,7 +64,7 @@ function submitNewDoWhopEntry(e) {
       ' DoWhop!\n\n' +
       'Currently, ' +
       creatorDisplayName +
-      ' plans to meet "' +
+      ' plans to meeeet "' +
       DoWhopWhenDescription +
       '" at "' +
       DoWhopWhereDescription +

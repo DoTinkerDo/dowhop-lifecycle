@@ -5,7 +5,7 @@ var currentSessionID;
 
 var currentDate = new Date();
 
-var datePicker = new flatpickr('#whenDatePending', {
+var datePicker = new flatpickr('#whenDateTimePending', {
   minDate: currentDate.setDate(currentDate.getDate() - 1),
   enableTime: true,
   altInput: true,
@@ -47,7 +47,7 @@ function FriendlyChat() {
   this.userPic = document.getElementById('user-pic');
   this.userName = document.getElementById('user-name');
   // this.signInSnackbar = document.getElementById('must-signin-snackbar');
-  this.messageFormWhenDatePending = document.getElementById('whenDatePending');
+  this.messageFormWhenDateTimePending = document.getElementById('whenDateTimePending');
   this.messageFormWherePending = document.getElementById('whereAddressPending');
 
   // Shortcuts to DOM elements for notification messages:
@@ -104,22 +104,20 @@ FriendlyChat.prototype.checkForAdmin = function() {
 FriendlyChat.prototype.sendApprovalAction = function(e) {
   e.preventDefault();
   console.log('you clicked send approval!');
-  let choice, newDate, newTime, newWhere;
+  var choice, newDateTime, newWhere, status;
   this.chatItemDataSpecific = document.getElementById('dowhop-selector-container').children[0].id;
   var myRef = this.database.ref().child('DoWhopDescriptions').child(this.chatItemDataSpecific);
   var myRefPending = this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending');
   var messagesRef = this.database.ref().child('messages/' + this.chatItemDataSpecific);
-  let status;
-  // var radioApprove = document.getElementById('radioApprove');
-  // var radioDeny = document.getElementById('radioDeny');
+
   var approvalForm = document.getElementById('approve-pending-form');
   var rescindingForm = document.getElementById('rescind-pending-form');
   var pendingDiv = document.getElementById('pending-div');
 
   // Updating these checks to make it more modular... (ie, avoid over-writing!).
   myRefPending.once('value').then(function(snap) {
-    if (snap.val().whenDatePending) {
-      newDate = snap.val().whenDatePending;
+    if (snap.val().whenDateTimePending) {
+      newDateTime = snap.val().whenDateTimePending;
     }
     if (snap.val().whereAddressPending) {
       newWhere = snap.val().whereAddressPending;
@@ -128,15 +126,18 @@ FriendlyChat.prototype.sendApprovalAction = function(e) {
 
   status = 'approved';
 
-  if (newDate != null) {
-    myRef.update({ whenDate: newDate });
-  }
-  if (newTime != null) {
-    myRef.update({ whenTime: newTime });
-  }
-  if (newWhere != null) {
-    myRef.update({ whereAddress: newWhere });
-  }
+  // if (newDateTime != null) {
+  myRef.update({
+    whenDateTime: newDateTime || 'tbd',
+    whereAddress: newWhere || 'tbd'
+  });
+  // }
+  // if (newTime != null) {
+  //   myRef.update({ whenTime: newTime });
+  // }
+  // if (newWhere != null) {
+  // myRef.update({ whereAddress: newWhere });
+  // }
 
   this.database
     .ref()
@@ -157,7 +158,7 @@ FriendlyChat.prototype.sendApprovalAction = function(e) {
   window.alert('You have approved of the change request!');
 
   // Clear the leftover pending object data:
-  myRefPending.remove();
+  // myRefPending.remove();
 
   // Add UI reset information here:
   approvalForm.setAttribute('hidden', 'true');
@@ -210,7 +211,7 @@ FriendlyChat.prototype.sendDenialAction = function(e) {
   window.alert('You have denied the change request.');
 
   // Clear the leftover pending object data:
-  myRefPending.remove();
+  // myRefPending.remove();
 
   // Add UI reset information here:
   approvalForm.setAttribute('hidden', 'true');
@@ -233,7 +234,7 @@ FriendlyChat.prototype.sendRescind = function(e) {
 };
 
 // Add dynamic 'When' form:
-FriendlyChat.prototype.showDateTimeInputs = function() {};
+// FriendlyChat.prototype.showDateTimeInputs = function() {};
 
 FriendlyChat.prototype.removeChats = function() {
   messageList = document.getElementById('messages');
@@ -285,12 +286,12 @@ FriendlyChat.prototype.getSession = function() {
     if (data && data.pending != null && data.pending.status != 'approved' && data.pending.status != 'denied') {
       // console.log('pending status true. showing pending div.');
       // NEW: Default status is that the creator of the event changes their own info (so we still show it at top):
-      if (data.pending.whenDatePending) {
+      if (data.pending.whenDateTimePending) {
         pendingNotification +=
           'on ' +
-          moment(data.pending.whenDatePending).format('dddd MMMM D, YYYY') +
+          moment(data.pending.whenDateTimePending).format('dddd MMMM D, YYYY') +
           ' at ' +
-          moment(data.pending.whenDatePending).format('hh:mmA') +
+          moment(data.pending.whenDateTimePending).format('hh:mmA') +
           '\n';
       }
       if (data.pending.whereAddressPending) pendingNotification += '\nWhere: ' + data.pending.whereAddressPending;
@@ -482,14 +483,14 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
   // For only all three attributes: Time, Date, Where:
 
-  if (this.messageFormWhenDatePending.value || this.messageFormWherePending.value) {
+  if (this.messageFormWhenDateTimePending.value || this.messageFormWherePending.value) {
     var chatsRef = this.database.ref().child('DoWhopDescriptions/' + currentDoWhopID + '/pending/');
 
     var messageText = '';
 
     messageText += currentUser.displayName + ' has requested to meet ';
     if (this.messageFormWherePending.value) messageText += '\nWhere: ' + this.messageFormWherePending.value;
-    if (this.messageFormWhenDatePending.value) {
+    if (this.messageFormWhenDateTimePending.value) {
       messageText +=
         '\non ' +
         datePicker.formatDate(new Date(datePicker.selectedDates), 'l F j, Y') +
@@ -508,8 +509,8 @@ FriendlyChat.prototype.saveMessage = function(e) {
     });
 
     chatsRef.update({ status: true, requester: currentUser.uid, requesterName: currentUser.displayName }); // Refactoring to make it a dis-aggregated update.
-    if (this.messageFormWhenDatePending.value)
-      chatsRef.update({ whenDatePending: this.messageFormWhenDatePending.value }).then(this.resetDate);
+    if (this.messageFormWhenDateTimePending.value)
+      chatsRef.update({ whenDateTimePending: this.messageFormWhenDateTimePending.value }).then(this.resetDateTime);
     if (this.messageFormWherePending.value)
       chatsRef.update({ whereAddressPending: this.messageFormWherePending.value }).then(this.resetWhere);
     this.resetDateTimeWhere; // Catch-all.
@@ -538,11 +539,11 @@ FriendlyChat.prototype.saveMessage = function(e) {
   }
 };
 
-FriendlyChat.prototype.resetDate = function() {
-  document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
-  let datePending = document.getElementById('whenDatePending');
-  datePending.value = null;
-  datePending.placeholder = 'Select to enter date';
+FriendlyChat.prototype.resetDateTime = function() {
+  document.getElementById('when-date-time-pending-hidden').setAttribute('hidden', 'true');
+  var dateTimePending = document.getElementById('whenDateTimePending');
+  dateTimePending.value = null;
+  dateTimePending.placeholder = 'Select to enter date and time';
 };
 
 FriendlyChat.prototype.resetWhere = function() {
@@ -550,9 +551,9 @@ FriendlyChat.prototype.resetWhere = function() {
 };
 
 FriendlyChat.prototype.resetDateTimeWhere = function() {
-  let datePending = document.getElementById('whenDatePending');
-  datePending.value = null;
-  datePending.placeholder = 'Select to enter date';
+  var dateTimePending = document.getElementById('whenDateTimePending');
+  dateTimePending.value = null;
+  dateTimePending.placeholder = 'Select to enter date and time';
 
   document.getElementById('whereAddressPending').value = null;
 };

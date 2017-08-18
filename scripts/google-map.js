@@ -111,7 +111,7 @@ var date, where, image;
 function revealInput() {
   switch (this.dataset.input) {
     case 'date':
-      document.getElementById('when-date-pending-hidden').removeAttribute('hidden');
+      document.getElementById('when-date-time-pending-hidden').removeAttribute('hidden');
       document.getElementById('where-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('map').setAttribute('hidden', 'true');
       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
