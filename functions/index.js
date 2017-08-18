@@ -12,10 +12,11 @@ const tokens = [
   'cU1YolfMcGM:APA91bH-uMLNUivsr1L4gGlESiDl-GbgQGl4Qhr1wT165AHyFsOeBPKMBLIXRkHjHERV-u-kdMUtUKZehpTCmNqjGqQb9-8atr2zCB0lwcqdZSQwOqRIeEnB_DgWF21dSlWlsQU6_oQk'
 ];
 
-exports.userCreateAlert = functions.database.ref().onWrite(event => {
-  const uid = event.data.uid;
-  const displayName = event.data.displayName;
+exports.userCreateAlert = functions.database.ref('app_users').onWrite(event => {
+  const uid = event.data.uid / val();
+  const displayName = event.data.displayName.val();
   const logRef = admin.database().ref('log/');
+  console.log('USERCREATEALERT -> ', event.data);
 
   const logDetails = {
     uid: uid || 'uid',
