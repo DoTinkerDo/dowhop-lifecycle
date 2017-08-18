@@ -33,7 +33,8 @@
         displayName: user.displayName,
         photoURL: user.photoURL ? user.photoURL : placeholderUserPhotoURL,
         uid: user.uid,
-        email: user.email
+        email: user.email,
+        lastLoginDatePST: moment().format('dddd, MMMM Do YYYY, h:mm:ss a')
       };
       appUserRef.update(userData);
     });

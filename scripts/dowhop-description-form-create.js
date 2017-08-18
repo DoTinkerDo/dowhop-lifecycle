@@ -5,6 +5,7 @@ var doWhopDescriptionRef = database.ref('/DoWhopDescriptions');
 var titleDescription = document.getElementById('title-description');
 var whyDescription = document.getElementById('why-description');
 var whoDescription = document.getElementById('who-description');
+var whoAmIDescription = document.getElementById('who-am-i-description');
 var whatDescription = document.getElementById('what-description');
 var whenDescription = document.getElementById('when-description');
 var whereDescription = document.getElementById('where-description');
@@ -23,8 +24,9 @@ function submitNewDoWhopEntry(e) {
     !validateAddDoWhopDescription(
       files,
       titleDescription.value,
-      // whyDescription.value,
+      whyDescription.value,
       whoDescription.value,
+      whoAmIDescription.value,
       whatDescription.value,
       whenDescription.value,
       whereDescription.value,
@@ -45,11 +47,12 @@ function submitNewDoWhopEntry(e) {
   // We are preparing a first message to the future chat thread:
   function createWelcomingMessage() {
     // Gathering the appropriate data to fill out message:
+
     var DoWhopTitleDescription, DoWhopWhenDescription, DoWhopWhereDescription;
 
     doWhopDescriptionRef.child(doWhopDescriptionKey).once('value', function(snap) {
       DoWhopTitleDescription = snap.val().titleDescription;
-      // DoWhopWhyDescription = sanp.val().whyDescription;
+      DoWhopWhyDescription = snap.val().whyDescription;
       DoWhopWhenDescription = snap.val().whenDescription;
       DoWhopWhereDescription = snap.val().whereDescription;
     });
@@ -61,7 +64,7 @@ function submitNewDoWhopEntry(e) {
       ' DoWhop!\n\n' +
       'Currently, ' +
       creatorDisplayName +
-      ' plans to meet "' +
+      ' plans to meeeet "' +
       DoWhopWhenDescription +
       '" at "' +
       DoWhopWhereDescription +
@@ -85,6 +88,7 @@ function submitNewDoWhopEntry(e) {
       titleDescription: titleDescription.value,
       whyDescription: whyDescription.value,
       whoDescription: whoDescription.value,
+      whoAmIDescription: whoAmIDescription.value,
       whatDescription: whatDescription.value,
       whenDescription: whenDescription.value,
       whereDescription: whereDescription.value,
@@ -125,6 +129,7 @@ function validateAddDoWhopDescription(
   titleDescription,
   whyDescription,
   whoDescription,
+  whoAmIDescription,
   whatDescription,
   whenDescription,
   whereDescription,
@@ -134,6 +139,7 @@ function validateAddDoWhopDescription(
     titleDescription === '' ||
     whyDescription === '' ||
     whoDescription === '' ||
+    whoAmIDescription === '' ||
     whatDescription === '' ||
     whenDescription === '' ||
     whereDescription === '' ||
@@ -149,6 +155,7 @@ function clearNewDoWhopEntryForm() {
   titleDescription.value = '';
   whyDescription.value = '';
   whoDescription.value = '';
+  whoAmIDescription.value = '';
   whatDescription.value = '';
   whenDescription.value = '';
   whereDescription.value = '';
