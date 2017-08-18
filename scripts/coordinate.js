@@ -449,23 +449,14 @@ FriendlyChat.prototype.getSession = function(DoWhopID) {
           renderWhereInformation = data.val().whereAddress;
         }
 
-        if (
-          data.val().whenDate &&
-          data.val().whenDate != 'By request' &&
-          data.val().whenTime &&
-          data.val().whenTime != 'By request'
-        ) {
+        // Adding more specifc 'time' information, if it has been included:
+        if (data.val().whenDateTime && data.val().whenDateTime != ('By request' || 'tbd')) {
           renderWhenInformation =
-            moment(data.val().whenDate).format('dddd MMMM D, YYYY') +
+            moment(data.val().whenDateTime).format('dddd MMMM D, YYYY') +
             ' at: ' +
-            moment(data.val().whenDate).format('h:mmA');
-        } else if (data.val().whenDate || data.val().whenTime) {
-          renderWhenInformation =
-            moment(data.val().whenDate).format('dddd MMMM D, YYYY') +
-            ' at: ' +
-            moment(data.val().whenDate).format('h:mmA');
+            moment(data.val().whenDateTime).format('h:mmA');
         }
-        console.log('Returning View div...');
+        // console.log('Returning View div...');
         return (doWhopSelectorDiv +=
           "<section id='" +
           data.key +
