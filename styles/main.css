@@ -73,6 +73,7 @@ main,
   overflow-y: auto;
   margin-bottom: 10px;
   height: calc(100% - 80px);
+  max-height: 900px;
 }
 #message-filler {
   flex-grow: 1;
