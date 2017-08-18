@@ -30,7 +30,7 @@ exports.ChatMessageAlert = functions.database.ref('/messages/{pushKey}/').onWrit
 
   const logRef = admin.database().ref('log/');
 
-  // const getUser = admin.auth().getUser('uid');
+  const getUser = admin.auth().getUser('O4AMv4CS96RamaG1D6urKhea4VN2');
 
   Promise.all([getUser, getDoWhopDescriptionTitle]).then(([user, title]) => {
     const logDetails = {
@@ -90,8 +90,6 @@ exports.DoWhopDescriptionLocationAlert = functions.database
         return snapshot.val().titleDescription;
       });
 
-    // const getUser = admin.auth().getUser('uid');
-
     Promise.all([tokens, getDoWhopDescriptionTitle]).then(([tokens, title]) => {
       const logDetails = {
         DoWhop: title || 'Title not found :(',
@@ -130,7 +128,7 @@ exports.DoWhopDescriptionAlert = functions.database.ref('/DoWhopDescriptions/{pu
     return tokens;
   });
 
-  // const getUser = admin.auth().getUser('uid');
+  const getUser = admin.auth().getUser('O4AMv4CS96RamaG1D6urKhea4VN2');
 
   Promise.all([getTokens, getUser]).then(([tokens, user]) => {
     const payload = {
