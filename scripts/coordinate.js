@@ -132,27 +132,8 @@ FriendlyChat.prototype.sendApprovalAction = function(e) {
       });
     }
   });
-  // .then(function() {
-  //   myRef.update({
-  //     whenDateTime: newDateTime || 'tbd',
-  //     whereAddress: newWhere || 'tbd'
-  //   });
-  // })();
 
   status = 'approved';
-
-  // if (newDateTime != null) {
-  // myRef.update({
-  //   whenDateTime: newDateTime || 'tbd',
-  //   whereAddress: newWhere || 'tbd'
-  // });
-  // }
-  // if (newTime != null) {
-  //   myRef.update({ whenTime: newTime });
-  // }
-  // if (newWhere != null) {
-  // myRef.update({ whereAddress: newWhere });
-  // }
 
   this.database
     .ref()
@@ -247,9 +228,6 @@ FriendlyChat.prototype.sendRescind = function(e) {
   this.pendingDiv.innerHTML = ''; // Return.
   this.pendingDiv.setAttribute('hidden', 'true');
 };
-
-// Add dynamic 'When' form:
-// FriendlyChat.prototype.showDateTimeInputs = function() {};
 
 FriendlyChat.prototype.removeChats = function() {
   messageList = document.getElementById('messages');
