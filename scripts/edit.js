@@ -71,6 +71,19 @@ function createDoWhop(event) {
   doWhopDescriptionRootRef.child(currentDoWhop).child('creatorDescription').set(event.creatorDescription);
   doWhopDescriptionRootRef.child(currentDoWhop).child('doerDescription').set(event.doerDescription);
 
+  database.ref('session/' + uid + '/updateImageTempData/').once('value').then(function(snapshot) {
+    var snapshotVal = snapshot.val();
+    var image1Changed = snapshotVal.image1Changed;
+    var potentialUrlForImage = snapshotVal.potentialUrlForImage1;
+    console.log(potentialUrlForImage);
+    if (image1Changed) {
+      doWhopDescriptionRootRef.child(currentDoWhop).child('downloadURL').set({
+        image1: potentialUrlForImage
+      });
+    }
+  });
+  doWhopDescriptionRootRef.child(currentDoWhop).child('');
+
   doWhopDescriptionRootRef
     .child(currentDoWhop)
     .child('howMuchDescription')
@@ -224,9 +237,6 @@ function showEditForm(doWhopSelector) {
 }
 
 function fillInEditForm(doWhopSelector) {
-  //added by mike, can delete
-  console.log('doWhopSelector', doWhopSelector);
-  console.log('doWhopDescriptionRef', doWhopDescriptionRef);
   doWhopDescriptionRootRef.orderByKey().on('value', function(snapshot) {
     snapshot.forEach(function(data) {
       var doWhopDescription = data.val();
@@ -261,11 +271,14 @@ function addImageToFirebase(file) {
   storage.ref(filePath).put(file[0]).then(function(snapshot) {
     var path = snapshot.metadata.fullPath;
     storage.ref(path).getDownloadURL().then(function(url) {
-      //set potential download URL to sessionStorage for current image number. Potential download URL will become actually URL
+      //set potential download URL for current image number. Potential download URL will become actually URL
       //when form is submitted
-      sessionStorage.setItem('potentialUrlForImage' + currentImageNumber, url);
-      //set changed flag to true for current image
-      sessionStorage.setItem('image' + currentImageNumber + 'Changed', true);
+      var potentialUrlForImage = 'potentialUrlForImage' + currentImageNumber;
+      var imageChanged = 'image' + currentImageNumber + 'Changed';
+      database.ref('session/' + uid + '/updateImageTempData').set({
+        [imageChanged]: true,
+        [potentialUrlForImage]: url
+      });
     });
   });
 }
