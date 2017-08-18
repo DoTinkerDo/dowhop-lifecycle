@@ -12,28 +12,13 @@ const tokens = [
   'cU1YolfMcGM:APA91bH-uMLNUivsr1L4gGlESiDl-GbgQGl4Qhr1wT165AHyFsOeBPKMBLIXRkHjHERV-u-kdMUtUKZehpTCmNqjGqQb9-8atr2zCB0lwcqdZSQwOqRIeEnB_DgWF21dSlWlsQU6_oQk'
 ];
 
-exports.userCreateAlert = functions.database.ref('app_users').onWrite(event => {
-  const uid = event.data.uid / val();
-  const displayName = event.data.displayName.val();
-  const logRef = admin.database().ref('log/');
-  console.log('USERCREATEALERT -> ', event.data);
-
-  const logDetails = {
-    uid: uid || 'uid',
-    displayName: displayName || 'displayName'
-  };
-  return logRef.push(logDetails);
-});
-
-// top level pushKey  for chat messages is really dowhopdescription id
-// TODO test and change name
 exports.ChatMessageAlert = functions.database.ref('/messages/{pushKey}/').onWrite(event => {
   const newMessage = event.data.val();
   const previousMessage = event.data.previous.val();
   const key = event.params.pushKey;
 
-  // console.log('NEW-MESSAGE -> ', newMessage, ' ====== ', previousMessage, ' ====== ', key);
   console.log('NEW-MESSAGE FIRED FOR -> ', key);
+
   const getDoWhopDescriptionTitle = admin
     .database()
     .ref('DoWhopDescriptions')
@@ -45,7 +30,9 @@ exports.ChatMessageAlert = functions.database.ref('/messages/{pushKey}/').onWrit
 
   const logRef = admin.database().ref('log/');
 
-  Promise.all([tokens, getDoWhopDescriptionTitle]).then(([tokens, title]) => {
+  // const getUser = admin.auth().getUser('uid');
+
+  Promise.all([getUser, getDoWhopDescriptionTitle]).then(([user, title]) => {
     const logDetails = {
       DoWhop: title || 'Title not found :(',
       alert: 'Coordinate Message Change',
@@ -61,7 +48,6 @@ exports.DoWhopDescriptionDateAlert = functions.database.ref('/DoWhopDescriptions
   const previousDate = event.data.previous.val();
   const key = event.params.pushKey;
 
-  // console.log('NEW-DATE', newDate, ' ====== ', previousDate, ' ====== ', key);
   console.log('NEW-DATE -> ', newDate, ' ====== ', previousDate, ' ====== ', key);
 
   const getDoWhopDescriptionTitle = admin
@@ -93,7 +79,7 @@ exports.DoWhopDescriptionLocationAlert = functions.database
     const previousLocation = event.data.previous.val();
     const key = event.params.pushKey;
 
-    // console.log('NEW-LOCATION', newLocation, ' ====== ', previousLocation, ' ====== ', key);
+    const logRef = admin.database().ref('log/');
 
     const getDoWhopDescriptionTitle = admin
       .database()
@@ -104,7 +90,7 @@ exports.DoWhopDescriptionLocationAlert = functions.database
         return snapshot.val().titleDescription;
       });
 
-    const logRef = admin.database().ref('log/');
+    // const getUser = admin.auth().getUser('uid');
 
     Promise.all([tokens, getDoWhopDescriptionTitle]).then(([tokens, title]) => {
       const logDetails = {
@@ -121,8 +107,9 @@ exports.DoWhopDescriptionAlert = functions.database.ref('/DoWhopDescriptions/{pu
   const newDescription = event.data.val();
   const key = event.params.pushKey;
 
-  // console.log('DESCRIPTION-ALERT', newDescription);
-  console.log('DESCRIPTION-ALERT -> ', newDescription);
+  const logRef = admin.database().ref('log/');
+
+  console.log('DESCRIPTION-ALERT -> ');
 
   const getTokens = admin.database().ref('app_users').once('value').then(snapshot => {
     const tokens = [
@@ -143,10 +130,7 @@ exports.DoWhopDescriptionAlert = functions.database.ref('/DoWhopDescriptions/{pu
     return tokens;
   });
 
-  const logRef = admin.database().ref('log/');
-
-  // getUser is for testing purposes only...
-  const getUser = admin.auth().getUser('VYw0lPDFD3btHJadneuSFGjy8wk1');
+  // const getUser = admin.auth().getUser('uid');
 
   Promise.all([getTokens, getUser]).then(([tokens, user]) => {
     const payload = {
@@ -159,8 +143,10 @@ exports.DoWhopDescriptionAlert = functions.database.ref('/DoWhopDescriptions/{pu
     const logDetails = {
       DoWhop: (newDescription && newDescription.titleDescription) || 'Title not found :(',
       alert: 'Has been created and or updated',
-      dateUTC: moment().format('dddd, MMMM Do YYYY, h:mm:ss a'),
-      icon: doWhopIcon
+      dateUTC: moment().format('dddd, MMMM Do YYYY, h:mm:ss a')
+      // icon: doWhopIcon,
+      // editedByName: user.displayName || 'default Name',
+      // editedByEmail: user.email || 'default Email'
     };
     logRef.push(logDetails);
     admin.messaging().sendToDevice(tokens, payload).catch(error => console.log('ERROR IN INDEX.js -> ', error));
