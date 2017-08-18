@@ -73,6 +73,7 @@ main,
   overflow-y: auto;
   margin-bottom: 10px;
   height: calc(100% - 80px);
+  max-height: 900px;
 }
 #message-filler {
   flex-grow: 1;
@@ -823,12 +824,4 @@ button {
   float: right;
   height: 50px;
   width: 50px;
-}
-
-/*------------------------------------*/
-/*-------------MESSAGES---------------*/
-/*------------------------------------*/
-
-#messages {
-  max-height: 900px;
 }
