@@ -15,8 +15,8 @@ var datePicker = new flatpickr('#whenDateTimePending', {
 
 function getSesh(clickedID) {
   setLandingTab(clickedID); // New.
-  console.log('running getSesh...');
-  console.log(creatorUserObjects, doerUserObjects);
+  // console.log('running getSesh...');
+  // console.log(creatorUserObjects, doerUserObjects);
   FriendlyChat.prototype.getSession(key);
 }
 
@@ -106,7 +106,7 @@ FriendlyChat.prototype.checkForAdmin = function() {
 
 FriendlyChat.prototype.sendApprovalAction = function(e) {
   e.preventDefault();
-  console.log('you clicked send approval!');
+  // console.log('you clicked send approval!');
   var choice, newDateTime, newWhere, status;
 
   this.chatItemDataSpecific = document.getElementById('dowhop-selector-container').children[0].id;
@@ -184,7 +184,7 @@ FriendlyChat.prototype.sendApprovalAction = function(e) {
 
 FriendlyChat.prototype.sendDenialAction = function(e) {
   e.preventDefault();
-  console.log('you clicked send denial!');
+  // console.log('you clicked send denial!');
   var choice, newDate, newTime, newWhere;
   this.chatItemDataSpecific = document.getElementById('dowhop-selector-container').children[0].id;
   var myRef = this.database.ref().child('DoWhopDescriptions').child(this.chatItemDataSpecific);
@@ -257,7 +257,7 @@ FriendlyChat.prototype.removeChats = function() {
 };
 
 FriendlyChat.prototype.getSession = function(DoWhopID) {
-  console.log('Running getsession');
+  // console.log('Running getsession');
   // I. Link to db where we want to listen.
   var user = person;
   var userID = person.uid;
@@ -301,7 +301,6 @@ FriendlyChat.prototype.getSession = function(DoWhopID) {
     // Check if there are pending data:
     if (data && data.pending != null && data.pending.status != 'approved' && data.pending.status != 'denied') {
       // console.log('pending status true. showing pending div.');
-      // NEW: Default status is that the creator of the event changes their own info (so we still show it at top):
       if (data.pending.whenDateTimePending) {
         pendingNotification +=
           'on ' +
@@ -378,7 +377,7 @@ FriendlyChat.prototype.getSession = function(DoWhopID) {
         appUsersRef
           .once('value')
           .then(function(snap) {
-            console.log('Resetting the values...');
+            // console.log('Resetting the values...');
             doerUserObjects.length = 0; // Resetting the global variable.
             creatorUserObjects.length = 0;
             snap.forEach(function(childSnap) {
@@ -397,7 +396,6 @@ FriendlyChat.prototype.getSession = function(DoWhopID) {
           .then(
             (function() {
               if (creatorUserObjects && creatorUserObjects.length > 0) {
-                console.log('Composing Creator Objects...');
                 _.map(creatorUserObjects, function(userObject) {
                   renderCreatorIcon +=
                     '<div class="user-avatar-container">' +
@@ -422,7 +420,6 @@ FriendlyChat.prototype.getSession = function(DoWhopID) {
               }
 
               if (doerUserObjects && doerUserObjects.length > 0) {
-                console.log('Composing Doer Objects...');
                 _.map(doerUserObjects, function(userObject) {
                   renderCreatorIcon +=
                     '<div class="user-avatar-container">' +
@@ -726,45 +723,6 @@ FriendlyChat.prototype.signOut = function() {
   this.rescindingForm.setAttribute('hidden', 'true');
   this.auth.signOut();
 };
-
-// Triggers when the auth state change for instance when the user signs-in or signs-out.
-
-// auth.onAuthStateChanged(function(user) {
-//   if (user) {
-//     // Create userData objec and set uid
-//     readUserData(user);
-//
-//     // Using user session object in Firebase to find currentDoWhop
-//     var messageList = document.getElementById('messages')// this.messageList;
-//     var messageInput = document.getElementById('message')// this.messageInput;
-//     var loadMessagesOnClick = function(id) {
-//
-//         console.log('you chose', id);
-//         var messagesRef = this.database.ref().child('messages/' + id);
-//
-//         // Make sure we remove all previous listeners and clear the UI.
-//         messagesRef.off();
-//         messageList.innerText = '';
-//         // Loads the last x number of messages and listen for new ones:
-//         var setMessage = function(data) {
-//           var val = data.val();
-//           displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl);
-//         }.bind(this);
-//         messagesRef.orderByKey().limitToLast(12).on('child_added', setMessage);
-//         messagesRef.orderByKey().limitToLast(12).on('child_changed', setMessage);
-//         // end new.
-//     };
-//
-//     var sessionRef = database.ref('/session').child(user.uid).child('current_dowhop');
-//     sessionRef.on('value', function(snapshot) {
-//       selectedDoWhopKey = snapshot.val();
-//
-//       // LOAD messages
-//       loadMessagesOnClick(snapshot.val());
-//
-//     });
-//   }
-// });
 
 FriendlyChat.prototype.onAuthStateChanged = function(user) {
   if (user) {
