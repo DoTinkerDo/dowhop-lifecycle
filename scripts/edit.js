@@ -224,6 +224,9 @@ function showEditForm(doWhopSelector) {
 }
 
 function fillInEditForm(doWhopSelector) {
+  //added by mike, can delete
+  console.log('doWhopSelector', doWhopSelector);
+  console.log('doWhopDescriptionRef', doWhopDescriptionRef);
   doWhopDescriptionRootRef.orderByKey().on('value', function(snapshot) {
     snapshot.forEach(function(data) {
       var doWhopDescription = data.val();
@@ -246,6 +249,22 @@ function fillInEditForm(doWhopSelector) {
         document.getElementById('image3').src = doWhopDescription.downloadURL.image3;
         // document.getElementById('howMuchCost').value = doWhopDescription.howMuchCost;
       }
+    });
+  });
+}
+
+function addImageToFirebase(file) {
+  var currentImageNumber = event.target.getAttribute('data-image-num');
+  var currentDoWhopID = document.getElementById('dowhop-selector-container').firstChild.id;
+  // console.log('file', file);
+  // console.log('doWhopSelector', doWhopSelector);
+  // var filePath = 'userImages/' + uid + '/' + 'profileActivityImages/' + file[0].name;
+  var filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + currentDoWhopID + '/' + file[0].name;
+  // console.log(filePath);
+  storage.ref(filePath).put(file[0]).then(function(snapshot) {
+    var path = snapshot.metadata.fullPath;
+    storage.ref(path).getDownloadURL().then(function(url) {
+      // console.log('url', url);
     });
   });
 }
