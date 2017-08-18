@@ -118,14 +118,16 @@ FriendlyChat.prototype.sendApprovalAction = function(e) {
   myRef.once('value').then(function(snap) {
     if (snap.val().pending.whenDateTimePending) {
       newDateTime = snap.val().pending.whenDateTimePending;
+      myRef.update({
+        whenDateTime: newDateTime || 'tbd'
+      });
     }
     if (snap.val().pending.whereAddressPending) {
       newWhere = snap.val().pending.whereAddressPending;
+      myRef.update({
+        whereAddress: newWhere || 'tbd'
+      });
     }
-    myRef.update({
-      whenDateTime: newDateTime || 'tbd',
-      whereAddress: newWhere || 'tbd'
-    });
   });
   // .then(function() {
   //   myRef.update({
@@ -168,7 +170,7 @@ FriendlyChat.prototype.sendApprovalAction = function(e) {
   window.alert('You have approved of the change request!');
 
   // Clear the leftover pending object data:
-  // myRefPending.remove();
+  myRefPending.remove();
 
   // Add UI reset information here:
   approvalForm.setAttribute('hidden', 'true');
@@ -221,7 +223,7 @@ FriendlyChat.prototype.sendDenialAction = function(e) {
   window.alert('You have denied the change request.');
 
   // Clear the leftover pending object data:
-  // myRefPending.remove();
+  myRefPending.remove();
 
   // Add UI reset information here:
   approvalForm.setAttribute('hidden', 'true');
