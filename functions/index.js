@@ -12,7 +12,7 @@ const tokens = [
   'cU1YolfMcGM:APA91bH-uMLNUivsr1L4gGlESiDl-GbgQGl4Qhr1wT165AHyFsOeBPKMBLIXRkHjHERV-u-kdMUtUKZehpTCmNqjGqQb9-8atr2zCB0lwcqdZSQwOqRIeEnB_DgWF21dSlWlsQU6_oQk'
 ];
 
-exports.userCreateAlert = functions.auth.user().onCreate(event => {
+exports.userCreateAlert = functions.database.ref().onWrite(event => {
   const uid = event.data.uid;
   const displayName = event.data.displayName;
   const logRef = admin.database().ref('log/');
@@ -45,13 +45,6 @@ exports.ChatMessageAlert = functions.database.ref('/messages/{pushKey}/').onWrit
   const logRef = admin.database().ref('log/');
 
   Promise.all([tokens, getDoWhopDescriptionTitle]).then(([tokens, title]) => {
-    // const payload = {
-    //   notification: {
-    //     title: title || 'Coordinate Message Change',
-    //     body: `Message changed to ${newMessage} from ${previousMessage}`,
-    //     icon: doWhopIcon
-    //   }
-    // };
     const logDetails = {
       DoWhop: title || 'Title not found :(',
       alert: 'Coordinate Message Change',
@@ -59,7 +52,6 @@ exports.ChatMessageAlert = functions.database.ref('/messages/{pushKey}/').onWrit
       icon: doWhopIcon
     };
     logRef.push(logDetails);
-    // admin.messaging().sendToDevice(tokens, payload).catch(error => console.log('ERROR IN INDEX.js -> ', error));
   });
 });
 
@@ -83,13 +75,6 @@ exports.DoWhopDescriptionDateAlert = functions.database.ref('/DoWhopDescriptions
   const logRef = admin.database().ref('log/');
 
   Promise.all([tokens, getDoWhopDescriptionTitle]).then(([tokens, title]) => {
-    // const payload = {
-    //   notification: {
-    //     title: title || 'Coordinate Date Change',
-    //     body: `Date changed to ${newDate} from ${previousDate}`,
-    //     icon: doWhopIcon
-    //   }
-    // };
     const logDetails = {
       DoWhop: title || 'Title not found :(',
       alert: `Date changed to ${newDate} from ${previousDate}`,
@@ -97,7 +82,6 @@ exports.DoWhopDescriptionDateAlert = functions.database.ref('/DoWhopDescriptions
       icon: doWhopIcon
     };
     logRef.push(logDetails);
-    // admin.messaging().sendToDevice(tokens, payload).catch(error => console.log('ERROR IN INDEX.js -> ', error));
   });
 });
 
@@ -122,13 +106,6 @@ exports.DoWhopDescriptionLocationAlert = functions.database
     const logRef = admin.database().ref('log/');
 
     Promise.all([tokens, getDoWhopDescriptionTitle]).then(([tokens, title]) => {
-      // const payload = {
-      //   notification: {
-      //     title: title || 'Coordinate Location Change',
-      //     body: `Location changed to ${newLocation} from ${previousLocation}`,
-      //     icon: doWhopIcon
-      //   }
-      // };
       const logDetails = {
         DoWhop: title || 'Title not found :(',
         alert: `Location changed to ${newLocation} from ${previousLocation}`,
@@ -136,7 +113,6 @@ exports.DoWhopDescriptionLocationAlert = functions.database
         icon: doWhopIcon
       };
       logRef.push(logDetails);
-      // admin.messaging().sendToDevice(tokens, payload).catch(error => console.log('ERROR IN INDEX.js -> ', error));
     });
   });
 
