@@ -118,7 +118,7 @@ function revealInput() {
       document.getElementById('submitImage').setAttribute('hidden', 'true');
       break;
     case 'where':
-      document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
+      document.getElementById('when-date-time-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('where-pending-hidden').removeAttribute('hidden');
       document.getElementById('whereAddressPending').removeAttribute('hidden');
       document.getElementById('map').removeAttribute('hidden');

@@ -115,22 +115,32 @@ FriendlyChat.prototype.sendApprovalAction = function(e) {
   var pendingDiv = document.getElementById('pending-div');
 
   // Updating these checks to make it more modular... (ie, avoid over-writing!).
-  myRefPending.once('value').then(function(snap) {
-    if (snap.val().whenDateTimePending) {
-      newDateTime = snap.val().whenDateTimePending;
+  myRef.once('value').then(function(snap) {
+    if (snap.val().pending.whenDateTimePending) {
+      newDateTime = snap.val().pending.whenDateTimePending;
     }
-    if (snap.val().whereAddressPending) {
-      newWhere = snap.val().whereAddressPending;
+    if (snap.val().pending.whereAddressPending) {
+      newWhere = snap.val().pending.whereAddressPending;
     }
+    myRef.update({
+      whenDateTime: newDateTime || 'tbd',
+      whereAddress: newWhere || 'tbd'
+    });
   });
+  // .then(function() {
+  //   myRef.update({
+  //     whenDateTime: newDateTime || 'tbd',
+  //     whereAddress: newWhere || 'tbd'
+  //   });
+  // })();
 
   status = 'approved';
 
   // if (newDateTime != null) {
-  myRef.update({
-    whenDateTime: newDateTime || 'tbd',
-    whereAddress: newWhere || 'tbd'
-  });
+  // myRef.update({
+  //   whenDateTime: newDateTime || 'tbd',
+  //   whereAddress: newWhere || 'tbd'
+  // });
   // }
   // if (newTime != null) {
   //   myRef.update({ whenTime: newTime });
