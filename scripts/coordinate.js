@@ -279,7 +279,7 @@ FriendlyChat.prototype.getSession = function() {
     if (data.pending && data.pending.requesterName) {
       requesterName = data.pending.requesterName;
     }
-    var pendingNotification = requesterName + ' requested to meet ';
+    var pendingNotification = requesterName + ' has requested to meet!\n';
 
     // Check if there are pending data:
     if (data && data.pending != null && data.pending.status != 'approved' && data.pending.status != 'denied') {
@@ -293,7 +293,7 @@ FriendlyChat.prototype.getSession = function() {
           moment(data.pending.whenDatePending).format('hh:mmA') +
           '\n';
       }
-      if (data.pending.whereAddressPending) pendingNotification += '\nWhere: ' + data.pending.whereAddressPending;
+      if (data.pending.whereAddressPending) pendingNotification += '\n' + data.pending.whereAddressPending;
 
       document.getElementById('pending-div').removeAttribute('hidden');
       document.getElementById('pending-div').innerText = pendingNotification;
@@ -487,8 +487,8 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
     var messageText = '';
 
-    messageText += currentUser.displayName + ' has requested to meet ';
-    if (this.messageFormWherePending.value) messageText += '\nWhere: ' + this.messageFormWherePending.value;
+    messageText += currentUser.displayName + ' has requested to meet!\n';
+    if (this.messageFormWherePending.value) messageText += this.messageFormWherePending.value;
     if (this.messageFormWhenDatePending.value) {
       messageText +=
         '\non ' +
