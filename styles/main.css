@@ -73,6 +73,7 @@ main,
   overflow-y: auto;
   margin-bottom: 10px;
   height: calc(100% - 80px);
+  max-height: 900px;
 }
 #message-filler {
   flex-grow: 1;
@@ -801,25 +802,25 @@ button {
   font-family: inherit;
 }
 
-#create-outer-div {
+#add-images-div {
   text-align: center;
   height: 50px;
   width: 300px;
 }
 
-#create-div-1 {
+#add-image-1-div {
   float: left;
   height: 50px;
   width: 50px;
 }
 
-#create-div-2 {
+#add-image-2-div {
   display: inline;
   height: 50px;
   width: 50px;
 }
 
-#create-div-3 {
+#add-image-3-div {
   float: right;
   height: 50px;
   width: 50px;
