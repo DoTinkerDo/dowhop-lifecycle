@@ -30,38 +30,31 @@ socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
 
-/**
-function changeImage(element) {
-  console.log("this is reached");
-  var image = element.childNodes;
-  var imageSrc = image[1].src;
-  document.getElementById("background-photo").src = imageSrc;
-}
-
-function reverseImage() {
-  console.log("Now we're exiting");
-  document.getElementById("background-photo").src = background;
-}*/
+//Changes the banner when hovering over event
 var activities = document.getElementsByClassName('personalAct');
 var background = document.getElementById("background-photo").src;
-console.log(activities.length);
 
 for(var index=0; index < activities.length; index++) {
-  console.log("We at least got here");
 
   activities[index].addEventListener("mouseover", function(){
-    console.log("We got here");
     var children = this.childNodes;
-    console.log(children);
     var imageSrc = children[1].src;
     document.getElementById("background-photo").src = imageSrc;
   });
 
   activities[index].addEventListener("mouseout", function(){
-    console.log("Like a somebody");
     document.getElementById("background-photo").src = background;
   });
 }
+
+/*
+function showEditForm() {
+  console.log("edit form working");
+  var editForm = document.getElementById('form-edit');
+  console.log(editForm);
+  editForm.style.display = "block";
+}*/
+
 //This is the animation function for changing the background
 /**activity1.addEventListener("mouseover", function() {
   console.log("This is reached");
@@ -82,10 +75,10 @@ var toggle = 0;
 function showForm(e) {
   e.preventDefault();
   if (toggle % 2 === 0) {
-    createProfileDiv.removeAttribute('hidden');
+    createProfileDiv.style.display="block";
   }
   if (toggle % 2 === 1) {
-    createProfileDiv.setAttribute('hidden', 'true');
+    createProfileDiv.style.display="none";
   }
   toggle++;
 }
@@ -144,6 +137,7 @@ function expandLinkedIn(e) {
   // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
   document.getElementById('linkedin-card').removeAttribute('hidden');
 }
+
 
 function createProfile(e) {
   e.preventDefault();
@@ -216,7 +210,10 @@ function createProfile(e) {
   }
 
   clearCreateProfileForm();
-  createProfileDiv.setAttribute('hidden', 'true');
+  //createProfileDiv.setAttribute('hidden', 'true');
+
+  var theForm = document.getElementById('form-edit');
+  theForm.style.display="none";
 }
 
 function clearCreateProfileForm() {
@@ -421,6 +418,13 @@ function phoneX(phone) {
 function fillInProfileForm(e) {
   var currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
+
+  console.log("edit form working");
+  const editForm = document.getElementById('form-edit');
+  console.log(editForm);
+  editForm.style.display = "block";
+  createProfileDiv.removeAttribute('hidden');
+ 
 
   profileRef.once('value', function(snap) {
     if ((profileRef = currentProfile)) {
