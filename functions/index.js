@@ -1,7 +1,9 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const config = functions.config();
+const moment = require('moment');
 
-admin.initializeApp(functions.config().firebase);
+admin.initializeApp(config.firebase);
 
 const doWhopIcon =
   'https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/dowhop-icons%2Fdowhop-icon.png?alt=media&token=4ce2cb46-d5f0-4bbc-bb9d-b25ca886e634';
@@ -15,7 +17,7 @@ exports.ChatMessageAlert = functions.database.ref('/messages/{pushKey}/').onWrit
   const previousMessage = event.data.previous.val();
   const key = event.params.pushKey;
 
-  console.log('NEW-MESSAGE -> ', newMessage, ' ====== ', previousMessage, ' ====== ', key);
+  console.log('NEW-MESSAGE FIRED FOR -> ', key);
 
   const getDoWhopDescriptionTitle = admin
     .database()
@@ -26,45 +28,51 @@ exports.ChatMessageAlert = functions.database.ref('/messages/{pushKey}/').onWrit
       return snapshot.val().titleDescription;
     });
 
-  Promise.all([tokens, getDoWhopDescriptionTitle]).then(([tokens, title]) => {
-    const payload = {
-      notification: {
-        title: title || 'Coordinate Message Change',
-        body: `Message changed to ${newMessage} from ${previousMessage}`,
-        icon: doWhopIcon
-      }
+  const logRef = admin.database().ref('log/');
+
+  const getUser = admin.auth().getUser('O4AMv4CS96RamaG1D6urKhea4VN2');
+
+  Promise.all([getUser, getDoWhopDescriptionTitle]).then(([user, title]) => {
+    const logDetails = {
+      DoWhop: title || 'Title not found :(',
+      alert: 'Coordinate Message Change',
+      dateUTC: moment().format('dddd, MMMM Do YYYY, h:mm:ss a'),
+      icon: doWhopIcon
     };
-    admin.messaging().sendToDevice(tokens, payload).catch(error => console.log('ERROR IN INDEX.js -> ', error));
+    logRef.push(logDetails);
   });
 });
 
-exports.DoWhopDescriptionDateAlert = functions.database.ref('/DoWhopDescriptions/{pushKey}/whenDate').onWrite(event => {
-  const newDate = event.data.val();
-  const previousDate = event.data.previous.val();
-  const key = event.params.pushKey;
+exports.DoWhopDescriptionDateAlert = functions.database
+  .ref('/DoWhopDescriptions/{pushKey}/whenDateTime')
+  .onWrite(event => {
+    const newDate = event.data.val();
+    const previousDate = event.data.previous.val();
+    const key = event.params.pushKey;
 
-  console.log('NEW-DATE', newDate, ' ====== ', previousDate, ' ====== ', key);
+    console.log('NEW-DATE -> ', newDate, ' ====== ', previousDate, ' ====== ', key);
 
-  const getDoWhopDescriptionTitle = admin
-    .database()
-    .ref('DoWhopDescriptions')
-    .child(key)
-    .once('value')
-    .then(snapshot => {
-      return snapshot.val().titleDescription;
+    const getDoWhopDescriptionTitle = admin
+      .database()
+      .ref('DoWhopDescriptions')
+      .child(key)
+      .once('value')
+      .then(snapshot => {
+        return snapshot.val().titleDescription;
+      });
+
+    const logRef = admin.database().ref('log/');
+
+    Promise.all([tokens, getDoWhopDescriptionTitle]).then(([tokens, title]) => {
+      const logDetails = {
+        DoWhop: title || 'Title not found :(',
+        alert: `Date changed to ${newDate} from ${previousDate}`,
+        dateUTC: moment().format('dddd, MMMM Do YYYY, h:mm:ss a'),
+        icon: doWhopIcon
+      };
+      logRef.push(logDetails);
     });
-
-  Promise.all([tokens, getDoWhopDescriptionTitle]).then(([tokens, title]) => {
-    const payload = {
-      notification: {
-        title: title || 'Coordinate Date Change',
-        body: `Date changed to ${newDate} from ${previousDate}`,
-        icon: doWhopIcon
-      }
-    };
-    admin.messaging().sendToDevice(tokens, payload).catch(error => console.log('ERROR IN INDEX.js -> ', error));
   });
-});
 
 exports.DoWhopDescriptionLocationAlert = functions.database
   .ref('/DoWhopDescriptions/{pushKey}/whereAddress')
@@ -73,7 +81,7 @@ exports.DoWhopDescriptionLocationAlert = functions.database
     const previousLocation = event.data.previous.val();
     const key = event.params.pushKey;
 
-    console.log('NEW-LOCATION', newLocation, ' ====== ', previousLocation, ' ====== ', key);
+    const logRef = admin.database().ref('log/');
 
     const getDoWhopDescriptionTitle = admin
       .database()
@@ -85,14 +93,13 @@ exports.DoWhopDescriptionLocationAlert = functions.database
       });
 
     Promise.all([tokens, getDoWhopDescriptionTitle]).then(([tokens, title]) => {
-      const payload = {
-        notification: {
-          title: title || 'Coordinate Location Change',
-          body: `Location changed to ${newLocation} from ${previousLocation}`,
-          icon: doWhopIcon
-        }
+      const logDetails = {
+        DoWhop: title || 'Title not found :(',
+        alert: `Location changed to ${newLocation} from ${previousLocation}`,
+        dateUTC: moment().format('dddd, MMMM Do YYYY, h:mm:ss a'),
+        icon: doWhopIcon
       };
-      admin.messaging().sendToDevice(tokens, payload).catch(error => console.log('ERROR IN INDEX.js -> ', error));
+      logRef.push(logDetails);
     });
   });
 
@@ -100,7 +107,9 @@ exports.DoWhopDescriptionAlert = functions.database.ref('/DoWhopDescriptions/{pu
   const newDescription = event.data.val();
   const key = event.params.pushKey;
 
-  console.log('DESCRIPTION-ALERT', newDescription);
+  const logRef = admin.database().ref('log/');
+
+  console.log('DESCRIPTION-ALERT -> ');
 
   const getTokens = admin.database().ref('app_users').once('value').then(snapshot => {
     const tokens = [
@@ -121,17 +130,25 @@ exports.DoWhopDescriptionAlert = functions.database.ref('/DoWhopDescriptions/{pu
     return tokens;
   });
 
-  // getUser is for testing purposes only...
-  const getUser = admin.auth().getUser('VYw0lPDFD3btHJadneuSFGjy8wk1');
+  const getUser = admin.auth().getUser('O4AMv4CS96RamaG1D6urKhea4VN2');
 
   Promise.all([getTokens, getUser]).then(([tokens, user]) => {
     const payload = {
       notification: {
-        title: (newDescription && newDescription.titleDescription) || 'DoWhopTitle Placeholder',
+        title: (newDescription && newDescription.titleDescription) || 'Title not found :(',
         body: 'Has been created and or updated',
         icon: doWhopIcon
       }
     };
+    const logDetails = {
+      DoWhop: (newDescription && newDescription.titleDescription) || 'Title not found :(',
+      alert: 'Has been created and or updated',
+      dateUTC: moment().format('dddd, MMMM Do YYYY, h:mm:ss a')
+      // icon: doWhopIcon,
+      // editedByName: user.displayName || 'default Name',
+      // editedByEmail: user.email || 'default Email'
+    };
+    logRef.push(logDetails);
     admin.messaging().sendToDevice(tokens, payload).catch(error => console.log('ERROR IN INDEX.js -> ', error));
   });
 });
