@@ -50,7 +50,7 @@ img {
 #my-profile-about {
   display: inline-flex;
   text-align: inherit;
-  padding-bottom: 15px;
+  padding-top: 40px;
   max-width: 700px;
   max-height: auto;
   min-width: 650px;
@@ -69,8 +69,10 @@ img {
 }
 
 #my-profile-name {
-  visibility: show;
+  visibility: hidden;
 }
+
+
 
 .profile-icons {
   display: table-cell;
@@ -122,7 +124,7 @@ img {
 }
 
 .activity-image {
-  height: 100%;
+  height: auto;
   width: 150%;
 }
 
@@ -133,7 +135,7 @@ img {
 
 .outer-box .inner-box {
   background-color: #ffffff;
-  height: 75%;
+  height: 100%;
   width: 100%;
   opacity: 0;
   top: 0;
@@ -148,7 +150,7 @@ img {
 
 .outer-box .inner-box p {
   color: #000000;
-  margin-top: 35%;
+  margin-top: 50%;
   text-align: center;
   vertical-align: middle;
   font-size: 20px;
@@ -206,11 +208,16 @@ img {
   height: 300px;
   width: 100%;
   margin-bottom: -180px;
+
 }
 
 #edit-profile-button {
   color: #606060;
   text-decoration: none;
+}
+#edit-profile-button:hover, 
+#edit-profile-button:focus{
+  color: #ec1928 !important;
 }
 
 #edit-profile-button:hover {
@@ -223,6 +230,8 @@ img {
   cursor: pointer;
   margin-left: -15px;
 }
+
+
 #my-profile-social-TW {
   height: 20px;
   width: 20px;
@@ -233,11 +242,14 @@ img {
   background-repeat: no-repeat;
 }
 
+
+
 #my-profile-social-FB {
   height: 20px;
   width: 20px;
   margin-left: 10px;
 }
+
 
 #my-profile-social-LI {
   height: 20px;
@@ -258,7 +270,9 @@ img {
 .social-hover:hover,
 .social-hover:focus {
   zoom: 105%;
+  fill: red;
 }
+
 .profile-icons {
   margin: auto;
 }
