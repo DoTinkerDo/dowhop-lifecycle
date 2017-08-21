@@ -212,6 +212,8 @@ img {
   cursor: pointer;
   margin-left: -15px;
 }
+
+
 #my-profile-social-TW {
   height: 20px;
   width: 20px;
@@ -222,11 +224,14 @@ img {
   background-repeat: no-repeat;
 }
 
+
+
 #my-profile-social-FB {
   height: 20px;
   width: 20px;
   margin-left: 10px;
 }
+
 
 #my-profile-social-LI {
   height: 20px;
@@ -247,7 +252,9 @@ img {
 .social-hover:hover,
 .social-hover:focus {
   zoom: 105%;
+  fill: red;
 }
+
 .profile-icons {
   margin: auto;
 }
