@@ -124,7 +124,7 @@ img {
 }
 
 .activity-image {
-  height: 100%;
+  height: auto;
   width: 150%;
 }
 
@@ -135,7 +135,7 @@ img {
 
 .outer-box .inner-box {
   background-color: #ffffff;
-  height: 75%;
+  height: 100%;
   width: 100%;
   opacity: 0;
   top: 0;
@@ -150,7 +150,7 @@ img {
 
 .outer-box .inner-box p {
   color: #000000;
-  margin-top: 35%;
+  margin-top: 50%;
   text-align: center;
   vertical-align: middle;
   font-size: 20px;
