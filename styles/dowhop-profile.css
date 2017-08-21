@@ -72,6 +72,8 @@ img {
   visibility: show;
 }
 
+
+
 .profile-icons {
   display: table-cell;
   vertical-align: middle;
@@ -188,11 +190,16 @@ img {
   height: 300px;
   width: 100%;
   margin-bottom: -180px;
+
 }
 
 #edit-profile-button {
   color: #606060;
   text-decoration: none;
+}
+#edit-profile-button:hover, 
+#edit-profile-button:focus{
+  color: #ec1928 !important;
 }
 
 #edit-profile-button:hover {
