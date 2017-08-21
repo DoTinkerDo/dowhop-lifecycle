@@ -50,7 +50,7 @@ img {
 #my-profile-about {
   display: inline-flex;
   text-align: inherit;
-  padding-bottom: 15px;
+  padding-top: 40px;
   max-width: 700px;
   max-height: auto;
   min-width: 650px;
@@ -69,7 +69,7 @@ img {
 }
 
 #my-profile-name {
-  visibility: show;
+  visibility: hidden;
 }
 
 
