@@ -290,9 +290,26 @@ function retrieveProfile(currentProfile) {
     // myProfileEmail.innerHTML = "<a href='mailto:" + appUser.email + " '>Send Message</a> ";
     myProfileAbout.innerText = appUser.profileAbout || 'About Me: ';
     // myProfilePayment.innerText = appUser.pofilePayment;
-    myProfileActivity1.innerText = appUser.profileActivity1;
-    myProfileActivity2.innerText = appUser.profileActivity2;
-    myProfileActivity3.innerText = appUser.profileActivity3;
+    
+    if(appUser.profileActivity1 != null){
+      myProfileActivity1.innerText = appUser.profileActivity1;
+    }
+    else{
+      myProfileActivity3.innerText ='';
+    }
+     if(appUser.profileActivity2 != null){
+      myProfileActivity2.innerText = appUser.profileActivity2;
+    }
+    else{
+      myProfileActivity2.innerText ='';
+    }
+     if(appUser.profileActivity3 != null){
+      myProfileActivity3.innerText = appUser.profileActivity3;
+    }
+    else{
+      myProfileActivity3.innerText ='';
+    }
+
     activityImage1.src =
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image1) || '/images/placeholder-image1.png';
     activityImage2.src =
