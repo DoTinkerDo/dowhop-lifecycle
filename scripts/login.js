@@ -51,17 +51,23 @@
     if (window.location.hash != '' && window.location.hash.length > 0) {
       setLandingTab(window.location.hash.match(/#(.+)/)[1]);
     }
-    // TO-DO: Alternative option is to restore a "saved session."
+
+    // Read the user's saved session:
 
     var sessionRef = database.ref('/session').child(user.uid);
-    var currentTab;
-    // sessionRef.on('value', function(snap) {
-    //   currentTab = snap.val();
-    // });
+    var userSession;
+
     sessionRef.once('value').then(function(snap) {
-      currentTab = snap.val();
-      console.log('current DoWhop upon first visit', currentTab.current_dowhop);
-      console.log(currentTab.current_tab);
+      if (!snap.val()) {
+        var userSession = {
+          current_tab: 'coordinate-tab'
+          // To-Do: Set default doWhopDescriptionKey.
+        };
+        sessionRef.update(userSession);
+      }
+      userSession = snap.val();
+      console.log('current DoWhop upon first visit', userSession.current_dowhop);
+      console.log('current tab', userSession.current_tab);
     });
   }
 
