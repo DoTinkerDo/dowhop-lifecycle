@@ -19,6 +19,7 @@ function createDoWhop(event) {
   // var whyImage = document.getElementById('whyImage');
   var whoDescription = document.getElementById('whoDescription');
   // var whoImage = document.getElementById('whoImage');
+  var whoAmIDescription = document.getElementById('whoAmIDescription');
   var whatDescription = document.getElementById('whatDescription');
   // var whatImage = document.getElementById('whatImage');
   var whereDescription = document.getElementById('whereDescription');
@@ -43,6 +44,7 @@ function createDoWhop(event) {
     event.whyDescription = whyDescription.value;
     // event.whyDescription = whyDescription.value;
     event.whoDescription = whoDescription.value;
+    event.whoAmIDescription = whoAmIDescription.value;
     // event.whoImage = whoImage.innerHTML;
     event.whatDescription = whatDescription.value;
     // event.whatImage = whatImage.innerHTML;
@@ -70,6 +72,7 @@ function createDoWhop(event) {
   doWhopDescriptionRootRef.child(currentDoWhop).child('whyDescription').set(event.whyDescription);
   doWhopDescriptionRootRef.child(currentDoWhop).child('whatDescription').set(event.whatDescription);
   doWhopDescriptionRootRef.child(currentDoWhop).child('whoDescription').set(event.whoDescription);
+  doWhopDescriptionRootRef.child(currentDoWhop).child('whoAmIDescription').set(event.whoAmIDescription);
   doWhopDescriptionRootRef.child(currentDoWhop).child('whereDescription').set(event.whereDescription);
   doWhopDescriptionRootRef.child(currentDoWhop).child('whenDescription').set(event.whenDescription);
   doWhopDescriptionRootRef.child(currentDoWhop).child('creatorDescription').set(event.creatorDescription);
@@ -86,6 +89,7 @@ function createDoWhop(event) {
   whyDescription.value = '';
   // whyImage.innerHTML = '';
   whoDescription.value = '';
+  whoAmIDescription.value = '';
   // whoImage.innerHTML = '';
   whatDescription.value = '';
   // whatImage.innerHTML = '';
@@ -237,7 +241,6 @@ function fillInEditForm(doWhopSelector) {
         document.getElementById('whoDescription').value = doWhopDescription.whoDescription;
         console.log(doWhopDescription.whoDescription);
         document.getElementById('whoAmIDescription').value = doWhopDescription.whoAmIDescription || '';
-        // console.log('doWhopDescription', doWhopDescription.whoAmIDescription);
         document.getElementById('whyDescription').value = doWhopDescription.whyDescription;
         document.getElementById('whatDescription').value = doWhopDescription.whatDescription;
         document.getElementById('whereDescription').value = doWhopDescription.whereDescription;
