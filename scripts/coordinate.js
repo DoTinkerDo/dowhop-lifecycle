@@ -24,16 +24,15 @@ function getSesh(clickedID) {
   }
 
   var sessionRef = database.ref('/session').child(userID);
-  console.log('current tab in getSesh...', currentTab);
+  // console.log('current tab in getSesh...', currentTab);
 
   sessionRef.update({
     current_tab: currentTab
   });
 
   // Show UI for the tabs
-
   setLandingTab(clickedID); // New.
-  console.log('running getSesh...');
+  // console.log('running getSesh...');
   // console.log(creatorUserObjects, doerUserObjects);
   setAndGetDoWhopDescriptionSession(clickedID);
 }

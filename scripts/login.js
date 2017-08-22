@@ -66,8 +66,8 @@
         sessionRef.update(userSession);
       }
       userSession = snap.val();
-      console.log('current DoWhop upon first visit', userSession.current_dowhop);
-      console.log('current tab', userSession.current_tab);
+      // console.log('current DoWhop upon first visit', userSession.current_dowhop);
+      // console.log('current tab', userSession.current_tab);
       setAndGetDoWhopDescriptionSession(userSession.current_dowhop);
       // getSessionTab(user.uid);
       setLandingTab(getSessionTab(user.uid));
@@ -128,7 +128,7 @@ function getSessionTab(uid) {
   var sessionRef = database.ref('/session').child(uid);
   sessionRef.on('value', function(snap) {
     currentTab = snap.val().current_tab;
-    console.log('... running new getsession tab', currentTab);
+    // console.log('... running new getsession tab', currentTab);
   });
   return currentTab;
 }
@@ -216,7 +216,7 @@ function setLandingTab(href) {
   // We are covering two situations:
   // One for direct URL to particular tab, second for clicking on particular tab:
   var currentTab;
-  console.log('setLandingTab', href);
+  // console.log('setLandingTab', href);
   if (typeof href === 'string' && href.match(/-tab/)) {
     currentTab = href;
   } else {

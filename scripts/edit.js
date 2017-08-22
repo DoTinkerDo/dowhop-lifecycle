@@ -123,7 +123,7 @@ function retrieveMyDoWhops(uid) {
           doWhopDescription.creatorDescription === person.email ||
           doerDescriptionEmails.some(function(doerDescriptionEmail) {
             return doerDescriptionEmail === person.email;
-            console.log(person);
+            // console.log(person);
           })
         ) {
           makeDoWhopSelector(userDowhopCardDiv, doWhopDescription);
@@ -206,10 +206,9 @@ function toggleDoWhopDescriptionImage(element) {
 // for the currentUser
 // plus showEditForm and FillInEditForm
 function setSession(doWhopSelector) {
-  console.log('Running setSession....');
+  // console.log('Running setSession....');
   // Note: this is an important order of operations:
   var key = doWhopSelector.id;
-  console.log('current key', key);
   database.ref('session').child(person.uid).update({ current_dowhop: key });
   // console.log(creatorUserObjects, doerUserObjects);
   setAndGetDoWhopDescriptionSession(key); // new
