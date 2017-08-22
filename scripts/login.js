@@ -61,6 +61,7 @@
     sessionRef.once('value').then(function(snap) {
       currentTab = snap.val();
       console.log('current DoWhop upon first visit', currentTab.current_dowhop);
+      console.log(currentTab.current_tab);
     });
   }
 
@@ -135,6 +136,17 @@ function createDefaultDoWhop(person) {
     howMuchDescription: '',
     creatorDescription: 'tinkerdowhop@gmail.com',
     doerDescription: email
+  });
+
+  var sessionsRef = database.ref('/session');
+  var sessionUserRef = sessionsRef.child(uid);
+  sessionUserRef.once('value').then(function(snapshot) {
+    if (snapshot.val()) return;
+    var userSession = {
+      current_dowhop: doWhopDescriptionKey,
+      current_tab: 'coordinate-tab'
+    };
+    sessionUserRef.update(userSession);
   });
 
   // Updating user's status henceforth:

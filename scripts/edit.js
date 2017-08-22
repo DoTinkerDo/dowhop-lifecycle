@@ -210,7 +210,7 @@ function setSession(doWhopSelector) {
   // Note: this is an important order of operations:
   var key = doWhopSelector.id;
   database.ref('session').child(person.uid).update({ current_dowhop: key });
-  console.log(creatorUserObjects, doerUserObjects);
+  // console.log(creatorUserObjects, doerUserObjects);
   FriendlyChat.prototype.getSession(key); // new
 }
 
@@ -237,7 +237,7 @@ function fillInEditForm(doWhopSelector) {
       if (data.key === doWhopSelector.id) {
         document.getElementById('titleDescription').value = doWhopDescription.titleDescription;
         document.getElementById('whoDescription').value = doWhopDescription.whoDescription;
-        console.log(doWhopDescription.whoDescription);
+        // console.log(doWhopDescription.whoDescription);
         document.getElementById('whyDescription').value = doWhopDescription.whyDescription;
         document.getElementById('whatDescription').value = doWhopDescription.whatDescription;
         document.getElementById('whereDescription').value = doWhopDescription.whereDescription;
