@@ -69,6 +69,7 @@
       console.log('current DoWhop upon first visit', userSession.current_dowhop);
       console.log('current tab', userSession.current_tab);
       setAndGetDoWhopDescriptionSession(userSession.current_dowhop);
+      getSessionTab(user.uid);
     });
   }
 
@@ -116,7 +117,6 @@ auth.onAuthStateChanged(function(user) {
     person = user;
     retrieveMyDoWhops(person.uid);
     checkDefaultDoWhop(person);
-    setAndGetDoWhopDescriptionSessionTab(person.uid);
   } else {
     console.log('PERSON signed out');
   }
