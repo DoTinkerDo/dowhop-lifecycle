@@ -69,7 +69,8 @@
       console.log('current DoWhop upon first visit', userSession.current_dowhop);
       console.log('current tab', userSession.current_tab);
       setAndGetDoWhopDescriptionSession(userSession.current_dowhop);
-      getSessionTab(user.uid);
+      // getSessionTab(user.uid);
+      setLandingTab(getSessionTab(user.uid));
     });
   }
 
@@ -123,11 +124,13 @@ auth.onAuthStateChanged(function(user) {
 });
 
 function getSessionTab(uid) {
+  var currentTab;
   var sessionRef = database.ref('/session').child(uid);
   sessionRef.on('value', function(snap) {
     currentTab = snap.val().current_tab;
     console.log('... running new getsession tab', currentTab);
   });
+  return currentTab;
 }
 
 // console.log('...finishing running getsession tab', currentTab);
@@ -213,6 +216,7 @@ function setLandingTab(href) {
   // We are covering two situations:
   // One for direct URL to particular tab, second for clicking on particular tab:
   var currentTab;
+  console.log('setLandingTab', href);
   if (typeof href === 'string' && href.match(/-tab/)) {
     currentTab = href;
   } else {
@@ -221,8 +225,8 @@ function setLandingTab(href) {
 
   if (document.getElementById(currentTab)) {
     var currentTabElement = document.getElementById(currentTab);
-    var userID = person.uid || user.uid;
-    var sessionRef = database.ref('/session').child(userID);
+    // var userID = person.uid || user.uid;
+    // var sessionRef = database.ref('/session').child(userID);
     var allTabs = document.getElementsByClassName('tab');
 
     // We need to toggle the tabs to default color if un-selected...
@@ -235,9 +239,9 @@ function setLandingTab(href) {
     currentTabElement.style.fill = '#ec1928';
     currentTabElement.style.color = '#ec1928';
 
-    sessionRef.update({
-      current_tab: currentTab
-    });
+    // sessionRef.update({
+    //   current_tab: currentTab
+    // });
   }
 }
 
