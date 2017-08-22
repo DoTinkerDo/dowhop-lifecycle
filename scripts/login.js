@@ -108,15 +108,28 @@
 // ('use strict');
 // setting currentUser globals...
 var person = null;
+var currentTab = '';
+
 auth.onAuthStateChanged(function(user) {
   if (user) {
     person = user;
     retrieveMyDoWhops(person.uid);
     checkDefaultDoWhop(person);
+    getSessionTab(person.uid);
   } else {
     console.log('PERSON signed out');
   }
 });
+
+function getSessionTab(uid) {
+  var sessionRef = database.ref('/session').child(uid);
+  sessionRef.on('value', function(snap) {
+    currentTab = snap.val().current_tab;
+    console.log('... running new getsession tab', currentTab);
+  });
+}
+
+// console.log('...finishing running getsession tab', currentTab);
 
 function createDefaultDoWhop(person) {
   var uid = person.uid;

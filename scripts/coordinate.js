@@ -20,20 +20,6 @@ function getSesh(clickedID) {
   FriendlyChat.prototype.getSession(clickedID);
 }
 
-FriendlyChat.prototype.getSessionTab = function() {
-  // To-Do: Refactor like so.
-  var userID = person.uid;
-  var sessionRef = database.ref('/session').child(userID);
-  var currentTab;
-  // sessionRef.on('value', function(snap) {
-  //   currentTab = snap.val();
-  // });
-  sessionRef.once('value').then(function(snap) {
-    currentTab = snap.val();
-  });
-  return currentTab;
-};
-
 // Initializes FriendlyChat.
 function FriendlyChat() {
   this.checkSetup();
