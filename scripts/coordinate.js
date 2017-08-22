@@ -363,6 +363,12 @@ FriendlyChat.prototype.getSession = function() {
         let renderWhenInformation = data.val().whenDescription;
         let renderWhereInformation = data.val().whereDescription;
         let renderWhoInformation = data.val().whoDescription; // To-Do: Update with first names dynamically.
+        let renderWhoAmIInformation = data.val().whoAmIDescription;
+        //for DoWhops created before Who Am I was added to create field
+        //do an undefined check so it doesn't render an undefined paragraph
+        if (renderWhoAmIInformation === undefined) {
+          renderWhoAmIInformation = '';
+        }
 
         if (data.val().whereAddress && data.val().whereAddress != 'By request') {
           renderWhereInformation = data.val().whereAddress;
@@ -400,6 +406,9 @@ FriendlyChat.prototype.getSession = function() {
           '<h3>Who?</h3>' +
           '<p>' +
           renderWhoInformation +
+          '</p>' +
+          '<p>' +
+          renderWhoAmIInformation +
           '</p>' +
           '<h3>Why?</h3>' +
           '<p>' +
@@ -503,7 +512,6 @@ FriendlyChat.prototype.saveMessage = function(e) {
     messageText += currentUser.displayName + ' has requested to meet!\n';
     if (this.messageFormWherePending.value) messageText += this.messageFormWherePending.value;
     if (this.messageFormWhenDateTimePending.value) {
-
       messageText +=
         '\non ' +
         datePicker.formatDate(new Date(datePicker.selectedDates), 'l F j, Y') +

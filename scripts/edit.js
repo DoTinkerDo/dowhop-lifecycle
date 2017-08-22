@@ -236,6 +236,8 @@ function fillInEditForm(doWhopSelector) {
         document.getElementById('titleDescription').value = doWhopDescription.titleDescription;
         document.getElementById('whoDescription').value = doWhopDescription.whoDescription;
         console.log(doWhopDescription.whoDescription);
+        document.getElementById('whoAmIDescription').value = doWhopDescription.whoAmIDescription || '';
+        // console.log('doWhopDescription', doWhopDescription.whoAmIDescription);
         document.getElementById('whyDescription').value = doWhopDescription.whyDescription;
         document.getElementById('whatDescription').value = doWhopDescription.whatDescription;
         document.getElementById('whereDescription').value = doWhopDescription.whereDescription;
