@@ -8,6 +8,7 @@ var submitUpdateDoWhopBtn = document.getElementById('submit-update-dowhop');
 submitUpdateDoWhopBtn.addEventListener('click', createDoWhop);
 
 function createDoWhop(event) {
+  event.preventDefault();
   // Collect form data and clear it:
   var titleDescription = document.getElementById('titleDescription');
   // var titleImage = document.getElementById('titleImage');
