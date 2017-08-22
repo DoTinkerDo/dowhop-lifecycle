@@ -123,7 +123,7 @@ function retrieveMyDoWhops(uid) {
           doWhopDescription.creatorDescription === person.email ||
           doerDescriptionEmails.some(function(doerDescriptionEmail) {
             return doerDescriptionEmail === person.email;
-            console.log(person);
+            // console.log(person);
           })
         ) {
           makeDoWhopSelector(userDowhopCardDiv, doWhopDescription);
@@ -206,10 +206,12 @@ function toggleDoWhopDescriptionImage(element) {
 // for the currentUser
 // plus showEditForm and FillInEditForm
 function setSession(doWhopSelector) {
+  // console.log('Running setSession....');
   // Note: this is an important order of operations:
   var key = doWhopSelector.id;
   database.ref('session').child(person.uid).update({ current_dowhop: key });
-  FriendlyChat.prototype.getSession(); // new
+  // console.log(creatorUserObjects, doerUserObjects);
+  setAndGetDoWhopDescriptionSession(key); // new
 }
 
 function showEditForm(doWhopSelector) {
@@ -235,7 +237,7 @@ function fillInEditForm(doWhopSelector) {
       if (data.key === doWhopSelector.id) {
         document.getElementById('titleDescription').value = doWhopDescription.titleDescription;
         document.getElementById('whoDescription').value = doWhopDescription.whoDescription;
-        console.log(doWhopDescription.whoDescription);
+        // console.log(doWhopDescription.whoDescription);
         document.getElementById('whyDescription').value = doWhopDescription.whyDescription;
         document.getElementById('whatDescription').value = doWhopDescription.whatDescription;
         document.getElementById('whereDescription').value = doWhopDescription.whereDescription;
