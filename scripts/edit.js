@@ -74,16 +74,31 @@ function createDoWhop(event) {
 
   database.ref('session/' + uid + '/updateImageTempData/').once('value').then(function(snapshot) {
     var snapshotVal = snapshot.val();
-    var image1Changed = snapshotVal.image1Changed;
-    var potentialUrlForImage = snapshotVal.potentialUrlForImage1;
-    console.log(potentialUrlForImage);
-    if (image1Changed) {
-      doWhopDescriptionRootRef.child(currentDoWhop).child('downloadURL').set({
-        image1: potentialUrlForImage
-      });
-    }
+    // console.log('snapshot.val()', snapshot.val());
+    var whichImagesChanged = [snapshotVal.image1Changed, snapshotVal.image2Changed, snapshotVal.image3Changed];
+    // console.log('whichImagesChanged', whichImagesChanged);
+    var potentialUrlForImage1 = snapshotVal.potentialUrlForImage1;
+    var potentialUrlForImage2 = snapshotVal.potentialUrlForImage2;
+    var potentialUrlForImage3 = snapshotVal.potentialUrlForImage3;
+    var whichUrl = [
+      snapshotVal.potentialUrlForImage1,
+      snapshotVal.potentialUrlForImage2,
+      snapshotVal.potentialUrlForImage3
+    ];
+    console.log('whichUrl', whichUrl);
+
+    whichImagesChanged.map((imageChanged, idx) => {
+      if (imageChanged) {
+        let imgNum = idx + 1;
+        let key = `image${imgNum}`;
+        let url = whichUrl[idx];
+        console.log('key url', { [key]: url });
+        doWhopDescriptionRootRef.child(currentDoWhop).child('downloadURL').update({
+          [key]: url
+        });
+      }
+    });
   });
-  doWhopDescriptionRootRef.child(currentDoWhop).child('');
 
   doWhopDescriptionRootRef
     .child(currentDoWhop)
@@ -237,7 +252,23 @@ function showEditForm(doWhopSelector) {
   });
 }
 
+function clearImageTempValues() {
+  database.ref('session/' + uid + '/updateImageTempData/').update({
+    image1Changed: false,
+    image2Changed: false,
+    image3Changed: false,
+    potentialUrlForImage1: '',
+    potentialUrlForImage2: '',
+    potentialUrlForImage3: ''
+  });
+  database.ref('session/' + uid + '/updateImageTempData/').once('value').then(function(snapshot) {
+    console.log('snapshot.val()', snapshot.val());
+  });
+}
+
 function fillInEditForm(doWhopSelector) {
+  clearImageTempValues();
+
   doWhopDescriptionRootRef.orderByKey().on('value', function(snapshot) {
     snapshot.forEach(function(data) {
       var doWhopDescription = data.val();
