@@ -1,7 +1,7 @@
 # DoWhop.com Contributor's Guide
 Updated Aug. 2017
 
-## DoWhop Tech Team
+## DoWhop Tech Team (TinkerDos) 
 
 Current members of the Tech Team are:
 
@@ -16,7 +16,7 @@ Current members of the Tech Team are:
 
 ### Overview
 
-We strive to follow an Agile approach to software development. This means we commit often, communicate clearly, and focus on building features with the knowledge that customers may drive changes. We also embrace DoWhop's core values of being **kind, bold, and daring**.
+We strive to follow an Agile approach to software development. This means we commit often, communicate clearly, and focus on building features with the knowledge that customers may drive changes. We also embrace DoWhop's core values of being **genuine, kind, bold, and daring**.
 
 ### GitHub
 
