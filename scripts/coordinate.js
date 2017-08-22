@@ -17,7 +17,7 @@ function getSesh(clickedID) {
   setLandingTab(clickedID); // New.
   // console.log('running getSesh...');
   // console.log(creatorUserObjects, doerUserObjects);
-  FriendlyChat.prototype.getSession(key);
+  FriendlyChat.prototype.getSession(clickedID);
 }
 
 FriendlyChat.prototype.getSessionTab = function() {
