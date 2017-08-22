@@ -212,7 +212,7 @@ function setSession(doWhopSelector) {
   console.log('current key', key);
   database.ref('session').child(person.uid).update({ current_dowhop: key });
   // console.log(creatorUserObjects, doerUserObjects);
-  FriendlyChat.prototype.getSession(key); // new
+  setAndGetDoWhopDescriptionSession(key); // new
 }
 
 function showEditForm(doWhopSelector) {

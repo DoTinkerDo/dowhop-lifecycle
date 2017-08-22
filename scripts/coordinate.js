@@ -15,9 +15,9 @@ var datePicker = new flatpickr('#whenDateTimePending', {
 
 function getSesh(clickedID) {
   setLandingTab(clickedID); // New.
-  // console.log('running getSesh...');
+  console.log('running getSesh...');
   // console.log(creatorUserObjects, doerUserObjects);
-  FriendlyChat.prototype.getSession(clickedID);
+  setAndGetDoWhopDescriptionSession(clickedID);
 }
 
 // Initializes FriendlyChat.
@@ -220,8 +220,8 @@ FriendlyChat.prototype.removeChats = function() {
   this.messageList.innerHTML = '';
 };
 
-FriendlyChat.prototype.getSession = function(DoWhopID) {
-  // console.log('Running getsession');
+function setAndGetDoWhopDescriptionSession(DoWhopID) {
+  // console.log('Running setAndGetDoWhopDescriptionSession');
   // I. Link to db where we want to listen.
   var user = person;
   var userID = person.uid;
@@ -493,7 +493,7 @@ FriendlyChat.prototype.getSession = function(DoWhopID) {
     document.getElementById('messages-card').setAttribute('hidden', 'true');
     document.getElementById('selector-body') && document.getElementById('selector-body').setAttribute('hidden', 'true');
   }
-};
+}
 
 function generateUserIcon(userObjectsArray) {}
 
@@ -696,7 +696,6 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
     var userName = user.displayName;
     // this.checkForAdmin();
     // Add event listener for event session changes:
-    // this.getSession(currentSessionID);
     // We save the Firebase Messaging Device token and enable notifications.
     // this.saveMessagingDeviceToken();
   } else {

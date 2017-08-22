@@ -68,6 +68,7 @@
       userSession = snap.val();
       console.log('current DoWhop upon first visit', userSession.current_dowhop);
       console.log('current tab', userSession.current_tab);
+      setAndGetDoWhopDescriptionSession(userSession.current_dowhop);
     });
   }
 
@@ -115,7 +116,7 @@ auth.onAuthStateChanged(function(user) {
     person = user;
     retrieveMyDoWhops(person.uid);
     checkDefaultDoWhop(person);
-    getSessionTab(person.uid);
+    setAndGetDoWhopDescriptionSessionTab(person.uid);
   } else {
     console.log('PERSON signed out');
   }
