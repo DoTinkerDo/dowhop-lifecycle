@@ -258,6 +258,12 @@ function clearImageTempValues() {
 
 function fillInEditForm(doWhopSelector) {
   clearImageTempValues();
+  var editImageCapture1 = document.getElementById('edit-image-capture1');
+  var editImageCapture2 = document.getElementById('edit-image-capture2');
+  var editImageCapture3 = document.getElementById('edit-image-capture3');
+  editImageCapture1.addEventListener('change', addImageToFirebase);
+  editImageCapture2.addEventListener('change', addImageToFirebase);
+  editImageCapture3.addEventListener('change', addImageToFirebase);
 
   doWhopDescriptionRootRef.orderByKey().on('value', function(snapshot) {
     snapshot.forEach(function(data) {
@@ -284,19 +290,22 @@ function fillInEditForm(doWhopSelector) {
   });
 }
 
-function addImageToFirebase(file) {
+function addImageToFirebase() {
+  // console.log('this', this.files);
   var currentImageNumber = event.target.getAttribute('data-image-num');
   var currentDoWhopID = document.getElementById('dowhop-selector-container').firstChild.id;
-  var filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + currentDoWhopID + '/' + file[0].name;
+  var fileName = this.files[0].name;
+  var file = this.files[0];
+  var filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + currentDoWhopID + '/' + fileName;
 
-  storage.ref(filePath).put(file[0]).then(function(snapshot) {
+  storage.ref(filePath).put(file).then(function(snapshot) {
     var path = snapshot.metadata.fullPath;
     storage.ref(path).getDownloadURL().then(function(url) {
       //set potential download URL for current image number. Potential download URL will become actually URL
       //when form is submitted
       var potentialUrlForImage = 'potentialUrlForImage' + currentImageNumber;
       var imageChanged = 'image' + currentImageNumber + 'Changed';
-      database.ref('session/' + uid + '/updateImageTempData').set({
+      database.ref('session/' + uid + '/updateImageTempData').update({
         [imageChanged]: true,
         [potentialUrlForImage]: url
       });
