@@ -311,19 +311,19 @@ function retrieveProfile(currentProfile) {
     myProfileAbout.innerText = appUser.profileAbout || 'About Me: ';
     // myProfilePayment.innerText = appUser.pofilePayment;
     
-    if(appUser.profileActivity1 !== null){
+    if(appUser.profileActivity1){
       myProfileActivity1.innerText = appUser.profileActivity1;
     }
     else{
       myProfileActivity3.innerText ='';
     }
-     if(appUser.profileActivity2 !== null){
+     if(appUser.profileActivity2){
       myProfileActivity2.innerText = appUser.profileActivity2;
     }
     else{
       myProfileActivity2.innerText ='';
     }
-     if(appUser.profileActivity3 !== null){
+     if(appUser.profileActivity3){
       myProfileActivity3.innerText = appUser.profileActivity3;
     }
     else{
@@ -397,12 +397,13 @@ function socialMediaTW() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
-    console.log(currentProfile);
+    var prefix = "http://www.";
     let twitter = String(snap.val().profileSocialTW);
+    var link = prefix.concat(twitter)
     if (!snap.val().profileSocialTW) {
-      console.log("hello");
     } else {
-      window.open(twitter, '_blank');
+      console.log("twitter");
+      window.open(link, '_blank');
     }
   });
 }
@@ -410,13 +411,14 @@ function socialMediaTW() {
 function socialMediaFB() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
-  console.log(currentProfile);
   profileRef.on('value', function(snap) {
+    var prefix = "http://www.";
     let facebook = String(snap.val().profileSocialFB);
-    console.log(facebook);
+    var link = prefix.concat(facebook);
     if (!snap.val().profileSocialFB) {
     } else {
-      window.open(facebook, '_blank');
+      console.log("facebook");
+      window.open(link, '_blank');
     }
   });
 }
@@ -425,10 +427,13 @@ function socialMediaLI() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
-    let linkedIn = String(snap.val().profileSocialLI);
+    var prefix = "http://www.";
+    var linkedIn = String(snap.val().profileSocialLI);
+    var link = prefix.concat(linkedIn);
     if (!snap.val().profileSocialLI) {
     } else {
-      window.open(linkedIn, '_blank');
+      console.log("linkedin");
+      window.open(link, '_blank');
     }
   });
 }
@@ -437,14 +442,21 @@ function socialMediaIG() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.once('value', function(snap) {
+    var prefix = "http://www.";
     let instagram = String(snap.val().profileSocialIG);
+    var link = prefix.concat(instagram);
     if (!snap.val().profileSocialIG) {
     } else {
-      window.open(instagram, '_blank');
+      console.log("instagram");
+      window.open(link, '_blank');
     }
   });
 }
-
+/*
+function checkURL(String url) {
+  var index
+}
+*/
 function phoneX(phone) {
   var str = '';
   var i;
