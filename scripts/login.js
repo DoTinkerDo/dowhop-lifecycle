@@ -143,14 +143,18 @@ function createDefaultDoWhop(person) {
   var appUsersRef = database.ref('/app_users');
   var appUserRef = appUsersRef.child(uid);
   var currentTime = moment().format('YYYY-MM-DD--HH:mm');
-  var defaultDoWhopImage = 'images/DefaultDoWhop_banner.jpg';
+  // var defaultDoWhopImage = 'images/DefaultDoWhop_banner.jpg';
+  var defaultDoWhopImage1 =
+    'https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/defaultDowhops%2FIMG_0992-edited.jpg?alt=media&token=f7bfe79b-e90b-443e-ae89-3f8abc46661a';
+  var defaultDoWhopImage2 =
+    'https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/defaultDowhops%2FIMG_1161-edited.jpg?alt=media&token=a9c1e9c1-fcd1-437d-b2e4-b0da581dff69';
   // Adding a default DoWhop template as welcoming message:
   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
   // First we create the new default DoWhop:
   doWhopDescriptionRef.child(doWhopDescriptionKey).set({
     createdBy: uid,
     doWhopDescriptionKey: doWhopDescriptionKey,
-    downloadURL: defaultDoWhopImage,
+    downloadURL: { image1: defaultDoWhopImage1, image2: defaultDoWhopImage2 },
     titleDescription: 'Help with DoWhop',
     whyDescription:
       'These notes will help you create your first DoWhop and answer any questions about the purpose behind each text field! Put a tagline describing this DoWhop in the "why do this DoWhop" section to grab the attention of other DoWhoppers on the marketplace.',
