@@ -277,7 +277,7 @@ function setAndGetDoWhopDescriptionSession(DoWhopID) {
     if (data.pending && data.pending.requesterName) {
       requesterName = data.pending.requesterName;
     }
-    var pendingNotification = requesterName + ' has requested to meet!\n';
+    var pendingNotification = requesterName + ' has requested to meet\n';
 
     // Check if there are pending data:
     if (data && data.pending != null && data.pending.status != 'approved' && data.pending.status != 'denied') {
@@ -290,7 +290,7 @@ function setAndGetDoWhopDescriptionSession(DoWhopID) {
           moment(data.pending.whenDateTimePending).format('hh:mmA') +
           '\n';
       }
-      if (data.pending.whereAddressPending) pendingNotification += '\n' + data.pending.whereAddressPending;
+      if (data.pending.whereAddressPending) pendingNotification += 'at ' + data.pending.whereAddressPending + '\n';
 
       document.getElementById('pending-div').removeAttribute('hidden');
       document.getElementById('pending-div').innerText = pendingNotification;
@@ -564,21 +564,20 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
     var messageText = '';
 
-    messageText += currentUser.displayName + ' has requested to meet!\n';
-    if (this.messageFormWherePending.value) messageText += this.messageFormWherePending.value;
+    messageText += currentUser.displayName + ' has requested to meet\n';
     if (this.messageFormWhenDateTimePending.value) {
       messageText +=
-        '\non ' +
+        'on ' +
         datePicker.formatDate(new Date(datePicker.selectedDates), 'l F j, Y') +
         ' at ' +
         datePicker.formatDate(new Date(datePicker.selectedDates), 'h:iK') +
         '\n';
     }
-    // if (this.messageFormWhenDatePending.value) messageText += this.messageFormWhenDatePending.value + '\n';
+    if (this.messageFormWherePending.value) messageText += 'at ' + this.messageFormWherePending.value + '\n';
 
     messagesChatsRef.push({
       chatId: currentDoWhopID,
-      senderId: currentUser.uid, // We need this in order to interact with users objects.
+      senderId: currentUser.uid,
       name: currentUser.displayName,
       text: messageText,
       photoUrl: '/images/placeholder-image1.jpg'
@@ -592,7 +591,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
     this.resetDateTimeWhere; // Catch-all.
   }
 
-  // We'll only save the message if the length isn't an empty string...
+  // We'll only save the message if the length isn't an empty string:
   if (this.messageInput.value.length > 0) {
     messagesChatsRef
       .push({
@@ -600,18 +599,18 @@ FriendlyChat.prototype.saveMessage = function(e) {
         senderId: currentUser.uid,
         name: currentUser.displayName,
         text: this.messageInput.value,
-        photoUrl: currentUser.photoURL || '/images/user-icon.png' // Check.
+        photoUrl: currentUser.photoURL || '/images/user-icon.png'
       })
       .then(
         function() {
-          document.getElementById('message').value = ''; //  Clearing text field last because it would erase above otherwise.
+          document.getElementById('message').value = '';
           this.resetDateTimeWhere; // Catch-all.
         }.bind(this)
       )
       .catch(function(error) {
         console.error('Error writing new message to Firebase Database', error);
       });
-    this.resetDateTimeWhere; // Check.
+    this.resetDateTimeWhere; // To-Do: Rest flatpickr date-time input upon save.
   }
 };
 
