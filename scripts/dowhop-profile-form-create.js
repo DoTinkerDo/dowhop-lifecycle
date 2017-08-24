@@ -30,6 +30,52 @@ socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
 
+/**
+function changeImage(element) {
+  console.log("this is reached");
+  var image = element.childNodes;
+  var imageSrc = image[1].src;
+  document.getElementById("background-photo").src = imageSrc;
+}
+
+function reverseImage() {
+  console.log("Now we're exiting");
+  document.getElementById("background-photo").src = background;
+}*/
+var activities = document.getElementsByClassName('personalAct');
+var background = document.getElementById("background-photo").src;
+console.log(activities.length);
+
+for(var index=0; index < activities.length; index++) {
+  console.log("We at least got here");
+
+  activities[index].addEventListener("mouseover", function(){
+    console.log("We got here");
+    var children = this.childNodes;
+    console.log(children);
+    var imageSrc = children[1].src;
+    document.getElementById("background-photo").src = imageSrc;
+  });
+
+  activities[index].addEventListener("mouseout", function(){
+    console.log("Like a somebody");
+    document.getElementById("background-photo").src = background;
+  });
+}
+//This is the animation function for changing the background
+/**activity1.addEventListener("mouseover", function() {
+  console.log("This is reached");
+  var children = activity1.childNodes;
+  var imageSrc = children[1].src;
+  console.log(imageSrc);
+  document.getElementById("background-photo").src = imageSrc;
+});
+
+activity1.addEventListener("mouseout", function() {
+  console.log("I also got this");
+  document.getElementById("background-photo").src = background;
+})*/
+
 //Toggle for showing and hiding edit form in profile
 var toggle = 0;
 
@@ -310,6 +356,7 @@ function socialMediaTW() {
     console.log(currentProfile);
     let twitter = String(snap.val().profileSocialTW);
     if (!snap.val().profileSocialTW) {
+      console.log("hello");
     } else {
       window.open(twitter, '_blank');
     }

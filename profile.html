@@ -45,16 +45,16 @@
 
 <body>
 <div class='container'>
-  <div class='mdl-grid'>
-  <div class='mdl-cell mdl-cell--12-col'>
-    <img class='background-photo'src="https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/DefaultDoWhop_banner.jpg?alt=media&token=80201f64-7b50-4d35-9fe4-c55ec4449514">
+  <div class='content-grid mdl-grid'>
+  <div class='mdl-cell mdl-cell--12-col mdl-cell--4-col-phone'>
+    <img class='background-photo' id="background-photo" src="https://static.wixstatic.com/media/de271e_197b08d22f27418eb9d45e9c52b135b8~mv2.jpg/v1/fill/w_790,h_243,al_c,lg_1,q_80/de271e_197b08d22f27418eb9d45e9c52b135b8~mv2.webp">
   </div>
 
-  <div class="mdl-grid">
-    <div class ="my-profile-picture mdl-cell mdl-cell--8-col">
+  <div class="content-grid mdl-grid" style="justify-content:center; align-items:center;">
+    <div class ="my-profile-picture mdl-cell mdl-cell--8-col mdl-cell--1-col-phone">
       <img id="my-profile-picture" src="" alt="User profile image."/>
     </div>
-    <div class="about-div mdl-cell mdl-cell--8-col mdl-cell--bottom">
+    <div class="about-div mdl-cell mdl-cell--8-col mdl-cell--2-col-phone">
       <div id="my-profile-about"></div>
     </div>
   </div>
@@ -62,7 +62,7 @@
 
 
   <div class='mdl-grid grid1'>
-    <div class= 'mdl-cell mdl-cell--4-col'>
+    <div class= 'mdl-cell mdl-cell--4-col mdl-cell--2-col-phone' style = "margin-top:-15px;">
       <div class="grid2" id="my-display-name"></div>
       <div class='grid2' id="my-profile-name"></div>
       <div class="grid2">
@@ -75,8 +75,8 @@
         <!-- <i class="material-icons profile-icons">mail_outline</i> -->
         <!-- <div class="profile-data" id="my-profile-email"> -->
         <!-- </div> -->
-        <div id="send-direct-message-div" class="mdl-cell">
-          <button id="send-direct-message" class="btn btn-default">
+        <div id="send-direct-message-div" class="mdl-cell" style="margin:0px !important;">
+          <button id="send-direct-message" class="btn btn-default" >
             <span><i class="material-icons profile-icons">mail_outline</i>
             Send Message</span>
           </button>
@@ -90,13 +90,18 @@
         <i class="material-icons profile-icons">room</i>
         <div class="profile-data" id="my-profile-city">San Diego, CA</div>
       </div>
+      <div class='grid2'>
+
       <div class="material-icons profile-icons">
+
         <div id="my-profile-social">
           <img onclick= socialMediaFB() class="social-media-test" id="my-profile-social-FB" src='../images/facebook-logo.svg' />
           <img onclick= socialMediaTW() id="my-profile-social-TW" src='../images/twitter.svg' />
           <img onclick= socialMediaIG() id="my-profile-social-IG" src='../images/instagram.svg' />
           <img onclick= socialMediaLI() id="my-profile-social-LI" src='../images/linkedin.svg' />
-        </div>
+      </div>
+      </div>
+
       </div>
     </div>
 
@@ -110,15 +115,15 @@
       </button>
     </div>
 
-    <div class='profile-activities-div2'>
-      <div class="mdl-cell mdl-cell--7-col outer-box ">
+    <div class='profile-activities-div2 mdl cellmdl-cell--2-col-phone'>
+      <div class="mdl-cell mdl-cell--7-col outer-box personalAct" id="activity1">
         <img class="activity-image" id="activity-image-1" src="/images/placeholder-image1.png" alt="">
         <div class="inner-box">
           <p>Love to Do</p>
         </div>
         <div class="activity activity-caption" id="my-profile-activity-1"></div>
       </div>
-      <div class="outer-box mdl-cell mdl-cell--4-col">
+      <div class="outer-box mdl-cell mdl-cell--4-col personalAct">
         <img class="activity-image" id="activity-image-2" src="/images/placeholder-image2.png" alt="">
         <div class="inner-box">
           <p>Love to Do</p>
@@ -126,7 +131,7 @@
         <div class="activity activity-caption" id="my-profile-activity-2"></div>
       </div>
 
-      <div class="outer-box mdl-cell mdl-cell--4-col">
+      <div class="outer-box mdl-cell mdl-cell--4-col personalAct">
         <img class="activity-image" id="activity-image-3" src="/images/placeholder-image3.png" alt="">
         <div class="inner-box">
           <p>Love to Do</p>
