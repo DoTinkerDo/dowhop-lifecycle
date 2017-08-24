@@ -21,41 +21,16 @@ var createProfileDiv = document.getElementById('create-profile-div');
 var socialButtonTwitter = document.getElementById('social-button-1');
 var socialButtonInstagram = document.getElementById('social-button-2');
 var socialButtonLinkedIn = document.getElementById('social-button-3');
-//var showEditFormBtn = document.getElementById('edit-form');
-// var expandTwitter = document.getElementById('twitter-card');
+var updateForm = document.getElementById('direct-update-form-div');
+var closingButton = document.getElementById('update-form-div-span');
 
-//showProfileFormBtn.addEventListener('click', showForm);
 createProfileFormBtn.addEventListener('click', createProfile);
 socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
-//showEditFormBtn.addEventListener('click', showEditForm);
 
+closingButton.addEventListener('click', closeModalUpdate);
 
-/*
-function showEditForm(e){
-  console.log("we reached here homie");
-
-
-//Changes the banner when hovering over event
-
-  e.preventDefault();
-  showEditFormBtn.removeAttribute('hidden');
-  
-  showEditFormBtn.style.display = "block";
-}*/
-/**
-function changeImage(element) {
-  console.log("this is reached");
-  var image = element.childNodes;
-  var imageSrc = image[1].src;
-  document.getElementById("background-photo").src = imageSrc;
-}
-
-function reverseImage() {
-  console.log("Now we're exiting");
-  document.getElementById("background-photo").src = background;
-}*/
 
 var activities = document.getElementsByClassName('personalAct');
 var background = document.getElementById("background-photo").src;
@@ -237,13 +212,14 @@ function createProfile(e) {
   }
 
   clearCreateProfileForm();
+  closeModalUpdate();
   //createProfileDiv.setAttribute('hidden', 'true');
 
-  var theForm = document.getElementById('form-edit');
+  /**var theForm = document.getElementById('form-edit');
   theForm.removeAttribute("style");
   theForm.setAttribute("hidden","true");
   createProfileDiv.removeAttribute("style");
-  createProfileDiv.setAttribute("hidden", "true");
+  createProfileDiv.setAttribute("hidden", "true");*/
 }
 
 function clearCreateProfileForm() {
@@ -475,17 +451,23 @@ function phoneX(phone) {
   return x.join('');
 }
 
+function closeModalUpdate() {
+  updateForm.style.display="none";
+}
+
 function fillInProfileForm(e) {
   var currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
 
   console.log("edit form working");
-  var editForm = document.getElementById('form-edit');
+  updateForm.removeAttribute('hidden');
+  updateForm.style.display="block";
+  /**var editForm = document.getElementById('direct-update-form-div');
   console.log(editForm);
   editForm.removeAttribute('hidden');
   editForm.style.display="block";
   createProfileDiv.style.display="block";
-  createProfileDiv.removeAttribute("hidden");
+  createProfileDiv.removeAttribute("hidden");*/
  
 
   profileRef.once('value', function(snap) {
