@@ -348,6 +348,7 @@ function setAndGetDoWhopDescriptionSession(DoWhopID) {
         var renderWhenInformation = data.val().whenDescription;
         var renderWhereInformation = data.val().whereDescription;
         var renderWhoDescription = data.val().whoDescription;
+        var renderWhoAmIInformation = data.val().whoAmIDescription || '';
         var whoInformation = data.val().doerDescription; // In progress:  Update with first names dynamically.
         var renderCreatorIcon = '';
         var renderDoerIcons = '';
@@ -465,6 +466,9 @@ function setAndGetDoWhopDescriptionSession(DoWhopID) {
           '<h4>Who?</h4>' +
           '<p>' +
           renderWhoDescription +
+          '</p>' +
+          '<p>' +
+          renderWhoAmIInformation +
           '</p>' +
           '<h4>What?</h4>' +
           '<p>' +
