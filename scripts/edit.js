@@ -90,7 +90,6 @@ function createDoWhop(event) {
         var url = whichUrl[idx];
         var obj = {};
         obj[key] = url;
-        console.log('obj', obj);
         doWhopDescriptionRootRef.child(currentDoWhop).child('downloadURL').update(obj);
       }
     });
