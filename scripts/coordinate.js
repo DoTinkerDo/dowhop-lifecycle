@@ -565,15 +565,16 @@ FriendlyChat.prototype.saveMessage = function(e) {
     var messageText = '';
 
     messageText += currentUser.displayName + ' has requested to meet\n';
-    if (this.messageFormWherePending.value) messageText += this.messageFormWherePending.value;
     if (this.messageFormWhenDateTimePending.value) {
       messageText +=
-        '\non ' +
+        'on ' +
         datePicker.formatDate(new Date(datePicker.selectedDates), 'l F j, Y') +
         ' at ' +
         datePicker.formatDate(new Date(datePicker.selectedDates), 'h:iK') +
         '\n';
     }
+    if (this.messageFormWherePending.value) messageText += 'at ' + this.messageFormWherePending.value + '\n';
+
     // if (this.messageFormWhenDatePending.value) messageText += this.messageFormWhenDatePending.value + '\n';
 
     messagesChatsRef.push({
