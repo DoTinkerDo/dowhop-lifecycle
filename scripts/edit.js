@@ -86,11 +86,12 @@ function createDoWhop(event) {
     whichImagesChanged.map((imageChanged, idx) => {
       if (imageChanged) {
         var imgNum = idx + 1;
-        var key = `image${imgNum}`;
+        var key = 'image' + imgNum;
         var url = whichUrl[idx];
-        doWhopDescriptionRootRef.child(currentDoWhop).child('downloadURL').update({
-          [key]: url
-        });
+        var obj = {};
+        obj[key] = url;
+        console.log('obj', obj);
+        doWhopDescriptionRootRef.child(currentDoWhop).child('downloadURL').update(obj);
       }
     });
   });
