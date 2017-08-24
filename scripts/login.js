@@ -151,14 +151,16 @@ function createDefaultDoWhop(person) {
     doWhopDescriptionKey: doWhopDescriptionKey,
     downloadURL: defaultDoWhopImage,
     titleDescription: 'DoWhop with us!',
-    whoDescription: 'DoWhop Team is here to help you!',
     whyDescription: '',
+    whoDescription: 'DoWhop Team is here to help you!',
+    whoAmIDescription: '',
     whatDescription: '',
     whenDescription: '',
     whereDescription: '',
     howMuchDescription: '',
     creatorDescription: 'tinkerdowhop@gmail.com',
-    doerDescription: email
+    doerDescription: email,
+    createdAt: currentTime
   });
 
   var sessionsRef = database.ref('/session');
