@@ -42,62 +42,47 @@ function submitNewDoWhopEntry(e) {
   var creatorDescription = auth.currentUser.email;
   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
   var defaultImageURL = '../images/dowhopicon.gif';
-  var currentTime = moment().format('YYYY-MM-DD--HH:mm'); // Using library.
+  var currentTime = moment().format('YYYY-MM-DD--HH:mm');
 
-  // We are preparing a first message to the future chat thread:
-  function createWelcomingMessage() {
-    // Gathering the appropriate data to fill out message:
+  // Preparing the welcoming message:
+  var messagesChatsRef = database.ref().child('messages').child(doWhopDescriptionKey);
+  var teamName = 'Your DoWhop Team';
+  var welcomeMessageText =
+    'Welcome to your ' +
+    titleDescription.value +
+    ' DoWhop!\n\n' +
+    'Currently, ' +
+    creatorDisplayName +
+    ' plans to meet "' +
+    whenDescription.value +
+    '" at "' +
+    whereDescription.value +
+    '".\n' +
+    'Coordinate the details here!';
 
-    var DoWhopTitleDescription, DoWhopWhenDescription, DoWhopWhereDescription;
+  doWhopDescriptionRef.child(doWhopDescriptionKey).set({
+    createdBy: uid,
+    doWhopDescriptionKey: doWhopDescriptionKey,
+    titleDescription: titleDescription.value,
+    whyDescription: whyDescription.value,
+    whoDescription: whoDescription.value,
+    whoAmIDescription: whoAmIDescription.value,
+    whatDescription: whatDescription.value,
+    whenDescription: whenDescription.value,
+    whereDescription: whereDescription.value,
+    howMuchDescription: howMuchDescription.value,
+    creatorDescription: creatorDescription,
+    doerDescription: 'no-one',
+    createdAt: currentTime
+  });
 
-    doWhopDescriptionRef.child(doWhopDescriptionKey).once('value', function(snap) {
-      DoWhopTitleDescription = snap.val().titleDescription;
-      DoWhopWhyDescription = snap.val().whyDescription;
-      DoWhopWhenDescription = snap.val().whenDescription;
-      DoWhopWhereDescription = snap.val().whereDescription;
-    });
-
-    var teamName = 'Your DoWhop Team';
-    var welcomeMessageText =
-      'Welcome to your ' +
-      DoWhopTitleDescription +
-      ' DoWhop!\n\n' +
-      'Currently, ' +
-      creatorDisplayName +
-      ' plans to meeeet "' +
-      DoWhopWhenDescription +
-      '" at "' +
-      DoWhopWhereDescription +
-      '".\n' +
-      'Coordinate the details here!';
-
-    var messagesChatsRef = database.ref().child('messages').child(doWhopDescriptionKey);
-    messagesChatsRef.push({
-      chatId: doWhopDescriptionKey,
-      name: teamName,
-      text: welcomeMessageText,
-      photoUrl: defaultImageURL
-    });
-  }
-
-  doWhopDescriptionRef
-    .child(doWhopDescriptionKey)
-    .set({
-      createdBy: uid,
-      doWhopDescriptionKey: doWhopDescriptionKey,
-      titleDescription: titleDescription.value,
-      whyDescription: whyDescription.value,
-      whoDescription: whoDescription.value,
-      whoAmIDescription: whoAmIDescription.value,
-      whatDescription: whatDescription.value,
-      whenDescription: whenDescription.value,
-      whereDescription: whereDescription.value,
-      howMuchDescription: howMuchDescription.value,
-      creatorDescription: creatorDescription,
-      doerDescription: 'no-one',
-      createdAt: currentTime
-    })
-    .then(showConfirmationMessage());
+  showConfirmationMessage();
+  messagesChatsRef.push({
+    chatId: doWhopDescriptionKey,
+    name: teamName,
+    text: welcomeMessageText,
+    photoUrl: defaultImageURL
+  });
 
   files.forEach(function(file, idx) {
     var filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
@@ -110,7 +95,8 @@ function submitNewDoWhopEntry(e) {
       });
     });
   });
-  createWelcomingMessage();
+  // createWelcomingMessage();
+  // showConfirmationMessage();
   clearNewDoWhopEntryForm();
 }
 
