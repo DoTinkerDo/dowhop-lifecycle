@@ -575,11 +575,9 @@ FriendlyChat.prototype.saveMessage = function(e) {
     }
     if (this.messageFormWherePending.value) messageText += 'at ' + this.messageFormWherePending.value + '\n';
 
-    // if (this.messageFormWhenDatePending.value) messageText += this.messageFormWhenDatePending.value + '\n';
-
     messagesChatsRef.push({
       chatId: currentDoWhopID,
-      senderId: currentUser.uid, // We need this in order to interact with users objects.
+      senderId: currentUser.uid,
       name: currentUser.displayName,
       text: messageText,
       photoUrl: '/images/placeholder-image1.jpg'
@@ -593,7 +591,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
     this.resetDateTimeWhere; // Catch-all.
   }
 
-  // We'll only save the message if the length isn't an empty string...
+  // We'll only save the message if the length isn't an empty string:
   if (this.messageInput.value.length > 0) {
     messagesChatsRef
       .push({
@@ -601,18 +599,18 @@ FriendlyChat.prototype.saveMessage = function(e) {
         senderId: currentUser.uid,
         name: currentUser.displayName,
         text: this.messageInput.value,
-        photoUrl: currentUser.photoURL || '/images/user-icon.png' // Check.
+        photoUrl: currentUser.photoURL || '/images/user-icon.png'
       })
       .then(
         function() {
-          document.getElementById('message').value = ''; //  Clearing text field last because it would erase above otherwise.
+          document.getElementById('message').value = '';
           this.resetDateTimeWhere; // Catch-all.
         }.bind(this)
       )
       .catch(function(error) {
         console.error('Error writing new message to Firebase Database', error);
       });
-    this.resetDateTimeWhere; // Check.
+    this.resetDateTimeWhere; // To-Do: Rest flatpickr date-time input upon save.
   }
 };
 
