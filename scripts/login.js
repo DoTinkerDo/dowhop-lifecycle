@@ -142,6 +142,7 @@ function createDefaultDoWhop(person) {
   // Then we add on note to user's profile that it has been added:
   var appUsersRef = database.ref('/app_users');
   var appUserRef = appUsersRef.child(uid);
+  var currentTime = moment().format('YYYY-MM-DD--HH:mm');
   var defaultDoWhopImage = 'images/DefaultDoWhop_banner.jpg';
   // Adding a default DoWhop template as welcoming message:
   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
