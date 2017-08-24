@@ -85,9 +85,9 @@ function createDoWhop(event) {
 
     whichImagesChanged.map((imageChanged, idx) => {
       if (imageChanged) {
-        let imgNum = idx + 1;
-        let key = `image${imgNum}`;
-        let url = whichUrl[idx];
+        var imgNum = idx + 1;
+        var key = `image${imgNum}`;
+        var url = whichUrl[idx];
         doWhopDescriptionRootRef.child(currentDoWhop).child('downloadURL').update({
           [key]: url
         });
