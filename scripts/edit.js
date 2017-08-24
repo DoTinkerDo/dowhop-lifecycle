@@ -318,10 +318,10 @@ function addImageToFirebase() {
       //when form is submitted
       var potentialUrlForImage = 'potentialUrlForImage' + currentImageNumber;
       var imageChanged = 'image' + currentImageNumber + 'Changed';
-      database.ref('session/' + uid + '/updateImageTempData').update({
-        [imageChanged]: true,
-        [potentialUrlForImage]: url
-      });
+      var obj = {};
+      obj[imageChanged] = true;
+      obj[potentialUrlForImage] = url;
+      database.ref('session/' + uid + '/updateImageTempData').update(obj);
     });
   });
 }
