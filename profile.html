@@ -50,20 +50,20 @@
     <img class='background-photo' id="background-photo" src="/images/DefaultDoWhop_banner.jpg" >
   </div>
 
-  <div class="content-grid mdl-grid" style="justify-content:center; align-items:center;">
-    <div class ="my-profile-picture mdl-cell mdl-cell--8-col mdl-cell--1-col-phone">
+  
+    <div class ="my-profile-picture mdl-cell mdl-cell--8-col mdl-cell--4-col-phone">
       <img id="my-profile-picture" src="" alt="User profile image."/>
+      <div id="my-display-name"></div>
     </div>
-    <div class="about-div mdl-cell mdl-cell--8-col mdl-cell--2-col-phone">
+    <div class="about-div mdl-cell mdl-cell--8-col mdl-cell--bottom mdl-cell--4-col-phone">
       <div id="my-profile-about"></div>
     </div>
-  </div>
+
 </div>
 
 
   <div class='mdl-grid grid1'>
     <div class= 'mdl-cell mdl-cell--4-col mdl-cell--2-col-phone' style = "margin-top:-15px;">
-      <div class="grid2" id="my-display-name"></div>
       <div class='grid2' id="my-profile-name"></div>
       <div class="grid2">
         <a id="edit-profile-button" href="#">
@@ -147,14 +147,11 @@
   <!-- END Profile container put the facebook, twitter, etc. links here  put the verified member part here -->
 
   
-    <div class="mdl-cell mdl-cell--12-col" id='form-edit'>
-
-  <div id="edit-form" class="mdl-card mdl-card--border edit-modal">
-  <div class='edit-form mdl-grid'>
-    <div class="mdl-cell mdl-cell--6-col">
+  <div class='edit-form mdl-grid' id='form-edit'>
+    <div class="mdl-cell mdl-cell--6-col" style="margin: 0 auto;">
 
 
-      <div hidden id="create-profile-div">
+      <div id="create-profile-div">
         <!-- begin Create New Profile Form -->
         <div class="mdl-card__title">
           <h2 class="mdl-card__title-text">Update My Profile</h2>
@@ -311,6 +308,7 @@
           </form>
         </div>
       </div>
+    </div>
     </div>
   
   <!-- END Create Submit Profile Form -->

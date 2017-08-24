@@ -50,7 +50,6 @@ img {
 #my-profile-about {
   display: inline-flex;
   text-align: inherit;
-  padding-top: 40px;
   max-width: 700px;
   max-height: auto;
   min-width: 650px;
@@ -58,7 +57,6 @@ img {
 }
 .about-div {
   display: flex;
-  margin-top: 120px;
   }
 
 #my-display-name {
@@ -66,6 +64,7 @@ img {
   font-weight: bold;
   color: black;
   background-color: white;
+  margin-left:20px;
 }
 
 #my-profile-name {
@@ -184,7 +183,7 @@ img {
 #form-edit {
   display: none; /* This gets swtiched on/off */
   position: fixed; /* Stay in place */
-  /*padding-left: 10%;*/
+  margin-left: 12%;
   /*padding-right: 11%; /* Asymmetrical because scrollbar might appear on right */
   z-index: 1;
   left: 0;

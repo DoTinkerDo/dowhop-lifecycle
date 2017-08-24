@@ -21,19 +21,19 @@ var createProfileDiv = document.getElementById('create-profile-div');
 var socialButtonTwitter = document.getElementById('social-button-1');
 var socialButtonInstagram = document.getElementById('social-button-2');
 var socialButtonLinkedIn = document.getElementById('social-button-3');
-var showEditFormBtn = document.getElementById('edit-form');
+//var showEditFormBtn = document.getElementById('edit-form');
 // var expandTwitter = document.getElementById('twitter-card');
 
-showProfileFormBtn.addEventListener('click', showForm);
+//showProfileFormBtn.addEventListener('click', showForm);
 createProfileFormBtn.addEventListener('click', createProfile);
 socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
-showEditFormBtn.addEventListener('click', showEditForm);
+//showEditFormBtn.addEventListener('click', showEditForm);
 
 
-
-function showEditForm(){
+/*
+function showEditForm(e){
   console.log("we reached here homie");
 
 
@@ -43,7 +43,7 @@ function showEditForm(){
   showEditFormBtn.removeAttribute('hidden');
   
   showEditFormBtn.style.display = "block";
-}
+}*/
 /**
 function changeImage(element) {
   console.log("this is reached");
@@ -97,6 +97,7 @@ activity1.addEventListener("mouseout", function() {
 //Toggle for showing and hiding edit form in profile
 var toggle = 0;
 
+/*
 function showForm(e) {
   e.preventDefault();
   if (toggle % 2 === 0) {
@@ -106,7 +107,7 @@ function showForm(e) {
     createProfileDiv.style.display="none";
   }
   toggle++;
-}
+}*/
 
 // Image activity upload logic
 var addNewActivityList = document.querySelectorAll('.add-new-activity');
@@ -238,7 +239,10 @@ function createProfile(e) {
   //createProfileDiv.setAttribute('hidden', 'true');
 
   var theForm = document.getElementById('form-edit');
-  theForm.style.display="none";
+  theForm.removeAttribute("style");
+  theForm.setAttribute("hidden","true");
+  createProfileDiv.removeAttribute("style");
+  createProfileDiv.setAttribute("hidden", "true");
 }
 
 function clearCreateProfileForm() {
@@ -408,6 +412,7 @@ function socialMediaFB() {
   console.log(currentProfile);
   profileRef.on('value', function(snap) {
     let facebook = String(snap.val().profileSocialFB);
+    console.log(facebook);
     if (!snap.val().profileSocialFB) {
     } else {
       window.open(facebook, '_blank');
@@ -462,10 +467,12 @@ function fillInProfileForm(e) {
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
 
   console.log("edit form working");
-  const editForm = document.getElementById('form-edit');
+  var editForm = document.getElementById('form-edit');
   console.log(editForm);
-  editForm.style.display = "block";
-  createProfileDiv.removeAttribute('hidden');
+  editForm.removeAttribute('hidden');
+  editForm.style.display="block";
+  createProfileDiv.style.display="block";
+  createProfileDiv.removeAttribute("hidden");
  
 
   profileRef.once('value', function(snap) {
