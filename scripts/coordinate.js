@@ -2,7 +2,8 @@
 
 // Use code to coordinate DoWhops.
 var currentSessionID;
-
+var doerUserObjects = [];
+var creatorUserObjects = [];
 var currentDate = new Date();
 
 var datePicker = new flatpickr('#whenDateTimePending', {
@@ -13,23 +14,28 @@ var datePicker = new flatpickr('#whenDateTimePending', {
 });
 
 function getSesh(clickedID) {
-  setLandingTab(clickedID); // New.
-  FriendlyChat.prototype.getSession();
-}
-
-FriendlyChat.prototype.getSessionTab = function() {
-  // To-Do: Refactor like so.
-  var userID = person.uid;
-  var sessionRef = database.ref('/session').child(userID);
+  // Write tab name to database
+  var userID = person.uid || user.uid;
   var currentTab;
-  // sessionRef.on('value', function(snap) {
-  //   currentTab = snap.val();
-  // });
-  sessionRef.once('value').then(function(snap) {
-    currentTab = snap.val();
+  if (typeof clickedID === 'string' && clickedID.match(/-tab/)) {
+    currentTab = clickedID;
+  } else {
+    currentTab = clickedID + '-tab';
+  }
+
+  var sessionRef = database.ref('/session').child(userID);
+  // console.log('current tab in getSesh...', currentTab);
+
+  sessionRef.update({
+    current_tab: currentTab
   });
-  return currentTab;
-};
+
+  // Show UI for the tabs
+  setLandingTab(clickedID); // New.
+  // console.log('running getSesh...');
+  // console.log(creatorUserObjects, doerUserObjects);
+  setAndGetDoWhopDescriptionSession(clickedID);
+}
 
 // Initializes FriendlyChat.
 function FriendlyChat() {
@@ -103,13 +109,13 @@ FriendlyChat.prototype.checkForAdmin = function() {
 
 FriendlyChat.prototype.sendApprovalAction = function(e) {
   e.preventDefault();
-  console.log('you clicked send approval!');
+  // console.log('you clicked send approval!');
   var choice, newDateTime, newWhere, status;
+
   this.chatItemDataSpecific = document.getElementById('dowhop-selector-container').children[0].id;
   var myRef = this.database.ref().child('DoWhopDescriptions').child(this.chatItemDataSpecific);
   var myRefPending = this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending');
   var messagesRef = this.database.ref().child('messages/' + this.chatItemDataSpecific);
-
   var approvalForm = document.getElementById('approve-pending-form');
   var rescindingForm = document.getElementById('rescind-pending-form');
   var pendingDiv = document.getElementById('pending-div');
@@ -129,27 +135,8 @@ FriendlyChat.prototype.sendApprovalAction = function(e) {
       });
     }
   });
-  // .then(function() {
-  //   myRef.update({
-  //     whenDateTime: newDateTime || 'tbd',
-  //     whereAddress: newWhere || 'tbd'
-  //   });
-  // })();
 
   status = 'approved';
-
-  // if (newDateTime != null) {
-  // myRef.update({
-  //   whenDateTime: newDateTime || 'tbd',
-  //   whereAddress: newWhere || 'tbd'
-  // });
-  // }
-  // if (newTime != null) {
-  //   myRef.update({ whenTime: newTime });
-  // }
-  // if (newWhere != null) {
-  // myRef.update({ whereAddress: newWhere });
-  // }
 
   this.database
     .ref()
@@ -181,13 +168,13 @@ FriendlyChat.prototype.sendApprovalAction = function(e) {
 
 FriendlyChat.prototype.sendDenialAction = function(e) {
   e.preventDefault();
-  console.log('you clicked send denial!');
-  let choice, newDate, newTime, newWhere;
+  // console.log('you clicked send denial!');
+  var choice, newDate, newTime, newWhere;
   this.chatItemDataSpecific = document.getElementById('dowhop-selector-container').children[0].id;
   var myRef = this.database.ref().child('DoWhopDescriptions').child(this.chatItemDataSpecific);
   var myRefPending = this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending');
   var messagesRef = this.database.ref().child('messages/' + this.chatItemDataSpecific);
-  let status;
+  var status;
   var approvalForm = document.getElementById('approve-pending-form');
   var rescindingForm = document.getElementById('rescind-pending-form');
   var pendingDiv = document.getElementById('pending-div');
@@ -245,19 +232,17 @@ FriendlyChat.prototype.sendRescind = function(e) {
   this.pendingDiv.setAttribute('hidden', 'true');
 };
 
-// Add dynamic 'When' form:
-// FriendlyChat.prototype.showDateTimeInputs = function() {};
-
 FriendlyChat.prototype.removeChats = function() {
   messageList = document.getElementById('messages');
   this.messageList.innerHTML = '';
 };
 
-FriendlyChat.prototype.getSession = function() {
+function setAndGetDoWhopDescriptionSession(DoWhopID) {
+  // console.log('Running setAndGetDoWhopDescriptionSession');
   // I. Link to db where we want to listen.
   var user = person;
   var userID = person.uid;
-  var currentDoWhopID;
+  var currentDoWhopID = DoWhopID;
   var currentTabID;
   // var mySessionRef = firebase.database().ref('session/' + userID);
   var messagesRef = firebase.database().ref().child('messages/');
@@ -279,7 +264,7 @@ FriendlyChat.prototype.getSession = function() {
 
   // All cases, check which item we're currently on:
   sessionRef.on('value', function(snap) {
-    currentDoWhopID = snap.val().current_dowhop;
+    // currentDoWhopID = snap.val().current_dowhop;
     currentTabID = snap.val().current_tab;
   });
   // console.log("current location:", currentDoWhopID, '---', currentTabID); // <-- Debugging.
@@ -292,12 +277,11 @@ FriendlyChat.prototype.getSession = function() {
     if (data.pending && data.pending.requesterName) {
       requesterName = data.pending.requesterName;
     }
-    var pendingNotification = requesterName + ' has requested to meet!\n';
+    var pendingNotification = requesterName + ' has requested to meet\n';
 
     // Check if there are pending data:
     if (data && data.pending != null && data.pending.status != 'approved' && data.pending.status != 'denied') {
       // console.log('pending status true. showing pending div.');
-      // NEW: Default status is that the creator of the event changes their own info (so we still show it at top):
       if (data.pending.whenDateTimePending) {
         pendingNotification +=
           'on ' +
@@ -306,7 +290,7 @@ FriendlyChat.prototype.getSession = function() {
           moment(data.pending.whenDateTimePending).format('hh:mmA') +
           '\n';
       }
-      if (data.pending.whereAddressPending) pendingNotification += '\n' + data.pending.whereAddressPending;
+      if (data.pending.whereAddressPending) pendingNotification += 'at ' + data.pending.whereAddressPending + '\n';
 
       document.getElementById('pending-div').removeAttribute('hidden');
       document.getElementById('pending-div').innerText = pendingNotification;
@@ -350,9 +334,10 @@ FriendlyChat.prototype.getSession = function() {
     firebase.database().ref().child('DoWhopDescriptions/' + data.val().current_dowhop).on('value', function(data) {
       // Check for pending notifications:
       checkForPendings(data.val());
+
       // Weave together header
       if (data.val()) {
-        let imageUrl =
+        var imageUrl =
           (data.val().downloadURL && data.val().downloadURL.image1) ||
           data.val().downloadURL ||
           defaultDoWhopDescriptionImage;
@@ -360,31 +345,97 @@ FriendlyChat.prototype.getSession = function() {
         var doWhopDescriptionTitle = data.val().titleDescription || 'Your DoWhops Will Appear Here';
 
         // Adding these logic checks so that when users update their information, new times, dates, etc render in 'View':
-        let renderWhenInformation = data.val().whenDescription;
-        let renderWhereInformation = data.val().whereDescription;
-        let renderWhoInformation = data.val().whoDescription; // To-Do: Update with first names dynamically.
+        var renderWhenInformation = data.val().whenDescription;
+        var renderWhereInformation = data.val().whereDescription;
+        var renderWhoDescription = data.val().whoDescription;
+        var renderWhoAmIInformation = data.val().whoAmIDescription || '';
+        var whoInformation = data.val().doerDescription; // In progress:  Update with first names dynamically.
+        var renderCreatorIcon = '';
+        var renderDoerIcons = '';
+        var appUsersRef = database.ref('app_users');
+        var doerEmails = whoInformation.split(', ');
+        var creatorEmail = data.val().creatorDescription;
 
+        appUsersRef
+          .once('value')
+          .then(function(snap) {
+            // console.log('Resetting the values...');
+            doerUserObjects.length = 0; // Resetting the global variable.
+            creatorUserObjects.length = 0;
+            snap.forEach(function(childSnap) {
+              doerEmails.filter(function(doerEmail) {
+                if (doerEmail === childSnap.val().email) {
+                  // console.log('it matches!');
+                  // console.log(childSnap.val());
+                  doerUserObjects.push(childSnap.val());
+                }
+              });
+              if (creatorEmail === childSnap.val().email) {
+                creatorUserObjects.push(childSnap.val());
+              }
+            });
+          })
+          .then(
+            (function() {
+              if (creatorUserObjects && creatorUserObjects.length > 0) {
+                _.map(creatorUserObjects, function(userObject) {
+                  renderCreatorIcon +=
+                    '<div class="user-avatar-container">' +
+                    "<a href='/profile.html?" +
+                    userObject.uid +
+                    "'>" +
+                    "<div class='user-avatar'>" +
+                    "<img src='" +
+                    userObject.photoURL +
+                    "'>" +
+                    '</img>' +
+                    '</div>' +
+                    '<div class="user-handle">' +
+                    userObject.displayName +
+                    '</div>' +
+                    '</a>' +
+                    '</div>';
+                });
+                // Adding a closing segment that will separate Creators from Doers in View:
+                renderCreatorIcon +=
+                  '<div class="user-avatar-container user-avatar-separator">' + 'will meet' + '</div>';
+              }
+
+              if (doerUserObjects && doerUserObjects.length > 0) {
+                _.map(doerUserObjects, function(userObject) {
+                  renderCreatorIcon +=
+                    '<div class="user-avatar-container">' +
+                    "<a href='/profile.html?" +
+                    userObject.uid +
+                    "'>" +
+                    "<div class='user-avatar'>" +
+                    "<img class='user-avatar' src='" +
+                    userObject.photoURL +
+                    "'>" +
+                    '</img>' +
+                    '</div>' +
+                    '<div class="user-handle">' +
+                    userObject.displayName +
+                    '</div>' +
+                    '</a>' +
+                    '</div>';
+                });
+              }
+            })()
+          );
+        // console.log('final results....', doerUserObjects, creatorUserObjects);
         if (data.val().whereAddress && data.val().whereAddress != 'By request') {
           renderWhereInformation = data.val().whereAddress;
         }
 
-        if (
-          data.val().whenDate &&
-          data.val().whenDate != 'By request' &&
-          data.val().whenTime &&
-          data.val().whenTime != 'By request'
-        ) {
+        // Adding more specifc 'time' information, if it has been included:
+        if (data.val().whenDateTime && data.val().whenDateTime != ('By request' || 'tbd')) {
           renderWhenInformation =
-            moment(data.val().whenDate).format('dddd MMMM D, YYYY') +
+            moment(data.val().whenDateTime).format('dddd MMMM D, YYYY') +
             ' at: ' +
-            moment(data.val().whenDate).format('h:mmA');
-        } else if (data.val().whenDate || data.val().whenTime) {
-          renderWhenInformation =
-            moment(data.val().whenDate).format('dddd MMMM D, YYYY') +
-            ' at: ' +
-            moment(data.val().whenDate).format('h:mmA');
+            moment(data.val().whenDateTime).format('h:mmA');
         }
-
+        // console.log('Returning View div...');
         return (doWhopSelectorDiv +=
           "<section id='" +
           data.key +
@@ -397,30 +448,45 @@ FriendlyChat.prototype.getSession = function() {
           '</h1>' +
           '</div>' +
           '<div id="selector-body" class="mdl-layout__content dowhop-selector-body">' +
-          '<h3>Who?</h3>' +
-          '<p>' +
-          renderWhoInformation +
-          '</p>' +
-          '<h3>Why?</h3>' +
+          '<div class="mdl-card__title">' +
+          '<h1 class="mdl-card__title-text">' +
+          doWhopDescriptionTitle +
+          ' Description' +
+          '</h1>' +
+          '</div>' +
+          '<div class=" user-avatar-section">' +
+          renderCreatorIcon +
+          renderDoerIcons +
+          '</div>' +
+          '<div class="mdl-card__supporting-text">' +
+          '<h4>Why?</h4>' +
           '<p>' +
           data.val().whyDescription +
           '</p>' +
-          '<h3>What?</h3>' +
+          '<h4>Who?</h4>' +
+          '<p>' +
+          renderWhoDescription +
+          '</p>' +
+          '<p>' +
+          renderWhoAmIInformation +
+          '</p>' +
+          '<h4>What?</h4>' +
           '<p>' +
           data.val().whatDescription +
           '</p>' +
-          '<h3>When?</h3>' +
+          '<h4>When?</h4>' +
           '<p>' +
           renderWhenInformation +
           '</p>' +
-          '<h3>Where?</h3>' +
+          '<h4>Where?</h4>' +
           '<p>' +
           renderWhereInformation +
           '</p>' +
-          '<h3>How much?</h3>' +
+          '<h4>How much?</h4>' +
           '<p>' +
           data.val().howMuchDescription +
           '</p>' +
+          '</div>' +
           '</div>' +
           '</section>');
       }
@@ -448,11 +514,13 @@ FriendlyChat.prototype.getSession = function() {
     document.getElementById('messages-card').setAttribute('hidden', 'true');
     document.getElementById('selector-body') && document.getElementById('selector-body').setAttribute('hidden', 'true');
   }
-};
+}
+
+function generateUserIcon(userObjectsArray) {}
 
 // Loads messages history and listens for upcoming ones:
 FriendlyChat.prototype.loadMessages = function() {
-  let user = person.uid;
+  var user = person.uid;
   var messageList = document.getElementById('messages');
   var chatIdCurrent;
   var sessionRef = firebase.database().ref('/session').child(person.uid).child('current_dowhop');
@@ -500,22 +568,20 @@ FriendlyChat.prototype.saveMessage = function(e) {
 
     var messageText = '';
 
-    messageText += currentUser.displayName + ' has requested to meet!\n';
-    if (this.messageFormWherePending.value) messageText += this.messageFormWherePending.value;
+    messageText += currentUser.displayName + ' has requested to meet\n';
     if (this.messageFormWhenDateTimePending.value) {
-
       messageText +=
-        '\non ' +
+        'on ' +
         datePicker.formatDate(new Date(datePicker.selectedDates), 'l F j, Y') +
         ' at ' +
         datePicker.formatDate(new Date(datePicker.selectedDates), 'h:iK') +
         '\n';
     }
-    // if (this.messageFormWhenDatePending.value) messageText += this.messageFormWhenDatePending.value + '\n';
+    if (this.messageFormWherePending.value) messageText += 'at ' + this.messageFormWherePending.value + '\n';
 
     messagesChatsRef.push({
       chatId: currentDoWhopID,
-      senderId: currentUser.uid, // We need this in order to interact with users objects.
+      senderId: currentUser.uid,
       name: currentUser.displayName,
       text: messageText,
       photoUrl: '/images/placeholder-image1.jpg'
@@ -529,7 +595,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
     this.resetDateTimeWhere; // Catch-all.
   }
 
-  // We'll only save the message if the length isn't an empty string...
+  // We'll only save the message if the length isn't an empty string:
   if (this.messageInput.value.length > 0) {
     messagesChatsRef
       .push({
@@ -537,18 +603,18 @@ FriendlyChat.prototype.saveMessage = function(e) {
         senderId: currentUser.uid,
         name: currentUser.displayName,
         text: this.messageInput.value,
-        photoUrl: currentUser.photoURL || '/images/user-icon.png' // Check.
+        photoUrl: currentUser.photoURL || '/images/user-icon.png'
       })
       .then(
         function() {
-          document.getElementById('message').value = ''; //  Clearing text field last because it would erase above otherwise.
+          document.getElementById('message').value = '';
           this.resetDateTimeWhere; // Catch-all.
         }.bind(this)
       )
       .catch(function(error) {
         console.error('Error writing new message to Firebase Database', error);
       });
-    this.resetDateTimeWhere; // Check.
+    this.resetDateTimeWhere; // To-Do: Rest flatpickr date-time input upon save.
   }
 };
 
@@ -642,45 +708,6 @@ FriendlyChat.prototype.signOut = function() {
   this.auth.signOut();
 };
 
-// Triggers when the auth state change for instance when the user signs-in or signs-out.
-
-// auth.onAuthStateChanged(function(user) {
-//   if (user) {
-//     // Create userData objec and set uid
-//     readUserData(user);
-//
-//     // Using user session object in Firebase to find currentDoWhop
-//     var messageList = document.getElementById('messages')// this.messageList;
-//     var messageInput = document.getElementById('message')// this.messageInput;
-//     var loadMessagesOnClick = function(id) {
-//
-//         console.log('you chose', id);
-//         let messagesRef = this.database.ref().child('messages/' + id);
-//
-//         // Make sure we remove all previous listeners and clear the UI.
-//         messagesRef.off();
-//         messageList.innerText = '';
-//         // Loads the last x number of messages and listen for new ones:
-//         var setMessage = function(data) {
-//           var val = data.val();
-//           displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl);
-//         }.bind(this);
-//         messagesRef.orderByKey().limitToLast(12).on('child_added', setMessage);
-//         messagesRef.orderByKey().limitToLast(12).on('child_changed', setMessage);
-//         // end new.
-//     };
-//
-//     var sessionRef = database.ref('/session').child(user.uid).child('current_dowhop');
-//     sessionRef.on('value', function(snapshot) {
-//       selectedDoWhopKey = snapshot.val();
-//
-//       // LOAD messages
-//       loadMessagesOnClick(snapshot.val());
-//
-//     });
-//   }
-// });
-
 FriendlyChat.prototype.onAuthStateChanged = function(user) {
   if (user) {
     // User is signed in!
@@ -689,7 +716,6 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
     var userName = user.displayName;
     // this.checkForAdmin();
     // Add event listener for event session changes:
-    // this.getSession(currentSessionID);
     // We save the Firebase Messaging Device token and enable notifications.
     // this.saveMessagingDeviceToken();
   } else {

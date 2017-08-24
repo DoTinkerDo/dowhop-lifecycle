@@ -21,12 +21,13 @@
 
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" /> <!-- Firebase UI CSS for Web Auth -->
-  <link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="styles/flatpickr.css">
   <link rel="stylesheet" href="styles/main.css"> <!--Catch-all stylings-->
   <link rel="stylesheet" href="styles/login-tabs-styles.css">
   <link rel="stylesheet" href="styles/dowhop-selector-style.css">
   <link rel="stylesheet" href="ratings/rating-lib/rating.min.css"> <!-- star rating styles -->
   <link rel="stylesheet" href="styles/dowhop-reviews.css">
+  <link rel="stylesheet" href="styles/dowhop-profile-avatars.css">
 
   <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>  <!-- Firebase library -->
   <script src="scripts/firebase.js"></script> <!-- Initialize Firebase app -->
@@ -260,6 +261,10 @@
                 <label class="mdl-textfield__label" for="whoDescription">Who is joining?</label>
               </div>
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="whoAmIDescription" placeholder="I bring this, you bring that, we will make this">
+                <label class="mdl-textfield__label" for="whoDescription">Who Am I?</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="text" id="whatDescription" placeholder="I bring this, you bring that, we will make this">
                 <label class="mdl-textfield__label" for="whatDescription">What will you provide?</label>
               </div>
@@ -418,7 +423,7 @@
                         <span class="mdl-textfield__error">Max characters for a comment is 500</span>
                       </div>
                       <div class="mdl-card__actions">
-                        <button class="btn btn-default submit-comment creator" id="creator" ">
+                        <button class="btn btn-default submit-comment creator" id="creator">
                           Submit
                         </button>
                       </div>
