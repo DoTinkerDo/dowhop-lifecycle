@@ -12,6 +12,9 @@ img {
   max-height: auto;
 }
 
+.left-bar{
+  margin-top:-15px;
+}
 .profile-details-container {
   margin-left: 15px;
   height: auto;
@@ -59,12 +62,26 @@ img {
   display: flex;
   }
 
+#form-pad{
+  margin: 0 auto;
+}
+
+#send-message-div{
+  margin:0px !important;
+}
+
+#inline-icons{
+  padding-right: 5px; 
+  display: inline-grid; 
+  padding-bottom: 8px;
+}
 #my-display-name {
   font-size: 17px;
   font-weight: bold;
   color: black;
   background-color: white;
-  margin-left:20px;
+  margin-left:46px;
+  margin-top:20px;
 }
 
 #my-profile-name {
@@ -193,6 +210,7 @@ img {
   width: 100%;
   height: 100%;
   overflow: auto; /* Enable scroll if needed */
+  background: rgba(0, 0, 0, 0.4)
 }
 
 #edit-grid {

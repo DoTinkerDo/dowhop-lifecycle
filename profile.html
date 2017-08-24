@@ -47,7 +47,7 @@
 <div class='container'>
   <div class='content-grid mdl-grid'> 
   <div class='mdl-cell mdl-cell--12-col mdl-cell--4-col-phone' id ="background-div" >
-    <img class='background-photo' id="background-photo" src="/images/DefaultDoWhop_banner.jpg" >
+    <img class='background-photo' id="background-photo" src="https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/app-image-assets%2FDefaultDoWhop_banner.jpg?alt=media&token=f7f452b9-6955-418e-b425-11dcec3bf5d6" >
   </div>
 
   
@@ -63,7 +63,7 @@
 
 
   <div class='mdl-grid grid1'>
-    <div class= 'mdl-cell mdl-cell--4-col mdl-cell--2-col-phone' style = "margin-top:-15px;">
+    <div class= 'mdl-cell mdl-cell--4-col mdl-cell--2-col-phone' id = "left-bar">
       <div class='grid2' id="my-profile-name"></div>
       <div class="grid2">
         <a id="edit-profile-button" href="#">
@@ -75,9 +75,9 @@
         <!-- <i class="material-icons profile-icons">mail_outline</i> -->
         <!-- <div class="profile-data" id="my-profile-email"> -->
         <!-- </div> -->
-        <div id="send-direct-message-div" class="mdl-cell" style="margin:0px !important;">
+        <div id="send-direct-message-div" class="mdl-cell" id ="send-message-div">
           <button id="send-direct-message" class="btn btn-default" >
-            <span><i class="material-icons profile-icons" style="padding-right: 5px; display: inline-grid; padding-bottom: 8px;" > mail_outline</i>
+            <span><i class="material-icons profile-icons" id = "inline-icons" style="padding-right: 5px; display: inline-grid; padding-bottom: 8px;" > mail_outline</i>
             Send Message</span>
           </button>
         </div>
@@ -148,7 +148,7 @@
 
   
   <div class='edit-form mdl-grid' id='form-edit'>
-    <div class="mdl-cell mdl-cell--6-col" style="margin: 0 auto;">
+    <div class="mdl-cell mdl-cell--6-col" id ='form-pad' >
 
 
       <div id="create-profile-div">

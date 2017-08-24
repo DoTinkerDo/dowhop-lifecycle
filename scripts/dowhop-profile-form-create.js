@@ -66,6 +66,7 @@ for(var index=0; index < activities.length; index++) {
     var children = this.childNodes;
     var imageSrc = children[1].src;
     document.getElementById("background-photo").src = imageSrc;
+  
   });
   activities[index].addEventListener("mouseout", function(){
     document.getElementById("background-photo").src = background;
@@ -310,19 +311,19 @@ function retrieveProfile(currentProfile) {
     myProfileAbout.innerText = appUser.profileAbout || 'About Me: ';
     // myProfilePayment.innerText = appUser.pofilePayment;
     
-    if(appUser.profileActivity1 != null){
+    if(appUser.profileActivity1 !== null){
       myProfileActivity1.innerText = appUser.profileActivity1;
     }
     else{
       myProfileActivity3.innerText ='';
     }
-     if(appUser.profileActivity2 != null){
+     if(appUser.profileActivity2 !== null){
       myProfileActivity2.innerText = appUser.profileActivity2;
     }
     else{
       myProfileActivity2.innerText ='';
     }
-     if(appUser.profileActivity3 != null){
+     if(appUser.profileActivity3 !== null){
       myProfileActivity3.innerText = appUser.profileActivity3;
     }
     else{
