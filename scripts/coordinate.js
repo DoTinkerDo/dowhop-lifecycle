@@ -348,12 +348,7 @@ function setAndGetDoWhopDescriptionSession(DoWhopID) {
         var renderWhenInformation = data.val().whenDescription;
         var renderWhereInformation = data.val().whereDescription;
         var renderWhoDescription = data.val().whoDescription;
-        var renderWhoAmIInformation = data.val().whoAmIDescription;
-        //for DoWhops created before Who Am I was added to create field
-        //do an undefined check so it doesn't render an undefined paragraph
-        if (renderWhoAmIInformation === undefined) {
-          renderWhoAmIInformation = '';
-        }
+        var renderWhoAmIInformation = data.val().whoAmIDescription || '';
         var whoInformation = data.val().doerDescription; // In progress:  Update with first names dynamically.
         var renderCreatorIcon = '';
         var renderDoerIcons = '';
