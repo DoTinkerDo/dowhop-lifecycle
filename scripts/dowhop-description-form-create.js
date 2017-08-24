@@ -42,28 +42,10 @@ function submitNewDoWhopEntry(e) {
   var creatorDescription = auth.currentUser.email;
   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
   var defaultImageURL = '../images/dowhopicon.gif';
-  var currentTime = moment().format('YYYY-MM-DD--HH:mm'); // Using library.
+  var currentTime = moment().format('YYYY-MM-DD--HH:mm');
+
+  // Preparing the welcoming message:
   var messagesChatsRef = database.ref().child('messages').child(doWhopDescriptionKey);
-  // We are preparing a first message to the future chat thread:
-  // function createWelcomingMessage() {
-  // Gathering the appropriate data to fill out message:
-
-  // var DoWhopTitleDescription = '';
-  // var DoWhopWhenDescription = 'By request';
-  // var DoWhopWhereDescription = 'By request';
-
-  // doWhopDescriptionRef.child(id).once('value').then(function(snap) {
-  //   DoWhopTitleDescription = snap.val().titleDescription;
-  //   DoWhopWhyDescription = snap.val().whyDescription;
-  //   DoWhopWhenDescription = snap.val().whenDescription;
-  //   DoWhopWhereDescription = snap.val().whereDescription;
-  // });
-
-  // DoWhopTitleDescription = titleDescription.value;
-  // DoWhopWhyDescription = whyDescription.value;
-  // DoWhopWhenDescription = whenDescription.value;
-  // DoWhopWhereDescription = whereDescription.value;
-
   var teamName = 'Your DoWhop Team';
   var welcomeMessageText =
     'Welcome to your ' +
@@ -77,15 +59,6 @@ function submitNewDoWhopEntry(e) {
     whereDescription.value +
     '".\n' +
     'Coordinate the details here!';
-
-  // var messagesChatsRef = database.ref().child('messages').child(doWhopDescriptionKey);
-  // messagesChatsRef.push({
-  //   chatId: doWhopDescriptionKey,
-  //   name: teamName,
-  //   text: welcomeMessageText,
-  //   photoUrl: defaultImageURL
-  // });
-  // }
 
   doWhopDescriptionRef.child(doWhopDescriptionKey).set({
     createdBy: uid,
@@ -102,7 +75,7 @@ function submitNewDoWhopEntry(e) {
     doerDescription: 'no-one',
     createdAt: currentTime
   });
-  // .then(function() {
+
   showConfirmationMessage();
   messagesChatsRef.push({
     chatId: doWhopDescriptionKey,
@@ -110,7 +83,6 @@ function submitNewDoWhopEntry(e) {
     text: welcomeMessageText,
     photoUrl: defaultImageURL
   });
-  // })();
 
   files.forEach(function(file, idx) {
     var filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
