@@ -1,17 +1,13 @@
 'use strict';
-
 var rootRef = database.ref('app_users/');
 var doWhopDescriptionRootRef = database.ref('DoWhopDescriptions/');
 var editDoWhopForm = document.getElementById('edit-dowhop-form');
 var submitUpdateDoWhopBtn = document.getElementById('submit-update-dowhop');
 
-editDoWhopForm.addEventListener('click', function(e) {
-  e.preventDefault();
-});
-
 submitUpdateDoWhopBtn.addEventListener('click', createDoWhop);
 
 function createDoWhop(event) {
+  event.preventDefault();
   // Collect form data and clear it:
   var titleDescription = document.getElementById('titleDescription');
   // var titleImage = document.getElementById('titleImage');
@@ -77,6 +73,27 @@ function createDoWhop(event) {
   doWhopDescriptionRootRef.child(currentDoWhop).child('whenDescription').set(event.whenDescription);
   doWhopDescriptionRootRef.child(currentDoWhop).child('creatorDescription').set(event.creatorDescription);
   doWhopDescriptionRootRef.child(currentDoWhop).child('doerDescription').set(event.doerDescription);
+
+  database.ref('session/' + uid + '/updateImageTempData/').once('value').then(function(snapshot) {
+    var snapshotVal = snapshot.val();
+    var whichImagesChanged = [snapshotVal.image1Changed, snapshotVal.image2Changed, snapshotVal.image3Changed];
+    var whichUrl = [
+      snapshotVal.potentialUrlForImage1,
+      snapshotVal.potentialUrlForImage2,
+      snapshotVal.potentialUrlForImage3
+    ];
+
+    whichImagesChanged.map((imageChanged, idx) => {
+      if (imageChanged) {
+        var imgNum = idx + 1;
+        var key = 'image' + imgNum;
+        var url = whichUrl[idx];
+        var obj = {};
+        obj[key] = url;
+        doWhopDescriptionRootRef.child(currentDoWhop).child('downloadURL').update(obj);
+      }
+    });
+  });
 
   doWhopDescriptionRootRef
     .child(currentDoWhop)
@@ -233,7 +250,26 @@ function showEditForm(doWhopSelector) {
   });
 }
 
+function clearImageTempValues() {
+  database.ref('session/' + uid + '/updateImageTempData/').update({
+    image1Changed: false,
+    image2Changed: false,
+    image3Changed: false,
+    potentialUrlForImage1: '',
+    potentialUrlForImage2: '',
+    potentialUrlForImage3: ''
+  });
+}
+
 function fillInEditForm(doWhopSelector) {
+  clearImageTempValues();
+  var editImageCapture1 = document.getElementById('edit-image-capture1');
+  var editImageCapture2 = document.getElementById('edit-image-capture2');
+  var editImageCapture3 = document.getElementById('edit-image-capture3');
+  editImageCapture1.addEventListener('change', addImageToFirebase);
+  editImageCapture2.addEventListener('change', addImageToFirebase);
+  editImageCapture3.addEventListener('change', addImageToFirebase);
+
   doWhopDescriptionRootRef.orderByKey().on('value', function(snapshot) {
     snapshot.forEach(function(data) {
       var doWhopDescription = data.val();
@@ -252,8 +288,39 @@ function fillInEditForm(doWhopSelector) {
         document.getElementById('howMuchDescription').value = doWhopDescription.howMuchDescription;
         document.getElementById('creatorDescription').value = doWhopDescription.creatorDescription;
         document.getElementById('doerDescription').value = doWhopDescription.doerDescription;
+        document.getElementById('image1').src = doWhopDescription.downloadURL.image1;
+        document.getElementById('image2').src = doWhopDescription.downloadURL.image2;
+        document.getElementById('image3').src = doWhopDescription.downloadURL.image3;
         // document.getElementById('howMuchCost').value = doWhopDescription.howMuchCost;
       }
+    });
+  });
+}
+
+function addImageToFirebase() {
+  // console.log('this', this.files);
+  var currentImageNumber = event.target.getAttribute('data-image-num');
+  var currentDoWhopID = document.getElementById('dowhop-selector-container').firstChild.id;
+  var fileName = this.files[0].name;
+  var file = this.files[0];
+  var filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + currentDoWhopID + '/' + fileName;
+
+  // var currentImgElement = `image${currentImageNumber}`; DELETE
+  var currentImgElement = 'image' + currentImageNumber;
+  //changes src attribute to show file just selected, but uses experimental createObjectURL
+  // document.getElementById(currentImgElement).src = window.URL.createObjectURL(file);
+
+  storage.ref(filePath).put(file).then(function(snapshot) {
+    var path = snapshot.metadata.fullPath;
+    storage.ref(path).getDownloadURL().then(function(url) {
+      //set potential download URL for current image number. Potential download URL will become actually URL
+      //when form is submitted
+      var potentialUrlForImage = 'potentialUrlForImage' + currentImageNumber;
+      var imageChanged = 'image' + currentImageNumber + 'Changed';
+      var obj = {};
+      obj[imageChanged] = true;
+      obj[potentialUrlForImage] = url;
+      database.ref('session/' + uid + '/updateImageTempData').update(obj);
     });
   });
 }

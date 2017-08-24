@@ -832,3 +832,16 @@ button {
   height: 50px;
   width: 50px;
 }
+
+/*----------------------------------------*/
+/*-------------EDIT DOWHOP FORM-----------*/
+/*----------------------------------------*/
+.edit-form-images div {
+  width: 31% !important;
+  margin-right: 5px;
+  float: left;
+}
+
+.edit-form-images img {
+  width: 100%;
+}
