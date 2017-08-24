@@ -11,12 +11,12 @@ var closingButton = document.getElementById('direct-message-form-div-span');
 closingButton.addEventListener('click', closeModalView);
 
 function getPersonOne() {
-  let user1 = firebase.auth().currentUser.uid;
+  var user1 = firebase.auth().currentUser.uid;
   return user1;
 }
 
 function getPersonTwo() {
-  let user2 = sendDMButton.parentNode.id;
+  var user2 = sendDMButton.parentNode.id;
   return user2;
 }
 
@@ -28,27 +28,32 @@ function createPathDM(user1, user2) {
 function sendDirectMessage(e) {
   e.preventDefault();
   var message = document.getElementById('direct-message-form-input');
-  let senderRef = firebase.database().ref('/app_users').child(getPersonOne());
-  let recipientRef = firebase.database().ref('/app_users').child(getPersonTwo());
 
-  let refTail = createPathDM(getPersonOne(), getPersonTwo());
-  let chatDMref = firebase.database().ref('/direct-messages').child(refTail);
+  if (message.value && (message.value !== '' && message.value !== ' ')) {
+    var senderRef = firebase.database().ref('/app_users').child(getPersonOne());
+    var recipientRef = firebase.database().ref('/app_users').child(getPersonTwo());
 
-  let senderName = '';
-  senderName = firebase.auth().currentUser.displayName; // Check.
+    var refTail = createPathDM(getPersonOne(), getPersonTwo());
+    var chatDMref = firebase.database().ref('/direct-messages').child(refTail);
 
-  let recipientName = '';
-  recipientRef.once('value', function(snap) {
-    recipientName = snap.val().displayName;
-  });
+    var senderName = '';
+    senderName = firebase.auth().currentUser.displayName; // Check.
 
-  chatDMref
-    .push({
-      from: senderName,
-      to: recipientName,
-      body: message.value
-    })
-    .then(document.getElementById('direct-message-form').reset());
+    var recipientName = '';
+    recipientRef.once('value', function(snap) {
+      recipientName = snap.val().displayName;
+    });
+
+    chatDMref
+      .push({
+        from: senderName,
+        to: recipientName,
+        body: message.value
+      })
+      .then(document.getElementById('direct-message-form').reset());
+  } else {
+    window.alert('You must fill out the message input!');
+  }
 }
 
 function revealFormDM(e) {
@@ -78,8 +83,8 @@ function hideFormDM(e) {
 
 function loadDirectMessagesHistory() {
   var directMessagesDiv = document.getElementById('direct-messages-div');
-  let refTail = createPathDM(getPersonOne(), getPersonTwo());
-  let chatDMref = firebase.database().ref('/direct-messages').child(refTail);
+  var refTail = createPathDM(getPersonOne(), getPersonTwo());
+  var chatDMref = firebase.database().ref('/direct-messages').child(refTail);
 
   // Reset elements.
   chatDMref.off();
