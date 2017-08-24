@@ -306,8 +306,10 @@ function addImageToFirebase() {
   var file = this.files[0];
   var filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + currentDoWhopID + '/' + fileName;
 
-  var currentImgElement = `image${currentImageNumber}`;
-  document.getElementById(currentImgElement).src = window.URL.createObjectURL(file);
+  // var currentImgElement = `image${currentImageNumber}`; DELETE
+  var currentImgElement = 'image' + currentImageNumber;
+  //changes src attribute to show file just selected, but uses experimental createObjectURL
+  // document.getElementById(currentImgElement).src = window.URL.createObjectURL(file);
 
   storage.ref(filePath).put(file).then(function(snapshot) {
     var path = snapshot.metadata.fullPath;
