@@ -45,25 +45,25 @@
 
 <body>
 <div class='container'>
-  <div class='content-grid mdl-grid'>
-  <div class='mdl-cell mdl-cell--12-col mdl-cell--4-col-phone'>
-    <img class='background-photo' id="background-photo" src="https://static.wixstatic.com/media/de271e_197b08d22f27418eb9d45e9c52b135b8~mv2.jpg/v1/fill/w_790,h_243,al_c,lg_1,q_80/de271e_197b08d22f27418eb9d45e9c52b135b8~mv2.webp">
+  <div class='content-grid mdl-grid'> 
+  <div class='mdl-cell mdl-cell--12-col mdl-cell--4-col-phone' id ="background-div" >
+    <img class='background-photo' id="background-photo" src="https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/app-image-assets%2FDefaultDoWhop_banner.jpg?alt=media&token=f7f452b9-6955-418e-b425-11dcec3bf5d6" >
   </div>
 
-  <div class="content-grid mdl-grid" style="justify-content:center; align-items:center;">
-    <div class ="my-profile-picture mdl-cell mdl-cell--8-col mdl-cell--1-col-phone">
+  
+    <div class ="my-profile-picture mdl-cell mdl-cell--8-col mdl-cell--4-col-phone">
       <img id="my-profile-picture" src="" alt="User profile image."/>
+      <div id="my-display-name"></div>
     </div>
-    <div class="about-div mdl-cell mdl-cell--8-col mdl-cell--2-col-phone">
+    <div class="about-div mdl-cell mdl-cell--8-col mdl-cell--bottom mdl-cell--4-col-phone">
       <div id="my-profile-about"></div>
     </div>
-  </div>
+
 </div>
 
 
   <div class='mdl-grid grid1'>
-    <div class= 'mdl-cell mdl-cell--4-col mdl-cell--2-col-phone' style = "margin-top:-15px;">
-      <div class="grid2" id="my-display-name"></div>
+    <div class= 'mdl-cell mdl-cell--4-col mdl-cell--2-col-phone' id = "left-bar">
       <div class='grid2' id="my-profile-name"></div>
       <div class="grid2">
         <a id="edit-profile-button" href="#">
@@ -75,9 +75,9 @@
         <!-- <i class="material-icons profile-icons">mail_outline</i> -->
         <!-- <div class="profile-data" id="my-profile-email"> -->
         <!-- </div> -->
-        <div id="send-direct-message-div" class="mdl-cell" style="margin:0px !important;">
+        <div id="send-direct-message-div" class="mdl-cell" id ="send-message-div">
           <button id="send-direct-message" class="btn btn-default" >
-            <span><i class="material-icons profile-icons">mail_outline</i>
+            <span><i class="material-icons profile-icons" id = "inline-icons" style="padding-right: 5px; display: inline-grid; padding-bottom: 8px;" > mail_outline</i>
             Send Message</span>
           </button>
         </div>
@@ -137,7 +137,7 @@
           <p>Love to Do</p>
         </div>
         <div class="activity activity-caption" id="my-profile-activity-3">
-        </div>
+       </div>
       </div>
     </div>
   </div>
@@ -145,17 +145,20 @@
 
 
   <!-- END Profile container put the facebook, twitter, etc. links here  put the verified member part here -->
-  <div class='edit-form mdl-grid'>
-    <div class="mdl-cell mdl-cell--6-col">
 
-      <div hidden id="create-profile-div">
+  
+  <div class='edit-form mdl-grid' id='form-edit'>
+    <div class="mdl-cell mdl-cell--6-col" id ='form-pad' >
+
+
+      <div id="create-profile-div">
         <!-- begin Create New Profile Form -->
         <div class="mdl-card__title">
           <h2 class="mdl-card__title-text">Update My Profile</h2>
         </div>
-        <div class="mdl-card__supporting-text">
+        <div class="mdl-card__supporting-text" id="whole-form">
 
-          <form id="create-profile-form" action="#">
+          <form id="create-profile-form" action="#" >
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input class="mdl-textfield__input" type="text" id="profile-name" placeholder="What's your preferred name?"></input>
               <label class="mdl-textfield__label" for="profile-name">First and Last Name:</label>
@@ -237,7 +240,7 @@
             <!-- Adding Images -->
             <div>
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="profile-activity-1" placeholder="e.g., Casey is a dog enthusiast">
+                <input class="mdl-textfield__input" type="text" id="profile-activity-1" placeholder="I love to do this activity">
                 <label class="mdl-textfield__label" for="profile-activity-1">Activity #1:</label>
                 <span class="mdl-tooltip" for="profile-activity-1">Just add one here for now</span>
               </div>
@@ -306,7 +309,8 @@
         </div>
       </div>
     </div>
-  </div>
+    </div>
+  
   <!-- END Create Submit Profile Form -->
   <!--  PLACEHOLDER activities for future DoneWhops -->
 

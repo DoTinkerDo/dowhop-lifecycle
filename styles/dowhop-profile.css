@@ -12,6 +12,9 @@ img {
   max-height: auto;
 }
 
+.left-bar{
+  margin-top:-15px;
+}
 .profile-details-container {
   margin-left: 15px;
   height: auto;
@@ -50,7 +53,6 @@ img {
 #my-profile-about {
   display: inline-flex;
   text-align: inherit;
-  padding-bottom: 15px;
   max-width: 700px;
   max-height: auto;
   min-width: 650px;
@@ -58,19 +60,35 @@ img {
 }
 .about-div {
   display: flex;
-  margin-top: 120px;
   }
 
+#form-pad{
+  margin: 0 auto;
+}
+
+#send-message-div{
+  margin:0px !important;
+}
+
+#inline-icons{
+  padding-right: 5px; 
+  display: inline-grid; 
+  padding-bottom: 8px;
+}
 #my-display-name {
   font-size: 17px;
   font-weight: bold;
   color: black;
   background-color: white;
+  margin-left:46px;
+  margin-top:20px;
 }
 
 #my-profile-name {
-  visibility: show;
+  visibility: hidden;
 }
+
+
 
 .profile-icons {
   display: table-cell;
@@ -122,7 +140,7 @@ img {
 }
 
 .activity-image {
-  height: 100%;
+  height: auto;
   width: 150%;
 }
 
@@ -133,7 +151,7 @@ img {
 
 .outer-box .inner-box {
   background-color: #ffffff;
-  height: 75%;
+  height: 100%;
   width: 100%;
   opacity: 0;
   top: 0;
@@ -148,7 +166,7 @@ img {
 
 .outer-box .inner-box p {
   color: #000000;
-  margin-top: 35%;
+  margin-top: 50%;
   text-align: center;
   vertical-align: middle;
   font-size: 20px;
@@ -179,20 +197,44 @@ img {
   text-align: center;
 }
 
-.edit-form {
-  display: flex;
-  justify-content: flex-end;
+#form-edit {
+  display: none; /* This gets swtiched on/off */
+  position: fixed; /* Stay in place */
+  margin-left: 12%;
+  /*padding-right: 11%; /* Asymmetrical because scrollbar might appear on right */
+  z-index: 1;
+  left: 0;
+  top: 0;
+  /*padding-top: 2%;*/
+  /*padding-bottom: 10%;*/
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+  background: rgba(0, 0, 0, 0.4)
+}
+
+#edit-grid {
+    /*background: rgb(0, 0, 0); /* Fallback color */
+ 
+}
+#whole-form {
+  background-color: white;
 }
 
 .background-photo {
   height: 300px;
   width: 100%;
   margin-bottom: -180px;
+
 }
 
 #edit-profile-button {
   color: #606060;
   text-decoration: none;
+}
+#edit-profile-button:hover, 
+#edit-profile-button:focus{
+  color: #ec1928 !important;
 }
 
 #edit-profile-button:hover {
@@ -205,6 +247,8 @@ img {
   cursor: pointer;
   margin-left: -15px;
 }
+
+
 #my-profile-social-TW {
   height: 20px;
   width: 20px;
@@ -215,11 +259,14 @@ img {
   background-repeat: no-repeat;
 }
 
+
+
 #my-profile-social-FB {
   height: 20px;
   width: 20px;
   margin-left: 10px;
 }
+
 
 #my-profile-social-LI {
   height: 20px;
@@ -240,7 +287,9 @@ img {
 .social-hover:hover,
 .social-hover:focus {
   zoom: 105%;
+  fill: red;
 }
+
 .profile-icons {
   margin: auto;
 }

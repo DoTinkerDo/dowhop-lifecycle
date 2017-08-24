@@ -776,6 +776,7 @@ button {
   height: 40px;
   min-height: 19px;
   width: 142px;
+  margin-left: -9px;
 }
 
 .btn-small {
