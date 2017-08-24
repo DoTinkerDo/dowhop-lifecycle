@@ -48,9 +48,11 @@ function submitNewDoWhopEntry(e) {
   function createWelcomingMessage() {
     // Gathering the appropriate data to fill out message:
 
-    var DoWhopTitleDescription, DoWhopWhenDescription, DoWhopWhereDescription;
+    var DoWhopTitleDescription = '';
+    var DoWhopWhenDescription = 'By request';
+    var DoWhopWhereDescription = 'By request';
 
-    doWhopDescriptionRef.child(doWhopDescriptionKey).once('value', function(snap) {
+    doWhopDescriptionRef.child(doWhopDescriptionKey).once('value').then(function(snap) {
       DoWhopTitleDescription = snap.val().titleDescription;
       DoWhopWhyDescription = snap.val().whyDescription;
       DoWhopWhenDescription = snap.val().whenDescription;
