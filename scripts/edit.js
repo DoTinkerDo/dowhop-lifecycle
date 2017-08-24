@@ -1,5 +1,4 @@
 'use strict';
-//dummy comment
 var rootRef = database.ref('app_users/');
 var doWhopDescriptionRootRef = database.ref('DoWhopDescriptions/');
 var editDoWhopForm = document.getElementById('edit-dowhop-form');
