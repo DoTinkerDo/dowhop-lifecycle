@@ -143,22 +143,32 @@ function createDefaultDoWhop(person) {
   var appUsersRef = database.ref('/app_users');
   var appUserRef = appUsersRef.child(uid);
   var currentTime = moment().format('YYYY-MM-DD--HH:mm');
-  var defaultDoWhopImage = 'images/DefaultDoWhop_banner.jpg';
+  // var defaultDoWhopImage = 'images/DefaultDoWhop_banner.jpg';
+  var defaultDoWhopImage1 =
+    'https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/defaultDowhops%2FIMG_0992-edited.jpg?alt=media&token=f7bfe79b-e90b-443e-ae89-3f8abc46661a';
+  var defaultDoWhopImage2 =
+    'https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/defaultDowhops%2FIMG_1161-edited.jpg?alt=media&token=a9c1e9c1-fcd1-437d-b2e4-b0da581dff69';
   // Adding a default DoWhop template as welcoming message:
   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
   // First we create the new default DoWhop:
   doWhopDescriptionRef.child(doWhopDescriptionKey).set({
     createdBy: uid,
     doWhopDescriptionKey: doWhopDescriptionKey,
-    downloadURL: defaultDoWhopImage,
-    titleDescription: 'DoWhop with us!',
-    whyDescription: '',
-    whoDescription: 'DoWhop Team is here to help you!',
+    downloadURL: { image1: defaultDoWhopImage1, image2: defaultDoWhopImage2 },
+    titleDescription: 'Help with DoWhop',
+    whyDescription:
+      'These notes will help you create your first DoWhop and answer any questions about the purpose behind each text field! Put a tagline describing this DoWhop in the "why do this DoWhop" section to grab the attention of other DoWhoppers on the marketplace.',
+    whoDescription:
+      'Enter the maximum number of people you can take and describe who might enjoy the experience based on their skill level and personality.',
     whoAmIDescription: '',
-    whatDescription: '',
-    whenDescription: '',
-    whereDescription: '',
-    howMuchDescription: '',
+    whatDescription:
+      'Specify any items that the Doers will be required to bring with them. Explain what you will provide and what else the price includes.',
+    whenDescription:
+      'How long with this DoWhop take and when do you typically schedule it. If you know when you we be unavailable to receive bookings specify that here. By request is an okay too',
+    whereDescription:
+      'You can share the exact address once the doer has booked this experiience. Give the general area here, and describe the facility where this DoWhop will take place. By request or "at your home" will also do for flexible bookings.',
+    howMuchDescription:
+      'Describe what someone would have to pay to join you and what they would get in exchange. You dont have to describe what the funds go too, but you are welcome to identify any operational expenses or charities you will give the money to upon booking. We will add 20% to the total cost of your DoWhop when listing to the marketplace. You will receive 100% of your listed cost transferred to your payment account when users book and complete this DoWhop.',
     creatorDescription: 'tinkerdowhop@gmail.com',
     doerDescription: email,
     createdAt: currentTime
