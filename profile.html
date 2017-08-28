@@ -64,16 +64,14 @@
 
 
   <div class='mdl-grid grid1'>
-    <div class= 'mdl-grid mdl-cell mdl-cell--4-col mdl-cell--2-col-phone' id = "left-bar">
-      
-      <div class='grid2' id="my-profile-name"></div>
-      <div class="grid2">
+    <div class= 'mdl-grid mdl-cell mdl-cell--4-col mdl-cell--4-col-phone' id = "left-bar">
+      <div class="grid2 mdl-cell--2-col-phone" style="margin-top:20px;">
         <a id="edit-profile-button" href="#">
           <i class="material-icons profile-icons">mode_edit</i>
           <div class="profile-data profile-icons" onclick="fillInProfileForm()">Edit Profile</div>
         </a>
       </div>
-      <div class="grid2">
+      <div class="grid2 mdl-cell--2-col-phone" style="margin-top:0px;">
         <!-- <i class="material-icons profile-icons">mail_outline</i> -->
         <!-- <div class="profile-data" id="my-profile-email"> -->
         <!-- </div> -->
@@ -84,23 +82,23 @@
           </button>
         </div>
       </div>
-      <div class="grid2">
+      <div class="grid2 mdl-cell--2-col-phone">
         <i class="material-icons profile-icons">call</i>
         <div class="profile-data" id="my-profile-phone">xxx-xxx-xxxx</div>
       </div>
-      <div class='grid2'>
+      <div class='grid2 mdl-cell--2-col-phone'>
         <i class="material-icons profile-icons">room</i>
         <div class="profile-data" id="my-profile-city">San Diego, CA</div>
       </div>
-      <div class='grid2'>
+      <div class='mdl-cell-4-col-phone grid2'>
 
       <div class="material-icons profile-icons">
 
         <div id="my-profile-social">
-          <img onclick= socialMediaFB() class="social-media-test" id="my-profile-social-FB" src='../images/facebook-logo.svg' />
-          <img onclick= socialMediaTW() id="my-profile-social-TW" src='../images/twitter.svg' />
-          <img onclick= socialMediaIG() id="my-profile-social-IG" src='../images/instagram.svg' />
-          <img onclick= socialMediaLI() id="my-profile-social-LI" src='../images/linkedin.svg' />
+          <img onclick= socialMediaFB() class="social-icons" id="my-profile-social-FB" src='../images/facebook-logo.svg' />
+          <img onclick= socialMediaTW() class="social-icons" id="my-profile-social-TW" src='../images/twitter.svg' />
+          <img onclick= socialMediaIG() class="social-icons" id="my-profile-social-IG" src='../images/instagram.svg' />
+          <img onclick= socialMediaLI() class="social-icons" id="my-profile-social-LI" src='../images/linkedin.svg' />
       </div>
       </div>
 

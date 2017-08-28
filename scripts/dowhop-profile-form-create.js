@@ -301,7 +301,7 @@ function retrieveProfile(currentProfile) {
   profileRef.on('value', function(snap) {
     var appUser = snap.val();
     myDisplayName.innerText = appUser.displayName;
-    myProfileName.innerText = appUser.profileName;
+    //myProfileName.innerText = appUser.profileName;
     myProfilePhone.innerText = phoneX(appUser.profilePhone);
     myProfileSocialFB.innerText = snap.val().profileSocialFB;
     myProfileSocialTW.innerText = snap.val().profileSocialTW;

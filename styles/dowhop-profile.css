@@ -12,8 +12,9 @@ img {
   max-height: auto;
 }
 
-.left-bar{
+#left-bar{
   margin-top:-15px;
+  margin: 0;
 }
 .profile-details-container {
   margin-left: 15px;
@@ -358,5 +359,24 @@ svg.social-media-svg {
 
     #my-display-name {
       margin-left: 0px;
+    }
+
+    .grid2 {
+      margin-left: 0px;
+      padding-left: 0px;
+      margin: 0;
+    }
+
+    .grid1 {
+      padding-left: 0px;
+    }
+
+    #left-bar {
+      margin: 0 auto;
+      justify-content: center;
+      margin-left: 10px;
+    }
+
+    .social-icons {
     }
 }
