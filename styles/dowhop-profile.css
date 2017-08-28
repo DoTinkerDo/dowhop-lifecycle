@@ -53,13 +53,16 @@ img {
 #my-profile-about {
   display: inline-flex;
   text-align: inherit;
-  max-width: 700px;
+  max-width: 100%;
   max-height: auto;
-  min-width: 650px;
   min-height: auto;
+  margin-top:100px;
+  word-wrap: break-word;
+  text-align: justify;
 }
 .about-div {
   display: flex;
+  align-items: center;
   }
 
 #form-pad{
@@ -345,4 +348,15 @@ svg.social-media-svg {
 
 #tablet-size {
   width: 800px;
+}
+
+@media only screen and (max-width: 500px) {
+    .my-profile-picture {
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    #my-display-name {
+      margin-left: 0px;
+    }
 }
