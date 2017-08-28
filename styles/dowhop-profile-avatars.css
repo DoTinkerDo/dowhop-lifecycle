@@ -5,11 +5,12 @@
 .user-avatar-section {
   display: flex;
   flex-wrap: wrap;
+  padding: 5%;
 }
 
 .user-avatar-container {
-  padding: 2%;
-  flex-shrink: 10;
+  /*padding: 2%;*/
+  /*flex-shrink: 10;*/
 }
 
 .user-avatar-container a {
@@ -18,13 +19,13 @@
 }
 
 .user-avatar-container a:visited {
-  text-decoration: none;
+  /*text-decoration: none;*/
   color: #ec1928;
 }
 
 .user-handle {
-  display: flex;
-  justify-content: center;
+  /*display: flex;
+  justify-content: center;*/
 }
 
 .user-avatar {
