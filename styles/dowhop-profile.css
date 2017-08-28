@@ -378,5 +378,21 @@ svg.social-media-svg {
     }
 
     .social-icons {
+      height:50px !important;
+      width:50px !important;
+      padding-left:10px;
+      padding-right:10px;
+    }
+
+    .outer-box {
+      margin:0px;
+    }
+
+    .profile-activities-div2 {
+      margin-top:50px;
+    }
+
+    .icons {
+      margin-top:20px;
     }
 }
