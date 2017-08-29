@@ -45,42 +45,8 @@ for (var index = 0; index < activities.length; index++) {
   });
 }
 
-/*
-function showEditForm() {
-  console.log("edit form working");
-  var editForm = document.getElementById('form-edit');
-  console.log(editForm);
-  editForm.style.display = "block";
-}*/
-
-//This is the animation function for changing the background
-/**activity1.addEventListener("mouseover", function() {
-  console.log("This is reached");
-  var children = activity1.childNodes;
-  var imageSrc = children[1].src;
-  console.log(imageSrc);
-  document.getElementById("background-photo").src = imageSrc;
-});
-
-activity1.addEventListener("mouseout", function() {
-  console.log("I also got this");
-  document.getElementById("background-photo").src = background;
-})*/
-
 //Toggle for showing and hiding edit form in profile
 var toggle = 0;
-
-/*
-function showForm(e) {
-  e.preventDefault();
-  if (toggle % 2 === 0) {
-    createProfileDiv.style.display="block";
-  }
-  if (toggle % 2 === 1) {
-    createProfileDiv.style.display="none";
-  }
-  toggle++;
-}*/
 
 // Image activity upload logic
 var addNewActivityList = document.querySelectorAll('.add-new-activity');
@@ -141,21 +107,6 @@ function createProfile(e) {
   e.preventDefault();
   var uid = auth.currentUser.uid;
   var profileRef = database.ref('app_users/' + uid);
-
-  // Prepare user data:
-  // var profileData = {
-  //   update: true,
-  //   profileName: createProfileName.value || "",
-  //   profilePhone: createProfilePhone.value || "",
-  //   profileSocial: createProfileSocial.value || "",
-  //   profileWebsite: createProfileWebsite.value || "",
-  //   profileAbout: createProfileAbout.value || "",
-  //   profileActivity1: createProfileActivity1.value || "",
-  //   profileActivity2: createProfileActivity2.value || "",
-  //   profileActivity3: createProfileActivity3.value || ""
-  // }
-  //   profileRef.update(profileData).then(function() {
-  //   });
 
   profileImageFiles.forEach(function(file, idx) {
     var filePath = 'userImages/' + uid + '/' + 'profileActivityImages/' + file.name;
@@ -373,6 +324,11 @@ function socialMediaTW() {
     var prefix = 'http://www.';
     let twitter = String(snap.val().profileSocialTW);
     var link = prefix.concat(twitter);
+
+    if(checkHTTP(twitter)) {
+      link = twitter;
+    }
+
     if (!snap.val().profileSocialTW) {
     } else {
       window.open(link, '_blank');
@@ -387,6 +343,11 @@ function socialMediaFB() {
     var prefix = 'http://www.';
     let facebook = String(snap.val().profileSocialFB);
     var link = prefix.concat(facebook);
+
+    if(checkHTTP(facebook)) {
+      link = facebook;
+    }
+
     if (!snap.val().profileSocialFB) {
     } else {
       window.open(link, '_blank');
@@ -401,6 +362,11 @@ function socialMediaLI() {
     var prefix = 'http://www.';
     var linkedIn = String(snap.val().profileSocialLI);
     var link = prefix.concat(linkedIn);
+
+    if(checkHTTP(linkedIn)) {
+      link = linkedIn;
+    }
+
     if (!snap.val().profileSocialLI) {
     } else {
       window.open(link, '_blank');
@@ -415,11 +381,27 @@ function socialMediaIG() {
     var prefix = 'http://www.';
     let instagram = String(snap.val().profileSocialIG);
     var link = prefix.concat(instagram);
+
+    if(checkHTTP(instagram)) {
+      link = instagram;
+    }
+
     if (!snap.val().profileSocialIG) {
     } else {
       window.open(link, '_blank');
     }
   });
+}
+
+function checkHTTP (url) {
+
+  var https = "http";
+  for(var i = 0; i < https.length; i++) {
+    if(https.charAt(i) != url.charAt(i)) {
+      return false;
+    }
+  }
+  return true;
 }
 /*
 function checkURL(String url) {
