@@ -31,20 +31,17 @@ socialButtonInstagram.addEventListener('click', expandInstagram);
 
 closingButton.addEventListener('click', closeModalUpdate);
 
-
 var activities = document.getElementsByClassName('personalAct');
-var background = document.getElementById("background-photo").src;
+var background = document.getElementById('background-photo').src;
 
-for(var index=0; index < activities.length; index++) {
-
-  activities[index].addEventListener("mouseover", function(){
+for (var index = 0; index < activities.length; index++) {
+  activities[index].addEventListener('mouseover', function() {
     var children = this.childNodes;
     var imageSrc = children[1].src;
-    document.getElementById("background-photo").src = imageSrc;
-  
+    document.getElementById('background-photo').src = imageSrc;
   });
-  activities[index].addEventListener("mouseout", function(){
-    document.getElementById("background-photo").src = background;
+  activities[index].addEventListener('mouseout', function() {
+    document.getElementById('background-photo').src = background;
   });
 }
 
@@ -139,7 +136,6 @@ function expandLinkedIn(e) {
   // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
   document.getElementById('linkedin-card').removeAttribute('hidden');
 }
-
 
 function createProfile(e) {
   e.preventDefault();
@@ -286,24 +282,21 @@ function retrieveProfile(currentProfile) {
     // myProfileEmail.innerHTML = "<a href='mailto:" + appUser.email + " '>Send Message</a> ";
     myProfileAbout.innerText = appUser.profileAbout || 'About Me: ';
     // myProfilePayment.innerText = appUser.pofilePayment;
-    
-    if(appUser.profileActivity1){
+
+    if (appUser.profileActivity1) {
       myProfileActivity1.innerText = appUser.profileActivity1;
+    } else {
+      myProfileActivity3.innerText = '';
     }
-    else{
-      myProfileActivity3.innerText ='';
-    }
-     if(appUser.profileActivity2){
+    if (appUser.profileActivity2) {
       myProfileActivity2.innerText = appUser.profileActivity2;
+    } else {
+      myProfileActivity2.innerText = '';
     }
-    else{
-      myProfileActivity2.innerText ='';
-    }
-     if(appUser.profileActivity3){
+    if (appUser.profileActivity3) {
       myProfileActivity3.innerText = appUser.profileActivity3;
-    }
-    else{
-      myProfileActivity3.innerText ='';
+    } else {
+      myProfileActivity3.innerText = '';
     }
 
     activityImage1.src =
@@ -322,6 +315,10 @@ function retrieveProfile(currentProfile) {
 function retrieveUrl(loc) {
   if (loc.match(/\?(.+)/)) {
     var y = loc.match(/\?(.+)/)[1];
+    if (y[y.length - 1] === '#') {
+      // Adding a check to 'clean' up the hashtag when present.
+      y = y.match(/(.+[^#])/)[1];
+    }
     return y;
   } else {
     return null;
@@ -373,9 +370,9 @@ function socialMediaTW() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
-    var prefix = "http://www.";
+    var prefix = 'http://www.';
     let twitter = String(snap.val().profileSocialTW);
-    var link = prefix.concat(twitter)
+    var link = prefix.concat(twitter);
     if (!snap.val().profileSocialTW) {
     } else {
       window.open(link, '_blank');
@@ -387,7 +384,7 @@ function socialMediaFB() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
-    var prefix = "http://www.";
+    var prefix = 'http://www.';
     let facebook = String(snap.val().profileSocialFB);
     var link = prefix.concat(facebook);
     if (!snap.val().profileSocialFB) {
@@ -401,7 +398,7 @@ function socialMediaLI() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
-    var prefix = "http://www.";
+    var prefix = 'http://www.';
     var linkedIn = String(snap.val().profileSocialLI);
     var link = prefix.concat(linkedIn);
     if (!snap.val().profileSocialLI) {
@@ -415,7 +412,7 @@ function socialMediaIG() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.once('value', function(snap) {
-    var prefix = "http://www.";
+    var prefix = 'http://www.';
     let instagram = String(snap.val().profileSocialIG);
     var link = prefix.concat(instagram);
     if (!snap.val().profileSocialIG) {
@@ -448,7 +445,7 @@ function phoneX(phone) {
 }
 
 function closeModalUpdate() {
-  updateForm.style.display="none";
+  updateForm.style.display = 'none';
 }
 
 function fillInProfileForm(e) {
@@ -456,14 +453,13 @@ function fillInProfileForm(e) {
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
 
   updateForm.removeAttribute('hidden');
-  updateForm.style.display="block";
+  updateForm.style.display = 'block';
   /**var editForm = document.getElementById('direct-update-form-div');
   console.log(editForm);
   editForm.removeAttribute('hidden');
   editForm.style.display="block";
   createProfileDiv.style.display="block";
   createProfileDiv.removeAttribute("hidden");*/
- 
 
   profileRef.once('value', function(snap) {
     if ((profileRef = currentProfile)) {
