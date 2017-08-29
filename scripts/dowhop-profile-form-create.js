@@ -378,7 +378,6 @@ function socialMediaTW() {
     var link = prefix.concat(twitter)
     if (!snap.val().profileSocialTW) {
     } else {
-      console.log("twitter");
       window.open(link, '_blank');
     }
   });
@@ -393,7 +392,6 @@ function socialMediaFB() {
     var link = prefix.concat(facebook);
     if (!snap.val().profileSocialFB) {
     } else {
-      console.log("facebook");
       window.open(link, '_blank');
     }
   });
@@ -408,7 +406,6 @@ function socialMediaLI() {
     var link = prefix.concat(linkedIn);
     if (!snap.val().profileSocialLI) {
     } else {
-      console.log("linkedin");
       window.open(link, '_blank');
     }
   });
@@ -423,7 +420,6 @@ function socialMediaIG() {
     var link = prefix.concat(instagram);
     if (!snap.val().profileSocialIG) {
     } else {
-      console.log("instagram");
       window.open(link, '_blank');
     }
   });
@@ -459,7 +455,6 @@ function fillInProfileForm(e) {
   var currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
 
-  console.log("edit form working");
   updateForm.removeAttribute('hidden');
   updateForm.style.display="block";
   /**var editForm = document.getElementById('direct-update-form-div');
