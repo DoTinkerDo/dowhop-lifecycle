@@ -13,6 +13,7 @@ functions/firebase-debug.log
 
 # data backups
 /admin-tools/extracts
+./scripts/firebase.js
 
 # misc
 .DS_Store
