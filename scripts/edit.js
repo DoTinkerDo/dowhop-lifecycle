@@ -232,7 +232,7 @@ function setSession(doWhopSelector) {
   var key = doWhopSelector.id;
   database.ref('session').child(person.uid).update({ current_dowhop: key });
   // console.log(creatorUserObjects, doerUserObjects);
-  setAndGetDoWhopDescriptionSession(key); // new
+  // setAndGetDoWhopDescriptionSession(key); // new
 }
 
 function showEditForm(doWhopSelector) {

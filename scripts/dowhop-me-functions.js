@@ -6,10 +6,3 @@
 // Retrieve my DoWhops
 // Check for pendings
 // Show DoWhop data
-
-function retrieveMySession(uid) {
-  database.ref('/session').child(uid).on('value', function(snap) {
-    console.log('session change', snap.val().current_tab);
-    console.log('session change', snap.val().current_dowhop);
-  });
-}

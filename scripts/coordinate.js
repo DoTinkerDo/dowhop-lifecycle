@@ -34,7 +34,7 @@ function getSesh(clickedID) {
   setLandingTab(clickedID); // New.
   // console.log('running getSesh...');
   // console.log(creatorUserObjects, doerUserObjects);
-  setAndGetDoWhopDescriptionSession(clickedID);
+  // setAndGetDoWhopDescriptionSession(clickedID);
 }
 
 // Initializes FriendlyChat.
@@ -238,7 +238,7 @@ FriendlyChat.prototype.removeChats = function() {
 };
 
 function setAndGetDoWhopDescriptionSession(DoWhopID) {
-  // console.log('Running setAndGetDoWhopDescriptionSession');
+  console.log('Running setAndGetDoWhopDescriptionSession....');
   // I. Link to db where we want to listen.
   var user = person;
   var userID = person.uid;
