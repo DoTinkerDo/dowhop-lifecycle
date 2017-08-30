@@ -10,52 +10,61 @@
 // Show mini-View at top of page
 
 // All cases, we load pending div forms for current session:
-function checkForPendings(data) {
-  console.log('Running checkforpendings v2.0...');
-  var requesterName = 'Someone'; // NOTE: just in case we are looking at old data.
+function checkForPendings(userSession) {
+  var currentDoWhop = userSession.current_dowhop;
+  console.log('Running checkforpendings v2.0...', currentDoWhop);
+  database.ref('DoWhopDescriptions/').child(currentDoWhop).on('value', function(data) {
+    var requesterName = 'Someone'; // NOTE: just in case we are looking at old data.
 
-  if (data.pending && data.pending.requesterName) {
-    requesterName = data.pending.requesterName;
-  }
-  var pendingNotification = requesterName + ' has requested to meet\n';
-
-  // Check if there are pending data:
-  if (data && data.pending != null && data.pending.status != 'approved' && data.pending.status != 'denied') {
-    // console.log('pending status true. showing pending div.');
-    if (data.pending.whenDateTimePending) {
-      pendingNotification +=
-        'on ' +
-        moment(data.pending.whenDateTimePending).format('dddd MMMM D, YYYY') +
-        ' at ' +
-        moment(data.pending.whenDateTimePending).format('hh:mmA') +
-        '\n';
+    if (data.val().pending && data.val().pending.requesterName) {
+      requesterName = data.val().pending.requesterName;
     }
-    if (data.pending.whereAddressPending) pendingNotification += 'at ' + data.pending.whereAddressPending + '\n';
+    var pendingNotification = requesterName + ' has requested to meet\n';
 
-    document.getElementById('pending-div').removeAttribute('hidden');
-    document.getElementById('pending-div').innerText = pendingNotification;
-    // This means visiting user is the creator of event:
-    if (firebase.auth().currentUser.email == data.creatorDescription) {
-      // console.log('visiting user is the creator. showing approval form, hiding rescind form.');
-      document.getElementById('pending-div').innerText = pendingNotification;
-      document.getElementById('approve-pending-form').removeAttribute('hidden');
-      document.getElementById('rescind-pending-form').setAttribute('hidden', 'true');
+    // Check if there are pending data:
+    if (
+      data.val() &&
+      data.val().pending != null &&
+      data.val().pending.status != 'approved' &&
+      data.val().pending.status != 'denied'
+    ) {
+      // console.log('pending status true. showing pending div.');
+      if (data.val().pending.whenDateTimePending) {
+        pendingNotification +=
+          'on ' +
+          moment(data.val().pending.whenDateTimePending).format('dddd MMMM D, YYYY') +
+          ' at ' +
+          moment(data.val().pending.whenDateTimePending).format('hh:mmA') +
+          '\n';
+      }
+      if (data.val().pending.whereAddressPending)
+        pendingNotification += 'at ' + data.val().pending.whereAddressPending + '\n';
 
-      // This means visiting user is a requestor of event change:
-    } else if (firebase.auth().currentUser.uid == data.pending.requester) {
-      // console.log('visiting user requested a change. showing rescinding form, hiding approval form.'
+      document.getElementById('pending-div').removeAttribute('hidden');
       document.getElementById('pending-div').innerText = pendingNotification;
-      document.getElementById('rescind-pending-form').removeAttribute('hidden');
+      // This means visiting user is the creator of event:
+      if (auth.currentUser.email == data.val().creatorDescription) {
+        // console.log('visiting user is the creator. showing approval form, hiding rescind form.');
+        document.getElementById('pending-div').innerText = pendingNotification;
+        document.getElementById('approve-pending-form').removeAttribute('hidden');
+        document.getElementById('rescind-pending-form').setAttribute('hidden', 'true');
+
+        // This means visiting user is a requestor of event change:
+      } else if (auth.currentUser.uid == data.val().pending.requester) {
+        // console.log('visiting user requested a change. showing rescinding form, hiding approval form.'
+        document.getElementById('pending-div').innerText = pendingNotification;
+        document.getElementById('rescind-pending-form').removeAttribute('hidden');
+        document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
+      }
+      // All other cases:
+    } else {
+      // console.log('this means it has passed over logic tests.');
       document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
+      document.getElementById('pending-div').innerText = '';
+      document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
+      document.getElementById('rescind-pending-form').setAttribute('hidden', 'true');
     }
-    // All other cases:
-  } else {
-    // console.log('this means it has passed over logic tests.');
-    document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
-    document.getElementById('pending-div').innerText = '';
-    document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
-    document.getElementById('rescind-pending-form').setAttribute('hidden', 'true');
-  }
+  });
 }
 
 function showUIBasedOnTab(userSession) {
@@ -153,6 +162,8 @@ function displayUserMessage(key, name, text, picUrl, imageUri, senderId) {
   messageInput.focus();
 }
 
+// Setting image management protocols for coordinate only, given a user and a chatID (current DoWhop):
+
 function setMessageImageUrl(imageUri, imgElement) {
   // If the image is a Cloud Storage URI we fetch the URL.
   if (imageUri.startsWith('gs://')) {
@@ -163,4 +174,75 @@ function setMessageImageUrl(imageUri, imgElement) {
   } else {
     imgElement.src = imageUri;
   }
+}
+
+function manageMessengerImages(userSession) {
+  var messagesRef = firebase.database().ref().child('messages/' + userSession.current_dowhop);
+  event.preventDefault();
+  var mediaCapture = document.getElementById('mediaCapture');
+  var imageForm = document.getElementById('image-form');
+  // Events for image upload:
+  var submitImageButton = document.getElementById('submitImage');
+
+  var saveImageMessage = function(event) {
+    event.preventDefault();
+    var currentUser = person;
+    var mediaCapture = document.getElementById('mediaCapture');
+    var imageForm = document.getElementById('image-form');
+    // Events for image upload:
+    // var submitImageButton = document.getElementById('submitImage');
+    // submitImageButton.addEventListener(
+    //   'click',
+    //   function(e) {
+    //     e.preventDefault();
+    //     mediaCapture.click();
+    //   }.bind(this)
+    // );
+    // mediaCapture.addEventListener('change', saveImageMessage.bind(this));
+    // var messagesRef = firebase.database().ref().child('messages/' + userSession.current_dowhop);
+    var file = event.target.files[0];
+
+    // Clear the selection in the file picker input.
+    imageForm.reset();
+
+    // Check if the file is an image.
+    if (!file.type.match('image.*')) {
+      window.alert('You can only share images. Please try again.');
+      return;
+    }
+    // Check if the user is signed-in
+    // We add a message with a loading icon that will get updated with the shared image.
+    messagesRef
+      .push({
+        name: currentUser.displayName,
+        imageUrl: FriendlyChat.LOADING_IMAGE_URL,
+        photoUrl: currentUser.photoURL || '/images/user-icon.png'
+      })
+      .then(
+        function(data) {
+          // Upload the image to Cloud Storage.
+          var filePath = 'userImages/' + currentUser.uid + '/' + 'messageImages/' + data.key + '/' + file.name;
+          return storage.ref(filePath).put(file).then(
+            function(snapshot) {
+              // Get the file's Storage URI and update the chat message placeholder.
+              var fullPath = snapshot.metadata.fullPath;
+              return data.update({ imageUrl: this.storage.ref(fullPath).toString() });
+            }.bind(this)
+          );
+        }.bind(this)
+      )
+      .catch(function(error) {
+        console.error('There was an error uploading a file to Cloud Storage:', error);
+      });
+    // resetDateTimeWhere; // Check.
+  };
+
+  submitImageButton.addEventListener(
+    'click',
+    function(e) {
+      e.preventDefault();
+      mediaCapture.click();
+    }.bind(this)
+  );
+  mediaCapture.addEventListener('change', saveImageMessage.bind(this));
 }
