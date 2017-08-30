@@ -68,9 +68,10 @@
       userSession = snap.val();
       console.log('current DoWhop in view', userSession.current_dowhop);
       console.log('current tab', userSession.current_tab);
-      setAndGetDoWhopDescriptionSession(userSession.current_dowhop);
       // getSessionTab(user.uid);
       setLandingTab(getSessionTab(user.uid));
+      checkForPendings(userSession.current_dowhop);
+      setAndGetDoWhopDescriptionSession(userSession.current_dowhop);
     });
   }
 
