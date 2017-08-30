@@ -75,7 +75,6 @@ function checkForPendings(userSession) {
 
 function showUIBasedOnTab(userSession) {
   var currentTabID = userSession.current_tab;
-  console.log();
   var doWhopSelector = document.getElementById('dowhop-selector-container');
 
   console.log('Running showandhide v2.0');
@@ -88,8 +87,8 @@ function showUIBasedOnTab(userSession) {
     // We only load edit form if edit tab is clicked:
     document.getElementById('messages-card').setAttribute('hidden', 'true');
     document.getElementById('selector-body') && document.getElementById('selector-body').removeAttribute('hidden');
-    showEditForm(userSession.current_dowhop);
-    fillInEditForm(userSession.current_dowhop);
+    showEditForm(doWhopSelector.firstChild);
+    fillInEditForm(doWhopSelector.firstChild);
   } else if (currentTabID === 'review-tab') {
     // TO-DO: Good to clear all unwanted UI elements if nothing's chosen.
     document.getElementById('messages-card').setAttribute('hidden', 'true');
