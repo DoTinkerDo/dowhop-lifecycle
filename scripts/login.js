@@ -57,30 +57,36 @@
     var sessionRef = database.ref('/session').child(user.uid);
     var userSession;
 
-    sessionRef.on('value', function(snap) {
-      if (!snap.val()) {
-        var userSession = {
-          current_tab: 'coordinate-tab'
-          // To-Do: Set default doWhopDescriptionKey.
-        };
-        sessionRef.update(userSession);
+    sessionRef.on(
+      'value',
+      function(snap) {
+        if (!snap.val()) {
+          var userSession = {
+            current_tab: 'coordinate-tab'
+            // To-Do: Set default doWhopDescriptionKey.
+          };
+          sessionRef.update(userSession);
+        }
+        userSession = snap.val();
+        console.log('current DoWhop in view', userSession.current_dowhop);
+        console.log('current tab', userSession.current_tab);
+        // getSessionTab(user.uid);
+        setLandingTab(getSessionTab(user.uid));
+        checkForPendings(userSession); // Sets listener for changes, too.
+        setAndGetDoWhopDescriptionSession(userSession);
+        showUIBasedOnTab(userSession);
+      },
+      function(error) {
+        console.error(error);
       }
-      userSession = snap.val();
-      console.log('current DoWhop in view', userSession.current_dowhop);
-      console.log('current tab', userSession.current_tab);
-      // getSessionTab(user.uid);
-      setLandingTab(getSessionTab(user.uid));
-      checkForPendings(userSession.current_dowhop);
-      setAndGetDoWhopDescriptionSession(userSession);
-      showUIBasedOnTab(userSession);
-    });
+    );
   }
 
   function handleSignedOutUser() {
     loginPage.style.display = 'block';
     applicationPage.style.display = 'none';
     ui.start('#firebaseui-auth-container', uiConfig);
-    sessionRef.off();
+    database.ref('session/').off();
   }
 
   function handleOnAuthStateChange() {
