@@ -104,10 +104,6 @@ function loadMessages(userSession) {
   var user = person.uid;
   var messageList = document.getElementById('messages');
   var chatIdCurrent = userSession.current_dowhop;
-  // var sessionRef = firebase.database().ref('/session').child(person.uid).child('current_dowhop');
-  // sessionRef.on('value', function(snap) {
-  //   return (chatIdCurrent = snap.val());
-  // });
   var messagesRef = firebase.database().ref().child('messages/' + chatIdCurrent);
 
   // Make sure we remove all previous listeners and clear the UI.
@@ -194,17 +190,6 @@ function manageMessengerImages(userSession) {
     var currentUser = person;
     var mediaCapture = document.getElementById('mediaCapture');
     var imageForm = document.getElementById('image-form');
-    // Events for image upload:
-    // var submitImageButton = document.getElementById('submitImage');
-    // submitImageButton.addEventListener(
-    //   'click',
-    //   function(e) {
-    //     e.preventDefault();
-    //     mediaCapture.click();
-    //   }.bind(this)
-    // );
-    // mediaCapture.addEventListener('change', saveImageMessage.bind(this));
-    // var messagesRef = firebase.database().ref().child('messages/' + userSession.current_dowhop);
     var file = event.target.files[0];
 
     // Clear the selection in the file picker input.
@@ -215,7 +200,6 @@ function manageMessengerImages(userSession) {
       window.alert('You can only share images. Please try again.');
       return;
     }
-    // Check if the user is signed-in
     // We add a message with a loading icon that will get updated with the shared image.
     messagesRef
       .push({

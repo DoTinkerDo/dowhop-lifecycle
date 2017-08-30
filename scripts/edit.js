@@ -272,7 +272,7 @@ function fillInEditForm(doWhopSelector) {
   editImageCapture2.addEventListener('change', addImageToFirebase);
   editImageCapture3.addEventListener('change', addImageToFirebase);
 
-  doWhopDescriptionRootRef.orderByKey().once('value').then(function(snapshot) {
+  doWhopDescriptionRootRef.orderByKey().on('value', function(snapshot) {
     snapshot.forEach(function(data) {
       var doWhopDescription = data.val();
 
