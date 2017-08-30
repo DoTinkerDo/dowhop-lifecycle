@@ -237,13 +237,13 @@ FriendlyChat.prototype.removeChats = function() {
   this.messageList.innerHTML = '';
 };
 
-function setAndGetDoWhopDescriptionSession(DoWhopID) {
+function setAndGetDoWhopDescriptionSession(userSession) {
   console.log('Running setAndGetDoWhopDescriptionSession....');
   // I. Link to db where we want to listen.
   var user = person;
   var userID = person.uid;
-  var currentDoWhopID = DoWhopID;
-  var currentTabID;
+  var currentDoWhopID = userSession.current_dowhop; // This is available from higher scope.
+  var currentTabID = userSession.current_tab;
   // var mySessionRef = firebase.database().ref('session/' + userID);
   var messagesRef = firebase.database().ref().child('messages/');
   var sessionRef = database.ref('/session').child(userID);
@@ -254,19 +254,19 @@ function setAndGetDoWhopDescriptionSession(DoWhopID) {
   var doWhopSelector = document.getElementById('dowhop-selector-container');
 
   // B) Pending notifications
-  var approvalForm = document.getElementById('approve-pending-form');
-  var rescindingForm = document.getElementById('rescind-pending-form');
-  var pendingDiv = document.getElementById('pending-div');
+  // var approvalForm = document.getElementById('approve-pending-form');
+  // var rescindingForm = document.getElementById('rescind-pending-form');
+  // var pendingDiv = document.getElementById('pending-div');
 
   // C) Chat Messages
   var messageList = document.getElementById('messages');
   var messageInput = document.getElementById('message');
 
   // All cases, check which item we're currently on:
-  sessionRef.on('value', function(snap) {
-    // currentDoWhopID = snap.val().current_dowhop;
-    currentTabID = snap.val().current_tab;
-  });
+  // sessionRef.on('value', function(snap) {
+  //   // currentDoWhopID = snap.val().current_dowhop;
+  //   currentTabID = snap.val().current_tab;
+  // });
   // console.log("current location:", currentDoWhopID, '---', currentTabID); // <-- Debugging.
 
   // // All cases, we load pending div forms for current session:
@@ -318,181 +318,180 @@ function setAndGetDoWhopDescriptionSession(DoWhopID) {
   //   }
   // };
 
-  sessionRef.on('value', function(data) {
-    var doWhopSelectorDiv = '';
-    // Setting the header and check for pendings for the current DoWhop session:
-    // Checking for changed pendings in real-time:
-    firebase
-      .database()
-      .ref()
-      .child('DoWhopDescriptions/' + data.val().current_dowhop)
-      .on('child_changed', function(data) {
-        checkForPendings(data.val());
-      });
+  // sessionRef.on('value', function(data) {
+  var doWhopSelectorDiv = '';
+  // Setting the header and check for pendings for the current DoWhop session:
+  // Checking for changed pendings in real-time:
+  // firebase
+  //   .database()
+  //   .ref()
+  //   .child('DoWhopDescriptions/' + data.val().current_dowhop)
+  //   .on('child_changed', function(data) {
+  //     checkForPendings(data.val());
+  //   });
 
-    // Executing functions that are triggered by clicking on a selector block:
-    firebase.database().ref().child('DoWhopDescriptions/' + data.val().current_dowhop).on('value', function(data) {
-      // Check for pending notifications:
-      checkForPendings(data.val());
+  // Executing functions that are triggered by clicking on a selector block:
+  firebase.database().ref().child('DoWhopDescriptions/' + userSession.current_dowhop).on('value', function(data) {
+    // Check for pending notifications:
+    // checkForPendings(data.val());
 
-      // Weave together header
-      if (data.val()) {
-        var imageUrl =
-          (data.val().downloadURL && data.val().downloadURL.image1) ||
-          data.val().downloadURL ||
-          defaultDoWhopDescriptionImage;
+    // Weave together header
+    if (data.val()) {
+      var imageUrl =
+        (data.val().downloadURL && data.val().downloadURL.image1) ||
+        data.val().downloadURL ||
+        defaultDoWhopDescriptionImage;
 
-        var doWhopDescriptionTitle = data.val().titleDescription || 'Your DoWhops Will Appear Here';
+      var doWhopDescriptionTitle = data.val().titleDescription || 'Your DoWhops Will Appear Here';
 
-        // Adding these logic checks so that when users update their information, new times, dates, etc render in 'View':
-        var renderWhenInformation = data.val().whenDescription;
-        var renderWhereInformation = data.val().whereDescription;
-        var renderWhoDescription = data.val().whoDescription;
-        var renderWhoAmIInformation = data.val().whoAmIDescription || '';
-        var whoInformation = data.val().doerDescription; // In progress:  Update with first names dynamically.
-        var renderCreatorIcon = '';
-        var renderDoerIcons = '';
-        var appUsersRef = database.ref('app_users');
-        var doerEmails = whoInformation.split(', ');
-        var creatorEmail = data.val().creatorDescription;
+      // Adding these logic checks so that when users update their information, new times, dates, etc render in 'View':
+      var renderWhenInformation = data.val().whenDescription;
+      var renderWhereInformation = data.val().whereDescription;
+      var renderWhoDescription = data.val().whoDescription;
+      var renderWhoAmIInformation = data.val().whoAmIDescription || '';
+      var whoInformation = data.val().doerDescription; // In progress:  Update with first names dynamically.
+      var renderCreatorIcon = '';
+      var renderDoerIcons = '';
+      var appUsersRef = database.ref('app_users');
+      var doerEmails = whoInformation.split(', ');
+      var creatorEmail = data.val().creatorDescription;
 
-        appUsersRef
-          .once('value')
-          .then(function(snap) {
-            // console.log('Resetting the values...');
-            doerUserObjects.length = 0; // Resetting the global variable.
-            creatorUserObjects.length = 0;
-            snap.forEach(function(childSnap) {
-              doerEmails.filter(function(doerEmail) {
-                if (doerEmail === childSnap.val().email) {
-                  // console.log('it matches!');
-                  // console.log(childSnap.val());
-                  doerUserObjects.push(childSnap.val());
-                }
-              });
-              if (creatorEmail === childSnap.val().email) {
-                creatorUserObjects.push(childSnap.val());
+      appUsersRef
+        .once('value')
+        .then(function(snap) {
+          // console.log('Resetting the values...');
+          doerUserObjects.length = 0; // Resetting the global variable.
+          creatorUserObjects.length = 0;
+          snap.forEach(function(childSnap) {
+            doerEmails.filter(function(doerEmail) {
+              if (doerEmail === childSnap.val().email) {
+                // console.log('it matches!');
+                // console.log(childSnap.val());
+                doerUserObjects.push(childSnap.val());
               }
             });
-          })
-          .then(
-            (function() {
-              if (creatorUserObjects && creatorUserObjects.length > 0) {
-                _.map(creatorUserObjects, function(userObject) {
-                  renderCreatorIcon +=
-                    '<div class="user-avatar-container">' +
-                    "<a href='/profile.html?" +
-                    userObject.uid +
-                    "'>" +
-                    "<div class='user-avatar'>" +
-                    "<img src='" +
-                    userObject.photoURL +
-                    "'>" +
-                    '</img>' +
-                    '</div>' +
-                    '<div class="user-handle">' +
-                    userObject.displayName +
-                    '</div>' +
-                    '</a>' +
-                    '</div>';
-                });
-                // Adding a closing segment that will separate Creators from Doers in View:
+            if (creatorEmail === childSnap.val().email) {
+              creatorUserObjects.push(childSnap.val());
+            }
+          });
+        })
+        .then(
+          (function() {
+            if (creatorUserObjects && creatorUserObjects.length > 0) {
+              _.map(creatorUserObjects, function(userObject) {
                 renderCreatorIcon +=
-                  '<div class="user-avatar-container user-avatar-separator">' + 'will meet' + '</div>';
-              }
+                  '<div class="user-avatar-container">' +
+                  "<a href='/profile.html?" +
+                  userObject.uid +
+                  "'>" +
+                  "<div class='user-avatar'>" +
+                  "<img src='" +
+                  userObject.photoURL +
+                  "'>" +
+                  '</img>' +
+                  '</div>' +
+                  '<div class="user-handle">' +
+                  userObject.displayName +
+                  '</div>' +
+                  '</a>' +
+                  '</div>';
+              });
+              // Adding a closing segment that will separate Creators from Doers in View:
+              renderCreatorIcon += '<div class="user-avatar-container user-avatar-separator">' + 'will meet' + '</div>';
+            }
 
-              if (doerUserObjects && doerUserObjects.length > 0) {
-                _.map(doerUserObjects, function(userObject) {
-                  renderCreatorIcon +=
-                    '<div class="user-avatar-container">' +
-                    "<a href='/profile.html?" +
-                    userObject.uid +
-                    "'>" +
-                    "<div class='user-avatar'>" +
-                    "<img class='user-avatar' src='" +
-                    userObject.photoURL +
-                    "'>" +
-                    '</img>' +
-                    '</div>' +
-                    '<div class="user-handle">' +
-                    userObject.displayName +
-                    '</div>' +
-                    '</a>' +
-                    '</div>';
-                });
-              }
-            })()
-          );
-        // console.log('final results....', doerUserObjects, creatorUserObjects);
-        if (data.val().whereAddress && data.val().whereAddress != 'By request') {
-          renderWhereInformation = data.val().whereAddress;
-        }
-
-        // Adding more specifc 'time' information, if it has been included:
-        if (data.val().whenDateTime && data.val().whenDateTime != ('By request' || 'tbd')) {
-          renderWhenInformation =
-            moment(data.val().whenDateTime).format('dddd MMMM D, YYYY') +
-            ' at: ' +
-            moment(data.val().whenDateTime).format('h:mmA');
-        }
-        // console.log('Returning View div...');
-        return (doWhopSelectorDiv +=
-          "<section id='" +
-          data.key +
-          "' class='dowhop-selector-block' onclick='setSession(this)''>" +
-          "<div class='dowhop-selector-header-top' style='background-image: url(" +
-          imageUrl +
-          ");'>" +
-          '<h1>' +
-          doWhopDescriptionTitle +
-          '</h1>' +
-          '</div>' +
-          '<div id="selector-body" class="mdl-layout__content dowhop-selector-body">' +
-          '<div class="mdl-card__title">' +
-          '<h1 class="mdl-card__title-text">' +
-          doWhopDescriptionTitle +
-          ' Description' +
-          '</h1>' +
-          '</div>' +
-          '<div class=" user-avatar-section">' +
-          renderCreatorIcon +
-          renderDoerIcons +
-          '</div>' +
-          '<div class="mdl-card__supporting-text">' +
-          '<h4>Why?</h4>' +
-          '<p>' +
-          data.val().whyDescription +
-          '</p>' +
-          '<h4>Who?</h4>' +
-          '<p>' +
-          renderWhoDescription +
-          '</p>' +
-          '<p>' +
-          renderWhoAmIInformation +
-          '</p>' +
-          '<h4>What?</h4>' +
-          '<p>' +
-          data.val().whatDescription +
-          '</p>' +
-          '<h4>When?</h4>' +
-          '<p>' +
-          renderWhenInformation +
-          '</p>' +
-          '<h4>Where?</h4>' +
-          '<p>' +
-          renderWhereInformation +
-          '</p>' +
-          '<h4>How much?</h4>' +
-          '<p>' +
-          data.val().howMuchDescription +
-          '</p>' +
-          '</div>' +
-          '</div>' +
-          '</section>');
+            if (doerUserObjects && doerUserObjects.length > 0) {
+              _.map(doerUserObjects, function(userObject) {
+                renderCreatorIcon +=
+                  '<div class="user-avatar-container">' +
+                  "<a href='/profile.html?" +
+                  userObject.uid +
+                  "'>" +
+                  "<div class='user-avatar'>" +
+                  "<img class='user-avatar' src='" +
+                  userObject.photoURL +
+                  "'>" +
+                  '</img>' +
+                  '</div>' +
+                  '<div class="user-handle">' +
+                  userObject.displayName +
+                  '</div>' +
+                  '</a>' +
+                  '</div>';
+              });
+            }
+          })()
+        );
+      // console.log('final results....', doerUserObjects, creatorUserObjects);
+      if (data.val().whereAddress && data.val().whereAddress != 'By request') {
+        renderWhereInformation = data.val().whereAddress;
       }
-    });
-    doWhopSelector.innerHTML = doWhopSelectorDiv;
+
+      // Adding more specifc 'time' information, if it has been included:
+      if (data.val().whenDateTime && data.val().whenDateTime != ('By request' || 'tbd')) {
+        renderWhenInformation =
+          moment(data.val().whenDateTime).format('dddd MMMM D, YYYY') +
+          ' at: ' +
+          moment(data.val().whenDateTime).format('h:mmA');
+      }
+      // console.log('Returning View div...');
+      return (doWhopSelectorDiv +=
+        "<section id='" +
+        data.key +
+        "' class='dowhop-selector-block' onclick='setSession(this)''>" +
+        "<div class='dowhop-selector-header-top' style='background-image: url(" +
+        imageUrl +
+        ");'>" +
+        '<h1>' +
+        doWhopDescriptionTitle +
+        '</h1>' +
+        '</div>' +
+        '<div id="selector-body" class="mdl-layout__content dowhop-selector-body">' +
+        '<div class="mdl-card__title">' +
+        '<h1 class="mdl-card__title-text">' +
+        doWhopDescriptionTitle +
+        ' Description' +
+        '</h1>' +
+        '</div>' +
+        '<div class=" user-avatar-section">' +
+        renderCreatorIcon +
+        renderDoerIcons +
+        '</div>' +
+        '<div class="mdl-card__supporting-text">' +
+        '<h4>Why?</h4>' +
+        '<p>' +
+        data.val().whyDescription +
+        '</p>' +
+        '<h4>Who?</h4>' +
+        '<p>' +
+        renderWhoDescription +
+        '</p>' +
+        '<p>' +
+        renderWhoAmIInformation +
+        '</p>' +
+        '<h4>What?</h4>' +
+        '<p>' +
+        data.val().whatDescription +
+        '</p>' +
+        '<h4>When?</h4>' +
+        '<p>' +
+        renderWhenInformation +
+        '</p>' +
+        '<h4>Where?</h4>' +
+        '<p>' +
+        renderWhereInformation +
+        '</p>' +
+        '<h4>How much?</h4>' +
+        '<p>' +
+        data.val().howMuchDescription +
+        '</p>' +
+        '</div>' +
+        '</div>' +
+        '</section>');
+    }
   });
+  doWhopSelector.innerHTML = doWhopSelectorDiv;
+  // });
 
   // We only load messages if current tab is clicked:
   if (currentTabID === 'coordinate-tab') {
@@ -516,7 +515,7 @@ function setAndGetDoWhopDescriptionSession(DoWhopID) {
   }
 }
 
-function generateUserIcon(userObjectsArray) {}
+// function generateUserIcon(userObjectsArray) {}
 
 // Loads messages history and listens for upcoming ones:
 FriendlyChat.prototype.loadMessages = function() {

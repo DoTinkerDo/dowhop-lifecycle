@@ -5,7 +5,9 @@
 // Check my session
 // Retrieve my DoWhops
 // Check for pendings
-// Show DoWhop data
+// Show DoWhop View data
+// Show DoWhop Creator/Doer data
+// Show mini-View at top of page
 
 // All cases, we load pending div forms for current session:
 function checkForPendings(data) {
