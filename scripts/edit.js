@@ -235,10 +235,11 @@ function setSession(doWhopSelector) {
   // setAndGetDoWhopDescriptionSession(key); // new
 }
 
-function showEditForm(currentDoWhopID) {
+function showEditForm(doWhopSelector) {
+  console.log('running showeditform');
   var editForm = document.getElementById('edit-dowhop-form');
-  var ID = currentDoWhopID;
-  var doWhopDescriptionRef = database.ref('DoWhopDescriptions').child(ID);
+  var key = doWhopSelector.id;
+  var doWhopDescriptionRef = database.ref('DoWhopDescriptions').child(key);
 
   doWhopDescriptionRef.once('value').then(function(snapshot) {
     var doWhopDescription = snapshot.val();
@@ -261,7 +262,8 @@ function clearImageTempValues() {
   });
 }
 
-function fillInEditForm(currentDoWhopID) {
+function fillInEditForm(doWhopSelector) {
+  console.log('running fill in edit form');
   clearImageTempValues();
   var editImageCapture1 = document.getElementById('edit-image-capture1');
   var editImageCapture2 = document.getElementById('edit-image-capture2');
@@ -270,11 +272,11 @@ function fillInEditForm(currentDoWhopID) {
   editImageCapture2.addEventListener('change', addImageToFirebase);
   editImageCapture3.addEventListener('change', addImageToFirebase);
 
-  doWhopDescriptionRootRef.orderByKey().on('value', function(snapshot) {
+  doWhopDescriptionRootRef.orderByKey().once('value').then(function(snapshot) {
     snapshot.forEach(function(data) {
       var doWhopDescription = data.val();
 
-      if (data.key === currentDoWhopID) {
+      if (data.key === doWhopSelector.id) {
         document.getElementById('titleDescription').value = doWhopDescription.titleDescription;
         document.getElementById('whoDescription').value = doWhopDescription.whoDescription;
         // console.log(doWhopDescription.whoDescription);
@@ -298,7 +300,7 @@ function fillInEditForm(currentDoWhopID) {
 }
 
 function addImageToFirebase() {
-  // console.log('this', this.files);
+  console.log('running add image to firebase', this.files);
   var currentImageNumber = event.target.getAttribute('data-image-num');
   var currentDoWhopID = document.getElementById('dowhop-selector-container').firstChild.id;
   var fileName = this.files[0].name;
@@ -312,9 +314,11 @@ function addImageToFirebase() {
 
   storage.ref(filePath).put(file).then(function(snapshot) {
     var path = snapshot.metadata.fullPath;
+    console.log('image path of file...', path);
     storage.ref(path).getDownloadURL().then(function(url) {
       //set potential download URL for current image number. Potential download URL will become actually URL
       //when form is submitted
+      console.log('image download url', url);
       var potentialUrlForImage = 'potentialUrlForImage' + currentImageNumber;
       var imageChanged = 'image' + currentImageNumber + 'Changed';
       var obj = {};
