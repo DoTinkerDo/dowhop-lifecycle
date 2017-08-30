@@ -12,8 +12,9 @@ img {
   max-height: auto;
 }
 
-.left-bar{
+#left-bar{
   margin-top:-15px;
+  margin: 0;
 }
 .profile-details-container {
   margin-left: 15px;
@@ -53,13 +54,16 @@ img {
 #my-profile-about {
   display: inline-flex;
   text-align: inherit;
-  max-width: 700px;
+  max-width: 100%;
   max-height: auto;
-  min-width: 650px;
   min-height: auto;
+  margin-top:100px;
+  word-wrap: break-word;
+  text-align: justify;
 }
 .about-div {
   display: flex;
+  align-items: center;
   }
 
 #form-pad{
@@ -345,4 +349,50 @@ svg.social-media-svg {
 
 #tablet-size {
   width: 800px;
+}
+
+@media only screen and (max-width: 500px) {
+    .my-profile-picture {
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    #my-display-name {
+      margin-left: 0px;
+    }
+
+    .grid2 {
+      margin-left: 0px;
+      padding-left: 0px;
+      margin: 0;
+    }
+
+    .grid1 {
+      padding-left: 0px;
+    }
+
+    #left-bar {
+      margin: 0 auto;
+      justify-content: center;
+      margin-left: 10px;
+    }
+
+    .social-icons {
+      height:50px !important;
+      width:50px !important;
+      padding-left:10px;
+      padding-right:10px;
+    }
+
+    .outer-box {
+      margin:0px;
+    }
+
+    .profile-activities-div2 {
+      margin-top:50px;
+    }
+
+    .icons {
+      margin-top:20px;
+    }
 }
