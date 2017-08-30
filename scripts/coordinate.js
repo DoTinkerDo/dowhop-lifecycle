@@ -47,9 +47,9 @@ function FriendlyChat() {
   this.messageForm = document.getElementById('message-form');
   this.messageInput = document.getElementById('message');
   this.submitButton = document.getElementById('submit-message-button');
-  this.submitImageButton = document.getElementById('submitImage');
-  this.imageForm = document.getElementById('image-form');
-  this.mediaCapture = document.getElementById('mediaCapture');
+  // this.submitImageButton = document.getElementById('submitImage');
+  // this.imageForm = document.getElementById('image-form');
+  // this.mediaCapture = document.getElementById('mediaCapture');
   this.userPic = document.getElementById('user-pic');
   this.userName = document.getElementById('user-name');
   // this.signInSnackbar = document.getElementById('must-signin-snackbar');
@@ -67,7 +67,7 @@ function FriendlyChat() {
 
   // Load chat data:
   this.chatItemData = document.getElementById('coordinate-tab');
-  this.chatItemData.addEventListener('click', this.loadMessages.bind(this)); // <-- Developer: return to this.
+  // this.chatItemData.addEventListener('click', this.loadMessages.bind(this)); // <-- Developer: return to this.
   // Save message on form submit:
   this.messageForm.addEventListener('submit', this.saveMessage.bind(this));
 
@@ -82,15 +82,15 @@ function FriendlyChat() {
 
   this.submitRescind.addEventListener('click', this.sendRescind.bind(this));
 
-  // Events for image upload:
-  this.submitImageButton.addEventListener(
-    'click',
-    function(e) {
-      e.preventDefault();
-      this.mediaCapture.click();
-    }.bind(this)
-  );
-  this.mediaCapture.addEventListener('change', this.saveImageMessage.bind(this));
+  // // Events for image upload:
+  // this.submitImageButton.addEventListener(
+  //   'click',
+  //   function(e) {
+  //     e.preventDefault();
+  //     this.mediaCapture.click();
+  //   }.bind(this)
+  // );
+  // this.mediaCapture.addEventListener('change', this.saveImageMessage.bind(this));
   this.initFirebase();
 }
 
@@ -518,28 +518,28 @@ function setAndGetDoWhopDescriptionSession(userSession) {
 // function generateUserIcon(userObjectsArray) {}
 
 // Loads messages history and listens for upcoming ones:
-FriendlyChat.prototype.loadMessages = function() {
-  var user = person.uid;
-  var messageList = document.getElementById('messages');
-  var chatIdCurrent;
-  var sessionRef = firebase.database().ref('/session').child(person.uid).child('current_dowhop');
-  sessionRef.on('value', function(snap) {
-    return (chatIdCurrent = snap.val());
-  });
-  this.messagesRef = firebase.database().ref().child('messages/' + chatIdCurrent);
-
-  // Make sure we remove all previous listeners and clear the UI.
-  this.messagesRef.off();
-  messageList.innerText = '';
-
-  // Loads the last x number of messages and listen for new ones:
-  var setMessage = function(data) {
-    var val = data.val();
-    this.displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl, val.senderId);
-  }.bind(this);
-  this.messagesRef.orderByKey().on('child_added', setMessage);
-  this.messagesRef.orderByKey().on('child_changed', setMessage); // TIP: To restrict number of messages, include .limitToLast(X) in db query.
-};
+// FriendlyChat.prototype.loadMessages = function() {
+//   var user = person.uid;
+//   var messageList = document.getElementById('messages');
+//   var chatIdCurrent;
+//   var sessionRef = firebase.database().ref('/session').child(person.uid).child('current_dowhop');
+//   sessionRef.on('value', function(snap) {
+//     return (chatIdCurrent = snap.val());
+//   });
+//   this.messagesRef = firebase.database().ref().child('messages/' + chatIdCurrent);
+//
+//   // Make sure we remove all previous listeners and clear the UI.
+//   this.messagesRef.off();
+//   messageList.innerText = '';
+//
+//   // Loads the last x number of messages and listen for new ones:
+//   var setMessage = function(data) {
+//     var val = data.val();
+//     this.displayMessage(data.key, val.name, val.text, val.photoUrl, val.imageUrl, val.senderId);
+//   }.bind(this);
+//   this.messagesRef.orderByKey().on('child_added', setMessage);
+//   this.messagesRef.orderByKey().on('child_changed', setMessage); // TIP: To restrict number of messages, include .limitToLast(X) in db query.
+// };
 
 // Saves a new message on the Firebase DB:
 FriendlyChat.prototype.saveMessage = function(e) {
@@ -651,45 +651,45 @@ FriendlyChat.prototype.resetDateTimeWhere = function() {
 
 // Saves a new message containing an image URI in Firebase.
 // This first saves the image in Firebase storage.
-FriendlyChat.prototype.saveImageMessage = function(event) {
-  event.preventDefault();
-  var file = event.target.files[0];
-
-  // Clear the selection in the file picker input.
-  this.imageForm.reset();
-
-  // Check if the file is an image.
-  if (!file.type.match('image.*')) {
-    window.alert('You can only share images. Please try again.');
-    return;
-  }
-  // Check if the user is signed-in
-  // We add a message with a loading icon that will get updated with the shared image.
-  var currentUser = person;
-  this.messagesRef
-    .push({
-      name: currentUser.displayName,
-      imageUrl: FriendlyChat.LOADING_IMAGE_URL,
-      photoUrl: currentUser.photoURL || '/images/user-icon.png'
-    })
-    .then(
-      function(data) {
-        // Upload the image to Cloud Storage.
-        var filePath = 'userImages/' + currentUser.uid + '/' + 'messageImages/' + data.key + '/' + file.name;
-        return this.storage.ref(filePath).put(file).then(
-          function(snapshot) {
-            // Get the file's Storage URI and update the chat message placeholder.
-            var fullPath = snapshot.metadata.fullPath;
-            return data.update({ imageUrl: this.storage.ref(fullPath).toString() });
-          }.bind(this)
-        );
-      }.bind(this)
-    )
-    .catch(function(error) {
-      console.error('There was an error uploading a file to Cloud Storage:', error);
-    });
-  this.resetDateTimeWhere; // Check.
-};
+// FriendlyChat.prototype.saveImageMessage = function(event) {
+//   event.preventDefault();
+//   var file = event.target.files[0];
+//
+//   // Clear the selection in the file picker input.
+//   this.imageForm.reset();
+//
+//   // Check if the file is an image.
+//   if (!file.type.match('image.*')) {
+//     window.alert('You can only share images. Please try again.');
+//     return;
+//   }
+//   // Check if the user is signed-in
+//   // We add a message with a loading icon that will get updated with the shared image.
+//   var currentUser = person;
+//   this.messagesRef
+//     .push({
+//       name: currentUser.displayName,
+//       imageUrl: FriendlyChat.LOADING_IMAGE_URL,
+//       photoUrl: currentUser.photoURL || '/images/user-icon.png'
+//     })
+//     .then(
+//       function(data) {
+//         // Upload the image to Cloud Storage.
+//         var filePath = 'userImages/' + currentUser.uid + '/' + 'messageImages/' + data.key + '/' + file.name;
+//         return this.storage.ref(filePath).put(file).then(
+//           function(snapshot) {
+//             // Get the file's Storage URI and update the chat message placeholder.
+//             var fullPath = snapshot.metadata.fullPath;
+//             return data.update({ imageUrl: this.storage.ref(fullPath).toString() });
+//           }.bind(this)
+//         );
+//       }.bind(this)
+//     )
+//     .catch(function(error) {
+//       console.error('There was an error uploading a file to Cloud Storage:', error);
+//     });
+//   this.resetDateTimeWhere; // Check.
+// };
 
 // Signs-in Friendly Chat.
 FriendlyChat.prototype.signIn = function() {
@@ -806,50 +806,50 @@ FriendlyChat.APPROVAL_TEMPLATE =
   '</div>' +
   '</div>';
 
-// Displays a Message in the UI.
-FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri, senderId) {
-  var messageList = document.getElementById('messages');
-  var messageInput = document.getElementById('message');
-  var div = document.getElementById(key);
-  // If an element for that message does not exists yet we create it.
-  if (!div) {
-    var container = document.createElement('div');
-    container.innerHTML = FriendlyChat.MESSAGE_TEMPLATE;
-    div = container.firstChild;
-    container.firstChild.firstChild.setAttribute('href', '/profile.html?' + senderId); // Check routes.
-    div.setAttribute('id', key);
-    messageList.appendChild(div);
-  }
-  if (picUrl) {
-    div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
-  }
-  div.querySelector('.name').textContent = name;
-  var messageElement = div.querySelector('.message');
-  if (text) {
-    // If the message is text.
-    messageElement.textContent = text;
-    // Replace all line breaks by <br>.
-    messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
-  } else if (imageUri) {
-    // If the message is an image.
-    var image = document.createElement('img');
-    image.addEventListener(
-      'load',
-      function() {
-        messageList.scrollTop = messageList.scrollHeight;
-      }.bind(this)
-    );
-    this.setImageUrl(imageUri, image);
-    messageElement.innerHTML = '';
-    messageElement.appendChild(image);
-  }
-  // Show the card fading-in.
-  setTimeout(function() {
-    div.classList.add('visible');
-  }, 1);
-  messageList.scrollTop = messageList.scrollHeight;
-  messageInput.focus();
-};
+// // Displays a Message in the UI.
+// FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri, senderId) {
+//   var messageList = document.getElementById('messages');
+//   var messageInput = document.getElementById('message');
+//   var div = document.getElementById(key);
+//   // If an element for that message does not exists yet we create it.
+//   if (!div) {
+//     var container = document.createElement('div');
+//     container.innerHTML = FriendlyChat.MESSAGE_TEMPLATE;
+//     div = container.firstChild;
+//     container.firstChild.firstChild.setAttribute('href', '/profile.html?' + senderId); // Check routes.
+//     div.setAttribute('id', key);
+//     messageList.appendChild(div);
+//   }
+//   if (picUrl) {
+//     div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
+//   }
+//   div.querySelector('.name').textContent = name;
+//   var messageElement = div.querySelector('.message');
+//   if (text) {
+//     // If the message is text.
+//     messageElement.textContent = text;
+//     // Replace all line breaks by <br>.
+//     messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
+//   } else if (imageUri) {
+//     // If the message is an image.
+//     var image = document.createElement('img');
+//     image.addEventListener(
+//       'load',
+//       function() {
+//         messageList.scrollTop = messageList.scrollHeight;
+//       }.bind(this)
+//     );
+//     this.setImageUrl(imageUri, image);
+//     messageElement.innerHTML = '';
+//     messageElement.appendChild(image);
+//   }
+//   // Show the card fading-in.
+//   setTimeout(function() {
+//     div.classList.add('visible');
+//   }, 1);
+//   messageList.scrollTop = messageList.scrollHeight;
+//   messageInput.focus();
+// };
 
 // Enables or disables the submit button depending on the values of the input
 // fields.
