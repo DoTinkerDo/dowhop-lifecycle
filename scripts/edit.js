@@ -235,10 +235,10 @@ function setSession(doWhopSelector) {
   // setAndGetDoWhopDescriptionSession(key); // new
 }
 
-function showEditForm(doWhopSelector) {
+function showEditForm(currentDoWhopID) {
   var editForm = document.getElementById('edit-dowhop-form');
-  var key = doWhopSelector.id;
-  var doWhopDescriptionRef = database.ref('DoWhopDescriptions').child(key);
+  var ID = currentDoWhopID;
+  var doWhopDescriptionRef = database.ref('DoWhopDescriptions').child(ID);
 
   doWhopDescriptionRef.once('value').then(function(snapshot) {
     var doWhopDescription = snapshot.val();
