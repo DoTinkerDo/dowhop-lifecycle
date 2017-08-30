@@ -130,12 +130,12 @@ function revealInput() {
     case 'image':
       document.getElementById('mediaCapture').removeAttribute('hidden');
       document.getElementById('submitImage').removeAttribute('hidden');
-      document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
+      document.getElementById('when-date-time-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('where-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('map').setAttribute('hidden', 'true');
       break;
     default:
-      document.getElementById('when-date-pending-hidden').setAttribute('hidden', 'true');
+      document.getElementById('when-date-time-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
       document.getElementById('mediaCapture').setAttribute('hidden', 'true');
       document.getElementById('submitImage').setAttribute('hidden', 'true');
