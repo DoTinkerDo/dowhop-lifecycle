@@ -29,7 +29,6 @@
     var profileProgressDataInit;
     profileProgressDataInit = {
       profileProgress: {
-        'update-profile': false,
         'verify-phone': false,
         'verify-email': false,
         'verify-social': false

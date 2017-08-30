@@ -105,7 +105,8 @@ function expandLinkedIn(e) {
 
 function profileProgressUI() {
   //FIX ME BY REMOVING HARDCODED UID BEFORE DEPLOY
-  var uid = 'BAEN9HMK0fbT9HQkZWqIhNk8gTn2'; //auth.currentUser.uid
+  // var uid =  auth.currentUser.uid //'BAEN9HMK0fbT9HQkZWqIhNk8gTn2';
+  var uid = retrieveUrl(window.location.href);
   var profileRef = database.ref('app_users/' + uid);
   profileRef.once('value').then(function(snapshot) {
     var profileProgress = snapshot.val().profileProgress;
