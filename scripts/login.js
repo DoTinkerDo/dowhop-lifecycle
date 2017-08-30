@@ -72,6 +72,7 @@
       setLandingTab(getSessionTab(user.uid));
       checkForPendings(userSession.current_dowhop);
       setAndGetDoWhopDescriptionSession(userSession);
+      showUIBasedOnTab(userSession);
     });
   }
 

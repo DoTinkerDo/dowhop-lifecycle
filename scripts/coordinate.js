@@ -494,25 +494,25 @@ function setAndGetDoWhopDescriptionSession(userSession) {
   // });
 
   // We only load messages if current tab is clicked:
-  if (currentTabID === 'coordinate-tab') {
-    document.getElementById('messages-card').removeAttribute('hidden');
-    document.getElementById('selector-body').setAttribute('hidden', 'true');
-
-    FriendlyChat.prototype.loadMessages();
-  } else if (currentTabID === 'edit-tab') {
-    // We only load edit form if edit tab is clicked:
-    document.getElementById('messages-card').setAttribute('hidden', 'true');
-    document.getElementById('selector-body') && document.getElementById('selector-body').removeAttribute('hidden');
-    showEditForm(doWhopSelector.firstChild);
-    fillInEditForm(doWhopSelector.firstChild);
-  } else if (currentTabID === 'review-tab') {
-    // TO-DO: Good to clear all unwanted UI elements if nothing's chosen.
-    document.getElementById('messages-card').setAttribute('hidden', 'true');
-    document.getElementById('selector-body').setAttribute('hidden', 'true');
-  } else {
-    document.getElementById('messages-card').setAttribute('hidden', 'true');
-    document.getElementById('selector-body') && document.getElementById('selector-body').setAttribute('hidden', 'true');
-  }
+  // if (currentTabID === 'coordinate-tab') {
+  //   document.getElementById('messages-card').removeAttribute('hidden');
+  //   document.getElementById('selector-body').setAttribute('hidden', 'true');
+  //
+  //   FriendlyChat.prototype.loadMessages();
+  // } else if (currentTabID === 'edit-tab') {
+  //   // We only load edit form if edit tab is clicked:
+  //   document.getElementById('messages-card').setAttribute('hidden', 'true');
+  //   document.getElementById('selector-body') && document.getElementById('selector-body').removeAttribute('hidden');
+  //   showEditForm(doWhopSelector.firstChild);
+  //   fillInEditForm(doWhopSelector.firstChild);
+  // } else if (currentTabID === 'review-tab') {
+  //   // TO-DO: Good to clear all unwanted UI elements if nothing's chosen.
+  //   document.getElementById('messages-card').setAttribute('hidden', 'true');
+  //   document.getElementById('selector-body').setAttribute('hidden', 'true');
+  // } else {
+  //   document.getElementById('messages-card').setAttribute('hidden', 'true');
+  //   document.getElementById('selector-body') && document.getElementById('selector-body').setAttribute('hidden', 'true');
+  // }
 }
 
 // function generateUserIcon(userObjectsArray) {}
