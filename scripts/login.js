@@ -22,17 +22,23 @@
   var loginPage = document.getElementById('login-container');
   var applicationPage = document.getElementById('application-container');
 
-  function profileProgessNodeExists(user) {
-    //This function will check if this node exists and so that we can create it if it doesn't
+  function profileProgessNodeInit(user) {
+    //This function will check if this node exists and create it if it doesn't
     //and not overwrite it if it does
     var currentUserRef = database.ref('/app_users').child(user.uid);
+    var profileProgressDataInit;
+    profileProgressDataInit = {
+      profileProgress: {
+        updateProfile: false,
+        verifyPhone: false,
+        verifyEmail: false,
+        verifySocial: false
+      }
+    };
     currentUserRef.once('value').then(function(snapshot) {
-      var thing = snapshot.val().profileProgress;
-      console.log(thing);
-      if (thing !== undefined) {
-        return true;
-      } else {
-        return false;
+      console.log(snapshot.val().profileProgress);
+      if (snapshot.val().profileProgress === undefined) {
+        currentUserRef.update(profileProgressDataInit);
       }
     });
   }
@@ -56,8 +62,7 @@
   }
 
   function handleSignedInUser(user) {
-    var progressNode = profileProgessNodeExists(user);
-    console.log(progressNode);
+    profileProgessNodeInit(user);
     loginPage.style.display = 'none';
     applicationPage.style.display = 'block';
     writeUserData(user);

@@ -31,7 +31,6 @@ socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
 //showEditFormBtn.addEventListener('click', showEditForm);
 
-
 /*
 function showEditForm(e){
   console.log("we reached here homie");
@@ -58,18 +57,16 @@ function reverseImage() {
 }*/
 
 var activities = document.getElementsByClassName('personalAct');
-var background = document.getElementById("background-photo").src;
+var background = document.getElementById('background-photo').src;
 
-for(var index=0; index < activities.length; index++) {
-
-  activities[index].addEventListener("mouseover", function(){
+for (var index = 0; index < activities.length; index++) {
+  activities[index].addEventListener('mouseover', function() {
     var children = this.childNodes;
     var imageSrc = children[1].src;
-    document.getElementById("background-photo").src = imageSrc;
-  
+    document.getElementById('background-photo').src = imageSrc;
   });
-  activities[index].addEventListener("mouseout", function(){
-    document.getElementById("background-photo").src = background;
+  activities[index].addEventListener('mouseout', function() {
+    document.getElementById('background-photo').src = background;
   });
 }
 
@@ -165,6 +162,16 @@ function expandLinkedIn(e) {
   document.getElementById('linkedin-card').removeAttribute('hidden');
 }
 
+function profileProgressUI() {
+  //FIX ME BY REMOVING HARDCODED UID BEFORE DEPLOY
+  var uid = 'BAEN9HMK0fbT9HQkZWqIhNk8gTn2'; //auth.currentUser.uid
+  var profileRef = database.ref('app_users/' + uid);
+  profileRef.once('value').then(function(snapshot) {
+    var profileProgress = snapshot.val().profileProgress;
+  });
+}
+
+profileProgressUI();
 
 function createProfile(e) {
   e.preventDefault();
@@ -240,10 +247,10 @@ function createProfile(e) {
   //createProfileDiv.setAttribute('hidden', 'true');
 
   var theForm = document.getElementById('form-edit');
-  theForm.removeAttribute("style");
-  theForm.setAttribute("hidden","true");
-  createProfileDiv.removeAttribute("style");
-  createProfileDiv.setAttribute("hidden", "true");
+  theForm.removeAttribute('style');
+  theForm.setAttribute('hidden', 'true');
+  createProfileDiv.removeAttribute('style');
+  createProfileDiv.setAttribute('hidden', 'true');
 }
 
 function clearCreateProfileForm() {
@@ -310,24 +317,21 @@ function retrieveProfile(currentProfile) {
     // myProfileEmail.innerHTML = "<a href='mailto:" + appUser.email + " '>Send Message</a> ";
     myProfileAbout.innerText = appUser.profileAbout || 'About Me: ';
     // myProfilePayment.innerText = appUser.pofilePayment;
-    
-    if(appUser.profileActivity1 !== null){
+
+    if (appUser.profileActivity1 !== null) {
       myProfileActivity1.innerText = appUser.profileActivity1;
+    } else {
+      myProfileActivity3.innerText = '';
     }
-    else{
-      myProfileActivity3.innerText ='';
-    }
-     if(appUser.profileActivity2 !== null){
+    if (appUser.profileActivity2 !== null) {
       myProfileActivity2.innerText = appUser.profileActivity2;
+    } else {
+      myProfileActivity2.innerText = '';
     }
-    else{
-      myProfileActivity2.innerText ='';
-    }
-     if(appUser.profileActivity3 !== null){
+    if (appUser.profileActivity3 !== null) {
       myProfileActivity3.innerText = appUser.profileActivity3;
-    }
-    else{
-      myProfileActivity3.innerText ='';
+    } else {
+      myProfileActivity3.innerText = '';
     }
 
     activityImage1.src =
@@ -400,7 +404,7 @@ function socialMediaTW() {
     console.log(currentProfile);
     let twitter = String(snap.val().profileSocialTW);
     if (!snap.val().profileSocialTW) {
-      console.log("hello");
+      console.log('hello');
     } else {
       window.open(twitter, '_blank');
     }
@@ -467,14 +471,13 @@ function fillInProfileForm(e) {
   var currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
 
-  console.log("edit form working");
+  console.log('edit form working');
   var editForm = document.getElementById('form-edit');
   console.log(editForm);
   editForm.removeAttribute('hidden');
-  editForm.style.display="block";
-  createProfileDiv.style.display="block";
-  createProfileDiv.removeAttribute("hidden");
- 
+  editForm.style.display = 'block';
+  createProfileDiv.style.display = 'block';
+  createProfileDiv.removeAttribute('hidden');
 
   profileRef.once('value', function(snap) {
     if ((profileRef = currentProfile)) {
