@@ -261,7 +261,7 @@ function clearImageTempValues() {
   });
 }
 
-function fillInEditForm(doWhopSelector) {
+function fillInEditForm(currentDoWhopID) {
   clearImageTempValues();
   var editImageCapture1 = document.getElementById('edit-image-capture1');
   var editImageCapture2 = document.getElementById('edit-image-capture2');
@@ -274,7 +274,7 @@ function fillInEditForm(doWhopSelector) {
     snapshot.forEach(function(data) {
       var doWhopDescription = data.val();
 
-      if (data.key === doWhopSelector.id) {
+      if (data.key === currentDoWhopID) {
         document.getElementById('titleDescription').value = doWhopDescription.titleDescription;
         document.getElementById('whoDescription').value = doWhopDescription.whoDescription;
         // console.log(doWhopDescription.whoDescription);
