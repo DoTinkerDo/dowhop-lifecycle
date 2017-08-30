@@ -141,7 +141,7 @@ function displayUserMessage(key, name, text, picUrl, imageUri, senderId) {
         messageList.scrollTop = messageList.scrollHeight;
       }.bind(this)
     );
-    this.setImageUrl(imageUri, image);
+    setMessageImageUrl(imageUri, image);
     messageElement.innerHTML = '';
     messageElement.appendChild(image);
   }
@@ -151,4 +151,16 @@ function displayUserMessage(key, name, text, picUrl, imageUri, senderId) {
   }, 1);
   messageList.scrollTop = messageList.scrollHeight;
   messageInput.focus();
+}
+
+function setMessageImageUrl(imageUri, imgElement) {
+  // If the image is a Cloud Storage URI we fetch the URL.
+  if (imageUri.startsWith('gs://')) {
+    imgElement.src = FriendlyChat.LOADING_IMAGE_URL; // Display a loading image first.
+    firebase.storage().refFromURL(imageUri).getMetadata().then(function(metadata) {
+      imgElement.src = metadata.downloadURLs[0];
+    });
+  } else {
+    imgElement.src = imageUri;
+  }
 }
