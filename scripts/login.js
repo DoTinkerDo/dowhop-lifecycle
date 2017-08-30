@@ -29,10 +29,10 @@
     var profileProgressDataInit;
     profileProgressDataInit = {
       profileProgress: {
-        updateProfile: false,
-        verifyPhone: false,
-        verifyEmail: false,
-        verifySocial: false
+        'update-profile': false,
+        'verify-phone': false,
+        'verify-email': false,
+        'verify-social': false
       }
     };
     currentUserRef.once('value').then(function(snapshot) {
