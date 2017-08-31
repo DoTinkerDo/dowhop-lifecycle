@@ -31,7 +31,7 @@ socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
 editProfileButton.addEventListener('click', fillInProfileForm);
-socialButtonWeb.addEventListener('click', expandPersonalWeb)
+socialButtonWeb.addEventListener('click', expandPersonalWeb);
 closingButton.addEventListener('click', closeModalUpdate);
 
 var activities = document.getElementsByClassName('personalAct');
@@ -114,7 +114,7 @@ function expandPersonalWeb(e) {
 }
 
 function profileProgressUI() {
-  var uid = retrieveUrl(window.location.href);
+  var uid = retrieveUrl(window.location.href) || auth.currentUser.uid;
   var profileRef = database.ref('app_users/' + uid);
   profileRef.once('value').then(function(snapshot) {
     if (snapshot.val() && snapshot.val().profileProgress) {
