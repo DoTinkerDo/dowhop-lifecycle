@@ -322,15 +322,24 @@ label > i.material-icons {
   fill: #606060;
 }
 
+i.link-icon {
+  font-size: 3.5em;
+  min-width:44px; /* Check on mobile */
+}
+
 #button-1 i.material-icons,
 #button-2 i.material-icons,
 #social-button-1 i.material-icons,
 #social-button-2 i.material-icons,
-#social-button-3 i.material-icons {
+#social-button-3 i.material-icons,
+#social-button-4 i.material-icons {
   cursor: pointer;
   font-size: 22px;
 }
 
+.profile-location {
+  margin-top:20px;
+}
 button#button-1,
 button#button-2 {
   top: -35px;
@@ -344,7 +353,7 @@ button#button-2 {
   left: 18px;
 }
 svg.social-media-svg {
-  margin-top: -20px;
+  margin-top: 10px;
   margin-left: 9px;
 }
 
