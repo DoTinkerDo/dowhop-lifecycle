@@ -39,7 +39,7 @@
     <div class="nav-dropdown-content">
       <a href="/profile.html">My Profile</a>
       <a href="/">My DoWhops</a>
-      <a class="btn-logout" href="#" onclick="auth.signOut()">Log Out</a>
+      <a class="btn-logout" href="#" onclick="logOut()">Log Out</a>
     </div>
   </div>
 </header>
@@ -408,5 +408,11 @@
   <!-- End Show Profile Section -->
   <script src="scripts/dowhop-profile-form-create.js"></script>
   <script src="scripts/dowhop-profile-form-dm.js"></script>
+  <script>
+    function logOut() {
+      auth.signOut();
+      window.location.href = "/";
+    }
+  </script>
 </body>
 </html>
