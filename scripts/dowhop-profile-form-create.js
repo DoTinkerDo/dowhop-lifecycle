@@ -103,6 +103,31 @@ function expandLinkedIn(e) {
   document.getElementById('linkedin-card').removeAttribute('hidden');
 }
 
+function profileProgressUI() {
+  var uid = retrieveUrl(window.location.href);
+  var profileRef = database.ref('app_users/' + uid);
+  profileRef.once('value').then(function(snapshot) {
+    if (snapshot.val().profileProgress) {
+      var profileProgress = snapshot.val().profileProgress;
+      var sections = ['verify-email', 'verify-phone', 'verify-social'];
+      var className;
+      sections.map(function(section) {
+        if (!profileProgress[section]) {
+          className = section + '-done';
+        } else {
+          className = section + '-not-done';
+        }
+        var elArr = document.getElementsByClassName(className);
+        for (var i = 0; i < elArr.length; i++) {
+          elArr[i].style.display = 'none';
+        }
+      });
+    }
+  });
+}
+
+profileProgressUI();
+
 function createProfile(e) {
   e.preventDefault();
   var uid = auth.currentUser.uid;
@@ -195,7 +220,7 @@ var currentProfile;
 // var myProfileButton = document.getElementById('my-profile-button');
 var myDisplayName = document.getElementById('my-display-name');
 var myProfileName = document.getElementById('my-profile-name');
-var myProfilePhone = document.getElementById('my-profile-phone');
+// var myProfilePhone = document.getElementById('my-profile-phone'); //removed this element in profile page change, permanently remove later
 var myProfileSocialFB = document.getElementById('my-profile-social-FB');
 var myProfileSocialTW = document.getElementById('my-profile-social-TW');
 var myProfileSocialIG = document.getElementById('my-profile-social-IG');
@@ -225,7 +250,7 @@ function retrieveProfile(currentProfile) {
     var appUser = snap.val();
     myDisplayName.innerText = appUser.displayName;
     //myProfileName.innerText = appUser.profileName;
-    myProfilePhone.innerText = phoneX(appUser.profilePhone);
+    // myProfilePhone.innerText = phoneX(appUser.profilePhone); //commented because removed html
     myProfileSocialFB.innerText = snap.val().profileSocialFB;
     myProfileSocialTW.innerText = snap.val().profileSocialTW;
     myProfileSocialIG.innerText = snap.val().profileSocialIG;
@@ -239,11 +264,13 @@ function retrieveProfile(currentProfile) {
     } else {
       myProfileActivity3.innerText = '';
     }
+
     if (appUser.profileActivity2) {
       myProfileActivity2.innerText = appUser.profileActivity2;
     } else {
       myProfileActivity2.innerText = '';
     }
+
     if (appUser.profileActivity3) {
       myProfileActivity3.innerText = appUser.profileActivity3;
     } else {
@@ -325,7 +352,7 @@ function socialMediaTW() {
     let twitter = String(snap.val().profileSocialTW);
     var link = prefix.concat(twitter);
 
-    if(checkHTTP(twitter)) {
+    if (checkHTTP(twitter)) {
       link = twitter;
     }
 
@@ -344,7 +371,7 @@ function socialMediaFB() {
     let facebook = String(snap.val().profileSocialFB);
     var link = prefix.concat(facebook);
 
-    if(checkHTTP(facebook)) {
+    if (checkHTTP(facebook)) {
       link = facebook;
     }
 
@@ -363,7 +390,7 @@ function socialMediaLI() {
     var linkedIn = String(snap.val().profileSocialLI);
     var link = prefix.concat(linkedIn);
 
-    if(checkHTTP(linkedIn)) {
+    if (checkHTTP(linkedIn)) {
       link = linkedIn;
     }
 
@@ -382,7 +409,7 @@ function socialMediaIG() {
     let instagram = String(snap.val().profileSocialIG);
     var link = prefix.concat(instagram);
 
-    if(checkHTTP(instagram)) {
+    if (checkHTTP(instagram)) {
       link = instagram;
     }
 
@@ -393,11 +420,10 @@ function socialMediaIG() {
   });
 }
 
-function checkHTTP (url) {
-
-  var https = "http";
-  for(var i = 0; i < https.length; i++) {
-    if(https.charAt(i) != url.charAt(i)) {
+function checkHTTP(url) {
+  var https = 'http';
+  for (var i = 0; i < https.length; i++) {
+    if (https.charAt(i) != url.charAt(i)) {
       return false;
     }
   }
@@ -480,6 +506,9 @@ function fillInProfileForm(e) {
       }
       if (snap.val().profilePayment) {
         document.getElementById('profile-payment').value = snap.val().profilePayment;
+      }
+      if (snap.val().email) {
+        document.getElementById('account-email').value = snap.val().email;
       }
     }
   });
