@@ -21,6 +21,7 @@ var createProfileDiv = document.getElementById('create-profile-div');
 var socialButtonTwitter = document.getElementById('social-button-1');
 var socialButtonInstagram = document.getElementById('social-button-2');
 var socialButtonLinkedIn = document.getElementById('social-button-3');
+var socialButtonWeb = document.getElementById('social-button-4');
 var updateForm = document.getElementById('direct-update-form-div');
 var closingButton = document.getElementById('update-form-div-span');
 
@@ -28,6 +29,7 @@ createProfileFormBtn.addEventListener('click', createProfile);
 socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
+socialButtonWeb.addEventListener('click', expandPersonalWeb)
 
 closingButton.addEventListener('click', closeModalUpdate);
 
@@ -101,6 +103,13 @@ function expandLinkedIn(e) {
   e.preventDefault();
   // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
   document.getElementById('linkedin-card').removeAttribute('hidden');
+}
+
+function expandPersonalWeb(e) {
+  e.preventDefault();
+
+  // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
+  document.getElementById('personal-web-card').removeAttribute('hidden');
 }
 
 function profileProgressUI() {
