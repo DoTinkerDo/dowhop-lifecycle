@@ -21,6 +21,7 @@ var createProfileDiv = document.getElementById('create-profile-div');
 var socialButtonTwitter = document.getElementById('social-button-1');
 var socialButtonInstagram = document.getElementById('social-button-2');
 var socialButtonLinkedIn = document.getElementById('social-button-3');
+var socialButtonWeb = document.getElementById('social-button-4');
 var updateForm = document.getElementById('direct-update-form-div');
 var closingButton = document.getElementById('update-form-div-span');
 var editProfileButton = document.getElementById('new-edit-profile');
@@ -30,7 +31,7 @@ socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
 editProfileButton.addEventListener('click', fillInProfileForm);
-
+socialButtonWeb.addEventListener('click', expandPersonalWeb)
 closingButton.addEventListener('click', closeModalUpdate);
 
 var activities = document.getElementsByClassName('personalAct');
@@ -105,11 +106,18 @@ function expandLinkedIn(e) {
   document.getElementById('linkedin-card').removeAttribute('hidden');
 }
 
+function expandPersonalWeb(e) {
+  e.preventDefault();
+
+  // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
+  document.getElementById('personal-web-card').removeAttribute('hidden');
+}
+
 function profileProgressUI() {
   var uid = retrieveUrl(window.location.href);
   var profileRef = database.ref('app_users/' + uid);
   profileRef.once('value').then(function(snapshot) {
-    if (snapshot.val().profileProgress) {
+    if (snapshot.val() && snapshot.val().profileProgress) {
       var profileProgress = snapshot.val().profileProgress;
       var sections = ['verify-email', 'verify-phone', 'verify-social'];
       var className;
@@ -350,7 +358,7 @@ function socialMediaTW() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
-    var prefix = 'http://www.';
+    var prefix = 'http://';
     let twitter = String(snap.val().profileSocialTW);
     var link = prefix.concat(twitter);
 
@@ -369,7 +377,7 @@ function socialMediaFB() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
-    var prefix = 'http://www.';
+    var prefix = 'http://';
     let facebook = String(snap.val().profileSocialFB);
     var link = prefix.concat(facebook);
 
@@ -379,6 +387,7 @@ function socialMediaFB() {
 
     if (!snap.val().profileSocialFB) {
     } else {
+      console.log(link);
       window.open(link, '_blank');
     }
   });
@@ -388,7 +397,7 @@ function socialMediaLI() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
-    var prefix = 'http://www.';
+    var prefix = 'http://';
     var linkedIn = String(snap.val().profileSocialLI);
     var link = prefix.concat(linkedIn);
 
@@ -407,7 +416,8 @@ function socialMediaIG() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.once('value', function(snap) {
-    var prefix = 'http://www.';
+    var prefix = 'http://';
+
     let instagram = String(snap.val().profileSocialIG);
     var link = prefix.concat(instagram);
 
@@ -423,13 +433,29 @@ function socialMediaIG() {
 }
 
 function checkHTTP(url) {
-  var https = 'http';
+  var returnValue = true;
+  var https = 'http://';
+  var www = 'www.';
   for (var i = 0; i < https.length; i++) {
     if (https.charAt(i) != url.charAt(i)) {
       return false;
     }
   }
   return true;
+}
+
+function checkWWW(url) {
+  var www = "www."
+
+  for(var j = 0; j < www.length; j++) {
+    console.log("we're in the second loop");
+    console.log(url.charAt(j));
+    if(www.charAt(j) != url.charAt(j)) {
+      return false;
+    }
+  }
+  return true;
+
 }
 /*
 function checkURL(String url) {
