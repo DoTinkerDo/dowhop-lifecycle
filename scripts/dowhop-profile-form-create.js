@@ -342,9 +342,9 @@ auth.onAuthStateChanged(function(user) {
         myProfileSocialLI.src = '../images/linkedin-verified.svg';
       }
       if (currentProfile !== auth.currentUser.uid) {
-        showProfileFormBtn.setAttribute('hidden', 'true');
+        editProfileButton.setAttribute('hidden', 'true');
       } else {
-        showProfileFormBtn.removeAttribute('hidden');
+        editProfileButton.removeAttribute('hidden');
       }
     });
     profilePerson = user;
