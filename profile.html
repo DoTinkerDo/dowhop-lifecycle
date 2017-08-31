@@ -238,12 +238,56 @@
               <label class="mdl-textfield__label" row="3" for="profile-about">My Story:</label>
               <div class="mdl-tooltip">Tell the community about yourself. What makes you unique?</div>
             </div>
-            <svg class="social-media-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="44px" height="44px" viewBox="0 0 96.124 96.123" style="enable-background:new 0 0 96.124 96.123;" xml:space="preserve">
-              <path d="M72.089,0.02L59.624,0C45.62,0,36.57,9.285,36.57,23.656v10.907H24.037c-1.083,0-1.96,0.878-1.96,1.961v15.803   c0,1.083,0.878,1.96,1.96,1.96h12.533v39.876c0,1.083,0.877,1.96,1.96,1.96h16.352c1.083,0,1.96-0.878,1.96-1.96V54.287h14.654   c1.083,0,1.96-0.877,1.96-1.96l0.006-15.803c0-0.52-0.207-1.018-0.574-1.386c-0.367-0.368-0.867-0.575-1.387-0.575H56.842v-9.246   c0-4.444,1.059-6.7,6.848-6.7l8.397-0.003c1.082,0,1.959-0.878,1.959-1.96V1.98C74.046,0.899,73.17,0.022,72.089,0.02z" fill="#606060"/>
-            </svg>
           </div>
 
           <div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="profile-activity-1" placeholder="I love to do this activity">
+              <label class="mdl-textfield__label" for="profile-activity-1">Activity #1:</label>
+              <span class="mdl-tooltip" for="profile-activity-1">Just add one here for now</span>
+            </div>
+            <label for="profile-image-capture-1">
+              <i class="material-icons">perm_media</i>
+              <input class="image-capture" id="profile-image-capture-1" type="file" accept="image/*" capture="camera">
+            </label>
+            <button class="add-new-activity mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" id="button-1">
+              <i class="material-icons">add</i>
+              <span class="mdl-tooltip" for="button-1">Add another activity</span>
+            </button>
+          </div>
+
+          <div class="hide-component">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="profile-activity-2" placeholder="e.g., Casey is a spearfisherman and snorkeller">
+              <label class="mdl-textfield__label" for="profile-activity-2">Activity #2:</label>
+              <span class="mdl-tooltip" for="profile-activity-2">Just add one here for now</span>
+            </div>
+            <label for="profile-image-capture-2">
+              <i class="material-icons">perm_media</i>
+              <input class="image-capture" id="profile-image-capture-2" type="file" accept="image/*" capture="camera">
+            </label>
+            <button class="add-new-activity mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" id="button-2">
+              <i class="material-icons">add</i>
+              <span class="mdl-tooltip" for="button-2">Add another activity</span>
+            </button>
+          </div>
+
+          <div class="hide-component">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="profile-activity-3" placeholder="e.g., Casey is an underwater hockey player">
+              <label class="mdl-textfield__label" for="profile-activity-3">Activity #3:</label>
+              <span class="mdl-tooltip" for="profile-activity-3">Just add one here for now</span>
+            </div>
+            <label for="profile-image-capture-3">
+              <i class="material-icons">perm_media</i>
+              <input class="image-capture" id="profile-image-capture-3" type="file" accept="image/*" capture="camera">
+            </label>
+          </div>
+
+          <div>
+            <svg class="social-media-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="44px" height="44px" viewBox="0 0 96.124 96.123" style="enable-background:new 0 0 96.124 96.123;" xml:space="preserve">
+              <path d="M72.089,0.02L59.624,0C45.62,0,36.57,9.285,36.57,23.656v10.907H24.037c-1.083,0-1.96,0.878-1.96,1.961v15.803   c0,1.083,0.878,1.96,1.96,1.96h12.533v39.876c0,1.083,0.877,1.96,1.96,1.96h16.352c1.083,0,1.96-0.878,1.96-1.96V54.287h14.654   c1.083,0,1.96-0.877,1.96-1.96l0.006-15.803c0-0.52-0.207-1.018-0.574-1.386c-0.367-0.368-0.867-0.575-1.387-0.575H56.842v-9.246   c0-4.444,1.059-6.7,6.848-6.7l8.397-0.003c1.082,0,1.959-0.878,1.959-1.96V1.98C74.046,0.899,73.17,0.022,72.089,0.02z" fill="#606060"/>
+            </svg>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input class="mdl-textfield__input" type="text" id="profile-social-FB" placeholder="URL"></input>
               <label class="mdl-textfield__label" for="profile-social-FB">FaceBook:</label>
@@ -319,49 +363,6 @@
           </div> -->
 
           <!-- Adding Images -->
-          <div>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="profile-activity-1" placeholder="I love to do this activity">
-              <label class="mdl-textfield__label" for="profile-activity-1">Activity #1:</label>
-              <span class="mdl-tooltip" for="profile-activity-1">Just add one here for now</span>
-            </div>
-            <label for="profile-image-capture-1">
-              <i class="material-icons">perm_media</i>
-              <input class="image-capture" id="profile-image-capture-1" type="file" accept="image/*" capture="camera">
-            </label>
-            <button class="add-new-activity mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" id="button-1">
-              <i class="material-icons">add</i>
-              <span class="mdl-tooltip" for="button-1">Add another activity</span>
-            </button>
-          </div>
-
-          <div class="hide-component">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="profile-activity-2" placeholder="e.g., Casey is a spearfisherman and snorkeller">
-              <label class="mdl-textfield__label" for="profile-activity-2">Activity #2:</label>
-              <span class="mdl-tooltip" for="profile-activity-2">Just add one here for now</span>
-            </div>
-            <label for="profile-image-capture-2">
-              <i class="material-icons">perm_media</i>
-              <input class="image-capture" id="profile-image-capture-2" type="file" accept="image/*" capture="camera">
-            </label>
-            <button class="add-new-activity mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" id="button-2">
-              <i class="material-icons">add</i>
-              <span class="mdl-tooltip" for="button-2">Add another activity</span>
-            </button>
-          </div>
-
-          <div class="hide-component">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="profile-activity-3" placeholder="e.g., Casey is an underwater hockey player">
-              <label class="mdl-textfield__label" for="profile-activity-3">Activity #3:</label>
-              <span class="mdl-tooltip" for="profile-activity-3">Just add one here for now</span>
-            </div>
-            <label for="profile-image-capture-3">
-              <i class="material-icons">perm_media</i>
-              <input class="image-capture" id="profile-image-capture-3" type="file" accept="image/*" capture="camera">
-            </label>
-          </div>
 
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <input class="mdl-textfield__input" type="text" id="profile-phone" placeholder="Phone"></input>
