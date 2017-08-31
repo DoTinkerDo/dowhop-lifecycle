@@ -35,7 +35,6 @@
       }
     };
     currentUserRef.once('value').then(function(snapshot) {
-      console.log(snapshot.val().profileProgress);
       if (snapshot.val().profileProgress === undefined) {
         currentUserRef.update(profileProgressDataInit);
       }

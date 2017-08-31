@@ -104,26 +104,25 @@ function expandLinkedIn(e) {
 }
 
 function profileProgressUI() {
-  //FIX ME BY REMOVING HARDCODED UID BEFORE DEPLOY
-  // var uid =  auth.currentUser.uid //'BAEN9HMK0fbT9HQkZWqIhNk8gTn2';
   var uid = retrieveUrl(window.location.href);
   var profileRef = database.ref('app_users/' + uid);
   profileRef.once('value').then(function(snapshot) {
-    var profileProgress = snapshot.val().profileProgress;
-    var sections = ['verify-email', 'verify-phone', 'verify-social'];
-    var className;
-    sections.map(function(section) {
-      console.log(profileProgress[section]);
-      if (!profileProgress[section]) {
-        className = section + '-done';
-      } else {
-        className = section + '-not-done';
-      }
-      var elArr = document.getElementsByClassName(className);
-      for (var i = 0; i < elArr.length; i++) {
-        elArr[i].style.display = 'none';
-      }
-    });
+    if (snapshot.val().profileProgress) {
+      var profileProgress = snapshot.val().profileProgress;
+      var sections = ['verify-email', 'verify-phone', 'verify-social'];
+      var className;
+      sections.map(function(section) {
+        if (!profileProgress[section]) {
+          className = section + '-done';
+        } else {
+          className = section + '-not-done';
+        }
+        var elArr = document.getElementsByClassName(className);
+        for (var i = 0; i < elArr.length; i++) {
+          elArr[i].style.display = 'none';
+        }
+      });
+    }
   });
 }
 
