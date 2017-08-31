@@ -31,7 +31,7 @@ socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
 editProfileButton.addEventListener('click', fillInProfileForm);
-socialButtonWeb.addEventListener('click', expandPersonalWeb)
+socialButtonWeb.addEventListener('click', expandPersonalWeb);
 closingButton.addEventListener('click', closeModalUpdate);
 
 var activities = document.getElementsByClassName('personalAct');
@@ -114,7 +114,7 @@ function expandPersonalWeb(e) {
 }
 
 function profileProgressUI() {
-  var uid = retrieveUrl(window.location.href);
+  var uid = retrieveUrl(window.location.href) || auth.currentUser.uid;
   var profileRef = database.ref('app_users/' + uid);
   profileRef.once('value').then(function(snapshot) {
     if (snapshot.val() && snapshot.val().profileProgress) {
@@ -445,17 +445,16 @@ function checkHTTP(url) {
 }
 
 function checkWWW(url) {
-  var www = "www."
+  var www = 'www.';
 
-  for(var j = 0; j < www.length; j++) {
+  for (var j = 0; j < www.length; j++) {
     console.log("we're in the second loop");
     console.log(url.charAt(j));
-    if(www.charAt(j) != url.charAt(j)) {
+    if (www.charAt(j) != url.charAt(j)) {
       return false;
     }
   }
   return true;
-
 }
 /*
 function checkURL(String url) {
