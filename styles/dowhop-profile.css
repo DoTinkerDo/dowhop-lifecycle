@@ -77,6 +77,12 @@ img {
   margin: 15px 7px;
 }
 
+@media screen and (max-width: 500px) {
+  #send-direct-message {
+    margin-left: 40px;
+  }
+}
+
 #inline-icons {
   padding-right: 5px;
   display: inline-grid;
@@ -232,6 +238,13 @@ img {
   color: #606060;
   text-decoration: none;
 }
+
+@media screen and (max-width: 500px) {
+  #edit-profile-button {
+    margin-left: 40px;
+  }
+}
+
 #edit-profile-button:hover,
 #edit-profile-button:focus {
   color: #ec1928 !important;
