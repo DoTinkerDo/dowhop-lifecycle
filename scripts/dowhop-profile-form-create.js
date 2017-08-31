@@ -317,6 +317,7 @@ function retrieveUrl(loc) {
 auth.onAuthStateChanged(function(user) {
   if (user) {
     retrieveProfile();
+    profileProgressUI();
   }
 });
 
