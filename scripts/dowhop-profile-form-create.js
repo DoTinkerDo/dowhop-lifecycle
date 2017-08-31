@@ -136,8 +136,6 @@ function profileProgressUI() {
   });
 }
 
-profileProgressUI();
-
 function createProfile(e) {
   e.preventDefault();
   var uid = auth.currentUser.uid;
