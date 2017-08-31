@@ -322,11 +322,17 @@ label > i.material-icons {
   fill: #606060;
 }
 
+i.link-icon {
+  font-size: 3.5em;
+  min-width:44px; /* Check on mobile */
+}
+
 #button-1 i.material-icons,
 #button-2 i.material-icons,
 #social-button-1 i.material-icons,
 #social-button-2 i.material-icons,
-#social-button-3 i.material-icons {
+#social-button-3 i.material-icons,
+#social-button-4 i.material-icons {
   cursor: pointer;
   font-size: 22px;
 }
