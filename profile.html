@@ -60,19 +60,8 @@
       
   </div>
 
-  <div class="mdl-cell mdl-cell--5-col">
+<!--   <div class="mdl-cell mdl-cell--5-col">
     <ul class="mdl-list profile-progress">
-      <li class="mdl-list__item mdl-list__item--two-line">
-        <span class="mdl-list__item-primary-content">
-          <i class="update-profile-done check material-icons mdl-list__item-icon">done</i>
-          <i class="update-profile-not-done material-icons mdl-list__item-icon">clear</i>
-          <i class="material-icons mdl-list__item-icon">edit</i>
-          <span>Update Profile</span>
-          <span class="update-profile-done mdl-list__item-sub-title">text to display if done</span>
-          <span class="update-profile-not-done mdl-list__item-sub-title">text to display if not done update</span>
-
-        </span>
-      </li>
       <li class="mdl-list__item mdl-list__item--two-line">
         <span class="mdl-list__item-primary-content">
           <i class="verify-phone-done check material-icons mdl-list__item-icon">done</i>
@@ -104,7 +93,7 @@
         </span>    
       </li>
     </ul>
-  </div>
+  </div> -->
 
 
 
@@ -112,26 +101,62 @@
 
 
   <div class='mdl-grid grid1'>
-    <div class= 'mdl-grid mdl-cell mdl-cell--4-col mdl-cell--4-col-phone' id = "left-bar">
-      <div class="grid2 mdl-cell--2-col-phone" style="margin-top:20px;">
-        <a id="edit-profile-button" href="#">
-          <i class="material-icons profile-icons">mode_edit</i>
-          <div class="profile-data profile-icons" onclick="fillInProfileForm()">Edit Profile</div>
-        </a>
+    <div class= "mdl-cell--1-offset mdl-cell mdl-cell--4-col" id = "left-bar">
+      <div class="grid2" style="margin-top:20px;">
+
       </div>
-      <div class="grid2 mdl-cell--2-col-phone" style="margin-top:0px;">
+      <div class="grid2" style="margin-top:0px;">
         <!-- <i class="material-icons profile-icons">mail_outline</i> -->
         <!-- <div class="profile-data" id="my-profile-email"> -->
         <!-- </div> -->
-        <div id="send-direct-message-div" class="mdl-cell" id ="send-message-div">
-          <button id="send-direct-message" class="btn btn-default" style="margin-left: -20px !important;">
+        <div id="send-direct-message-div" id ="send-message-div"> <!-- TWO IDS... LETS DEAL WITH THIS -->
+          <button id="send-direct-message" class="btn btn-default">
             <span><i class="material-icons profile-icons" id = "inline-icons" style="padding-right: 5px; display: inline-grid" > mail_outline</i>
               <i style="display:inline-grid;padding-top:10px;">Send Message</i>
             </span>
           </button>
         </div>
+        <a id="edit-profile-button" href="#">
+          <i class="material-icons profile-icons">mode_edit</i>
+          <div class="profile-data profile-icons" onclick="fillInProfileForm()">Edit Profile</div>
+        </a>
       </div>
-      <div class="grid2 mdl-cell--2-col-phone">
+
+      <!-- <div class="mdl-cell"> -->
+        <ul class="mdl-list profile-progress">
+          <li class="mdl-list__item mdl-list__item--two-line">
+            <span class="mdl-list__item-primary-content">
+              <i class="verify-phone-done check material-icons mdl-list__item-icon">done</i>
+              <i class="verify-phone-not-done material-icons mdl-list__item-icon">clear</i>
+              <i class="material-icons mdl-list__item-icon">phone</i>
+              <span>Verify Phone</span>
+              <span class="verify-phone-done mdl-list__item-sub-title">text to display if done phone</span>
+              <span class="verify-phone-not-done mdl-list__item-sub-title">text to display if not done phone</span>
+            </span>
+          </li>
+          <li class="mdl-list__item mdl-list__item--two-line">
+            <span class="mdl-list__item-primary-content">
+              <i class="verify-email-done check material-icons mdl-list__item-icon">done</i>
+              <i class="verify-email-not-done material-icons mdl-list__item-icon">clear</i>
+              <i class="material-icons mdl-list__item-icon">email</i>
+              <span>Verify Email</span>
+              <span class="verify-email-done mdl-list__item-sub-title">text to display if done email</span>
+              <span class="verify-email-not-done mdl-list__item-sub-title">text to display if not done email</span>
+            </span>
+          </li>
+          <li class="mdl-list__item mdl-list__item--two-line">
+            <span class="mdl-list__item-primary-content">
+              <i class="verify-social-done check material-icons mdl-list__item-icon">done</i>
+              <i class="verify-social-not-done material-icons mdl-list__item-icon">clear</i>
+              <i class="material-icons mdl-list__item-icon">share</i>
+              <span>Verify Social</span>
+              <span class="verify-social-done mdl-list__item-sub-title">text to display if done social</span>
+              <span class="verify-social-not-done mdl-list__item-sub-title">text to display if not done social</span>
+            </span>    
+          </li>
+        </ul>
+      <!-- </div> -->
+      <!-- <div class="grid2 mdl-cell--2-col-phone">
         <i class="material-icons profile-icons">call</i>
         <div class="profile-data" id="my-profile-phone">xxx-xxx-xxxx</div>
       </div>
@@ -139,7 +164,7 @@
         <i class="material-icons profile-icons">room</i>
         <div class="profile-data" id="my-profile-city">San Diego, CA</div>
       </div>
-      <div class='mdl-cell-4-col-phone grid2 icons'>
+      <div class='mdl-cell-4-col-phone grid2 icons'> -->
 
       <div class="material-icons profile-icons">
 
@@ -152,6 +177,32 @@
       </div>
 
       </div>
+      
+      <div class='profile-activities-div2 mdl-cell mdl-cell--7-col mdl-cell--1-offset'>
+        <div class="mdl-cell mdl-cell--4-col outer-box personalAct mdl-cell--2-col-phone" id="activity1">
+          <img class="activity-image" id="activity-image-1" src="/images/placeholder-image1.png" alt="">
+          <div class="inner-box">
+            <p>Love to Do</p>
+          </div>
+          <div class="activity activity-caption" id="my-profile-activity-1"></div>
+        </div>
+        <div class="outer-box mdl-cell mdl-cell--4-col personalAct mdl-cell--2-col-phone">
+          <img class="activity-image" id="activity-image-2" src="/images/placeholder-image2.png" alt="">
+          <div class="inner-box">
+            <p>Love to Do</p>
+          </div>
+          <div class="activity activity-caption" id="my-profile-activity-2"></div>
+        </div>
+
+        <div class="outer-box mdl-cell mdl-cell--4-col personalAct mdl-cell--2-col-phone">
+          <img class="activity-image" id="activity-image-3" src="/images/placeholder-image3.png" alt="">
+          <div class="inner-box">
+            <p>Love to Do</p>
+          </div>
+          <div class="activity activity-caption" id="my-profile-activity-3">
+         </div>
+        </div>
+      </div>
     </div>
 
 
@@ -162,32 +213,6 @@
           <i class="material-icons profile-icons">mail_outline</i>
         </div>
       </button>
-    </div>
-
-    <div class='profile-activities-div2 mdl-grid'>
-      <div class="mdl-cell mdl-cell--7-col outer-box personalAct mdl-cell--2-col-phone" id="activity1">
-        <img class="activity-image" id="activity-image-1" src="/images/placeholder-image1.png" alt="">
-        <div class="inner-box">
-          <p>Love to Do</p>
-        </div>
-        <div class="activity activity-caption" id="my-profile-activity-1"></div>
-      </div>
-      <div class="outer-box mdl-cell mdl-cell--4-col personalAct mdl-cell--2-col-phone">
-        <img class="activity-image" id="activity-image-2" src="/images/placeholder-image2.png" alt="">
-        <div class="inner-box">
-          <p>Love to Do</p>
-        </div>
-        <div class="activity activity-caption" id="my-profile-activity-2"></div>
-      </div>
-
-      <div class="outer-box mdl-cell mdl-cell--4-col personalAct mdl-cell--2-col-phone">
-        <img class="activity-image" id="activity-image-3" src="/images/placeholder-image3.png" alt="">
-        <div class="inner-box">
-          <p>Love to Do</p>
-        </div>
-        <div class="activity activity-caption" id="my-profile-activity-3">
-       </div>
-      </div>
     </div>
   </div>
 
@@ -374,6 +399,18 @@
             <input class="mdl-textfield__input" type="text" id="profile-payment" placeholder="EMAIL"></input>
             <label class="mdl-textfield__label" for="profile-payment">Venmo Email:</label>
             <div class="mdl-tooltip" for="profile-payment">Payment Email</div>
+          </div>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="account-email" placeholder="Account Email" readonly></input>
+            <label class="mdl-textfield__label" for="profile-account-email">Account Email:</label>
+            <div class="mdl-tooltip" for="profile-account-email">DoWhop Account email</div>
+          </div>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="location" placeholder="Location" value="San Diego" readonly></input>
+            <label class="mdl-textfield__label" for="profile-location">Location:</label>
+            <div class="mdl-tooltip" for="profile-location">Your Location</div>
           </div>
           <!-- <label for="profile-image-capture-3"> -->
             <!-- <i class="material-icons">perm_media</i> -->

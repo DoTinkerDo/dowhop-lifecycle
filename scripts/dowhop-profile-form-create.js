@@ -110,7 +110,7 @@ function profileProgressUI() {
   var profileRef = database.ref('app_users/' + uid);
   profileRef.once('value').then(function(snapshot) {
     var profileProgress = snapshot.val().profileProgress;
-    var sections = ['update-profile', 'verify-email', 'verify-phone', 'verify-social'];
+    var sections = ['verify-email', 'verify-phone', 'verify-social'];
     var className;
     sections.map(function(section) {
       console.log(profileProgress[section]);
@@ -221,7 +221,7 @@ var currentProfile;
 // var myProfileButton = document.getElementById('my-profile-button');
 var myDisplayName = document.getElementById('my-display-name');
 var myProfileName = document.getElementById('my-profile-name');
-var myProfilePhone = document.getElementById('my-profile-phone');
+// var myProfilePhone = document.getElementById('my-profile-phone'); //removed this element in profile page change, permanently remove later
 var myProfileSocialFB = document.getElementById('my-profile-social-FB');
 var myProfileSocialTW = document.getElementById('my-profile-social-TW');
 var myProfileSocialIG = document.getElementById('my-profile-social-IG');
@@ -251,7 +251,7 @@ function retrieveProfile(currentProfile) {
     var appUser = snap.val();
     myDisplayName.innerText = appUser.displayName;
     //myProfileName.innerText = appUser.profileName;
-    myProfilePhone.innerText = phoneX(appUser.profilePhone);
+    // myProfilePhone.innerText = phoneX(appUser.profilePhone); //commented because removed html
     myProfileSocialFB.innerText = snap.val().profileSocialFB;
     myProfileSocialTW.innerText = snap.val().profileSocialTW;
     myProfileSocialIG.innerText = snap.val().profileSocialIG;
@@ -507,6 +507,9 @@ function fillInProfileForm(e) {
       }
       if (snap.val().profilePayment) {
         document.getElementById('profile-payment').value = snap.val().profilePayment;
+      }
+      if (snap.val().email) {
+        document.getElementById('account-email').value = snap.val().email;
       }
     }
   });
