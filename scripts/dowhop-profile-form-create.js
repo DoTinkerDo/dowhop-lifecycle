@@ -434,8 +434,7 @@ function socialMediaIG() {
 
 function checkHTTP(url) {
   var returnValue = true;
-  var https = 'http://';
-  var www = 'www.';
+  var https = 'http';
   for (var i = 0; i < https.length; i++) {
     if (https.charAt(i) != url.charAt(i)) {
       return false;
@@ -444,24 +443,6 @@ function checkHTTP(url) {
   return true;
 }
 
-function checkWWW(url) {
-  var www = "www."
-
-  for(var j = 0; j < www.length; j++) {
-    console.log("we're in the second loop");
-    console.log(url.charAt(j));
-    if(www.charAt(j) != url.charAt(j)) {
-      return false;
-    }
-  }
-  return true;
-
-}
-/*
-function checkURL(String url) {
-  var index
-}
-*/
 function phoneX(phone) {
   var str = '';
   var i;
