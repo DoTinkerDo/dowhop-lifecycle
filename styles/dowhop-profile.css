@@ -75,6 +75,9 @@ img {
 
 #send-direct-message {
   margin: 15px 7px;
+  width: 164px;
+  left: 7px;
+  position: relative;
 }
 
 @media screen and (max-width: 500px) {
@@ -93,8 +96,8 @@ img {
   font-weight: bold;
   color: black;
   background-color: white;
-  margin-left: 46px;
   margin-top: 20px;
+  margin-left: 58px;
 }
 
 #my-profile-name {
@@ -258,7 +261,7 @@ img {
 
 #my-profile-social {
   cursor: pointer;
-  margin-left: -15px;
+  margin-left: 81px;
 }
 
 #my-profile-social-TW {
@@ -409,4 +412,24 @@ svg.social-media-svg {
   .icons {
     margin-top: 20px;
   }
+}
+
+#new-edit-profile:hover {
+  cursor: pointer;
+  color: #ec1928;
+}
+
+#new-edit-profile:hover i {
+  color: #ec1928;
+}
+
+#new-edit-profile {
+  position: relative;
+  right: 5px;
+}
+
+#new-edit-profile > i {
+  position: relative;
+  top: 5px;
+  left: 5px;
 }

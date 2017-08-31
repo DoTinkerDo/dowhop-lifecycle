@@ -24,13 +24,14 @@ var socialButtonLinkedIn = document.getElementById('social-button-3');
 var socialButtonWeb = document.getElementById('social-button-4');
 var updateForm = document.getElementById('direct-update-form-div');
 var closingButton = document.getElementById('update-form-div-span');
+var editProfileButton = document.getElementById('new-edit-profile');
 
 createProfileFormBtn.addEventListener('click', createProfile);
 socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
+editProfileButton.addEventListener('click', fillInProfileForm);
 socialButtonWeb.addEventListener('click', expandPersonalWeb)
-
 closingButton.addEventListener('click', closeModalUpdate);
 
 var activities = document.getElementsByClassName('personalAct');
