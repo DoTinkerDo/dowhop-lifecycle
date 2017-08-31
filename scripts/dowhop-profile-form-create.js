@@ -23,11 +23,13 @@ var socialButtonInstagram = document.getElementById('social-button-2');
 var socialButtonLinkedIn = document.getElementById('social-button-3');
 var updateForm = document.getElementById('direct-update-form-div');
 var closingButton = document.getElementById('update-form-div-span');
+var editProfileButton = document.getElementById('new-edit-profile');
 
 createProfileFormBtn.addEventListener('click', createProfile);
 socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
+editProfileButton.addEventListener('click', fillInProfileForm);
 
 closingButton.addEventListener('click', closeModalUpdate);
 

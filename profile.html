@@ -76,14 +76,26 @@
             </span>
           </button>
         </div>
-        <a id="edit-profile-button" href="#">
+<!--         <a id="edit-profile-button" href="#">
           <i class="material-icons profile-icons">mode_edit</i>
           <div class="profile-data profile-icons" onclick="fillInProfileForm()">Edit Profile</div>
-        </a>
+        </a> -->
+        <!-- commented out old edit profile button, remove when we don't need 8/31/17 -->
       </div>
 
       <!-- <div class="mdl-cell"> -->
         <ul class="mdl-list profile-progress">
+
+          <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+              <i class="material-icons mdl-list__item-icon"></i>
+              <span id="new-edit-profile">
+              <i class="material-icons mdl-list__item-icon">edit</i>
+              <span>Edit Profile</span></span>
+            </span>    
+          </li>  
+
+
           <li class="mdl-list__item mdl-list__item--two-line">
             <span class="mdl-list__item-primary-content">
               <i class="verify-phone-done check material-icons mdl-list__item-icon">done</i>
@@ -114,6 +126,14 @@
               <span class="verify-social-not-done mdl-list__item-sub-title">Pending Verification</span>
             </span>    
           </li>
+
+          <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+              <i class="material-icons mdl-list__item-icon"></i>
+              <i class="material-icons mdl-list__item-icon">location_on</i>
+              <span>San Diego</span>
+            </span>    
+          </li>          
         </ul>
       <!-- </div> -->
       <!-- <div class="grid2 mdl-cell--2-col-phone">
