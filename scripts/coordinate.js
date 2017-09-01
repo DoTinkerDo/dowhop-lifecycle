@@ -403,7 +403,7 @@ function setAndGetDoWhopDescriptionSession(DoWhopID) {
 
               if (doerUserObjects && doerUserObjects.length > 0) {
                 _.map(doerUserObjects, function(userObject) {
-                  renderCreatorIcon +=
+                  renderDoerIcons +=
                     '<div class="user-avatar-container">' +
                     "<a href='/profile.html?" +
                     userObject.uid +
