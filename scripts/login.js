@@ -189,7 +189,7 @@ function createDefaultDoWhop(person) {
       'You can share the exact address once the doer has booked this experiience. Give the general area here, and describe the facility where this DoWhop will take place. By request or "at your home" will also do for flexible bookings.',
     howMuchDescription:
       'Describe what someone would have to pay to join you and what they would get in exchange. You dont have to describe what the funds go too, but you are welcome to identify any operational expenses or charities you will give the money to upon booking. We will add 20% to the total cost of your DoWhop when listing to the marketplace. You will receive 100% of your listed cost transferred to your payment account when users book and complete this DoWhop.',
-    creatorDescription: 'connect@dowhop.com',
+    creatorDescription: 'DoWhop.com@gmail.com',
     doerDescription: email,
     createdAt: currentTime
   });
