@@ -145,7 +145,8 @@ function retrieveMyDoWhops(uid) {
         }
 
         if (
-          doWhopDescription.creatorDescription.toLowerCase() === person.email.toLowerCase() ||
+          (doWhopDescription.creatorDescription && doWhopDescription.creatorDescription.toLowerCase()) ===
+            person.email.toLowerCase() ||
           doerDescriptionEmails.some(function(doerDescriptionEmail) {
             return doerDescriptionEmail.toLowerCase() === person.email.toLowerCase();
           })
