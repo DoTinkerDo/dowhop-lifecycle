@@ -97,8 +97,8 @@ function submitNewDoWhopEntry(e) {
       whenDescription: whenDescription.value,
       whereDescription: whereDescription.value,
       howMuchDescription: howMuchDescription.value,
-      creatorDescription: creatorDescription.value,
-      doerDescription: doerDescription.value
+      creatorDescription: creatorDescription.value.toLowerCase(),
+      doerDescription: doerDescription.value.toLowerCase()
     })
     .then(showConfirmationMessage());
 
@@ -251,8 +251,8 @@ function updateCreatorDoerEmails(e) {
   e.preventDefault();
   adminEditDoWhopForm.removeAttribute('hidden');
   doWhopDescriptionsRef.child(doWhopDescriptionKeyForUpdate).update({
-    creatorDescription: creatorDescriptionUpdate.value,
-    doerDescription: doerDescriptionUpdate.value
+    creatorDescription: creatorDescriptionUpdate.value.toLowerCase(),
+    doerDescription: doerDescriptionUpdate.value.toLowerCase()
   });
   selectedForEdit.innerHTML = 'Edit your DoWhop';
   error.innerHTML = 'Emails have been updated!';
