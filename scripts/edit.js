@@ -129,6 +129,7 @@ function editSelectedDoWhop(event) {
     'You rock! Thanks for submitting your DoWhop. Please review your changes to the newly updated DoWhop!';
 }
 
+// retrieveMyDoWhops should probably be moved to a more central place...
 function retrieveMyDoWhops(uid) {
   doWhopDescriptionRootRef.on(
     'value',
@@ -146,7 +147,6 @@ function retrieveMyDoWhops(uid) {
           doWhopDescription.creatorDescription === person.email ||
           doerDescriptionEmails.some(function(doerDescriptionEmail) {
             return doerDescriptionEmail === person.email;
-            // console.log(person);
           })
         ) {
           makeDoWhopSelector(userDowhopCardDiv, doWhopDescription);
@@ -154,7 +154,7 @@ function retrieveMyDoWhops(uid) {
       });
     },
     function(errorObject) {
-      console.log('Data Read Failure: ' + errorObject.code);
+      console.log('retrieveMyDoWhops Data Read Failure: ' + errorObject.code);
     }
   );
 
@@ -177,11 +177,11 @@ function retrieveMyDoWhops(uid) {
     });
   }
   function addDoWhopImage(files_arr, node) {
-    return (file = files_arr[0]);
     if (!file.type.match('image/.*')) {
       alert('You can only add images at the moment.');
       return;
     }
+    return (file = files_arr[0]);
   }
 }
 
