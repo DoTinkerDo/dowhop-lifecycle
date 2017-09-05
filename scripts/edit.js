@@ -10,7 +10,7 @@ submitUpdateDoWhopBtn.addEventListener('click', editSelectedDoWhop);
 
 function editSelectedDoWhop(event) {
   event.preventDefault();
-  // Collect form data and clear it:
+
   var titleDescription = document.getElementById('titleDescription');
   // var titleImage = document.getElementById('titleImage');
   var whyDescription = document.getElementById('whyDescription');
@@ -28,8 +28,8 @@ function editSelectedDoWhop(event) {
   // var whenTime = document.getElementById('whenTime');
   // var whenImage = document.getElementById('whenImage');
   var howMuchDescription = document.getElementById('howMuchDescription');
-  var creatorDescription = document.getElementById('creatorDescription'); // new
-  var doerDescription = document.getElementById('doerDescription'); // new
+  var creatorDescription = document.getElementById('creatorDescription');
+  var doerDescription = document.getElementById('doerDescription');
   var howMuchCost = document.getElementById('howMuchCost');
   // var howmuchImage = document.getElementById('howmuchImage');
   var currentDoWhop = document.getElementById('dowhop-selector-container').firstChild.id || 'orphan';
@@ -54,8 +54,8 @@ function editSelectedDoWhop(event) {
     // event.whenDate = whenDate.value;
     // event.whenImage = whenImage.innerHTML;
     event.howMuchDescription = howMuchDescription.value;
-    event.creatorDescription = creatorDescription.value;
-    event.doerDescription = doerDescription.value;
+    event.creatorDescription = creatorDescription.toLowerCase();
+    event.doerDescription = doerDescription.value.toLowerCase();
     // event.howMuchCost = howMuchCost.value;
     // event.howmuchImage = howmuchImage.innerHTML;
   } else {
