@@ -74,7 +74,7 @@ function createDoWhop(event) {
   doWhopDescriptionRootRef.child(currentDoWhop).child('creatorDescription').set(event.creatorDescription);
   doWhopDescriptionRootRef.child(currentDoWhop).child('doerDescription').set(event.doerDescription);
 
-  database.ref('session/' + uid + '/updateImageTempData/').once('value').then(function(snapshot) {
+  database.ref('DoWhopDescriptions/' + currentDoWhop + '/updateImageTempData/').once('value').then(function(snapshot) {
     var snapshotVal = snapshot.val();
     var whichImagesChanged = [snapshotVal.image1Changed, snapshotVal.image2Changed, snapshotVal.image3Changed];
     var whichUrl = [
@@ -251,8 +251,9 @@ function showEditForm(doWhopSelector) {
   });
 }
 
-function clearImageTempValues() {
-  database.ref('session/' + uid + '/updateImageTempData/').update({
+function clearImageTempValues(currentDoWhopID) {
+  console.log('clear image values, currentDoWhopID', currentDoWhopID);
+  database.ref('DoWhopDescriptions/' + currentDoWhopID + '/updateImageTempData/').update({
     image1Changed: false,
     image2Changed: false,
     image3Changed: false,
@@ -264,7 +265,7 @@ function clearImageTempValues() {
 
 function fillInEditForm(doWhopSelector) {
   console.log('running fill in edit form');
-  clearImageTempValues();
+  clearImageTempValues(doWhopSelector.id);
   var editImageCapture1 = document.getElementById('edit-image-capture1');
   var editImageCapture2 = document.getElementById('edit-image-capture2');
   var editImageCapture3 = document.getElementById('edit-image-capture3');
@@ -324,7 +325,7 @@ function addImageToFirebase() {
       var obj = {};
       obj[imageChanged] = true;
       obj[potentialUrlForImage] = url;
-      database.ref('session/' + uid + '/updateImageTempData').update(obj);
+      database.ref('DoWhopDescriptions/' + currentDoWhopID + '/updateImageTempData').update(obj);
     });
   });
 }
