@@ -73,7 +73,8 @@
         // getSessionTab(user.uid);
         setLandingTab(getSessionTab(user.uid));
         checkForPendings(userSession); // Sets listener for changes, too.
-        setAndGetDoWhopDescriptionSession(userSession);
+        // setAndGetDoWhopDescriptionSession(userSession);
+        showDoWhopSelectorHeader(userSession);
         showUIBasedOnTab(userSession);
       },
       function(error) {

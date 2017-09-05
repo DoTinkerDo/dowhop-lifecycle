@@ -235,3 +235,182 @@ function manageMessengerImages(userSession) {
   );
   mediaCapture.addEventListener('change', saveImageMessage.bind(this));
 }
+
+function showDoWhopSelectorHeader(userSession) {
+  var doWhopSelector = document.getElementById('dowhop-selector-container');
+  database.ref('DoWhopDescriptions/').child(userSession.current_dowhop).once('value').then(function(snapshot) {
+    console.log(snapshot.val());
+  })
+}
+
+function setAndGetDoWhopDescriptionSession(userSession) {
+  console.log('Running setAndGetDoWhopDescriptionSession....');
+  var user = person;
+  var userID = person.uid;
+  var currentDoWhopID = userSession.current_dowhop; // This is available from higher scope.
+  var currentTabID = userSession.current_tab;
+  var messagesRef = firebase.database().ref().child('messages/');
+  var sessionRef = database.ref('/session').child(userID);
+  var doWhopSelector = document.getElementById('dowhop-selector-container');
+  var messageList = document.getElementById('messages');
+  var messageInput = document.getElementById('message');
+  var doWhopSelectorDiv = '';
+
+  // Executing functions that are triggered by clicking on a selector block:
+  firebase.database().ref().child('DoWhopDescriptions/' + userSession.current_dowhop).on('value', function(data) {
+    // Weave together header
+    if (data.val()) {
+      var imageUrl =
+        (data.val().downloadURL && data.val().downloadURL.image1) ||
+        data.val().downloadURL ||
+        defaultDoWhopDescriptionImage;
+
+      var doWhopDescriptionTitle = data.val().titleDescription || 'Your DoWhops Will Appear Here';
+
+      // Adding these logic checks so that when users update their information, new times, dates, etc render in 'View':
+      var renderWhenInformation = data.val().whenDescription;
+      var renderWhereInformation = data.val().whereDescription;
+      var renderWhoDescription = data.val().whoDescription;
+      var renderWhoAmIInformation = data.val().whoAmIDescription || '';
+      var whoInformation = data.val().doerDescription; // In progress:  Update with first names dynamically.
+      var renderCreatorIcon = '';
+      var renderDoerIcons = '';
+      var appUsersRef = database.ref('app_users');
+      var doerEmails = whoInformation.split(', ');
+      var creatorEmail = data.val().creatorDescription;
+
+      appUsersRef
+        .once('value')
+        .then(function(snap) {
+          // console.log('Resetting the values...');
+          doerUserObjects.length = 0; // Resetting the global variable.
+          creatorUserObjects.length = 0;
+          snap.forEach(function(childSnap) {
+            doerEmails.filter(function(doerEmail) {
+              if (doerEmail === childSnap.val().email) {
+                // console.log('it matches!');
+                // console.log(childSnap.val());
+                doerUserObjects.push(childSnap.val());
+              }
+            });
+            if (creatorEmail === childSnap.val().email) {
+              creatorUserObjects.push(childSnap.val());
+            }
+          });
+        })
+        .then(
+          (function() {
+            if (creatorUserObjects && creatorUserObjects.length > 0) {
+              _.map(creatorUserObjects, function(userObject) {
+                renderCreatorIcon +=
+                  '<div class="user-avatar-container">' +
+                  "<a href='/profile.html?" +
+                  userObject.uid +
+                  "'>" +
+                  "<div class='user-avatar'>" +
+                  "<img src='" +
+                  userObject.photoURL +
+                  "'>" +
+                  '</img>' +
+                  '</div>' +
+                  '<div class="user-handle">' +
+                  userObject.displayName +
+                  '</div>' +
+                  '</a>' +
+                  '</div>';
+              });
+              // Adding a closing segment that will separate Creators from Doers in View:
+              renderCreatorIcon += '<div class="user-avatar-container user-avatar-separator">' + 'will meet' + '</div>';
+            }
+
+            if (doerUserObjects && doerUserObjects.length > 0) {
+              _.map(doerUserObjects, function(userObject) {
+                renderCreatorIcon +=
+                  '<div class="user-avatar-container">' +
+                  "<a href='/profile.html?" +
+                  userObject.uid +
+                  "'>" +
+                  "<div class='user-avatar'>" +
+                  "<img class='user-avatar' src='" +
+                  userObject.photoURL +
+                  "'>" +
+                  '</img>' +
+                  '</div>' +
+                  '<div class="user-handle">' +
+                  userObject.displayName +
+                  '</div>' +
+                  '</a>' +
+                  '</div>';
+              });
+            }
+          })()
+        );
+      // console.log('final results....', doerUserObjects, creatorUserObjects);
+      if (data.val().whereAddress && data.val().whereAddress != 'By request') {
+        renderWhereInformation = data.val().whereAddress;
+      }
+      // Adding more specifc 'time' information, if it has been included:
+      if (data.val().whenDateTime && data.val().whenDateTime != ('By request' || 'tbd')) {
+        renderWhenInformation =
+          moment(data.val().whenDateTime).format('dddd MMMM D, YYYY') +
+          ' at: ' +
+          moment(data.val().whenDateTime).format('h:mmA');
+      }
+      // console.log('Returning View div...');
+      return (doWhopSelectorDiv +=
+        "<section id='" +
+        data.key +
+        "' class='dowhop-selector-block' onclick='setSession(this)''>" +
+        "<div class='dowhop-selector-header-top' style='background-image: url(" +
+        imageUrl +
+        ");'>" +
+        '<h1>' +
+        doWhopDescriptionTitle +
+        '</h1>' +
+        '</div>' +
+        '<div id="selector-body" class="mdl-layout__content dowhop-selector-body">' +
+        '<div class="mdl-card__title">' +
+        '<h1 class="mdl-card__title-text">' +
+        doWhopDescriptionTitle +
+        ' Description' +
+        '</h1>' +
+        '</div>' +
+        '<div class=" user-avatar-section">' +
+        renderCreatorIcon +
+        renderDoerIcons +
+        '</div>' +
+        '<div class="mdl-card__supporting-text">' +
+        '<h4>Why?</h4>' +
+        '<p>' +
+        data.val().whyDescription +
+        '</p>' +
+        '<h4>Who?</h4>' +
+        '<p>' +
+        renderWhoDescription +
+        '</p>' +
+        '<p>' +
+        renderWhoAmIInformation +
+        '</p>' +
+        '<h4>What?</h4>' +
+        '<p>' +
+        data.val().whatDescription +
+        '</p>' +
+        '<h4>When?</h4>' +
+        '<p>' +
+        renderWhenInformation +
+        '</p>' +
+        '<h4>Where?</h4>' +
+        '<p>' +
+        renderWhereInformation +
+        '</p>' +
+        '<h4>How much?</h4>' +
+        '<p>' +
+        data.val().howMuchDescription +
+        '</p>' +
+        '</div>' +
+        '</div>' +
+        '</section>');
+    }
+  });
+  doWhopSelector.innerHTML = doWhopSelectorDiv;
+}
