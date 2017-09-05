@@ -4,11 +4,12 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		
+
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
 		<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.grey-pink.min.css" />
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="styles/dowhop-header-footer.css"/>
+		<link rel="stylesheet" href="styles/login-tabs-styles.css"/>
 
 		<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
   <!-- Firebase library -->
@@ -47,15 +48,35 @@
 						<a class='mdl-navigation__link' href='https://www.dowhop.com/me'>My DoWhops</a>
 					</nav>
 					<div class="mdl-layout-spacer"></div>
-					<div class="profile-border">
+					<div class="profile-border nav-dropdown">
 						<a href="./profile.html">
 						<img class="profile-picture" id="my-profile-picture" src=""/>
 						</a>
+						
+						<div class="nav-dropdown-content">
+							<a href="./profile.html">My Profile</a>
+							<a href="/" onclick="logOut()">Logout</a>
+						</div>
+						
 					</div>
 				</div>
 			</header>
+
+			<main class="mdl-layout__content">
+				<footer class="mdl-mini-footer">
+					<div class="mdl-mini-footer__left-section">
+						<div class="mdl-logo">
+							CopyRight Information
+						</div>
+					</div>
+					<div class="mdl-mini-footer__right-section">
+					</div>
+				</footer>
+			</main>
 			
 		</div>
+
+			
 
 		<script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
 		<script src="scripts/dowhop-header_footer-profile.js"></script>

@@ -33,6 +33,8 @@
 	border:5px solid black;
 	margin-right: 200px; 
 	border-radius: 50%;
+	position: relative !important;
+	top: 0% !important;
 }
 
 .profile-picture {
@@ -43,6 +45,11 @@
 
 .profile-border:hover {
 	border-color: red;
+}
+
+.social-icons {
+	max-width: 10px;
+	max-height: 10px;
 }
 
 @media only screen and (max-width: 500px) {
