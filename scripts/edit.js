@@ -54,7 +54,7 @@ function editSelectedDoWhop(event) {
     // event.whenDate = whenDate.value;
     // event.whenImage = whenImage.innerHTML;
     event.howMuchDescription = howMuchDescription.value;
-    event.creatorDescription = creatorDescription.toLowerCase();
+    event.creatorDescription = creatorDescription.value.toLowerCase();
     event.doerDescription = doerDescription.value.toLowerCase();
     // event.howMuchCost = howMuchCost.value;
     // event.howmuchImage = howmuchImage.innerHTML;
@@ -139,14 +139,15 @@ function retrieveMyDoWhops(uid) {
       userDowhopCardDiv.innerHTML = '';
       _.map(snapshot.val()).reverse().forEach(function(doWhopDescription) {
         var doerDescriptionEmails = [];
+
         if (doWhopDescription.doerDescription) {
           doerDescriptionEmails = doWhopDescription.doerDescription.split(', ');
         }
 
         if (
-          doWhopDescription.creatorDescription === person.email ||
+          doWhopDescription.creatorDescription.toLowerCase() === person.email.toLowerCase() ||
           doerDescriptionEmails.some(function(doerDescriptionEmail) {
-            return doerDescriptionEmail === person.email;
+            return doerDescriptionEmail.toLowerCase() === person.email.toLowerCase();
           })
         ) {
           makeDoWhopSelector(userDowhopCardDiv, doWhopDescription);
@@ -244,7 +245,7 @@ function showEditForm(doWhopSelector) {
 
   doWhopDescriptionRef.once('value').then(function(snapshot) {
     var doWhopDescription = snapshot.val();
-    if (doWhopDescription.creatorDescription === auth.currentUser.email) {
+    if (doWhopDescription.creatorDescription.toLowerCase() === auth.currentUser.email.toLowerCase()) {
       editForm.removeAttribute('hidden');
     } else {
       editForm.setAttribute('hidden', 'true');
