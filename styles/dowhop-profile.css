@@ -151,17 +151,18 @@ img {
   /*margin: 10px;*/
   display: block;
   position: relative;
+  overflow: hidden;
 }
-
+/**
 .activity-image {
   height: auto;
   width: 100%;
-}
+}*/
 
-.outer-box img {
+/**.outer-box img {
   max-width: 100%;
   max-height: 75%;
-}
+}*/
 
 .outer-box .inner-box {
   background-color: #ffffff;
@@ -310,6 +311,14 @@ input#profile-image-capture-1,
 input#profile-image-capture-2,
 input#profile-image-capture-3 {
   display: none;
+}
+
+.edit-profile-pic {
+  display:block;
+}
+
+.edit-profile-pic-div {
+  margin-bottom: 20px;
 }
 
 i.material-icons {

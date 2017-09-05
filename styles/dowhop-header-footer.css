@@ -28,8 +28,8 @@
 }
 
 .profile-border {
-	width:44px;
-	height:44px;
+	width:40px;
+	height:40px;
 	border:5px solid black;
 	margin-right: 200px; 
 	border-radius: 50%;
@@ -43,6 +43,12 @@
 
 .profile-border:hover {
 	border-color: red;
+}
+
+.nav-dropdown {
+	position:relative !important;
+	right: 0% !important;
+	top: 0% !important;
 }
 
 @media only screen and (max-width: 500px) {

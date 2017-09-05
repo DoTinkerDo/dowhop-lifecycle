@@ -72,7 +72,9 @@ addNewActivityArr.forEach(function(addNewActivity) {
 });
 
 var inputImageCaptureList = document.querySelectorAll('input.image-capture');
+console.log(inputImageCaptureList);
 var inputImageCaptureArr = Array.prototype.slice.call(inputImageCaptureList);
+console.log(inputImageCaptureArr);
 var profileImageFiles = [];
 
 function addProfileImage() {
@@ -143,6 +145,7 @@ function createProfile(e) {
 
   profileImageFiles.forEach(function(file, idx) {
     var filePath = 'userImages/' + uid + '/' + 'profileActivityImages/' + file.name;
+    console.log(filePath);
     storage.ref(filePath).put(file).then(function(snapshot) {
       var path = snapshot.metadata.fullPath;
       storage.ref(path).getDownloadURL().then(function(url) {
@@ -286,12 +289,13 @@ function retrieveProfile(currentProfile) {
     }
 
     activityImage1.src =
-      (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image1) || '/images/placeholder-image1.png';
+      (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image2) || '/images/placeholder-image1.png';
     activityImage2.src =
-      (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image2) || '/images/placeholder-image2.png';
+      (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image3) || '/images/placeholder-image2.png';
     activityImage3.src =
-      (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image3) || '/images/placeholder-image3.png';
-    myProfilePicture.src = appUser.photoURL;
+      (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image4) || '/images/placeholder-image3.png';
+      console.log(appUser.profileActivityImageURLs);
+    myProfilePicture.src = appUser.profileActivityImageURLs.image1;
     // myProfilePicture.style.backgroundImage = 'url(' + appUser.photoURL + ')';
     sendDirectMessageDiv.id = appUser.uid; // NEW.
   });

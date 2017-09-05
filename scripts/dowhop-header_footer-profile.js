@@ -18,3 +18,8 @@ auth.onAuthStateChanged(function(user) {
     retrieveProfile();
   }
 });
+
+function logOut() {
+    auth.signOut();
+    window.location.href = "/";
+}
