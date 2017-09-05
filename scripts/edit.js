@@ -1,12 +1,14 @@
 'use strict';
+
 var rootRef = database.ref('app_users/');
 var doWhopDescriptionRootRef = database.ref('DoWhopDescriptions/');
+
 var editDoWhopForm = document.getElementById('edit-dowhop-form');
 var submitUpdateDoWhopBtn = document.getElementById('submit-update-dowhop');
 
-submitUpdateDoWhopBtn.addEventListener('click', createDoWhop);
+submitUpdateDoWhopBtn.addEventListener('click', editSelectedDoWhop);
 
-function createDoWhop(event) {
+function editSelectedDoWhop(event) {
   event.preventDefault();
   // Collect form data and clear it:
   var titleDescription = document.getElementById('titleDescription');
