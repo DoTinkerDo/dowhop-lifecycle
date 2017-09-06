@@ -1,14 +1,16 @@
 'use strict';
+
 var rootRef = database.ref('app_users/');
 var doWhopDescriptionRootRef = database.ref('DoWhopDescriptions/');
+
 var editDoWhopForm = document.getElementById('edit-dowhop-form');
 var submitUpdateDoWhopBtn = document.getElementById('submit-update-dowhop');
 
-submitUpdateDoWhopBtn.addEventListener('click', createDoWhop);
+submitUpdateDoWhopBtn.addEventListener('click', editSelectedDoWhop);
 
-function createDoWhop(event) {
+function editSelectedDoWhop(event) {
   event.preventDefault();
-  // Collect form data and clear it:
+
   var titleDescription = document.getElementById('titleDescription');
   // var titleImage = document.getElementById('titleImage');
   var whyDescription = document.getElementById('whyDescription');
@@ -26,8 +28,8 @@ function createDoWhop(event) {
   // var whenTime = document.getElementById('whenTime');
   // var whenImage = document.getElementById('whenImage');
   var howMuchDescription = document.getElementById('howMuchDescription');
-  var creatorDescription = document.getElementById('creatorDescription'); // new
-  var doerDescription = document.getElementById('doerDescription'); // new
+  var creatorDescription = document.getElementById('creatorDescription');
+  var doerDescription = document.getElementById('doerDescription');
   var howMuchCost = document.getElementById('howMuchCost');
   // var howmuchImage = document.getElementById('howmuchImage');
   var currentDoWhop = document.getElementById('dowhop-selector-container').firstChild.id || 'orphan';
@@ -52,8 +54,8 @@ function createDoWhop(event) {
     // event.whenDate = whenDate.value;
     // event.whenImage = whenImage.innerHTML;
     event.howMuchDescription = howMuchDescription.value;
-    event.creatorDescription = creatorDescription.value;
-    event.doerDescription = doerDescription.value;
+    event.creatorDescription = creatorDescription.value.toLowerCase();
+    event.doerDescription = doerDescription.value.toLowerCase();
     // event.howMuchCost = howMuchCost.value;
     // event.howmuchImage = howmuchImage.innerHTML;
   } else {
@@ -127,6 +129,7 @@ function createDoWhop(event) {
     'You rock! Thanks for submitting your DoWhop. Please review your changes to the newly updated DoWhop!';
 }
 
+// retrieveMyDoWhops should probably be moved to a more central place...
 function retrieveMyDoWhops(uid) {
   doWhopDescriptionRootRef.on(
     'value',
@@ -136,15 +139,16 @@ function retrieveMyDoWhops(uid) {
       userDowhopCardDiv.innerHTML = '';
       _.map(snapshot.val()).reverse().forEach(function(doWhopDescription) {
         var doerDescriptionEmails = [];
+
         if (doWhopDescription.doerDescription) {
           doerDescriptionEmails = doWhopDescription.doerDescription.split(', ');
         }
 
         if (
-          doWhopDescription.creatorDescription === person.email ||
+          (doWhopDescription.creatorDescription && doWhopDescription.creatorDescription.toLowerCase()) ===
+            person.email.toLowerCase() ||
           doerDescriptionEmails.some(function(doerDescriptionEmail) {
-            return doerDescriptionEmail === person.email;
-            // console.log(person);
+            return doerDescriptionEmail.toLowerCase() === person.email.toLowerCase();
           })
         ) {
           makeDoWhopSelector(userDowhopCardDiv, doWhopDescription);
@@ -152,7 +156,7 @@ function retrieveMyDoWhops(uid) {
       });
     },
     function(errorObject) {
-      console.log('Data Read Failure: ' + errorObject.code);
+      console.log('retrieveMyDoWhops Data Read Failure: ' + errorObject.code);
     }
   );
 
@@ -175,11 +179,11 @@ function retrieveMyDoWhops(uid) {
     });
   }
   function addDoWhopImage(files_arr, node) {
-    return (file = files_arr[0]);
     if (!file.type.match('image/.*')) {
       alert('You can only add images at the moment.');
       return;
     }
+    return (file = files_arr[0]);
   }
 }
 
@@ -242,7 +246,7 @@ function showEditForm(doWhopSelector) {
 
   doWhopDescriptionRef.once('value').then(function(snapshot) {
     var doWhopDescription = snapshot.val();
-    if (doWhopDescription.creatorDescription === auth.currentUser.email) {
+    if (doWhopDescription.creatorDescription.toLowerCase() === auth.currentUser.email.toLowerCase()) {
       editForm.removeAttribute('hidden');
     } else {
       editForm.setAttribute('hidden', 'true');
@@ -288,9 +292,9 @@ function fillInEditForm(doWhopSelector) {
         document.getElementById('howMuchDescription').value = doWhopDescription.howMuchDescription;
         document.getElementById('creatorDescription').value = doWhopDescription.creatorDescription;
         document.getElementById('doerDescription').value = doWhopDescription.doerDescription;
-        document.getElementById('image1').src = doWhopDescription.downloadURL.image1;
-        document.getElementById('image2').src = doWhopDescription.downloadURL.image2;
-        document.getElementById('image3').src = doWhopDescription.downloadURL.image3;
+        document.getElementById('image1').src = doWhopDescription.downloadURL.image1 || '';
+        document.getElementById('image2').src = doWhopDescription.downloadURL.image2 || '';
+        document.getElementById('image3').src = doWhopDescription.downloadURL.image3 || '';
         // document.getElementById('howMuchCost').value = doWhopDescription.howMuchCost;
       }
     });

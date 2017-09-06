@@ -9,8 +9,10 @@ var whatDescription = document.getElementById('what-description');
 var whenDescription = document.getElementById('when-description');
 var whereDescription = document.getElementById('where-description');
 var howMuchDescription = document.getElementById('how-much-description');
+
 var creatorDescription = document.getElementById('creator-description');
 var doerDescription = document.getElementById('doer-description');
+
 var dowhopImageCapture1 = document.getElementById('dowhop-image-capture1');
 var dowhopImageCapture2 = document.getElementById('dowhop-image-capture2');
 var dowhopImageCapture3 = document.getElementById('dowhop-image-capture3');
@@ -42,8 +44,6 @@ function submitNewDoWhopEntry(e) {
     whenDescription.value,
     whereDescription.value,
     howMuchDescription.value
-    // creatorDescription.value,
-    // doerDescription.value
   );
 
   var uid = auth.currentUser.uid;
@@ -76,7 +76,7 @@ function submitNewDoWhopEntry(e) {
       '".\n' +
       'Coordinate the details here!';
 
-    var messagesChatsRef = firebase.database().ref().child('messages').child(doWhopDescriptionKey);
+    var messagesChatsRef = database.ref('messages').child(doWhopDescriptionKey);
     messagesChatsRef.push({
       chatId: doWhopDescriptionKey,
       name: teamName,
@@ -97,8 +97,8 @@ function submitNewDoWhopEntry(e) {
       whenDescription: whenDescription.value,
       whereDescription: whereDescription.value,
       howMuchDescription: howMuchDescription.value,
-      creatorDescription: creatorDescription.value,
-      doerDescription: doerDescription.value
+      creatorDescription: creatorDescription.value.toLowerCase(),
+      doerDescription: doerDescription.value.toLowerCase()
     })
     .then(showConfirmationMessage());
 
@@ -119,11 +119,12 @@ function submitNewDoWhopEntry(e) {
 
 var files = [];
 function addDoWhopImage(files_arr, node) {
-  return files.push(files_arr[0]);
   if (!files_arr[0].type.match('image/.*')) {
     alert('You can only add images at the moment.');
     return;
   }
+  node.parentNode.style.color = '#ec1928';
+  return files.push(files_arr[0]);
 }
 
 function validateAddDoWhopDescription(
@@ -135,8 +136,6 @@ function validateAddDoWhopDescription(
   whenDescription,
   whereDescription,
   howMuchDescription
-  // creatorDescription,
-  // doerDescription
 ) {
   if (
     titleDescription === '' ||
@@ -146,8 +145,6 @@ function validateAddDoWhopDescription(
     whenDescription === '' ||
     whereDescription === '' ||
     howMuchDescription === '' ||
-    // creatorDescription === '' ||
-    // doerDescription === '' ||
     files.length < 1
   )
     return false;
@@ -166,6 +163,9 @@ function clearNewDoWhopEntryForm() {
   dowhopImageCapture1.value = '';
   dowhopImageCapture2.value = '';
   dowhopImageCapture3.value = '';
+  dowhopImageCapture1.parentElement.style.color = '#757575';
+  dowhopImageCapture2.parentElement.style.color = '#757575';
+  dowhopImageCapture3.parentElement.style.color = '#757575';
   creatorDescription.value = '';
   doerDescription.value = '';
 }
@@ -251,8 +251,8 @@ function updateCreatorDoerEmails(e) {
   e.preventDefault();
   adminEditDoWhopForm.removeAttribute('hidden');
   doWhopDescriptionsRef.child(doWhopDescriptionKeyForUpdate).update({
-    creatorDescription: creatorDescriptionUpdate.value,
-    doerDescription: doerDescriptionUpdate.value
+    creatorDescription: creatorDescriptionUpdate.value.toLowerCase(),
+    doerDescription: doerDescriptionUpdate.value.toLowerCase()
   });
   selectedForEdit.innerHTML = 'Edit your DoWhop';
   error.innerHTML = 'Emails have been updated!';

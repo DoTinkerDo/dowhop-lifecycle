@@ -71,7 +71,7 @@ function submitNewDoWhopEntry(e) {
     whenDescription: whenDescription.value,
     whereDescription: whereDescription.value,
     howMuchDescription: howMuchDescription.value,
-    creatorDescription: creatorDescription,
+    creatorDescription: creatorDescription.toLowerCase(),
     doerDescription: 'no-one',
     createdAt: currentTime
   });
