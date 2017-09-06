@@ -33,6 +33,21 @@
   <!-- Firebase UI JS for Web Auth -->
 </head>
 <body>
+
+<!-- Login splash screen -->
+<section id="login-container">
+  <div class="login-page-title">
+    <h2>Log In</h2>
+    <h4>Confirm your information to view your DoWhops</h4>
+  </div>
+  <div class=login-container>
+    <div id="firebaseui-auth-container"></div>
+  </div>
+</section> <!-- End Login screen -->
+
+<!-- Application Container -->
+<section class="hide-component" id="application-container">
+
 <!-- Navigation Container -->
 <header class="mdl-grid">
   <div class="nav-dropdown">
@@ -44,7 +59,6 @@
     </div>
   </div>
 </header>
-
 
 <div class='container'>
   <div class='content-grid mdl-grid'> 
@@ -424,17 +438,19 @@
         </div>
       </div>
     </form>    
-  </div>
+  </div> <!-- End Show Profile Section -->
 
-  <!-- End Show Profile Section -->
-  <script src="scripts/login.js"></script>
-  <script src="scripts/dowhop-profile-form-create.js"></script>
-  <script src="scripts/dowhop-profile-form-dm.js"></script>
-  <script>
-    function logOut() {
-      auth.signOut();
-      window.location.href = "/";
-    }
-  </script>
+</section> <!-- End Application Container -->
+
+
+<script src="scripts/login.js"></script>
+<script src="scripts/dowhop-profile-form-create.js"></script>
+<script src="scripts/dowhop-profile-form-dm.js"></script>
+<script>
+  function logOut() {
+    auth.signOut();
+    window.location.href = "/";
+  }
+</script>
 </body>
 </html>
