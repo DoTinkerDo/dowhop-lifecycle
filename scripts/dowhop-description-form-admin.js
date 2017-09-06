@@ -53,10 +53,11 @@ function submitNewDoWhopEntry(e) {
 
   // We are preparing a first message to the future chat thread:
   function createWelcomingMessage() {
+    console.log('creating welcoming msg');
     // Gathering the appropriate data to fill out message:
     var DoWhopTitleDescription, DoWhopWhenDescription, DoWhopWhereDescription;
 
-    doWhopDescriptionsRef.child(doWhopDescriptionKey).once('value', function(snap) {
+    doWhopDescriptionsRef.child(doWhopDescriptionKey).once('value').then(function(snap) {
       DoWhopTitleDescription = snap.val().titleDescription;
       DoWhopWhenDescription = snap.val().whenDescription;
       DoWhopWhereDescription = snap.val().whereDescription;

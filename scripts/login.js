@@ -23,23 +23,23 @@
   var applicationPage = document.getElementById('application-container');
 
   function profileProgessNodeInit(user) {
-    //This function will check if this node exists and create it if it doesn't
-    //and not overwrite it if it does
-    var currentUserRef = database.ref('/app_users').child(user.uid);
-    var profileProgressDataInit;
-    profileProgressDataInit = {
-      profileProgress: {
-        'verify-phone': false,
-        'verify-email': false,
-        'verify-social': false
-      }
-    };
-    currentUserRef.once('value').then(function(snapshot) {
-      if (snapshot.val().profileProgress === undefined) {
-        currentUserRef.update(profileProgressDataInit);
-      }
-    });
-  }
+ -    //This function will check if this node exists and create it if it doesn't
+ -    //and not overwrite it if it does
+ -    var currentUserRef = database.ref('/app_users').child(user.uid);
+ -    var profileProgressDataInit;
+ -    profileProgressDataInit = {
+ -      profileProgress: {
+ -        'verify-phone': false,
+ -        'verify-email': false,
+ -        'verify-social': false
+ -      }
+ -    };
+ -    currentUserRef.once('value').then(function(snapshot) {
+ -      if (snapshot.val().profileProgress === undefined) {
+ -        currentUserRef.update(profileProgressDataInit);
+ -      }
+ -    });
+ -  }
 
   function writeUserData(user) {
     var appUsersRef = database.ref('/app_users');
@@ -77,27 +77,38 @@
     var sessionRef = database.ref('/session').child(user.uid);
     var userSession;
 
-    sessionRef.once('value').then(function(snap) {
-      if (!snap.val()) {
-        var userSession = {
-          current_tab: 'coordinate-tab'
-          // To-Do: Set default doWhopDescriptionKey.
-        };
-        sessionRef.update(userSession);
+    sessionRef.on(
+      'value',
+      function(snap) {
+        if (!snap.val()) {
+          var userSession = {
+            current_tab: 'coordinate-tab'
+            // To-Do: Set default doWhopDescriptionKey.
+          };
+          sessionRef.update(userSession);
+        }
+        userSession = snap.val();
+        // console.log('current DoWhop in view', userSession.current_dowhop);
+        // console.log('current tab', userSession.current_tab);
+        // getSessionTab(user.uid);
+        setLandingTab(getSessionTab(user.uid));
+        checkForPendings(userSession); // Sets listener for changes, too.
+        manageMessengerImages(userSession);
+        // showDoWhopHeaderInView();
+        setAndGetDoWhopDescriptionSession(userSession);
+        showUIBasedOnTab(userSession);
+      },
+      function(error) {
+        console.error(error);
       }
-      userSession = snap.val();
-      // console.log('current DoWhop upon first visit', userSession.current_dowhop);
-      // console.log('current tab', userSession.current_tab);
-      setAndGetDoWhopDescriptionSession(userSession.current_dowhop);
-      // getSessionTab(user.uid);
-      setLandingTab(getSessionTab(user.uid));
-    });
+    );
   }
 
   function handleSignedOutUser() {
     loginPage.style.display = 'block';
     applicationPage.style.display = 'none';
     ui.start('#firebaseui-auth-container', uiConfig);
+    database.ref('session/').off();
   }
 
   function handleOnAuthStateChange() {
@@ -136,7 +147,7 @@ var currentTab = '';
 auth.onAuthStateChanged(function(user) {
   if (user) {
     person = user;
-    retrieveMyDoWhops(person.uid);
+    // retrieveMyDoWhops(person.uid);
     checkDefaultDoWhop(person);
   } else {
     console.log('PERSON signed out');
@@ -154,11 +165,44 @@ function getSessionTab(uid) {
 }
 
 // console.log('...finishing running getsession tab', currentTab);
+function createDefaultWelcomingMessage(newKey) {
+  // console.log('creating welcoming msg');
+  // Gathering the appropriate data to fill out message:
+  var DoWhopTitleDescription, DoWhopWhenDescription, DoWhopWhereDescription;
+
+  database.ref('/DoWhopDescriptions').child(newKey).once('value').then(function(snap) {
+    DoWhopTitleDescription = snap.val().titleDescription;
+    DoWhopWhenDescription = snap.val().whenDescription;
+    DoWhopWhereDescription = snap.val().whereDescription;
+  });
+
+  var teamName = 'Your DoWhop Team';
+  var welcomeMessageText =
+    'Welcome to your ' +
+    DoWhopTitleDescription +
+    ' DoWhop!\n\n' +
+    'Currently, ' +
+    creatorDisplayName +
+    ' plans to meet "' +
+    DoWhopWhenDescription +
+    '" at "' +
+    DoWhopWhereDescription +
+    '".\n' +
+    'Coordinate the details here!';
+
+  var messagesChatsRef = firebase.database().ref().child('messages').child(newKey);
+  messagesChatsRef.push({
+    chatId: doWhopDescriptionKey,
+    name: teamName,
+    text: welcomeMessageText,
+    photoUrl: defaultImageURL
+  });
+}
 
 function createDefaultDoWhop(person) {
   var uid = person.uid;
-  // var email = person.email;
-  var doerDescription = person.email;
+  var email = person.email;
+  var creatorDescription = person.email;
   // Then we add on note to user's profile that it has been added:
   var appUsersRef = database.ref('/app_users');
   var appUserRef = appUsersRef.child(uid);
@@ -189,10 +233,11 @@ function createDefaultDoWhop(person) {
       'You can share the exact address once the doer has booked this experiience. Give the general area here, and describe the facility where this DoWhop will take place. By request or "at your home" will also do for flexible bookings.',
     howMuchDescription:
       'Describe what someone would have to pay to join you and what they would get in exchange. You dont have to describe what the funds go too, but you are welcome to identify any operational expenses or charities you will give the money to upon booking. We will add 20% to the total cost of your DoWhop when listing to the marketplace. You will receive 100% of your listed cost transferred to your payment account when users book and complete this DoWhop.',
-    creatorDescription: 'dowhop.com@gmail.com',
-    doerDescription: doerDescription,
+    creatorDescription: 'tinkerdowhop@gmail.com',
+    doerDescription: email,
     createdAt: currentTime
   });
+  // .then(createDefaultWelcomingMessage(doWhopDescriptionKey));
 
   var sessionsRef = database.ref('/session');
   var sessionUserRef = sessionsRef.child(uid);

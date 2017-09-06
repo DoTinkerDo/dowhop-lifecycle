@@ -76,7 +76,7 @@ function editSelectedDoWhop(event) {
   doWhopDescriptionRootRef.child(currentDoWhop).child('creatorDescription').set(event.creatorDescription);
   doWhopDescriptionRootRef.child(currentDoWhop).child('doerDescription').set(event.doerDescription);
 
-  database.ref('session/' + uid + '/updateImageTempData/').once('value').then(function(snapshot) {
+  database.ref('DoWhopDescriptions/' + currentDoWhop + '/updateImageTempData/').once('value').then(function(snapshot) {
     var snapshotVal = snapshot.val();
     var whichImagesChanged = [snapshotVal.image1Changed, snapshotVal.image2Changed, snapshotVal.image3Changed];
     var whichUrl = [
@@ -236,10 +236,11 @@ function setSession(doWhopSelector) {
   var key = doWhopSelector.id;
   database.ref('session').child(person.uid).update({ current_dowhop: key });
   // console.log(creatorUserObjects, doerUserObjects);
-  setAndGetDoWhopDescriptionSession(key); // new
+  // setAndGetDoWhopDescriptionSession(key); // new
 }
 
 function showEditForm(doWhopSelector) {
+  console.log('running showeditform');
   var editForm = document.getElementById('edit-dowhop-form');
   var key = doWhopSelector.id;
   var doWhopDescriptionRef = database.ref('DoWhopDescriptions').child(key);
@@ -254,8 +255,9 @@ function showEditForm(doWhopSelector) {
   });
 }
 
-function clearImageTempValues() {
-  database.ref('session/' + uid + '/updateImageTempData/').update({
+function clearImageTempValues(currentDoWhopID) {
+  console.log('clear image values, currentDoWhopID', currentDoWhopID);
+  database.ref('DoWhopDescriptions/' + currentDoWhopID + '/updateImageTempData/').update({
     image1Changed: false,
     image2Changed: false,
     image3Changed: false,
@@ -266,7 +268,8 @@ function clearImageTempValues() {
 }
 
 function fillInEditForm(doWhopSelector) {
-  clearImageTempValues();
+  console.log('running fill in edit form');
+  clearImageTempValues(doWhopSelector.id);
   var editImageCapture1 = document.getElementById('edit-image-capture1');
   var editImageCapture2 = document.getElementById('edit-image-capture2');
   var editImageCapture3 = document.getElementById('edit-image-capture3');
@@ -302,7 +305,7 @@ function fillInEditForm(doWhopSelector) {
 }
 
 function addImageToFirebase() {
-  // console.log('this', this.files);
+  console.log('running add image to firebase', this.files);
   var currentImageNumber = event.target.getAttribute('data-image-num');
   var currentDoWhopID = document.getElementById('dowhop-selector-container').firstChild.id;
   var fileName = this.files[0].name;
@@ -316,15 +319,17 @@ function addImageToFirebase() {
 
   storage.ref(filePath).put(file).then(function(snapshot) {
     var path = snapshot.metadata.fullPath;
+    console.log('image path of file...', path);
     storage.ref(path).getDownloadURL().then(function(url) {
       //set potential download URL for current image number. Potential download URL will become actually URL
       //when form is submitted
+      console.log('image download url', url);
       var potentialUrlForImage = 'potentialUrlForImage' + currentImageNumber;
       var imageChanged = 'image' + currentImageNumber + 'Changed';
       var obj = {};
       obj[imageChanged] = true;
       obj[potentialUrlForImage] = url;
-      database.ref('session/' + uid + '/updateImageTempData').update(obj);
+      database.ref('DoWhopDescriptions/' + currentDoWhopID + '/updateImageTempData').update(obj);
     });
   });
 }
