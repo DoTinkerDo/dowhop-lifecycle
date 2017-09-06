@@ -238,7 +238,7 @@ FriendlyChat.prototype.removeChats = function() {
 };
 
 function setAndGetDoWhopDescriptionSession(userSession) {
-  console.log('Running setAndGetDoWhopDescriptionSession....');
+  // console.log('Running setAndGetDoWhopDescriptionSession....');
   var user = person;
   var userID = person.uid;
   var currentDoWhopID = userSession.current_dowhop; // This is available from higher scope.

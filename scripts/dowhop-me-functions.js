@@ -12,7 +12,7 @@
 // All cases, we load pending div forms for current session:
 function checkForPendings(userSession) {
   var currentDoWhop = userSession.current_dowhop;
-  console.log('Running checkforpendings v2.0...', currentDoWhop);
+  // console.log('Running checkforpendings v2.0...', currentDoWhop);
   database.ref('DoWhopDescriptions/').child(currentDoWhop).on(
     'value',
     function(data) {
@@ -77,7 +77,7 @@ function showUIBasedOnTab(userSession) {
   var currentTabID = userSession.current_tab;
   var doWhopSelector = document.getElementById('dowhop-selector-container');
 
-  console.log('Running showandhide v2.0');
+  // console.log('Running showandhide v2.0');
   if (currentTabID === 'coordinate-tab') {
     document.getElementById('messages-card').removeAttribute('hidden');
     document.getElementById('selector-body').setAttribute('hidden', 'true');
@@ -100,7 +100,7 @@ function showUIBasedOnTab(userSession) {
 }
 
 function loadMessages(userSession) {
-  console.log('running loadmessages v2.0....');
+  // console.log('running loadmessages v2.0....');
   var user = person.uid;
   var messageList = document.getElementById('messages');
   var chatIdCurrent = userSession.current_dowhop;

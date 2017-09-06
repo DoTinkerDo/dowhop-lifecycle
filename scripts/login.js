@@ -88,8 +88,8 @@
           sessionRef.update(userSession);
         }
         userSession = snap.val();
-        console.log('current DoWhop in view', userSession.current_dowhop);
-        console.log('current tab', userSession.current_tab);
+        // console.log('current DoWhop in view', userSession.current_dowhop);
+        // console.log('current tab', userSession.current_tab);
         // getSessionTab(user.uid);
         setLandingTab(getSessionTab(user.uid));
         checkForPendings(userSession); // Sets listener for changes, too.
@@ -166,7 +166,7 @@ function getSessionTab(uid) {
 
 // console.log('...finishing running getsession tab', currentTab);
 function createDefaultWelcomingMessage(newKey) {
-  console.log('creating welcoming msg');
+  // console.log('creating welcoming msg');
   // Gathering the appropriate data to fill out message:
   var DoWhopTitleDescription, DoWhopWhenDescription, DoWhopWhereDescription;
 
