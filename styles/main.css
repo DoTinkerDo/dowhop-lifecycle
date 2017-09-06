@@ -845,3 +845,18 @@ button {
 .edit-form-images img {
   width: 100%;
 }
+
+/*profile stuff to be moved later*/
+.check {
+  color: #89bf24 !important;
+}
+
+.profile-progress i {
+  margin-right: 15px !important;
+}
+
+.profile-progress li {
+  padding: 0px 16px !important;
+  line-height: 8px !important;
+  height: 55px !important;
+}

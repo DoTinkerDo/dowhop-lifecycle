@@ -21,94 +21,35 @@ var createProfileDiv = document.getElementById('create-profile-div');
 var socialButtonTwitter = document.getElementById('social-button-1');
 var socialButtonInstagram = document.getElementById('social-button-2');
 var socialButtonLinkedIn = document.getElementById('social-button-3');
-//var showEditFormBtn = document.getElementById('edit-form');
-// var expandTwitter = document.getElementById('twitter-card');
+var socialButtonWeb = document.getElementById('social-button-4');
+var updateForm = document.getElementById('direct-update-form-div');
+var closingButton = document.getElementById('update-form-div-span');
+var editProfileButton = document.getElementById('new-edit-profile');
 
-//showProfileFormBtn.addEventListener('click', showForm);
 createProfileFormBtn.addEventListener('click', createProfile);
 socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
-//showEditFormBtn.addEventListener('click', showEditForm);
-
-
-/*
-function showEditForm(e){
-  console.log("we reached here homie");
-
-
-//Changes the banner when hovering over event
-
-  e.preventDefault();
-  showEditFormBtn.removeAttribute('hidden');
-  
-  showEditFormBtn.style.display = "block";
-}*/
-/**
-function changeImage(element) {
-  console.log("this is reached");
-  var image = element.childNodes;
-  var imageSrc = image[1].src;
-  document.getElementById("background-photo").src = imageSrc;
-}
-
-function reverseImage() {
-  console.log("Now we're exiting");
-  document.getElementById("background-photo").src = background;
-}*/
+editProfileButton.addEventListener('click', fillInProfileForm);
+socialButtonWeb.addEventListener('click', expandPersonalWeb);
+closingButton.addEventListener('click', closeModalUpdate);
 
 var activities = document.getElementsByClassName('personalAct');
-var background = document.getElementById("background-photo").src;
+var background = document.getElementById('background-photo').src;
 
-for(var index=0; index < activities.length; index++) {
-
-  activities[index].addEventListener("mouseover", function(){
+for (var index = 0; index < activities.length; index++) {
+  activities[index].addEventListener('mouseover', function() {
     var children = this.childNodes;
     var imageSrc = children[1].src;
-    document.getElementById("background-photo").src = imageSrc;
-  
+    document.getElementById('background-photo').src = imageSrc;
   });
-  activities[index].addEventListener("mouseout", function(){
-    document.getElementById("background-photo").src = background;
+  activities[index].addEventListener('mouseout', function() {
+    document.getElementById('background-photo').src = background;
   });
 }
-
-/*
-function showEditForm() {
-  console.log("edit form working");
-  var editForm = document.getElementById('form-edit');
-  console.log(editForm);
-  editForm.style.display = "block";
-}*/
-
-//This is the animation function for changing the background
-/**activity1.addEventListener("mouseover", function() {
-  console.log("This is reached");
-  var children = activity1.childNodes;
-  var imageSrc = children[1].src;
-  console.log(imageSrc);
-  document.getElementById("background-photo").src = imageSrc;
-});
-
-activity1.addEventListener("mouseout", function() {
-  console.log("I also got this");
-  document.getElementById("background-photo").src = background;
-})*/
 
 //Toggle for showing and hiding edit form in profile
 var toggle = 0;
-
-/*
-function showForm(e) {
-  e.preventDefault();
-  if (toggle % 2 === 0) {
-    createProfileDiv.style.display="block";
-  }
-  if (toggle % 2 === 1) {
-    createProfileDiv.style.display="none";
-  }
-  toggle++;
-}*/
 
 // Image activity upload logic
 var addNewActivityList = document.querySelectorAll('.add-new-activity');
@@ -165,26 +106,40 @@ function expandLinkedIn(e) {
   document.getElementById('linkedin-card').removeAttribute('hidden');
 }
 
+function expandPersonalWeb(e) {
+  e.preventDefault();
+
+  // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
+  document.getElementById('personal-web-card').removeAttribute('hidden');
+}
+
+function profileProgressUI() {
+  var uid = retrieveUrl(window.location.href) || auth.currentUser.uid;
+  var profileRef = database.ref('app_users/' + uid);
+  profileRef.once('value').then(function(snapshot) {
+    if (snapshot.val() && snapshot.val().profileProgress) {
+      var profileProgress = snapshot.val().profileProgress;
+      var sections = ['verify-email', 'verify-phone', 'verify-social'];
+      var className;
+      sections.map(function(section) {
+        if (!profileProgress[section]) {
+          className = section + '-done';
+        } else {
+          className = section + '-not-done';
+        }
+        var elArr = document.getElementsByClassName(className);
+        for (var i = 0; i < elArr.length; i++) {
+          elArr[i].style.display = 'none';
+        }
+      });
+    }
+  });
+}
 
 function createProfile(e) {
   e.preventDefault();
   var uid = auth.currentUser.uid;
   var profileRef = database.ref('app_users/' + uid);
-
-  // Prepare user data:
-  // var profileData = {
-  //   update: true,
-  //   profileName: createProfileName.value || "",
-  //   profilePhone: createProfilePhone.value || "",
-  //   profileSocial: createProfileSocial.value || "",
-  //   profileWebsite: createProfileWebsite.value || "",
-  //   profileAbout: createProfileAbout.value || "",
-  //   profileActivity1: createProfileActivity1.value || "",
-  //   profileActivity2: createProfileActivity2.value || "",
-  //   profileActivity3: createProfileActivity3.value || ""
-  // }
-  //   profileRef.update(profileData).then(function() {
-  //   });
 
   profileImageFiles.forEach(function(file, idx) {
     var filePath = 'userImages/' + uid + '/' + 'profileActivityImages/' + file.name;
@@ -237,13 +192,14 @@ function createProfile(e) {
   }
 
   clearCreateProfileForm();
+  closeModalUpdate();
   //createProfileDiv.setAttribute('hidden', 'true');
 
-  var theForm = document.getElementById('form-edit');
+  /**var theForm = document.getElementById('form-edit');
   theForm.removeAttribute("style");
   theForm.setAttribute("hidden","true");
   createProfileDiv.removeAttribute("style");
-  createProfileDiv.setAttribute("hidden", "true");
+  createProfileDiv.setAttribute("hidden", "true");*/
 }
 
 function clearCreateProfileForm() {
@@ -272,7 +228,7 @@ var currentProfile;
 // var myProfileButton = document.getElementById('my-profile-button');
 var myDisplayName = document.getElementById('my-display-name');
 var myProfileName = document.getElementById('my-profile-name');
-var myProfilePhone = document.getElementById('my-profile-phone');
+// var myProfilePhone = document.getElementById('my-profile-phone'); //removed this element in profile page change, permanently remove later
 var myProfileSocialFB = document.getElementById('my-profile-social-FB');
 var myProfileSocialTW = document.getElementById('my-profile-social-TW');
 var myProfileSocialIG = document.getElementById('my-profile-social-IG');
@@ -301,8 +257,8 @@ function retrieveProfile(currentProfile) {
   profileRef.on('value', function(snap) {
     var appUser = snap.val();
     myDisplayName.innerText = appUser.displayName;
-    myProfileName.innerText = appUser.profileName;
-    myProfilePhone.innerText = phoneX(appUser.profilePhone);
+    //myProfileName.innerText = appUser.profileName;
+    // myProfilePhone.innerText = phoneX(appUser.profilePhone); //commented because removed html
     myProfileSocialFB.innerText = snap.val().profileSocialFB;
     myProfileSocialTW.innerText = snap.val().profileSocialTW;
     myProfileSocialIG.innerText = snap.val().profileSocialIG;
@@ -310,24 +266,23 @@ function retrieveProfile(currentProfile) {
     // myProfileEmail.innerHTML = "<a href='mailto:" + appUser.email + " '>Send Message</a> ";
     myProfileAbout.innerText = appUser.profileAbout || 'About Me: ';
     // myProfilePayment.innerText = appUser.pofilePayment;
-    
-    if(appUser.profileActivity1 !== null){
+
+    if (appUser.profileActivity1) {
       myProfileActivity1.innerText = appUser.profileActivity1;
+    } else {
+      myProfileActivity3.innerText = '';
     }
-    else{
-      myProfileActivity3.innerText ='';
-    }
-     if(appUser.profileActivity2 !== null){
+
+    if (appUser.profileActivity2) {
       myProfileActivity2.innerText = appUser.profileActivity2;
+    } else {
+      myProfileActivity2.innerText = '';
     }
-    else{
-      myProfileActivity2.innerText ='';
-    }
-     if(appUser.profileActivity3 !== null){
+
+    if (appUser.profileActivity3) {
       myProfileActivity3.innerText = appUser.profileActivity3;
-    }
-    else{
-      myProfileActivity3.innerText ='';
+    } else {
+      myProfileActivity3.innerText = '';
     }
 
     activityImage1.src =
@@ -346,6 +301,10 @@ function retrieveProfile(currentProfile) {
 function retrieveUrl(loc) {
   if (loc.match(/\?(.+)/)) {
     var y = loc.match(/\?(.+)/)[1];
+    if (y[y.length - 1] === '#') {
+      // Adding a check to 'clean' up the hashtag when present.
+      y = y.match(/(.+[^#])/)[1];
+    }
     return y;
   } else {
     return null;
@@ -356,6 +315,7 @@ function retrieveUrl(loc) {
 auth.onAuthStateChanged(function(user) {
   if (user) {
     retrieveProfile();
+    profileProgressUI();
   }
 });
 
@@ -382,9 +342,9 @@ auth.onAuthStateChanged(function(user) {
         myProfileSocialLI.src = '../images/linkedin-verified.svg';
       }
       if (currentProfile !== auth.currentUser.uid) {
-        showProfileFormBtn.setAttribute('hidden', 'true');
+        editProfileButton.setAttribute('hidden', 'true');
       } else {
-        showProfileFormBtn.removeAttribute('hidden');
+        editProfileButton.removeAttribute('hidden');
       }
     });
     profilePerson = user;
@@ -397,12 +357,17 @@ function socialMediaTW() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
-    console.log(currentProfile);
+    var prefix = 'http://';
     let twitter = String(snap.val().profileSocialTW);
+    var link = prefix.concat(twitter);
+
+    if (checkHTTP(twitter)) {
+      link = twitter;
+    }
+
     if (!snap.val().profileSocialTW) {
-      console.log("hello");
     } else {
-      window.open(twitter, '_blank');
+      window.open(link, '_blank');
     }
   });
 }
@@ -410,13 +375,19 @@ function socialMediaTW() {
 function socialMediaFB() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
-  console.log(currentProfile);
   profileRef.on('value', function(snap) {
+    var prefix = 'http://';
     let facebook = String(snap.val().profileSocialFB);
-    console.log(facebook);
+    var link = prefix.concat(facebook);
+
+    if (checkHTTP(facebook)) {
+      link = facebook;
+    }
+
     if (!snap.val().profileSocialFB) {
     } else {
-      window.open(facebook, '_blank');
+      console.log(link);
+      window.open(link, '_blank');
     }
   });
 }
@@ -425,10 +396,17 @@ function socialMediaLI() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
-    let linkedIn = String(snap.val().profileSocialLI);
+    var prefix = 'http://';
+    var linkedIn = String(snap.val().profileSocialLI);
+    var link = prefix.concat(linkedIn);
+
+    if (checkHTTP(linkedIn)) {
+      link = linkedIn;
+    }
+
     if (!snap.val().profileSocialLI) {
     } else {
-      window.open(linkedIn, '_blank');
+      window.open(link, '_blank');
     }
   });
 }
@@ -437,12 +415,31 @@ function socialMediaIG() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.once('value', function(snap) {
+    var prefix = 'http://';
+
     let instagram = String(snap.val().profileSocialIG);
+    var link = prefix.concat(instagram);
+
+    if (checkHTTP(instagram)) {
+      link = instagram;
+    }
+
     if (!snap.val().profileSocialIG) {
     } else {
-      window.open(instagram, '_blank');
+      window.open(link, '_blank');
     }
   });
+}
+
+function checkHTTP(url) {
+  var returnValue = true;
+  var https = 'http';
+  for (var i = 0; i < https.length; i++) {
+    if (https.charAt(i) != url.charAt(i)) {
+      return false;
+    }
+  }
+  return true;
 }
 
 function phoneX(phone) {
@@ -463,18 +460,22 @@ function phoneX(phone) {
   return x.join('');
 }
 
+function closeModalUpdate() {
+  updateForm.style.display = 'none';
+}
+
 function fillInProfileForm(e) {
   var currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
 
-  console.log("edit form working");
-  var editForm = document.getElementById('form-edit');
+  updateForm.removeAttribute('hidden');
+  updateForm.style.display = 'block';
+  /**var editForm = document.getElementById('direct-update-form-div');
   console.log(editForm);
   editForm.removeAttribute('hidden');
   editForm.style.display="block";
   createProfileDiv.style.display="block";
-  createProfileDiv.removeAttribute("hidden");
- 
+  createProfileDiv.removeAttribute("hidden");*/
 
   profileRef.once('value', function(snap) {
     if ((profileRef = currentProfile)) {
@@ -513,6 +514,9 @@ function fillInProfileForm(e) {
       }
       if (snap.val().profilePayment) {
         document.getElementById('profile-payment').value = snap.val().profilePayment;
+      }
+      if (snap.val().email) {
+        document.getElementById('account-email').value = snap.val().email;
       }
     }
   });

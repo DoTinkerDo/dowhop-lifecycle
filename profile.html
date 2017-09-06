@@ -37,8 +37,9 @@
   <div class="nav-dropdown">
     <img class="nav-dropbtn" id="user-icon" src="/images/user-icon.png" alt="">
     <div class="nav-dropdown-content">
-      <a class="btn-logout" href="#" onclick="auth.signOut()">Log Out</a>
-      <a href="#">My Profile</a>
+      <a href="/profile.html">My Profile</a>
+      <a href="/">My DoWhops</a>
+      <a class="btn-logout" href="#" onclick="logOut()">Log Out</a>
     </div>
   </div>
 </header>
@@ -46,62 +47,142 @@
 <body>
 <div class='container'>
   <div class='content-grid mdl-grid'> 
-  <div class='mdl-cell mdl-cell--12-col mdl-cell--4-col-phone' id ="background-div" >
-    <img class='background-photo' id="background-photo" src="https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/app-image-assets%2FDefaultDoWhop_banner.jpg?alt=media&token=f7f452b9-6955-418e-b425-11dcec3bf5d6" >
+    <div class='mdl-cell mdl-cell--12-col mdl-cell--4-col-phone' id ="background-div" >
+      <img class='background-photo' id="background-photo" src="https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/app-image-assets%2FDefaultDoWhop_banner.jpg?alt=media&token=f7f452b9-6955-418e-b425-11dcec3bf5d6" >
+    </div> 
+      <div class ="my-profile-picture mdl-cell mdl-cell--8-col mdl-cell--4-col-phone">
+        <img id="my-profile-picture" src="" alt="User profile image."/>
+        <div id="my-display-name"></div>
+      </div>
+      
+        <div class="about-div mdl-cell mdl-cell--8-col mdl-cell--bottom mdl-cell--4-col-phone">
+          <div id="my-profile-about"></div>
+        </div>
+      
   </div>
 
-  
-    <div class ="my-profile-picture mdl-cell mdl-cell--8-col mdl-cell--4-col-phone">
-      <img id="my-profile-picture" src="" alt="User profile image."/>
-      <div id="my-display-name"></div>
-    </div>
-    <div class="about-div mdl-cell mdl-cell--8-col mdl-cell--bottom mdl-cell--4-col-phone">
-      <div id="my-profile-about"></div>
-    </div>
-
-</div>
-
-
   <div class='mdl-grid grid1'>
-    <div class= 'mdl-cell mdl-cell--4-col mdl-cell--2-col-phone' id = "left-bar">
-      <div class='grid2' id="my-profile-name"></div>
-      <div class="grid2">
-        <a id="edit-profile-button" href="#">
-          <i class="material-icons profile-icons">mode_edit</i>
-          <div class="profile-data profile-icons" onclick="fillInProfileForm()">Edit Profile</div>
-        </a>
+    <div class= "mdl-cell--1-offset mdl-cell mdl-cell--4-col" id = "left-bar">
+      <div class="grid2" style="margin-top:20px;">
+
       </div>
-      <div class="grid2">
+      <div class="grid2" style="margin-top:0px;">
         <!-- <i class="material-icons profile-icons">mail_outline</i> -->
         <!-- <div class="profile-data" id="my-profile-email"> -->
         <!-- </div> -->
-        <div id="send-direct-message-div" class="mdl-cell" id ="send-message-div">
-          <button id="send-direct-message" class="btn btn-default" >
-            <span><i class="material-icons profile-icons" id = "inline-icons" style="padding-right: 5px; display: inline-grid; padding-bottom: 8px;" > mail_outline</i>
-            Send Message</span>
+        <div id="send-direct-message-div" id ="send-message-div"> <!-- TWO IDS... LETS DEAL WITH THIS -->
+          <button id="send-direct-message" class="btn btn-default">
+            <span><i class="material-icons profile-icons" id = "inline-icons" style="padding-right: 5px; display: inline-grid" > mail_outline</i>
+              <span style="display:inline-grid;padding-top:10px;">Send Message</span>
+            </span>
           </button>
         </div>
+<!--         <a id="edit-profile-button" href="#">
+          <i class="material-icons profile-icons">mode_edit</i>
+          <div class="profile-data profile-icons" onclick="fillInProfileForm()">Edit Profile</div>
+        </a> -->
+        <!-- commented out old edit profile button, remove when we don't need 8/31/17 -->
       </div>
-      <div class="grid2">
+
+      <!-- <div class="mdl-cell"> -->
+        <ul class="mdl-list profile-progress">
+
+          <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+              <i class="material-icons mdl-list__item-icon"></i>
+              <span id="new-edit-profile">
+              <i class="material-icons mdl-list__item-icon">edit</i>
+              <span>Edit Profile</span></span>
+            </span>    
+          </li>  
+
+
+          <li class="mdl-list__item mdl-list__item--two-line">
+            <span class="mdl-list__item-primary-content">
+              <i class="verify-phone-done check material-icons mdl-list__item-icon">done</i>
+              <i class="verify-phone-not-done material-icons mdl-list__item-icon">clear</i>
+              <i class="material-icons mdl-list__item-icon">phone</i>
+              <span>Verify Phone</span>
+              <span class="verify-phone-done mdl-list__item-sub-title">Verified by DoWhop</span>
+              <span class="verify-phone-not-done mdl-list__item-sub-title">Pending Verification</span>
+            </span>
+          </li>
+          <li class="mdl-list__item mdl-list__item--two-line">
+            <span class="mdl-list__item-primary-content">
+              <i class="verify-email-done check material-icons mdl-list__item-icon">done</i>
+              <i class="verify-email-not-done material-icons mdl-list__item-icon">clear</i>
+              <i class="material-icons mdl-list__item-icon">email</i>
+              <span>Verify Email</span>
+              <span class="verify-email-done mdl-list__item-sub-title">Verified by DoWhop</span>
+              <span class="verify-email-not-done mdl-list__item-sub-title">Pending Verification</span>
+            </span>
+          </li>
+          <li class="mdl-list__item mdl-list__item--two-line">
+            <span class="mdl-list__item-primary-content">
+              <i class="verify-social-done check material-icons mdl-list__item-icon">done</i>
+              <i class="verify-social-not-done material-icons mdl-list__item-icon">clear</i>
+              <i class="material-icons mdl-list__item-icon">share</i>
+              <span>Verify Social</span>
+              <span class="verify-social-done mdl-list__item-sub-title">Verified by DoWhop</span>
+              <span class="verify-social-not-done mdl-list__item-sub-title">Pending Verification</span>
+            </span>    
+          </li>
+
+          <li class="mdl-list__item">
+            <span class="mdl-list__item-primary-content">
+              <i class="material-icons mdl-list__item-icon"></i>
+              <i class="material-icons mdl-list__item-icon">location_on</i>
+              <span>San Diego</span>
+            </span>    
+          </li>          
+        </ul>
+      <!-- </div> -->
+      <!-- <div class="grid2 mdl-cell--2-col-phone">
         <i class="material-icons profile-icons">call</i>
         <div class="profile-data" id="my-profile-phone">xxx-xxx-xxxx</div>
       </div>
-      <div class='grid2'>
+      <div class='grid2 mdl-cell--2-col-phone'>
         <i class="material-icons profile-icons">room</i>
         <div class="profile-data" id="my-profile-city">San Diego, CA</div>
       </div>
-      <div class='grid2'>
+      <div class='mdl-cell-4-col-phone grid2 icons'> -->
 
       <div class="material-icons profile-icons">
 
         <div id="my-profile-social">
-          <img onclick= socialMediaFB() class="social-media-test" id="my-profile-social-FB" src='../images/facebook-logo.svg' />
-          <img onclick= socialMediaTW() id="my-profile-social-TW" src='../images/twitter.svg' />
-          <img onclick= socialMediaIG() id="my-profile-social-IG" src='../images/instagram.svg' />
-          <img onclick= socialMediaLI() id="my-profile-social-LI" src='../images/linkedin.svg' />
+          <img onclick= socialMediaFB() class="social-icons mdl-cell--2-col-phone" id="my-profile-social-FB" src='../images/facebook-logo.svg' />
+          <img onclick= socialMediaTW() class="social-icons mdl-cell--2-col-phone" id="my-profile-social-TW" src='../images/twitter.svg' />
+          <img onclick= socialMediaIG() class="social-icons mdl-cell--2-col-phone" id="my-profile-social-IG" src='../images/instagram.svg' />
+          <img onclick= socialMediaLI() class="social-icons mdl-cell--2-col-phone" id="my-profile-social-LI" src='../images/linkedin.svg' />
       </div>
       </div>
 
+      </div>
+      
+      <div class='profile-activities-div2 mdl-cell mdl-cell--7-col mdl-cell--1-offset'>
+        <div class="mdl-cell mdl-cell--4-col outer-box personalAct mdl-cell--2-col-phone" id="activity1">
+          <img class="activity-image" id="activity-image-1" src="/images/placeholder-image1.png" alt="">
+          <div class="inner-box">
+            <p>Love to Do</p>
+          </div>
+          <div class="activity activity-caption" id="my-profile-activity-1"></div>
+        </div>
+        <div class="outer-box mdl-cell mdl-cell--4-col personalAct mdl-cell--2-col-phone">
+          <img class="activity-image" id="activity-image-2" src="/images/placeholder-image2.png" alt="">
+          <div class="inner-box">
+            <p>Love to Do</p>
+          </div>
+          <div class="activity activity-caption" id="my-profile-activity-2"></div>
+        </div>
+
+        <div class="outer-box mdl-cell mdl-cell--4-col personalAct mdl-cell--2-col-phone">
+          <img class="activity-image" id="activity-image-3" src="/images/placeholder-image3.png" alt="">
+          <div class="inner-box">
+            <p>Love to Do</p>
+          </div>
+          <div class="activity activity-caption" id="my-profile-activity-3">
+         </div>
+        </div>
       </div>
     </div>
 
@@ -114,205 +195,14 @@
         </div>
       </button>
     </div>
-
-    <div class='profile-activities-div2 mdl cellmdl-cell--2-col-phone'>
-      <div class="mdl-cell mdl-cell--7-col outer-box personalAct" id="activity1">
-        <img class="activity-image" id="activity-image-1" src="/images/placeholder-image1.png" alt="">
-        <div class="inner-box">
-          <p>Love to Do</p>
-        </div>
-        <div class="activity activity-caption" id="my-profile-activity-1"></div>
-      </div>
-      <div class="outer-box mdl-cell mdl-cell--4-col personalAct">
-        <img class="activity-image" id="activity-image-2" src="/images/placeholder-image2.png" alt="">
-        <div class="inner-box">
-          <p>Love to Do</p>
-        </div>
-        <div class="activity activity-caption" id="my-profile-activity-2"></div>
-      </div>
-
-      <div class="outer-box mdl-cell mdl-cell--4-col personalAct">
-        <img class="activity-image" id="activity-image-3" src="/images/placeholder-image3.png" alt="">
-        <div class="inner-box">
-          <p>Love to Do</p>
-        </div>
-        <div class="activity activity-caption" id="my-profile-activity-3">
-       </div>
-      </div>
-    </div>
   </div>
 
 
 
   <!-- END Profile container put the facebook, twitter, etc. links here  put the verified member part here -->
-
-  
-  <div class='edit-form mdl-grid' id='form-edit'>
-    <div class="mdl-cell mdl-cell--6-col" id ='form-pad' >
-
-
-      <div id="create-profile-div">
-        <!-- begin Create New Profile Form -->
-        <div class="mdl-card__title">
-          <h2 class="mdl-card__title-text">Update My Profile</h2>
-        </div>
-        <div class="mdl-card__supporting-text" id="whole-form">
-
-          <form id="create-profile-form" action="#" >
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="profile-name" placeholder="What's your preferred name?"></input>
-              <label class="mdl-textfield__label" for="profile-name">First and Last Name:</label>
-              <div class="mdl-tooltip">What's your preferred name?</div>
-            </div>
-
-            <div>
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <textarea class="mdl-textfield__input" type="text" id="profile-about" placeholder="What kinds of DoWhops do you like to do?"></textarea>
-                <label class="mdl-textfield__label" row="3" for="profile-about">My Story:</label>
-                <div class="mdl-tooltip">Tell the community about yourself. What makes you unique?</div>
-              </div>
-              <svg class="social-media-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="44px" height="44px" viewBox="0 0 96.124 96.123" style="enable-background:new 0 0 96.124 96.123;" xml:space="preserve">
-                <path d="M72.089,0.02L59.624,0C45.62,0,36.57,9.285,36.57,23.656v10.907H24.037c-1.083,0-1.96,0.878-1.96,1.961v15.803   c0,1.083,0.878,1.96,1.96,1.96h12.533v39.876c0,1.083,0.877,1.96,1.96,1.96h16.352c1.083,0,1.96-0.878,1.96-1.96V54.287h14.654   c1.083,0,1.96-0.877,1.96-1.96l0.006-15.803c0-0.52-0.207-1.018-0.574-1.386c-0.367-0.368-0.867-0.575-1.387-0.575H56.842v-9.246   c0-4.444,1.059-6.7,6.848-6.7l8.397-0.003c1.082,0,1.959-0.878,1.959-1.96V1.98C74.046,0.899,73.17,0.022,72.089,0.02z" fill="#606060"/>
-              </svg>
-            </div>
-
-            <div>
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="profile-social-FB" placeholder="URL"></input>
-                <label class="mdl-textfield__label" for="profile-social-FB">FaceBook:</label>
-                <div class="mdl-tooltip">FaceBook URL</div>
-              </div>
-              <svg class="social-media-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="44px" height="44px" viewBox="0 0 512.002 512.002" style="enable-background:new 0 0 512.002 512.002;" xml:space="preserve">
-                <path d="M512.002,97.211c-18.84,8.354-39.082,14.001-60.33,16.54c21.686-13,38.342-33.585,46.186-58.115   c-20.299,12.039-42.777,20.78-66.705,25.49c-19.16-20.415-46.461-33.17-76.674-33.17c-58.011,0-105.042,47.029-105.042,105.039   c0,8.233,0.929,16.25,2.72,23.939c-87.3-4.382-164.701-46.2-216.509-109.753c-9.042,15.514-14.223,33.558-14.223,52.809   c0,36.444,18.544,68.596,46.73,87.433c-17.219-0.546-33.416-5.271-47.577-13.139c-0.01,0.438-0.01,0.878-0.01,1.321   c0,50.894,36.209,93.348,84.261,103c-8.813,2.399-18.094,3.687-27.674,3.687c-6.769,0-13.349-0.66-19.764-1.888   c13.368,41.73,52.16,72.104,98.126,72.949c-35.95,28.176-81.243,44.967-130.458,44.967c-8.479,0-16.84-0.496-25.058-1.471   c46.486,29.807,101.701,47.197,161.021,47.197c193.211,0,298.868-160.062,298.868-298.872c0-4.554-0.104-9.084-0.305-13.59   C480.111,136.775,497.92,118.275,512.002,97.211z" fill="#606060"/>
-              </svg>
-              <button class="social-button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" id="social-button-1">
-                <i class="material-icons">add</i>
-                <span class="mdl-tooltip" for="social-button-1">Add Twitter</span>
-              </button>
-            </div>
-
-            <div hidden id="twitter-card">
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="profile-social-TW" placeholder="URL"></input>
-                <label class="mdl-textfield__label" for="profile-social-TW">Twitter:</label>
-                <div class="mdl-tooltip" for="profile-social-TW">Twitter URL</div>
-              </div>
-              <svg class="social-media-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 300 300" style="enable-background:new 0 0 300 300;" xml:space="preserve" width="44px" height="44px">
-                <path id="XMLID_505_" d="M38.52,0.012h222.978C282.682,0.012,300,17.336,300,38.52v222.978c0,21.178-17.318,38.49-38.502,38.49   H38.52c-21.184,0-38.52-17.313-38.52-38.49V38.52C0,17.336,17.336,0.012,38.52,0.012z M218.546,33.329   c-7.438,0-13.505,6.091-13.505,13.525v32.314c0,7.437,6.067,13.514,13.505,13.514h33.903c7.426,0,13.506-6.077,13.506-13.514   V46.854c0-7.434-6.08-13.525-13.506-13.525H218.546z M266.084,126.868h-26.396c2.503,8.175,3.86,16.796,3.86,25.759   c0,49.882-41.766,90.34-93.266,90.34c-51.487,0-93.254-40.458-93.254-90.34c0-8.963,1.37-17.584,3.861-25.759H33.35v126.732   c0,6.563,5.359,11.902,11.916,11.902h208.907c6.563,0,11.911-5.339,11.911-11.902V126.868z M150.283,90.978   c-33.26,0-60.24,26.128-60.24,58.388c0,32.227,26.98,58.375,60.24,58.375c33.278,0,60.259-26.148,60.259-58.375   C210.542,117.105,183.561,90.978,150.283,90.978z" fill="#606060"/>
-              </svg>
-              <button class="social-button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" id="social-button-2">
-                <i class="material-icons">add</i>
-                <span class="mdl-tooltip" for="social-button-2">Add Instagram</span>
-              </button>
-            </div>
-
-            <div hidden id="instagram-card">
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="profile-social-IG" placeholder="URL"></input>
-                <label class="mdl-textfield__label" for="profile-social-IG">Instagram:</label>
-                <div class="mdl-tooltip" for="profile-social-IG">Instagram URL</div>
-              </div>
-              <svg class="social-media-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 310 310" style="enable-background:new 0 0 310 310;" xml:space="preserve" width="44px" height="44px">
-                <path id="XMLID_802_" d="M72.16,99.73H9.927c-2.762,0-5,2.239-5,5v199.928c0,2.762,2.238,5,5,5H72.16c2.762,0,5-2.238,5-5V104.73   C77.16,101.969,74.922,99.73,72.16,99.73z" fill="#606060"/>
-                <path id="XMLID_803_" d="M41.066,0.341C18.422,0.341,0,18.743,0,41.362C0,63.991,18.422,82.4,41.066,82.4   c22.626,0,41.033-18.41,41.033-41.038C82.1,18.743,63.692,0.341,41.066,0.341z" fill="#606060"/>
-                <path id="XMLID_804_" d="M230.454,94.761c-24.995,0-43.472,10.745-54.679,22.954V104.73c0-2.761-2.238-5-5-5h-59.599   c-2.762,0-5,2.239-5,5v199.928c0,2.762,2.238,5,5,5h62.097c2.762,0,5-2.238,5-5v-98.918c0-33.333,9.054-46.319,32.29-46.319   c25.306,0,27.317,20.818,27.317,48.034v97.204c0,2.762,2.238,5,5,5H305c2.762,0,5-2.238,5-5V194.995   C310,145.43,300.549,94.761,230.454,94.761z" fill="#606060"/>
-              </svg>
-              <button class="social-button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" id="social-button-3">
-                <i class="material-icons">add</i>
-                <span class="mdl-tooltip" for="social-button-3">Add LinkedIn</span>
-              </button>
-            </div>
-
-            <div hidden id="linkedin-card">
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="profile-social-LI" placeholder="URL"></input>
-                <label class="mdl-textfield__label" for="profile-social-LI">LinkedIn:</label>
-                <div class="mdl-tooltip" for="profile-social-LI">LinkedIn URL</div>
-              </div>
-            </div>
-
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="profile-website" placeholder="URL"></input>
-              <label class="mdl-textfield__label" for="profile-website"> Personal Web Site:</label>
-              <div class="mdl-tooltip" for="profile-website">Personal URL</div>
-            </div>
-
-            <!-- Adding Images -->
-            <div>
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="profile-activity-1" placeholder="I love to do this activity">
-                <label class="mdl-textfield__label" for="profile-activity-1">Activity #1:</label>
-                <span class="mdl-tooltip" for="profile-activity-1">Just add one here for now</span>
-              </div>
-              <label for="profile-image-capture-1">
-                <i class="material-icons">perm_media</i>
-                <input class="image-capture" id="profile-image-capture-1" type="file" accept="image/*" capture="camera">
-              </label>
-              <button class="add-new-activity mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" id="button-1">
-                <i class="material-icons">add</i>
-                <span class="mdl-tooltip" for="button-1">Add another activity</span>
-              </button>
-            </div>
-
-            <div class="hide-component">
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="profile-activity-2" placeholder="e.g., Casey is a spearfisherman and snorkeller">
-                <label class="mdl-textfield__label" for="profile-activity-2">Activity #2:</label>
-                <span class="mdl-tooltip" for="profile-activity-2">Just add one here for now</span>
-              </div>
-              <label for="profile-image-capture-2">
-                <i class="material-icons">perm_media</i>
-                <input class="image-capture" id="profile-image-capture-2" type="file" accept="image/*" capture="camera">
-              </label>
-              <button class="add-new-activity mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" id="button-2">
-                <i class="material-icons">add</i>
-                <span class="mdl-tooltip" for="button-2">Add another activity</span>
-              </button>
-            </div>
-
-            <div class="hide-component">
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="profile-activity-3" placeholder="e.g., Casey is an underwater hockey player">
-                <label class="mdl-textfield__label" for="profile-activity-3">Activity #3:</label>
-                <span class="mdl-tooltip" for="profile-activity-3">Just add one here for now</span>
-              </div>
-              <label for="profile-image-capture-3">
-                <i class="material-icons">perm_media</i>
-                <input class="image-capture" id="profile-image-capture-3" type="file" accept="image/*" capture="camera">
-              </label>
-            </div>
-
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="profile-phone" placeholder="Phone"></input>
-              <label class="mdl-textfield__label" for="profile-phone">Phone Number:</label>
-              <div class="mdl-tooltip" for="profile-phone">Preferred Phone Number</div>
-            </div>
-
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="profile-payment" placeholder="EMAIL"></input>
-              <label class="mdl-textfield__label" for="profile-payment">Venmo Email:</label>
-              <div class="mdl-tooltip" for="profile-payment">Payment Email</div>
-            </div>
-            <!-- <label for="profile-image-capture-3"> -->
-              <!-- <i class="material-icons">perm_media</i> -->
-              <!-- <input class="image-capture" id="profile-image-capture-3" type="file" accept="image/*" capture="camera"> -->
-            <!-- </label> -->
-            <!-- END adding images -->
-            <div class="mdl-card__actions">
-              <button class="btn btn-default" id="create-profile-form-button">
-                <!-- Submit Profile -->
-                SUBMIT
-                <div class="mdl-tooltip" for="create-profile-form-button">Click here to save your info!</div>
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    </div>
   
   <!-- END Create Submit Profile Form -->
-  <!--  PLACEHOLDER activities for future DoneWhops -->
+  <!--  PLACEHOLDER activities for future Done Whops -->
 
   <div hidden id="direct-message-form-div" class="mdl-card mdl-card--border dm-modal"><!-- Start Direct Chat Message Form div -->
 
@@ -346,8 +236,203 @@
     </div>
   </div>
 
+
+  <!--This is the edit profile form -->
+  <div hidden id="direct-update-form-div" class="mdl-card mdl-card--border dm-modal">
+    <div class="mdl-layout__content dm-modal-sub">
+        <div class="mdl-card__title dm-close-span">
+          <span class="mdl-card__title-text">Update Profile</span><div id="update-form-div-span" class="dm-close">x</div></span>
+        </div>
+
+    <form id="create-profile-form" action="#" >
+      <div class="mdl-card" style="padding:20px 20px 20px 20px;">
+        <div class="mdl-card_border">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="profile-name" placeholder="What's your preferred name?"></input>
+            <label class="mdl-textfield__label" for="profile-name">First and Last Name:</label>
+            <div class="mdl-tooltip">What's your preferred name?</div>
+          </div>
+
+          <div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <textarea class="mdl-textfield__input" type="text" id="profile-about" placeholder="What kinds of DoWhops do you like to do?"></textarea>
+              <label class="mdl-textfield__label" row="3" for="profile-about">My Story:</label>
+              <div class="mdl-tooltip">Tell the community about yourself. What makes you unique?</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="profile-activity-1" placeholder="I love to do this activity">
+              <label class="mdl-textfield__label" for="profile-activity-1">Activity #1:</label>
+              <span class="mdl-tooltip" for="profile-activity-1">Just add one here for now</span>
+            </div>
+            <label for="profile-image-capture-1">
+              <i class="material-icons">perm_media</i>
+              <input class="image-capture" id="profile-image-capture-1" type="file" accept="image/*" capture="camera">
+            </label>
+            <button class="add-new-activity mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" id="button-1">
+              <i class="material-icons">add</i>
+              <span class="mdl-tooltip" for="button-1">Add another activity</span>
+            </button>
+          </div>
+
+          <div class="hide-component">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="profile-activity-2" placeholder="e.g., Casey is a spearfisherman and snorkeller">
+              <label class="mdl-textfield__label" for="profile-activity-2">Activity #2:</label>
+              <span class="mdl-tooltip" for="profile-activity-2">Just add one here for now</span>
+            </div>
+            <label for="profile-image-capture-2">
+              <i class="material-icons">perm_media</i>
+              <input class="image-capture" id="profile-image-capture-2" type="file" accept="image/*" capture="camera">
+            </label>
+            <button class="add-new-activity mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" id="button-2">
+              <i class="material-icons">add</i>
+              <span class="mdl-tooltip" for="button-2">Add another activity</span>
+            </button>
+          </div>
+
+          <div class="hide-component">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="profile-activity-3" placeholder="e.g., Casey is an underwater hockey player">
+              <label class="mdl-textfield__label" for="profile-activity-3">Activity #3:</label>
+              <span class="mdl-tooltip" for="profile-activity-3">Just add one here for now</span>
+            </div>
+            <label for="profile-image-capture-3">
+              <i class="material-icons">perm_media</i>
+              <input class="image-capture" id="profile-image-capture-3" type="file" accept="image/*" capture="camera">
+            </label>
+          </div>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="profile-phone" placeholder="Phone"></input>
+            <label class="mdl-textfield__label" for="profile-phone">Phone Number:</label>
+            <div class="mdl-tooltip" for="profile-phone">Preferred Phone Number</div>
+          </div>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="account-email" placeholder="Account Email" readonly></input>
+            <label class="mdl-textfield__label" for="profile-account-email">Account Email:</label>
+            <div class="mdl-tooltip" for="profile-account-email">DoWhop Account email</div>
+          </div>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="profile-payment" placeholder="I wish to receive payment at this PayPal Account or Venmo Handle"></input>
+            <label class="mdl-textfield__label" for="profile-payment">Payment Account:</label>
+            <div class="mdl-tooltip" for="profile-payment">Payment Account</div>
+          </div>
+
+          <div>
+            <svg class="social-media-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="44px" height="44px" viewBox="0 0 96.124 96.123" style="enable-background:new 0 0 96.124 96.123;" xml:space="preserve">
+              <path d="M72.089,0.02L59.624,0C45.62,0,36.57,9.285,36.57,23.656v10.907H24.037c-1.083,0-1.96,0.878-1.96,1.961v15.803   c0,1.083,0.878,1.96,1.96,1.96h12.533v39.876c0,1.083,0.877,1.96,1.96,1.96h16.352c1.083,0,1.96-0.878,1.96-1.96V54.287h14.654   c1.083,0,1.96-0.877,1.96-1.96l0.006-15.803c0-0.52-0.207-1.018-0.574-1.386c-0.367-0.368-0.867-0.575-1.387-0.575H56.842v-9.246   c0-4.444,1.059-6.7,6.848-6.7l8.397-0.003c1.082,0,1.959-0.878,1.959-1.96V1.98C74.046,0.899,73.17,0.022,72.089,0.02z" fill="#606060"/>
+            </svg>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="profile-social-FB" placeholder="facebook.com/YourAccount"></input>
+              <label class="mdl-textfield__label" for="profile-social-FB">FaceBook:</label>
+              <div class="mdl-tooltip">FaceBook URL</div>
+            </div>
+            <svg class="social-media-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="44px" height="44px" viewBox="0 0 512.002 512.002" style="enable-background:new 0 0 512.002 512.002;" xml:space="preserve">
+              <path d="M512.002,97.211c-18.84,8.354-39.082,14.001-60.33,16.54c21.686-13,38.342-33.585,46.186-58.115   c-20.299,12.039-42.777,20.78-66.705,25.49c-19.16-20.415-46.461-33.17-76.674-33.17c-58.011,0-105.042,47.029-105.042,105.039   c0,8.233,0.929,16.25,2.72,23.939c-87.3-4.382-164.701-46.2-216.509-109.753c-9.042,15.514-14.223,33.558-14.223,52.809   c0,36.444,18.544,68.596,46.73,87.433c-17.219-0.546-33.416-5.271-47.577-13.139c-0.01,0.438-0.01,0.878-0.01,1.321   c0,50.894,36.209,93.348,84.261,103c-8.813,2.399-18.094,3.687-27.674,3.687c-6.769,0-13.349-0.66-19.764-1.888   c13.368,41.73,52.16,72.104,98.126,72.949c-35.95,28.176-81.243,44.967-130.458,44.967c-8.479,0-16.84-0.496-25.058-1.471   c46.486,29.807,101.701,47.197,161.021,47.197c193.211,0,298.868-160.062,298.868-298.872c0-4.554-0.104-9.084-0.305-13.59   C480.111,136.775,497.92,118.275,512.002,97.211z" fill="#606060"/>
+            </svg>
+            <button class="social-button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" id="social-button-1">
+              <i class="material-icons">add</i>
+              <span class="mdl-tooltip" for="social-button-1">Add Twitter</span>
+            </button>
+          </div>
+
+          <div hidden id="twitter-card">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="profile-social-TW" placeholder="twitter.com/YourHandle"></input>
+              <label class="mdl-textfield__label" for="profile-social-TW">Twitter:</label>
+              <div class="mdl-tooltip" for="profile-social-TW">Twitter URL</div>
+            </div>
+            <svg class="social-media-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 300 300" style="enable-background:new 0 0 300 300;" xml:space="preserve" width="44px" height="44px">
+              <path id="XMLID_505_" d="M38.52,0.012h222.978C282.682,0.012,300,17.336,300,38.52v222.978c0,21.178-17.318,38.49-38.502,38.49   H38.52c-21.184,0-38.52-17.313-38.52-38.49V38.52C0,17.336,17.336,0.012,38.52,0.012z M218.546,33.329   c-7.438,0-13.505,6.091-13.505,13.525v32.314c0,7.437,6.067,13.514,13.505,13.514h33.903c7.426,0,13.506-6.077,13.506-13.514   V46.854c0-7.434-6.08-13.525-13.506-13.525H218.546z M266.084,126.868h-26.396c2.503,8.175,3.86,16.796,3.86,25.759   c0,49.882-41.766,90.34-93.266,90.34c-51.487,0-93.254-40.458-93.254-90.34c0-8.963,1.37-17.584,3.861-25.759H33.35v126.732   c0,6.563,5.359,11.902,11.916,11.902h208.907c6.563,0,11.911-5.339,11.911-11.902V126.868z M150.283,90.978   c-33.26,0-60.24,26.128-60.24,58.388c0,32.227,26.98,58.375,60.24,58.375c33.278,0,60.259-26.148,60.259-58.375   C210.542,117.105,183.561,90.978,150.283,90.978z" fill="#606060"/>
+            </svg>
+            <button class="social-button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" id="social-button-2">
+              <i class="material-icons">add</i>
+              <span class="mdl-tooltip" for="social-button-2">Add Instagram</span>
+            </button>
+          </div>
+
+          <div hidden id="instagram-card">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="profile-social-IG" placeholder="instagram.com/YourHandle"></input>
+              <label class="mdl-textfield__label" for="profile-social-IG">Instagram:</label>
+              <div class="mdl-tooltip" for="profile-social-IG">Instagram URL</div>
+            </div>
+            <svg class="social-media-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 310 310" style="enable-background:new 0 0 310 310;" xml:space="preserve" width="44px" height="44px">
+              <path id="XMLID_802_" d="M72.16,99.73H9.927c-2.762,0-5,2.239-5,5v199.928c0,2.762,2.238,5,5,5H72.16c2.762,0,5-2.238,5-5V104.73   C77.16,101.969,74.922,99.73,72.16,99.73z" fill="#606060"/>
+              <path id="XMLID_803_" d="M41.066,0.341C18.422,0.341,0,18.743,0,41.362C0,63.991,18.422,82.4,41.066,82.4   c22.626,0,41.033-18.41,41.033-41.038C82.1,18.743,63.692,0.341,41.066,0.341z" fill="#606060"/>
+              <path id="XMLID_804_" d="M230.454,94.761c-24.995,0-43.472,10.745-54.679,22.954V104.73c0-2.761-2.238-5-5-5h-59.599   c-2.762,0-5,2.239-5,5v199.928c0,2.762,2.238,5,5,5h62.097c2.762,0,5-2.238,5-5v-98.918c0-33.333,9.054-46.319,32.29-46.319   c25.306,0,27.317,20.818,27.317,48.034v97.204c0,2.762,2.238,5,5,5H305c2.762,0,5-2.238,5-5V194.995   C310,145.43,300.549,94.761,230.454,94.761z" fill="#606060"/>
+            </svg>
+            <button class="social-button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" id="social-button-3">
+              <i class="material-icons">add</i>
+              <span class="mdl-tooltip" for="social-button-3">Add LinkedIn</span>
+            </button>
+          </div>
+
+          <div hidden id="linkedin-card">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="profile-social-LI" placeholder="linkedin.com/in/YourProfile"></input>
+              <label class="mdl-textfield__label" for="profile-social-LI">LinkedIn:</label>
+              <div class="mdl-tooltip" for="profile-social-LI">LinkedIn URL</div>
+            </div>
+            <i class="material-icons link-icon">link</i>
+            <button class="social-button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" id="social-button-4">
+              <i class="material-icons">add</i>
+              <span class="mdl-tooltip" for="social-button-4">Add Personal Website</span>
+            </button>
+          </div>
+
+          <div hidden id="personal-web-card">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="profile-website" placeholder="URL"></input>
+              <label class="mdl-textfield__label" for="profile-website"> Personal Web Site:</label>
+              <div class="mdl-tooltip" for="profile-website">Personal URL</div>
+            </div> 
+          </div>
+
+          <!--
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="profile-website" placeholder="URL"></input>
+            <label class="mdl-textfield__label" for="profile-website"> Personal Web Site:</label>
+            <div class="mdl-tooltip" for="profile-website">Personal URL</div>
+          </div> -->
+
+          <!-- Adding Images -->
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label profile-location">
+            <input class="mdl-textfield__input type="text" id="location" placeholder="Location" value="San Diego" readonly></input>
+            <label class="mdl-textfield__label" for="profile-location">Location:</label>
+            <div class="mdl-tooltip" for="profile-location">Your Location</div>
+          </div>
+          <!-- <label for="profile-image-capture-3"> -->
+            <!-- <i class="material-icons">perm_media</i> -->
+            <!-- <input class="image-capture" id="profile-image-capture-3" type="file" accept="image/*" capture="camera"> -->
+          <!-- </label> -->
+          <!-- END adding images -->
+          <div class="mdl-card__actions">
+            <button class="btn btn-default" id="create-profile-form-button">
+              <!-- Submit Profile -->
+              Update
+              <div class="mdl-tooltip" for="create-profile-form-button">Click here to save your info!</div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>    
+  </div>
+
   <!-- End Show Profile Section -->
   <script src="scripts/dowhop-profile-form-create.js"></script>
   <script src="scripts/dowhop-profile-form-dm.js"></script>
+  <script>
+    function logOut() {
+      auth.signOut();
+      window.location.href = "/";
+    }
+  </script>
 </body>
 </html>
