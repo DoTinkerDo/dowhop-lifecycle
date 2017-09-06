@@ -5,8 +5,7 @@
     callbacks: {
       signInSuccess: function(user, credential, redirectUrl) {
         handleSignedInUser(user);
-        // Do not redirect.
-        return true;
+        return true; // Do not redirect.
       }
     },
     signInFlow: 'popup',
@@ -60,38 +59,8 @@
   }
 
   function handleSignedInUser(user) {
-    // profileProgessNodeInit(user);
     loginPage.style.display = 'none';
     applicationPage.style.display = 'block';
-    // writeUserData(user);
-    // FCM permission registration
-    // registerMessaging(user);
-    // retrieveMyDoWhops(user.uid);
-
-    // if (window.location.hash != '' && window.location.hash.length > 0) {
-    //   setLandingTab(window.location.hash.match(/#(.+)/)[1]);
-    // }
-
-    // Read the user's saved session:
-
-    // var sessionRef = database.ref('/session').child(user.uid);
-    // var userSession;
-
-    //   sessionRef.once('value').then(function(snap) {
-    //     if (!snap.val()) {
-    //       var userSession = {
-    //         current_tab: 'coordinate-tab'
-    //         // To-Do: Set default doWhopDescriptionKey.
-    //       };
-    //       sessionRef.update(userSession);
-    //     }
-    //     userSession = snap.val();
-    //     // console.log('current DoWhop upon first visit', userSession.current_dowhop);
-    //     // console.log('current tab', userSession.current_tab);
-    //     // setAndGetDoWhopDescriptionSession(userSession.current_dowhop);
-    //     // getSessionTab(user.uid);
-    //     setLandingTab(getSessionTab(user.uid));
-    //   });
   }
 
   function handleSignedOutUser() {
@@ -142,145 +111,3 @@ auth.onAuthStateChanged(function(user) {
     console.log('PERSON signed out');
   }
 });
-
-// function getSessionTab(uid) {
-//   var currentTab;
-//   var sessionRef = database.ref('/session').child(uid);
-//   sessionRef.on('value', function(snap) {
-//     currentTab = snap.val().current_tab;
-//     // console.log('... running new getsession tab', currentTab);
-//   });
-//   return currentTab;
-// }
-
-// console.log('...finishing running getsession tab', currentTab);
-
-// function createDefaultDoWhop(person) {
-//   var uid = person.uid;
-//   // var email = person.email;
-//   var doerDescription = person.email;
-//   // Then we add on note to user's profile that it has been added:
-//   var appUsersRef = database.ref('/app_users');
-//   var appUserRef = appUsersRef.child(uid);
-//   var currentTime = moment().format('YYYY-MM-DD--HH:mm');
-//   // var defaultDoWhopImage = 'images/DefaultDoWhop_banner.jpg';
-//   var defaultDoWhopImage1 =
-//     'https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/defaultDowhops%2FIMG_0992-edited.jpg?alt=media&token=f7bfe79b-e90b-443e-ae89-3f8abc46661a';
-//   var defaultDoWhopImage2 =
-//     'https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/defaultDowhops%2FIMG_1161-edited.jpg?alt=media&token=a9c1e9c1-fcd1-437d-b2e4-b0da581dff69';
-//   // Adding a default DoWhop template as welcoming message:
-//   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
-//   // First we create the new default DoWhop:
-//   doWhopDescriptionRef.child(doWhopDescriptionKey).set({
-//     createdBy: uid,
-//     doWhopDescriptionKey: doWhopDescriptionKey,
-//     downloadURL: { image1: defaultDoWhopImage1, image2: defaultDoWhopImage2 },
-//     titleDescription: 'Help with DoWhop',
-//     whyDescription:
-//       'These notes will help you create your first DoWhop and answer any questions about the purpose behind each text field! Put a tagline describing this DoWhop in the "why do this DoWhop" section to grab the attention of other DoWhoppers on the marketplace.',
-//     whoDescription:
-//       'Enter the maximum number of people you can take and describe who might enjoy the experience based on their skill level and personality.',
-//     whoAmIDescription: '',
-//     whatDescription:
-//       'Specify any items that the Doers will be required to bring with them. Explain what you will provide and what else the price includes.',
-//     whenDescription:
-//       'How long with this DoWhop take and when do you typically schedule it. If you know when you we be unavailable to receive bookings specify that here. By request is an okay too',
-//     whereDescription:
-//       'You can share the exact address once the doer has booked this experiience. Give the general area here, and describe the facility where this DoWhop will take place. By request or "at your home" will also do for flexible bookings.',
-//     howMuchDescription:
-//       'Describe what someone would have to pay to join you and what they would get in exchange. You dont have to describe what the funds go too, but you are welcome to identify any operational expenses or charities you will give the money to upon booking. We will add 20% to the total cost of your DoWhop when listing to the marketplace. You will receive 100% of your listed cost transferred to your payment account when users book and complete this DoWhop.',
-//     creatorDescription: 'dowhop.com@gmail.com',
-//     doerDescription: doerDescription,
-//     createdAt: currentTime
-//   });
-
-//   var sessionsRef = database.ref('/session');
-//   var sessionUserRef = sessionsRef.child(uid);
-//   sessionUserRef.once('value').then(function(snapshot) {
-//     if (snapshot.val()) return;
-//     var userSession = {
-//       current_dowhop: doWhopDescriptionKey,
-//       current_tab: 'coordinate-tab'
-//     };
-//     sessionUserRef.update(userSession);
-//   });
-
-//   // Updating user's status henceforth:
-//   var userData = {
-//     hasDefaultDoWhop: true
-//   };
-//   appUserRef.update(userData);
-// }
-
-// Checks for a default whop, if not exists, creates one.
-
-// function checkDefaultDoWhop(person) {
-//   var uid = person.uid;
-//   var email = person.email;
-//   var creatorDescription = person.email;
-
-//   // Then we add on note to user's profile that it has been added:
-//   var appUsersRef = database.ref('/app_users');
-//   var appUserRef = appUsersRef.child(uid);
-//   var hasDoWhopAlready = false;
-
-//   // Let's check for whether user has a DoWhop:
-//   appUserRef.once('value', function(snapshot) {
-//     var snap = snapshot || null;
-//     if (snap != null && snap.val() != null && snap.val().hasDefaultDoWhop && snap.val().hasDefaultDoWhop === true) {
-//       hasDoWhopAlready = true;
-//       return hasDoWhopAlready;
-//     } else {
-//       createDefaultDoWhop(person);
-//     }
-//   });
-// }
-
-// For checking the pre-specified routing location. New.
-// function retrieveUrlAnchor(location) {
-//   if (location.match(/#(.+)/) && location.match(/#(.+)/)[1] != null) {
-//     return location.match(/#(.+)/)[1];
-//   } else {
-//     return null;
-//   }
-// }
-
-// function setLandingTab(href) {
-//   // We are covering two situations:
-//   // One for direct URL to particular tab, second for clicking on particular tab:
-//   var currentTab;
-//   // console.log('setLandingTab', href);
-//   if (typeof href === 'string' && href.match(/-tab/)) {
-//     currentTab = href;
-//   } else {
-//     currentTab = href + '-tab';
-//   }
-
-//   if (document.getElementById(currentTab)) {
-//     var currentTabElement = document.getElementById(currentTab);
-//     // var userID = person.uid || user.uid;
-//     // var sessionRef = database.ref('/session').child(userID);
-//     var allTabs = document.getElementsByClassName('tab');
-
-//     // We need to toggle the tabs to default color if un-selected...
-//     for (var i = 0; i < allTabs.length; i++) {
-//       allTabs[i].style.fill = '#000000';
-//       allTabs[i].style.color = '#000000';
-//     }
-
-//     // ...And set the current session tab:
-//     currentTabElement.style.fill = '#ec1928';
-//     currentTabElement.style.color = '#ec1928';
-
-//     // sessionRef.update({
-//     //   current_tab: currentTab
-//     // });
-//   }
-// }
-
-// We are ensuring direct routing also happens without refresh:
-// window.addEventListener('hashchange', function(e) {
-//   if (window.location.hash != '' && window.location.hash.length > 0) {
-//     setLandingTab(window.location.hash.match(/#(.+)/)[1]);
-//   }
-// });
