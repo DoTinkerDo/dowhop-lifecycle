@@ -13,28 +13,6 @@ var datePicker = new flatpickr('#whenDateTimePending', {
   dateFormat: 'Y-m-d H:i'
 });
 
-function setSesh(clickedID) {
-  // console.log('running setsesh...');
-  // Write tab name to database, and to the current window:
-  // var userID = person.uid || user.uid;
-  // var currentTab = '';
-  // if (typeof clickedID === 'string' && clickedID.match(/-tab/)) {
-  //   currentTab = clickedID;
-    // console.log('choosing window location based on click event', clickedID.split('-tab')[0]);
-  //   window.location = '/#' + clickedID.split('-tab')[0];
-  // } else {
-  //   currentTab = clickedID + '-tab';
-  //   // console.log('choosing window location based on direct link');
-  //   window.location = '/#' + clickedID;
-  // }
-  // var sessionRef = database.ref('/session').child(userID);
-  // sessionRef
-  //   .update({
-  //     current_tab: currentTab
-  //   })
-    // .catch(console.error(error));
-}
-
 // Initializes FriendlyChat.
 function FriendlyChat() {
   this.checkSetup();
