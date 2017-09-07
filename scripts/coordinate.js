@@ -15,6 +15,7 @@ var datePicker = new flatpickr('#whenDateTimePending', {
 
 function getSesh(clickedID) {
   // Write tab name to database
+  console.log('you clicked getsesh', clickedID);
   var userID = person.uid || user.uid;
   var currentTab;
   if (typeof clickedID === 'string' && clickedID.match(/-tab/)) {
@@ -31,8 +32,9 @@ function getSesh(clickedID) {
   });
 
   // Show UI for the tabs
-  setLandingTab(clickedID); // New.
-  // console.log('running getSesh...');
+  setLandingTabURL(currentTab);
+  // setLandingTab(clickedID); // New.
+  console.log('saving current tab...', currentTab);
   // console.log(creatorUserObjects, doerUserObjects);
   // setAndGetDoWhopDescriptionSession(clickedID);
 }
