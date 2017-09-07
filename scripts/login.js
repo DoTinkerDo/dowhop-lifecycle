@@ -304,8 +304,6 @@ function getLandingTab(href) {
 
   if (document.getElementById(currentTab)) {
     var currentTabElement = document.getElementById(currentTab);
-    // var userID = person.uid || user.uid;
-    // var sessionRef = database.ref('/session').child(userID);
     var allTabs = document.getElementsByClassName('tab');
 
     // We need to toggle the tabs to default color if un-selected...
@@ -313,101 +311,22 @@ function getLandingTab(href) {
       allTabs[i].style.fill = '#000000';
       allTabs[i].style.color = '#000000';
     }
-
     // ...And set the current session tab:
     currentTabElement.style.fill = '#ec1928';
     currentTabElement.style.color = '#ec1928';
-
-    // sessionRef.update({
-    //   current_tab: currentTab
-    // });
   }
-}
-
-function setLandingTabURL(href) {
-  // We are covering two situations:
-  // One for direct URL to particular tab, second for clicking on particular tab:
-  // var currentTab;
-  // console.log('setLandingTab', href);
-  if (typeof href === 'string' && href.match(/-tab/)) {
-    // currentTab = href;
-    console.log('choosing window location based on click event', href.split('-tab')[0]);
-    window.location = '/#' + href.split('-tab')[0];
-  } else {
-    // currentTab = href + '-tab';
-    console.log('choosing window location based on direct link');
-    window.location = '/#' + href;
-  }
-
-  // if (document.getElementById(currentTab)) {
-  // var currentTabElement = document.getElementById(currentTab);
-  // var userID = person.uid || user.uid;
-  // var sessionRef = database.ref('/session').child(userID);
-  // window.location = '/#' + href;
-  // var allTabs = document.getElementsByClassName('tab');
-
-  // We need to toggle the tabs to default color if un-selected...
-  // for (var i = 0; i < allTabs.length; i++) {
-  //   allTabs[i].style.fill = '#000000';
-  //   allTabs[i].style.color = '#000000';
-  // }
-
-  // ...And set the current session tab:
-  // currentTabElement.style.fill = '#ec1928';
-  // currentTabElement.style.color = '#ec1928';
-
-  // sessionRef.update({
-  //   current_tab: currentTab
-  // });
-  // }
 }
 
 // We are ensuring direct routing also happens without refresh:
 window.addEventListener('hashchange', function(e) {
-
-  console.log('e', e);
-  console.log('loc, hash', location.hash);
-  console.log('window event listener triggered!', window.location.hash);
-
-  //parse so right form
-  var userID = auth.currentUser.uid; // Check.
+  var userID = auth.currentUser.uid; 
   var href = window.location.hash;
-
   var currentTab = '';
-  //update database
   currentTab = href.split('#')[1] + "-tab";
-
-  
-
-  // if (typeof href === 'string' && href.match(/-tab/)) {
-  //   currentTab = href;
-  //   // console.log('choosing window location based on click event', href.split('-tab')[0]);
-  //   window.location = '/#' + href.split('-tab')[0];
-  // } else {
-  //   currentTab = href + '-tab';
-  //   // console.log('choosing window location based on direct link');
-  //   window.location = '/#' + href;
-  // }
-
-  console.log('current tab is...', currentTab);
 
   var sessionRef = database.ref('/session').child(userID);
   sessionRef
     .update({
       current_tab: currentTab
     })
-    // .catch(console.error(error));
-
-  // if (window.location.hash != '' && window.location.hash.length > 0) {
-  //     if (typeof href === 'string' && href.match(/-tab/)) {
-  //   // currentTab = href;
-  //   console.log('choosing window location based on click event', href.split('-tab')[0]);
-  //   window.location = '/#' + href.split('-tab')[0];
-  // } else {
-  //   // currentTab = href + '-tab';
-  //   console.log('choosing window location based on direct link');
-  //   window.location = '/#' + href;
-  // }
-  //   // getLandingTab(window.location.hash.match(/#(.+)/)[1]);
-  // }
 });

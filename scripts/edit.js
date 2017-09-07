@@ -240,7 +240,7 @@ function setSession(doWhopSelector) {
 }
 
 function showEditForm(DoWhopID) {
-  console.log('running showeditform');
+  // console.log('running showeditform');
   var editForm = document.getElementById('edit-dowhop-form');
   var key = DoWhopID;
   var doWhopDescriptionRef = database.ref('DoWhopDescriptions').child(key);
@@ -256,7 +256,7 @@ function showEditForm(DoWhopID) {
 }
 
 function clearImageTempValues(currentDoWhopID) {
-  console.log('clear image values, currentDoWhopID', currentDoWhopID);
+  // console.log('clear image values, currentDoWhopID', currentDoWhopID);
   database.ref('DoWhopDescriptions/' + currentDoWhopID + '/updateImageTempData/').update({
     image1Changed: false,
     image2Changed: false,
@@ -268,7 +268,7 @@ function clearImageTempValues(currentDoWhopID) {
 }
 
 function fillInEditForm(DoWhopID) {
-  console.log('running fill in edit form');
+  // console.log('running fill in edit form');
   clearImageTempValues(DoWhopID);
   var editImageCapture1 = document.getElementById('edit-image-capture1');
   var editImageCapture2 = document.getElementById('edit-image-capture2');
@@ -305,7 +305,7 @@ function fillInEditForm(DoWhopID) {
 }
 
 function addImageToFirebase() {
-  console.log('running add image to firebase', this.files);
+  // console.log('running add image to firebase', this.files);
   var currentImageNumber = event.target.getAttribute('data-image-num');
   var currentDoWhopID = document.getElementById('dowhop-selector-container').firstChild.id;
   var fileName = this.files[0].name;
@@ -319,11 +319,11 @@ function addImageToFirebase() {
 
   storage.ref(filePath).put(file).then(function(snapshot) {
     var path = snapshot.metadata.fullPath;
-    console.log('image path of file...', path);
+    // console.log('image path of file...', path);
     storage.ref(path).getDownloadURL().then(function(url) {
       //set potential download URL for current image number. Potential download URL will become actually URL
       //when form is submitted
-      console.log('image download url', url);
+      // console.log('image download url', url);
       var potentialUrlForImage = 'potentialUrlForImage' + currentImageNumber;
       var imageChanged = 'image' + currentImageNumber + 'Changed';
       var obj = {};
