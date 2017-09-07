@@ -33,7 +33,7 @@ function getSesh(clickedID) {
 
   // Show UI for the tabs
   setLandingTabURL(currentTab);
-  // setLandingTab(clickedID); // New.
+  // getLandingTab(clickedID); // New.
   console.log('saving current tab...', currentTab);
   // console.log(creatorUserObjects, doerUserObjects);
   // setAndGetDoWhopDescriptionSession(clickedID);
