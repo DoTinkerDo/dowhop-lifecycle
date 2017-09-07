@@ -106,6 +106,7 @@ function showUIBasedOnTab(userSession) {
     document.getElementById('messages-card').setAttribute('hidden', 'true');
     document.getElementById('review').setAttribute('hidden', 'true');
     document.getElementById('selector-body').removeAttribute('hidden');
+    // setAndGetDoWhopDescriptionSession(userSession); 
     showEditForm(doWhopSelector.firstChild);
     fillInEditForm(doWhopSelector.firstChild);
   } else if (currentTabID === 'review-tab') {
