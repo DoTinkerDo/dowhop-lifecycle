@@ -327,35 +327,39 @@ function getLandingTab(href) {
 function setLandingTabURL(href) {
   // We are covering two situations:
   // One for direct URL to particular tab, second for clicking on particular tab:
-  var currentTab;
+  // var currentTab;
   // console.log('setLandingTab', href);
   if (typeof href === 'string' && href.match(/-tab/)) {
-    currentTab = href;
+    // currentTab = href;
+    console.log('choosing window location based on click event', href.split('-tab')[0]);
+    window.location = '/#' + href.split('-tab')[0];
   } else {
-    currentTab = href + '-tab';
-  }
-
-  if (document.getElementById(currentTab)) {
-    // var currentTabElement = document.getElementById(currentTab);
-    // var userID = person.uid || user.uid;
-    // var sessionRef = database.ref('/session').child(userID);
+    // currentTab = href + '-tab';
+    console.log('choosing window location based on direct link');
     window.location = '/#' + href;
-    // var allTabs = document.getElementsByClassName('tab');
-
-    // We need to toggle the tabs to default color if un-selected...
-    // for (var i = 0; i < allTabs.length; i++) {
-    //   allTabs[i].style.fill = '#000000';
-    //   allTabs[i].style.color = '#000000';
-    // }
-
-    // ...And set the current session tab:
-    // currentTabElement.style.fill = '#ec1928';
-    // currentTabElement.style.color = '#ec1928';
-
-    // sessionRef.update({
-    //   current_tab: currentTab
-    // });
   }
+
+  // if (document.getElementById(currentTab)) {
+  // var currentTabElement = document.getElementById(currentTab);
+  // var userID = person.uid || user.uid;
+  // var sessionRef = database.ref('/session').child(userID);
+  // window.location = '/#' + href;
+  // var allTabs = document.getElementsByClassName('tab');
+
+  // We need to toggle the tabs to default color if un-selected...
+  // for (var i = 0; i < allTabs.length; i++) {
+  //   allTabs[i].style.fill = '#000000';
+  //   allTabs[i].style.color = '#000000';
+  // }
+
+  // ...And set the current session tab:
+  // currentTabElement.style.fill = '#ec1928';
+  // currentTabElement.style.color = '#ec1928';
+
+  // sessionRef.update({
+  //   current_tab: currentTab
+  // });
+  // }
 }
 
 // We are ensuring direct routing also happens without refresh:
