@@ -47,11 +47,31 @@
 	border-color: red;
 }
 
+.footer {
+	background-color: white;
+}
+.left-section {
+	padding-left: 100px;
+}
+.profile-icons {
+	padding-right: 100px;
+
+}
 .social-icons {
-	max-width: 10px;
-	max-height: 10px;
+	max-width: 20px;
+	max-height: 20px;
+	margin-right: 20px;
+	margin-left: 20px;
 }
 
+.pride-message {
+	margin: 0 auto;
+	padding-top: 10px;
+}
+
+a {
+	color: rgba(255, 64, 129, 0) !important;
+}
 @media only screen and (max-width: 500px) {
 	.nav-links {
 		margin-left: 0px;
