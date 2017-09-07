@@ -14,28 +14,26 @@ var datePicker = new flatpickr('#whenDateTimePending', {
 });
 
 function setSesh(clickedID) {
-  // Write tab name to database
+  // Write tab name to database, and to the current window:
   console.log('you clicked setSesh', clickedID);
   var userID = person.uid || user.uid;
-  var currentTab;
+  var currentTab = '';
   if (typeof clickedID === 'string' && clickedID.match(/-tab/)) {
     currentTab = clickedID;
+    // console.log('choosing window location based on click event', clickedID.split('-tab')[0]);
+    window.location = '/#' + clickedID.split('-tab')[0];
   } else {
     currentTab = clickedID + '-tab';
+    // console.log('choosing window location based on direct link');
+    window.location = '/#' + clickedID;
   }
-
   var sessionRef = database.ref('/session').child(userID);
-  // console.log('current tab in setSesh...', currentTab);
-
-  sessionRef.update({
-    current_tab: currentTab
-  });
-
-  // Show UI for the tabs
-  setLandingTabURL(currentTab);
-  console.log('saving current tab...', currentTab);
-  // console.log(creatorUserObjects, doerUserObjects);
-  // setAndGetDoWhopDescriptionSession(clickedID);
+  sessionRef
+    .update({
+      current_tab: currentTab
+    })
+    .then(console.log('saving current tab...', currentTab))
+    .catch(console.error(error));
 }
 
 // Initializes FriendlyChat.
