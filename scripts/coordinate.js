@@ -31,7 +31,7 @@ function setSesh(clickedID) {
     .update({
       current_tab: currentTab
     })
-    .catch(console.error(error));
+    // .catch(console.error(error));
 }
 
 // Initializes FriendlyChat.
@@ -352,7 +352,7 @@ function setAndGetDoWhopDescriptionSession(userSession) {
         doWhopDescriptionTitle +
         '</h1>' +
         '</div>' +
-        '<div id="selector-body" class="mdl-layout__content dowhop-selector-body">' +
+        '<div id="selector-body" hidden class="mdl-layout__content dowhop-selector-body">' +
         '<div class="mdl-card__title">' +
         '<h1 class="mdl-card__title-text">' +
         doWhopDescriptionTitle +
@@ -396,6 +396,9 @@ function setAndGetDoWhopDescriptionSession(userSession) {
         '</section>'
         doWhopSelector.innerHTML = doWhopSelectorDiv;
 
+        if (currentTabID === 'edit-tab') {
+          document.getElementById('selector-body').removeAttribute('hidden')
+        }
       }) //end of appUsersRef .then
     }
   });

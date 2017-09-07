@@ -239,10 +239,10 @@ function setSession(doWhopSelector) {
   // setAndGetDoWhopDescriptionSession(key); // new
 }
 
-function showEditForm(doWhopSelector) {
+function showEditForm(DoWhopID) {
   console.log('running showeditform');
   var editForm = document.getElementById('edit-dowhop-form');
-  var key = doWhopSelector.id;
+  var key = DoWhopID;
   var doWhopDescriptionRef = database.ref('DoWhopDescriptions').child(key);
 
   doWhopDescriptionRef.once('value').then(function(snapshot) {
@@ -267,9 +267,9 @@ function clearImageTempValues(currentDoWhopID) {
   });
 }
 
-function fillInEditForm(doWhopSelector) {
+function fillInEditForm(DoWhopID) {
   console.log('running fill in edit form');
-  clearImageTempValues(doWhopSelector.id);
+  clearImageTempValues(DoWhopID);
   var editImageCapture1 = document.getElementById('edit-image-capture1');
   var editImageCapture2 = document.getElementById('edit-image-capture2');
   var editImageCapture3 = document.getElementById('edit-image-capture3');
@@ -281,7 +281,7 @@ function fillInEditForm(doWhopSelector) {
     snapshot.forEach(function(data) {
       var doWhopDescription = data.val();
 
-      if (data.key === doWhopSelector.id) {
+      if (data.key === DoWhopID) {
         document.getElementById('titleDescription').value = doWhopDescription.titleDescription;
         document.getElementById('whoDescription').value = doWhopDescription.whoDescription;
         // console.log(doWhopDescription.whoDescription);

@@ -84,7 +84,7 @@ function showUIBasedOnTab(userSession) {
     document.getElementById('edit').setAttribute('hidden', 'true');
     document.getElementById('coordinate').setAttribute('hidden', 'true');
     document.getElementById('messages-card').removeAttribute('hidden');
-    document.getElementById('selector-body').setAttribute('hidden', 'true');
+    // document.getElementById('selector-body').setAttribute('hidden', 'true');
     document.getElementById('review').setAttribute('hidden', 'true');
   } else if (currentTabID === 'coordinate-tab') {
     console.log('on coordinate tab');
@@ -92,7 +92,7 @@ function showUIBasedOnTab(userSession) {
     document.getElementById('edit').setAttribute('hidden', 'true');
     document.getElementById('coordinate').removeAttribute('hidden');
     document.getElementById('messages-card').removeAttribute('hidden');
-    document.getElementById('selector-body').setAttribute('hidden', 'true');
+    // document.getElementById('selector-body').setAttribute('hidden', 'true');
     document.getElementById('review').setAttribute('hidden', 'true');
     // FriendlyChat.prototype.loadMessages(); OLD.
     loadMessages(userSession); // NEW.
@@ -105,10 +105,10 @@ function showUIBasedOnTab(userSession) {
     document.getElementById('coordinate').setAttribute('hidden', 'true');
     document.getElementById('messages-card').setAttribute('hidden', 'true');
     document.getElementById('review').setAttribute('hidden', 'true');
-    document.getElementById('selector-body').removeAttribute('hidden');
+    // document.getElementById('selector-body').removeAttribute('hidden');
     // setAndGetDoWhopDescriptionSession(userSession); 
-    showEditForm(doWhopSelector.firstChild);
-    fillInEditForm(doWhopSelector.firstChild);
+    showEditForm(userSession.current_dowhop);
+    fillInEditForm(userSession.current_dowhop);
   } else if (currentTabID === 'review-tab') {
     // TO-DO: Good to clear all unwanted UI elements if nothing's chosen.
     console.log('on review tab');
@@ -117,7 +117,7 @@ function showUIBasedOnTab(userSession) {
     document.getElementById('edit').setAttribute('hidden', 'true');
     document.getElementById('coordinate').setAttribute('hidden', 'true');
     document.getElementById('messages-card').setAttribute('hidden', 'true');
-    document.getElementById('selector-body').setAttribute('hidden', 'true');
+    // document.getElementById('selector-body').setAttribute('hidden', 'true');
     document.getElementById('review').removeAttribute('hidden');
   } else {
     console.log('on NONE tab');
@@ -127,7 +127,7 @@ function showUIBasedOnTab(userSession) {
     document.getElementById('coordinate').setAttribute('hidden', 'true');
     document.getElementById('review').setAttribute('hidden', 'true');
     document.getElementById('messages-card').setAttribute('hidden', 'true');
-    document.getElementById('selector-body') && document.getElementById('selector-body').setAttribute('hidden', 'true');
+    // document.getElementById('selector-body') && document.getElementById('selector-body').setAttribute('hidden', 'true');
   }
 }
 
