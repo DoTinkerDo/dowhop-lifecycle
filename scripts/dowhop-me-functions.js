@@ -80,51 +80,53 @@ function showUIBasedOnTab(userSession) {
   // console.log('Running showandhide v2.0');
   if (currentTabID === 'create-tab') {
     console.log('on create tab');
-    // document.getElementById('create').removeAttribute('hidden');
-    // document.getElementById('edit').setAttribute('hidden', 'true');
-    // document.getElementById('coordinate').setAttribute('hidden', 'true');
-    // document.getElementById('review').setAttribute('hidden', 'true');
-  } else if (currentTabID === 'coordinate-tab') {
-    console.log('on coordinate tab');
-    // document.getElementById('create').setAttribute('hidden', 'true');
-    // document.getElementById('edit').setAttribute('hidden', 'true');
-    // document.getElementById('coordinate').removeAttribute('hidden');
+    document.getElementById('create').removeAttribute('hidden');
+    document.getElementById('edit').setAttribute('hidden', 'true');
+    document.getElementById('coordinate').setAttribute('hidden', 'true');
     document.getElementById('messages-card').removeAttribute('hidden');
     document.getElementById('selector-body').setAttribute('hidden', 'true');
-    // document.getElementById('review').setAttribute('hidden', 'true');
+    document.getElementById('review').setAttribute('hidden', 'true');
+  } else if (currentTabID === 'coordinate-tab') {
+    console.log('on coordinate tab');
+    document.getElementById('create').setAttribute('hidden', 'true');
+    document.getElementById('edit').setAttribute('hidden', 'true');
+    document.getElementById('coordinate').removeAttribute('hidden');
+    document.getElementById('messages-card').removeAttribute('hidden');
+    document.getElementById('selector-body').setAttribute('hidden', 'true');
+    document.getElementById('review').setAttribute('hidden', 'true');
     // FriendlyChat.prototype.loadMessages(); OLD.
     loadMessages(userSession); // NEW.
   } else if (currentTabID === 'edit-tab') {
     console.log('on edit tab');
 
     // We only load edit form if edit tab is clicked:
-    // document.getElementById('edit').removeAttribute('hidden');
-    // document.getElementById('create').setAttribute('hidden', 'true');
-    // document.getElementById('coordinate').setAttribute('hidden', 'true');
+    document.getElementById('create').setAttribute('hidden', 'true');
+    document.getElementById('edit').removeAttribute('hidden');
+    document.getElementById('coordinate').setAttribute('hidden', 'true');
     document.getElementById('messages-card').setAttribute('hidden', 'true');
-    // document.getElementById('review').setAttribute('hidden', 'true');
-    document.getElementById('selector-body') && document.getElementById('selector-body').removeAttribute('hidden');
+    document.getElementById('review').setAttribute('hidden', 'true');
+    document.getElementById('selector-body').removeAttribute('hidden');
     showEditForm(doWhopSelector.firstChild);
     fillInEditForm(doWhopSelector.firstChild);
   } else if (currentTabID === 'review-tab') {
     // TO-DO: Good to clear all unwanted UI elements if nothing's chosen.
     console.log('on review tab');
 
-    // document.getElementById('create').setAttribute('hidden', 'true');
-    // document.getElementById('edit').setAttribute('hidden', 'true');
-    // document.getElementById('coordinate').setAttribute('hidden', 'true');
+    document.getElementById('create').setAttribute('hidden', 'true');
+    document.getElementById('edit').setAttribute('hidden', 'true');
+    document.getElementById('coordinate').setAttribute('hidden', 'true');
     document.getElementById('messages-card').setAttribute('hidden', 'true');
     document.getElementById('selector-body').setAttribute('hidden', 'true');
-    // document.getElementById('review').removeAttribute('hidden');
+    document.getElementById('review').removeAttribute('hidden');
   } else {
     console.log('on NONE tab');
 
-    // document.getElementById('create').setAttribute('hidden', 'true');
-    // document.getElementById('edit').setAttribute('hidden', 'true');
-    //   document.getElementById('coordinate').setAttribute('hidden', 'true');
-    //   document.getElementById('review').setAttribute('hidden', 'true');
-    //   document.getElementById('messages-card').setAttribute('hidden', 'true');
-    //   document.getElementById('selector-body') && document.getElementById('selector-body').setAttribute('hidden', 'true');
+    document.getElementById('create').setAttribute('hidden', 'true');
+    document.getElementById('edit').setAttribute('hidden', 'true');
+    document.getElementById('coordinate').setAttribute('hidden', 'true');
+    document.getElementById('review').setAttribute('hidden', 'true');
+    document.getElementById('messages-card').setAttribute('hidden', 'true');
+    document.getElementById('selector-body') && document.getElementById('selector-body').setAttribute('hidden', 'true');
   }
 }
 

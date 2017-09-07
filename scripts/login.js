@@ -69,7 +69,7 @@
     retrieveMyDoWhops(user.uid);
 
     if (window.location.hash != '' && window.location.hash.length > 0) {
-      setLandingTab(window.location.hash.match(/#(.+)/)[1]);
+      getLandingTab(window.location.hash.match(/#(.+)/)[1]);
     }
 
     // Read the user's saved session:
@@ -91,12 +91,12 @@
         // console.log('current DoWhop in view', userSession.current_dowhop);
         // console.log('current tab', userSession.current_tab);
         // getSessionTab(user.uid);
-        setLandingTab(userSession.current_tab);
+        getLandingTab(userSession.current_tab);
         checkForPendings(userSession); // Sets listener for changes, too.
         manageMessengerImages(userSession);
         // showDoWhopHeaderInView();
         setAndGetDoWhopDescriptionSession(userSession);
-        // showUIBasedOnTab(userSession);
+        showUIBasedOnTab(userSession);
       },
       function(error) {
         console.error(error);
@@ -291,7 +291,7 @@ function checkDefaultDoWhop(person) {
 //   }
 // }
 
-function setLandingTab(href) {
+function getLandingTab(href) {
   // We are covering two situations:
   // One for direct URL to particular tab, second for clicking on particular tab:
   var currentTab;
@@ -362,6 +362,6 @@ function setLandingTabURL(href) {
 window.addEventListener('hashchange', function(e) {
   console.log('window event listener triggered!', window.location.hash);
   if (window.location.hash != '' && window.location.hash.length > 0) {
-    setLandingTab(window.location.hash.match(/#(.+)/)[1]);
+    getLandingTab(window.location.hash.match(/#(.+)/)[1]);
   }
 });
