@@ -107,7 +107,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- Start Mini-Form for Admin Email Data Entry-->
       <div class="mdl-cell mdl-cell--6-col">
         <div class="mdl-card">
@@ -126,6 +126,12 @@
                 <label class="mdl-textfield__label" for="doer-description-email-update">Who is attending this DoWhop (email, please)?</label>
                 <span class="mdl-tooltip" for="doer-description-email-update">Enter multiple doers, seperated, by, Commas</span>
               </div>
+              <div class="mdl-card__supporting-text">
+               <label id ="checkall" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-0">
+                 <input type="checkbox" id="donewhop-status" class="mdl-checkbox__input">
+                 <span class="mdl-checkbox__label">This is a DoneWhop</span>
+               </label>
+             </div
               <!-- END NEW -->
               <div class="mdl-card__actions">
                 <button class="btn btn-default" id="emailSubmit">
@@ -143,9 +149,9 @@
 
     <script src="scripts/dowhop-description-form-admin.js"></script>
     <script>
-      auth.onAuthStateChanged(function(user) {
-        if (user) registerDoWhopDescriptionCallback();
-      });
-    </script>
+    auth.onAuthStateChanged(function(user) {
+  if (user) registerDoWhopDescriptionCallback();
+});
+</script>
   </body>
 </html>
