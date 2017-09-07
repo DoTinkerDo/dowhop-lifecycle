@@ -364,8 +364,50 @@ function setLandingTabURL(href) {
 
 // We are ensuring direct routing also happens without refresh:
 window.addEventListener('hashchange', function(e) {
+
+  console.log('e', e);
+  console.log('loc, hash', location.hash);
   console.log('window event listener triggered!', window.location.hash);
-  if (window.location.hash != '' && window.location.hash.length > 0) {
-    getLandingTab(window.location.hash.match(/#(.+)/)[1]);
-  }
+
+  //parse so right form
+  var userID = auth.currentUser.uid; // Check.
+  var href = window.location.hash;
+
+  var currentTab = '';
+  //update database
+  currentTab = href.split('#')[1] + "-tab";
+
+  
+
+  // if (typeof href === 'string' && href.match(/-tab/)) {
+  //   currentTab = href;
+  //   // console.log('choosing window location based on click event', href.split('-tab')[0]);
+  //   window.location = '/#' + href.split('-tab')[0];
+  // } else {
+  //   currentTab = href + '-tab';
+  //   // console.log('choosing window location based on direct link');
+  //   window.location = '/#' + href;
+  // }
+
+  console.log('current tab is...', currentTab);
+
+  var sessionRef = database.ref('/session').child(userID);
+  sessionRef
+    .update({
+      current_tab: currentTab
+    })
+    // .catch(console.error(error));
+
+  // if (window.location.hash != '' && window.location.hash.length > 0) {
+  //     if (typeof href === 'string' && href.match(/-tab/)) {
+  //   // currentTab = href;
+  //   console.log('choosing window location based on click event', href.split('-tab')[0]);
+  //   window.location = '/#' + href.split('-tab')[0];
+  // } else {
+  //   // currentTab = href + '-tab';
+  //   console.log('choosing window location based on direct link');
+  //   window.location = '/#' + href;
+  // }
+  //   // getLandingTab(window.location.hash.match(/#(.+)/)[1]);
+  // }
 });
