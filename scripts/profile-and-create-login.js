@@ -59,6 +59,7 @@
   }
 
   function handleSignedInUser(user) {
+    profileProgessNodeInit(user);
     loginPage.style.display = 'none';
     applicationPage.style.display = 'block';
   }
@@ -93,20 +94,13 @@
   window.addEventListener('load', handleOnAuthStateChange);
 })();
 
-// TODO map what parts of app use this...
-// 1) person is used by session -> confirmed line 219!
-// 2) now also used by reviews when user signs in for the first time.
-
 // ('use strict');
 // setting currentUser globals...
 var person = null;
-// var currentTab = '';
 
 auth.onAuthStateChanged(function(user) {
   if (user) {
     person = user;
-    // retrieveMyDoWhops(person.uid);
-    // checkDefaultDoWhop(person);
   } else {
     console.log('PERSON signed out');
   }
