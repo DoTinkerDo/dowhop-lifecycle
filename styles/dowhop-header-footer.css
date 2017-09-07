@@ -67,9 +67,14 @@
 .pride-message {
 	margin: 0 auto;
 	padding-top: 10px;
+	padding-left:60px;
 }
 
-a {
+.copyright {
+	color:grey;
+}
+
+.social-link {
 	color: rgba(255, 64, 129, 0) !important;
 }
 @media only screen and (max-width: 500px) {
