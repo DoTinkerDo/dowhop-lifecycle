@@ -147,7 +147,7 @@ var currentTab = '';
 auth.onAuthStateChanged(function(user) {
   if (user) {
     person = user;
-    // retrieveMyDoWhops(person.uid);
+    retrieveMyDoWhops(person.uid);
     checkDefaultDoWhop(person);
   } else {
     console.log('PERSON signed out');
@@ -319,14 +319,13 @@ function getLandingTab(href) {
 
 // We are ensuring direct routing also happens without refresh:
 window.addEventListener('hashchange', function(e) {
-  var userID = auth.currentUser.uid; 
+  var userID = auth.currentUser.uid;
   var href = window.location.hash;
   var currentTab = '';
-  currentTab = href.split('#')[1] + "-tab";
+  currentTab = href.split('#')[1] + '-tab';
 
   var sessionRef = database.ref('/session').child(userID);
-  sessionRef
-    .update({
-      current_tab: currentTab
-    })
+  sessionRef.update({
+    current_tab: currentTab
+  });
 });
