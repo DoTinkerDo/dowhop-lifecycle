@@ -239,12 +239,19 @@ function revealEditEmailForm(node) {
   var currentNodeTitle = '';
   doWhopDescriptionKeyForUpdate = node.id;
   var doWhopDescriptionRef = doWhopDescriptionsRef.child(doWhopDescriptionKeyForUpdate);
-  doWhopDescriptionRef.once('value', function(data) {
+  doWhopDescriptionRef.once('value').then(function(data) {
     var doWhopDescription = data.val();
     var currentNodeTitle = doWhopDescription.titleDescription;
+    var DoneWhopStatus = doWhopDescription.isDoneWhop === true;
+    console.log(DoneWhopStatus);
     selectedForEdit.innerHTML = 'Edit: ' + currentNodeTitle;
     creatorDescriptionUpdate.value = doWhopDescription.creatorDescription;
     doerDescriptionUpdate.value = doWhopDescription.doerDescription;
+
+    // Pre-marking the checkbox in form:
+    DoneWhopStatus === true
+      ? document.getElementById('donewhop-checkbox').MaterialCheckbox.check()
+      : document.getElementById('donewhop-checkbox').MaterialCheckbox.uncheck();
   });
 }
 
@@ -296,14 +303,14 @@ function addToMyDoWhops(node) {
 
 var DoneWhopCheckbox = document.getElementById('donewhop-checkbox');
 
-DoneWhopCheckBox.addEventListener('click', toggleDoneWhopStatus);
+document.getElementById('donewhop-checkbox').addEventListener('click', toggleDoneWhopStatus);
 
 function toggleDoneWhopStatus() {
-  DoneWhopCheckBox.classList.contains('is-checked') === true
-    ? DoneWhopCheckBox.MaterialCheckbox.uncheck()
-    : DoneWhopCheckBox.MaterialCheckbox.check();
+  document.getElementById('donewhop-checkbox').classList.contains('is-checked') === true
+    ? document.getElementById('donewhop-checkbox').MaterialCheckbox.uncheck()
+    : document.getElementById('donewhop-checkbox').MaterialCheckbox.check();
 }
 
 function returnDoneWhopStatus() {
-  return DoneWhopCheckBox.classList.contains('is-checked') === true;
+  return document.getElementById('donewhop-checkbox').classList.contains('is-checked') === true;
 }
