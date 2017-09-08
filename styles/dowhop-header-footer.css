@@ -7,7 +7,8 @@
 }
 
 .header-title {
-	margin-left: 140px;
+	margin-left: 140px !important;
+	margin-top: 0px !important;
 }
 
 .main-picture {
@@ -37,7 +38,7 @@
 	top: 0% !important;
 }
 
-.profile-picture {
+.profile-picture-header {
 	max-width: 100%;
 	max-height: 100%; 
 	border-radius: 50%;
