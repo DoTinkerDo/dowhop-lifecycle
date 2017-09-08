@@ -68,40 +68,40 @@
     registerMessaging(user);
     retrieveMyDoWhops(user.uid);
 
-    if (window.location.hash != '' && window.location.hash.length > 0) {
-      getLandingTab(window.location.hash.match(/#(.+)/)[1]);
-    }
-
-    // Read the user's saved session:
-
-    var sessionRef = database.ref('/session').child(user.uid);
-    var userSession;
-
-    sessionRef.on(
-      'value',
-      function(snap) {
-        if (!snap.val()) {
-          var userSession = {
-            current_tab: 'coordinate-tab'
-            // To-Do: Set default doWhopDescriptionKey.
-          };
-          sessionRef.update(userSession);
-        }
-        userSession = snap.val();
-        // console.log('current DoWhop in view', userSession.current_dowhop);
-        // console.log('current tab', userSession.current_tab);
-        // getSessionTab(user.uid);
-        getLandingTab(userSession.current_tab);
-        checkForPendings(userSession); // Sets listener for changes, too.
-        manageMessengerImages(userSession);
-        // showDoWhopHeaderInView();
-        setAndGetDoWhopDescriptionSession(userSession);
-        showUIBasedOnTab(userSession);
-      },
-      function(error) {
-        console.error(error);
-      }
-    );
+    // if (window.location.hash != '' && window.location.hash.length > 0) {
+    //   getLandingTab(window.location.hash.match(/#(.+)/)[1]);
+    // }
+    //
+    // // Read the user's saved session:
+    //
+    // var sessionRef = database.ref('/session').child(user.uid);
+    // var userSession;
+    //
+    // sessionRef.on(
+    //   'value',
+    //   function(snap) {
+    //     if (!snap.val()) {
+    //       var userSession = {
+    //         current_tab: 'coordinate-tab'
+    //         // To-Do: Set default doWhopDescriptionKey.
+    //       };
+    //       sessionRef.update(userSession);
+    //     }
+    //     userSession = snap.val();
+    //     // console.log('current DoWhop in view', userSession.current_dowhop);
+    //     // console.log('current tab', userSession.current_tab);
+    //     // getSessionTab(user.uid);
+    //     getLandingTab(userSession.current_tab);
+    //     checkForPendings(userSession); // Sets listener for changes, too.
+    //     manageMessengerImages(userSession);
+    //     // showDoWhopHeaderInView();
+    //     setAndGetDoWhopDescriptionSession(userSession);
+    //     showUIBasedOnTab(userSession);
+    //   },
+    //   function(error) {
+    //     console.error(error);
+    //   }
+    // );
   }
 
   function handleSignedOutUser() {
@@ -115,7 +115,7 @@
     auth.onAuthStateChanged(function(user) {
       // Check if current user email is admin in Firebase:
       var approved = false;
-
+      console.log('authstatechanged');
       database.ref().child('admin/').once('value', function(snapshot) {
         // Cycling through the data to see if admin is permitted:
         snapshot.forEach(function(data) {
@@ -128,6 +128,42 @@
         });
         return approved;
       });
+      // Moving per mobile test
+
+      if (window.location.hash != '' && window.location.hash.length > 0) {
+        getLandingTab(window.location.hash.match(/#(.+)/)[1]);
+      }
+
+      // Read the user's saved session:
+
+      var sessionRef = database.ref('/session').child(user.uid);
+      var userSession;
+
+      sessionRef.on(
+        'value',
+        function(snap) {
+          if (!snap.val()) {
+            var userSession = {
+              current_tab: 'coordinate-tab'
+              // To-Do: Set default doWhopDescriptionKey.
+            };
+            sessionRef.update(userSession);
+          }
+          userSession = snap.val();
+          // console.log('current DoWhop in view', userSession.current_dowhop);
+          // console.log('current tab', userSession.current_tab);
+          // getSessionTab(user.uid);
+          getLandingTab(userSession.current_tab);
+          checkForPendings(userSession); // Sets listener for changes, too.
+          manageMessengerImages(userSession);
+          // showDoWhopHeaderInView();
+          setAndGetDoWhopDescriptionSession(userSession);
+          showUIBasedOnTab(userSession);
+        },
+        function(error) {
+          console.error(error);
+        }
+      );
 
       user ? handleSignedInUser(user) : handleSignedOutUser();
     });
