@@ -242,10 +242,19 @@ img {
   text-decoration: none;
 }
 
+#my-profile-social {
+  cursor: pointer;
+  margin-left: 47px;
+}
+
 @media screen and (max-width: 500px) {
   #edit-profile-button {
     margin-left: 40px;
   }
+
+  #my-profile-social {
+    margin-left: 32px;
+  }  
 }
 
 #edit-profile-button:hover,
@@ -259,10 +268,6 @@ img {
   cursor: pointer;
 }
 
-#my-profile-social {
-  cursor: pointer;
-  margin-left: 81px;
-}
 
 #my-profile-social-TW {
   height: 20px;
