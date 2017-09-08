@@ -151,6 +151,7 @@
           // console.log('current tab', userSession.current_tab);
           // getSessionTab(user.uid);
           // getLandingTab(userSession.current_tab);
+          renderDoWhopMainHeader(userSession.current_dowhop);
           checkForPendings(userSession); // Sets listener for changes, too.
           manageMessengerImages(userSession);
           // showDoWhopHeaderInView();
