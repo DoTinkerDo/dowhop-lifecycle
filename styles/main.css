@@ -836,14 +836,29 @@ button {
 /*----------------------------------------*/
 /*-------------EDIT DOWHOP FORM-----------*/
 /*----------------------------------------*/
-.edit-form-images div {
+.edit-form-image-container{
   width: 31% !important;
+  position: relative;
+  padding-bottom: 31%;
   margin-right: 5px;
   float: left;
+  overflow: hidden;
 }
 
 .edit-form-images img {
+  position: absolute;
+  height: 100%;
   width: 100%;
+}
+
+.edit-form-file-picker {
+  width: 31%;
+  float: left;
+  margin-right: 5px;
+}
+
+#submit-update-dowhop {
+  margin-top: 10px
 }
 
 /*profile stuff to be moved later*/

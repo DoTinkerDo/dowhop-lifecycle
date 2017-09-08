@@ -292,33 +292,34 @@
               </div>
               <div class="edit-form-images">
                 <!--These images get their src dynamically through edit.js from firebase storage  -->
-                <div>
+                <div class="edit-form-image-container">
                   <img id="image1" src="" alt="DoWhop Image 1">
-                  <div id="edit-div-1">
-                    <label for="edit-image-capture1">
-                      <i class="material-icons">perm_media</i>
-                      <input class="image-capture hide-component" id="edit-image-capture1" data-image-num="1" type="file" accept="image/*" capture="camera">
-                    </label>
-                  </div>
                 </div>
-                <div>
+                <div class="edit-form-image-container">
                   <img id="image2" src="" alt="DoWhop Image 2">
-                  <div id="edit-div-2">
-                    <label for="edit-image-capture2">
-                      <i class="material-icons">perm_media</i>
-                      <input class="image-capture hide-component" id="edit-image-capture2" data-image-num="2" type="file" accept="image/*" capture="camera">
-                    </label>
-                  </div>
                 </div>
-                <div>
+                <div class="edit-form-image-container">
                   <img id="image3" src="" alt="DoWhop Image 3">
-                  <div id="edit-div-3">
-                    <label for="edit-image-capture3">
-                      <i class="material-icons">perm_media</i>
-                      <input class="image-capture hide-component" id="edit-image-capture3" data-image-num="3" type="file" accept="image/*" capture="camera">
-                    </label>
-                  </div>
                 </div>
+
+                <div id="edit-div-1" class="edit-form-file-picker">
+                  <label for="edit-image-capture1">
+                    <i class="material-icons">perm_media</i>
+                    <input class="image-capture hide-component" id="edit-image-capture1" data-image-num="1" type="file" accept="image/*" capture="camera">
+                  </label>
+                </div>
+                <div id="edit-div-2" class="edit-form-file-picker">
+                  <label for="edit-image-capture2">
+                    <i class="material-icons">perm_media</i>
+                    <input class="image-capture hide-component" id="edit-image-capture2" data-image-num="2" type="file" accept="image/*" capture="camera">
+                  </label>
+                </div> 
+                <div id="edit-div-3" class="edit-form-file-picker">
+                  <label for="edit-image-capture3">
+                    <i class="material-icons">perm_media</i>
+                    <input class="image-capture hide-component" id="edit-image-capture3" data-image-num="3" type="file" accept="image/*" capture="camera">
+                  </label>
+                </div>                                        
               </div>
               <!-- END NEW -->
               <div class="mdl-card__actions">
