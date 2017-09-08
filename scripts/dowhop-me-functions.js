@@ -102,7 +102,8 @@ function showUIBasedOnTab(userSession) {
     document.getElementById('messages-card').setAttribute('hidden', 'true');
     document.getElementById('review').setAttribute('hidden', 'true');
     // document.getElementById('selector-body').removeAttribute('hidden');
-    // setAndGetDoWhopDescriptionSession(userSession); 
+    // setAndGetDoWhopDescriptionSession(userSession);
+    // document.getElementById('selector-body').removeAttribute('hidden');
     showEditForm(userSession.current_dowhop);
     fillInEditForm(userSession.current_dowhop);
   } else if (currentTabID === 'review-tab') {

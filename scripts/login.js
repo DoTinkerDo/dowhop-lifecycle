@@ -153,9 +153,10 @@
           // getLandingTab(userSession.current_tab);
           renderDoWhopMainHeader(userSession.current_dowhop);
           checkForPendings(userSession); // Sets listener for changes, too.
+          checkDoWhopDetails(userSession.current_dowhop);
           manageMessengerImages(userSession);
           // showDoWhopHeaderInView();
-          setAndGetDoWhopDescriptionSession(userSession);
+          // setAndGetDoWhopDescriptionSession(userSession);
           getLandingTab(userSession.current_tab);
           showUIBasedOnTab(userSession);
         });
