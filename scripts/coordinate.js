@@ -13,30 +13,6 @@ var datePicker = new flatpickr('#whenDateTimePending', {
   dateFormat: 'Y-m-d H:i'
 });
 
-function getSesh(clickedID) {
-  // Write tab name to database
-  var userID = person.uid || user.uid;
-  var currentTab;
-  if (typeof clickedID === 'string' && clickedID.match(/-tab/)) {
-    currentTab = clickedID;
-  } else {
-    currentTab = clickedID + '-tab';
-  }
-
-  var sessionRef = database.ref('/session').child(userID);
-  // console.log('current tab in getSesh...', currentTab);
-
-  sessionRef.update({
-    current_tab: currentTab
-  });
-
-  // Show UI for the tabs
-  setLandingTab(clickedID); // New.
-  // console.log('running getSesh...');
-  // console.log(creatorUserObjects, doerUserObjects);
-  // setAndGetDoWhopDescriptionSession(clickedID);
-}
-
 // Initializes FriendlyChat.
 function FriendlyChat() {
   this.checkSetup();
@@ -273,85 +249,78 @@ function setAndGetDoWhopDescriptionSession(userSession) {
       var doerEmails = whoInformation.split(', ');
       var creatorEmail = data.val().creatorDescription;
 
-      appUsersRef
-        .once('value')
-        .then(function(snap) {
-          // console.log('Resetting the values...');
-          doerUserObjects.length = 0; // Resetting the global variable.
-          creatorUserObjects.length = 0;
-          snap.forEach(function(childSnap) {
-            doerEmails.filter(function(doerEmail) {
-              if (doerEmail === childSnap.val().email) {
-                // console.log('it matches!');
-                // console.log(childSnap.val());
-                doerUserObjects.push(childSnap.val());
-              }
-            });
-            if (creatorEmail === childSnap.val().email) {
-              creatorUserObjects.push(childSnap.val());
+      appUsersRef.once('value')
+      .then(function(snap) {
+        doerUserObjects.length = 0; // Resetting the global variable.
+        creatorUserObjects.length = 0;
+
+        snap.forEach(function(childSnap) {
+          doerEmails.filter(function(doerEmail) {
+            if (doerEmail === childSnap.val().email) {
+              // console.log('it matches!');
+              // console.log(childSnap.val());
+              // console.log('childsnap.val', childSnap.val());
+              doerUserObjects.push(childSnap.val());
             }
           });
-        })
-        .then(
-          (function() {
-            if (creatorUserObjects && creatorUserObjects.length > 0) {
-              _.map(creatorUserObjects, function(userObject) {
-                renderCreatorIcon +=
-                  '<div class="user-avatar-container">' +
-                  "<a href='/profile.html?" +
-                  userObject.uid +
-                  "'>" +
-                  "<div class='user-avatar'>" +
-                  "<img src='" +
-                  userObject.photoURL +
-                  "'>" +
-                  '</img>' +
-                  '</div>' +
-                  '<div class="user-handle">' +
-                  userObject.displayName +
-                  '</div>' +
-                  '</a>' +
-                  '</div>';
-              });
-              // Adding a closing segment that will separate Creators from Doers in View:
-              renderCreatorIcon += '<div class="user-avatar-container user-avatar-separator">' + 'will meet' + '</div>';
-            }
+          if (creatorEmail === childSnap.val().email) {
+            creatorUserObjects.push(childSnap.val());
+          }
+        });
+        if (creatorUserObjects && creatorUserObjects.length > 0) {
+          _.map(creatorUserObjects, function(userObject) {
+            renderCreatorIcon +=
+              '<div class="user-avatar-container">' +
+              "<a href='/profile.html?" +
+              userObject.uid +
+              "'>" +
+              "<div class='user-avatar'>" +
+              "<img src='" +
+              userObject.photoURL +
+              "'>" +
+              '</img>' +
+              '</div>' +
+              '<div class="user-handle">' +
+              userObject.displayName +
+              '</div>' +
+              '</a>' +
+              '</div>';
+          });
+          // Adding a closing segment that will separate Creators from Doers in View:
+          renderCreatorIcon += '<div class="user-avatar-container user-avatar-separator">' + 'will meet' + '</div>';
+        }
 
-            if (doerUserObjects && doerUserObjects.length > 0) {
-              _.map(doerUserObjects, function(userObject) {
-                renderCreatorIcon +=
-                  '<div class="user-avatar-container">' +
-                  "<a href='/profile.html?" +
-                  userObject.uid +
-                  "'>" +
-                  "<div class='user-avatar'>" +
-                  "<img class='user-avatar' src='" +
-                  userObject.photoURL +
-                  "'>" +
-                  '</img>' +
-                  '</div>' +
-                  '<div class="user-handle">' +
-                  userObject.displayName +
-                  '</div>' +
-                  '</a>' +
-                  '</div>';
-              });
-            }
-          })()
-        );
-      // console.log('final results....', doerUserObjects, creatorUserObjects);
-      if (data.val().whereAddress && data.val().whereAddress != 'By request') {
-        renderWhereInformation = data.val().whereAddress;
-      }
-      // Adding more specifc 'time' information, if it has been included:
-      if (data.val().whenDateTime && data.val().whenDateTime != ('By request' || 'tbd')) {
-        renderWhenInformation =
-          moment(data.val().whenDateTime).format('dddd MMMM D, YYYY') +
-          ' at: ' +
-          moment(data.val().whenDateTime).format('h:mmA');
-      }
-      // console.log('Returning View div...');
-      return (doWhopSelectorDiv +=
+        if (doerUserObjects && doerUserObjects.length > 0) {
+          _.map(doerUserObjects, function(userObject) {
+            renderCreatorIcon +=
+              '<div class="user-avatar-container">' +
+              "<a href='/profile.html?" +
+              userObject.uid +
+              "'>" +
+              "<div class='user-avatar'>" +
+              "<img class='user-avatar' src='" +
+              userObject.photoURL +
+              "'>" +
+              '</img>' +
+              '</div>' +
+              '<div class="user-handle">' +
+              userObject.displayName +
+              '</div>' +
+              '</a>' +
+              '</div>';
+          });
+        } //end of second object map if
+        if (data.val().whereAddress && data.val().whereAddress != 'By request') {
+          renderWhereInformation = data.val().whereAddress;
+        }
+        // Adding more specifc 'time' information, if it has been included:
+        if (data.val().whenDateTime && data.val().whenDateTime != ('By request' || 'tbd')) {
+          renderWhenInformation =
+            moment(data.val().whenDateTime).format('dddd MMMM D, YYYY') +
+            ' at: ' +
+            moment(data.val().whenDateTime).format('h:mmA');
+        } //end of where stuff if
+        doWhopSelectorDiv +=
         "<section id='" +
         data.key +
         "' class='dowhop-selector-block' onclick='setSession(this)''>" +
@@ -362,7 +331,7 @@ function setAndGetDoWhopDescriptionSession(userSession) {
         doWhopDescriptionTitle +
         '</h1>' +
         '</div>' +
-        '<div id="selector-body" class="mdl-layout__content dowhop-selector-body">' +
+        '<div id="selector-body" hidden class="mdl-layout__content dowhop-selector-body">' +
         '<div class="mdl-card__title">' +
         '<h1 class="mdl-card__title-text">' +
         doWhopDescriptionTitle +
@@ -403,10 +372,15 @@ function setAndGetDoWhopDescriptionSession(userSession) {
         '</p>' +
         '</div>' +
         '</div>' +
-        '</section>');
+        '</section>'
+        doWhopSelector.innerHTML = doWhopSelectorDiv;
+
+        if (currentTabID === 'edit-tab') {
+          document.getElementById('selector-body').removeAttribute('hidden')
+        }
+      }) //end of appUsersRef .then
     }
   });
-  doWhopSelector.innerHTML = doWhopSelectorDiv;
 }
 
 // Saves a new message on the Firebase DB:

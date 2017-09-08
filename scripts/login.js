@@ -69,7 +69,7 @@
     retrieveMyDoWhops(user.uid);
 
     if (window.location.hash != '' && window.location.hash.length > 0) {
-      setLandingTab(window.location.hash.match(/#(.+)/)[1]);
+      getLandingTab(window.location.hash.match(/#(.+)/)[1]);
     }
 
     // Read the user's saved session:
@@ -91,7 +91,7 @@
         // console.log('current DoWhop in view', userSession.current_dowhop);
         // console.log('current tab', userSession.current_tab);
         // getSessionTab(user.uid);
-        setLandingTab(getSessionTab(user.uid));
+        getLandingTab(userSession.current_tab);
         checkForPendings(userSession); // Sets listener for changes, too.
         manageMessengerImages(userSession);
         // showDoWhopHeaderInView();
@@ -155,6 +155,7 @@ auth.onAuthStateChanged(function(user) {
 });
 
 function getSessionTab(uid) {
+  // Deprecated.
   var currentTab;
   var sessionRef = database.ref('/session').child(uid);
   sessionRef.on('value', function(snap) {
@@ -290,7 +291,7 @@ function checkDefaultDoWhop(person) {
 //   }
 // }
 
-function setLandingTab(href) {
+function getLandingTab(href) {
   // We are covering two situations:
   // One for direct URL to particular tab, second for clicking on particular tab:
   var currentTab;
@@ -303,8 +304,6 @@ function setLandingTab(href) {
 
   if (document.getElementById(currentTab)) {
     var currentTabElement = document.getElementById(currentTab);
-    // var userID = person.uid || user.uid;
-    // var sessionRef = database.ref('/session').child(userID);
     var allTabs = document.getElementsByClassName('tab');
 
     // We need to toggle the tabs to default color if un-selected...
@@ -312,20 +311,22 @@ function setLandingTab(href) {
       allTabs[i].style.fill = '#000000';
       allTabs[i].style.color = '#000000';
     }
-
     // ...And set the current session tab:
     currentTabElement.style.fill = '#ec1928';
     currentTabElement.style.color = '#ec1928';
-
-    // sessionRef.update({
-    //   current_tab: currentTab
-    // });
   }
 }
 
 // We are ensuring direct routing also happens without refresh:
 window.addEventListener('hashchange', function(e) {
-  if (window.location.hash != '' && window.location.hash.length > 0) {
-    setLandingTab(window.location.hash.match(/#(.+)/)[1]);
-  }
+  var userID = auth.currentUser.uid; 
+  var href = window.location.hash;
+  var currentTab = '';
+  currentTab = href.split('#')[1] + "-tab";
+
+  var sessionRef = database.ref('/session').child(userID);
+  sessionRef
+    .update({
+      current_tab: currentTab
+    })
 });
