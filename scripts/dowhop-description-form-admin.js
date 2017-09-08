@@ -294,14 +294,16 @@ function addToMyDoWhops(node) {
 
 // Adding funcationality to manage DoneWhop checkbox and status.
 
-document.getElementById('donewhop-checkbox').addEventListener('click', toggleDoneWhopStatus);
+var DoneWhopCheckbox = document.getElementById('donewhop-checkbox');
+
+DoneWhopCheckBox.addEventListener('click', toggleDoneWhopStatus);
 
 function toggleDoneWhopStatus() {
-  document.getElementById('donewhop-checkbox').classList.contains('is-checked') === true
-    ? document.getElementById('donewhop-checkbox').MaterialCheckbox.uncheck()
-    : document.getElementById('donewhop-checkbox').MaterialCheckbox.check();
+  DoneWhopCheckBox.classList.contains('is-checked') === true
+    ? DoneWhopCheckBox.MaterialCheckbox.uncheck()
+    : DoneWhopCheckBox.MaterialCheckbox.check();
 }
 
 function returnDoneWhopStatus() {
-  return document.getElementById('donewhop-checkbox').classList.contains('is-checked') === true;
+  return DoneWhopCheckBox.classList.contains('is-checked') === true;
 }
