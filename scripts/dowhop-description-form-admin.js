@@ -30,7 +30,7 @@ var submitNewDoWhopBtn = document.getElementById('create-new-dowhop');
 var emailSubmitBtn = document.getElementById('emailSubmit');
 
 submitNewDoWhopBtn.addEventListener('click', submitNewDoWhopEntry);
-emailSubmitBtn.addEventListener('click', updateCreatorDoerEmails);
+emailSubmitBtn.addEventListener('click', updateCreatorDoerEmailsDoneWhop);
 
 function submitNewDoWhopEntry(e) {
   e.preventDefault();
@@ -248,16 +248,31 @@ function revealEditEmailForm(node) {
   });
 }
 
-function updateCreatorDoerEmails(e) {
+function updateCreatorDoerEmailsDoneWhop(e) {
   e.preventDefault();
   console.log(returnDoneWhopStatus());
+  var doneWhopStatus = returnDoneWhopStatus(); // Checking if DoWhop has been marked as 'done' via true, false.
   adminEditDoWhopForm.removeAttribute('hidden');
-  doWhopDescriptionsRef.child(doWhopDescriptionKeyForUpdate).update({
-    creatorDescription: creatorDescriptionUpdate.value.toLowerCase(),
-    doerDescription: doerDescriptionUpdate.value.toLowerCase()
+  var doWhopRef = doWhopDescriptionsRef.child(doWhopDescriptionKeyForUpdate);
+
+  if (creatorDescriptionUpdate.value) {
+    doWhopRef.update({
+      creatorDescription: creatorDescriptionUpdate.value.toLowerCase()
+    });
+  }
+
+  if (doerDescriptionUpdate.value) {
+    doWhopRef.update({
+      doerDescription: doerDescriptionUpdate.value.toLowerCase()
+    });
+  }
+
+  doWhopRef.update({
+    isDoneWhop: doneWhopStatus
   });
+
   selectedForEdit.innerHTML = 'Edit your DoWhop';
-  error.innerHTML = 'Emails have been updated!';
+  error.innerHTML = 'Details have been updated!';
   adminEditDoWhopForm.reset();
 }
 
