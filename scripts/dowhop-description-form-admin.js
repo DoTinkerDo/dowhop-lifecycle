@@ -250,6 +250,7 @@ function revealEditEmailForm(node) {
 
 function updateCreatorDoerEmails(e) {
   e.preventDefault();
+  console.log(document.getElementById('donewhop-checkbox').classList.contains('is-checked') === true);
   adminEditDoWhopForm.removeAttribute('hidden');
   doWhopDescriptionsRef.child(doWhopDescriptionKeyForUpdate).update({
     creatorDescription: creatorDescriptionUpdate.value.toLowerCase(),
@@ -274,4 +275,14 @@ function addToMyDoWhops(node) {
     .child('doer')
     .child(node.parentElement.id)
     .update({ doer: true });
+}
+
+// Adding funcationality to manage DoneWhop checkbox and status.
+
+document.getElementById('donewhop-checkbox').addEventListener('click', checkDoneWhop);
+
+function checkDoneWhop() {
+  document.getElementById('donewhop-checkbox').classList.contains('is-checked') === true
+    ? document.getElementById('donewhop-checkbox').MaterialCheckbox.uncheck()
+    : document.getElementById('donewhop-checkbox').MaterialCheckbox.check();
 }
