@@ -243,10 +243,19 @@ function renderDoWhopMainHeader(userSessionCurrentDoWhop) {
 
 function checkDoWhopDetails(userSessionCurrentDoWhop) {
   var currentDoWhopID = userSessionCurrentDoWhop; // This is available from higher scope.
-  // var doWhopSelector = document.getElementById('dowhop-selector-container');
-  var newOutPut = '';
+  // var doWhopSelectorBody = document.getElementById('dowhop-selector-container-body');
+  // doWhopSelectorBody.innerHTML = ''; // Resetting the field to new info is up-to-date
+  //
+  // var newOutPut = '';
   // Turning on a listener to the DoWhopDescriptions for a given DoWhop ID - as updates change.
   firebase.database().ref().child('DoWhopDescriptions/' + userSessionCurrentDoWhop).on('value', function(data) {
+    // var doWhopSelectorBody = document.getElementById('dowhop-selector-container-body');
+    console.log('reset field...');
+    // doWhopSelectorBody.innerHTML = ''; // Resetting the field to new info is up-to-date
+    var doWhopSelectorBody = document.getElementById('dowhop-selector-container-body');
+    doWhopSelectorBody.innerHTML = ''; // Resetting the field to new info is up-to-date
+
+    var newOutPut = '';
     // Calling points of information:
     var doWhopDescriptionTitle = data.val().titleDescription;
     // creatorDescription doer
@@ -313,7 +322,7 @@ function checkDoWhopDetails(userSessionCurrentDoWhop) {
       '</p>' +
       '</div>';
     console.log(newOutPut);
-    document.getElementById('dowhop-selector-container').innerHTML += newOutPut;
+    doWhopSelectorBody.innerHTML = newOutPut;
   });
 }
 // COMMENTING OUT.
