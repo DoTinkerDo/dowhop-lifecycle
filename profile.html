@@ -56,16 +56,6 @@
 <body>
 
 <div class='mdl-layout mdl-js-layout mdl-layout--fixed-header' style="padding-bottom: 500px;">
-      <div class="mdl-layout__drawer">
-          <span class="mdl-layout-title">Acme</span>
-          <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="#">Products</a>
-            <a class="mdl-navigation__link" href="#">Services</a>
-            <a class="mdl-navigation__link" href="#">Portfolios</a>
-            <a class="mdl-navigation__link" href="#">Achievements</a>
-            <a class="mdl-navigation__link" href="#">Blog</a>
-          </nav>
-      </div>
       <header class='mdl-layout__header header'>
         <div class='mdl-layout__header-row header-row'>
           <span class="mdl-layout-title header-title">
@@ -73,7 +63,7 @@
               <img class="main-picture" id="comp-izopk6kuimgimage" alt="" data-type="image" data-reactid=".0.$SITE_ROOT.$desktop_siteRoot.$SITE_HEADER.$centeredContent.$inlineContent.$comp-izopk6ku.$link.0.$image" src="https://static.wixstatic.com/media/de271e_ea1226cc811544329def68d0538f6a64~mv2_d_2250_1500_s_2.png/v1/fill/w_264,h_132,al_c,usm_0.66_1.00_0.01/de271e_ea1226cc811544329def68d0538f6a64~mv2_d_2250_1500_s_2.png">
             </a>
           </span>
-          
+
           <nav class="mdl-navigation nav-links">
             <a class='mdl-navigation__link' href='https://www.dowhop.com/explore'>Marketplace</a>
             <span class="divider"></span>
@@ -84,31 +74,31 @@
             <a href="./profile.html">
             <img class="profile-picture-header" id="my-profile-picture-header" src="" alt="user image">
             </a>
-            
+
             <div class="nav-dropdown-content">
               <a href="./profile.html">My Profile</a>
               <a href="/" onclick="logOut()">Logout</a>
             </div>
-            
+
           </div>
         </div>
       </header>
       </div>
 
 <div class='container'>
-  <div class='content-grid mdl-grid'> 
+  <div class='content-grid mdl-grid'>
     <div class='mdl-cell mdl-cell--12-col mdl-cell--4-col-phone' id ="background-div" >
       <img class='background-photo' id="background-photo" src="https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/app-image-assets%2FDefaultDoWhop_banner.jpg?alt=media&token=f7f452b9-6955-418e-b425-11dcec3bf5d6" >
-    </div> 
+    </div>
       <div class ="my-profile-picture mdl-cell mdl-cell--8-col mdl-cell--4-col-phone">
         <img id="my-profile-picture" src="" alt="User profile image."/>
         <div id="my-display-name"></div>
       </div>
-      
+
         <div class="about-div mdl-cell mdl-cell--8-col mdl-cell--bottom mdl-cell--4-col-phone">
           <div id="my-profile-about"></div>
         </div>
-      
+
   </div>
 
   <div class='mdl-grid grid1'>
@@ -143,8 +133,8 @@
               <span id="new-edit-profile">
               <i class="material-icons mdl-list__item-icon">edit</i>
               <span>Edit Profile</span></span>
-            </span>    
-          </li>  
+            </span>
+          </li>
 
 
           <li class="mdl-list__item mdl-list__item--two-line">
@@ -175,7 +165,7 @@
               <span>Verify Social</span>
               <span class="verify-social-done mdl-list__item-sub-title">Verified by DoWhop</span>
               <span class="verify-social-not-done mdl-list__item-sub-title">Pending Verification</span>
-            </span>    
+            </span>
           </li>
 
           <li class="mdl-list__item">
@@ -183,8 +173,8 @@
               <i class="material-icons mdl-list__item-icon"></i>
               <i class="material-icons mdl-list__item-icon">location_on</i>
               <span>San Diego</span>
-            </span>    
-          </li>          
+            </span>
+          </li>
         </ul>
       <!-- </div> -->
       <!-- <div class="grid2 mdl-cell--2-col-phone">
@@ -208,7 +198,7 @@
       </div>
 
       </div>
-      
+
       <div class='profile-activities-div2 mdl-cell mdl-cell--7-col mdl-cell--1-offset'>
         <div class="mdl-cell mdl-cell--4-col outer-box personalAct mdl-cell--2-col-phone" id="activity1">
           <img class="activity-image" id="activity-image-1" src="/images/placeholder-image1.png" alt="">
@@ -250,7 +240,7 @@
 
 
   <!-- END Profile container put the facebook, twitter, etc. links here  put the verified member part here -->
-  
+
   <!-- END Create Submit Profile Form -->
   <!--  PLACEHOLDER activities for future Done Whops -->
 
@@ -441,7 +431,7 @@
               <input class="mdl-textfield__input" type="text" id="profile-website" placeholder="URL"></input>
               <label class="mdl-textfield__label" for="profile-website"> Personal Web Site:</label>
               <div class="mdl-tooltip" for="profile-website">Personal URL</div>
-            </div> 
+            </div>
           </div>
 
           <!--
@@ -472,7 +462,7 @@
           </div>
         </div>
       </div>
-    </form>    
+    </form>
   </div>
 
   <!-- End Show Profile Section -->
@@ -481,10 +471,10 @@
   <script src="scripts/dowhop-profile-form-create.js"></script>
   <script src="scripts/dowhop-profile-form-dm.js"></script>
   <script>
-    function logOut() {
-      auth.signOut();
-      window.location.href = "/";
-    }
-  </script>
+  function logOut() {
+  auth.signOut();
+  window.location.href = '/';
+}
+</script>
 </body>
 </html>
