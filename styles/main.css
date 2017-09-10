@@ -879,7 +879,7 @@ button {
 /* FOOTER ELEMENT(S) */
 
 .dowhop-footer {
-  color: black;
+  color: #848484;
   display: flex;
   justify-content: space-between;
   padding-top: 5%;
@@ -888,7 +888,20 @@ button {
   padding-right: 10%;
 }
 
+.dowhop-footer a {
+  text-decoration: none;
+  color: #848484;
+}
+
 .dowhop-footer-social {
   display: flex;
+  color: #d9dede
   justify-content: space-between;
+  font-size: 1.5 em;
+}
+
+.dowhop-social-footer,
+.fa {
+  padding-left: 10%;
+  padding-right: 10%;
 }
