@@ -1,88 +1,91 @@
 .header {
-	background-color: white;
+  background-color: white;
 }
 
 .header-row {
-	margin-top:10px;
+  margin-top: 10px;
 }
 
 .header-title {
-	margin-left: 140px !important;
-	margin-top: 0px !important;
+  margin-left: 140px !important;
+  margin-top: 0px !important;
 }
 
 .main-picture {
-	width: 132px; 
-	height: 66px; 
-	object-fit: cover;
+  width: 132px;
+  height: 66px;
+  object-fit: cover;
 }
 
 .nav-links {
-	margin-left: 240px !important;
+  margin-left: 240px !important;
 }
 
 .divider {
-	display: inline-block;
-	width: 0;
-	height: 2em;
-	border-right: 1px solid #ccc;
+  display: inline-block;
+  width: 0;
+  height: 2em;
+  border-right: 1px solid #ccc;
 }
 
 .profile-border {
-	width:44px;
-	height:44px;
-	border:5px solid black;
-	margin-right: 200px; 
-	border-radius: 50%;
-	position: relative !important;
-	top: 0% !important;
+  width: 44px;
+  height: 44px;
+  /*border: 1px solid black;*/ /* FIX via SVG or image source switch. */
+  margin-right: 200px;
+  border-radius: 50%;
+  position: relative !important;
+  top: 0% !important;
 }
 
 .profile-picture-header {
-	max-width: 100%;
-	max-height: 100%; 
-	border-radius: 50%;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 50%;
 }
 
-.profile-border:hover {
-	border-color: red;
+/*.profile-border:hover {
+  border-color: red;
+}*/
+
+.profile-hover:hover {
+  color: #ec1928;
 }
 
 .footer {
-	background-color: white;
+  background-color: white;
 }
 .left-section {
-	padding-left: 100px;
+  padding-left: 100px;
 }
 .profile-icons {
-	padding-right: 100px;
-
+  padding-right: 100px;
 }
 .social-icons {
-	max-width: 20px;
-	max-height: 20px;
-	margin-right: 20px;
-	margin-left: 20px;
+  max-width: 20px;
+  max-height: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
 }
 
 .pride-message {
-	margin: 0 auto;
-	padding-top: 10px;
-	padding-left:60px;
+  margin: 0 auto;
+  padding-top: 10px;
+  padding-left: 60px;
 }
 
 .copyright {
-	color:grey;
+  color: grey;
 }
 
 .social-link {
-	color: rgba(255, 64, 129, 0) !important;
+  color: rgba(255, 64, 129, 0) !important;
 }
 @media only screen and (max-width: 500px) {
-	.nav-links {
-		margin-left: 0px;
-	}
-	.profile-border {
-		border-color: purple;
-	}
+  .nav-links {
+    margin-left: 0px;
+  }
+  .profile-border {
+    border-color: purple;
+  }
 }
