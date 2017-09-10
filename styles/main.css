@@ -191,10 +191,10 @@ main,
   margin-right: 12px;
 }
 
-/* 
+/*
 
   Date & Time
-  Picker 
+  Picker
 
 */
 input#whenDatePending,
@@ -836,7 +836,7 @@ button {
 /*----------------------------------------*/
 /*-------------EDIT DOWHOP FORM-----------*/
 /*----------------------------------------*/
-.edit-form-image-container{
+.edit-form-image-container {
   width: 31% !important;
   position: relative;
   padding-bottom: 31%;
@@ -858,7 +858,7 @@ button {
 }
 
 #submit-update-dowhop {
-  margin-top: 10px
+  margin-top: 10px;
 }
 
 /*profile stuff to be moved later*/
@@ -874,4 +874,21 @@ button {
   padding: 0px 16px !important;
   line-height: 8px !important;
   height: 55px !important;
+}
+
+/* FOOTER ELEMENT(S) */
+
+.dowhop-footer {
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.dowhop-footer-social {
+  display: flex;
+  justify-content: space-between;
 }

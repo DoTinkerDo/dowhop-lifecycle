@@ -57,19 +57,19 @@
 </header>
 
 <div class='container'>
-  <div class='content-grid mdl-grid'> 
+  <div class='content-grid mdl-grid'>
     <div class='mdl-cell mdl-cell--12-col mdl-cell--4-col-phone' id ="background-div" >
       <img class='background-photo' id="background-photo" src="https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/app-image-assets%2FDefaultDoWhop_banner.jpg?alt=media&token=f7f452b9-6955-418e-b425-11dcec3bf5d6" >
-    </div> 
+    </div>
       <div class ="my-profile-picture mdl-cell mdl-cell--8-col mdl-cell--4-col-phone">
         <img id="my-profile-picture" src="" alt="User profile image."/>
         <div id="my-display-name"></div>
       </div>
-      
+
         <div class="about-div mdl-cell mdl-cell--8-col mdl-cell--bottom mdl-cell--4-col-phone">
           <div id="my-profile-about"></div>
         </div>
-      
+
   </div>
 
   <div class='mdl-grid grid1'>
@@ -104,8 +104,8 @@
               <span id="new-edit-profile">
               <i class="material-icons mdl-list__item-icon">edit</i>
               <span>Edit Profile</span></span>
-            </span>    
-          </li>  
+            </span>
+          </li>
 
 
           <li class="mdl-list__item mdl-list__item--two-line">
@@ -136,7 +136,7 @@
               <span>Verify Social</span>
               <span class="verify-social-done mdl-list__item-sub-title">Verified by DoWhop</span>
               <span class="verify-social-not-done mdl-list__item-sub-title">Pending Verification</span>
-            </span>    
+            </span>
           </li>
 
           <li class="mdl-list__item">
@@ -144,8 +144,8 @@
               <i class="material-icons mdl-list__item-icon"></i>
               <i class="material-icons mdl-list__item-icon">location_on</i>
               <span>San Diego</span>
-            </span>    
-          </li>          
+            </span>
+          </li>
         </ul>
       <!-- </div> -->
       <!-- <div class="grid2 mdl-cell--2-col-phone">
@@ -169,7 +169,7 @@
       </div>
 
       </div>
-      
+
       <div class='profile-activities-div2 mdl-cell mdl-cell--7-col mdl-cell--1-offset'>
         <div class="mdl-cell mdl-cell--4-col outer-box personalAct mdl-cell--2-col-phone" id="activity1">
           <img class="activity-image" id="activity-image-1" src="/images/placeholder-image1.png" alt="">
@@ -211,7 +211,7 @@
 
 
   <!-- END Profile container put the facebook, twitter, etc. links here  put the verified member part here -->
-  
+
   <!-- END Create Submit Profile Form -->
   <!--  PLACEHOLDER activities for future Done Whops -->
 
@@ -402,7 +402,7 @@
               <input class="mdl-textfield__input" type="text" id="profile-website" placeholder="URL"></input>
               <label class="mdl-textfield__label" for="profile-website"> Personal Web Site:</label>
               <div class="mdl-tooltip" for="profile-website">Personal URL</div>
-            </div> 
+            </div>
           </div>
 
           <!--
@@ -415,7 +415,7 @@
           <!-- Adding Images -->
 
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label profile-location">
-            <input class="mdl-textfield__input type="text" id="location" placeholder="Location" value="San Diego" readonly></input>
+            <input class="mdl-textfield__input" type="text" id="location" placeholder="Location" value="San Diego" readonly></input>
             <label class="mdl-textfield__label" for="profile-location">Location:</label>
             <div class="mdl-tooltip" for="profile-location">Your Location</div>
           </div>
@@ -433,20 +433,25 @@
           </div>
         </div>
       </div>
-    </form>    
+    </form>
   </div> <!-- End Show Profile Section -->
-
+</div>
+<section class="dowhop-footer">
+  <div>(C) DoWhop Inc.</div>
+  <!-- <div class="mdl-layout-spacer"></div> -->
+  <div>Proudly made in San Diego</div>
+  <div class="dowhop-footer-social"><a>A</a><a>B</a><a>C</a></div>
+</section>
 </section> <!-- End Application Container -->
-
 
 <script src="scripts/profile-and-create-login.js"></script>
 <script src="scripts/dowhop-profile-form-create.js"></script>
 <script src="scripts/dowhop-profile-form-dm.js"></script>
 <script>
-  function logOut() {
-    auth.signOut();
-    window.location.href = "/";
-  }
+function logOut() {
+  auth.signOut();
+  window.location.href = '/';
+}
 </script>
 </body>
 </html>
