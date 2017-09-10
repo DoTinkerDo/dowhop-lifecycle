@@ -187,18 +187,6 @@ auth.onAuthStateChanged(function(user) {
   }
 });
 
-// function getSessionTab(uid) {
-//   // Deprecated.
-//   var currentTab;
-//   var sessionRef = database.ref('/session').child(uid);
-//   sessionRef.on('value', function(snap) {
-//     currentTab = snap.val().current_tab;
-//     // console.log('... running new getsession tab', currentTab);
-//   });
-//   return currentTab;
-// }
-
-// console.log('...finishing running getsession tab', currentTab);
 function createDefaultWelcomingMessage(newKey) {
   // console.log('creating welcoming msg');
   // Gathering the appropriate data to fill out message:

@@ -262,70 +262,19 @@ function generateUserIcons(userObjectArray) {
         '</a>' +
         '</div>';
     });
-  } //end of second object map if
+  }
   return textOutput;
 }
 
-//       var whoInformation = data.val().doerDescription; // In progress:  Update with first names dynamically.
-//       var renderCreatorIcon = '';
-//       var renderDoerIcons = '';
-//       var appUsersRef = database.ref('app_users');
-//       var doerEmails = whoInformation.split(', ');
-//       var creatorEmail = data.val().creatorDescription;
-//
-//       appUsersRef.once('value').then(function(snap) {
-//         doerUserObjects.length = 0; // Resetting the global variable.
-//         creatorUserObjects.length = 0;
-//
-//         snap.forEach(function(childSnap) {
-//           doerEmails.filter(function(doerEmail) {
-//             if (doerEmail === childSnap.val().email) {
-//               // console.log('it matches!');
-//               // console.log(childSnap.val());
-//               // console.log('childsnap.val', childSnap.val());
-//               doerUserObjects.push(childSnap.val());
-//             }
-//           });
-//           if (creatorEmail === childSnap.val().email) {
-//             creatorUserObjects.push(childSnap.val());
-//           }
-//         });
-//           // Adding a closing segment that will separate Creators from Doers in View:
-//           renderCreatorIcon += '<div class="user-avatar-container user-avatar-separator">' + 'will meet' + '</div>';
-//         }
-
-function generateUserIconsSection(creatorArray, doerArray) {
-  var renderIconSection = '';
-
-  var renderCreatorIcon = generateUserIcons(creatorArray);
-  var renderDoerIcons = generateUserIcons(doerArray);
-
-  renderIconSection += renderCreatorIcon;
-  renderIconSection += '<div class="user-avatar-container user-avatar-separator">' + 'will meet' + '</div>';
-  renderIconSection += renderDoerIcons;
-
-  console.log('generating....', renderIconSection);
-  return renderIconSection;
-}
-
 function checkDoWhopDetails(userSessionCurrentDoWhop) {
-  var currentDoWhopID = userSessionCurrentDoWhop; // This is available from higher scope.
-  // var doWhopSelectorBody = document.getElementById('dowhop-selector-container-body');
-  // doWhopSelectorBody.innerHTML = ''; // Resetting the field to new info is up-to-date
-  //
-  // var newOutPut = '';
-  // Turning on a listener to the DoWhopDescriptions for a given DoWhop ID - as updates change.
+  var currentDoWhopID = userSessionCurrentDoWhop;
+  // Turning on a listener to the DoWhopDescriptions for a given DoWhop ID:
   firebase.database().ref().child('DoWhopDescriptions/' + userSessionCurrentDoWhop).on('value', function(data) {
-    // var doWhopSelectorBody = document.getElementById('dowhop-selector-container-body');
-    console.log('reset field...');
-    // doWhopSelectorBody.innerHTML = ''; // Resetting the field to new info is up-to-date
     var doWhopSelectorBody = document.getElementById('dowhop-selector-container-body');
     doWhopSelectorBody.innerHTML = ''; // Resetting the field to new info is up-to-date
-
     var newOutPut = '';
-    // Calling points of information:
+
     var doWhopDescriptionTitle = data.val().titleDescription;
-    // creatorDescription doer
     var renderWhyInformation = data.val().whyDescription;
     var renderWhenInformation = data.val().whenDescription;
     var renderWhereInformation = data.val().whereDescription;
@@ -334,10 +283,12 @@ function checkDoWhopDetails(userSessionCurrentDoWhop) {
     var renderWhatInformation = data.val().whatDescription;
     var renderWhenInformation = data.val().whenDescription;
     var renderWhereInformation = data.val().whereDescription;
+
     // Checking for updates to renderWhereInformation - DEV refactor.
     if (data.val().whereAddress && data.val().whereAddress != 'By request') {
       renderWhereInformation = data.val().whereAddress;
     }
+
     // Adding more specifc 'time' information, if it has been included:
     if (data.val().whenDateTime && data.val().whenDateTime != ('By request' || 'tbd')) {
       renderWhenInformation =
@@ -362,9 +313,6 @@ function checkDoWhopDetails(userSessionCurrentDoWhop) {
       snap.forEach(function(childSnap) {
         doerEmails.filter(function(doerEmail) {
           if (doerEmail === childSnap.val().email) {
-            // console.log('it matches!');
-            // console.log(childSnap.val());
-            // console.log('childsnap.val', childSnap.val());
             doerUserObjects.push(childSnap.val());
           }
         });
@@ -378,7 +326,6 @@ function checkDoWhopDetails(userSessionCurrentDoWhop) {
       var renderDoerIcons = generateUserIcons(doerUserObjects);
 
       // Weaving final output:
-
       newOutPut +=
         '<div id="selector-body" class="mdl-layout__content dowhop-selector-body">' +
         '<div class="mdl-card__title">' +
@@ -420,7 +367,6 @@ function checkDoWhopDetails(userSessionCurrentDoWhop) {
         renderHowMuchInformation +
         '</p>' +
         '</div>';
-      console.log(newOutPut);
       doWhopSelectorBody.innerHTML = newOutPut;
     });
   });
