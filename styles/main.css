@@ -885,7 +885,7 @@ button {
   padding-top: 5%;
   padding-bottom: 5%;
   padding-left: 10%;
-  padding-right: 10%;
+  padding-right: 20%;
 }
 
 .dowhop-footer a {
@@ -895,13 +895,12 @@ button {
 
 .dowhop-footer-social {
   display: flex;
-  color: #d9dede
+  color: #d9dede;
   justify-content: space-between;
-  font-size: 1.5 em;
+  font-size: 1.7em;
 }
 
-.dowhop-social-footer,
-.fa {
-  padding-left: 10%;
-  padding-right: 10%;
+.dowhop-footer-social a {
+  margin-left: 20%;
+  margin-right: 15%;
 }
