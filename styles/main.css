@@ -862,6 +862,39 @@ button {
 }
 
 /*profile stuff to be moved later*/
+.verify-status-dependent {
+  display: none;
+  cursor: default !important;
+}
+
+.verify-icon {
+  cursor: default !important;
+}
+
+
+#verify-item-1 {
+  display: none;
+}
+
+#verify-item-2 {
+  display: none;
+}
+
+#verify-item-3 {
+  display: none;
+}
+
+#verify-item-4 {
+  display: none;
+}
+
+#verify-item-5 {
+  display: none;
+}
+
+#verify-item-6 {
+  display: none;
+}
 .check {
   color: #68b04d !important;
 }
