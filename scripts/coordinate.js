@@ -215,7 +215,8 @@ FriendlyChat.prototype.removeChats = function() {
 
 function renderDoWhopMainHeader(userSessionCurrentDoWhop) {
   var currentDoWhopID = userSessionCurrentDoWhop; // This is available from higher scope.
-  firebase.database().ref().child('DoWhopDescriptions/' + userSessionCurrentDoWhop).once('value').then(function(data) {
+
+  database().ref('DoWhopDescriptions').child(userSessionCurrentDoWhop).once('value').then(function(data) {
     var doWhopSelector = document.getElementById('dowhop-selector-container');
     var doWhopSelectorDiv = '';
     var imageUrl =
@@ -285,17 +286,17 @@ function checkDoWhopDetails(userSessionCurrentDoWhop) {
     var renderWhereInformation = data.val().whereDescription;
 
     // Checking for updates to renderWhereInformation - DEV refactor.
-    if (data.val().whereAddress && data.val().whereAddress != 'By request') {
+    if (data.val().whereAddress && data.val().whereAddress !== ('By request' || 'tbd' || 'TBD')) {
       renderWhereInformation = data.val().whereAddress;
     }
 
     // Adding more specifc 'time' information, if it has been included:
-    if (data.val().whenDateTime && data.val().whenDateTime != ('By request' || 'tbd')) {
+    if (data.val().whenDateTime && data.val().whenDateTime !== ('By request' || 'tbd' || 'TBD')) {
       renderWhenInformation =
         moment(data.val().whenDateTime).format('dddd MMMM D, YYYY') +
         ' at: ' +
         moment(data.val().whenDateTime).format('h:mmA');
-    } //end of where stuff if
+    }
     var renderHowMuchInformation = data.val().howMuchDescription;
 
     // Adding in user icons by checking given emails against App Users in db.
