@@ -150,6 +150,7 @@
           // console.log('current tab', userSession.current_tab);
           // getSessionTab(user.uid);
           // getLandingTab(userSession.current_tab);
+          retrieveMyDoWhops(user.uid);
           renderDoWhopMainHeader(userSession.current_dowhop);
           checkForPendings(userSession); // Sets listener for changes, too.
           checkDoWhopDetails(userSession.current_dowhop);
@@ -179,7 +180,7 @@ var currentTab = '';
 auth.onAuthStateChanged(function(user) {
   if (user) {
     person = user;
-    retrieveMyDoWhops(person.uid);
+    // retrieveMyDoWhops(person.uid);
     checkDefaultDoWhop(person);
   } else {
     console.log('PERSON signed out');
