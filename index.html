@@ -34,9 +34,9 @@
   <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script> <!-- Lodash ._ -->
   <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script> <!-- Firebase UI JS for Web Auth -->
   <script>
-    var defaultDoWhopDescriptionImage =
-    'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
-  </script>
+  var defaultDoWhopDescriptionImage =
+  'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+</script>
   <script src="/src/moment.js"></script>
 </head>
 <body>
@@ -166,7 +166,7 @@
       <div class="mdl-cell mdl-cell--7-col mdl-cell--11-col-tablet mdl-cell--order-1-tablet mdl-cell--order-1-phone">
         <!-- Currently Selected DoWhop Top Image Container -->
         <div id="dowhop-selector-container"></div> <!-- End Image Container -->
-
+        <div id="dowhop-selector-container-body"></div> <!-- End Image Container --><!--new-->
         <!-- Start Create Panel -->
         <section id="create" class="mdl-card panel">
           <div class="mdl-layout__content">
@@ -313,13 +313,13 @@
                     <i class="material-icons">perm_media</i>
                     <input class="image-capture hide-component" id="edit-image-capture2" data-image-num="2" type="file" accept="image/*" capture="camera">
                   </label>
-                </div> 
+                </div>
                 <div id="edit-div-3" class="edit-form-file-picker">
                   <label for="edit-image-capture3">
                     <i class="material-icons">perm_media</i>
                     <input class="image-capture hide-component" id="edit-image-capture3" data-image-num="3" type="file" accept="image/*" capture="camera">
                   </label>
-                </div>                                        
+                </div>
               </div>
               <!-- END NEW -->
               <div class="mdl-card__actions">

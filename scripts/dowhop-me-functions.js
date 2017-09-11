@@ -76,6 +76,7 @@ function checkForPendings(userSession) {
 function showUIBasedOnTab(userSession) {
   var currentTabID = userSession.current_tab;
   var doWhopSelector = document.getElementById('dowhop-selector-container');
+  // checkDoWhopDetails(userSession.current_dowhop);
 
   // console.log('Running showandhide v2.0');
   if (currentTabID === 'create-tab') {
@@ -83,14 +84,14 @@ function showUIBasedOnTab(userSession) {
     document.getElementById('edit').setAttribute('hidden', 'true');
     document.getElementById('coordinate').setAttribute('hidden', 'true');
     document.getElementById('messages-card').removeAttribute('hidden');
-    // document.getElementById('selector-body').setAttribute('hidden', 'true');
+    document.getElementById('dowhop-selector-container-body').setAttribute('hidden', 'true');
     document.getElementById('review').setAttribute('hidden', 'true');
   } else if (currentTabID === 'coordinate-tab') {
     document.getElementById('create').setAttribute('hidden', 'true');
     document.getElementById('edit').setAttribute('hidden', 'true');
     document.getElementById('coordinate').removeAttribute('hidden');
     document.getElementById('messages-card').removeAttribute('hidden');
-    // document.getElementById('selector-body').setAttribute('hidden', 'true');
+    document.getElementById('dowhop-selector-container-body').setAttribute('hidden', 'true');
     document.getElementById('review').setAttribute('hidden', 'true');
     // FriendlyChat.prototype.loadMessages(); OLD.
     loadMessages(userSession); // NEW.
@@ -101,8 +102,9 @@ function showUIBasedOnTab(userSession) {
     document.getElementById('coordinate').setAttribute('hidden', 'true');
     document.getElementById('messages-card').setAttribute('hidden', 'true');
     document.getElementById('review').setAttribute('hidden', 'true');
+    document.getElementById('dowhop-selector-container-body').removeAttribute('hidden');
+    // setAndGetDoWhopDescriptionSession(userSession);
     // document.getElementById('selector-body').removeAttribute('hidden');
-    // setAndGetDoWhopDescriptionSession(userSession); 
     showEditForm(userSession.current_dowhop);
     fillInEditForm(userSession.current_dowhop);
   } else if (currentTabID === 'review-tab') {
@@ -111,7 +113,7 @@ function showUIBasedOnTab(userSession) {
     document.getElementById('edit').setAttribute('hidden', 'true');
     document.getElementById('coordinate').setAttribute('hidden', 'true');
     document.getElementById('messages-card').setAttribute('hidden', 'true');
-    // document.getElementById('selector-body').setAttribute('hidden', 'true');
+    document.getElementById('dowhop-selector-container-body').setAttribute('hidden', 'true');
     document.getElementById('review').removeAttribute('hidden');
   } else {
     document.getElementById('create').setAttribute('hidden', 'true');

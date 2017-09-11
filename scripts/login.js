@@ -66,42 +66,42 @@
     writeUserData(user);
     // FCM permission registration
     registerMessaging(user);
-    retrieveMyDoWhops(user.uid);
+    // retrieveMyDoWhops(user.uid);
 
-    if (window.location.hash != '' && window.location.hash.length > 0) {
-      getLandingTab(window.location.hash.match(/#(.+)/)[1]);
-    }
-
-    // Read the user's saved session:
-
-    var sessionRef = database.ref('/session').child(user.uid);
-    var userSession;
-
-    sessionRef.on(
-      'value',
-      function(snap) {
-        if (!snap.val()) {
-          var userSession = {
-            current_tab: 'coordinate-tab'
-            // To-Do: Set default doWhopDescriptionKey.
-          };
-          sessionRef.update(userSession);
-        }
-        userSession = snap.val();
-        // console.log('current DoWhop in view', userSession.current_dowhop);
-        // console.log('current tab', userSession.current_tab);
-        // getSessionTab(user.uid);
-        getLandingTab(userSession.current_tab);
-        checkForPendings(userSession); // Sets listener for changes, too.
-        manageMessengerImages(userSession);
-        // showDoWhopHeaderInView();
-        setAndGetDoWhopDescriptionSession(userSession);
-        showUIBasedOnTab(userSession);
-      },
-      function(error) {
-        console.error(error);
-      }
-    );
+    // if (window.location.hash != '' && window.location.hash.length > 0) {
+    //   getLandingTab(window.location.hash.match(/#(.+)/)[1]);
+    // }
+    //
+    // // Read the user's saved session:
+    //
+    // var sessionRef = database.ref('/session').child(user.uid);
+    // var userSession;
+    //
+    // sessionRef.on(
+    //   'value',
+    //   function(snap) {
+    //     if (!snap.val()) {
+    //       var userSession = {
+    //         current_tab: 'coordinate-tab'
+    //         // To-Do: Set default doWhopDescriptionKey.
+    //       };
+    //       sessionRef.update(userSession);
+    //     }
+    //     userSession = snap.val();
+    //     // console.log('current DoWhop in view', userSession.current_dowhop);
+    //     // console.log('current tab', userSession.current_tab);
+    //     // getSessionTab(user.uid);
+    //     getLandingTab(userSession.current_tab);
+    //     checkForPendings(userSession); // Sets listener for changes, too.
+    //     manageMessengerImages(userSession);
+    //     // showDoWhopHeaderInView();
+    //     setAndGetDoWhopDescriptionSession(userSession);
+    //     showUIBasedOnTab(userSession);
+    //   },
+    //   function(error) {
+    //     console.error(error);
+    //   }
+    // );
   }
 
   function handleSignedOutUser() {
@@ -115,7 +115,6 @@
     auth.onAuthStateChanged(function(user) {
       // Check if current user email is admin in Firebase:
       var approved = false;
-
       database.ref().child('admin/').once('value', function(snapshot) {
         // Cycling through the data to see if admin is permitted:
         snapshot.forEach(function(data) {
@@ -128,6 +127,40 @@
         });
         return approved;
       });
+
+      // if (window.location.hash != '' && window.location.hash.length > 0) {
+      //   getLandingTab(window.location.hash.match(/#(.+)/)[1]);
+      // }
+
+      // Read the user's saved session:
+      if (user) {
+        var sessionRef = database.ref('/session').child(user.uid);
+        var userSession;
+
+        sessionRef.on('value', function(snap) {
+          if (!snap.val()) {
+            var userSession = {
+              current_tab: 'coordinate-tab'
+              // To-Do: Set default doWhopDescriptionKey.
+            };
+            sessionRef.update(userSession);
+          }
+          userSession = snap.val();
+          // console.log('current DoWhop in view', userSession.current_dowhop);
+          // console.log('current tab', userSession.current_tab);
+          // getSessionTab(user.uid);
+          // getLandingTab(userSession.current_tab);
+          retrieveMyDoWhops(user.uid);
+          renderDoWhopMainHeader(userSession.current_dowhop);
+          checkForPendings(userSession); // Sets listener for changes, too.
+          checkDoWhopDetails(userSession.current_dowhop);
+          manageMessengerImages(userSession);
+          // showDoWhopHeaderInView();
+          // setAndGetDoWhopDescriptionSession(userSession);
+          getLandingTab(userSession.current_tab);
+          showUIBasedOnTab(userSession);
+        });
+      }
 
       user ? handleSignedInUser(user) : handleSignedOutUser();
     });
@@ -154,18 +187,6 @@ auth.onAuthStateChanged(function(user) {
   }
 });
 
-function getSessionTab(uid) {
-  // Deprecated.
-  var currentTab;
-  var sessionRef = database.ref('/session').child(uid);
-  sessionRef.on('value', function(snap) {
-    currentTab = snap.val().current_tab;
-    // console.log('... running new getsession tab', currentTab);
-  });
-  return currentTab;
-}
-
-// console.log('...finishing running getsession tab', currentTab);
 function createDefaultWelcomingMessage(newKey) {
   // console.log('creating welcoming msg');
   // Gathering the appropriate data to fill out message:
@@ -234,7 +255,7 @@ function createDefaultDoWhop(person) {
       'You can share the exact address once the doer has booked this experiience. Give the general area here, and describe the facility where this DoWhop will take place. By request or "at your home" will also do for flexible bookings.',
     howMuchDescription:
       'Describe what someone would have to pay to join you and what they would get in exchange. You dont have to describe what the funds go too, but you are welcome to identify any operational expenses or charities you will give the money to upon booking. We will add 20% to the total cost of your DoWhop when listing to the marketplace. You will receive 100% of your listed cost transferred to your payment account when users book and complete this DoWhop.',
-    creatorDescription: 'tinkerdowhop@gmail.com',
+    creatorDescription: 'dowhopdo@gmail.com',
     doerDescription: email,
     createdAt: currentTime
   });
@@ -319,14 +340,15 @@ function getLandingTab(href) {
 
 // We are ensuring direct routing also happens without refresh:
 window.addEventListener('hashchange', function(e) {
-  var userID = auth.currentUser.uid; 
-  var href = window.location.hash;
-  var currentTab = '';
-  currentTab = href.split('#')[1] + "-tab";
+  if (auth.currentUser) {
+    var userID = auth.currentUser.uid;
+    var href = window.location.hash;
+    var currentTab = '';
+    currentTab = href.split('#')[1] + '-tab';
 
-  var sessionRef = database.ref('/session').child(userID);
-  sessionRef
-    .update({
+    var sessionRef = database.ref('/session').child(userID);
+    sessionRef.update({
       current_tab: currentTab
-    })
+    });
+  }
 });
