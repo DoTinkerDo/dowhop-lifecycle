@@ -122,14 +122,14 @@ function profileProgressUI() {
       var sections = ['verify-email', 'verify-phone', 'verify-social'];
       var className;
       sections.map(function(section) {
-        if (!profileProgress[section]) {
+        if (profileProgress[section]) {
           className = section + '-done';
         } else {
           className = section + '-not-done';
         }
         var elArr = document.getElementsByClassName(className);
         for (var i = 0; i < elArr.length; i++) {
-          elArr[i].style.display = 'none';
+          elArr[i].style.display = 'block';
         }
       });
     }
