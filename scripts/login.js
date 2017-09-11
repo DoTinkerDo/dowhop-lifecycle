@@ -115,7 +115,6 @@
     auth.onAuthStateChanged(function(user) {
       // Check if current user email is admin in Firebase:
       var approved = false;
-      console.log('authstatechanged');
       database.ref().child('admin/').once('value', function(snapshot) {
         // Cycling through the data to see if admin is permitted:
         snapshot.forEach(function(data) {

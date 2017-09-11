@@ -216,7 +216,7 @@ FriendlyChat.prototype.removeChats = function() {
 function renderDoWhopMainHeader(userSessionCurrentDoWhop) {
   var currentDoWhopID = userSessionCurrentDoWhop; // This is available from higher scope.
 
-  database().ref('DoWhopDescriptions').child(userSessionCurrentDoWhop).once('value').then(function(data) {
+  database.ref('DoWhopDescriptions').child(userSessionCurrentDoWhop).once('value').then(function(data) {
     var doWhopSelector = document.getElementById('dowhop-selector-container');
     var doWhopSelectorDiv = '';
     var imageUrl =
