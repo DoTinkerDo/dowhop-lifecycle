@@ -340,13 +340,15 @@ function getLandingTab(href) {
 
 // We are ensuring direct routing also happens without refresh:
 window.addEventListener('hashchange', function(e) {
-  var userID = auth.currentUser.uid;
-  var href = window.location.hash;
-  var currentTab = '';
-  currentTab = href.split('#')[1] + '-tab';
+  if (auth.currentUser) {
+    var userID = auth.currentUser.uid;
+    var href = window.location.hash;
+    var currentTab = '';
+    currentTab = href.split('#')[1] + '-tab';
 
-  var sessionRef = database.ref('/session').child(userID);
-  sessionRef.update({
-    current_tab: currentTab
-  });
+    var sessionRef = database.ref('/session').child(userID);
+    sessionRef.update({
+      current_tab: currentTab
+    });
+  }
 });
