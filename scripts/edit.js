@@ -2,10 +2,6 @@
 
 var rootRef = database.ref('app_users/');
 var doWhopDescriptionRootRef = database.ref('DoWhopDescriptions/');
-
-// Does get used anywhere... figure out if we can delete...
-// var editDoWhopForm = document.getElementById('edit-dowhop-form');
-
 var submitUpdateDoWhopBtn = document.getElementById('submit-update-dowhop');
 
 submitUpdateDoWhopBtn.addEventListener('click', editSelectedDoWhop);
