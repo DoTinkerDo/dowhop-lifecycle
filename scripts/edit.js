@@ -86,7 +86,9 @@ function editSelectedDoWhop(event) {
     .set(event.doerDescription);
 
   database
-    .ref('DoWhopDescriptions/' + currentDoWhop + '/updateImageTempData/')
+    .ref('temp')
+    .child(currentDoWhop)
+    .child('/updateImageTempData/')
     .once('value')
     .then(function(snapshot) {
       var snapshotVal = snapshot.val();
@@ -110,6 +112,9 @@ function editSelectedDoWhop(event) {
             .update(obj);
         }
       });
+    })
+    .catch(function(error) {
+      console.log('updateImageTempData ERROR -> ', error);
     });
 
   doWhopDescriptionRootRef
@@ -267,18 +272,6 @@ function showEditForm(DoWhopID) {
   });
 }
 
-function clearImageTempValues(currentDoWhopID) {
-  // console.log('clear image values, currentDoWhopID', currentDoWhopID);
-  database.ref('DoWhopDescriptions/' + currentDoWhopID + '/updateImageTempData/').update({
-    image1Changed: false,
-    image2Changed: false,
-    image3Changed: false,
-    potentialUrlForImage1: '',
-    potentialUrlForImage2: '',
-    potentialUrlForImage3: ''
-  });
-}
-
 function fillInEditForm(DoWhopID) {
   // console.log('running fill in edit form');
   clearImageTempValues(DoWhopID);
@@ -312,39 +305,56 @@ function fillInEditForm(DoWhopID) {
   });
 }
 
-function addImageToFirebase() {
-  // console.log('running add image to firebase', this.files);
-  var currentImageNumber = event.target.getAttribute('data-image-num');
+function addImageToFirebase(e) {
+  var currentImageNumber = e.target.getAttribute('data-image-num');
   var currentDoWhopID = document.getElementById('dowhop-selector-container').firstChild.id;
+
   var fileName = this.files[0].name;
   var file = this.files[0];
   var filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + currentDoWhopID + '/' + fileName;
-
-  // var currentImgElement = `image${currentImageNumber}`; DELETE
   var currentImgElement = 'image' + currentImageNumber;
-  //changes src attribute to show file just selected, but uses experimental createObjectURL
-  // document.getElementById(currentImgElement).src = window.URL.createObjectURL(file);
 
   storage
     .ref(filePath)
     .put(file)
     .then(function(snapshot) {
       var path = snapshot.metadata.fullPath;
-      // console.log('image path of file...', path);
       storage
         .ref(path)
         .getDownloadURL()
         .then(function(url) {
-          //set potential download URL for current image number. Potential download URL will become actually URL
-          //when form is submitted
-          // console.log('image download url', url);
           var potentialUrlForImage = 'potentialUrlForImage' + currentImageNumber;
           var imageChanged = 'image' + currentImageNumber + 'Changed';
           var obj = {};
           obj[imageChanged] = true;
           obj[potentialUrlForImage] = url;
-          database.ref('DoWhopDescriptions/' + currentDoWhopID + '/updateImageTempData').update(obj);
+          database
+            .ref('temp')
+            .child(currentDoWhopID)
+            .child('updateImageTempData')
+            .update(obj);
         });
+    })
+    .catch(function(error) {
+      console.log('ADDIMAGETOFIREBASE ERROR', error);
+    });
+}
+
+function clearImageTempValues(currentDoWhopID) {
+  database
+    .ref('temp')
+    .child(currentDoWhopID)
+    .child('updateImageTempData')
+    .update({
+      image1Changed: false,
+      image2Changed: false,
+      image3Changed: false,
+      potentialUrlForImage1: '',
+      potentialUrlForImage2: '',
+      potentialUrlForImage3: ''
+    })
+    .catch(function(error) {
+      console.log('CLEARIMAGETEMPVALUES ERROR', error);
     });
 }
 
