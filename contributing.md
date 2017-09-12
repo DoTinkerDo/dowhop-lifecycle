@@ -8,19 +8,16 @@ Current members of the Tech Team are:
 * [@tinkerdo](https://github.com/tinkerdo)
 * [@johannbillar](https://github.com/johannbillar)
 * [@omarcodex](https://github.com/omarcodex)
-* [@mikeavida](https://github.com/mikeavida)
-* [@shar-ajmal](https://github.com/shar-ajmal)
-* [@tarekgouda](https://github.com/tarekgouda)
 
 ## Best Practices
 
 ### Overview
 
-We strive to follow an Agile approach to software development. This means we commit often, communicate clearly, and focus on building features with the knowledge that customers may drive changes. We also embrace DoWhop's core values of being **kind, bold, and daring**.
+We strive to follow an Agile approach to software development. This means we commit often, communicate clearly, and focus on building features with the knowledge that customers may drive changes. We also embrace DoWhop's core values of being **kind, daring, and yourself**.
 
 ### GitHub
 
-#Branching
+Branching
 * Our approach is to name a branch using your name followed by a dash followed by the feature and/or page you're working on. For example, `keaton-add-profile-icons` or `erik-update-dowhop-create-form` will help us know what each of us is working on.
 
 Committing
