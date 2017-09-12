@@ -42,7 +42,7 @@ ul a {
   text-decoration: none;
   font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
   color: #000000;
-  transition: all .4s ease 0s;
+  transition: all 0.4s ease 0s;
   padding: 0 15px;
   float: left;
 }
@@ -88,7 +88,7 @@ li a {
 
 .tab::after {
   display: inline-block;
-  content: "";
+  content: '';
 }
 
 ul a:hover,
@@ -98,6 +98,8 @@ ul a:focus {
 
 .nav-tab-label {
   font-size: 90%;
+  display: flex;
+  justify-content: center;
 }
 
 @media screen and (min-width: 414px) {
@@ -139,7 +141,7 @@ header.mdl-grid {
 
 .nav-dropdown-content a {
   background-color: #ffffff;
-  background-color: rgba(255, 255, 255, .7);
+  background-color: rgba(255, 255, 255, 0.7);
   color: black;
   padding: 12px 16px;
   text-decoration: none;
