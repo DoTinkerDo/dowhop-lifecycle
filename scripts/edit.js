@@ -1,11 +1,8 @@
 'use strict';
 
 var rootRef = database.ref('app_users/');
+
 var doWhopDescriptionRootRef = database.ref('DoWhopDescriptions/');
-
-// Does get used anywhere... figure out if we can delete...
-// var editDoWhopForm = document.getElementById('edit-dowhop-form');
-
 var submitUpdateDoWhopBtn = document.getElementById('submit-update-dowhop');
 
 submitUpdateDoWhopBtn.addEventListener('click', editSelectedDoWhop);
@@ -85,18 +82,24 @@ function editSelectedDoWhop(event) {
     .child('doerDescription')
     .set(event.doerDescription);
 
+  // Writes downloadURL for uploaded images to database
   database
     .ref('temp')
     .child(currentDoWhop)
-    .child('/updateImageTempData/')
+    .child('updateImageTempData')
     .once('value')
     .then(function(snapshot) {
-      var snapshotVal = snapshot.val();
-      var whichImagesChanged = [snapshotVal.image1Changed, snapshotVal.image2Changed, snapshotVal.image3Changed];
+      var updateImageTempData = snapshot.val();
+
+      var whichImagesChanged = [
+        updateImageTempData.image1Changed,
+        updateImageTempData.image2Changed,
+        updateImageTempData.image3Changed
+      ];
       var whichUrl = [
-        snapshotVal.potentialUrlForImage1,
-        snapshotVal.potentialUrlForImage2,
-        snapshotVal.potentialUrlForImage3
+        updateImageTempData.potentialUrlForImage1,
+        updateImageTempData.potentialUrlForImage2,
+        updateImageTempData.potentialUrlForImage3
       ];
 
       whichImagesChanged.map((imageChanged, idx) => {
@@ -202,11 +205,13 @@ function retrieveMyDoWhops(uid) {
 }
 
 function makeDoWhopSelector(container, data) {
+  var defaultDoWhopDescriptionImage =
+    'https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/app-image-assets%2FDefaultDoWhop_banner.jpg?alt=media&token=036dfe25-d46c-4632-82b9-34094628cfc9';
   var image1 = '';
   var image2 = '';
   if (data && data.downloadURL) {
-    image1 = data.downloadURL.image1 || data.downloadURL || defaultdataImage;
-    image2 = data.downloadURL.image2 || data.downloadURL || defaultdataImage;
+    image1 = data.downloadURL.image1 || data.downloadURL || defaultDoWhopDescriptionImage;
+    image2 = data.downloadURL.image2 || data.downloadURL || defaultDoWhopDescriptionImage;
     container.innerHTML +=
       '<aside class="mdl-card dowhop-selector" id="' +
       data.doWhopDescriptionKey +
@@ -272,37 +277,35 @@ function showEditForm(DoWhopID) {
   });
 }
 
-function fillInEditForm(DoWhopID) {
-  // console.log('running fill in edit form');
-  clearImageTempValues(DoWhopID);
+function fillInEditForm(doWhopID) {
+  var currentDoWhopDescriptionID = doWhopID;
+
   var editImageCapture1 = document.getElementById('edit-image-capture1');
   var editImageCapture2 = document.getElementById('edit-image-capture2');
   var editImageCapture3 = document.getElementById('edit-image-capture3');
+
   editImageCapture1.addEventListener('change', addImageToFirebase);
   editImageCapture2.addEventListener('change', addImageToFirebase);
   editImageCapture3.addEventListener('change', addImageToFirebase);
 
-  doWhopDescriptionRootRef.orderByKey().on('value', function(snapshot) {
-    snapshot.forEach(function(data) {
-      var doWhopDescription = data.val();
-
-      if (data.key === DoWhopID) {
-        document.getElementById('titleDescription').value = doWhopDescription.titleDescription;
-        document.getElementById('whoDescription').value = doWhopDescription.whoDescription;
-        document.getElementById('whoAmIDescription').value = doWhopDescription.whoAmIDescription || '';
-        document.getElementById('whyDescription').value = doWhopDescription.whyDescription;
-        document.getElementById('whatDescription').value = doWhopDescription.whatDescription;
-        document.getElementById('whereDescription').value = doWhopDescription.whereDescription;
-        document.getElementById('whenDescription').value = doWhopDescription.whenDescription;
-        document.getElementById('howMuchDescription').value = doWhopDescription.howMuchDescription;
-        document.getElementById('creatorDescription').value = doWhopDescription.creatorDescription;
-        document.getElementById('doerDescription').value = doWhopDescription.doerDescription;
-        document.getElementById('image1').src = doWhopDescription.downloadURL.image1 || '';
-        document.getElementById('image2').src = doWhopDescription.downloadURL.image2 || '';
-        document.getElementById('image3').src = doWhopDescription.downloadURL.image3 || '';
-      }
-    });
+  doWhopDescriptionRootRef.child(currentDoWhopDescriptionID).on('value', function(snapshot) {
+    var doWhopDescription = snapshot.val();
+    document.getElementById('titleDescription').value = doWhopDescription.titleDescription;
+    document.getElementById('whoDescription').value = doWhopDescription.whoDescription;
+    document.getElementById('whoAmIDescription').value = doWhopDescription.whoAmIDescription || '';
+    document.getElementById('whyDescription').value = doWhopDescription.whyDescription;
+    document.getElementById('whatDescription').value = doWhopDescription.whatDescription;
+    document.getElementById('whereDescription').value = doWhopDescription.whereDescription;
+    document.getElementById('whenDescription').value = doWhopDescription.whenDescription;
+    document.getElementById('howMuchDescription').value = doWhopDescription.howMuchDescription;
+    document.getElementById('creatorDescription').value = doWhopDescription.creatorDescription;
+    document.getElementById('doerDescription').value = doWhopDescription.doerDescription;
+    document.getElementById('image1').src = doWhopDescription.downloadURL.image1 || '';
+    document.getElementById('image2').src = doWhopDescription.downloadURL.image2 || '';
+    document.getElementById('image3').src = doWhopDescription.downloadURL.image3 || '';
   });
+
+  clearImageTempValues(currentDoWhopDescriptionID);
 }
 
 function addImageToFirebase(e) {
