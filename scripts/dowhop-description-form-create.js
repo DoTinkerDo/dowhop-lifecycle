@@ -45,7 +45,10 @@ function submitNewDoWhopEntry(e) {
   var currentTime = moment().format('YYYY-MM-DD--HH:mm');
 
   // Preparing the welcoming message:
-  var messagesChatsRef = database.ref().child('messages').child(doWhopDescriptionKey);
+  var messagesChatsRef = database
+    .ref()
+    .child('messages')
+    .child(doWhopDescriptionKey);
   var teamName = 'Your DoWhop Team';
   var welcomeMessageText =
     'Welcome to your ' +
@@ -60,7 +63,7 @@ function submitNewDoWhopEntry(e) {
     '".\n' +
     'Coordinate the details here!';
 
-  doWhopDescriptionRef.child(doWhopDescriptionKey).set({
+  var doWhopDescriptionData = {
     createdBy: uid,
     doWhopDescriptionKey: doWhopDescriptionKey,
     titleDescription: titleDescription.value,
@@ -74,6 +77,10 @@ function submitNewDoWhopEntry(e) {
     creatorDescription: creatorDescription.toLowerCase(),
     doerDescription: 'no-one',
     createdAt: currentTime
+  };
+
+  doWhopDescriptionRef.child(doWhopDescriptionKey).set({
+    doWhopDescriptionData
   });
 
   showConfirmationMessage();
@@ -86,14 +93,23 @@ function submitNewDoWhopEntry(e) {
 
   files.forEach(function(file, idx) {
     var filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
-    storage.ref(filePath).put(file).then(function(snapshot) {
-      var path = snapshot.metadata.fullPath;
-      storage.ref(path).getDownloadURL().then(function(url) {
-        var obj = {};
-        obj['image' + (idx + 1)] = url;
-        doWhopDescriptionRef.child(doWhopDescriptionKey).child('downloadURL').update(obj);
+    storage
+      .ref(filePath)
+      .put(file)
+      .then(function(snapshot) {
+        var path = snapshot.metadata.fullPath;
+        storage
+          .ref(path)
+          .getDownloadURL()
+          .then(function(url) {
+            var obj = {};
+            obj['image' + (idx + 1)] = url;
+            doWhopDescriptionRef
+              .child(doWhopDescriptionKey)
+              .child('downloadURL')
+              .update(obj);
+          });
       });
-    });
   });
   // createWelcomingMessage();
   // showConfirmationMessage();
