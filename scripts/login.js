@@ -12,8 +12,8 @@
     signInFlow: 'popup',
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      firebase.auth.EmailAuthProvider.PROVIDER_ID
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID
+      // firebase.auth.EmailAuthProvider.PROVIDER_ID
     ]
   };
   var ui = new firebaseui.auth.AuthUI(auth);
@@ -115,18 +115,21 @@
     auth.onAuthStateChanged(function(user) {
       // Check if current user email is admin in Firebase:
       var approved = false;
-      database.ref().child('admin/').once('value', function(snapshot) {
-        // Cycling through the data to see if admin is permitted:
-        snapshot.forEach(function(data) {
-          if (data.val() === user.email) {
-            approved = true;
-            window.location = 'admin.html';
-          } else {
-            approved = false;
-          }
+      database
+        .ref()
+        .child('admin/')
+        .once('value', function(snapshot) {
+          // Cycling through the data to see if admin is permitted:
+          snapshot.forEach(function(data) {
+            if (data.val() === user.email) {
+              approved = true;
+              window.location = 'admin.html';
+            } else {
+              approved = false;
+            }
+          });
+          return approved;
         });
-        return approved;
-      });
 
       // if (window.location.hash != '' && window.location.hash.length > 0) {
       //   getLandingTab(window.location.hash.match(/#(.+)/)[1]);
@@ -192,11 +195,15 @@ function createDefaultWelcomingMessage(newKey) {
   // Gathering the appropriate data to fill out message:
   var DoWhopTitleDescription, DoWhopWhenDescription, DoWhopWhereDescription;
 
-  database.ref('/DoWhopDescriptions').child(newKey).once('value').then(function(snap) {
-    DoWhopTitleDescription = snap.val().titleDescription;
-    DoWhopWhenDescription = snap.val().whenDescription;
-    DoWhopWhereDescription = snap.val().whereDescription;
-  });
+  database
+    .ref('/DoWhopDescriptions')
+    .child(newKey)
+    .once('value')
+    .then(function(snap) {
+      DoWhopTitleDescription = snap.val().titleDescription;
+      DoWhopWhenDescription = snap.val().whenDescription;
+      DoWhopWhereDescription = snap.val().whereDescription;
+    });
 
   var teamName = 'Your DoWhop Team';
   var welcomeMessageText =
@@ -212,7 +219,11 @@ function createDefaultWelcomingMessage(newKey) {
     '".\n' +
     'Coordinate the details here!';
 
-  var messagesChatsRef = firebase.database().ref().child('messages').child(newKey);
+  var messagesChatsRef = firebase
+    .database()
+    .ref()
+    .child('messages')
+    .child(newKey);
   messagesChatsRef.push({
     chatId: doWhopDescriptionKey,
     name: teamName,
