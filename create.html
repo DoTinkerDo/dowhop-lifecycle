@@ -22,13 +22,28 @@
     <script src="scripts/firebase.js"></script> <!-- Initialize Firebase app -->
     <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script> <!-- Lodash ._ -->
     <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script> <!-- Firebase UI JS for Web Auth -->
+    <script src="/src/moment.js"></script>
   </head>
   <body>
+
+  <!-- Login splash screen -->
+  <section id="login-container">
+    <div class="login-page-title">
+      <h2>Log In</h2>
+      <h4>Confirm your information to view your DoWhops</h4>
+    </div>
+    <div class=login-container>
+      <div id="firebaseui-auth-container"></div>
+    </div>
+  </section> <!-- End Login screen -->
+
+  <!-- Application Container -->
+  <section class="hide-component" id="application-container">
     <div class="mdl-grid">
       <div id="newdowhop" class="panel">
         <div class="mdl-cell mdl-cell--6-col">
           <div class="mdl-card">
-    <div class="mdl-layout__content">
+            <div class="mdl-layout__content">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Create a new DoWhop</h2>        
               </div>
@@ -101,14 +116,21 @@
         </div>
       </div>
     </div> <!-- End Create New DoWhop Form -->
-    <script src="scripts/dowhop-description-form-create.js"></script>
+  </section> <!-- End Application Container -->  
+  <script src="scripts/create-form-la.js"></script>
+  <script src="scripts/profile-and-create-login.js"></script>
+  <script>
+    function changeLoginText() {
+      var btnSpans = document.querySelectorAll('.firebaseui-idp-text-long');
+      if (btnSpans.length > 0) {
+        btnSpans[0].innerHTML = 'Login with Google';
+        btnSpans[1].innerHTML = 'Login with Facebook';
+        // btnSpans[2].innerHTML = 'Login with Email';
+      } else {
+        console.log('NO LOGIN BUTTONS SELECTED');
+      }
+    }
+    window.addEventListener('load', changeLoginText);
+  </script>
   </body>
 </html>
-
-
-  <!--                   <input id="dowhop-image-capture" type="file" accept="image/*,capture=camera" onchange="addDoWhopImage(this.files, this)">
-                    <br></br>
-                    <button class="btn btn-default" id="create-new-dowhop">
-                      Add To Marketplace
-                      <div class="mdl-tooltip" for="create-new-dowhop">Click here to share your DoWhop!</div>
-                    </button> -->
