@@ -137,14 +137,14 @@ function validateAddDoWhopDescription(
 ) {
   if (
     titleDescription === '' ||
-    whyDescription === ''
+    whyDescription === '' ||
     // whoDescription === '' ||
     // whoAmIDescription === '' ||
     // whatDescription === '' ||
     // whenDescription === '' ||
     // whereDescription === '' ||
     // howMuchDescription === '' ||
-    // files.length < 1
+    files.length < 1
   )
     return false;
   return true;
