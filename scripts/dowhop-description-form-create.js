@@ -44,24 +44,24 @@ function submitNewDoWhopEntry(e) {
   var defaultImageURL = '../images/dowhopicon.gif';
   var currentTime = moment().format('YYYY-MM-DD--HH:mm');
 
-  // Preparing the welcoming message:
-  var messagesChatsRef = database
-    .ref()
-    .child('messages')
-    .child(doWhopDescriptionKey);
-  var teamName = 'Your DoWhop Team';
-  var welcomeMessageText =
-    'Welcome to your ' +
-    titleDescription.value +
-    ' DoWhop!\n\n' +
-    'Currently, ' +
-    creatorDisplayName +
-    ' plans to meet "' +
-    whenDescription.value +
-    '" at "' +
-    whereDescription.value +
-    '".\n' +
-    'Coordinate the details here!';
+  // // Preparing the welcoming message:
+  // var messagesChatsRef = database
+  //   .ref()
+  //   .child('messages')
+  //   .child(doWhopDescriptionKey);
+  // var teamName = 'Your DoWhop Team';
+  // var welcomeMessageText =
+  //   'Welcome to your ' +
+  //   titleDescription.value +
+  //   ' DoWhop!\n\n' +
+  //   'Currently, ' +
+  //   creatorDisplayName +
+  //   ' plans to meet "' +
+  //   whenDescription.value +
+  //   '" at "' +
+  //   whereDescription.value +
+  //   '".\n' +
+  //   'Coordinate the details here!';
 
   var doWhopDescriptionData = {
     createdBy: uid,
@@ -81,15 +81,17 @@ function submitNewDoWhopEntry(e) {
 
   doWhopDescriptionRef.child(doWhopDescriptionKey).set({
     doWhopDescriptionData
-  });
+  }).then(
+    createDoWhopWelcomeMessage(doWhopDescriptionData);
+  );
 
   showConfirmationMessage();
-  messagesChatsRef.push({
-    chatId: doWhopDescriptionKey,
-    name: teamName,
-    text: welcomeMessageText,
-    photoUrl: defaultImageURL
-  });
+  // messagesChatsRef.push({
+  //   chatId: doWhopDescriptionKey,
+  //   name: teamName,
+  //   text: welcomeMessageText,
+  //   photoUrl: defaultImageURL
+  // });
 
   files.forEach(function(file, idx) {
     var filePath = 'userImages/' + uid + '/' + 'titleDescriptionImage/' + doWhopDescriptionKey + '/' + file.name;
@@ -114,6 +116,41 @@ function submitNewDoWhopEntry(e) {
   // createWelcomingMessage();
   // showConfirmationMessage();
   clearNewDoWhopEntryForm();
+}
+
+function createDoWhopWelcomeMessage(doWhopDescriptionData) {
+
+  var creatorDisplayName = auth.currentUser.displayName;
+  // Getting the welcoming message reference:
+  var doWhopID = doWhopDescriptionData.doWhopDescriptionKey
+  var messagesChatsRef = database
+    .ref()
+    .child('messages')
+    .child(doWhopID);
+
+  // Preparing the welcome message:
+  var teamName = 'Your DoWhop Team';
+
+  var welcomeMessageText =
+    'Welcome to your ' +
+    doWhopDescriptionData.titleDescription +
+    ' DoWhop!\n\n' +
+    'Currently, ' +
+    creatorDisplayName +
+    ' plans to meet "' +
+    doWhopDescriptionData.whenDescription +
+    '" at "' +
+    doWhopDescriptionData.whereDescription +
+    '".\n' +
+    'Coordinate the details here!';
+
+  var messagesChatsRef =
+  messagesChatsRef.push({
+    chatId: doWhopID,
+    name: teamName,
+    text: welcomeMessageText,
+    photoUrl: defaultImageURL
+  });
 }
 
 var files = [];
