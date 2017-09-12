@@ -201,12 +201,15 @@ function retrieveMyDoWhops(uid) {
   }
 }
 
+var defaultDoWhopDescriptionImage =
+  'https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/app-image-assets%2FDefaultDoWhop_banner.jpg?alt=media&token=f7f452b9-6955-418e-b425-11dcec3bf5d6';
+
 function makeDoWhopSelector(container, data) {
   var image1 = '';
   var image2 = '';
   if (data && data.downloadURL) {
-    image1 = data.downloadURL.image1 || data.downloadURL || defaultdataImage;
-    image2 = data.downloadURL.image2 || data.downloadURL || defaultdataImage;
+    image1 = data.downloadURL.image1 || data.downloadURL || defaultDoWhopDescriptionImage;
+    image2 = data.downloadURL.image2 || data.downloadURL || defaultDoWhopDescriptionImage;
     container.innerHTML +=
       '<aside class="mdl-card dowhop-selector" id="' +
       data.doWhopDescriptionKey +
