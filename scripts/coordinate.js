@@ -223,7 +223,6 @@ FriendlyChat.prototype.removeChats = function() {
 };
 
 function renderDoWhopMainHeader(userSessionCurrentDoWhop) {
-  console.log('CALLED');
   var currentDoWhopID = userSessionCurrentDoWhop; // This is available from higher scope.
 
   database
