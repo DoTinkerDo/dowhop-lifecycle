@@ -190,40 +190,39 @@ auth.onAuthStateChanged(function(user) {
   }
 });
 
-function createDefaultWelcomingMessage(newKey) {
+function createDefaultWelcomingMessage(doWhopDescriptionObject) {
+  var doWhopDescriptionKey = doWhopDescriptionObject.doWhopDescriptionKey;
   // console.log('creating welcoming msg');
   // Gathering the appropriate data to fill out message:
-  var DoWhopTitleDescription, DoWhopWhenDescription, DoWhopWhereDescription;
+  // var DoWhopTitleDescription, DoWhopWhenDescription, DoWhopWhereDescription;
+  // TODO move to FB storage
+  var defaultImageURL = '../images/dowhopicon.gif';
 
-  database
-    .ref('/DoWhopDescriptions')
-    .child(newKey)
-    .once('value')
-    .then(function(snap) {
-      DoWhopTitleDescription = snap.val().titleDescription;
-      DoWhopWhenDescription = snap.val().whenDescription;
-      DoWhopWhereDescription = snap.val().whereDescription;
-    });
+  // database
+  //   .ref('DoWhopDescriptions')
+  //   .child(doWhopDescriptionKey)
+  //   .once('value')
+  //   .then(function(snap) {
+  //     DoWhopTitleDescription = snap.val().titleDescription;
+  //     DoWhopWhenDescription = snap.val().whenDescription;
+  //     DoWhopWhereDescription = snap.val().whereDescription;
+  //   });
 
   var teamName = 'Your DoWhop Team';
   var welcomeMessageText =
     'Welcome to your ' +
-    DoWhopTitleDescription +
+    doWhopDescriptionObject.titleDescription +
     ' DoWhop!\n\n' +
     'Currently, ' +
-    creatorDisplayName +
+    'DoWhop' +
     ' plans to meet "' +
-    DoWhopWhenDescription +
+    doWhopDescriptionObject.whenDescription +
     '" at "' +
-    DoWhopWhereDescription +
+    doWhopDescriptionObject.whereDescription +
     '".\n' +
     'Coordinate the details here!';
 
-  var messagesChatsRef = firebase
-    .database()
-    .ref()
-    .child('messages')
-    .child(newKey);
+  var messagesChatsRef = database.ref('messages').child(doWhopDescriptionKey);
   messagesChatsRef.push({
     chatId: doWhopDescriptionKey,
     name: teamName,
@@ -248,7 +247,7 @@ function createDefaultDoWhop(person) {
   // Adding a default DoWhop template as welcoming message:
   var doWhopDescriptionKey = doWhopDescriptionRef.push().key;
   // First we create the new default DoWhop:
-  doWhopDescriptionRef.child(doWhopDescriptionKey).set({
+  var defaultDoWhopObject = {
     createdBy: uid,
     doWhopDescriptionKey: doWhopDescriptionKey,
     downloadURL: { image1: defaultDoWhopImage1, image2: defaultDoWhopImage2 },
@@ -269,8 +268,13 @@ function createDefaultDoWhop(person) {
     creatorDescription: 'dowhopdo@gmail.com',
     doerDescription: email,
     createdAt: currentTime
-  });
-  // .then(createDefaultWelcomingMessage(doWhopDescriptionKey));
+  };
+
+  doWhopDescriptionRef
+    .child(doWhopDescriptionKey)
+    .set(defaultDoWhopObject)
+    .then(updateSessionAndMessages(doWhopDescriptionKey))
+    .then(createDefaultWelcomingMessage(defaultDoWhopObject));
 
   var sessionsRef = database.ref('/session');
   var sessionUserRef = sessionsRef.child(uid);
@@ -288,6 +292,17 @@ function createDefaultDoWhop(person) {
     hasDefaultDoWhop: true
   };
   appUserRef.update(userData);
+}
+
+function updateSessionAndMessages(doWhopDescriptionKey) {
+  var uid = auth.currentUser.uid;
+  var userSession = {
+    current_dowhop: doWhopDescriptionKey
+  };
+  database
+    .ref('session')
+    .child(uid)
+    .update(userSession);
 }
 
 // Checks for a default whop, if not exists, creates one.
