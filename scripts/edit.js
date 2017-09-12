@@ -3,7 +3,9 @@
 var rootRef = database.ref('app_users/');
 var doWhopDescriptionRootRef = database.ref('DoWhopDescriptions/');
 
-var editDoWhopForm = document.getElementById('edit-dowhop-form');
+// Does get used anywhere... figure out if we can delete...
+// var editDoWhopForm = document.getElementById('edit-dowhop-form');
+
 var submitUpdateDoWhopBtn = document.getElementById('submit-update-dowhop');
 
 submitUpdateDoWhopBtn.addEventListener('click', editSelectedDoWhop);
@@ -12,52 +14,32 @@ function editSelectedDoWhop(event) {
   event.preventDefault();
 
   var titleDescription = document.getElementById('titleDescription');
-  // var titleImage = document.getElementById('titleImage');
   var whyDescription = document.getElementById('whyDescription');
-  // var whyImage = document.getElementById('whyImage');
   var whoDescription = document.getElementById('whoDescription');
-  // var whoImage = document.getElementById('whoImage');
   var whoAmIDescription = document.getElementById('whoAmIDescription');
   var whatDescription = document.getElementById('whatDescription');
-  // var whatImage = document.getElementById('whatImage');
   var whereDescription = document.getElementById('whereDescription');
-  // var whereAddress = document.getElementById('whereAddress');
-  // var whereImage = document.getElementById('whereImage');
   var whenDescription = document.getElementById('whenDescription');
-  // var whenDate = document.getElementById('whenDate');
-  // var whenTime = document.getElementById('whenTime');
-  // var whenImage = document.getElementById('whenImage');
   var howMuchDescription = document.getElementById('howMuchDescription');
   var creatorDescription = document.getElementById('creatorDescription');
   var doerDescription = document.getElementById('doerDescription');
   var howMuchCost = document.getElementById('howMuchCost');
-  // var howmuchImage = document.getElementById('howmuchImage');
   var currentDoWhop = document.getElementById('dowhop-selector-container').firstChild.id || 'orphan';
+
   var error = document.getElementById('error');
 
   if (titleDescription.value !== '' && whoDescription.value !== '') {
     event.createdBy = auth.currentUser.uid;
     event.titleDescription = titleDescription.value;
-    // event.titleImage = titleImage.innerHTML;
     event.whyDescription = whyDescription.value;
-    // event.whyDescription = whyDescription.value;
     event.whoDescription = whoDescription.value;
     event.whoAmIDescription = whoAmIDescription.value;
-    // event.whoImage = whoImage.innerHTML;
     event.whatDescription = whatDescription.value;
-    // event.whatImage = whatImage.innerHTML;
     event.whereDescription = whereDescription.value;
-    // event.whereAddress = whereAddress.value;
-    // event.whereImage = whereImage.innerHTML;
     event.whenDescription = whenDescription.value;
-    // event.whenTime = whenTime.value;
-    // event.whenDate = whenDate.value;
-    // event.whenImage = whenImage.innerHTML;
     event.howMuchDescription = howMuchDescription.value;
     event.creatorDescription = creatorDescription.value.toLowerCase();
     event.doerDescription = doerDescription.value.toLowerCase();
-    // event.howMuchCost = howMuchCost.value;
-    // event.howmuchImage = howmuchImage.innerHTML;
   } else {
     var error = document.getElementById('error');
     error.classList.remove('error--ok');
@@ -66,64 +48,89 @@ function editSelectedDoWhop(event) {
   }
 
   // Changing this to an edit/update form that will only set certain attributes.
-  doWhopDescriptionRootRef.child(currentDoWhop).child('titleDescription').set(event.titleDescription);
-  doWhopDescriptionRootRef.child(currentDoWhop).child('whyDescription').set(event.whyDescription);
-  doWhopDescriptionRootRef.child(currentDoWhop).child('whatDescription').set(event.whatDescription);
-  doWhopDescriptionRootRef.child(currentDoWhop).child('whoDescription').set(event.whoDescription);
-  doWhopDescriptionRootRef.child(currentDoWhop).child('whoAmIDescription').set(event.whoAmIDescription);
-  doWhopDescriptionRootRef.child(currentDoWhop).child('whereDescription').set(event.whereDescription);
-  doWhopDescriptionRootRef.child(currentDoWhop).child('whenDescription').set(event.whenDescription);
-  doWhopDescriptionRootRef.child(currentDoWhop).child('creatorDescription').set(event.creatorDescription);
-  doWhopDescriptionRootRef.child(currentDoWhop).child('doerDescription').set(event.doerDescription);
+  doWhopDescriptionRootRef
+    .child(currentDoWhop)
+    .child('titleDescription')
+    .set(event.titleDescription);
+  doWhopDescriptionRootRef
+    .child(currentDoWhop)
+    .child('whyDescription')
+    .set(event.whyDescription);
+  doWhopDescriptionRootRef
+    .child(currentDoWhop)
+    .child('whatDescription')
+    .set(event.whatDescription);
+  doWhopDescriptionRootRef
+    .child(currentDoWhop)
+    .child('whoDescription')
+    .set(event.whoDescription);
+  doWhopDescriptionRootRef
+    .child(currentDoWhop)
+    .child('whoAmIDescription')
+    .set(event.whoAmIDescription);
+  doWhopDescriptionRootRef
+    .child(currentDoWhop)
+    .child('whereDescription')
+    .set(event.whereDescription);
+  doWhopDescriptionRootRef
+    .child(currentDoWhop)
+    .child('whenDescription')
+    .set(event.whenDescription);
+  doWhopDescriptionRootRef
+    .child(currentDoWhop)
+    .child('creatorDescription')
+    .set(event.creatorDescription);
+  doWhopDescriptionRootRef
+    .child(currentDoWhop)
+    .child('doerDescription')
+    .set(event.doerDescription);
 
-  database.ref('DoWhopDescriptions/' + currentDoWhop + '/updateImageTempData/').once('value').then(function(snapshot) {
-    var snapshotVal = snapshot.val();
-    var whichImagesChanged = [snapshotVal.image1Changed, snapshotVal.image2Changed, snapshotVal.image3Changed];
-    var whichUrl = [
-      snapshotVal.potentialUrlForImage1,
-      snapshotVal.potentialUrlForImage2,
-      snapshotVal.potentialUrlForImage3
-    ];
+  database
+    .ref('DoWhopDescriptions/' + currentDoWhop + '/updateImageTempData/')
+    .once('value')
+    .then(function(snapshot) {
+      var snapshotVal = snapshot.val();
+      var whichImagesChanged = [snapshotVal.image1Changed, snapshotVal.image2Changed, snapshotVal.image3Changed];
+      var whichUrl = [
+        snapshotVal.potentialUrlForImage1,
+        snapshotVal.potentialUrlForImage2,
+        snapshotVal.potentialUrlForImage3
+      ];
 
-    whichImagesChanged.map((imageChanged, idx) => {
-      if (imageChanged) {
-        var imgNum = idx + 1;
-        var key = 'image' + imgNum;
-        var url = whichUrl[idx];
-        var obj = {};
-        obj[key] = url;
-        doWhopDescriptionRootRef.child(currentDoWhop).child('downloadURL').update(obj);
-      }
+      whichImagesChanged.map((imageChanged, idx) => {
+        if (imageChanged) {
+          var imgNum = idx + 1;
+          var key = 'image' + imgNum;
+          var url = whichUrl[idx];
+          var obj = {};
+          obj[key] = url;
+          doWhopDescriptionRootRef
+            .child(currentDoWhop)
+            .child('downloadURL')
+            .update(obj);
+        }
+      });
     });
-  });
 
   doWhopDescriptionRootRef
     .child(currentDoWhop)
     .child('howMuchDescription')
     .set(event.howMuchDescription)
-    .then(retrieveMyDoWhops(auth.currentUser.uid));
+    .then(retrieveMyDoWhops(auth.currentUser.uid))
+    .catch(function(error) {
+      console.log('editSelectedDoWhop ERROR -> ', error);
+    });
 
   titleDescription.value = '';
-  // titleImage.innerHTML = '';
   whyDescription.value = '';
-  // whyImage.innerHTML = '';
   whoDescription.value = '';
   whoAmIDescription.value = '';
-  // whoImage.innerHTML = '';
   whatDescription.value = '';
-  // whatImage.innerHTML = '';
   whereDescription.value = '';
-  // whereAddress.value = '';
-  // whereImage.innerHTML = '';
   whenDescription.value = '';
-  // whenTime.value = '';
-  // whenDate.value = '';
-  // whenImage.innerHTML = '';
   howMuchDescription.value = '';
   creatorDescription.value = '';
   doerDescription.value = '';
-  // howMuchCost.value = '';
-  // howmuchImage.innerHTML = '';
 
   document.getElementById('error').innerHTML =
     'You rock! Thanks for submitting your DoWhop. Please review your changes to the newly updated DoWhop!';
@@ -137,23 +144,25 @@ function retrieveMyDoWhops(uid) {
       var doWhopDescriptions = snapshot.val();
       var userDowhopCardDiv = document.getElementById('user-dowhop-cards');
       userDowhopCardDiv.innerHTML = '';
-      _.map(snapshot.val()).reverse().forEach(function(doWhopDescription) {
-        var doerDescriptionEmails = [];
+      _.map(snapshot.val())
+        .reverse()
+        .forEach(function(doWhopDescription) {
+          var doerDescriptionEmails = [];
 
-        if (doWhopDescription.doerDescription) {
-          doerDescriptionEmails = doWhopDescription.doerDescription.split(', ');
-        }
+          if (doWhopDescription.doerDescription) {
+            doerDescriptionEmails = doWhopDescription.doerDescription.split(', ');
+          }
 
-        if (
-          (doWhopDescription.creatorDescription && doWhopDescription.creatorDescription.toLowerCase()) ===
-            person.email.toLowerCase() ||
-          doerDescriptionEmails.some(function(doerDescriptionEmail) {
-            return doerDescriptionEmail.toLowerCase() === person.email.toLowerCase();
-          })
-        ) {
-          makeDoWhopSelector(userDowhopCardDiv, doWhopDescription);
-        }
-      });
+          if (
+            (doWhopDescription.creatorDescription && doWhopDescription.creatorDescription.toLowerCase()) ===
+              person.email.toLowerCase() ||
+            doerDescriptionEmails.some(function(doerDescriptionEmail) {
+              return doerDescriptionEmail.toLowerCase() === person.email.toLowerCase();
+            })
+          ) {
+            makeDoWhopSelector(userDowhopCardDiv, doWhopDescription);
+          }
+        });
     },
     function(errorObject) {
       console.log('retrieveMyDoWhops Data Read Failure: ' + errorObject.code);
@@ -234,7 +243,10 @@ function setSession(doWhopSelector) {
   // console.log('Running setSession....');
   // Note: this is an important order of operations:
   var key = doWhopSelector.id;
-  database.ref('session').child(person.uid).update({ current_dowhop: key });
+  database
+    .ref('session')
+    .child(person.uid)
+    .update({ current_dowhop: key });
   // console.log(creatorUserObjects, doerUserObjects);
   // setAndGetDoWhopDescriptionSession(key); // new
 }
@@ -284,21 +296,17 @@ function fillInEditForm(DoWhopID) {
       if (data.key === DoWhopID) {
         document.getElementById('titleDescription').value = doWhopDescription.titleDescription;
         document.getElementById('whoDescription').value = doWhopDescription.whoDescription;
-        // console.log(doWhopDescription.whoDescription);
         document.getElementById('whoAmIDescription').value = doWhopDescription.whoAmIDescription || '';
         document.getElementById('whyDescription').value = doWhopDescription.whyDescription;
         document.getElementById('whatDescription').value = doWhopDescription.whatDescription;
         document.getElementById('whereDescription').value = doWhopDescription.whereDescription;
-        // document.getElementById('whereAddress').value = doWhopDescription.whereAddress;
         document.getElementById('whenDescription').value = doWhopDescription.whenDescription;
-        // document.getElementById('whenTime').value = doWhopDescription.whenTime;
         document.getElementById('howMuchDescription').value = doWhopDescription.howMuchDescription;
         document.getElementById('creatorDescription').value = doWhopDescription.creatorDescription;
         document.getElementById('doerDescription').value = doWhopDescription.doerDescription;
         document.getElementById('image1').src = doWhopDescription.downloadURL.image1 || '';
         document.getElementById('image2').src = doWhopDescription.downloadURL.image2 || '';
         document.getElementById('image3').src = doWhopDescription.downloadURL.image3 || '';
-        // document.getElementById('howMuchCost').value = doWhopDescription.howMuchCost;
       }
     });
   });
@@ -317,21 +325,27 @@ function addImageToFirebase() {
   //changes src attribute to show file just selected, but uses experimental createObjectURL
   // document.getElementById(currentImgElement).src = window.URL.createObjectURL(file);
 
-  storage.ref(filePath).put(file).then(function(snapshot) {
-    var path = snapshot.metadata.fullPath;
-    // console.log('image path of file...', path);
-    storage.ref(path).getDownloadURL().then(function(url) {
-      //set potential download URL for current image number. Potential download URL will become actually URL
-      //when form is submitted
-      // console.log('image download url', url);
-      var potentialUrlForImage = 'potentialUrlForImage' + currentImageNumber;
-      var imageChanged = 'image' + currentImageNumber + 'Changed';
-      var obj = {};
-      obj[imageChanged] = true;
-      obj[potentialUrlForImage] = url;
-      database.ref('DoWhopDescriptions/' + currentDoWhopID + '/updateImageTempData').update(obj);
+  storage
+    .ref(filePath)
+    .put(file)
+    .then(function(snapshot) {
+      var path = snapshot.metadata.fullPath;
+      // console.log('image path of file...', path);
+      storage
+        .ref(path)
+        .getDownloadURL()
+        .then(function(url) {
+          //set potential download URL for current image number. Potential download URL will become actually URL
+          //when form is submitted
+          // console.log('image download url', url);
+          var potentialUrlForImage = 'potentialUrlForImage' + currentImageNumber;
+          var imageChanged = 'image' + currentImageNumber + 'Changed';
+          var obj = {};
+          obj[imageChanged] = true;
+          obj[potentialUrlForImage] = url;
+          database.ref('DoWhopDescriptions/' + currentDoWhopID + '/updateImageTempData').update(obj);
+        });
     });
-  });
 }
 
 // TODO determine if
@@ -345,10 +359,13 @@ function handleFile(files_arr, node) {
     return;
   }
   var filePath = auth.currentUser.uid + '/' + imagified + '/' + file.name;
-  return storage.ref(filePath).put(file).then(function(snapshot, node) {
-    var fullPath = snapshot.metadata.fullPath; //TIP: snapshot.metadata.downloadURLs[0] <-- Gets the viewable image link
-    document.getElementById(fullPath.split('/')[1]).innerHTML = fullPath;
-  });
+  return storage
+    .ref(filePath)
+    .put(file)
+    .then(function(snapshot, node) {
+      var fullPath = snapshot.metadata.fullPath; //TIP: snapshot.metadata.downloadURLs[0] <-- Gets the viewable image link
+      document.getElementById(fullPath.split('/')[1]).innerHTML = fullPath;
+    });
 }
 
 function getDate() {
