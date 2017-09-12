@@ -223,13 +223,13 @@ FriendlyChat.prototype.removeChats = function() {
 };
 
 function renderDoWhopMainHeader(userSessionCurrentDoWhop) {
+  console.log('CALLED');
   var currentDoWhopID = userSessionCurrentDoWhop; // This is available from higher scope.
 
   database
     .ref('DoWhopDescriptions')
     .child(currentDoWhopID)
-    .once('value')
-    .then(function(data) {
+    .on('value', function(data) {
       var doWhopSelector = document.getElementById('dowhop-selector-container');
       var doWhopSelectorDiv = '';
       var imageUrl =

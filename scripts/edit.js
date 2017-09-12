@@ -25,6 +25,7 @@ function editSelectedDoWhop(event) {
   var doerDescription = document.getElementById('doerDescription');
   var howMuchCost = document.getElementById('howMuchCost');
   var currentDoWhop = document.getElementById('dowhop-selector-container').firstChild.id || 'orphan';
+
   var error = document.getElementById('error');
 
   if (titleDescription.value !== '' && whoDescription.value !== '') {
@@ -115,7 +116,10 @@ function editSelectedDoWhop(event) {
     .child(currentDoWhop)
     .child('howMuchDescription')
     .set(event.howMuchDescription)
-    .then(retrieveMyDoWhops(auth.currentUser.uid));
+    .then(retrieveMyDoWhops(auth.currentUser.uid))
+    .catch(function(error) {
+      console.log('editSelectedDoWhop ERROR -> ', error);
+    });
 
   titleDescription.value = '';
   whyDescription.value = '';
