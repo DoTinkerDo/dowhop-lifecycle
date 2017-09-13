@@ -79,11 +79,10 @@ function submitNewDoWhopEntry(e) {
     createdAt: currentTime
   };
 
-  doWhopDescriptionRef.child(doWhopDescriptionKey).set({
-    doWhopDescriptionData
-  }).then(
-    createDoWhopWelcomeMessage(doWhopDescriptionData);
-  );
+  doWhopDescriptionRef
+    .child(doWhopDescriptionKey)
+    .update(doWhopDescriptionData)
+    .then(createDoWhopWelcomeMessage(doWhopDescriptionData));
 
   showConfirmationMessage();
   // messagesChatsRef.push({
@@ -119,10 +118,10 @@ function submitNewDoWhopEntry(e) {
 }
 
 function createDoWhopWelcomeMessage(doWhopDescriptionData) {
-
+  var defaultImageURL = '../images/dowhopicon.gif';
   var creatorDisplayName = auth.currentUser.displayName;
   // Getting the welcoming message reference:
-  var doWhopID = doWhopDescriptionData.doWhopDescriptionKey
+  var doWhopID = doWhopDescriptionData.doWhopDescriptionKey;
   var messagesChatsRef = database
     .ref()
     .child('messages')
@@ -144,8 +143,7 @@ function createDoWhopWelcomeMessage(doWhopDescriptionData) {
     '".\n' +
     'Coordinate the details here!';
 
-  var messagesChatsRef =
-  messagesChatsRef.push({
+  var messagesChatsRef = messagesChatsRef.push({
     chatId: doWhopID,
     name: teamName,
     text: welcomeMessageText,
