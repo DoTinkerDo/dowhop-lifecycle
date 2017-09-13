@@ -43,7 +43,7 @@ function submitNewDoWhopEntry(e) {
   var currentTime = moment().format('YYYY-MM-DD--HH:mm');
   var currentRegion = 'LA';
 
-  doWhopDescriptionRef.child(doWhopDescriptionKey).set({
+  var doWhopDescriptionData = {
     createdBy: uid,
     region: currentRegion,
     doWhopDescriptionKey: doWhopDescriptionKey,
@@ -58,7 +58,12 @@ function submitNewDoWhopEntry(e) {
     creatorDescription: creatorDescription.toLowerCase(),
     doerDescription: 'no-one',
     createdAt: currentTime
-  });
+  };
+
+  doWhopDescriptionRef
+    .child(doWhopDescriptionKey)
+    .set(doWhopDescriptionData)
+    .then(createDoWhopWelcomeMessage(doWhopDescriptionData));
 
   // TEMP disabled the creation of a welcome message.
   // var creatorDisplayName = auth.currentUser.displayName;
