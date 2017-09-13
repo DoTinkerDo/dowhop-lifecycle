@@ -118,6 +118,7 @@ function submitNewDoWhopEntry(e) {
 }
 
 function createDoWhopWelcomeMessage(doWhopDescriptionData) {
+  // console.log('Making welcome message for...', doWhopDescriptionData);
   var defaultImageURL = '../images/dowhopicon.gif';
   var creatorDisplayName = auth.currentUser.displayName;
   // Getting the welcoming message reference:
