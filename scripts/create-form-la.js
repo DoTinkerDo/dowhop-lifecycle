@@ -119,6 +119,41 @@ function submitNewDoWhopEntry(e) {
   clearNewDoWhopEntryForm();
 }
 
+function createDoWhopWelcomeMessage(doWhopDescriptionData) {
+  // console.log('Making welcome message for...', doWhopDescriptionData);
+  var defaultImageURL = '../images/dowhopicon.gif';
+  var creatorDisplayName = auth.currentUser.displayName;
+  // Getting the welcoming message reference:
+  var doWhopID = doWhopDescriptionData.doWhopDescriptionKey;
+  var messagesChatsRef = database
+    .ref()
+    .child('messages')
+    .child(doWhopID);
+
+  // Preparing the welcome message:
+  var teamName = 'Your DoWhop Team';
+
+  var welcomeMessageText =
+    'Welcome to your ' +
+    doWhopDescriptionData.titleDescription +
+    ' DoWhop!\n\n' +
+    'Currently, ' +
+    creatorDisplayName +
+    ' plans to meet "' +
+    doWhopDescriptionData.whenDescription +
+    '" at "' +
+    doWhopDescriptionData.whereDescription +
+    '".\n' +
+    'Coordinate the details here!';
+
+  var messagesChatsRef = messagesChatsRef.push({
+    chatId: doWhopID,
+    name: teamName,
+    text: welcomeMessageText,
+    photoUrl: defaultImageURL
+  });
+}
+
 var files = [];
 function addDoWhopImage(files_arr, node) {
   if (!files_arr[0].type.match('image/.*')) {
