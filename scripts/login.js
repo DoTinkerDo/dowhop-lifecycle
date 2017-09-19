@@ -47,7 +47,6 @@
     appUserRef.once('value').then(function(snapshot) {
       // default doWhop writes first, so this check resulted in
       // userData not being written changed set to update
-      // if (snapshot.val()) return;
       var userData = {
         displayName: user.displayName,
         photoURL: user.photoURL ? user.photoURL : placeholderUserPhotoURL,
@@ -66,42 +65,6 @@
     writeUserData(user);
     // FCM permission registration
     registerMessaging(user);
-    // retrieveMyDoWhops(user.uid);
-
-    // if (window.location.hash != '' && window.location.hash.length > 0) {
-    //   getLandingTab(window.location.hash.match(/#(.+)/)[1]);
-    // }
-    //
-    // // Read the user's saved session:
-    //
-    // var sessionRef = database.ref('/session').child(user.uid);
-    // var userSession;
-    //
-    // sessionRef.on(
-    //   'value',
-    //   function(snap) {
-    //     if (!snap.val()) {
-    //       var userSession = {
-    //         current_tab: 'coordinate-tab'
-    //         // To-Do: Set default doWhopDescriptionKey.
-    //       };
-    //       sessionRef.update(userSession);
-    //     }
-    //     userSession = snap.val();
-    //     // console.log('current DoWhop in view', userSession.current_dowhop);
-    //     // console.log('current tab', userSession.current_tab);
-    //     // getSessionTab(user.uid);
-    //     getLandingTab(userSession.current_tab);
-    //     checkForPendings(userSession); // Sets listener for changes, too.
-    //     manageMessengerImages(userSession);
-    //     // showDoWhopHeaderInView();
-    //     setAndGetDoWhopDescriptionSession(userSession);
-    //     showUIBasedOnTab(userSession);
-    //   },
-    //   function(error) {
-    //     console.error(error);
-    //   }
-    // );
   }
 
   function handleSignedOutUser() {
@@ -131,10 +94,6 @@
           return approved;
         });
 
-      // if (window.location.hash != '' && window.location.hash.length > 0) {
-      //   getLandingTab(window.location.hash.match(/#(.+)/)[1]);
-      // }
-
       // Read the user's saved session:
       if (user) {
         var sessionRef = database.ref('/session').child(user.uid);
@@ -149,17 +108,12 @@
             sessionRef.update(userSession);
           }
           userSession = snap.val();
-          // console.log('current DoWhop in view', userSession.current_dowhop);
-          // console.log('current tab', userSession.current_tab);
-          // getSessionTab(user.uid);
-          // getLandingTab(userSession.current_tab);
           retrieveMyDoWhops(user.uid);
           renderDoWhopMainHeader(userSession.current_dowhop);
           checkForPendings(userSession); // Sets listener for changes, too.
           checkDoWhopDetails(userSession.current_dowhop);
           manageMessengerImages(userSession);
           // showDoWhopHeaderInView();
-          // setAndGetDoWhopDescriptionSession(userSession);
           getLandingTab(userSession.current_tab);
           showUIBasedOnTab(userSession);
         });
@@ -175,7 +129,6 @@
 // 1) person is used by session -> confirmed line 219!
 // 2) now also used by reviews when user signs in for the first time.
 
-// ('use strict');
 // setting currentUser globals...
 var person = null;
 var currentTab = '';
