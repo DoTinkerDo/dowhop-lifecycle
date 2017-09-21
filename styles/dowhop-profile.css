@@ -187,7 +187,7 @@ img {
 }
 
 .outer-box:hover .inner-box {
-  opacity: .9;
+  opacity: 0.9;
   cursor: pointer;
   -webkit-transition: all 0.4s ease 0s;
   -moz-transition: all 0.4s ease 0s;
@@ -196,7 +196,7 @@ img {
 }
 
 .outer-box:hover .mdl-cell {
-  opacity: .9;
+  opacity: 0.9;
   cursor: pointer;
   -webkit-transition: all 0.4s ease 0s;
   -moz-transition: all 0.4s ease 0s;
@@ -231,10 +231,16 @@ img {
   background-color: white;
 }
 
+#background-div {
+  display: flex;
+  justify-content: center;
+  margin-bottom: -250px;
+}
 .background-photo {
-  height: 300px;
-  width: 100%;
-  margin-bottom: -180px;
+  width: auto;
+  height: auto;
+  max-height: 50vh;
+  /*margin-bottom: -180px;*/
 }
 
 #edit-profile-button {
@@ -254,7 +260,7 @@ img {
 
   #my-profile-social {
     margin-left: 32px;
-  }  
+  }
 }
 
 #edit-profile-button:hover,
@@ -267,7 +273,6 @@ img {
   text-decoration: none;
   cursor: pointer;
 }
-
 
 #my-profile-social-TW {
   height: 20px;
@@ -297,8 +302,8 @@ img {
   margin-left: 10px;
 }
 .social-media-twitter {
-  min-height: .5px;
-  min-width: .5px;
+  min-height: 0.5px;
+  min-width: 0.5px;
 }
 
 .social-hover:hover,
@@ -332,7 +337,7 @@ label > i.material-icons {
 
 i.link-icon {
   font-size: 3.5em;
-  min-width:44px; /* Check on mobile */
+  min-width: 44px; /* Check on mobile */
 }
 
 #button-1 i.material-icons,
@@ -346,7 +351,7 @@ i.link-icon {
 }
 
 .profile-location {
-  margin-top:20px;
+  margin-top: 20px;
 }
 button#button-1,
 button#button-2 {
