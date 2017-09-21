@@ -280,6 +280,10 @@ function generateUserIcons(userObjectArray) {
 }
 
 function checkDoWhopDetails(userSessionCurrentDoWhop) {
+  // Selecting and clearing the canvas for the Mini-View:
+  var miniView = document.getElementsByClassName('dowhop-selector-header-top')[0];
+  miniView.innerHTML = '';
+
   var currentDoWhopID = userSessionCurrentDoWhop;
   // Turning on a listener to the DoWhopDescriptions for a given DoWhop ID:
   database
@@ -340,6 +344,12 @@ function checkDoWhopDetails(userSessionCurrentDoWhop) {
         var renderCreatorIcon = generateUserIcons(creatorUserObjects);
         renderCreatorIcon += '<div class="user-avatar-container user-avatar-separator">' + 'will meet' + '</div>';
         var renderDoerIcons = generateUserIcons(doerUserObjects);
+
+        // NEW. Overriding header as Mini-View:
+
+        // var miniView = document.getElementsByClassName('dowhop-selector-header-top')[0];
+
+        miniView.innerHTML = renderCreatorIcon + ' will meet ' + renderDoerIcons + ' at ' + renderWhereInformation;
 
         // Weaving final output:
         newOutPut +=
