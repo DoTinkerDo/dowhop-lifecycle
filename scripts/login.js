@@ -149,17 +149,11 @@
             sessionRef.update(userSession);
           }
           userSession = snap.val();
-          // console.log('current DoWhop in view', userSession.current_dowhop);
-          // console.log('current tab', userSession.current_tab);
-          // getSessionTab(user.uid);
-          // getLandingTab(userSession.current_tab);
           retrieveMyDoWhops(user.uid);
           renderDoWhopMainHeader(userSession.current_dowhop);
           checkForPendings(userSession); // Sets listener for changes, too.
           checkDoWhopDetails(userSession.current_dowhop);
           manageMessengerImages(userSession);
-          // showDoWhopHeaderInView();
-          // setAndGetDoWhopDescriptionSession(userSession);
           getLandingTab(userSession.current_tab);
           showUIBasedOnTab(userSession);
         });
@@ -192,40 +186,20 @@ auth.onAuthStateChanged(function(user) {
 
 function createDefaultWelcomingMessage(doWhopDescriptionObject) {
   var doWhopDescriptionKey = doWhopDescriptionObject.doWhopDescriptionKey;
-  // console.log('creating welcoming msg');
-  // Gathering the appropriate data to fill out message:
-  // var DoWhopTitleDescription, DoWhopWhenDescription, DoWhopWhereDescription;
+  userName = auth.currentUser.displayName;
+  userName = userName.split(' ')[0];
+
   // TODO move to FB storage
   var defaultImageURL = '../images/dowhopicon.gif';
-
-  // database
-  //   .ref('DoWhopDescriptions')
-  //   .child(doWhopDescriptionKey)
-  //   .once('value')
-  //   .then(function(snap) {
-  //     DoWhopTitleDescription = snap.val().titleDescription;
-  //     DoWhopWhenDescription = snap.val().whenDescription;
-  //     DoWhopWhereDescription = snap.val().whereDescription;
-  //   });
-
-  var teamName = 'Your DoWhop Team';
   var welcomeMessageText =
-    'Welcome to your ' +
-    doWhopDescriptionObject.titleDescription +
-    ' DoWhop!\n\n' +
-    'Currently, ' +
-    'DoWhop' +
-    ' plans to meet "' +
-    doWhopDescriptionObject.whenDescription +
-    '" at "' +
-    doWhopDescriptionObject.whereDescription +
-    '".\n' +
-    'Coordinate the details here!';
+    'Hi ' +
+    userName +
+    ', welcome to DoWhop! My name is Casey and I will be your personal DoWhop assistant. Is there anything I can help you do?';
 
   var messagesChatsRef = database.ref('messages').child(doWhopDescriptionKey);
   messagesChatsRef.push({
     chatId: doWhopDescriptionKey,
-    name: teamName,
+    name: 'Casey',
     text: welcomeMessageText,
     photoUrl: defaultImageURL
   });
