@@ -109,7 +109,8 @@
           }
           userSession = snap.val();
           retrieveMyDoWhops(user.uid);
-          renderDoWhopMainHeader(userSession.current_dowhop);
+          renderDoWhopMainHeader(userSession.current_dowhop); // Changing to Mini-View.
+          // loadMiniView(userSession); // New.
           checkForPendings(userSession); // Sets listener for changes, too.
           checkDoWhopDetails(userSession.current_dowhop);
           manageMessengerImages(userSession);

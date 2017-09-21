@@ -349,7 +349,7 @@ function checkDoWhopDetails(userSessionCurrentDoWhop) {
 
         // var miniView = document.getElementsByClassName('dowhop-selector-header-top')[0];
 
-        miniView.innerHTML = renderCreatorIcon + ' will meet ' + renderDoerIcons + ' at ' + renderWhereInformation;
+        miniView.innerHTML = renderCreatorIcon + ' will meet at ' + renderWhereInformation;
 
         // Weaving final output:
         newOutPut +=
