@@ -340,14 +340,15 @@ function checkDoWhopDetails(userSessionCurrentDoWhop) {
         });
 
         var renderCreatorIcon = generateUserIcons(creatorUserObjects);
-        renderCreatorIcon += '<div class="user-avatar-container user-avatar-separator">' + 'will meet' + '</div>';
+        renderCreatorIcon += '<div class="user-avatar-container user-avatar-separator"></div>';
         var renderDoerIcons = generateUserIcons(doerUserObjects);
 
         // NEW. Overriding header as Mini-View:
 
-        miniView.innerHTML +=
+        miniView.innerHTML =
           '<div class=" user-avatar-section">' +
           renderCreatorIcon +
+          ' will meet ' +
           renderDoerIcons +
           '</div> + <div>' +
           renderWhenInformation +
@@ -382,11 +383,11 @@ function checkDoWhopDetails(userSessionCurrentDoWhop) {
           '</p>' +
           '<h4>When?</h4>' +
           '<p>' +
-          renderWhenInformation +
+          data.val().whenDescription +
           '</p>' +
           '<h4>Where?</h4>' +
           '<p>' +
-          renderWhereInformation +
+          data.val().whereDescription +
           '</p>' +
           '<h4>How much?</h4>' +
           '<p>' +
