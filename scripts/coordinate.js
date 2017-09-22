@@ -281,8 +281,7 @@ function generateUserIcons(userObjectArray) {
 
 function checkDoWhopDetails(userSessionCurrentDoWhop) {
   // Selecting and clearing the canvas for the Mini-View:
-  var miniView = document.getElementsByClassName('dowhop-selector-header-top')[0];
-  miniView.innerHTML = '';
+  var miniView = document.getElementById('mini-view');
 
   var currentDoWhopID = userSessionCurrentDoWhop;
   // Turning on a listener to the DoWhopDescriptions for a given DoWhop ID:
@@ -291,9 +290,8 @@ function checkDoWhopDetails(userSessionCurrentDoWhop) {
     .child(currentDoWhopID)
     .on('value', function(data) {
       var doWhopSelectorBody = document.getElementById('dowhop-selector-container-body');
-      doWhopSelectorBody.innerHTML = ''; // Resetting the field to new info is up-to-date
-      var newOutPut = '';
-
+      // doWhopSelectorBody.innerText = 'hello there'; // Resetting the field to new info is up-to-date
+      var infoOutPut = '';
       var doWhopDescriptionTitle = data.val().titleDescription;
       var renderWhyInformation = data.val().whyDescription;
       var renderWhenInformation = data.val().whenDescription;
@@ -347,22 +345,24 @@ function checkDoWhopDetails(userSessionCurrentDoWhop) {
 
         // NEW. Overriding header as Mini-View:
 
-        // var miniView = document.getElementsByClassName('dowhop-selector-header-top')[0];
-
-        miniView.innerHTML = renderCreatorIcon + ' will meet at ' + renderWhereInformation;
+        miniView.innerHTML +=
+          '<div class=" user-avatar-section">' +
+          renderCreatorIcon +
+          renderDoerIcons +
+          '</div> + <div>' +
+          renderWhenInformation +
+          '</div><div>' +
+          renderWhereInformation +
+          '</div>';
 
         // Weaving final output:
-        newOutPut +=
+        infoOutPut +=
           '<div id="selector-body" class="mdl-layout__content dowhop-selector-body">' +
           '<div class="mdl-card__title">' +
           '<h1 class="mdl-card__title-text">' +
           doWhopDescriptionTitle +
           ' Description' +
           '</h1>' +
-          '</div>' +
-          '<div class=" user-avatar-section">' +
-          renderCreatorIcon +
-          renderDoerIcons +
           '</div>' +
           '<div class="mdl-card__supporting-text">' +
           '<h4>Why?</h4>' +
@@ -393,7 +393,7 @@ function checkDoWhopDetails(userSessionCurrentDoWhop) {
           renderHowMuchInformation +
           '</p>' +
           '</div>';
-        doWhopSelectorBody.innerHTML = newOutPut;
+        doWhopSelectorBody.innerHTML = infoOutPut;
       });
     });
 }

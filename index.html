@@ -131,8 +131,6 @@
 
     <!-- Pending Notifications Container -->
     <section id="pending-div-container" class="mdl-grid">
-      <div id='mini-view'>
-      </div>
       <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--order-1-tablet mdl-cell--order-1-phone">
         <div id="pending-div" class="approval-form"></div>
       </div>
@@ -152,12 +150,11 @@
           </button>
         </form>
       </div>
+                              <div id='mini-view'></div>
     </section> <!-- End Notifications Container -->
-
     <!-- Main MDL Grid around DoWhop Selector cards and Life cycle apps -->
     <!-- 5 and 7 columns on desktop -->
     <main class="mdl-grid">
-
       <!-- Start DoWhop Selector cards -->
       <div class="mdl-cell mdl-cell--5-col mdl-cell--11-col-tablet mdl-cell--order-2-tablet mdl-cell--order-2-phone">
         <div id="user-dowhop-cards"></div>
@@ -167,8 +164,10 @@
       <!-- Outer 7 columns  -->
       <div class="mdl-cell mdl-cell--7-col mdl-cell--11-col-tablet mdl-cell--order-1-tablet mdl-cell--order-1-phone">
         <!-- Currently Selected DoWhop Top Image Container -->
-        <div id="dowhop-selector-container"></div> <!-- End Image Container -->
-        <div id="dowhop-selector-container-body"></div> <!-- End Image Container --><!--new-->
+        <div id="dowhop-selector-container">
+        </div> <!-- End Image Container -->
+        <div id="dowhop-selector-container-body">
+        </div> <!-- End Image Container --><!--new-->
         <!-- Start Create Panel -->
         <section id="create" class="mdl-card panel">
           <div class="mdl-layout__content">
