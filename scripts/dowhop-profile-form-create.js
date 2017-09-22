@@ -38,14 +38,14 @@ var activities = document.getElementsByClassName('personalAct');
 var background = document.getElementById('background-photo').src;
 
 for (var index = 0; index < activities.length; index++) {
-  activities[index].addEventListener('mouseover', function() {
-    var children = this.childNodes;
-    var imageSrc = children[1].src;
-    document.getElementById('background-photo').src = imageSrc;
-  });
-  activities[index].addEventListener('mouseout', function() {
-    document.getElementById('background-photo').src = background;
-  });
+  // activities[index].addEventListener('mouseover', function() {
+  //   var children = this.childNodes;
+  //   var imageSrc = children[1].src;
+  //   document.getElementById('background-photo').src = imageSrc;
+  // });
+  // activities[index].addEventListener('mouseout', function() {
+  //   document.getElementById('background-photo').src = background;
+  // });
 }
 
 //Toggle for showing and hiding edit form in profile
@@ -143,14 +143,20 @@ function createProfile(e) {
 
   profileImageFiles.forEach(function(file, idx) {
     var filePath = 'userImages/' + uid + '/' + 'profileActivityImages/' + file.name;
-    storage.ref(filePath).put(file).then(function(snapshot) {
-      var path = snapshot.metadata.fullPath;
-      storage.ref(path).getDownloadURL().then(function(url) {
-        var obj = {};
-        obj['image' + (idx + 1)] = url;
-        profileRef.child('profileActivityImageURLs').update(obj);
+    storage
+      .ref(filePath)
+      .put(file)
+      .then(function(snapshot) {
+        var path = snapshot.metadata.fullPath;
+        storage
+          .ref(path)
+          .getDownloadURL()
+          .then(function(url) {
+            var obj = {};
+            obj['image' + (idx + 1)] = url;
+            profileRef.child('profileActivityImageURLs').update(obj);
+          });
       });
-    });
   });
 
   if (createProfileName.value) {
