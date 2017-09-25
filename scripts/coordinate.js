@@ -298,13 +298,13 @@ function checkDoWhopDetails(userSessionCurrentDoWhop) {
       var infoOutPut = '';
       var doWhopDescriptionTitle = data.val().titleDescription;
       var renderWhyInformation = data.val().whyDescription;
-      var renderWhenInformation = data.val().whenDescription;
-      var renderWhereInformation = data.val().whereDescription;
+      var renderWhenInformation = data.val().whenDateTime || 'By request';
+      var renderWhereInformation = data.val().whereAddress || 'By request';
       var renderWhoDescription = data.val().whoDescription;
       var renderWhoAmIInformation = data.val().whoAmIDescription || '';
       var renderWhatInformation = data.val().whatDescription;
-      var renderWhenInformation = data.val().whenDescription;
-      var renderWhereInformation = data.val().whereDescription;
+      // var renderWhenInformation = data.val().whenDescription;
+      // var renderWhereInformation = data.val().whereDescription;
       var meetingStatus = 'plans to meet'; // Will change to 'will', 'suggested', 'requested'.
 
       // Checking for updates to renderWhereInformation - DEV refactor.
