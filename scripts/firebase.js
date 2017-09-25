@@ -6,14 +6,6 @@ var config = {
   projectId: 'dowhop-lifecycle',
   storageBucket: 'dowhop-lifecycle.appspot.com',
   messagingSenderId: '1090371045772'
-  // OMar's
-
-  // apiKey: 'AIzaSyCMOlta_VjzsPj96ad1wN-u1kQyz0wQuI8',
-  // authDomain: 'dowhop-lifecycle-admin.firebaseapp.com',
-  // databaseURL: 'https://dowhop-lifecycle-admin.firebaseio.com',
-  // projectId: 'dowhop-lifecycle-admin',
-  // storageBucket: 'dowhop-lifecycle-admin.appspot.com',
-  // messagingSenderId: '1012883670556'
 };
 
 firebase.initializeApp(config);
