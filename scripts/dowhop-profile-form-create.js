@@ -1,7 +1,6 @@
 'use strict';
 
-// This is the script for dealing with users' profiles.
-// Section for creating profile for first-time users:
+var currentProfile;
 var createProfileForm = document.getElementById('create-profile-form');
 var createProfileName = document.getElementById('profile-name');
 var createProfilePhone = document.getElementById('profile-phone');
@@ -25,6 +24,23 @@ var socialButtonWeb = document.getElementById('social-button-4');
 var updateForm = document.getElementById('direct-update-form-div');
 var closingButton = document.getElementById('update-form-div-span');
 var editProfileButton = document.getElementById('new-edit-profile');
+var myDisplayName = document.getElementById('my-display-name');
+var myProfileName = document.getElementById('my-profile-name');
+var myProfileSocialFB = document.getElementById('my-profile-social-FB');
+var myProfileSocialTW = document.getElementById('my-profile-social-TW');
+var myProfileSocialIG = document.getElementById('my-profile-social-IG');
+var myProfileSocialLI = document.getElementById('my-profile-social-LI');
+var myProfileAbout = document.getElementById('my-profile-about');
+var myProfilePayment = document.getElementById('my-profile-payment');
+var myProfileActivity1 = document.getElementById('my-profile-activity-1');
+var myProfileActivity2 = document.getElementById('my-profile-activity-2');
+var myProfileActivity3 = document.getElementById('my-profile-activity-3');
+var activityImage1 = document.getElementById('activity-image-1');
+var activityImage2 = document.getElementById('activity-image-2');
+var activityImage3 = document.getElementById('activity-image-3');
+var myProfilePicture = document.getElementById('my-profile-picture');
+var sendDirectMessageDiv = document.getElementById('send-direct-message-div');
+var myProfileSocial = document.getElementById('my-profile-social');
 
 createProfileFormBtn.addEventListener('click', createProfile);
 socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
@@ -36,9 +52,6 @@ closingButton.addEventListener('click', closeModalUpdate);
 
 var activities = document.getElementsByClassName('personalAct');
 var background = document.getElementById('background-photo').src;
-
-//Toggle for showing and hiding edit form in profile
-var toggle = 0;
 
 // Image activity upload logic
 var addNewActivityList = document.querySelectorAll('.add-new-activity');
@@ -185,16 +198,8 @@ function createProfile(e) {
   if (createProfileActivity3.value) {
     profileRef.update({ profileActivity3: createProfileActivity3.value });
   }
-
   clearCreateProfileForm();
   closeModalUpdate();
-  //createProfileDiv.setAttribute('hidden', 'true');
-
-  /**var theForm = document.getElementById('form-edit');
-  theForm.removeAttribute("style");
-  theForm.setAttribute("hidden","true");
-  createProfileDiv.removeAttribute("style");
-  createProfileDiv.setAttribute("hidden", "true");*/
 }
 
 function clearCreateProfileForm() {
@@ -215,71 +220,22 @@ function clearCreateProfileForm() {
   inputImageCaptureList[1].parentNode.style.color = '#757575';
   inputImageCaptureList[2].parentNode.style.color = '#757575';
   hideCreateProfileActivity();
-  // reset social here
 }
 
-// Section for retrieving previously-existing user profiles:
-var currentProfile;
-// var myProfileButton = document.getElementById('my-profile-button');
-var myDisplayName = document.getElementById('my-display-name');
-var myProfileName = document.getElementById('my-profile-name');
-// var myProfilePhone = document.getElementById('my-profile-phone'); //removed this element in profile page change, permanently remove later
-var myProfileSocialFB = document.getElementById('my-profile-social-FB');
-var myProfileSocialTW = document.getElementById('my-profile-social-TW');
-var myProfileSocialIG = document.getElementById('my-profile-social-IG');
-var myProfileSocialLI = document.getElementById('my-profile-social-LI');
-
-// var myProfileWebsite = document.getElementById('my-profile-website');
-var myProfileAbout = document.getElementById('my-profile-about');
-// var myProfileEmail = document.getElementById('my-profile-email');
-var myProfilePayment = document.getElementById('my-profile-payment');
-var myProfileActivity1 = document.getElementById('my-profile-activity-1');
-var myProfileActivity2 = document.getElementById('my-profile-activity-2');
-var myProfileActivity3 = document.getElementById('my-profile-activity-3');
-var activityImage1 = document.getElementById('activity-image-1');
-var activityImage2 = document.getElementById('activity-image-2');
-var activityImage3 = document.getElementById('activity-image-3');
-var myProfilePicture = document.getElementById('my-profile-picture');
-var sendDirectMessageDiv = document.getElementById('send-direct-message-div');
-var myProfileSocial = document.getElementById('my-profile-social');
-
-function retrieveProfile(currentProfile) {
-  // We are testing whether visiting user is looking at own profile (default), or other's via query parameter:
+function retrieveProfile() {
   currentProfile = retrieveUrl(window.location.href) || auth.currentUser.uid;
   var profileRef = database.ref('app_users/' + currentProfile);
-
-  // Retrieving relevant data from the database:
   profileRef.on('value', function(snap) {
     var appUser = snap.val();
     myDisplayName.innerText = appUser.displayName;
-    //myProfileName.innerText = appUser.profileName;
-    // myProfilePhone.innerText = phoneX(appUser.profilePhone); //commented because removed html
-    myProfileSocialFB.innerText = snap.val().profileSocialFB;
-    myProfileSocialTW.innerText = snap.val().profileSocialTW;
-    myProfileSocialIG.innerText = snap.val().profileSocialIG;
-    myProfileSocialLI.innerText = snap.val().profileSocialLI;
-    // myProfileEmail.innerHTML = "<a href='mailto:" + appUser.email + " '>Send Message</a> ";
-    myProfileAbout.innerText = appUser.profileAbout || 'About Me: ';
-    // myProfilePayment.innerText = appUser.pofilePayment;
-
-    if (appUser.profileActivity1) {
-      myProfileActivity1.innerText = appUser.profileActivity1;
-    } else {
-      myProfileActivity3.innerText = '';
-    }
-
-    if (appUser.profileActivity2) {
-      myProfileActivity2.innerText = appUser.profileActivity2;
-    } else {
-      myProfileActivity2.innerText = '';
-    }
-
-    if (appUser.profileActivity3) {
-      myProfileActivity3.innerText = appUser.profileActivity3;
-    } else {
-      myProfileActivity3.innerText = '';
-    }
-
+    myProfileSocialFB.alt = (appUser && appUser.profileSocialFB) || 'Facebook';
+    myProfileSocialTW.alt = (appUser && appUser.profileSocialTW) || 'Twitter';
+    myProfileSocialIG.alt = (appUser && appUser.profileSocialIG) || 'Instagram';
+    myProfileSocialLI.alt = (appUser && appUser.profileSocialLI) || 'LinkedIn';
+    myProfileAbout.innerText = (appUser && appUser.profileAbout) || 'About Me: ';
+    myProfileActivity1.innerText = (appUser && appUser.profileActivity1) || '';
+    myProfileActivity2.innerText = (appUser && appUser.profileActivity2) || '';
+    myProfileActivity3.innerText = (appUser && appUser.profileActivity3) || '';
     activityImage1.src =
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image1) || '/images/placeholder-image1.png';
     activityImage2.src =
@@ -287,8 +243,7 @@ function retrieveProfile(currentProfile) {
     activityImage3.src =
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image3) || '/images/placeholder-image3.png';
     myProfilePicture.src = appUser.photoURL;
-    // myProfilePicture.style.backgroundImage = 'url(' + appUser.photoURL + ')';
-    sendDirectMessageDiv.id = appUser.uid; // NEW.
+    sendDirectMessageDiv.id = appUser.uid;
   });
 }
 
@@ -306,18 +261,12 @@ function retrieveUrl(loc) {
   }
 }
 
-// For looking at your own profile (user is logged in):
 auth.onAuthStateChanged(function(user) {
   if (user) {
     retrieveProfile();
     profileProgressUI();
-  }
-});
 
-var profilePerson = null;
-auth.onAuthStateChanged(function(user) {
-  if (user) {
-    currentProfile = retrieveUrl(window.location.href) || auth.currentUser.uid;
+    currentProfile = retrieveUrl(window.location.href) || user.uid;
     var profileRef = firebase.database().ref('app_users/' + currentProfile);
     profileRef.on('value', function(snap) {
       if (snap.val().profileSocialFB) {
@@ -336,15 +285,11 @@ auth.onAuthStateChanged(function(user) {
         myProfileSocialLI.classList.add('social-hover');
         myProfileSocialLI.src = '../images/linkedin-verified.svg';
       }
-      if (currentProfile !== auth.currentUser.uid) {
-        editProfileButton.setAttribute('hidden', 'true');
-      } else {
-        editProfileButton.removeAttribute('hidden');
-      }
+
+      currentProfile !== user.uid
+        ? editProfileButton.setAttribute('hidden', 'true')
+        : editProfileButton.removeAttribute('hidden');
     });
-    profilePerson = user;
-  } else {
-    console.log('PERSON signed out');
   }
 });
 
@@ -355,11 +300,9 @@ function socialMediaTW() {
     var prefix = 'http://';
     let twitter = String(snap.val().profileSocialTW);
     var link = prefix.concat(twitter);
-
     if (checkHTTP(twitter)) {
       link = twitter;
     }
-
     if (!snap.val().profileSocialTW) {
     } else {
       window.open(link, '_blank');
@@ -394,11 +337,9 @@ function socialMediaLI() {
     var prefix = 'http://';
     var linkedIn = String(snap.val().profileSocialLI);
     var link = prefix.concat(linkedIn);
-
     if (checkHTTP(linkedIn)) {
       link = linkedIn;
     }
-
     if (!snap.val().profileSocialLI) {
     } else {
       window.open(link, '_blank');
@@ -411,14 +352,11 @@ function socialMediaIG() {
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.once('value', function(snap) {
     var prefix = 'http://';
-
     let instagram = String(snap.val().profileSocialIG);
     var link = prefix.concat(instagram);
-
     if (checkHTTP(instagram)) {
       link = instagram;
     }
-
     if (!snap.val().profileSocialIG) {
     } else {
       window.open(link, '_blank');
@@ -462,16 +400,8 @@ function closeModalUpdate() {
 function fillInProfileForm(e) {
   var currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
-
   updateForm.removeAttribute('hidden');
   updateForm.style.display = 'block';
-  /**var editForm = document.getElementById('direct-update-form-div');
-  console.log(editForm);
-  editForm.removeAttribute('hidden');
-  editForm.style.display="block";
-  createProfileDiv.style.display="block";
-  createProfileDiv.removeAttribute("hidden");*/
-
   profileRef.once('value', function(snap) {
     if ((profileRef = currentProfile)) {
       if (snap.val().displayName) {
