@@ -233,11 +233,11 @@ function retrieveProfile() {
   profileRef.on('value', function(snap) {
     var appUser = snap.val();
     myDisplayName.innerText = appUser.displayName;
-    myProfileSocialFB.innerText = snap.val().profileSocialFB;
-    myProfileSocialTW.innerText = snap.val().profileSocialTW;
-    myProfileSocialIG.innerText = snap.val().profileSocialIG;
-    myProfileSocialLI.innerText = snap.val().profileSocialLI;
-    myProfileAbout.innerText = appUser.profileAbout || 'About Me: ';
+    myProfileSocialFB.alt = (appUser && appUser.profileSocialFB) || 'Facebook';
+    myProfileSocialTW.alt = (appUser && appUser.profileSocialTW) || 'Twitter';
+    myProfileSocialIG.alt = (appUser && appUser.profileSocialIG) || 'Instagram';
+    myProfileSocialLI.alt = (appUser && appUser.profileSocialLI) || 'LinkedIn';
+    myProfileAbout.innerText = (appUser && appUser.profileAbout) || 'About Me: ';
 
     if (appUser.profileActivity1) {
       myProfileActivity1.innerText = appUser.profileActivity1;
