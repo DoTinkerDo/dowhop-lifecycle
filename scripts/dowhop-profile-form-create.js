@@ -1,5 +1,6 @@
 'use strict';
 
+var currentProfile;
 var createProfileForm = document.getElementById('create-profile-form');
 var createProfileName = document.getElementById('profile-name');
 var createProfilePhone = document.getElementById('profile-phone');
@@ -23,6 +24,23 @@ var socialButtonWeb = document.getElementById('social-button-4');
 var updateForm = document.getElementById('direct-update-form-div');
 var closingButton = document.getElementById('update-form-div-span');
 var editProfileButton = document.getElementById('new-edit-profile');
+var myDisplayName = document.getElementById('my-display-name');
+var myProfileName = document.getElementById('my-profile-name');
+var myProfileSocialFB = document.getElementById('my-profile-social-FB');
+var myProfileSocialTW = document.getElementById('my-profile-social-TW');
+var myProfileSocialIG = document.getElementById('my-profile-social-IG');
+var myProfileSocialLI = document.getElementById('my-profile-social-LI');
+var myProfileAbout = document.getElementById('my-profile-about');
+var myProfilePayment = document.getElementById('my-profile-payment');
+var myProfileActivity1 = document.getElementById('my-profile-activity-1');
+var myProfileActivity2 = document.getElementById('my-profile-activity-2');
+var myProfileActivity3 = document.getElementById('my-profile-activity-3');
+var activityImage1 = document.getElementById('activity-image-1');
+var activityImage2 = document.getElementById('activity-image-2');
+var activityImage3 = document.getElementById('activity-image-3');
+var myProfilePicture = document.getElementById('my-profile-picture');
+var sendDirectMessageDiv = document.getElementById('send-direct-message-div');
+var myProfileSocial = document.getElementById('my-profile-social');
 
 createProfileFormBtn.addEventListener('click', createProfile);
 socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
@@ -34,9 +52,6 @@ closingButton.addEventListener('click', closeModalUpdate);
 
 var activities = document.getElementsByClassName('personalAct');
 var background = document.getElementById('background-photo').src;
-
-//Toggle for showing and hiding edit form in profile
-var toggle = 0;
 
 // Image activity upload logic
 var addNewActivityList = document.querySelectorAll('.add-new-activity');
@@ -207,25 +222,6 @@ function clearCreateProfileForm() {
   hideCreateProfileActivity();
 }
 
-var currentProfile;
-var myDisplayName = document.getElementById('my-display-name');
-var myProfileName = document.getElementById('my-profile-name');
-var myProfileSocialFB = document.getElementById('my-profile-social-FB');
-var myProfileSocialTW = document.getElementById('my-profile-social-TW');
-var myProfileSocialIG = document.getElementById('my-profile-social-IG');
-var myProfileSocialLI = document.getElementById('my-profile-social-LI');
-var myProfileAbout = document.getElementById('my-profile-about');
-var myProfilePayment = document.getElementById('my-profile-payment');
-var myProfileActivity1 = document.getElementById('my-profile-activity-1');
-var myProfileActivity2 = document.getElementById('my-profile-activity-2');
-var myProfileActivity3 = document.getElementById('my-profile-activity-3');
-var activityImage1 = document.getElementById('activity-image-1');
-var activityImage2 = document.getElementById('activity-image-2');
-var activityImage3 = document.getElementById('activity-image-3');
-var myProfilePicture = document.getElementById('my-profile-picture');
-var sendDirectMessageDiv = document.getElementById('send-direct-message-div');
-var myProfileSocial = document.getElementById('my-profile-social');
-
 function retrieveProfile() {
   currentProfile = retrieveUrl(window.location.href) || auth.currentUser.uid;
   var profileRef = database.ref('app_users/' + currentProfile);
@@ -265,20 +261,12 @@ function retrieveUrl(loc) {
   }
 }
 
-// For looking at your own profile (user is logged in):
 auth.onAuthStateChanged(function(user) {
   if (user) {
-    console.log('first profile auth state change');
     retrieveProfile();
     profileProgressUI();
-  }
-});
 
-var profilePerson = null;
-auth.onAuthStateChanged(function(user) {
-  if (user) {
-    console.log('second profile auth state change');
-    currentProfile = retrieveUrl(window.location.href) || auth.currentUser.uid;
+    currentProfile = retrieveUrl(window.location.href) || user.uid;
     var profileRef = firebase.database().ref('app_users/' + currentProfile);
     profileRef.on('value', function(snap) {
       if (snap.val().profileSocialFB) {
@@ -297,15 +285,11 @@ auth.onAuthStateChanged(function(user) {
         myProfileSocialLI.classList.add('social-hover');
         myProfileSocialLI.src = '../images/linkedin-verified.svg';
       }
-      if (currentProfile !== auth.currentUser.uid) {
-        editProfileButton.setAttribute('hidden', 'true');
-      } else {
-        editProfileButton.removeAttribute('hidden');
-      }
+
+      currentProfile !== user.uid
+        ? editProfileButton.setAttribute('hidden', 'true')
+        : editProfileButton.removeAttribute('hidden');
     });
-    profilePerson = user;
-  } else {
-    console.log('PERSON signed out');
   }
 });
 
@@ -316,11 +300,9 @@ function socialMediaTW() {
     var prefix = 'http://';
     let twitter = String(snap.val().profileSocialTW);
     var link = prefix.concat(twitter);
-
     if (checkHTTP(twitter)) {
       link = twitter;
     }
-
     if (!snap.val().profileSocialTW) {
     } else {
       window.open(link, '_blank');
@@ -355,11 +337,9 @@ function socialMediaLI() {
     var prefix = 'http://';
     var linkedIn = String(snap.val().profileSocialLI);
     var link = prefix.concat(linkedIn);
-
     if (checkHTTP(linkedIn)) {
       link = linkedIn;
     }
-
     if (!snap.val().profileSocialLI) {
     } else {
       window.open(link, '_blank');
@@ -372,14 +352,11 @@ function socialMediaIG() {
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.once('value', function(snap) {
     var prefix = 'http://';
-
     let instagram = String(snap.val().profileSocialIG);
     var link = prefix.concat(instagram);
-
     if (checkHTTP(instagram)) {
       link = instagram;
     }
-
     if (!snap.val().profileSocialIG) {
     } else {
       window.open(link, '_blank');
@@ -423,16 +400,8 @@ function closeModalUpdate() {
 function fillInProfileForm(e) {
   var currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
-
   updateForm.removeAttribute('hidden');
   updateForm.style.display = 'block';
-  /**var editForm = document.getElementById('direct-update-form-div');
-  console.log(editForm);
-  editForm.removeAttribute('hidden');
-  editForm.style.display="block";
-  createProfileDiv.style.display="block";
-  createProfileDiv.removeAttribute("hidden");*/
-
   profileRef.once('value', function(snap) {
     if ((profileRef = currentProfile)) {
       if (snap.val().displayName) {
