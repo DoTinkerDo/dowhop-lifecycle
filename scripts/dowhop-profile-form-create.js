@@ -1,7 +1,5 @@
 'use strict';
 
-// This is the script for dealing with users' profiles.
-// Section for creating profile for first-time users:
 var createProfileForm = document.getElementById('create-profile-form');
 var createProfileName = document.getElementById('profile-name');
 var createProfilePhone = document.getElementById('profile-phone');
@@ -185,16 +183,8 @@ function createProfile(e) {
   if (createProfileActivity3.value) {
     profileRef.update({ profileActivity3: createProfileActivity3.value });
   }
-
   clearCreateProfileForm();
   closeModalUpdate();
-  //createProfileDiv.setAttribute('hidden', 'true');
-
-  /**var theForm = document.getElementById('form-edit');
-  theForm.removeAttribute("style");
-  theForm.setAttribute("hidden","true");
-  createProfileDiv.removeAttribute("style");
-  createProfileDiv.setAttribute("hidden", "true");*/
 }
 
 function clearCreateProfileForm() {
@@ -215,23 +205,16 @@ function clearCreateProfileForm() {
   inputImageCaptureList[1].parentNode.style.color = '#757575';
   inputImageCaptureList[2].parentNode.style.color = '#757575';
   hideCreateProfileActivity();
-  // reset social here
 }
 
-// Section for retrieving previously-existing user profiles:
 var currentProfile;
-// var myProfileButton = document.getElementById('my-profile-button');
 var myDisplayName = document.getElementById('my-display-name');
 var myProfileName = document.getElementById('my-profile-name');
-// var myProfilePhone = document.getElementById('my-profile-phone'); //removed this element in profile page change, permanently remove later
 var myProfileSocialFB = document.getElementById('my-profile-social-FB');
 var myProfileSocialTW = document.getElementById('my-profile-social-TW');
 var myProfileSocialIG = document.getElementById('my-profile-social-IG');
 var myProfileSocialLI = document.getElementById('my-profile-social-LI');
-
-// var myProfileWebsite = document.getElementById('my-profile-website');
 var myProfileAbout = document.getElementById('my-profile-about');
-// var myProfileEmail = document.getElementById('my-profile-email');
 var myProfilePayment = document.getElementById('my-profile-payment');
 var myProfileActivity1 = document.getElementById('my-profile-activity-1');
 var myProfileActivity2 = document.getElementById('my-profile-activity-2');
@@ -244,25 +227,17 @@ var sendDirectMessageDiv = document.getElementById('send-direct-message-div');
 var myProfileSocial = document.getElementById('my-profile-social');
 
 function retrieveProfile() {
-  console.log('running retrieve profile...');
-  // We are testing whether visiting user is looking at own profile (default), or other's via query parameter:
   currentProfile = retrieveUrl(window.location.href) || auth.currentUser.uid;
   var profileRef = database.ref('app_users/' + currentProfile);
 
-  // Retrieving relevant data from the database:
   profileRef.on('value', function(snap) {
-    console.log('within retrieveProfile snap:', snap.val());
     var appUser = snap.val();
     myDisplayName.innerText = appUser.displayName;
-    //myProfileName.innerText = appUser.profileName;
-    // myProfilePhone.innerText = phoneX(appUser.profilePhone); //commented because removed html
     myProfileSocialFB.innerText = snap.val().profileSocialFB;
     myProfileSocialTW.innerText = snap.val().profileSocialTW;
     myProfileSocialIG.innerText = snap.val().profileSocialIG;
     myProfileSocialLI.innerText = snap.val().profileSocialLI;
-    // myProfileEmail.innerHTML = "<a href='mailto:" + appUser.email + " '>Send Message</a> ";
     myProfileAbout.innerText = appUser.profileAbout || 'About Me: ';
-    // myProfilePayment.innerText = appUser.pofilePayment;
 
     if (appUser.profileActivity1) {
       myProfileActivity1.innerText = appUser.profileActivity1;
@@ -282,8 +257,6 @@ function retrieveProfile() {
       myProfileActivity3.innerText = '';
     }
 
-    console.log('profile activity 1:', activityImage1);
-
     activityImage1.src =
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image1) || '/images/placeholder-image1.png';
     activityImage2.src =
@@ -291,8 +264,7 @@ function retrieveProfile() {
     activityImage3.src =
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image3) || '/images/placeholder-image3.png';
     myProfilePicture.src = appUser.photoURL;
-    // myProfilePicture.style.backgroundImage = 'url(' + appUser.photoURL + ')';
-    sendDirectMessageDiv.id = appUser.uid; // NEW.
+    sendDirectMessageDiv.id = appUser.uid;
   });
 }
 
