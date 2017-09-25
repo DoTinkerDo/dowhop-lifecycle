@@ -251,6 +251,7 @@ function retrieveProfile() {
 
   // Retrieving relevant data from the database:
   profileRef.on('value', function(snap) {
+    console.log('within retrieveProfile snap:', snap.val());
     var appUser = snap.val();
     myDisplayName.innerText = appUser.displayName;
     //myProfileName.innerText = appUser.profileName;
@@ -280,6 +281,8 @@ function retrieveProfile() {
     } else {
       myProfileActivity3.innerText = '';
     }
+
+    console.log('profile activity 1:', activityImage1);
 
     activityImage1.src =
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image1) || '/images/placeholder-image1.png';
