@@ -135,8 +135,10 @@ FriendlyChat.prototype.sendApprovalAction = function(e) {
   // Notify the user of a change here:
   window.alert('You have approved of the change request!');
 
-  // Clear the leftover pending object data:
-  myRefPending.remove();
+  // Save the status update to the DoWhop for Mini-View:
+  myRef.update({ planningStatus: status }).then(
+    myRefPending.remove() // Clear the leftover pending object data.
+  );
 
   // Add UI reset information here:
   approvalForm.setAttribute('hidden', 'true');
@@ -191,8 +193,10 @@ FriendlyChat.prototype.sendDenialAction = function(e) {
   // Notify the user of a change here:
   window.alert('You have denied the change request.');
 
-  // Clear the leftover pending object data:
-  myRefPending.remove();
+  // Save the status update to the DoWhop for Mini-View:
+  myRef.update({ planningStatus: status }).then(
+    myRefPending.remove() // Clear the leftover pending object data.
+  );
 
   // Add UI reset information here:
   approvalForm.setAttribute('hidden', 'true');
@@ -301,6 +305,7 @@ function checkDoWhopDetails(userSessionCurrentDoWhop) {
       var renderWhatInformation = data.val().whatDescription;
       var renderWhenInformation = data.val().whenDescription;
       var renderWhereInformation = data.val().whereDescription;
+      var meetingStatus = 'plans to meet'; // Will change to 'will', 'suggested', 'requested'.
 
       // Checking for updates to renderWhereInformation - DEV refactor.
       if (data.val().whereAddress && data.val().whereAddress !== ('By request' || 'tbd' || 'TBD')) {
@@ -346,15 +351,17 @@ function checkDoWhopDetails(userSessionCurrentDoWhop) {
         // NEW. Overriding header as Mini-View:
 
         miniView.innerHTML =
-          '<div class=" user-avatar-section">' +
+          '<div class="mdl-card"><div class="mdl-layout__content"><div class="user-avatar-section">' +
           renderCreatorIcon +
-          ' will meet ' +
+          '<div class="mdl-card__supporting-text">' +
+          meetingStatus +
+          '</div>' +
           renderDoerIcons +
-          '</div> + <div>' +
+          '</div><div class="mdl-chip"><div class="mdl-chip__text">' +
           renderWhenInformation +
-          '</div><div>' +
+          '</div></div><div class="mdl-chip"><div class="mdl-chip__text">' +
           renderWhereInformation +
-          '</div>';
+          '</div></div></div></div>';
 
         // Weaving final output:
         infoOutPut +=
