@@ -232,12 +232,12 @@ img {
 }
 
 #background-div {
-  display: flex;
-  justify-content: center;
+  /*display: flex;
+  justify-content: center;*/
   margin-bottom: -250px;
 }
 .background-photo {
-  width: auto;
+  width: 100%;
   height: auto;
   max-height: 50vh;
   /*margin-bottom: -180px;*/
