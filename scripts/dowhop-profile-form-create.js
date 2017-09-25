@@ -254,8 +254,8 @@ var myProfilePicture = document.getElementById('my-profile-picture');
 var sendDirectMessageDiv = document.getElementById('send-direct-message-div');
 var myProfileSocial = document.getElementById('my-profile-social');
 
-function retrieveProfile(currentProfile) {
-  console.log('running retrieve profile');
+function retrieveProfile() {
+  console.log('running retrieve profile...');
   // We are testing whether visiting user is looking at own profile (default), or other's via query parameter:
   currentProfile = retrieveUrl(window.location.href) || auth.currentUser.uid;
   var profileRef = database.ref('app_users/' + currentProfile);
