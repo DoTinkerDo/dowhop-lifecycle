@@ -143,14 +143,20 @@ function createProfile(e) {
 
   profileImageFiles.forEach(function(file, idx) {
     var filePath = 'userImages/' + uid + '/' + 'profileActivityImages/' + file.name;
-    storage.ref(filePath).put(file).then(function(snapshot) {
-      var path = snapshot.metadata.fullPath;
-      storage.ref(path).getDownloadURL().then(function(url) {
-        var obj = {};
-        obj['image' + (idx + 1)] = url;
-        profileRef.child('profileActivityImageURLs').update(obj);
+    storage
+      .ref(filePath)
+      .put(file)
+      .then(function(snapshot) {
+        var path = snapshot.metadata.fullPath;
+        storage
+          .ref(path)
+          .getDownloadURL()
+          .then(function(url) {
+            var obj = {};
+            obj['image' + (idx + 1)] = url;
+            profileRef.child('profileActivityImageURLs').update(obj);
+          });
       });
-    });
   });
 
   if (createProfileName.value) {
@@ -249,6 +255,7 @@ var sendDirectMessageDiv = document.getElementById('send-direct-message-div');
 var myProfileSocial = document.getElementById('my-profile-social');
 
 function retrieveProfile(currentProfile) {
+  console.log('running retrieve profile');
   // We are testing whether visiting user is looking at own profile (default), or other's via query parameter:
   currentProfile = retrieveUrl(window.location.href) || auth.currentUser.uid;
   var profileRef = database.ref('app_users/' + currentProfile);
@@ -314,6 +321,7 @@ function retrieveUrl(loc) {
 // For looking at your own profile (user is logged in):
 auth.onAuthStateChanged(function(user) {
   if (user) {
+    console.log('first profile auth state change');
     retrieveProfile();
     profileProgressUI();
   }
@@ -322,6 +330,7 @@ auth.onAuthStateChanged(function(user) {
 var profilePerson = null;
 auth.onAuthStateChanged(function(user) {
   if (user) {
+    console.log('second profile auth state change');
     currentProfile = retrieveUrl(window.location.href) || auth.currentUser.uid;
     var profileRef = firebase.database().ref('app_users/' + currentProfile);
     profileRef.on('value', function(snap) {
