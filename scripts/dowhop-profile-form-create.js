@@ -229,7 +229,6 @@ var myProfileSocial = document.getElementById('my-profile-social');
 function retrieveProfile() {
   currentProfile = retrieveUrl(window.location.href) || auth.currentUser.uid;
   var profileRef = database.ref('app_users/' + currentProfile);
-
   profileRef.on('value', function(snap) {
     var appUser = snap.val();
     myDisplayName.innerText = appUser.displayName;
@@ -238,25 +237,9 @@ function retrieveProfile() {
     myProfileSocialIG.alt = (appUser && appUser.profileSocialIG) || 'Instagram';
     myProfileSocialLI.alt = (appUser && appUser.profileSocialLI) || 'LinkedIn';
     myProfileAbout.innerText = (appUser && appUser.profileAbout) || 'About Me: ';
-
-    if (appUser.profileActivity1) {
-      myProfileActivity1.innerText = appUser.profileActivity1;
-    } else {
-      myProfileActivity3.innerText = '';
-    }
-
-    if (appUser.profileActivity2) {
-      myProfileActivity2.innerText = appUser.profileActivity2;
-    } else {
-      myProfileActivity2.innerText = '';
-    }
-
-    if (appUser.profileActivity3) {
-      myProfileActivity3.innerText = appUser.profileActivity3;
-    } else {
-      myProfileActivity3.innerText = '';
-    }
-
+    myProfileActivity1.innerText = (appUser && appUser.profileActivity1) || '';
+    myProfileActivity2.innerText = (appUser && appUser.profileActivity2) || '';
+    myProfileActivity3.innerText = (appUser && appUser.profileActivity3) || '';
     activityImage1.src =
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image1) || '/images/placeholder-image1.png';
     activityImage2.src =
