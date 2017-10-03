@@ -283,206 +283,352 @@ function generateUserIcons(userObjectArray) {
   return textOutput;
 }
 
+function renderMiniView(data) {
+  var miniView = document.getElementById('mini-view');
+  var output = '';
+  var renderWhenInformation = data.val().whenDateTime || 'By request';
+  var renderWhereInformation = data.val().whereAddress || 'By request';
+  var whoInformation = data.val().doerDescription; // In progress:  Update with first names dynamically.
+  var meetingStatus = 'plans to meet'; // Will change to 'will', 'suggested', 'requested'.
+
+  // Checking for updates to renderWhereInformation - DEV refactor.
+  if (data.val().whereAddress && data.val().whereAddress !== ('By request' || 'tbd' || 'TBD')) {
+    renderWhereInformation = data.val().whereAddress;
+  }
+
+  // Adding more specifc 'time' information, if it has been included:
+  if (data.val().whenDateTime && data.val().whenDateTime !== ('By request' || 'tbd' || 'TBD')) {
+    renderWhenInformation =
+      moment(data.val().whenDateTime).format('dddd MMMM D, YYYY') +
+      ' at: ' +
+      moment(data.val().whenDateTime).format('h:mmA');
+  }
+
+  var renderCreatorIcon = '';
+  var renderDoerIcons = '';
+  var appUsersRef = database.ref('app_users');
+  var doerEmails = whoInformation.split(', ') || 'NA';
+  var creatorEmail = data.val().creatorDescription;
+
+  appUsersRef.once('value').then(function(snap) {
+    doerUserObjects.length = 0; // Resetting the global variable.
+    creatorUserObjects.length = 0;
+
+    snap.forEach(function(childSnap) {
+      doerEmails.filter(function(doerEmail) {
+        if (doerEmail === childSnap.val().email) {
+          doerUserObjects.push(childSnap.val());
+        }
+      });
+      if (creatorEmail === childSnap.val().email) {
+        creatorUserObjects.push(childSnap.val());
+      }
+    });
+
+    var renderCreatorIcon = generateUserIcons(creatorUserObjects);
+    renderCreatorIcon += '<div class="user-avatar-container user-avatar-separator"></div>';
+    var renderDoerIcons = generateUserIcons(doerUserObjects);
+
+    // NEW. Overriding header as Mini-View:
+
+    miniView.innerHTML =
+      '<div class="mdl-card"><div class="mdl-layout__content"><div class="user-avatar-section">' +
+      renderCreatorIcon +
+      '<div class="mdl-card__supporting-text">' +
+      meetingStatus +
+      '</div>' +
+      renderDoerIcons +
+      '</div><div class="mdl-chip"><div class="mdl-chip__text">' +
+      renderWhenInformation +
+      '</div></div><div class="mdl-chip"><div class="mdl-chip__text">' +
+      renderWhereInformation +
+      '</div></div></div></div>';
+  });
+  // return output;
+}
+
+function loadMiniView(userSessionCurrentDoWhop) {
+  // var miniView = document.getElementById('mini-view');
+  var currentDoWhopID = userSessionCurrentDoWhop;
+
+  database
+    .ref('DoWhopDescriptions')
+    .child(currentDoWhopID)
+    .once('value')
+    .then(function(snap) {
+      renderMiniView(snap);
+    });
+
+  database
+    .ref('DoWhopDescriptions')
+    .child(currentDoWhopID)
+    .on('child_changed', function(snap) {
+      renderMiniView(snap);
+    });
+
+  // miniview.innerHTML = output;
+  // var renderWhenInformation = data.val().whenDateTime || '';
+  // var renderWhereInformation = data.val().whereAddress || '';
+  // var whoInformation = data.val().doerDescription; // In progress:  Update with first names dynamically.
+  // var meetingStatus = 'plans to meet'; // Will change to 'will', 'suggested', 'requested'.
+  //
+  // // Checking for updates to renderWhereInformation - DEV refactor.
+  // if (data.val().whereAddress && data.val().whereAddress !== ('By request' || 'tbd' || 'TBD')) {
+  //   renderWhereInformation = data.val().whereAddress;
+  // }
+  //
+  // // Adding more specifc 'time' information, if it has been included:
+  // if (data.val().whenDateTime && data.val().whenDateTime !== ('By request' || 'tbd' || 'TBD')) {
+  //   renderWhenInformation =
+  //     moment(data.val().whenDateTime).format('dddd MMMM D, YYYY') +
+  //     ' at: ' +
+  //     moment(data.val().whenDateTime).format('h:mmA');
+  // }
+  //
+  // var renderCreatorIcon = '';
+  // var renderDoerIcons = '';
+  // var appUsersRef = database.ref('app_users');
+  // var doerEmails = whoInformation.split(', ');
+  // var creatorEmail = data.val().creatorDescription;
+  //
+  // appUsersRef.once('value').then(function(snap) {
+  //   doerUserObjects.length = 0; // Resetting the global variable.
+  //   creatorUserObjects.length = 0;
+  //
+  //   snap.forEach(function(childSnap) {
+  //     doerEmails.filter(function(doerEmail) {
+  //       if (doerEmail === childSnap.val().email) {
+  //         doerUserObjects.push(childSnap.val());
+  //       }
+  //     });
+  //     if (creatorEmail === childSnap.val().email) {
+  //       creatorUserObjects.push(childSnap.val());
+  //     }
+  //   });
+  //
+  //   var renderCreatorIcon = generateUserIcons(creatorUserObjects);
+  //   renderCreatorIcon += '<div class="user-avatar-container user-avatar-separator"></div>';
+  //   var renderDoerIcons = generateUserIcons(doerUserObjects);
+  //
+  //   // NEW. Overriding header as Mini-View:
+  //
+  //   miniView.innerHTML =
+  //     '<div class="mdl-card"><div class="mdl-layout__content"><div class="user-avatar-section">' +
+  //     renderCreatorIcon +
+  //     '<div class="mdl-card__supporting-text">' +
+  //     meetingStatus +
+  //     '</div>' +
+  //     renderDoerIcons +
+  //     '</div><div class="mdl-chip"><div class="mdl-chip__text">' +
+  //     renderWhenInformation +
+  //     '</div></div><div class="mdl-chip"><div class="mdl-chip__text">' +
+  //     renderWhereInformation +
+  //     '</div></div></div></div>';
+  // });
+  // });
+}
+
 function checkDoWhopDetails(userSessionCurrentDoWhop) {
   // Selecting and clearing the canvas for the Mini-View:
-  var miniView = document.getElementById('mini-view');
+  // var miniView = document.getElementById('mini-view');
   var currentDoWhopID = userSessionCurrentDoWhop;
 
   // Turning on a listener to the DoWhopDescriptions for a given DoWhop ID:
 
   // A. Render and listen for changes in  the Mini-View:
+  // database
+  //   .ref('DoWhopDescriptions')
+  //   .child(currentDoWhopID)
+  //   .on('value', function(data) {
+  //     var renderWhenInformation = data.val().whenDateTime || 'By request';
+  //     var renderWhereInformation = data.val().whereAddress || 'By request';
+  //     var whoInformation = data.val().doerDescription; // In progress:  Update with first names dynamically.
+  //     var meetingStatus = 'plans to meet'; // Will change to 'will', 'suggested', 'requested'.
+  //
+  //     // Checking for updates to renderWhereInformation - DEV refactor.
+  //     if (data.val().whereAddress && data.val().whereAddress !== ('By request' || 'tbd' || 'TBD')) {
+  //       renderWhereInformation = data.val().whereAddress;
+  //     }
+  //
+  //     // Adding more specifc 'time' information, if it has been included:
+  //     if (data.val().whenDateTime && data.val().whenDateTime !== ('By request' || 'tbd' || 'TBD')) {
+  //       renderWhenInformation =
+  //         moment(data.val().whenDateTime).format('dddd MMMM D, YYYY') +
+  //         ' at: ' +
+  //         moment(data.val().whenDateTime).format('h:mmA');
+  //     }
+  //
+  //     var renderCreatorIcon = '';
+  //     var renderDoerIcons = '';
+  //     var appUsersRef = database.ref('app_users');
+  //     var doerEmails = whoInformation.split(', ');
+  //     var creatorEmail = data.val().creatorDescription;
+  //
+  //     appUsersRef.once('value').then(function(snap) {
+  //       doerUserObjects.length = 0; // Resetting the global variable.
+  //       creatorUserObjects.length = 0;
+  //
+  //       snap.forEach(function(childSnap) {
+  //         doerEmails.filter(function(doerEmail) {
+  //           if (doerEmail === childSnap.val().email) {
+  //             doerUserObjects.push(childSnap.val());
+  //           }
+  //         });
+  //         if (creatorEmail === childSnap.val().email) {
+  //           creatorUserObjects.push(childSnap.val());
+  //         }
+  //       });
+  //
+  //       var renderCreatorIcon = generateUserIcons(creatorUserObjects);
+  //       renderCreatorIcon += '<div class="user-avatar-container user-avatar-separator"></div>';
+  //       var renderDoerIcons = generateUserIcons(doerUserObjects);
+  //
+  //       // NEW. Overriding header as Mini-View:
+  //
+  //       miniView.innerHTML =
+  //         '<div class="mdl-card"><div class="mdl-layout__content"><div class="user-avatar-section">' +
+  //         renderCreatorIcon +
+  //         '<div class="mdl-card__supporting-text">' +
+  //         meetingStatus +
+  //         '</div>' +
+  //         renderDoerIcons +
+  //         '</div><div class="mdl-chip"><div class="mdl-chip__text">' +
+  //         renderWhenInformation +
+  //         '</div></div><div class="mdl-chip"><div class="mdl-chip__text">' +
+  //         renderWhereInformation +
+  //         '</div></div></div></div>';
+  //     });
+
+  // database
+  //   .ref('DoWhopDescriptions')
+  //   .child(currentDoWhopID)
+  //   .on('child_changed', function(data) {
+  //
+  //   }
+
+  // B. Render only the static View information.
+  // database
+  //   .ref('DoWhopDescriptions')
+  //   .child(currentDoWhopID)
+  //   .once('child_added').then(function(data) {
+  //
+  //   });
+
   database
     .ref('DoWhopDescriptions')
     .child(currentDoWhopID)
     .on('value', function(data) {
+      // renderDoWhopMainHeader(userSession.current_dowhop); // Changing to Mini-View.
+      var doWhopSelectorBody = document.getElementById('dowhop-selector-container-body');
+      var infoOutPut = '';
+      var doWhopDescriptionTitle = data.val().titleDescription;
+      var renderWhyInformation = data.val().whyDescription;
       var renderWhenInformation = data.val().whenDateTime || 'By request';
       var renderWhereInformation = data.val().whereAddress || 'By request';
-      var whoInformation = data.val().doerDescription; // In progress:  Update with first names dynamically.
-      var meetingStatus = 'plans to meet'; // Will change to 'will', 'suggested', 'requested'.
+      var renderWhoDescription = data.val().whoDescription;
+      var renderWhoAmIInformation = data.val().whoAmIDescription || '';
+      var renderWhatInformation = data.val().whatDescription;
+      // var renderWhenInformation = data.val().whenDescription;
+      // var renderWhereInformation = data.val().whereDescription;
+      // var meetingStatus = 'plans to meet'; // Will change to 'will', 'suggested', 'requested'.
 
-      // Checking for updates to renderWhereInformation - DEV refactor.
-      if (data.val().whereAddress && data.val().whereAddress !== ('By request' || 'tbd' || 'TBD')) {
-        renderWhereInformation = data.val().whereAddress;
-      }
-
-      // Adding more specifc 'time' information, if it has been included:
-      if (data.val().whenDateTime && data.val().whenDateTime !== ('By request' || 'tbd' || 'TBD')) {
-        renderWhenInformation =
-          moment(data.val().whenDateTime).format('dddd MMMM D, YYYY') +
-          ' at: ' +
-          moment(data.val().whenDateTime).format('h:mmA');
-      }
-
-      var renderCreatorIcon = '';
-      var renderDoerIcons = '';
-      var appUsersRef = database.ref('app_users');
-      var doerEmails = whoInformation.split(', ');
-      var creatorEmail = data.val().creatorDescription;
-
-      appUsersRef.once('value').then(function(snap) {
-        doerUserObjects.length = 0; // Resetting the global variable.
-        creatorUserObjects.length = 0;
-
-        snap.forEach(function(childSnap) {
-          doerEmails.filter(function(doerEmail) {
-            if (doerEmail === childSnap.val().email) {
-              doerUserObjects.push(childSnap.val());
-            }
-          });
-          if (creatorEmail === childSnap.val().email) {
-            creatorUserObjects.push(childSnap.val());
-          }
-        });
-
-        var renderCreatorIcon = generateUserIcons(creatorUserObjects);
-        renderCreatorIcon += '<div class="user-avatar-container user-avatar-separator"></div>';
-        var renderDoerIcons = generateUserIcons(doerUserObjects);
-
-        // NEW. Overriding header as Mini-View:
-
-        miniView.innerHTML =
-          '<div class="mdl-card"><div class="mdl-layout__content"><div class="user-avatar-section">' +
-          renderCreatorIcon +
-          '<div class="mdl-card__supporting-text">' +
-          meetingStatus +
-          '</div>' +
-          renderDoerIcons +
-          '</div><div class="mdl-chip"><div class="mdl-chip__text">' +
-          renderWhenInformation +
-          '</div></div><div class="mdl-chip"><div class="mdl-chip__text">' +
-          renderWhereInformation +
-          '</div></div></div></div>';
-      });
-
-      // database
-      //   .ref('DoWhopDescriptions')
-      //   .child(currentDoWhopID)
-      //   .on('child_changed', function(data) {
+      // // Checking for updates to renderWhereInformation - DEV refactor.
+      // if (data.val().whereAddress && data.val().whereAddress !== ('By request' || 'tbd' || 'TBD')) {
+      //   renderWhereInformation = data.val().whereAddress;
+      // }
       //
-      //   }
+      // // Adding more specifc 'time' information, if it has been included:
+      // if (data.val().whenDateTime && data.val().whenDateTime !== ('By request' || 'tbd' || 'TBD')) {
+      //   renderWhenInformation =
+      //     moment(data.val().whenDateTime).format('dddd MMMM D, YYYY') +
+      //     ' at: ' +
+      //     moment(data.val().whenDateTime).format('h:mmA');
+      // }
+      var renderHowMuchInformation = data.val().howMuchDescription;
 
-      // B. Render only the static View information.
-      // database
-      //   .ref('DoWhopDescriptions')
-      //   .child(currentDoWhopID)
-      //   .once('child_added').then(function(data) {
+      // Adding in user icons by checking given emails against App Users in db.
+      // var whoInformation = data.val().doerDescription; // In progress:  Update with first names dynamically.
+      // var renderCreatorIcon = '';
+      // var renderDoerIcons = '';
+      // var appUsersRef = database.ref('app_users');
+      // var doerEmails = whoInformation.split(', ');
+      // var creatorEmail = data.val().creatorDescription;
       //
+      // appUsersRef.once('value').then(function(snap) {
+      //   doerUserObjects.length = 0; // Resetting the global variable.
+      //   creatorUserObjects.length = 0;
+      //
+      //   snap.forEach(function(childSnap) {
+      //     doerEmails.filter(function(doerEmail) {
+      //       if (doerEmail === childSnap.val().email) {
+      //         doerUserObjects.push(childSnap.val());
+      //       }
+      //     });
+      //     if (creatorEmail === childSnap.val().email) {
+      //       creatorUserObjects.push(childSnap.val());
+      //     }
       //   });
+      //
+      //   var renderCreatorIcon = generateUserIcons(creatorUserObjects);
+      //   renderCreatorIcon += '<div class="user-avatar-container user-avatar-separator"></div>';
+      //   var renderDoerIcons = generateUserIcons(doerUserObjects);
+      //
+      //   // NEW. Overriding header as Mini-View:
+      //
+      //   miniView.innerHTML =
+      //     '<div class="mdl-card"><div class="mdl-layout__content"><div class="user-avatar-section">' +
+      //     renderCreatorIcon +
+      //     '<div class="mdl-card__supporting-text">' +
+      //     meetingStatus +
+      //     '</div>' +
+      //     renderDoerIcons +
+      //     '</div><div class="mdl-chip"><div class="mdl-chip__text">' +
+      //     renderWhenInformation +
+      //     '</div></div><div class="mdl-chip"><div class="mdl-chip__text">' +
+      //     renderWhereInformation +
+      //     '</div></div></div></div>';
 
-      database
-        .ref('DoWhopDescriptions')
-        .child(currentDoWhopID)
-        .on('value', function(data) {
-          var doWhopSelectorBody = document.getElementById('dowhop-selector-container-body');
-          var infoOutPut = '';
-          var doWhopDescriptionTitle = data.val().titleDescription;
-          var renderWhyInformation = data.val().whyDescription;
-          var renderWhenInformation = data.val().whenDateTime || 'By request';
-          var renderWhereInformation = data.val().whereAddress || 'By request';
-          var renderWhoDescription = data.val().whoDescription;
-          var renderWhoAmIInformation = data.val().whoAmIDescription || '';
-          var renderWhatInformation = data.val().whatDescription;
-          // var renderWhenInformation = data.val().whenDescription;
-          // var renderWhereInformation = data.val().whereDescription;
-          // var meetingStatus = 'plans to meet'; // Will change to 'will', 'suggested', 'requested'.
-
-          // // Checking for updates to renderWhereInformation - DEV refactor.
-          // if (data.val().whereAddress && data.val().whereAddress !== ('By request' || 'tbd' || 'TBD')) {
-          //   renderWhereInformation = data.val().whereAddress;
-          // }
-          //
-          // // Adding more specifc 'time' information, if it has been included:
-          // if (data.val().whenDateTime && data.val().whenDateTime !== ('By request' || 'tbd' || 'TBD')) {
-          //   renderWhenInformation =
-          //     moment(data.val().whenDateTime).format('dddd MMMM D, YYYY') +
-          //     ' at: ' +
-          //     moment(data.val().whenDateTime).format('h:mmA');
-          // }
-          var renderHowMuchInformation = data.val().howMuchDescription;
-
-          // Adding in user icons by checking given emails against App Users in db.
-          // var whoInformation = data.val().doerDescription; // In progress:  Update with first names dynamically.
-          // var renderCreatorIcon = '';
-          // var renderDoerIcons = '';
-          // var appUsersRef = database.ref('app_users');
-          // var doerEmails = whoInformation.split(', ');
-          // var creatorEmail = data.val().creatorDescription;
-          //
-          // appUsersRef.once('value').then(function(snap) {
-          //   doerUserObjects.length = 0; // Resetting the global variable.
-          //   creatorUserObjects.length = 0;
-          //
-          //   snap.forEach(function(childSnap) {
-          //     doerEmails.filter(function(doerEmail) {
-          //       if (doerEmail === childSnap.val().email) {
-          //         doerUserObjects.push(childSnap.val());
-          //       }
-          //     });
-          //     if (creatorEmail === childSnap.val().email) {
-          //       creatorUserObjects.push(childSnap.val());
-          //     }
-          //   });
-          //
-          //   var renderCreatorIcon = generateUserIcons(creatorUserObjects);
-          //   renderCreatorIcon += '<div class="user-avatar-container user-avatar-separator"></div>';
-          //   var renderDoerIcons = generateUserIcons(doerUserObjects);
-          //
-          //   // NEW. Overriding header as Mini-View:
-          //
-          //   miniView.innerHTML =
-          //     '<div class="mdl-card"><div class="mdl-layout__content"><div class="user-avatar-section">' +
-          //     renderCreatorIcon +
-          //     '<div class="mdl-card__supporting-text">' +
-          //     meetingStatus +
-          //     '</div>' +
-          //     renderDoerIcons +
-          //     '</div><div class="mdl-chip"><div class="mdl-chip__text">' +
-          //     renderWhenInformation +
-          //     '</div></div><div class="mdl-chip"><div class="mdl-chip__text">' +
-          //     renderWhereInformation +
-          //     '</div></div></div></div>';
-
-          // Weaving final output:
-          infoOutPut +=
-            '<div id="selector-body" class="mdl-layout__content dowhop-selector-body">' +
-            '<div class="mdl-card__title">' +
-            '<h1 class="mdl-card__title-text">' +
-            doWhopDescriptionTitle +
-            ' Description' +
-            '</h1>' +
-            '</div>' +
-            '<div class="mdl-card__supporting-text">' +
-            '<h4>Why?</h4>' +
-            '<p>' +
-            renderWhyInformation +
-            '</p>' +
-            '<h4>Who?</h4>' +
-            '<p>' +
-            renderWhoDescription +
-            '</p>' +
-            '<p>' +
-            renderWhoAmIInformation +
-            '</p>' +
-            '<h4>What?</h4>' +
-            '<p>' +
-            renderWhatInformation +
-            '</p>' +
-            '<h4>When?</h4>' +
-            '<p>' +
-            data.val().whenDescription +
-            '</p>' +
-            '<h4>Where?</h4>' +
-            '<p>' +
-            data.val().whereDescription +
-            '</p>' +
-            '<h4>How much?</h4>' +
-            '<p>' +
-            renderHowMuchInformation +
-            '</p>' +
-            '</div>';
-          doWhopSelectorBody.innerHTML = infoOutPut;
-        });
+      // Weaving final output:
+      infoOutPut +=
+        '<div id="selector-body" class="mdl-layout__content dowhop-selector-body">' +
+        '<div class="mdl-card__title">' +
+        '<h1 class="mdl-card__title-text">' +
+        doWhopDescriptionTitle +
+        ' Description' +
+        '</h1>' +
+        '</div>' +
+        '<div class="mdl-card__supporting-text">' +
+        '<h4>Why?</h4>' +
+        '<p>' +
+        renderWhyInformation +
+        '</p>' +
+        '<h4>Who?</h4>' +
+        '<p>' +
+        renderWhoDescription +
+        '</p>' +
+        '<p>' +
+        renderWhoAmIInformation +
+        '</p>' +
+        '<h4>What?</h4>' +
+        '<p>' +
+        renderWhatInformation +
+        '</p>' +
+        '<h4>When?</h4>' +
+        '<p>' +
+        data.val().whenDescription +
+        '</p>' +
+        '<h4>Where?</h4>' +
+        '<p>' +
+        data.val().whereDescription +
+        '</p>' +
+        '<h4>How much?</h4>' +
+        '<p>' +
+        renderHowMuchInformation +
+        '</p>' +
+        '</div>';
+      doWhopSelectorBody.innerHTML = infoOutPut;
     });
+  // });
 }
 // COMMENTING OUT.
 // function setAndGetDoWhopDescriptionSession(userSession) {
