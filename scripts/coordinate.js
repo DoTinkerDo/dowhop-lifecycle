@@ -288,7 +288,7 @@ function renderMiniView(data) {
   var output = '';
   var renderWhenInformation = data.val().whenDateTime || 'By request';
   var renderWhereInformation = data.val().whereAddress || 'By request';
-  var whoInformation = data.val().doerDescription; // In progress:  Update with first names dynamically.
+  var whoInformation = data.val().doerDescription || 'connect@dowhop.com'; // In progress:  Update with first names dynamically.
   var meetingStatus = 'plans to meet'; // Will change to 'will', 'suggested', 'requested'.
 
   // Checking for updates to renderWhereInformation - DEV refactor.
@@ -307,7 +307,8 @@ function renderMiniView(data) {
   var renderCreatorIcon = '';
   var renderDoerIcons = '';
   var appUsersRef = database.ref('app_users');
-  var doerEmails = whoInformation.split(', ') || 'NA';
+  console.log('who information', data.val());
+  var doerEmails = whoInformation.split(', ');
   var creatorEmail = data.val().creatorDescription;
 
   appUsersRef.once('value').then(function(snap) {
@@ -351,18 +352,19 @@ function loadMiniView(userSessionCurrentDoWhop) {
   // var miniView = document.getElementById('mini-view');
   var currentDoWhopID = userSessionCurrentDoWhop;
 
-  database
-    .ref('DoWhopDescriptions')
-    .child(currentDoWhopID)
-    .once('value')
-    .then(function(snap) {
-      renderMiniView(snap);
-    });
+  // database
+  //   .ref('DoWhopDescriptions')
+  //   .child(currentDoWhopID)
+  //   .once('value')
+  //   .then(function(snap) {
+  //     renderMiniView(snap);
+  //   });
 
   database
     .ref('DoWhopDescriptions')
     .child(currentDoWhopID)
-    .on('child_changed', function(snap) {
+    .on('value', function(snap) {
+      console.log('something updated!');
       renderMiniView(snap);
     });
 
@@ -517,7 +519,8 @@ function checkDoWhopDetails(userSessionCurrentDoWhop) {
   database
     .ref('DoWhopDescriptions')
     .child(currentDoWhopID)
-    .on('value', function(data) {
+    .once('value')
+    .then(function(data) {
       // renderDoWhopMainHeader(userSession.current_dowhop); // Changing to Mini-View.
       var doWhopSelectorBody = document.getElementById('dowhop-selector-container-body');
       var infoOutPut = '';
