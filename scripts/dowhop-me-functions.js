@@ -23,8 +23,75 @@
 //     });
 // }
 // All cases, we load pending div forms for current session:
-function checkForPendings(userSession) {
-  var currentDoWhop = userSession.current_dowhop;
+
+// function checkForPendings(data) {
+//   // var currentDoWhop = currentDoWhopID;
+//   // console.log('Running checkforpendings v2.0...', currentDoWhop);
+//   // database
+//   //   .ref('DoWhopDescriptions/')
+//   //   .child(currentDoWhop)
+//   //   .once('value')
+//   //   .then(
+//   //     function(data) {
+//   var requesterName = 'Someone'; // NOTE: just in case we are looking at old data.
+//
+//   if (data.val().pending && data.val().pending.requesterName) {
+//     requesterName = data.val().pending.requesterName;
+//   }
+//   var pendingNotification = requesterName + ' has requested to meet\n';
+//
+//   // Check if there are pending data:
+//   if (
+//     data.val() &&
+//     data.val().pending != null &&
+//     data.val().pending.status != 'approved' &&
+//     data.val().pending.status != 'denied'
+//   ) {
+//     // console.log('pending status true. showing pending div.');
+//     if (data.val().pending.whenDateTimePending) {
+//       pendingNotification +=
+//         'on ' +
+//         moment(data.val().pending.whenDateTimePending).format('dddd MMMM D, YYYY') +
+//         ' at ' +
+//         moment(data.val().pending.whenDateTimePending).format('hh:mmA') +
+//         '\n';
+//     }
+//     if (data.val().pending.whereAddressPending)
+//       pendingNotification += 'at ' + data.val().pending.whereAddressPending + '\n';
+//
+//     document.getElementById('pending-div').removeAttribute('hidden');
+//     document.getElementById('pending-div').innerText = pendingNotification;
+//     // This means visiting user is the creator of event:
+//     if (auth.currentUser.email == data.val().creatorDescription) {
+//       // console.log('visiting user is the creator. showing approval form, hiding rescind form.');
+//       document.getElementById('pending-div').innerText = pendingNotification;
+//       document.getElementById('approve-pending-form').removeAttribute('hidden');
+//       document.getElementById('rescind-pending-form').setAttribute('hidden', 'true');
+//
+//       // This means visiting user is a requestor of event change:
+//     } else if (auth.currentUser.uid == data.val().pending.requester) {
+//       // console.log('visiting user requested a change. showing rescinding form, hiding approval form.'
+//       document.getElementById('pending-div').innerText = pendingNotification;
+//       document.getElementById('rescind-pending-form').removeAttribute('hidden');
+//       document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
+//     }
+//     // All other cases:
+//   } else {
+//     // console.log('this means it has passed over logic tests.');
+//     document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
+//     document.getElementById('pending-div').innerText = '';
+//     document.getElementById('approve-pending-form').setAttribute('hidden', 'true');
+//     document.getElementById('rescind-pending-form').setAttribute('hidden', 'true');
+//   }
+//   // },
+//   // function(error) {
+//   //   console.error(error);
+//   //   }
+//   // );
+// }
+
+function checkForPendings(currentDoWhopID) {
+  var currentDoWhop = currentDoWhopID;
   // console.log('Running checkforpendings v2.0...', currentDoWhop);
   database
     .ref('DoWhopDescriptions/')

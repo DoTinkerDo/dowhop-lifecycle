@@ -86,47 +86,56 @@ FriendlyChat.prototype.checkForAdmin = function() {
 FriendlyChat.prototype.sendApprovalAction = function(e) {
   e.preventDefault();
   // console.log('you clicked send approval!');
-  var choice, newDateTime, newWhere, status;
+  // var choice,
+  //   newDateTime = '',
+  //   newWhere = '',
+  //   status = '';
 
-  this.chatItemDataSpecific = document.getElementById('dowhop-selector-container').children[0].id;
+  var currentDoWhopID = document.getElementById('dowhop-selector-container').children[0].id;
   var myRef = this.database
     .ref()
     .child('DoWhopDescriptions')
-    .child(this.chatItemDataSpecific);
-  var myRefPending = this.database.ref().child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending');
-  var messagesRef = this.database.ref().child('messages/' + this.chatItemDataSpecific);
+    .child(currentDoWhopID);
+  var myRefPending = this.database.ref().child('DoWhopDescriptions/' + currentDoWhopID + '/pending');
+  var messagesRef = this.database.ref().child('messages/' + currentDoWhopID);
   var approvalForm = document.getElementById('approve-pending-form');
   var rescindingForm = document.getElementById('rescind-pending-form');
   var pendingDiv = document.getElementById('pending-div');
-
+  var status = 'approved';
+  var newDateTime = '',
+    newWhere = '';
   // Updating these checks to make it more modular... (ie, avoid over-writing!).
-  myRef.once('value').then(function(snap) {
-    if (snap.val().pending.whenDateTimePending) {
-      newDateTime = snap.val().pending.whenDateTimePending;
-      myRef.update({
-        whenDateTime: newDateTime || 'tbd'
-      });
-    }
-    if (snap.val().pending.whereAddressPending) {
-      newWhere = snap.val().pending.whereAddressPending;
-      myRef.update({
-        whereAddress: newWhere || 'tbd'
-      });
-    }
-  });
-
-  status = 'approved';
-
-  this.database
-    .ref()
-    .child('DoWhopDescriptions/' + this.chatItemDataSpecific + '/pending/')
-    .update({
-      status: status
+  myRef
+    .once('value')
+    .then(function(snap) {
+      if (snap.val().pending.whenDateTimePending) {
+        newDateTime = snap.val().pending.whenDateTimePending;
+        myRef.update({
+          whenDateTime: newDateTime
+        });
+      }
+      if (snap.val().pending.whereAddressPending) {
+        newWhere = snap.val().pending.whereAddressPending;
+        myRef.update({
+          whereAddress: newWhere
+        });
+      }
     })
-    .then(approvalForm.reset());
+    .then(
+      myRefPending.remove() // Clearing out zombie data.
+    )
+    .catch(console.log(error));
+
+  // this.database
+  //   .ref()
+  //   .child('DoWhopDescriptions/' + currentDoWhopID + '/pending/')
+  //   .update({
+  //     status: status
+  //   })
+  //   .then(approvalForm.reset());
 
   messagesRef.push({
-    chatId: this.chatItemDataSpecific,
+    chatId: currentDoWhopID,
     name: '',
     text: person.displayName + ' has ' + status + ' the request.',
     photoUrl: '../images/searching-a-person.png'
@@ -136,9 +145,28 @@ FriendlyChat.prototype.sendApprovalAction = function(e) {
   window.alert('You have approved of the change request!');
 
   // Save the status update to the DoWhop for Mini-View:
-  myRef.update({ planningStatus: status }).then(
-    myRefPending.remove() // Clear the leftover pending object data.
-  );
+  // myRef
+  //   .update({
+  //     planningStatus: status,
+  //     status: status,
+  //     whereAddress: newWhere,
+  //     whenDateTime: newDateTime
+  //   })
+  // .then(
+  //   myRefPending.remove() // Clear the leftover pending object data.
+  // );
+
+  myRef.update({
+    planningStatus: status
+  });
+
+  // myRef.update({
+  //   whereAddress: newWhere
+  // });
+  //
+  // myRef.update({
+  //   whenDateTime: newDateTime
+  // });
 
   // Add UI reset information here:
   approvalForm.setAttribute('hidden', 'true');
@@ -285,19 +313,20 @@ function generateUserIcons(userObjectArray) {
 
 function renderMiniView(data) {
   var miniView = document.getElementById('mini-view');
+  console.log('loading miniview...', data.val());
   var output = '';
   var renderWhenInformation = data.val().whenDateTime || 'By request';
   var renderWhereInformation = data.val().whereAddress || 'By request';
   var whoInformation = data.val().doerDescription || 'connect@dowhop.com'; // In progress:  Update with first names dynamically.
   var meetingStatus = 'plans to meet'; // Will change to 'will', 'suggested', 'requested'.
-
+  var planningStatus = data.val().planningStatus; // NEW. ;
   // Checking for updates to renderWhereInformation - DEV refactor.
-  if (data.val().whereAddress && data.val().whereAddress !== ('By request' || 'tbd' || 'TBD')) {
+  if (data.val().whereAddress) {
     renderWhereInformation = data.val().whereAddress;
   }
 
   // Adding more specifc 'time' information, if it has been included:
-  if (data.val().whenDateTime && data.val().whenDateTime !== ('By request' || 'tbd' || 'TBD')) {
+  if (data.val().whenDateTime) {
     renderWhenInformation =
       moment(data.val().whenDateTime).format('dddd MMMM D, YYYY') +
       ' at: ' +
@@ -307,7 +336,6 @@ function renderMiniView(data) {
   var renderCreatorIcon = '';
   var renderDoerIcons = '';
   var appUsersRef = database.ref('app_users');
-  console.log('who information', data.val());
   var doerEmails = whoInformation.split(', ');
   var creatorEmail = data.val().creatorDescription;
 
@@ -332,11 +360,12 @@ function renderMiniView(data) {
 
     // NEW. Overriding header as Mini-View:
 
-    miniView.innerHTML =
+    output =
       '<div class="mdl-card"><div class="mdl-layout__content"><div class="user-avatar-section">' +
       renderCreatorIcon +
       '<div class="mdl-card__supporting-text">' +
       meetingStatus +
+      planningStatus +
       '</div>' +
       renderDoerIcons +
       '</div><div class="mdl-chip"><div class="mdl-chip__text">' +
@@ -344,6 +373,8 @@ function renderMiniView(data) {
       '</div></div><div class="mdl-chip"><div class="mdl-chip__text">' +
       renderWhereInformation +
       '</div></div></div></div>';
+    console.log('heres ur output', output);
+    miniView.innerHTML = output;
   });
   // return output;
 }
@@ -360,10 +391,12 @@ function loadMiniView(userSessionCurrentDoWhop) {
   //     renderMiniView(snap);
   //   });
 
+  // Setting listener...
   database
     .ref('DoWhopDescriptions')
     .child(currentDoWhopID)
     .on('value', function(snap) {
+      // checkForPendings(snap);
       console.log('something updated!');
       renderMiniView(snap);
     });
