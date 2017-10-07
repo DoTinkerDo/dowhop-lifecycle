@@ -132,7 +132,7 @@ FriendlyChat.prototype.sendApprovalAction = function(e) {
   window.alert('You have approved of the change request!');
 
   myRef.update({
-    planningStatus: status
+    planningStatus: 'will meet'
   });
 
   // Add UI reset information here:
@@ -189,7 +189,7 @@ FriendlyChat.prototype.sendDenialAction = function(e) {
   window.alert('You have denied the change request.');
 
   // Save the status update to the DoWhop for Mini-View:
-  myRef.update({ planningStatus: status }).then(
+  myRef.update({ planningStatus: 'plans to meet' }).then(
     myRefPending.remove() // Clear the leftover pending object data.
   );
 
@@ -330,7 +330,6 @@ function renderMiniView(data) {
       '<div class="mdl-card"><div class="mdl-layout__content"><div class="user-avatar-section">' +
       renderCreatorIcon +
       '<div class="mdl-card__supporting-text">' +
-      meetingStatus +
       planningStatus +
       '</div>' +
       renderDoerIcons +
@@ -450,7 +449,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
   // For only all three attributes: Time, Date, Where:
 
   if (this.messageFormWhenDateTimePending.value || this.messageFormWherePending.value) {
-    var chatsRef = this.database.ref().child('DoWhopDescriptions/' + currentDoWhopID + '/pending/');
+    var chatsRef = this.database.ref().child('DoWhopDescriptions/' + currentDoWhopID);
 
     var messageText = '';
 
@@ -473,11 +472,20 @@ FriendlyChat.prototype.saveMessage = function(e) {
       photoUrl: '/images/placeholder-image1.jpg'
     });
 
-    chatsRef.update({ status: true, requester: currentUser.uid, requesterName: currentUser.displayName }); // Refactoring to make it a dis-aggregated update.
+    chatsRef
+      .child('pending')
+      .update({ status: true, requester: currentUser.uid, requesterName: currentUser.displayName }); // Refactoring to make it a dis-aggregated update.
+    chatsRef.update({ planningStatus: 'requested to meet' });
     if (this.messageFormWhenDateTimePending.value)
-      chatsRef.update({ whenDateTimePending: this.messageFormWhenDateTimePending.value }).then(this.resetDateTime);
+      chatsRef
+        .child('pending')
+        .update({ whenDateTimePending: this.messageFormWhenDateTimePending.value })
+        .then(this.resetDateTime);
     if (this.messageFormWherePending.value)
-      chatsRef.update({ whereAddressPending: this.messageFormWherePending.value }).then(this.resetWhere);
+      chatsRef
+        .child('pending')
+        .update({ whereAddressPending: this.messageFormWherePending.value })
+        .then(this.resetWhere);
     this.resetDateTimeWhere; // Catch-all.
   }
 
