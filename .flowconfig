@@ -1,0 +1,11 @@
+[ignore]
+<PROJECT_ROOT>/node_modules/jss/*
+
+[include]
+
+[libs]
+<PROJECT_ROOT>/flow-typed/
+
+[options]
+module.name_mapper.extension='scss' -> 'empty/object'
+unsafe.enable_getters_and_setters=true

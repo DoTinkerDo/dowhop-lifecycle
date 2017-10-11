@@ -1,0 +1,17 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the navigation of the site/application.
+// -----------------------------------------------------------------------------
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  list-style: none;
+  li {
+    display: inline-block;
+    a {
+      padding: 0 10px;
+      margin-right: 5px;
+    }
+  }
+}

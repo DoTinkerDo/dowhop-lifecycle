@@ -1,0 +1,11 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the form of the site/application.
+// -----------------------------------------------------------------------------
+
+.flexbox-grid {
+  @include flexbox();
+  @include flex(1);
+}
+.flexbox-grid-cell {
+  @include flex(0 0 50%);
+}
