@@ -250,7 +250,7 @@ function toggleDoWhopDescriptionImage(element) {
 // for the currentUser
 // plus showEditForm and FillInEditForm
 function setSession(doWhopSelector) {
-  // console.log('Running setSession....');
+  console.log('Running setSession....', doWhopSelector);
   // Note: this is an important order of operations:
   var key = doWhopSelector.id;
   database
@@ -258,6 +258,7 @@ function setSession(doWhopSelector) {
     .child(person.uid)
     .update({ current_dowhop: key });
   // console.log(creatorUserObjects, doerUserObjects);
+  doWhopSelector.classList.add('active');
   // setAndGetDoWhopDescriptionSession(key); // new
 }
 
