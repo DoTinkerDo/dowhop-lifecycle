@@ -1,0 +1,26 @@
+/* Set all form inputs
+  font-family to 'Avenir-light'
+*/
+.show-reviews {
+  margin-bottom: 25px;
+}
+
+input {
+  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif !important;
+}
+
+#review blockquote {
+  font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
+  font-size: 14px;
+  padding: 10px 0;
+}
+
+img.comment-headshot-pic {
+  border-radius: 50%;
+  width:15%;
+  padding-right: 3px;
+}
+
+.comment-by-name {
+  display: inline;
+}
