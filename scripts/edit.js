@@ -145,12 +145,13 @@ function editSelectedDoWhop(event) {
 }
 
 // retrieveMyDoWhops should probably be moved to a more central place...
-function retrieveMyDoWhops(uid) {
+function retrieveMyDoWhops(uid, currentDoWhopID) {
   doWhopDescriptionRootRef.on(
     'value',
     function(snapshot) {
       var doWhopDescriptions = snapshot.val();
       var userDowhopCardDiv = document.getElementById('user-dowhop-cards');
+      var isCurrentDoWhop = false;
       userDowhopCardDiv.innerHTML = '';
       _.map(snapshot.val())
         .reverse()
@@ -168,6 +169,15 @@ function retrieveMyDoWhops(uid) {
               return doerDescriptionEmail.toLowerCase() === person.email.toLowerCase();
             })
           ) {
+            // Begin experiment for filtering selected vs current DoWhop:
+
+            console.log('cycling thru dowhop descs', doWhopDescription.doWhopDescriptionKey);
+            console.log('compare against current dowhop', currentDoWhopID);
+            console.log('is current dowhop?', doWhopDescription.doWhopDescriptionKey === currentDoWhopID);
+            doWhopDescription.doWhopDescriptionKey === currentDoWhopID
+              ? (isCurrentDoWhop = true)
+              : (isCurrentDoWhop = false);
+            console.log('is current dowhop:', isCurrentDoWhop);
             makeDoWhopSelector(userDowhopCardDiv, doWhopDescription);
           }
         });
@@ -251,6 +261,7 @@ function toggleDoWhopDescriptionImage(element) {
 // plus showEditForm and FillInEditForm
 function setSession(doWhopSelector) {
   console.log('Running setSession....', doWhopSelector);
+  doWhopSelector.classList.add('active');
   // Note: this is an important order of operations:
   var key = doWhopSelector.id;
   database
@@ -258,7 +269,6 @@ function setSession(doWhopSelector) {
     .child(person.uid)
     .update({ current_dowhop: key });
   // console.log(creatorUserObjects, doerUserObjects);
-  doWhopSelector.classList.add('active');
   // setAndGetDoWhopDescriptionSession(key); // new
 }
 
