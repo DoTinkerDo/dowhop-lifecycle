@@ -17,6 +17,9 @@ public/images/
 public/index.html
 public/*index
 
+dist/bundle.js
+dist/*bundle*
+
 _site/
 .sass-cache/
 
