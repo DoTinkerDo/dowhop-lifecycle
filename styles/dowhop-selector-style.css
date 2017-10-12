@@ -18,7 +18,7 @@
 }
 
 .dowhop-selector.active {
-  border: 5px solid transparent;
+  border: 5px solid red;
 
   -moz-border-image: -moz-linear-gradient(right, pink 10%, #ec1928 100%);
   -webkit-border-image: -webkit-linear-gradient(right, pink 10%, #ec1928 100%);
