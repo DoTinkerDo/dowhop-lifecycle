@@ -17,6 +17,18 @@
   margin-bottom: 25px;
 }
 
+.dowhop-selector.active {
+  border: 5px solid red;
+
+  -moz-border-image: -moz-linear-gradient(right, pink 10%, #ec1928 100%);
+  -webkit-border-image: -webkit-linear-gradient(right, pink 10%, #ec1928 100%);
+  border-image: linear-gradient(to left, pink 10%, #ec1928 100%);
+
+  border-image-slice: 1;
+
+  opacity: 0.4;
+}
+
 .dowhop-selector-header-top {
   height: 250px;
   background-size: cover;
@@ -31,7 +43,7 @@
 .dowhop-selector-header-top h1,
 h2 {
   background-color: #ffffff;
-  background-color: rgba(255, 255, 255, .3);
+  background-color: rgba(255, 255, 255, 0.3);
   color: #606060;
   font-size: 30px;
   text-align: center;
@@ -39,7 +51,7 @@ h2 {
 }
 
 .dowhop-selector-header {
-  transition: opacity .4s ease 0s;
+  transition: opacity 0.4s ease 0s;
   height: 250px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -52,14 +64,14 @@ h2 {
 
 .dowhop-selector-header:hover {
   cursor: pointer;
-  opacity: .4;
+  opacity: 0.4;
 }
 
 .dowhop-selector-header #dowhop-title,
 h2 {
   background-color: #ffffff;
-  background-color: rgba(255, 255, 255, .3);
-  transition: color background-color .4s ease 0s;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: color background-color 0.4s ease 0s;
 }
 
 .dowhop-selector-header:hover #dowhop-title {
@@ -88,7 +100,7 @@ h2 {
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
-  transition: opacity .4s ease 0s;
+  transition: opacity 0.4s ease 0s;
   opacity: 0;
   width: 100%;
   height: 100%;
@@ -115,7 +127,7 @@ h2 {
 */
 
 i.dowhop-icon {
-  color: rgba(255, 255, 255, .5);
+  color: rgba(255, 255, 255, 0.5);
   opacity: 0.5;
   padding-top: 2%;
   padding-left: 2%;
@@ -126,7 +138,7 @@ i.dowhop-icon {
 
 i.dowhop-icon:hover,
 i.dowhop-icon:active {
-  color: rgba(255, 255, 255, .9);
+  color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
 }
 
@@ -187,9 +199,9 @@ i.dowhop-icon:active {
 input {
   font-family: 'Avenir Light', Avenir Light, Arial, sans-serif !important;
 }
-input[type=file]#dowhop-image-capture {
+input[type='file']#dowhop-image-capture {
   margin-bottom: 12px;
-  font-size: .875em;
+  font-size: 0.875em;
 }
 
 .mdl-card.mdl-shadow--6dp {

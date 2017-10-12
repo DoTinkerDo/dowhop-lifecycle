@@ -149,7 +149,7 @@
             sessionRef.update(userSession);
           }
           userSession = snap.val();
-          retrieveMyDoWhops(user.uid);
+          retrieveMyDoWhops(user.uid, userSession.current_dowhop);
           renderDoWhopMainHeader(userSession.current_dowhop);
           checkForPendings(userSession); // Sets listener for changes, too.
           checkDoWhopDetails(userSession.current_dowhop);

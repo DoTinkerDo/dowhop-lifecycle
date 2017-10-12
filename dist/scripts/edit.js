@@ -145,12 +145,13 @@ function editSelectedDoWhop(event) {
 }
 
 // retrieveMyDoWhops should probably be moved to a more central place...
-function retrieveMyDoWhops(uid) {
+function retrieveMyDoWhops(uid, currentDoWhopID) {
   doWhopDescriptionRootRef.on(
     'value',
     function(snapshot) {
       var doWhopDescriptions = snapshot.val();
       var userDowhopCardDiv = document.getElementById('user-dowhop-cards');
+      var isCurrentDoWhop = false;
       userDowhopCardDiv.innerHTML = '';
       _.map(snapshot.val())
         .reverse()
@@ -168,7 +169,14 @@ function retrieveMyDoWhops(uid) {
               return doerDescriptionEmail.toLowerCase() === person.email.toLowerCase();
             })
           ) {
-            makeDoWhopSelector(userDowhopCardDiv, doWhopDescription);
+            // Begin experiment for filtering selected vs current DoWhop:
+
+            // console.log('is current dowhop?', doWhopDescription.doWhopDescriptionKey === currentDoWhopID);
+            doWhopDescription.doWhopDescriptionKey === currentDoWhopID
+              ? (isCurrentDoWhop = true)
+              : (isCurrentDoWhop = false);
+
+            makeDoWhopSelector(userDowhopCardDiv, doWhopDescription, isCurrentDoWhop);
           }
         });
     },
@@ -204,16 +212,21 @@ function retrieveMyDoWhops(uid) {
   }
 }
 
-function makeDoWhopSelector(container, data) {
+function makeDoWhopSelector(container, data, isCurrentDoWhopStatus) {
   var defaultDoWhopDescriptionImage =
     'https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/app-image-assets%2FDefaultDoWhop_banner.jpg?alt=media&token=036dfe25-d46c-4632-82b9-34094628cfc9';
   var image1 = '';
   var image2 = '';
+  var activeClass = null;
+  isCurrentDoWhopStatus === true ? (activeClass = 'active') : (activeClass = null);
+
   if (data && data.downloadURL) {
     image1 = data.downloadURL.image1 || data.downloadURL || defaultDoWhopDescriptionImage;
     image2 = data.downloadURL.image2 || data.downloadURL || defaultDoWhopDescriptionImage;
     container.innerHTML +=
-      '<aside class="mdl-card dowhop-selector" id="' +
+      '<aside class="mdl-card dowhop-selector ' +
+      activeClass +
+      '" id="' +
       data.doWhopDescriptionKey +
       '" onclick="setSession(this)" onmouseenter="toggleDoWhopDescriptionImage(this)" onmouseleave="toggleDoWhopDescriptionImage(this)" data-url1="' +
       image1 +
@@ -250,7 +263,8 @@ function toggleDoWhopDescriptionImage(element) {
 // for the currentUser
 // plus showEditForm and FillInEditForm
 function setSession(doWhopSelector) {
-  // console.log('Running setSession....');
+  // console.log('Running setSession....', doWhopSelector);
+  doWhopSelector.classList.add('active');
   // Note: this is an important order of operations:
   var key = doWhopSelector.id;
   database
