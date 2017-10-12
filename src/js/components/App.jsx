@@ -6,12 +6,10 @@ import { Provider } from 'react-redux';
 import store from '../store';
 import Wrapper from './Wrapper';
 import Landing from './Landing';
-import MainNav from './MainNav';
 import AuthButton from './AuthButton';
 import PrivateRoute from './PrivateRoute';
 import PropsRoute from './PropsRoute';
 import Login from './Login';
-import MeContainer from '../containers/MeContainer';
 import ProfileContainer from '../containers/ProfileContainer';
 import FourOhFour from './FourOhFour';
 import { startListeningToAuthChanges } from '../actions/authentication';
@@ -22,19 +20,18 @@ store.dispatch(startListeningToAuthChanges());
 store.dispatch(startListeningForCurrentUser());
 store.dispatch(startListeningForUserProfileChanges());
 
-const App = () =>
+const App = () => (
   <Provider store={store}>
     <Wrapper>
       <AuthButton />
-      <MainNav />
       <Switch>
         <Route exact path="/" component={Landing} />
         <PropsRoute path="/login" component={Login} />
-        <PrivateRoute path="/me" component={MeContainer} redirectTo="/login" />
         <PrivateRoute path="/profile" component={ProfileContainer} redirectTo="/login" />
         <Route component={FourOhFour} />
       </Switch>
     </Wrapper>
-  </Provider>;
+  </Provider>
+);
 
 export default App;
