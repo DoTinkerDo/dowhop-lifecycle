@@ -191,10 +191,10 @@ main,
   margin-right: 12px;
 }
 
-/* 
+/*
 
   Date & Time
-  Picker 
+  Picker
 
 */
 input#whenDatePending,
@@ -205,6 +205,7 @@ input#whenTimePending {
 .underbar img {
   display: inline-block;
   cursor: pointer;
+  background-color: #fff;
 }
 
 /*.whereAddressPending {
@@ -256,7 +257,7 @@ h5 {
 }
 
 #image-form {
-  padding-top: 7%;
+  /*padding-top: 7%;*/
   /*padding-bottom: 10%;*/
 }
 
@@ -348,7 +349,7 @@ h5 {
   float: left;
 }
 
-.approve-pending-form-list input[type="radio"] {
+.approve-pending-form-list input[type='radio'] {
   opacity: 0.01;
   z-index: 100;
 }
@@ -363,13 +364,13 @@ h5 {
   background-image: url('https://www.iconexperience.com/_img/g_collection_png/standard/64x64/close.png');
 }*/
 
-#radioApprove input[type="radio"]:checked + label,
+#radioApprove input[type='radio']:checked + label,
 .Checked + label {
   background: #ec1928;
   background-image: none;
 }
 
-#radioDeny input[type="radio"]:checked + label,
+#radioDeny input[type='radio']:checked + label,
 .Checked + label {
   background: #ffffff;
   background-image: none;
@@ -656,9 +657,9 @@ input:focus ~ .bar:after {
   transition: all 1s ease-in-out;
 }
 
-.underbar div {
+/*.underbar div {
   float: left;
-}
+}*/
 
 .icons-1 div {
   width: 100%;
@@ -690,17 +691,22 @@ input:focus ~ .bar:after {
   left: 1px;
 }
 
-.options {
+/*.options {
   overflow: hidden;
 }
 
 .options div {
   position: relative;
   bottom: 15px;
-}
+}*/
 
-.options-coordinate div {
+/*.options-coordinate div {
   bottom: 15px;
+}*/
+
+.coordinate-icon-sub {
+  /*position: fixed;*/
+  top: 0;
 }
 
 #submit-message-button {
@@ -836,7 +842,7 @@ button {
 /*----------------------------------------*/
 /*-------------EDIT DOWHOP FORM-----------*/
 /*----------------------------------------*/
-.edit-form-image-container{
+.edit-form-image-container {
   width: 31% !important;
   position: relative;
   padding-bottom: 31%;
@@ -858,7 +864,7 @@ button {
 }
 
 #submit-update-dowhop {
-  margin-top: 10px
+  margin-top: 10px;
 }
 
 /*profile stuff to be moved later*/
@@ -870,7 +876,6 @@ button {
 .verify-icon {
   cursor: default !important;
 }
-
 
 #verify-item-1 {
   display: none;
