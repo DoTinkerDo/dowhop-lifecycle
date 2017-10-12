@@ -171,13 +171,11 @@ function retrieveMyDoWhops(uid, currentDoWhopID) {
           ) {
             // Begin experiment for filtering selected vs current DoWhop:
 
-            console.log('cycling thru dowhop descs', doWhopDescription.doWhopDescriptionKey);
-            console.log('compare against current dowhop', currentDoWhopID);
-            console.log('is current dowhop?', doWhopDescription.doWhopDescriptionKey === currentDoWhopID);
+            // console.log('is current dowhop?', doWhopDescription.doWhopDescriptionKey === currentDoWhopID);
             doWhopDescription.doWhopDescriptionKey === currentDoWhopID
               ? (isCurrentDoWhop = true)
               : (isCurrentDoWhop = false);
-            console.log('is current dowhop:', isCurrentDoWhop);
+
             makeDoWhopSelector(userDowhopCardDiv, doWhopDescription, isCurrentDoWhop);
           }
         });
@@ -246,13 +244,6 @@ function makeDoWhopSelector(container, data, isCurrentDoWhopStatus) {
       '</div>' +
       '</div>' +
       '</aside>';
-
-    console.log('final check for status/tf:', isCurrentDoWhopStatus);
-    console.log('this container is', container);
-
-    // if (isCurrentDoWhopStatus === true) {
-    //   container.classList.add('active');
-    // }
   } else {
     return container;
   }
@@ -272,7 +263,7 @@ function toggleDoWhopDescriptionImage(element) {
 // for the currentUser
 // plus showEditForm and FillInEditForm
 function setSession(doWhopSelector) {
-  console.log('Running setSession....', doWhopSelector);
+  // console.log('Running setSession....', doWhopSelector);
   doWhopSelector.classList.add('active');
   // Note: this is an important order of operations:
   var key = doWhopSelector.id;
