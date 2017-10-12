@@ -114,22 +114,22 @@ function revealInput() {
       document.getElementById('when-date-time-pending-hidden').removeAttribute('hidden');
       document.getElementById('where-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('map').setAttribute('hidden', 'true');
-      document.getElementById('mediaCapture').setAttribute('hidden', 'true');
-      document.getElementById('submitImage').setAttribute('hidden', 'true');
+      // document.getElementById('mediaCapture').setAttribute('hidden', 'true');
+      // document.getElementById('submitImage').setAttribute('hidden', 'true');
       break;
     case 'where':
       document.getElementById('when-date-time-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('where-pending-hidden').removeAttribute('hidden');
       document.getElementById('whereAddressPending').removeAttribute('hidden');
       document.getElementById('map').removeAttribute('hidden');
-      document.getElementById('mediaCapture').setAttribute('hidden', 'true');
-      document.getElementById('submitImage').setAttribute('hidden', 'true');
+      // document.getElementById('mediaCapture').setAttribute('hidden', 'true');
+      // document.getElementById('submitImage').setAttribute('hidden', 'true');
       initializeGoogle(); // OK.
       google.maps.event.trigger(map, 'resize');
       break;
     case 'image':
-      document.getElementById('mediaCapture').removeAttribute('hidden');
-      document.getElementById('submitImage').removeAttribute('hidden');
+      // document.getElementById('mediaCapture').removeAttribute('hidden');
+      // document.getElementById('submitImage').removeAttribute('hidden');
       document.getElementById('when-date-time-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('where-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('map').setAttribute('hidden', 'true');
@@ -137,8 +137,8 @@ function revealInput() {
     default:
       document.getElementById('when-date-time-pending-hidden').setAttribute('hidden', 'true');
       document.getElementById('whereAddressPending').setAttribute('hidden', 'true');
-      document.getElementById('mediaCapture').setAttribute('hidden', 'true');
-      document.getElementById('submitImage').setAttribute('hidden', 'true');
+      // document.getElementById('mediaCapture').setAttribute('hidden', 'true');
+      // document.getElementById('submitImage').setAttribute('hidden', 'true');
       document.getElementById('map').setAttribute('hidden', 'true');
       break;
   }
