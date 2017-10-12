@@ -359,14 +359,15 @@
                   <!-- Adding options div here -->
                   <div class="options-coordinate">
                     <div class="underbar">
-                      <div id="option-calendar" class="img_icon">
+                      <div id="option-calendar" class="">
                         <img data-input="date" src="images/datetime.svg" alt="calendar" width="24" height="24">
                       </div>
-                      <div id="map-div" class="img_icon">
+                      <div id="map-div" class="">
                         <img data-input="where" src="https://static.wixstatic.com/media/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png/v1/fill/w_512,h_512,al_c/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png" alt="google-map" width="24" height="24">
                       </div>
-                      <div id="image" class="img_icon">
-                        <img data-input="image" src="images/image-add-button.png" alt="folder" width="24" height="24">
+                      <div id="image-form" class="">
+                        <input class="hide-component" id="mediaCapture" type="file" accept="image/*,capture=camera">
+                        <img id="submitImage" class="" src="images/image-add-button.png" alt="folder" width="24" height="24">
                       </div>
                       <div id="send-message-button">
                         <button class="btn btn-small" id="submit-message-button" type="submit">
@@ -386,12 +387,6 @@
                   <div hidden id="map"></div>
                 </form>
 
-                <form id="image-form" action="#">
-                  <input class="hide-component" id="mediaCapture" type="file" accept="image/*,capture=camera">
-                  <button hidden  id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--red-200 mdl-color-text--white">
-                    <i class="material-icons">perm_media</i>
-                  </button>
-                </form>
               </div>
             </div>
             <!-- <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar"> -->
@@ -548,7 +543,6 @@ window.addEventListener('load', changeLoginText);
 <script>
 var underbar = document.querySelectorAll('.underbar img');
 var underBarIcons = Array.prototype.slice.call(underbar);
-
 underBarIcons.forEach(function(icon) {
   icon.addEventListener('click', revealInput);
 });
