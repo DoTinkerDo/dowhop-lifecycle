@@ -16,9 +16,12 @@ public/*bundle*
 public/images/
 public/index.html
 public/*index
+public/fonts
 
 dist/bundle.js
 dist/*bundle*
+dist/my-profile.html
+dist/fonts
 
 _site/
 .sass-cache/
