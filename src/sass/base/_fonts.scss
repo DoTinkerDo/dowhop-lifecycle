@@ -5,11 +5,11 @@
 // development paths
 @font-face {
   font-family: 'Avenir Light';
-  src: url('/public/fonts/Avenir-Light.eot');
-  src: url('/public/fonts/Avenir-Light.eot?#iefix') format('embedded-opentype'),
-    url('/public/fonts/Avenir-Light.woff2') format('woff2'), url('/public/fonts/Avenir-Light.woff') format('woff'),
-    url('/public/fonts/Avenir-Light.ttf') format('truetype'),
-    url('/public/fonts/Avenir-Light.svg#Avenir-Light') format('svg');
+  src: url('/dist/fonts/Avenir-Light.eot');
+  src: url('/dist/fonts/Avenir-Light.eot?#iefix') format('embedded-opentype'),
+    url('/dist/fonts/Avenir-Light.woff2') format('woff2'), url('/dist/fonts/Avenir-Light.woff') format('woff'),
+    url('/dist/fonts/Avenir-Light.ttf') format('truetype'),
+    url('/dist/fonts/Avenir-Light.svg#Avenir-Light') format('svg');
   font-weight: 100;
   font-style: normal;
 }

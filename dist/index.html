@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="DoWhop Coordinate App" content="Arrange details with other DoWhop users">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoWhop</title>
+  <!-- Adding jQUery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Adding font 'Avenir Light' -->
+  <link rel="stylesheet" href="styles/font-styles.css">
+  <!-- Material Design Lite -->
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.red-blue.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.css" /> <!-- Firebase UI CSS for Web Auth -->
+  <link rel="stylesheet" href="styles/flatpickr.css">
+  <link rel="stylesheet" href="styles/main.css"> <!--Catch-all stylings-->
+  <link rel="stylesheet" href="styles/login-tabs-styles.css">
+  <link rel="stylesheet" href="styles/dowhop-selector-style.css">
+  <link rel="stylesheet" href="ratings/rating-lib/rating.min.css"> <!-- star rating styles -->
+  <link rel="stylesheet" href="styles/dowhop-reviews.css">
+  <link rel="stylesheet" href="styles/dowhop-profile-avatars.css">
+
+  <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>  <!-- Firebase library -->
+  <script src="scripts/firebase.js"></script> <!-- Initialize Firebase app -->
+  <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script> <!-- Lodash ._ -->
+  <script src="https://cdn.firebase.com/libs/firebaseui/2.0.0/firebaseui.js"></script> <!-- Firebase UI JS for Web Auth -->
+  <script>
+  var defaultDoWhopDescriptionImage =
+  'https://static.wixstatic.com/media/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.jpg/v1/crop/x_0,y_221,w_3543,h_1159/fill/w_886,h_246,al_c,q_80,usm_0.66_1.00_0.01/de271e_a0f92b126d584e54a84a2f721c1571d4~mv2_d_3543_2480_s_4_2.webp';
+</script>
+  <script src="/scripts/moment.js"></script>
+</head>
+<body>
+
+  <!-- Login splash screen -->
+  <section id="login-container">
+    <div class="login-page-title">
+      <h2>Log In</h2>
+      <h4>Confirm your information to view your DoWhops</h4>
+    </div>
+    <div class=login-container>
+      <div id="firebaseui-auth-container"></div>
+    </div>
+  </section> <!-- End Login screen -->
+
+  <!-- Application Container -->
+  <section class="hide-component" id="application-container">
+
+    <!-- Navigation Container -->
+    <header class="mdl-grid">
+      <nav class="mdl-cell mdl-cell--12-col mdl-cell--4-offset-desktop mdl-cell--2-offset-tablet">
+        <ul class="tabs">
+          <li>
+            <a id="create-tab" class="tab" id="create-icon" href="#create">
+              <span class="nav-tab-label">Create</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44">
+                <path d="M22,44c-3.309,0-6-2.665-6-5.941V28H5.941C2.665,28,0,25.309,0,22s2.665-6,5.941-6H16V5.941C16,2.665,18.691,0,22,0
+                  s6,2.665,6,5.941V16h10.059C41.335,16,44,18.691,44,22s-2.665,6-5.941,6H28v10.059C28,41.335,25.309,44,22,44z M5.941,18
+                  C3.805,18,2,19.832,2,22s1.805,4,3.941,4H18v12.059C18,40.195,19.832,42,22,42s4-1.805,4-3.941V26h12.059C40.195,26,42,24.168,42,22
+                  s-1.805-4-3.941-4H26V5.941C26,3.805,24.168,2,22,2s-4,1.805-4,3.941V18H5.941z"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a id="edit-tab" class="tab" href="#edit">
+              <span class="nav-tab-label">Edit</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 469.331 469.331">
+              <path d="M438.931,30.403c-40.4-40.5-106.1-40.5-146.5,0l-268.6,268.5c-2.1,2.1-3.4,4.8-3.8,7.7l-19.9,147.4
+                c-0.6,4.2,0.9,8.4,3.8,11.3c2.5,2.5,6,4,9.5,4c0.6,0,1.2,0,1.8-0.1l88.8-12c7.4-1,12.6-7.8,11.6-15.2c-1-7.4-7.8-12.6-15.2-11.6
+                l-71.2,9.6l13.9-102.8l108.2,108.2c2.5,2.5,6,4,9.5,4s7-1.4,9.5-4l268.6-268.5c19.6-19.6,30.4-45.6,30.4-73.3
+                S458.531,49.903,438.931,30.403z M297.631,63.403l45.1,45.1l-245.1,245.1l-45.1-45.1L297.631,63.403z M160.931,416.803l-44.1-44.1
+                l245.1-245.1l44.1,44.1L160.931,416.803z M424.831,152.403l-107.9-107.9c13.7-11.3,30.8-17.5,48.8-17.5c20.5,0,39.7,8,54.2,22.4
+                s22.4,33.7,22.4,54.2C442.331,121.703,436.131,138.703,424.831,152.403z"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a id="coordinate-tab" class="tab" href="#coordinate">
+              <span class="nav-tab-label">Coordinate</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 489.6 489.6">
+              <path d="M394.8,261.5V81.7c0-24.9-20.3-45.2-45.2-45.2H45.2C20.3,36.5,0,56.8,0,81.7v179.8c0,24.9,20.3,45.2,45.2,45.2h12.9v54.2
+                c0,10,8.1,18.1,18.2,18.1l0,0c5.2,0,10.2-2.3,13.7-6.3l57.1-66.1h202.6C374.5,306.7,394.8,286.4,394.8,261.5z M141.4,282.2
+                c-3.6,0-6.9,1.5-9.3,4.2l-49.6,57.3v-49.3c0-6.8-5.5-12.3-12.3-12.3h-25c-11.4,0-20.7-9.3-20.7-20.7V81.7
+                c0-11.4,9.3-20.7,20.7-20.7h304.4c11.4,0,20.7,9.3,20.7,20.7v179.8c0,11.4-9.3,20.7-20.7,20.7L141.4,282.2L141.4,282.2z"/>
+              <path d="M399.7,446.8c3.5,4.1,8.5,6.3,13.6,6.3c2.1,0,4.3-0.4,6.4-1.2c7.2-2.7,11.8-9.3,11.8-17v-54.2h12.9
+                c24.9,0,45.2-20.3,45.2-45.2V155.7c0-24.9-20.3-45.2-45.2-45.2c-6.8,0-12.3,5.5-12.3,12.2c0,6.8,5.5,12.3,12.3,12.3
+                c11.4,0,20.7,9.3,20.7,20.7v179.8c0,11.4-9.3,20.7-20.7,20.7h-25.1c-6.8,0-12.3,5.5-12.3,12.3v49.3l-49.6-57.3
+                c-2.3-2.7-5.7-4.2-9.3-4.2h-184c-6.8,0-12.3,5.5-12.3,12.3s5.5,12.3,12.3,12.3h178.4L399.7,446.8z"/>
+              <circle cx="197.4" cy="175.9" r="14.6"/>
+              <circle cx="246.3" cy="175.9" r="14.6"/>
+              <circle cx="148.5" cy="175.9" r="14.6"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a id="review-tab" class="tab" href="#review">
+            <span class="nav-tab-label">Review</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55.867 55.867">
+            <path d="M11.287,54.548c-0.207,0-0.414-0.064-0.588-0.191c-0.308-0.224-0.462-0.603-0.397-0.978l3.091-18.018L0.302,22.602
+              c-0.272-0.266-0.37-0.663-0.253-1.024c0.118-0.362,0.431-0.626,0.808-0.681l18.09-2.629l8.091-16.393
+              c0.168-0.342,0.516-0.558,0.896-0.558l0,0c0.381,0,0.729,0.216,0.896,0.558l8.09,16.393l18.091,2.629
+              c0.377,0.055,0.689,0.318,0.808,0.681c0.117,0.361,0.02,0.759-0.253,1.024L42.475,35.363l3.09,18.017
+              c0.064,0.375-0.09,0.754-0.397,0.978c-0.308,0.226-0.717,0.255-1.054,0.076l-16.18-8.506l-16.182,8.506
+              C11.606,54.51,11.446,54.548,11.287,54.548z M3.149,22.584l12.016,11.713c0.235,0.229,0.343,0.561,0.287,0.885L12.615,51.72
+              l14.854-7.808c0.291-0.154,0.638-0.154,0.931,0l14.852,7.808l-2.836-16.538c-0.056-0.324,0.052-0.655,0.287-0.885l12.016-11.713
+              l-16.605-2.413c-0.326-0.047-0.607-0.252-0.753-0.547L27.934,4.578l-7.427,15.047c-0.146,0.295-0.427,0.5-0.753,0.547L3.149,22.584z"/>
+            </svg>
+            </a>
+          </li>
+        </ul>
+      </nav> <!-- End Navigation -->
+
+      <div class="nav-dropdown">
+        <img class="nav-dropbtn" id="user-icon" src="/images/user-icon.png" alt="">
+        <div class="nav-dropdown-content">
+          <!-- <a href="/profile.html">My Profile</a> -->
+          <a href="/">My DoWhops</a>
+          <a class="btn-logout" href="#" onclick="auth.signOut()">Log Out</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Pending Notifications Container -->
+    <section id="pending-div-container" class="mdl-grid">
+      <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--order-1-tablet mdl-cell--order-1-phone">
+        <div id="pending-div" class="approval-form"></div>
+      </div>
+      <div class="mdl-cell  mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--order-2-tablet mdl-cell--order-2-phone">
+        <form hidden id="approve-pending-form" class="approval-form">
+          <ul class="approve-pending-form-list">
+            <li>
+              <button class="btn-default btn btn-approve" id="send-approval-button" type="submit" value="approve">Approve</button>
+            </li>
+            <li>
+              <button class="btn-default btn btn-deny" id="send-denial-button" type="submit"  value="deny">Deny</button>
+            </li>
+          </ul>
+        </form>
+        <form hidden id="rescind-pending-form" class="approval-form">
+          <button id="submit-rescind-button" type="submit" class="btn btn-default">Undo
+          </button>
+        </form>
+      </div>
+    </section> <!-- End Notifications Container -->
+
+    <!-- Main MDL Grid around DoWhop Selector cards and Life cycle apps -->
+    <!-- 5 and 7 columns on desktop -->
+    <main class="mdl-grid">
+
+      <!-- Start DoWhop Selector cards -->
+      <div class="mdl-cell mdl-cell--5-col mdl-cell--11-col-tablet mdl-cell--order-2-tablet mdl-cell--order-2-phone">
+        <div id="user-dowhop-cards"></div>
+        <!-- DoWhop Selector Cards Get Rendered Here -->
+      </div> <!-- Close DoWhopSelectors wrap -->
+
+      <!-- Outer 7 columns  -->
+      <div class="mdl-cell mdl-cell--7-col mdl-cell--11-col-tablet mdl-cell--order-1-tablet mdl-cell--order-1-phone">
+        <!-- Currently Selected DoWhop Top Image Container -->
+        <div id="dowhop-selector-container"></div> <!-- End Image Container -->
+        <div id="dowhop-selector-container-body"></div> <!-- End Image Container --><!--new-->
+        <!-- Start Create Panel -->
+        <section id="create" class="mdl-card panel">
+          <div class="mdl-layout__content">
+            <div class="mdl-card__title">
+              <h2 class="mdl-card__title-text">Create a new DoWhop</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              <form action="#">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="title-description" placeholder="Do this with me">
+                  <label class="mdl-textfield__label" for="title-description">DoWhop title</label>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <textarea class="mdl-textfield__input" type="text" id="why-description" placeholder="Pitch this DoWhop. People who love doing this type of activity will think this part of the experience is awesome!"></textarea>
+                  <label class="mdl-textfield__label" for="why-description">Why do this DoWhop?</label>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="who-description" placeholder="This many people with this skill level can join">
+                  <label class="mdl-textfield__label" for="who-description">Who should join you?</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="who-am-i-description" placeholder="I have this skill level and this background/experience">
+                  <label class="mdl-textfield__label" for="who-am-i-description">Who are you?</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="what-description" placeholder="I bring this, you bring that, we will make this">
+                  <label class="mdl-textfield__label" for="what-description">What will you provide?</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="when-description" placeholder="It will take this many hours, on these days">
+                  <label class="mdl-textfield__label" for="when-description">When will you do?</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="where-description" placeholder="Meet at this location">
+                  <label class="mdl-textfield__label" for="where-description">Where will you meet?</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="how-much-description" placeholder="This much per person">
+                  <label class="mdl-textfield__label" for="how-description">How much will it cost?</label>
+                </div>
+                <div class="mdl-card__actions">
+                  <div id="add-images-div">
+                    <div id="add-image-1-div">
+                      <label for="dowhop-image-capture1">
+                        <i class="material-icons">perm_media</i>
+                        <input class="image-capture hide-component" id="dowhop-image-capture1" type="file" accept="image/*,capture=camera" onchange="addDoWhopImage(this.files, this)">
+                      </label>
+                    </div>
+                    <div id="add-image-2-div">
+                      <label for="dowhop-image-capture2">
+                        <i class="material-icons">perm_media</i>
+                        <input class="image-capture hide-component" id="dowhop-image-capture2" type="file" accept="image/*,capture=camera" onchange="addDoWhopImage(this.files, this)">
+                      </label>
+                    </div>
+                    <div id="add-image-3-div">
+                      <label for="dowhop-image-capture3">
+                        <i class="material-icons">perm_media</i>
+                        <input class="image-capture hide-component" id="dowhop-image-capture3" type="file" accept="image/*,capture=camera" onchange="addDoWhopImage(this.files, this)">
+                      </label>
+                    </div>
+                  </div>
+                  <button class="btn btn-default" id="create-new-dowhop">
+                    Add To Marketplace
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section> <!-- End Create Panel tab -->
+
+        <!-- Start Edit Panel -->
+        <section id="edit" class="mdl-card panel">
+          <!-- Start Edit form -->
+          <div class="mdl-layout__content">
+            <form id="edit-dowhop-form" hidden="true" action="#">
+              <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Edit your DoWhop</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="titleDescription" placeholder="Do this with me">
+                <label class="mdl-textfield__label" for="titleDescription">DoWhop title</label>
+                <div class="mdl-tooltip" for="titleDescription">Change what you'll DO!</div>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="whyDescription" placeholder="Pitch this DoWhop. People who love doing this type of activity will think this part of the experience is awesome!">
+                <label class="mdl-textfield__label" for="whydescription">Why do this DoWhop?</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="whoDescription" placeholder="This many people with this skill level can join">
+                <label class="mdl-textfield__label" for="whoDescription">Who should join you?</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="whoAmIDescription" placeholder="I bring this, you bring that, we will make this">
+                <label class="mdl-textfield__label" for="whoDescription">Who are you?</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="whatDescription" placeholder="I bring this, you bring that, we will make this">
+                <label class="mdl-textfield__label" for="whatDescription">What will you provide?</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="whenDescription" placeholder="It will take this many hours, on these days">
+                <label class="mdl-textfield__label" for="whenDescription">When will you do?</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="whereDescription" placeholder="Meet at this location">
+                <label class="mdl-textfield__label" for="whereDescription">Where will you meet?</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="howMuchDescription" placeholder="This much per person">
+                <label class="mdl-textfield__label" for="howMuchDescription">How much will it cost?</label>
+              </div>
+              <!-- NEW -->
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="creatorDescription" placeholder="creator@example.com">
+                <label class="mdl-textfield__label" for="creatorDescription">What's the creator's email?</label>
+              </div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="doerDescription" placeholder="doer@example.com">
+                <label class="mdl-textfield__label" for="doerDescription">Who is attending this DoWhop (email, please)?</label>
+              </div>
+              <div class="edit-form-images">
+                <!--These images get their src dynamically through edit.js from firebase storage  -->
+                <div class="edit-form-image-container">
+                  <img id="image1" src="" alt="DoWhop Image 1">
+                </div>
+                <div class="edit-form-image-container">
+                  <img id="image2" src="" alt="DoWhop Image 2">
+                </div>
+                <div class="edit-form-image-container">
+                  <img id="image3" src="" alt="DoWhop Image 3">
+                </div>
+
+                <div id="edit-div-1" class="edit-form-file-picker">
+                  <label for="edit-image-capture1">
+                    <i class="material-icons">perm_media</i>
+                    <input class="image-capture hide-component" id="edit-image-capture1" data-image-num="1" type="file" accept="image/*,capture=camera">
+                  </label>
+                </div>
+                <div id="edit-div-2" class="edit-form-file-picker">
+                  <label for="edit-image-capture2">
+                    <i class="material-icons">perm_media</i>
+                    <input class="image-capture hide-component" id="edit-image-capture2" data-image-num="2" type="file" accept="image/*,capture=camera">
+                  </label>
+                </div>
+                <div id="edit-div-3" class="edit-form-file-picker">
+                  <label for="edit-image-capture3">
+                    <i class="material-icons">perm_media</i>
+                    <input class="image-capture hide-component" id="edit-image-capture3" data-image-num="3" type="file" accept="image/*,capture=camera">
+                  </label>
+                </div>
+              </div>
+              <!-- END NEW -->
+              <div class="mdl-card__actions">
+                <button class="btn btn-default" id="submit-update-dowhop">
+                  Update
+                </button>
+                <div id="error" class="form-error"></div>
+              </div>
+            </form>
+          </div>
+        </section> <!-- End Edit Panel tab -->
+
+        <!-- Start Coordinate app -->
+        <section id="coordinate" class="mdl-card panel">
+          <div class="mdl-layout__content">
+            <div id="show-chat-data"></div>
+            <div id="messages-card-container" class="form-wrap">
+              <!-- Messages container -->
+              <div id="messages-card">
+                <div id="messages">
+                  <span id="message-filler"></span>
+                </div>
+                <form id="message-form" action="#">
+
+                  <!-- <div id="message-form-div" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <label class="form-line" for="message">Message
+                      <input type="text" id="message">
+                      <span class="bar"></span>
+                    </label>
+                  </div> -->
+
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="message">
+                    <label class="mdl-textfield__label" for="message">Enter message...</label>
+                  </div>
+
+                  <!-- Adding options div here -->
+                  <div class="options-coordinate">
+                    <div class="underbar">
+                      <div id="option-calendar" class="img_icon">
+                        <img data-input="date" src="images/datetime.svg" alt="calendar" width="24" height="24">
+                      </div>
+                      <div id="map-div" class="img_icon">
+                        <img data-input="where" src="https://static.wixstatic.com/media/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png/v1/fill/w_512,h_512,al_c/de271e_5641b0592f5d4404aa31a1386df01958~mv2.png" alt="google-map" width="24" height="24">
+                      </div>
+                      <div id="image" class="img_icon">
+                        <img data-input="image" src="images/image-add-button.png" alt="folder" width="24" height="24">
+                      </div>
+                      <div id="send-message-button">
+                        <button class="btn btn-small" id="submit-message-button" type="submit">
+                          Send
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div hidden class="mdl-textfield mdl-js-textfield" id="when-date-time-pending-hidden">
+                    <input class="mdl-textfield__input" type="text" id="whenDateTimePending">
+                    <label class="mdl-textfield__label" for="whenDateTimePending">Select to enter date and time</label>
+                  </div>
+                  <div hidden id="where-pending-hidden">
+                  <input hidden type="text" class="controls" id="whereAddressPending"  placeholder="Set a place...">
+                  </div>
+                  <div hidden id="map"></div>
+                </form>
+
+                <form id="image-form" action="#">
+                  <input class="hide-component" id="mediaCapture" type="file" accept="image/*,capture=camera">
+                  <button hidden  id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--red-200 mdl-color-text--white">
+                    <i class="material-icons">perm_media</i>
+                  </button>
+                </form>
+              </div>
+            </div>
+            <!-- <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar"> -->
+              <!-- <div class="mdl-snackbar__text"></div> -->
+              <!-- <button class="mdl-snackbar__action btn btn-default" type="button"></button> -->
+            <!-- </div> -->
+          </div>
+        </section> <!-- End coordinate app  -->
+
+        <!-- review app  -->
+        <section id="review" class="panel">
+          <!-- Show comments and ratings for creator/doer/dowhop -->
+          <div class="mdl-card show-reviews">
+            <div class="mdl-layout__content">
+              <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Reviews</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                <div class="mdl-grid">
+                  <div class="mdl-cell mdl-cell--4-col">
+                    <h3>Creator</h3>
+                    <div class="mdl-card__actions mdl-card--border">
+                      <div class="c-rating" id="show-rating-creator"></div>
+                      <div id="comments-for-creator"></div>
+                    </div>
+                  </div>
+                  <div class="mdl-cell mdl-cell--4-col">
+                    <h3>Doer</h3>
+                    <div class="mdl-card__actions mdl-card--border">
+                      <div class="c-rating" id="show-rating-doer"></div>
+                      <div id="comments-for-doer"></div>
+                    </div>
+                  </div>
+                  <div class="mdl-cell mdl-cell--4-col">
+                    <h3>DoWhop</h3>
+                    <div class="mdl-card__actions mdl-card--border">
+                      <div class="c-rating" id="show-rating-dowhop"></div>
+                      <div id="comments-for-dowhop"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Form for comments and ratings -->
+          <div class="mdl-grid">
+            <aside class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet hide-component" id="creator-input-container">
+              <div class="mdl-card">
+                <div class="mdl-layout__content">
+                  <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">Review Creator</h2>
+                  </div>
+                  <div class="mdl-card__supporting-text">
+                    <div class="c-rating" id="rating-creator"></div>
+                    <form action="#">
+                      <div class="mdl-textfield mdl-js-textfield">
+                        <input type="text" class="mdl-textfield__input" id="creator-comment-input" pattern="^.{1,490}" title="Max characters for a comment is 500">
+                        <label class="mdl-textfield__label" for="creator-comment-input">Write comment...</label>
+                        <span class="mdl-textfield__error">Max characters for a comment is 500</span>
+                      </div>
+                      <div class="mdl-card__actions">
+                        <button class="btn btn-default submit-comment creator" id="creator">
+                          Submit
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </aside>
+            <aside class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet hide-component" id="doer-input-container">
+              <div class="mdl-card">
+                <div class="mdl-layout__content">
+                  <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">Review Doer</h2>
+                  </div>
+                  <div class="mdl-card__supporting-text">
+                  <div class="c-rating" id="rating-doer"></div>
+                  <form action="#">
+                    <div class="mdl-textfield mdl-js-textfield">
+                      <input type="text" class="mdl-textfield__input" id="doer-comment-input" pattern="^.{1,490}" title="Max characters for a comment is 500">
+                      <label class="mdl-textfield__label" for="doer-comment-input">Write comment...</label>
+                      <span class="mdl-textfield__error">Max characters for a comment is 500</span>
+                    </div>
+                    <div class="mdl-card__actions">
+                      <button class="btn btn-default submit-comment doer" id="doer">
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                  </div>
+                </div>
+              </div>
+            </aside>
+            <aside class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
+              <div class="mdl-card">
+                <div class="mdl-layout__content">
+                  <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">Review DoWhop</h2>
+                  </div>
+                  <div class="mdl-card__supporting-text">
+                    <div class="c-rating" id="rating-dowhop"></div>
+                    <form action="#">
+                      <div class="mdl-textfield mdl-js-textfield">
+                        <input type="text" class="mdl-textfield__input" id="dowhop-comment-input" pattern="^.{1,490}" title="Max characters for a comment is 500">
+                        <label class="mdl-textfield__label" for="dowhop-comment-input">Write comment...</label>
+                        <span class="mdl-textfield__error">Max characters for a comment is 500</span>
+                      </div>
+                      <div class="mdl-card__actions">
+                        <button class="btn btn-default submit-comment dowhop" id="dowhop">
+                          Submit
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>     <!-- End grid for form for comments and ratings -->
+        </section> <!-- End review app panel -->
+      </div>    <!-- End outer 7 columns -->
+    </main>   <!-- End main MDL grid -->
+  </section> <!-- End Application Container -->
+
+<script src="https://unpkg.com/flatpickr"></script>
+<script src="scripts/dowhop-me-functions.js"></script>
+<script src="scripts/login.js"></script>
+<script src="scripts/firebase-cloud-messaging.js"></script>
+<script src="scripts/tabs.js"></script>
+<script src="scripts/dowhop-description-form-create.js"></script>
+<script src="scripts/edit.js"></script>
+<script src="scripts/coordinate.js"></script>
+<script src="scripts/google-map.js"></script><!-- Make sure this comes after coordinate.js -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4idZqS8uAiN5Y50XhG_csgRRKpjWaaxE&libraries=places" async defer></script>
+<script src="ratings/rating-lib/rating.min.js"></script>
+<script src="ratings/rating-lib/weighted-ratings.js"></script>
+<script src="scripts/dowhop-reviews.js"></script>
+<script>
+// Script to change SignIn button text to Login
+var btnLogOut = document.querySelector('.btn-logout');
+function changeLoginText() {
+  var btnSpans = document.querySelectorAll('.firebaseui-idp-text-long');
+  if (btnSpans.length > 0) {
+    btnSpans[0].innerHTML = 'Login with Google';
+    btnSpans[1].innerHTML = 'Login with Facebook';
+    // btnSpans[2].innerHTML = 'Login with Email';
+  } else {
+    console.log('NO LOGIN BUTTONS SELECTED');
+  }
+}
+btnLogOut.addEventListener('click', changeLoginText);
+window.addEventListener('load', changeLoginText);
+</script>
+<script>
+var underbar = document.querySelectorAll('.underbar img');
+var underBarIcons = Array.prototype.slice.call(underbar);
+
+underBarIcons.forEach(function(icon) {
+  icon.addEventListener('click', revealInput);
+});
+</script>
+</body>
+</html>

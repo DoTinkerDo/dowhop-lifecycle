@@ -7,7 +7,7 @@ module.exports = {
   entry: ['./src/index.jsx'],
   devtool: false,
   output: {
-    path: path.join(__dirname, '/public'),
+    path: path.join(__dirname, '/dist'),
     filename: 'profile_bundle.js',
     publicPath: '/'
   },
