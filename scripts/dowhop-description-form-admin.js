@@ -30,7 +30,7 @@ var submitNewDoWhopBtn = document.getElementById('create-new-dowhop');
 var emailSubmitBtn = document.getElementById('emailSubmit');
 
 submitNewDoWhopBtn.addEventListener('click', submitNewDoWhopEntry);
-emailSubmitBtn.addEventListener('click', updateCreatorDoerEmails);
+emailSubmitBtn.addEventListener('click', updateCreatorDoerEmailsDoneWhop);
 
 function submitNewDoWhopEntry(e) {
   e.preventDefault();
@@ -239,24 +239,47 @@ function revealEditEmailForm(node) {
   var currentNodeTitle = '';
   doWhopDescriptionKeyForUpdate = node.id;
   var doWhopDescriptionRef = doWhopDescriptionsRef.child(doWhopDescriptionKeyForUpdate);
-  doWhopDescriptionRef.once('value', function(data) {
+  doWhopDescriptionRef.once('value').then(function(data) {
     var doWhopDescription = data.val();
     var currentNodeTitle = doWhopDescription.titleDescription;
+    var DoneWhopStatus = doWhopDescription.isDoneWhop === true;
+    console.log(DoneWhopStatus);
     selectedForEdit.innerHTML = 'Edit: ' + currentNodeTitle;
     creatorDescriptionUpdate.value = doWhopDescription.creatorDescription;
     doerDescriptionUpdate.value = doWhopDescription.doerDescription;
+
+    // Pre-marking the checkbox in form:
+    DoneWhopStatus === true
+      ? document.getElementById('donewhop-checkbox').MaterialCheckbox.check()
+      : document.getElementById('donewhop-checkbox').MaterialCheckbox.uncheck();
   });
 }
 
-function updateCreatorDoerEmails(e) {
+function updateCreatorDoerEmailsDoneWhop(e) {
   e.preventDefault();
+  console.log(returnDoneWhopStatus());
+  var doneWhopStatus = returnDoneWhopStatus(); // Checking if DoWhop has been marked as 'done' via true, false.
   adminEditDoWhopForm.removeAttribute('hidden');
-  doWhopDescriptionsRef.child(doWhopDescriptionKeyForUpdate).update({
-    creatorDescription: creatorDescriptionUpdate.value.toLowerCase(),
-    doerDescription: doerDescriptionUpdate.value.toLowerCase()
+  var doWhopRef = doWhopDescriptionsRef.child(doWhopDescriptionKeyForUpdate);
+
+  if (creatorDescriptionUpdate.value) {
+    doWhopRef.update({
+      creatorDescription: creatorDescriptionUpdate.value.toLowerCase()
+    });
+  }
+
+  if (doerDescriptionUpdate.value) {
+    doWhopRef.update({
+      doerDescription: doerDescriptionUpdate.value.toLowerCase()
+    });
+  }
+
+  doWhopRef.update({
+    isDoneWhop: doneWhopStatus
   });
+
   selectedForEdit.innerHTML = 'Edit your DoWhop';
-  error.innerHTML = 'Emails have been updated!';
+  error.innerHTML = 'Details have been updated!';
   adminEditDoWhopForm.reset();
 }
 
@@ -274,4 +297,20 @@ function addToMyDoWhops(node) {
     .child('doer')
     .child(node.parentElement.id)
     .update({ doer: true });
+}
+
+// Adding funcationality to manage DoneWhop checkbox and status.
+
+var DoneWhopCheckbox = document.getElementById('donewhop-checkbox');
+
+document.getElementById('donewhop-checkbox').addEventListener('click', toggleDoneWhopStatus);
+
+function toggleDoneWhopStatus() {
+  document.getElementById('donewhop-checkbox').classList.contains('is-checked') === true
+    ? document.getElementById('donewhop-checkbox').MaterialCheckbox.uncheck()
+    : document.getElementById('donewhop-checkbox').MaterialCheckbox.check();
+}
+
+function returnDoneWhopStatus() {
+  return document.getElementById('donewhop-checkbox').classList.contains('is-checked') === true;
 }
