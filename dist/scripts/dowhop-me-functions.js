@@ -235,7 +235,7 @@ function manageMessengerImages(userSession) {
     // imageForm.reset();
 
     // Check if the file is an image.
-    if (!file.type.match('image.*')) {
+    if (file && !file.type.match('image.*')) {
       window.alert('You can only share images. Please try again.');
       return;
     }
