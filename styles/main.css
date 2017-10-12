@@ -208,17 +208,6 @@ input#whenTimePending {
   background-color: #fff;
 }
 
-/*.whereAddressPending {
-  display: inline-block;
-  padding: 5px 11px;
-}
-
-.whereAddressPending label {
-  font-family: Roboto;
-  font-size: 13px;
-  font-weight: 300;
-}*/
-
 #whereAddressPending {
   background-color: #fff;
   font-family: Roboto;
@@ -254,11 +243,6 @@ h3,
 h4,
 h5 {
   font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
-}
-
-#image-form {
-  /*padding-top: 7%;*/
-  /*padding-bottom: 10%;*/
 }
 
 #create-new-chat {
@@ -581,52 +565,6 @@ input:focus ~ .bar:after {
   color: #ec1928;
 }
 
-/*.user-list {
-  width: 100%;
-  background: #fff;
-  box-shadow: 0 8px 6px -6px #808080;
-  padding: 30px 40px;
-  border-top: 3px solid #c0c0c0;
-}
-
-/*@media (min-width: 641px) {
-  .user-list {
-    flex: 1 0 50%;
-    border-left: 3px solid #ededed;
-    border-top: none;
-  }
-}
-*/
-/*.user-list > h2 {
-  text-align: center;
-  font-size: 26px;
-  padding-bottom: 30px;
-  color: #606060;
-}*/
-
-/*.user-list__item {
-  padding: 10px;
-  border: 1px solid #ededed;
-  border-radius: 3px;
-  /*border-left: 3px solid #ec1928;
-  margin-bottom: 10px;
-}*/
-
-/*.user-list__item h4, .user-list__item p {
-  font-size: 14px;
-  padding-bottom: 10px;
-  color: #c0c0c0;
-  font-size: 14px;
-}
-
-.user-list__item h4 span, .user-list__item p span {
-  color: #606060;
-}
-
-.user-list__item:hover {
-  opacity: 0.5;
-}*/
-
 .file {
   opacity: 0;
   position: absolute;
@@ -657,10 +595,6 @@ input:focus ~ .bar:after {
   transition: all 1s ease-in-out;
 }
 
-/*.underbar div {
-  float: left;
-}*/
-
 .icons-1 div {
   width: 100%;
 }
@@ -689,28 +623,6 @@ input:focus ~ .bar:after {
   position: relative;
   bottom: 7px;
   left: 1px;
-}
-
-/*.options {
-  overflow: hidden;
-}
-
-.options div {
-  position: relative;
-  bottom: 15px;
-}*/
-
-/*.options-coordinate div {
-  bottom: 15px;
-}*/
-
-.coordinate-icon-sub {
-  /*position: fixed;*/
-  top: 0;
-}
-
-#submit-message-button {
-  /*margin-top: 80%;*/
 }
 
 .slideDown {
