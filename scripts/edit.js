@@ -178,7 +178,7 @@ function retrieveMyDoWhops(uid, currentDoWhopID) {
               ? (isCurrentDoWhop = true)
               : (isCurrentDoWhop = false);
             console.log('is current dowhop:', isCurrentDoWhop);
-            makeDoWhopSelector(userDowhopCardDiv, doWhopDescription);
+            makeDoWhopSelector(userDowhopCardDiv, doWhopDescription, isCurrentDoWhop);
           }
         });
     },
@@ -214,16 +214,21 @@ function retrieveMyDoWhops(uid, currentDoWhopID) {
   }
 }
 
-function makeDoWhopSelector(container, data) {
+function makeDoWhopSelector(container, data, isCurrentDoWhopStatus) {
   var defaultDoWhopDescriptionImage =
     'https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/app-image-assets%2FDefaultDoWhop_banner.jpg?alt=media&token=036dfe25-d46c-4632-82b9-34094628cfc9';
   var image1 = '';
   var image2 = '';
+  var activeClass = null;
+  isCurrentDoWhopStatus === true ? (activeClass = 'active') : (activeClass = null);
+
   if (data && data.downloadURL) {
     image1 = data.downloadURL.image1 || data.downloadURL || defaultDoWhopDescriptionImage;
     image2 = data.downloadURL.image2 || data.downloadURL || defaultDoWhopDescriptionImage;
     container.innerHTML +=
-      '<aside class="mdl-card dowhop-selector" id="' +
+      '<aside class="mdl-card dowhop-selector ' +
+      activeClass +
+      '" id="' +
       data.doWhopDescriptionKey +
       '" onclick="setSession(this)" onmouseenter="toggleDoWhopDescriptionImage(this)" onmouseleave="toggleDoWhopDescriptionImage(this)" data-url1="' +
       image1 +
@@ -241,6 +246,13 @@ function makeDoWhopSelector(container, data) {
       '</div>' +
       '</div>' +
       '</aside>';
+
+    console.log('final check for status/tf:', isCurrentDoWhopStatus);
+    console.log('this container is', container);
+
+    // if (isCurrentDoWhopStatus === true) {
+    //   container.classList.add('active');
+    // }
   } else {
     return container;
   }
