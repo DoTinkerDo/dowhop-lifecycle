@@ -8,18 +8,19 @@ import CurrentUser from './CurrentUser';
 
 const Profile = (props: {
   currentUser: Object,
-  profile: Object,
+  profile: string,
   value: string,
   handleChange: Function,
   handleSubmit: Function,
   appUsers: Object,
   location: Object
 }) => {
-  const { currentUser, value, profile, handleChange, handleSubmit } = props;
+  const { currentUser, profile, value, handleChange, handleSubmit } = props;
   // const { uid } = props.match.params;
   const uid = props.location.search.slice(1);
   const selectedUser = filter(props.appUsers, user => user.uid === uid);
   const { photoURL, displayName, profileAbout, email } = selectedUser[0] || '';
+
   if (currentUser.uid === uid || !uid) {
     return (
       <div>

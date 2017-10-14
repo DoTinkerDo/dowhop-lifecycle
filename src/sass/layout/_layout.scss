@@ -5,8 +5,8 @@
 }
 
 .site-main {
-  margin: 1.4em; // margin for all content
-  font-size: 0.725em; // mobile font size relative to outer most container
+  // margin: 1.4em; // margin for all content
+  font-size: 0.625em; // mobile font size relative to outer most container
   line-height: 1.6em;
 }
 
@@ -18,7 +18,7 @@
 
 @media screen and (min-width: 40em) {
   .site-main {
-    font-size: 1em; // Increasing font back to 17.25px
+    font-size: 0.875em; // Increasing font back to 17.25px
   }
 }
 

@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { Button, Col, Card, CardBody, CardImg, CardTitle, Input, Row } from 'reactstrap';
+import { Button, Col, Card, CardSubtitle, CardText, CardBody, CardImg, CardTitle, Input, Row } from 'reactstrap';
 import injectSheet from 'react-jss';
 import LoadingDots from './LoadingDots';
 
@@ -13,29 +13,31 @@ const styles = {
 
 const CurrentUser = (props: {
   user: Object,
+  profile: string,
   value: string,
-  profile: Object,
   handleChange: Function,
   handleSubmit: Function,
   classes: Object
 }) => {
-  const { user, value, profile, handleChange, handleSubmit, classes } = props;
+  const { user, profile, value, handleChange, handleSubmit, classes } = props;
   return (
     <Row>
-      <Col xs={12} md={6}>
+      <Col xs="12" sm="6" md="5">
         {!user.photoURL && <LoadingDots />}
         <Card>
-          <CardImg src={user.photoURL} alt={`headshot for ${user.story}`} />
+          <CardTitle className="center-text">Placeholder for User Profile Headline</CardTitle>
+          <CardImg src={user.photoURL} alt={`headshot for ${user.displayName}`} />
           <CardBody>
-            <CardTitle>{user.displayName}</CardTitle>
-            <p>{profile.story || 'Bio'}</p>
-            <p>{user.email}</p>
+            <CardSubtitle>Name:</CardSubtitle>
+            <CardText>{user.displayName}</CardText>
+            <CardSubtitle>Bio:</CardSubtitle>
+            <CardText>{profile.bio || 'Write a short bio to tell about yourself'}</CardText>
+            <CardSubtitle>Contact:</CardSubtitle>
+            <CardText>{user.email}</CardText>
             <Input type="text" value={value} placeholder="Enter your bio" onChange={handleChange} />
             <Button onClick={e => handleSubmit(e, value, user.uid)} className={classes.margin}>
-              {/* Q: alternatives to inline func? Perf issues? */}
               Save
             </Button>
-            <br />
           </CardBody>
         </Card>
       </Col>
