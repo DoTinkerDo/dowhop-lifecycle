@@ -16,7 +16,7 @@ import LoadingDots from './LoadingDots';
 // };
 
 const AuthButton = withRouter(({ history, authentication, logOut }) => (
-  <Row>
+  <Row className="float-right">
     {authentication.isAuthenticated ? (
       <Button
         onClick={() => {

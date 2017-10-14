@@ -7,8 +7,8 @@ import ProfileCard from './ProfileCard';
 
 const ProfileIndex = ({ appUsers }: Object) => (
   <div>
-    <AuthButton />
-    <h2>Users</h2>
+    <AuthButton className="float-right" />
+    <h2 className="center-text">Users</h2>
     <div className="profile-grid">{map(appUsers, user => <ProfileCard key={user.uid} user={user} />)}</div>
   </div>
 );
