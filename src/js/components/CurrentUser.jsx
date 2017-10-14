@@ -3,7 +3,6 @@
 import React from 'react';
 import { Button, Col, Card, CardBody, CardImg, CardTitle, Input, Row } from 'reactstrap';
 import injectSheet from 'react-jss';
-import AuthButton from './AuthButton';
 import LoadingDots from './LoadingDots';
 
 const styles = {
@@ -29,21 +28,14 @@ const CurrentUser = (props: {
           <CardImg src={user.photoURL} alt={`headshot for ${user.story}`} />
           <CardBody>
             <CardTitle>{user.displayName}</CardTitle>
-            <p>{profile.story || 'Your story'}</p>
+            <p>{profile.story || 'Bio'}</p>
             <p>{user.email}</p>
-            <p>
-              <small>{user.uid}</small>
-            </p>
-            <p>
-              <small>{user.createdOn}</small>
-            </p>
-            <Input type="text" value={value} placeholder="Enter your story" onChange={handleChange} />
+            <Input type="text" value={value} placeholder="Enter your bio" onChange={handleChange} />
             <Button onClick={e => handleSubmit(e, value, user.uid)} className={classes.margin}>
               {/* Q: alternatives to inline func? Perf issues? */}
               Save
             </Button>
             <br />
-            <AuthButton />
           </CardBody>
         </Card>
       </Col>
