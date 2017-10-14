@@ -25,9 +25,9 @@ const App = () => (
   <Provider store={store}>
     <Wrapper>
       <Switch>
-        <PropsRoute path="/login" component={Login} />
-        <PrivateRoute exact path="/profile/" component={ProfileIndexContainer} redirectTo="/login" />
-        <PrivateRoute path="/profile/:uid" component={ProfileContainer} redirectTo="/login" />
+        <PropsRoute path="/my-profile/login" component={Login} />
+        <PrivateRoute exact path="/my-profile" component={ProfileIndexContainer} redirectTo="/my-profile/login" />
+        <PrivateRoute path="/my-profile/:uid" component={ProfileContainer} redirectTo="/my-profile/login" />
         <Route component={FourOhFour} />
       </Switch>
     </Wrapper>
