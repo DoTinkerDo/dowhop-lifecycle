@@ -8,7 +8,7 @@ import Wrapper from './Wrapper';
 import PrivateRoute from './PrivateRoute';
 import PropsRoute from './PropsRoute';
 import Login from './Login';
-import ProfileIndexContainer from '../containers/ProfileIndexContainer';
+// import ProfileIndexContainer from '../containers/ProfileIndexContainer';
 import ProfileContainer from '../containers/ProfileContainer';
 import FourOhFour from './FourOhFour';
 import { startListeningToAuthChanges } from '../actions/authentication';
@@ -26,12 +26,13 @@ const App = () => (
     <Wrapper>
       <Switch>
         <PropsRoute path="/my-profile/login" component={Login} />
-        <PrivateRoute exact path="/my-profile" component={ProfileIndexContainer} redirectTo="/my-profile/login" />
-        <PrivateRoute path="/my-profile/:uid" component={ProfileContainer} redirectTo="/my-profile/login" />
+        <PrivateRoute exact path="/my-profile" component={ProfileContainer} redirectTo="/my-profile/login" />
         <Route component={FourOhFour} />
       </Switch>
     </Wrapper>
   </Provider>
 );
+
+// <PrivateRoute exact path="/profile-index" component={ProfileIndexContainer} redirectTo="/my-profile/login" />
 
 export default App;

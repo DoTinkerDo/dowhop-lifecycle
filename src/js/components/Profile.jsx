@@ -13,13 +13,14 @@ const Profile = (props: {
   handleChange: Function,
   handleSubmit: Function,
   appUsers: Object,
-  match: Object
+  location: Object
 }) => {
   const { currentUser, value, profile, handleChange, handleSubmit } = props;
-  const { uid } = props.match.params;
+  // const { uid } = props.match.params;
+  const uid = props.location.search.slice(1);
   const selectedUser = filter(props.appUsers, user => user.uid === uid);
   const { photoURL, displayName, profileAbout, email } = selectedUser[0] || '';
-  if (currentUser.uid === uid) {
+  if (currentUser.uid === uid || !uid) {
     return (
       <div>
         {!currentUser ? (

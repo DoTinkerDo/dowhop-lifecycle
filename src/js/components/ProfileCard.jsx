@@ -8,7 +8,7 @@ const ProfileCard = (props: Object) => {
   const { displayName, photoURL, uid } = props.user;
   return (
     <div className="grid-card">
-      <Link to={`/my-profile/${uid}`}>
+      <Link to={`/my-profile?${uid}`}>
         <Card>
           <CardImg src={photoURL} alt={displayName} />
         </Card>
