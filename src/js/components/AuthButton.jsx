@@ -21,7 +21,7 @@ const AuthButton = withRouter(({ history, authentication, logOut }) => (
       <Button
         onClick={() => {
           logOut();
-          history.push('/');
+          history.push('/login');
         }}
       >
         Logout
