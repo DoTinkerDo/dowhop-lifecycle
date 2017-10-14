@@ -13,7 +13,7 @@ const styles = {
 const Wrapper = ({ classes, children }: Object) => (
   <Container className={classes.background}>
     <Row>
-      <Col md={12}>
+      <Col>
         <div className="site-content">
           <div className="site-main">{children}</div>
         </div>

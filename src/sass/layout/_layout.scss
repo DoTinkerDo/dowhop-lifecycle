@@ -1,12 +1,12 @@
 // This sets the outer most div font size to 17.25px
 .site-content {
-  @include font-size(1.725); // Sets out most container font to 17px
+  @include font-size(1.4); // Sets outer most container font to 17px
   line-height: 1.6em; // em references outer most container
 }
 
 .site-main {
   margin: 1.4em; // margin for all content
-  font-size: .8em; // mobile font size relative to outer most container
+  font-size: 0.725em; // mobile font size relative to outer most container
   line-height: 1.6em;
 }
 

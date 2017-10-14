@@ -39,7 +39,7 @@ const Profile = (props: {
   }
   return (
     <Row>
-      <Col xs={12} md={6}>
+      <Col>
         {!photoURL && <LoadingDots />}
         <Card>
           <CardImg src={photoURL} alt={`headshot for ${displayName}`} />
