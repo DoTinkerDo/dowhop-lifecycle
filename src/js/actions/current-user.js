@@ -15,7 +15,7 @@ const addCurrentUser = user => ({
 const startListeningForCurrentUser = () => (dispatch: Function) => {
   auth.onAuthStateChanged(user => {
     if (user) {
-      const userRef = database.ref('appUsers').child(user.uid);
+      const userRef = database.ref('app_users').child(user.uid);
       userRef.on('value', snapshot => {
         if (snapshot.val()) {
           const appUser = snapshot.val();

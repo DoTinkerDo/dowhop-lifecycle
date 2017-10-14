@@ -8,3 +8,4 @@ export const LOGOUT = 'LOGOOUT';
 export const ATTEMPTING_LOGIN = 'ATTEMPTING_LOGIN';
 export const ATTEMPTING_LOGOUT = 'ATTEMPTING_LOGOUT';
 export const ADD_USER = 'ADD_USER';
+export const ADD_USERS = 'ADD_USERS';

@@ -3,7 +3,7 @@
 import { database, auth } from '../../firebase';
 import { SET_USER_PROFILE_STORY, CLEAR_INPUT, ADD_USER_STORY } from './actions';
 
-const userProfilesRef = database.ref('userProfiles');
+const userProfilesRef = database.ref('app_users');
 
 export const storyValue = (value: string) => ({
   type: SET_USER_PROFILE_STORY,

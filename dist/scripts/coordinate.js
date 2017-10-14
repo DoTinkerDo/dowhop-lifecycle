@@ -260,7 +260,7 @@ function generateUserIcons(userObjectArray) {
     _.map(userObjectArray, function(userObject) {
       textOutput +=
         '<div class="user-avatar-container">' +
-        "<a href='/profile.html?" +
+        "<a href='/profile?" +
         userObject.uid +
         "'>" +
         "<div class='user-avatar'>" +

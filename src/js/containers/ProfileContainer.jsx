@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import Profile from '../components/Profile';
 import { storyValue, createStory, clearInput } from '../actions/profile';
 
-const mapStateToProps = ({ authentication, currentUser, value, profile }) => ({
+const mapStateToProps = ({ authentication, currentUser, value, profile, appUsers }) => ({
   authentication,
   currentUser,
   value,
-  profile
+  profile,
+  appUsers
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({

@@ -16,12 +16,12 @@ import LoadingDots from './LoadingDots';
 // };
 
 const AuthButton = withRouter(({ history, authentication, logOut }) => (
-  <Row>
+  <Row className="float-right">
     {authentication.isAuthenticated ? (
       <Button
         onClick={() => {
           logOut();
-          history.push('/');
+          history.push('/my-profile/login');
         }}
       >
         Logout

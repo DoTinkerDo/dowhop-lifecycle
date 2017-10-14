@@ -30,7 +30,7 @@
   // flex-direction: column; /* flexbox footer */
   // font-family: 'Open Sans', sans-serif;
   // font-weight: 400;
- }
+}
 
 /**
  * Hide text while making it readable for screen readers
@@ -49,7 +49,7 @@
  * Shamelessly borrowed from HTML5Boilerplate:
  * https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css#L119-L133
  */
-.visually-hidden { 
+.visually-hidden {
   border: 0;
   clip: rect(0 0 0 0);
   height: 1px;
@@ -70,9 +70,13 @@
   height: 0;
 }
 .ratio-content {
-  position:absolute;
+  position: absolute;
   top: 0;
   left: 0;
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
+}
+
+.center-text {
+  text-align: center;
 }

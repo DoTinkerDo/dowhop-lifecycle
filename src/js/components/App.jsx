@@ -5,36 +5,34 @@ import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../store';
 import Wrapper from './Wrapper';
-import Landing from './Landing';
-import MainNav from './MainNav';
-import AuthButton from './AuthButton';
 import PrivateRoute from './PrivateRoute';
 import PropsRoute from './PropsRoute';
 import Login from './Login';
-import MeContainer from '../containers/MeContainer';
+// import ProfileIndexContainer from '../containers/ProfileIndexContainer';
 import ProfileContainer from '../containers/ProfileContainer';
 import FourOhFour from './FourOhFour';
 import { startListeningToAuthChanges } from '../actions/authentication';
 import startListeningForCurrentUser from '../actions/current-user';
 import { startListeningForUserProfileChanges } from '../actions/profile';
+import startListeningForAppUsers from '../actions/app-users';
 
 store.dispatch(startListeningToAuthChanges());
 store.dispatch(startListeningForCurrentUser());
 store.dispatch(startListeningForUserProfileChanges());
+store.dispatch(startListeningForAppUsers());
 
-const App = () =>
+const App = () => (
   <Provider store={store}>
     <Wrapper>
-      <AuthButton />
-      <MainNav />
       <Switch>
-        <Route exact path="/" component={Landing} />
-        <PropsRoute path="/login" component={Login} />
-        <PrivateRoute path="/me" component={MeContainer} redirectTo="/login" />
-        <PrivateRoute path="/profile" component={ProfileContainer} redirectTo="/login" />
+        <PropsRoute path="/my-profile/login" component={Login} />
+        <PrivateRoute exact path="/my-profile" component={ProfileContainer} redirectTo="/my-profile/login" />
         <Route component={FourOhFour} />
       </Switch>
     </Wrapper>
-  </Provider>;
+  </Provider>
+);
+
+// <PrivateRoute exact path="/profile-index" component={ProfileIndexContainer} redirectTo="/my-profile/login" />
 
 export default App;

@@ -107,11 +107,11 @@ big {
 
 blockquote,
 q {
-  quotes: "" "";
+  quotes: '' '';
 
   &:before,
   &:after {
-    content: "";
+    content: '';
   }
 }
 
@@ -124,7 +124,7 @@ blockquote {
 
 blockquote::before {
   font-family: 'FontAwesome';
-  content: "\f10d";
+  content: '\f10d';
   position: absolute;
   left: -2em;
   color: $color-blockquote-quote;

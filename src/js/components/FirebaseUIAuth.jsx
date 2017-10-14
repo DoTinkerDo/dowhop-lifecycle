@@ -22,7 +22,13 @@ class FirebaseUIAuth extends Component {
   container: string;
 
   render() {
-    return <div ref={el => (this.container = el)} />;
+    return (
+      <div
+        ref={el => {
+          this.container = el;
+        }}
+      />
+    );
   }
 }
 
