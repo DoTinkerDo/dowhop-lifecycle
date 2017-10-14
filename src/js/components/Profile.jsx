@@ -12,17 +12,20 @@ const Profile = (props: {
   handleSubmit: Function
 }) => {
   const { currentUser, value, profile, handleChange, handleSubmit } = props;
+  // console.log(props.match.params.uid);
   return (
     <div>
-      {!currentUser
-        ? <LoadingDots />
-        : <CurrentUser
-            user={currentUser}
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
-            value={value}
-            profile={profile}
-          />}
+      {!currentUser ? (
+        <LoadingDots />
+      ) : (
+        <CurrentUser
+          user={currentUser}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          value={value}
+          profile={profile}
+        />
+      )}
     </div>
   );
 };

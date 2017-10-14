@@ -3,6 +3,7 @@
 import React from 'react';
 import { Button, Col, Card, CardBody, CardImg, CardTitle, Input, Row } from 'reactstrap';
 import injectSheet from 'react-jss';
+import AuthButton from './AuthButton';
 import LoadingDots from './LoadingDots';
 
 const styles = {
@@ -41,6 +42,8 @@ const CurrentUser = (props: {
               {/* Q: alternatives to inline func? Perf issues? */}
               Save
             </Button>
+            <br />
+            <AuthButton />
           </CardBody>
         </Card>
       </Col>
