@@ -4,7 +4,7 @@ import moment from 'moment';
 import { auth, database } from '../../firebase';
 import { LOGIN, LOGOUT, ATTEMPTING_LOGIN, ATTEMPTING_LOGOUT } from './actions';
 
-const appUsersRef = database.ref('appUsers');
+const appUsersRef = database.ref('app_users');
 
 const loggedIn = user => ({
   type: LOGIN,

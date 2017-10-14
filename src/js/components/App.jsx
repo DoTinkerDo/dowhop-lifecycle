@@ -5,45 +5,33 @@ import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../store';
 import Wrapper from './Wrapper';
-// import Landing from './Landing';
 import PrivateRoute from './PrivateRoute';
 import PropsRoute from './PropsRoute';
 import Login from './Login';
+import ProfileIndexContainer from '../containers/ProfileIndexContainer';
 import ProfileContainer from '../containers/ProfileContainer';
-// import AuthButton from './AuthButton';
 import FourOhFour from './FourOhFour';
 import { startListeningToAuthChanges } from '../actions/authentication';
 import startListeningForCurrentUser from '../actions/current-user';
 import { startListeningForUserProfileChanges } from '../actions/profile';
+import startListeningForAppUsers from '../actions/app-users';
 
 store.dispatch(startListeningToAuthChanges());
 store.dispatch(startListeningForCurrentUser());
 store.dispatch(startListeningForUserProfileChanges());
+store.dispatch(startListeningForAppUsers());
 
 const App = () => (
   <Provider store={store}>
     <Wrapper>
       <Switch>
         <PropsRoute path="/login" component={Login} />
-        <PrivateRoute path="/profile/uid" component={ProfileContainer} redirectTo="/login" />
-        <PrivateRoute path="/profile/" component={ProfileContainer} redirectTo="/login" />
+        <PrivateRoute exact path="/profile/" component={ProfileIndexContainer} redirectTo="/login" />
+        <PrivateRoute path="/profile/:uid" component={ProfileContainer} redirectTo="/login" />
         <Route component={FourOhFour} />
       </Switch>
     </Wrapper>
   </Provider>
 );
-
-// const App = () => (
-//   <Provider store={store}>
-//     <Wrapper>
-//       <Switch>
-//         <Route exact path="/" component={Landing} />
-//         <PropsRoute path="/login" component={Login} />
-//         <PrivateRoute path="/profile" component={ProfileContainer} redirectTo="/login" />
-//         <Route component={FourOhFour} />
-//       </Switch>
-//     </Wrapper>
-//   </Provider>
-// );
 
 export default App;
