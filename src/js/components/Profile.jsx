@@ -8,17 +8,18 @@ import CurrentUser from './CurrentUser';
 
 const Profile = (props: {
   currentUser: Object,
-  profile: string,
+  about: Object,
   value: string,
   handleChange: Function,
   handleSubmit: Function,
   appUsers: Object,
-  location: Object
+  location: Object,
+  appUsers: Object
 }) => {
-  const { currentUser, profile, value, handleChange, handleSubmit } = props;
-  // const { uid } = props.match.params;
+  const { currentUser, about, value, handleChange, handleSubmit, appUsers } = props;
+
   const uid = props.location.search.slice(1);
-  const selectedUser = filter(props.appUsers, user => user.uid === uid);
+  const selectedUser = filter(appUsers, user => user.uid === uid);
   const { photoURL, displayName, profileAbout, email } = selectedUser[0] || '';
 
   if (currentUser.uid === uid || !uid) {
@@ -28,11 +29,14 @@ const Profile = (props: {
           <LoadingDots />
         ) : (
           <CurrentUser
-            user={currentUser}
+            uid={currentUser.uid}
+            email={currentUser.email}
+            displayName={currentUser.displayName}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
             value={value}
-            profile={profile}
+            about={about}
+            photoURL={currentUser.photoURL}
           />
         )}
       </div>
@@ -40,7 +44,7 @@ const Profile = (props: {
   }
   return (
     <Row>
-      <Col>
+      <Col xs="12" sm="6" md="5">
         {!photoURL && <LoadingDots />}
         <Card>
           <CardImg src={photoURL} alt={`headshot for ${displayName}`} />

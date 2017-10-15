@@ -4,6 +4,7 @@ import React from 'react';
 import { Button, Col, Card, CardSubtitle, CardText, CardBody, CardImg, CardTitle, Input, Row } from 'reactstrap';
 import injectSheet from 'react-jss';
 import LoadingDots from './LoadingDots';
+import AuthButton from './AuthButton';
 
 const styles = {
   margin: {
@@ -12,36 +13,44 @@ const styles = {
 };
 
 const CurrentUser = (props: {
-  user: Object,
-  profile: string,
+  uid: string,
+  email: string,
+  about: Object,
   value: string,
+  displayName: string,
+  photoURL: string,
   handleChange: Function,
   handleSubmit: Function,
   classes: Object
 }) => {
-  const { user, profile, value, handleChange, handleSubmit, classes } = props;
+  const { uid, email, about, value, handleChange, handleSubmit, classes, displayName, photoURL } = props;
   return (
-    <Row>
-      <Col xs="12" sm="6" md="5">
-        {!user.photoURL && <LoadingDots />}
-        <Card>
-          <CardTitle className="center-text">Placeholder for User Profile Headline</CardTitle>
-          <CardImg src={user.photoURL} alt={`headshot for ${user.displayName}`} />
-          <CardBody>
-            <CardSubtitle>Name:</CardSubtitle>
-            <CardText>{user.displayName}</CardText>
-            <CardSubtitle>Bio:</CardSubtitle>
-            <CardText>{profile.bio || 'Write a short bio to tell about yourself'}</CardText>
-            <CardSubtitle>Contact:</CardSubtitle>
-            <CardText>{user.email}</CardText>
-            <Input type="text" value={value} placeholder="Enter your bio" onChange={handleChange} />
-            <Button onClick={e => handleSubmit(e, value, user.uid)} className={classes.margin}>
-              Save
-            </Button>
-          </CardBody>
-        </Card>
-      </Col>
-    </Row>
+    <div>
+      <Row>
+        <AuthButton className="float-right" />
+      </Row>
+      <Row>
+        <Col xs="12" sm="6" md="5">
+          {!photoURL && <LoadingDots />}
+          <Card>
+            <CardTitle className="center-text">Placeholder for {displayName} Profile Headline</CardTitle>
+            <CardImg src={photoURL} alt={`headshot for ${displayName}`} />
+            <CardBody>
+              <CardSubtitle>Name:</CardSubtitle>
+              <CardText>{displayName}</CardText>
+              <CardSubtitle>About:</CardSubtitle>
+              <CardText>{about.profileAbout}</CardText>
+              <CardSubtitle>Contact:</CardSubtitle>
+              <CardText>{email}</CardText>
+              <Input type="text" value={value} placeholder="Write your about story..." onChange={handleChange} />
+              <Button onClick={e => handleSubmit(e, value, uid)} className={classes.margin}>
+                Submit
+              </Button>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </div>
   );
 };
 

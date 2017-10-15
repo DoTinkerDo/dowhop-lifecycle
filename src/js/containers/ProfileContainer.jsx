@@ -2,23 +2,23 @@
 
 import { connect } from 'react-redux';
 import Profile from '../components/Profile';
-import { inputValue, createBio, clearInput } from '../actions/profile';
+import { setAboutProfileValue, submitAboutProfile, clearInput } from '../actions/profile';
 
-const mapStateToProps = ({ authentication, currentUser, value, profile, appUsers }) => ({
+const mapStateToProps = ({ authentication, currentUser, value, about, appUsers }) => ({
   authentication,
   currentUser,
   value,
-  profile,
+  about,
   appUsers
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
   handleChange(e) {
-    dispatch(inputValue(e.target.value));
+    dispatch(setAboutProfileValue(e.target.value));
   },
-  handleSubmit(e, bio, uid) {
+  handleSubmit(e, profileAbout, uid) {
     e.preventDefault();
-    dispatch(createBio({ bio, uid }));
+    dispatch(submitAboutProfile({ profileAbout, uid }));
     dispatch(clearInput());
   }
 });

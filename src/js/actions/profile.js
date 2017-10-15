@@ -1,12 +1,12 @@
 // @flow
 
 import { database, auth } from '../../firebase';
-import { SET_USER_BIO, CLEAR_INPUT, ADD_USER_BIO } from './actions';
+import { SET_ABOUT_PROFILE, ADD_FIREBASE_PROFILE_ABOUT_DATA, CLEAR_INPUT } from './actions';
 
 const userProfilesRef = database.ref('app_users');
 
-export const inputValue = (value: string) => ({
-  type: SET_USER_BIO,
+export const setAboutProfileValue = (value: string) => ({
+  type: SET_ABOUT_PROFILE,
   payload: value
 });
 
@@ -14,24 +14,24 @@ export const clearInput = () => ({
   type: CLEAR_INPUT
 });
 
-export const addBio = (bio: string) => ({
-  type: ADD_USER_BIO,
-  payload: bio
-});
-
-export const createBio = ({ bio, uid }: Object) => {
-  const userProfileBioRef = userProfilesRef.child(uid).child('profileAbout');
-  userProfileBioRef.update({ bio });
+export const submitAboutProfile = ({ profileAbout, uid }: Object) => {
+  console.log('ACTION SUBMIT ABOUT: ', profileAbout, ' == ', uid);
+  const userProfileBioRef = userProfilesRef.child(uid).child('profile');
+  userProfileBioRef.update({ profileAbout });
 };
 
-export const startListeningForUserProfileChanges = () => (dispatch: Function) => {
+export const addFirebaseProfileAboutData = (profileAbout: string) => {
+  console.log('ADD DATA -> ', profileAbout);
+  return {
+    type: ADD_FIREBASE_PROFILE_ABOUT_DATA,
+    payload: profileAbout
+  };
+};
+
+export const startListeningForUserProfileChanges = () => (dispatch: Function) =>
   auth.onAuthStateChanged(user => {
     if (user) {
-      const userProfileRef = userProfilesRef.child(user.uid);
-      userProfileRef.on('value', snapshot => {
-        const profileAbout = snapshot.val().profileAbout;
-        dispatch(addBio(profileAbout));
-      });
+      const userProfileRef = userProfilesRef.child(user.uid).child('profile');
+      userProfileRef.on('value', snapshot => dispatch(addFirebaseProfileAboutData(snapshot.val())));
     }
   });
-};

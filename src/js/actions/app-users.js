@@ -3,17 +3,17 @@
 import { auth, database } from '../../firebase';
 import { ADD_USERS } from './actions';
 
-const userRef = database.ref('app_users');
+const usersRef = database.ref('app_users');
 
 const addUsers = users => ({
   type: ADD_USERS,
-  users
+  payload: users
 });
 
 const startListeningForAppUsers = () => (dispatch: Function) => {
   auth.onAuthStateChanged(user => {
     if (user) {
-      userRef.on('value', snapshot => {
+      usersRef.on('child_added', snapshot => {
         dispatch(addUsers(snapshot.val()));
       });
     }
