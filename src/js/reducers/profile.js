@@ -20,7 +20,7 @@ const DEFAULT_PROFILE_ABOUT_STATE = { profileAbout: 'Write a short about me stor
 export function profileAboutReducer(state: Object = DEFAULT_PROFILE_ABOUT_STATE, action: Object) {
   switch (action.type) {
     case ADD_FIREBASE_PROFILE_ABOUT_DATA:
-      return action.payload;
+      return Object.assign({}, state, action.profileAbout);
     default:
       return state;
   }

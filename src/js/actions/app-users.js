@@ -1,6 +1,6 @@
 // @flow
 
-import { auth, database } from '../../firebase';
+import { database } from '../../firebase';
 import { ADD_USERS } from './actions';
 
 const usersRef = database.ref('app_users');
@@ -11,13 +11,10 @@ const addUsers = users => ({
 });
 
 const startListeningForAppUsers = () => (dispatch: Function) => {
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      usersRef.on('child_added', snapshot => {
-        dispatch(addUsers(snapshot.val()));
-      });
-    }
+  usersRef.on('child_added', snapshot => {
+    dispatch(addUsers(snapshot.val()));
   });
+  // TODO  'child_added', 'child_removed', 'child_changed'
 };
 
 export default startListeningForAppUsers;

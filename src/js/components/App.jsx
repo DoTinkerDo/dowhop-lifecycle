@@ -11,15 +11,6 @@ import Login from './Login';
 // import ProfileIndexContainer from '../containers/ProfileIndexContainer';
 import ProfileContainer from '../containers/ProfileContainer';
 import FourOhFour from './FourOhFour';
-import { startListeningToAuthChanges } from '../actions/authentication';
-import startListeningForCurrentUser from '../actions/current-user';
-import { startListeningForUserProfileChanges } from '../actions/profile';
-import startListeningForAppUsers from '../actions/app-users';
-
-store.dispatch(startListeningToAuthChanges());
-store.dispatch(startListeningForCurrentUser());
-store.dispatch(startListeningForUserProfileChanges());
-store.dispatch(startListeningForAppUsers());
 
 const App = () => (
   <Provider store={store}>

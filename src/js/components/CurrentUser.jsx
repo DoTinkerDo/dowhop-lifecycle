@@ -33,13 +33,13 @@ const CurrentUser = (props: {
         <Col xs="12" sm="6" md="5">
           {!photoURL && <LoadingDots />}
           <Card>
-            <CardTitle className="center-text">Placeholder for {displayName} Profile Headline</CardTitle>
+            <CardTitle className="center-text">Placeholder for {displayName} Profile Headline!</CardTitle>
             <CardImg src={photoURL} alt={`headshot for ${displayName}`} />
             <CardBody>
               <CardSubtitle>Name:</CardSubtitle>
               <CardText>{displayName}</CardText>
               <CardSubtitle>About:</CardSubtitle>
-              <CardText>{about.profileAbout}</CardText>
+              <CardText>{about && about.profileAbout}</CardText>
               <CardSubtitle>Contact:</CardSubtitle>
               <CardText>{email}</CardText>
               <Input type="text" value={value} placeholder="Write your about story..." onChange={handleChange} />
