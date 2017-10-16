@@ -4,7 +4,6 @@ import React from 'react';
 import { Button, Col, Card, CardSubtitle, CardText, CardBody, CardImg, CardTitle, Input, Row } from 'reactstrap';
 import injectSheet from 'react-jss';
 import LoadingDots from './LoadingDots';
-import AuthButton from './AuthButton';
 
 const styles = {
   margin: {
@@ -26,9 +25,6 @@ const CurrentUser = (props: {
   const { uid, email, about, value, handleChange, handleSubmit, classes, displayName, photoURL } = props;
   return (
     <div>
-      <Row>
-        <AuthButton className="float-right" />
-      </Row>
       <Row>
         <Col xs="12" sm="6" md="5">
           {!photoURL && <LoadingDots />}

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { filter } from 'lodash';
-import { Col, Card, CardBody, CardImg, CardTitle, Row } from 'reactstrap';
+import { Col, Card, CardSubtitle, CardText, CardBody, CardImg, CardTitle, Row } from 'reactstrap';
 import LoadingDots from './LoadingDots';
 import CurrentUser from './CurrentUser';
 
@@ -47,11 +47,15 @@ const Profile = (props: {
       <Col xs="12" sm="6" md="5">
         {!photoURL && <LoadingDots />}
         <Card>
+          <CardTitle className="center-text">Placeholder for {displayName} Profile Headline!</CardTitle>
           <CardImg src={photoURL} alt={`headshot for ${displayName}`} />
           <CardBody>
-            <CardTitle>{displayName}</CardTitle>
-            <p>{profileAbout || 'Bio'}</p>
-            <p>{email}</p>
+            <CardSubtitle>Name:</CardSubtitle>
+            <CardText>{displayName}</CardText>
+            {profileAbout && <CardSubtitle>About:</CardSubtitle>}
+            {profileAbout && <CardText>{profileAbout}</CardText>}
+            <CardSubtitle>Contact:</CardSubtitle>
+            <CardText>{email}</CardText>
           </CardBody>
         </Card>
       </Col>

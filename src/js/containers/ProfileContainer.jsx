@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
   },
   handleSubmit(e, profileAbout, uid) {
     e.preventDefault();
-    dispatch(submitAboutProfile({ profileAbout, uid }));
+    submitAboutProfile({ profileAbout, uid });
     dispatch(clearInput());
   }
 });
