@@ -14,9 +14,24 @@ const Profile = (props: {
   handleSubmit: Function,
   appUsers: Object,
   location: Object,
-  appUsers: Object
+  appUsers: Object,
+  handleHeadlineChange: Function,
+  handleHeadlineSubmit: Function,
+  headline: Object,
+  headlineValue: string
 }) => {
-  const { currentUser, about, value, handleChange, handleSubmit, appUsers } = props;
+  const {
+    currentUser,
+    about,
+    value,
+    handleChange,
+    handleSubmit,
+    appUsers,
+    headlineValue,
+    handleHeadlineChange,
+    handleHeadlineSubmit,
+    headline
+  } = props;
 
   const uid = props.location.search.slice(1);
   const selectedUser = filter(appUsers, user => user.uid === uid);
@@ -37,6 +52,10 @@ const Profile = (props: {
             value={value}
             about={about}
             photoURL={currentUser.photoURL}
+            headlineValue={headlineValue}
+            handleHeadlineChange={handleHeadlineChange}
+            handleHeadlineSubmit={handleHeadlineSubmit}
+            headline={headline}
           />
         )}
       </div>
