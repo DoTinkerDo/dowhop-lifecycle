@@ -27,9 +27,15 @@ export const addFirebaseProfileAboutData = (profileAbout: string) => ({
 export const startListeningForUserProfileChanges = () => (dispatch: Function) => {
   auth.onAuthStateChanged(user => {
     if (user) {
+      const userProfileAboutRef = userProfilesRef.child(user.uid).child('profileAbout');
+      userProfileAboutRef.once('value').then(snapshot => {
+        const profileAbout = snapshot.val();
+        if (profileAbout) dispatch(addFirebaseProfileAboutData(profileAbout));
+      });
+
       const userProfileRef = userProfilesRef.child(user.uid);
-      userProfileRef.on('value', snapshot => {
-        const profileAbout = snapshot.val().profileAbout;
+      userProfileRef.on('child_changed', snapshot => {
+        const profileAbout = snapshot.val();
         if (profileAbout) dispatch(addFirebaseProfileAboutData(profileAbout));
       });
     }

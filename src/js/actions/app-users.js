@@ -14,7 +14,7 @@ const startListeningForAppUsers = () => (dispatch: Function) => {
   usersRef.on('child_added', snapshot => {
     dispatch(addUsers(snapshot.val()));
   });
-  // TODO  'child_added', 'child_removed', 'child_changed'
+  // TODO 'child_removed', 'child_changed'
 };
 
 export default startListeningForAppUsers;
