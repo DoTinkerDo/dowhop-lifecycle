@@ -1,7 +1,7 @@
 // @flow
 
 import { database } from '../../firebase';
-import { ADD_USERS, UPDATE_USERS } from './actions';
+import { ADD_USERS, UPDATE_USER, REMOVE_USER } from './actions';
 
 const usersRef = database.ref('app_users');
 
@@ -10,20 +10,22 @@ const addUsers = users => ({
   payload: users
 });
 
-const updateUsers = (changedUser, uid) => ({
-  type: UPDATE_USERS,
+const updateUser = changedUser => ({
+  type: UPDATE_USER,
   payload: changedUser,
-  metadata: uid
+  metadata: changedUser.uid
+});
+
+const removeUser = removedUser => ({
+  type: REMOVE_USER,
+  payload: removedUser,
+  metadata: removedUser.uid
 });
 
 const startListeningForAppUsers = () => (dispatch: Function) => {
   usersRef.on('child_added', snapshot => dispatch(addUsers(snapshot.val())));
-  usersRef.on('child_changed', snapshot => {
-    const changedUser = snapshot.val();
-    const uid = changedUser.uid;
-    dispatch(updateUsers(changedUser, uid));
-  });
-  // TODO 'child_removed'
+  usersRef.on('child_changed', snapshot => dispatch(updateUser(snapshot.val())));
+  usersRef.on('child_removed', snapshot => dispatch(removeUser(snapshot.val())));
 };
 
 export default startListeningForAppUsers;
