@@ -1,10 +1,10 @@
 // @flow
 
-import { ADD_USER } from '../actions/actions';
+import { ADD_CURRENT_USER } from '../actions/actions';
 
 export default function currentUserReducer(state: Object = {}, action: Object) {
   switch (action.type) {
-    case ADD_USER:
+    case ADD_CURRENT_USER:
       return {
         displayName: action.displayName,
         createdOn: action.createdOn,
