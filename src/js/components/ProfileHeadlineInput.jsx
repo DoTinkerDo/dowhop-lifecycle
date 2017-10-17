@@ -3,25 +3,27 @@
 import React, { Component } from 'react';
 import { CardTitle, Form, Input } from 'reactstrap';
 
-class ProfileInput extends Component {
+type Props = {
+  headline: Object,
+  headlineValue: string,
+  handleHeadlineSubmit: Function,
+  handleHeadlineChange: Function,
+  uid: string
+};
+
+class ProfileHeadlineInput extends Component<Props, { isEdit: boolean }> {
   state = {
     isEdit: false
   };
 
-  props: {
-    headline: Object,
-    headlineValue: string,
-    handleHeadlineSubmit: Function,
-    handleHeadlineChange: Function,
-    uid: string
-  };
+  props: Props;
 
   handleEdit = () => {
     this.setState({
       isEdit: !this.state.isEdit
     });
   };
-  handleSubmit = (e, headlineValue, uid) => {
+  handleSubmit = (e: Object, headlineValue: string, uid: string) => {
     this.setState({
       isEdit: !this.state.isEdit
     });
@@ -53,4 +55,4 @@ class ProfileInput extends Component {
   }
 }
 
-export default ProfileInput;
+export default ProfileHeadlineInput;

@@ -3,7 +3,7 @@
 import React from 'react';
 import { Col, Card, CardSubtitle, CardText, CardBody, CardImg, Form, Input, Row } from 'reactstrap';
 import LoadingDots from './LoadingDots';
-import ProfileInput from './ProfileInput';
+import ProfileHeadlineInput from './ProfileHeadlineInput';
 
 const CurrentUser = (props: {
   uid: string,
@@ -40,7 +40,7 @@ const CurrentUser = (props: {
         <Col xs="12" sm="6">
           {!photoURL && <LoadingDots />}
           <Card>
-            <ProfileInput
+            <ProfileHeadlineInput
               headline={headline}
               headlineValue={headlineValue}
               handleHeadlineChange={handleHeadlineChange}
