@@ -7,7 +7,6 @@ export default function currentUserReducer(state: Object = {}, action: Object) {
     case ADD_CURRENT_USER:
       return {
         displayName: action.displayName,
-        createdOn: action.createdOn,
         uid: action.uid,
         email: action.email,
         photoURL: action.photoURL

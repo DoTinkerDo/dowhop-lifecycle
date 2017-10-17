@@ -17,9 +17,7 @@ const updateUsers = (changedUser, uid) => ({
 });
 
 const startListeningForAppUsers = () => (dispatch: Function) => {
-  usersRef.on('child_added', snapshot => {
-    dispatch(addUsers(snapshot.val()));
-  });
+  usersRef.on('child_added', snapshot => dispatch(addUsers(snapshot.val())));
   usersRef.on('child_changed', snapshot => {
     const changedUser = snapshot.val();
     const uid = changedUser.uid;
