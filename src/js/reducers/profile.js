@@ -1,24 +1,53 @@
 // @flow
 
-import { SET_USER_PROFILE_STORY, CLEAR_INPUT, ADD_USER_STORY } from '../actions/actions';
+import {
+  SET_ABOUT_PROFILE,
+  ADD_FIREBASE_PROFILE_ABOUT_DATA,
+  CLEAR_ABOUT_INPUT,
+  CLEAR_PROFILE_INPUT,
+  ADD_FIREBASE_PROFILE_HEADLINE_DATA,
+  SET_HEADLINE_PROFILE
+} from '../actions/actions';
 
 const DEFAULT_INPUT_STATE = '';
+const DEFAULT_PROFILE_ABOUT_STATE = { profileAbout: 'Write a about me story to telling what you like to do...' };
+const DEFAULT_PROFILE_HEADLINE_STATE = { profileHeadline: 'Write a catchy headline!' };
 
-export function inputReducer(state: string = DEFAULT_INPUT_STATE, action: Action) {
+export function setProfileAboutReducer(state: string = DEFAULT_INPUT_STATE, action: Object) {
   switch (action.type) {
-    case SET_USER_PROFILE_STORY:
+    case SET_ABOUT_PROFILE:
       return action.payload;
-    case CLEAR_INPUT:
+    case CLEAR_ABOUT_INPUT:
       return '';
     default:
       return state;
   }
 }
 
-export function profileReducer(state: Object = {}, action: Object) {
+export function setProfileHeadlineReducer(state: string = DEFAULT_INPUT_STATE, action: Object) {
   switch (action.type) {
-    case ADD_USER_STORY:
-      return Object.assign({}, state, action.story);
+    case SET_HEADLINE_PROFILE:
+      return action.payload;
+    case CLEAR_PROFILE_INPUT:
+      return '';
+    default:
+      return state;
+  }
+}
+
+export function profileAboutReducer(state: Object = DEFAULT_PROFILE_ABOUT_STATE, action: Object) {
+  switch (action.type) {
+    case ADD_FIREBASE_PROFILE_ABOUT_DATA:
+      return Object.assign({}, state, { profileAbout: action.payload });
+    default:
+      return state;
+  }
+}
+
+export function profileHeadlineReducer(state: Object = DEFAULT_PROFILE_HEADLINE_STATE, action: Object) {
+  switch (action.type) {
+    case ADD_FIREBASE_PROFILE_HEADLINE_DATA:
+      return Object.assign({}, state, { profileHeadline: action.payload });
     default:
       return state;
   }

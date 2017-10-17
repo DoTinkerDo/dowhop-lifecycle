@@ -2,24 +2,41 @@
 
 import React from 'react';
 import { filter } from 'lodash';
-import { Col, Card, CardBody, CardImg, CardTitle, Row } from 'reactstrap';
+import { Col, Card, CardSubtitle, CardText, CardBody, CardImg, CardTitle, Row } from 'reactstrap';
 import LoadingDots from './LoadingDots';
 import CurrentUser from './CurrentUser';
 
 const Profile = (props: {
   currentUser: Object,
-  profile: Object,
+  about: Object,
   value: string,
   handleChange: Function,
   handleSubmit: Function,
   appUsers: Object,
-  location: Object
+  location: Object,
+  appUsers: Object,
+  handleHeadlineChange: Function,
+  handleHeadlineSubmit: Function,
+  headline: Object,
+  headlineValue: string
 }) => {
-  const { currentUser, value, profile, handleChange, handleSubmit } = props;
-  // const { uid } = props.match.params;
+  const {
+    currentUser,
+    about,
+    value,
+    handleChange,
+    handleSubmit,
+    appUsers,
+    headlineValue,
+    handleHeadlineChange,
+    handleHeadlineSubmit,
+    headline
+  } = props;
+
   const uid = props.location.search.slice(1);
-  const selectedUser = filter(props.appUsers, user => user.uid === uid);
-  const { photoURL, displayName, profileAbout, email } = selectedUser[0] || '';
+  const selectedUser = filter(appUsers, user => user.uid === uid);
+  const { photoURL, displayName, profileAbout, profileHeadline, email } = selectedUser[0] || '';
+
   if (currentUser.uid === uid || !uid) {
     return (
       <div>
@@ -27,11 +44,18 @@ const Profile = (props: {
           <LoadingDots />
         ) : (
           <CurrentUser
-            user={currentUser}
+            uid={currentUser.uid}
+            email={currentUser.email}
+            displayName={currentUser.displayName}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
             value={value}
-            profile={profile}
+            about={about}
+            photoURL={currentUser.photoURL}
+            headlineValue={headlineValue}
+            handleHeadlineChange={handleHeadlineChange}
+            handleHeadlineSubmit={handleHeadlineSubmit}
+            headline={headline}
           />
         )}
       </div>
@@ -39,14 +63,18 @@ const Profile = (props: {
   }
   return (
     <Row>
-      <Col xs={12} md={6}>
+      <Col xs="12" sm="6">
         {!photoURL && <LoadingDots />}
         <Card>
+          {profileHeadline && <CardTitle className="center-text">{profileHeadline}</CardTitle>}
           <CardImg src={photoURL} alt={`headshot for ${displayName}`} />
           <CardBody>
-            <CardTitle>{displayName}</CardTitle>
-            <p>{profileAbout || 'Bio'}</p>
-            <p>{email}</p>
+            <CardSubtitle>Name:</CardSubtitle>
+            <CardText>{displayName}</CardText>
+            {profileAbout && <CardSubtitle>About:</CardSubtitle>}
+            {profileAbout && <CardText>{profileAbout}</CardText>}
+            <CardSubtitle>Contact:</CardSubtitle>
+            <CardText>{email}</CardText>
           </CardBody>
         </Card>
       </Col>

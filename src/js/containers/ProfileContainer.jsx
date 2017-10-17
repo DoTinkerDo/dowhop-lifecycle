@@ -2,24 +2,41 @@
 
 import { connect } from 'react-redux';
 import Profile from '../components/Profile';
-import { storyValue, createStory, clearInput } from '../actions/profile';
+import {
+  setAboutProfileValue,
+  submitAboutProfile,
+  clearAboutInput,
+  clearHeadlineInput,
+  setHeadlineProfileValue,
+  submitHeadlineProfile
+} from '../actions/profile';
 
-const mapStateToProps = ({ authentication, currentUser, value, profile, appUsers }) => ({
+const mapStateToProps = ({ authentication, currentUser, value, about, appUsers, headlineValue, headline }) => ({
   authentication,
   currentUser,
   value,
-  profile,
-  appUsers
+  about,
+  appUsers,
+  headlineValue,
+  headline
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
   handleChange(e) {
-    dispatch(storyValue(e.target.value));
+    dispatch(setAboutProfileValue(e.target.value));
   },
-  handleSubmit(e, story, uid) {
+  handleHeadlineChange(e) {
+    dispatch(setHeadlineProfileValue(e.target.value));
+  },
+  handleSubmit(e, profileAbout, uid) {
     e.preventDefault();
-    dispatch(createStory({ story, uid }));
-    dispatch(clearInput());
+    submitAboutProfile({ profileAbout, uid });
+    dispatch(clearAboutInput());
+  },
+  handleHeadlineSubmit(e, profileHeadline, uid) {
+    e.preventDefault();
+    submitHeadlineProfile({ profileHeadline, uid });
+    dispatch(clearHeadlineInput());
   }
 });
 

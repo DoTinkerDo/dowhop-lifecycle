@@ -1,0 +1,18 @@
+div.profile-header {
+  position: relative;
+  span.fa-pencil {
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    padding: 8px;
+    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #000000;
+  }
+}
+
+input.profile-header-input,
+input.profile-about-input {
+  margin: 10px auto;
+  width: 95%;
+}

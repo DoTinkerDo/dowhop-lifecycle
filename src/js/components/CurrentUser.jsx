@@ -1,46 +1,78 @@
 // @flow
 
 import React from 'react';
-import { Button, Col, Card, CardBody, CardImg, CardTitle, Input, Row } from 'reactstrap';
-import injectSheet from 'react-jss';
+import { Col, Card, CardSubtitle, CardText, CardBody, CardImg, Form, Input, Row } from 'reactstrap';
 import LoadingDots from './LoadingDots';
-
-const styles = {
-  margin: {
-    marginTop: '1%'
-  }
-};
+import ProfileInput from './ProfileInput';
 
 const CurrentUser = (props: {
-  user: Object,
+  uid: string,
+  email: string,
+  about: Object,
+  headline: Object,
   value: string,
-  profile: Object,
+  headlineValue: string,
+  displayName: string,
+  photoURL: string,
   handleChange: Function,
+  handleHeadlineChange: Function,
+  handleHeadlineSubmit: Function,
   handleSubmit: Function,
-  classes: Object
+  headline: Object
 }) => {
-  const { user, value, profile, handleChange, handleSubmit, classes } = props;
+  const {
+    uid,
+    email,
+    about,
+    value,
+    handleChange,
+    handleSubmit,
+    displayName,
+    photoURL,
+    headlineValue,
+    handleHeadlineChange,
+    handleHeadlineSubmit,
+    headline
+  } = props;
   return (
-    <Row>
-      <Col xs={12} md={6}>
-        {!user.photoURL && <LoadingDots />}
-        <Card>
-          <CardImg src={user.photoURL} alt={`headshot for ${user.story}`} />
-          <CardBody>
-            <CardTitle>{user.displayName}</CardTitle>
-            <p>{profile.story || 'Bio'}</p>
-            <p>{user.email}</p>
-            <Input type="text" value={value} placeholder="Enter your bio" onChange={handleChange} />
-            <Button onClick={e => handleSubmit(e, value, user.uid)} className={classes.margin}>
-              {/* Q: alternatives to inline func? Perf issues? */}
-              Save
-            </Button>
-            <br />
-          </CardBody>
-        </Card>
-      </Col>
-    </Row>
+    <div>
+      <Row>
+        <Col xs="12" sm="6">
+          {!photoURL && <LoadingDots />}
+          <Card>
+            <ProfileInput
+              headline={headline}
+              headlineValue={headlineValue}
+              handleHeadlineChange={handleHeadlineChange}
+              handleHeadlineSubmit={handleHeadlineSubmit}
+              uid={uid}
+            />
+            <CardImg src={photoURL} alt={`headshot for ${displayName}`} />
+            <CardBody>
+              <CardSubtitle>Name:</CardSubtitle>
+              <CardText>{displayName}</CardText>
+              <div>
+                <Form onSubmit={e => handleSubmit(e, value, uid)}>
+                  <CardSubtitle>About:</CardSubtitle>
+                  <CardText>{about && about.profileAbout}</CardText>
+                  <Input
+                    type="text"
+                    value={value}
+                    placeholder="Write your about story..."
+                    onChange={handleChange}
+                    className="profile-about-input"
+                  />
+                  <Input type="submit" hidden />
+                </Form>
+              </div>
+              <CardSubtitle>Contact:</CardSubtitle>
+              <CardText>{email}</CardText>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </div>
   );
 };
 
-export default injectSheet(styles)(CurrentUser);
+export default CurrentUser;
