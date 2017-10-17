@@ -1,15 +1,9 @@
 // @flow
 
 import React from 'react';
-import { Button, Col, Card, CardSubtitle, CardText, CardBody, CardImg, CardTitle, Input, Row } from 'reactstrap';
-import injectSheet from 'react-jss';
+import { Col, Card, CardSubtitle, CardText, CardBody, CardImg, Form, Input, Row } from 'reactstrap';
 import LoadingDots from './LoadingDots';
-
-const styles = {
-  margin: {
-    marginTop: '1%'
-  }
-};
+import ProfileInput from './ProfileInput';
 
 const CurrentUser = (props: {
   uid: string,
@@ -24,8 +18,7 @@ const CurrentUser = (props: {
   handleHeadlineChange: Function,
   handleHeadlineSubmit: Function,
   handleSubmit: Function,
-  headline: Object,
-  classes: Object
+  headline: Object
 }) => {
   const {
     uid,
@@ -34,7 +27,6 @@ const CurrentUser = (props: {
     value,
     handleChange,
     handleSubmit,
-    classes,
     displayName,
     photoURL,
     headlineValue,
@@ -42,35 +34,39 @@ const CurrentUser = (props: {
     handleHeadlineSubmit,
     headline
   } = props;
-  // console.log('HEADLINE: ', headline);
   return (
     <div>
       <Row>
-        <Col xs="12" sm="6" md="5">
+        <Col xs="12" sm="6">
           {!photoURL && <LoadingDots />}
           <Card>
-            <CardTitle className="center-text">{headline && headline.profileHeadline}</CardTitle>
-            <Input
-              type="text"
-              value={headlineValue}
-              placeholder="Write your headline..."
-              onChange={handleHeadlineChange}
+            <ProfileInput
+              headline={headline}
+              headlineValue={headlineValue}
+              handleHeadlineChange={handleHeadlineChange}
+              handleHeadlineSubmit={handleHeadlineSubmit}
+              uid={uid}
             />
-            <Button onClick={e => handleHeadlineSubmit(e, headlineValue, uid)} className={classes.margin}>
-              Submit
-            </Button>
             <CardImg src={photoURL} alt={`headshot for ${displayName}`} />
             <CardBody>
               <CardSubtitle>Name:</CardSubtitle>
               <CardText>{displayName}</CardText>
-              <CardSubtitle>About:</CardSubtitle>
-              <CardText>{about && about.profileAbout}</CardText>
+              <div>
+                <Form onSubmit={e => handleSubmit(e, value, uid)}>
+                  <CardSubtitle>About:</CardSubtitle>
+                  <CardText>{about && about.profileAbout}</CardText>
+                  <Input
+                    type="text"
+                    value={value}
+                    placeholder="Write your about story..."
+                    onChange={handleChange}
+                    className="profile-about-input"
+                  />
+                  <Input type="submit" hidden />
+                </Form>
+              </div>
               <CardSubtitle>Contact:</CardSubtitle>
               <CardText>{email}</CardText>
-              <Input type="text" value={value} placeholder="Write your about story..." onChange={handleChange} />
-              <Button onClick={e => handleSubmit(e, value, uid)} className={classes.margin}>
-                Submit
-              </Button>
             </CardBody>
           </Card>
         </Col>
@@ -79,4 +75,4 @@ const CurrentUser = (props: {
   );
 };
 
-export default injectSheet(styles)(CurrentUser);
+export default CurrentUser;
