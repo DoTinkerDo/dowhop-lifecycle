@@ -35,7 +35,7 @@ const Profile = (props: {
 
   const uid = props.location.search.slice(1);
   const selectedUser = filter(appUsers, user => user.uid === uid);
-  const { photoURL, displayName, profileAbout, email } = selectedUser[0] || '';
+  const { photoURL, displayName, profileAbout, profileHeadline, email } = selectedUser[0] || '';
 
   if (currentUser.uid === uid || !uid) {
     return (
@@ -66,7 +66,7 @@ const Profile = (props: {
       <Col xs="12" sm="6" md="5">
         {!photoURL && <LoadingDots />}
         <Card>
-          <CardTitle className="center-text">Placeholder for {displayName} Profile Headline!</CardTitle>
+          {profileHeadline && <CardTitle className="center-text">{profileHeadline}</CardTitle>}
           <CardImg src={photoURL} alt={`headshot for ${displayName}`} />
           <CardBody>
             <CardSubtitle>Name:</CardSubtitle>

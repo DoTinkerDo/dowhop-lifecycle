@@ -10,8 +10,8 @@ import {
 } from '../actions/actions';
 
 const DEFAULT_INPUT_STATE = '';
-const DEFAULT_PROFILE_ABOUT_STATE = { profileAbout: 'Write a short about me story to tell about yourself' };
-const DEFAULT_PROFILE_HEADLINE_STATE = { profileHeadline: 'Profile Headline!' };
+const DEFAULT_PROFILE_ABOUT_STATE = { profileAbout: 'Write a about me story to telling what you like to do...' };
+const DEFAULT_PROFILE_HEADLINE_STATE = { profileHeadline: 'Write a catchy headline!' };
 
 export function setProfileAboutReducer(state: string = DEFAULT_INPUT_STATE, action: Object) {
   switch (action.type) {
