@@ -5,6 +5,7 @@ import { filter } from 'lodash';
 import { Col, Card, CardSubtitle, CardText, CardBody, CardImg, CardTitle, Row } from 'reactstrap';
 import LoadingDots from './LoadingDots';
 import CurrentUser from './CurrentUser';
+import AuthButton from './AuthButton';
 
 const Profile = (props: {
   currentUser: Object,
@@ -40,6 +41,7 @@ const Profile = (props: {
   if (currentUser.uid === uid || !uid) {
     return (
       <div>
+        <AuthButton />
         {!currentUser ? (
           <LoadingDots />
         ) : (
@@ -63,6 +65,7 @@ const Profile = (props: {
   }
   return (
     <Row>
+      <AuthButton />
       <Col xs="12" sm="6" md="5">
         {!photoURL && <LoadingDots />}
         <Card>
