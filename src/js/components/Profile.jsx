@@ -69,11 +69,11 @@ const Profile = (props: {
           {profileHeadline && <CardTitle className="center-text">{profileHeadline}</CardTitle>}
           <CardImg src={photoURL} alt={`headshot for ${displayName}`} />
           <CardBody>
-            <CardSubtitle>Name:</CardSubtitle>
+            <CardSubtitle>Name</CardSubtitle>
             <CardText>{displayName}</CardText>
-            {profileAbout && <CardSubtitle>About:</CardSubtitle>}
+            {profileAbout && <CardSubtitle>About</CardSubtitle>}
             {profileAbout && <CardText>{profileAbout}</CardText>}
-            <CardSubtitle>Contact:</CardSubtitle>
+            <CardSubtitle>Contact</CardSubtitle>
             <CardText>{email}</CardText>
           </CardBody>
         </Card>

@@ -1,9 +1,10 @@
 // @flow
 
 import React from 'react';
-import { Col, Card, CardSubtitle, CardText, CardBody, CardImg, Form, Input, Row } from 'reactstrap';
+import { Col, Card, CardSubtitle, CardText, CardBody, CardImg, Row } from 'reactstrap';
 import LoadingDots from './LoadingDots';
 import ProfileHeadlineInput from './ProfileHeadlineInput';
+import ProfileAboutInput from './ProfileAboutInput';
 
 const CurrentUser = (props: {
   uid: string,
@@ -39,7 +40,7 @@ const CurrentUser = (props: {
       <Row>
         <Col xs="12" sm="6">
           {!photoURL && <LoadingDots />}
-          <Card>
+          <Card className="">
             <ProfileHeadlineInput
               headline={headline}
               headlineValue={headlineValue}
@@ -49,23 +50,16 @@ const CurrentUser = (props: {
             />
             <CardImg src={photoURL} alt={`headshot for ${displayName}`} />
             <CardBody>
-              <CardSubtitle>Name:</CardSubtitle>
+              <CardSubtitle className="profile-pencil">Name</CardSubtitle>
               <CardText>{displayName}</CardText>
-              <div>
-                <Form onSubmit={e => handleSubmit(e, value, uid)}>
-                  <CardSubtitle>About:</CardSubtitle>
-                  <CardText>{about && about.profileAbout}</CardText>
-                  <Input
-                    type="text"
-                    value={value}
-                    placeholder="Write your about story..."
-                    onChange={handleChange}
-                    className="profile-about-input"
-                  />
-                  <Input type="submit" hidden />
-                </Form>
-              </div>
-              <CardSubtitle>Contact:</CardSubtitle>
+              <ProfileAboutInput
+                about={about}
+                value={value}
+                handleSubmit={handleSubmit}
+                handleChange={handleChange}
+                uid={uid}
+              />
+              <CardSubtitle>Contact</CardSubtitle>
               <CardText>{email}</CardText>
             </CardBody>
           </Card>
