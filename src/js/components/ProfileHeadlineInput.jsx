@@ -33,7 +33,7 @@ class ProfileHeadlineInput extends Component<Props, { isEdit: boolean }> {
   render() {
     const { headline, headlineValue, handleHeadlineChange, uid } = this.props;
     return !this.state.isEdit ? (
-      <div className="profile-pencil">
+      <div>
         <CardTitle className="center-text">{headline && headline.profileHeadline}</CardTitle>
         <div className="fa fa-pencil pencil-header" onClick={this.handleEdit} aria-hidden="true" />
       </div>
