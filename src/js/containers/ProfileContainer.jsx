@@ -5,8 +5,8 @@ import Profile from '../components/Profile';
 import {
   setAboutProfileValue,
   submitAboutProfile,
-  clearAboutInput,
-  clearHeadlineInput,
+  // clearAboutInput,
+  // clearHeadlineInput,
   setHeadlineProfileValue,
   submitHeadlineProfile
 } from '../actions/profile';
@@ -31,12 +31,12 @@ const mapDispatchToProps = (dispatch: Function) => ({
   handleSubmit(e, profileAbout, uid) {
     e.preventDefault();
     submitAboutProfile({ profileAbout, uid });
-    dispatch(clearAboutInput());
+    // dispatch(clearAboutInput());
   },
   handleHeadlineSubmit(e, profileHeadline, uid) {
     e.preventDefault();
     submitHeadlineProfile({ profileHeadline, uid });
-    dispatch(clearHeadlineInput());
+    // dispatch(clearHeadlineInput());
   }
 });
 

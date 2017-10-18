@@ -40,17 +40,19 @@ const CurrentUser = (props: {
       <Row>
         <Col xs="12" sm="6">
           {!photoURL && <LoadingDots />}
-          <Card className="">
-            <ProfileHeadlineInput
-              headline={headline}
-              headlineValue={headlineValue}
-              handleHeadlineChange={handleHeadlineChange}
-              handleHeadlineSubmit={handleHeadlineSubmit}
-              uid={uid}
-            />
+          <Card>
+            <CardBody>
+              <ProfileHeadlineInput
+                headline={headline}
+                headlineValue={headlineValue}
+                handleHeadlineChange={handleHeadlineChange}
+                handleHeadlineSubmit={handleHeadlineSubmit}
+                uid={uid}
+              />
+            </CardBody>
             <CardImg src={photoURL} alt={`headshot for ${displayName}`} />
             <CardBody>
-              <CardSubtitle className="profile-pencil">Name</CardSubtitle>
+              <CardSubtitle>Name</CardSubtitle>
               <CardText>{displayName}</CardText>
               <ProfileAboutInput
                 about={about}

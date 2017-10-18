@@ -12,13 +12,13 @@ import {
 
 const userProfilesRef = database.ref('app_users');
 
-export const setAboutProfileValue = (value: string) => ({
-  type: SET_ABOUT_PROFILE,
+export const setHeadlineProfileValue = (value: string) => ({
+  type: SET_HEADLINE_PROFILE,
   payload: value
 });
 
-export const setHeadlineProfileValue = (value: string) => ({
-  type: SET_HEADLINE_PROFILE,
+export const setAboutProfileValue = (value: string) => ({
+  type: SET_ABOUT_PROFILE,
   payload: value
 });
 
@@ -54,15 +54,18 @@ export const startListeningForUserProfileChanges = () => (dispatch: Function) =>
   auth.onAuthStateChanged(user => {
     if (user) {
       const userProfileRef = userProfilesRef.child(user.uid);
-      const userProfileAboutRef = userProfileRef.child('profileAbout');
-      userProfileAboutRef.on('value', snapshot => {
-        const profileAbout = snapshot.val();
-        if (profileAbout) dispatch(addFirebaseProfileAboutData(profileAbout));
-      });
+
       const userProfileHeadlineRef = userProfileRef.child('profileHeadline');
       userProfileHeadlineRef.on('value', snapshot => {
         const profileHeadline = snapshot.val();
-        if (profileHeadline) dispatch(addFirebaseProfileHeadlineData(profileHeadline));
+        dispatch(addFirebaseProfileHeadlineData(profileHeadline));
+        dispatch(setHeadlineProfileValue(profileHeadline));
+      });
+      const userProfileAboutRef = userProfileRef.child('profileAbout');
+      userProfileAboutRef.on('value', snapshot => {
+        const profileAbout = snapshot.val();
+        dispatch(addFirebaseProfileAboutData(profileAbout));
+        dispatch(setAboutProfileValue(profileAbout));
       });
     }
   });

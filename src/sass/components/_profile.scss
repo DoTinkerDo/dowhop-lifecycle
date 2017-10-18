@@ -1,27 +1,36 @@
-.profile-pencil {
-  position: relative;
-  .pencil-header {
-    position: absolute;
-    top: 10px;
-    right: 5px;
-    padding: 8px;
-    background-color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: #000000;
-  }
-  .pencil-about {
-    position: absolute;
-    // bottom: 200px;
-    // right: 5px;
-    padding: 8px;
-    background-color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: #000000;
-  }
+.profile-headline {
+  padding: 0 5px;
+}
+
+.profile-pencil span.pencil-about,
+.profile-pencil span.pencil-header {
+  font-size: 80%;
+  font-weight: normal;
+  color: $text-color;
+  padding: 8px;
+  margin-left: 5px;
+  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.profile-pencil h4.center-text.card-title {
+  margin-top: 1em;
+}
+
+.profile-pencil p.card-text:last-child {
+  margin-bottom: 1.5em;
+}
+
+.edit-about-text {
+  margin-bottom: 1.5em;
 }
 
 input.profile-header-input,
 input.profile-about-input {
-  margin: 10px auto;
-  width: 95%;
+  margin: 0 auto;
+}
+
+button.profile-about-button {
+  margin-top: 4px;
+  margin-bottom: 4px;
 }

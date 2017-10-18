@@ -66,15 +66,15 @@ const Profile = (props: {
       <Col xs="12" sm="6">
         {!photoURL && <LoadingDots />}
         <Card>
-          {profileHeadline && <CardTitle className="center-text">{profileHeadline}</CardTitle>}
+          {profileHeadline && <CardTitle className="center-text profile-headline">{profileHeadline}</CardTitle>}
           <CardImg src={photoURL} alt={`headshot for ${displayName}`} />
           <CardBody>
             <CardSubtitle>Name</CardSubtitle>
             <CardText>{displayName}</CardText>
             {profileAbout && <CardSubtitle>About</CardSubtitle>}
             {profileAbout && <CardText>{profileAbout}</CardText>}
-            <CardSubtitle>Contact</CardSubtitle>
-            <CardText>{email}</CardText>
+            {email && <CardSubtitle>Contact</CardSubtitle>}
+            {email && <CardText>{email}</CardText>}
           </CardBody>
         </Card>
       </Col>
