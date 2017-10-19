@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Col, Card, CardSubtitle, CardText, CardBody, CardImg, Row } from 'reactstrap';
+import FileInput from './FileInput';
 import LoadingDots from './LoadingDots';
 import ProfileHeadlineInput from './ProfileHeadlineInput';
 import ProfileAboutInput from './ProfileAboutInput';
@@ -51,6 +52,7 @@ const CurrentUser = (props: {
               />
             </CardBody>
             <CardImg src={photoURL} alt={`headshot for ${displayName}`} />
+            <FileInput name="profileImage" accept=".png,.gig,.jpg" onChange={() => console.log('FILE UPLOAEDls')} />
             <CardBody>
               <CardSubtitle>Name</CardSubtitle>
               <CardText>{displayName}</CardText>

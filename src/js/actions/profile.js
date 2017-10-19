@@ -10,7 +10,7 @@ import {
   SET_HEADLINE_PROFILE
 } from './actions';
 
-const userProfilesRef = database.ref('app_users');
+const usersProfilesRef = database.ref('app_users');
 
 export const setHeadlineProfileValue = (value: string) => ({
   type: SET_HEADLINE_PROFILE,
@@ -31,12 +31,12 @@ export const clearHeadlineInput = () => ({
 });
 
 export const submitAboutProfile = ({ profileAbout, uid }: Object) => {
-  const userProfileAboutRef = userProfilesRef.child(uid);
+  const userProfileAboutRef = usersProfilesRef.child(uid);
   userProfileAboutRef.update({ profileAbout });
 };
 
 export const submitHeadlineProfile = ({ profileHeadline, uid }: Object) => {
-  const userProfileHeadlineRef = userProfilesRef.child(uid);
+  const userProfileHeadlineRef = usersProfilesRef.child(uid);
   userProfileHeadlineRef.update({ profileHeadline });
 };
 
@@ -53,7 +53,7 @@ export const addFirebaseProfileHeadlineData = (profileHeadline: string) => ({
 export const startListeningForUserProfileChanges = () => (dispatch: Function) => {
   auth.onAuthStateChanged(user => {
     if (user) {
-      const userProfileRef = userProfilesRef.child(user.uid);
+      const userProfileRef = usersProfilesRef.child(user.uid);
 
       const userProfileHeadlineRef = userProfileRef.child('profileHeadline');
       userProfileHeadlineRef.on('value', snapshot => {
