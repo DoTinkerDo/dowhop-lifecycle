@@ -19,30 +19,22 @@ class ProfileAboutInput extends Component<Props, { isEdit: boolean, isValid: boo
 
   props: Props;
 
+  handleEdit = () => {
+    this.setState(prevState => ({ isEdit: !prevState.isEdit }));
+  };
+
   handleInputChange = (e: Object) => {
     this.props.handleChange(e);
     this.validateInput(e);
   };
 
-  handleEdit = () => {
-    this.setState({
-      isEdit: !this.state.isEdit
-    });
-  };
   handleClick = (e: Object, value: string, uid: string) => {
-    this.setState({
-      isEdit: !this.state.isEdit
-    });
+    this.setState(prevState => ({ isEdit: !prevState.isEdit }));
     this.props.handleSubmit(e, value, uid);
   };
 
-  validateInput = (e: Object) => {
-    if (e && e.target.value.length > 500) {
-      this.setState({ isValid: false });
-    } else {
-      this.setState({ isValid: true });
-    }
-  };
+  validateInput = (e: Object) =>
+    e && e.target.value.length > 500 ? this.setState({ isValid: false }) : this.setState({ isValid: true });
 
   render() {
     const { about, value, uid } = this.props;

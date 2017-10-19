@@ -17,16 +17,10 @@ class ProfileHeadlineInput extends Component<Props, { isEdit: boolean, isValid: 
     isValid: true
   };
 
-  componentDidMount() {
-    this.validateInput();
-  }
-
   props: Props;
 
   handleEdit = () => {
-    this.setState({
-      isEdit: !this.state.isEdit
-    });
+    this.setState(prevState => ({ isEdit: !prevState.isEdit }));
   };
 
   handleChange = (e: Object) => {
@@ -35,19 +29,12 @@ class ProfileHeadlineInput extends Component<Props, { isEdit: boolean, isValid: 
   };
 
   handleSubmit = (e: Object, headlineValue: string, uid: string) => {
-    this.setState({
-      isEdit: !this.state.isEdit
-    });
+    this.setState(prevState => ({ isEdit: !prevState.isEdit }));
     this.props.handleHeadlineSubmit(e, headlineValue, uid);
   };
 
-  validateInput = (e: Object) => {
-    if (e && e.target.value.length > 110) {
-      this.setState({ isValid: false });
-    } else {
-      this.setState({ isValid: true });
-    }
-  };
+  validateInput = (e: Object) =>
+    e && e.target.value.length > 110 ? this.setState({ isValid: false }) : this.setState({ isValid: true });
 
   render() {
     const { headline, headlineValue, uid } = this.props;
