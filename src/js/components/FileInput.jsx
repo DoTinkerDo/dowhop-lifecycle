@@ -1,32 +1,46 @@
+// @flow
+
 import React, { Component } from 'react';
 
-export default class FileInput extends Component {
-  constructor(props) {
-    super(props);
+type State = {
+  value: string,
+  styles: Object
+};
 
-    this.state = {
-      value: '',
-      styles: {
-        parent: {
-          position: 'relative'
-        },
-        file: {
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          opacity: 0,
-          width: '100%',
-          zIndex: 1
-        },
-        text: {
-          position: 'relative',
-          zIndex: -1
-        }
+type Props = {
+  name: string,
+  onChange: Function,
+  accept: string,
+  disabled: boolean,
+  className: string,
+  placeholder: string
+};
+
+class FileInput extends Component<Props, State> {
+  state = {
+    value: '',
+    styles: {
+      parent: {
+        position: 'relative'
+      },
+      file: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        opacity: 0,
+        width: '100%',
+        zIndex: 1
+      },
+      text: {
+        position: 'relative',
+        zIndex: -1
       }
-    };
-  }
+    }
+  };
 
-  handleChange(e) {
+  props: Props;
+
+  handleChange(e: Object) {
     this.setState({
       value: e.target.value.split(/(\\|\/)/g).pop()
     });
@@ -62,3 +76,5 @@ export default class FileInput extends Component {
     );
   }
 }
+
+export default FileInput;
