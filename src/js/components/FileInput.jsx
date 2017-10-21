@@ -48,26 +48,28 @@ class FileInput extends Component<Props, State> {
   };
 
   render() {
+    const { styles, value } = this.state;
+    const { name, className, accept, placeholder } = this.props;
     return (
-      <div style={this.state.styles.parent}>
+      <div style={styles.parent}>
         <input
           type="file"
-          name={this.props.name}
-          className={this.props.className}
+          name={name}
+          className={className}
           onChange={this.handleChange}
-          accept={this.props.accept}
-          style={this.state.styles.file}
+          accept={accept}
+          style={styles.file}
         />
 
         <input
           type="text"
           tabIndex="-1"
-          name={`this.props.name + '_filename'`}
-          value={this.state.value}
-          className={this.props.className}
+          name={`name + '_filename'`}
+          value={value}
+          className={className}
           onChange={() => {}}
-          placeholder={this.props.placeholder}
-          style={this.state.styles.text}
+          placeholder={placeholder}
+          style={styles.text}
         />
       </div>
     );
