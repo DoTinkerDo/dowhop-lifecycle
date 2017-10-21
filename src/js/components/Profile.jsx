@@ -18,7 +18,8 @@ const Profile = (props: {
   handleHeadlineChange: Function,
   handleHeadlineSubmit: Function,
   headline: Object,
-  headlineValue: string
+  headlineValue: string,
+  handleImageSubmit: Function
 }) => {
   const {
     currentUser,
@@ -30,7 +31,8 @@ const Profile = (props: {
     headlineValue,
     handleHeadlineChange,
     handleHeadlineSubmit,
-    headline
+    headline,
+    handleImageSubmit
   } = props;
 
   const uid = props.location.search.slice(1);
@@ -56,6 +58,7 @@ const Profile = (props: {
             handleHeadlineChange={handleHeadlineChange}
             handleHeadlineSubmit={handleHeadlineSubmit}
             headline={headline}
+            handleImageSubmit={handleImageSubmit}
           />
         )}
       </div>

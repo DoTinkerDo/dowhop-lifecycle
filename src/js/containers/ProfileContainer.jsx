@@ -37,6 +37,9 @@ const mapDispatchToProps = (dispatch: Function) => ({
     e.preventDefault();
     submitHeadlineProfile({ profileHeadline, uid });
     // dispatch(clearHeadlineInput());
+  },
+  handleImageSubmit(e) {
+    console.log('IMAGE ', e.target.files);
   }
 });
 

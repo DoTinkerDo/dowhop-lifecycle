@@ -2,18 +2,17 @@
 
 import React, { Component } from 'react';
 
+type Props = {
+  name: string,
+  handleImageSubmit: Function,
+  accept: string,
+  className: string,
+  placeholder: string
+};
+
 type State = {
   value: string,
   styles: Object
-};
-
-type Props = {
-  name: string,
-  onChange: Function,
-  accept: string,
-  disabled: boolean,
-  className: string,
-  placeholder: string
 };
 
 class FileInput extends Component<Props, State> {
@@ -40,13 +39,13 @@ class FileInput extends Component<Props, State> {
 
   props: Props;
 
-  handleChange(e: Object) {
+  handleChange = (e: Object) => {
     this.setState({
       value: e.target.value.split(/(\\|\/)/g).pop()
     });
 
-    if (this.props.onChange) this.props.onChange(e);
-  }
+    if (this.props.handleImageSubmit) this.props.handleImageSubmit(e);
+  };
 
   render() {
     return (
@@ -55,8 +54,7 @@ class FileInput extends Component<Props, State> {
           type="file"
           name={this.props.name}
           className={this.props.className}
-          onChange={this.handleChange.bind(this)}
-          disabled={this.props.disabled}
+          onChange={this.handleChange}
           accept={this.props.accept}
           style={this.state.styles.file}
         />
@@ -69,7 +67,6 @@ class FileInput extends Component<Props, State> {
           className={this.props.className}
           onChange={() => {}}
           placeholder={this.props.placeholder}
-          disabled={this.props.disabled}
           style={this.state.styles.text}
         />
       </div>
