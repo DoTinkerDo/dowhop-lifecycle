@@ -54,7 +54,6 @@ const CurrentUser = (props: {
               />
             </CardBody>
             <FileInput
-              className="hide-component"
               placeholder="Click to upload image..."
               name="profileImage"
               accept=".png,.gif,.jpg"

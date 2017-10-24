@@ -1,40 +1,32 @@
 // @flow
 
 import React, { Component } from 'react';
+import injectSheet from 'react-jss';
+
+const styles = {
+  parent: {
+    position: 'relative'
+  },
+  text: {
+    position: 'relative',
+    zIndex: -1
+  },
+  hideComponent: {
+    display: 'none'
+  }
+};
 
 type Props = {
   name: string,
   handleImageSubmit: Function,
   accept: string,
-  className: string,
-  placeholder: string
+  placeholder: string,
+  classes: Object
 };
 
-type State = {
-  value: string,
-  styles: Object
-};
-
-class FileInput extends Component<Props, State> {
+class FileInput extends Component<Props, { value: string }> {
   state = {
-    value: '',
-    styles: {
-      parent: {
-        position: 'relative'
-      },
-      // file: {
-      //   position: 'absolute',
-      //   top: 0,
-      //   left: 0,
-      //   opacity: 0,
-      //   width: '100%',
-      //   zIndex: 1
-      // },
-      text: {
-        position: 'relative',
-        zIndex: -1
-      }
-    }
+    value: ''
   };
 
   props: Props;
@@ -48,30 +40,28 @@ class FileInput extends Component<Props, State> {
   };
 
   render() {
-    const { styles, value } = this.state;
-    const { name, className, accept, placeholder } = this.props;
+    const { value } = this.state;
+    const { name, accept, placeholder, classes } = this.props;
     return (
-      <div style={styles.parent}>
+      <div className={classes.parent}>
         <label htmlFor="edit-profile-image">
           <span className="fa fa-pencil pencil-profile-image" aria-hidden="true" />
           <input
             id="edit-profile-image"
             type="file"
             name={name}
-            className={className}
+            className={classes.hideComponent}
             onChange={this.handleChange}
             accept={accept}
-            // style={styles.file}
           />
           <input
             type="text"
             tabIndex="-1"
             name={`name + '_filename'`}
             value={value}
-            className={className}
+            className={classes.text}
             onChange={() => {}}
             placeholder={placeholder}
-            style={styles.text}
           />
         </label>
       </div>
@@ -79,4 +69,4 @@ class FileInput extends Component<Props, State> {
   }
 }
 
-export default FileInput;
+export default injectSheet(styles)(FileInput);
