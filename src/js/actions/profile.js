@@ -55,6 +55,8 @@ export const startListeningForUserProfileChanges = () => (dispatch: Function) =>
     if (user) {
       const userProfileRef = usersProfilesRef.child(user.uid);
 
+      // TODO test to see if this var assignment throws an error
+      // if .child('profileHeadline') isn't create yet. same for about
       const userProfileHeadlineRef = userProfileRef.child('profileHeadline');
       userProfileHeadlineRef.on('value', snapshot => {
         const profileHeadline = snapshot.val();

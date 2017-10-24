@@ -2,6 +2,7 @@
 
 import { connect } from 'react-redux';
 import Profile from '../components/Profile';
+import { uploadImage } from '../actions/user-profile-image';
 import {
   setAboutProfileValue,
   submitAboutProfile,
@@ -39,7 +40,8 @@ const mapDispatchToProps = (dispatch: Function) => ({
     // dispatch(clearHeadlineInput());
   },
   handleImageSubmit(e) {
-    console.log('IMAGE ', e.target.files);
+    const file = e.target.files[0];
+    uploadImage(file);
   }
 });
 

@@ -53,14 +53,14 @@ const CurrentUser = (props: {
                 uid={uid}
               />
             </CardBody>
-            <CardImg src={photoURL} alt={`headshot for ${displayName}`} />
             <FileInput
-              className="profile-image-input"
+              className="hide-component"
               placeholder="Click to upload image..."
               name="profileImage"
               accept=".png,.gif,.jpg"
               handleImageSubmit={handleImageSubmit}
             />
+            <CardImg src={photoURL} alt={`headshot for ${displayName}`} className="profile-image" />
             <CardBody>
               <CardSubtitle>Name</CardSubtitle>
               <CardText>{displayName}</CardText>
