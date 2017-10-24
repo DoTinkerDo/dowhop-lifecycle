@@ -19,7 +19,8 @@ const Profile = (props: {
   handleHeadlineSubmit: Function,
   headline: Object,
   headlineValue: string,
-  handleImageSubmit: Function
+  handleImageSubmit: Function,
+  profileUrl: string
 }) => {
   const {
     currentUser,
@@ -32,12 +33,13 @@ const Profile = (props: {
     handleHeadlineChange,
     handleHeadlineSubmit,
     headline,
-    handleImageSubmit
+    handleImageSubmit,
+    profileUrl
   } = props;
 
   const uid = props.location.search.slice(1);
   const selectedUser = filter(appUsers, user => user.uid === uid);
-  const { photoURL, displayName, profileAbout, profileHeadline, email } = selectedUser[0] || '';
+  const { profileImageUrl, displayName, profileAbout, profileHeadline, email } = selectedUser[0] || '';
 
   if (currentUser.uid === uid || !uid) {
     return (
@@ -53,7 +55,7 @@ const Profile = (props: {
             handleSubmit={handleSubmit}
             value={value}
             about={about}
-            photoURL={currentUser.photoURL}
+            profileUrl={profileUrl}
             headlineValue={headlineValue}
             handleHeadlineChange={handleHeadlineChange}
             handleHeadlineSubmit={handleHeadlineSubmit}
@@ -67,10 +69,10 @@ const Profile = (props: {
   return (
     <Row>
       <Col xs="12" sm="6">
-        {!photoURL && <LoadingDots />}
+        {!profileImageUrl && <LoadingDots />}
         <Card>
           {profileHeadline && <CardTitle className="center-text profile-headline">{profileHeadline}</CardTitle>}
-          <CardImg src={photoURL} alt={`headshot for ${displayName}`} />
+          <CardImg src={profileImageUrl} alt={`headshot for ${displayName}`} />
           <CardBody>
             <CardSubtitle>Name</CardSubtitle>
             <CardText>{displayName}</CardText>

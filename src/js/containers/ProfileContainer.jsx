@@ -12,14 +12,24 @@ import {
   submitHeadlineProfile
 } from '../actions/profile';
 
-const mapStateToProps = ({ authentication, currentUser, value, about, appUsers, headlineValue, headline }) => ({
+const mapStateToProps = ({
   authentication,
   currentUser,
   value,
   about,
   appUsers,
   headlineValue,
-  headline
+  headline,
+  profileUrl
+}) => ({
+  authentication,
+  currentUser,
+  value,
+  about,
+  appUsers,
+  headlineValue,
+  headline,
+  profileUrl
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({

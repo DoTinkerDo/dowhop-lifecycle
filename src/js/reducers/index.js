@@ -10,6 +10,7 @@ import {
   profileHeadlineReducer
 } from './profile';
 import appUsersReducer from './app-users';
+import profileUrlReducer from './user-profile-image';
 
 const reducer = combineReducers({
   authentication: authReducer,
@@ -18,7 +19,8 @@ const reducer = combineReducers({
   headlineValue: setProfileHeadlineReducer,
   headline: profileHeadlineReducer,
   about: profileAboutReducer,
-  appUsers: appUsersReducer
+  appUsers: appUsersReducer,
+  profileUrl: profileUrlReducer
 });
 
 export default reducer;

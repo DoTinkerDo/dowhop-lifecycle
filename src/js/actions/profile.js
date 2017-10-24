@@ -54,20 +54,21 @@ export const startListeningForUserProfileChanges = () => (dispatch: Function) =>
   auth.onAuthStateChanged(user => {
     if (user) {
       const userProfileRef = usersProfilesRef.child(user.uid);
-
-      // TODO test to see if this var assignment throws an error
-      // if .child('profileHeadline') isn't create yet. same for about
       const userProfileHeadlineRef = userProfileRef.child('profileHeadline');
       userProfileHeadlineRef.on('value', snapshot => {
         const profileHeadline = snapshot.val();
-        dispatch(addFirebaseProfileHeadlineData(profileHeadline));
-        dispatch(setHeadlineProfileValue(profileHeadline));
+        if (profileHeadline) {
+          dispatch(addFirebaseProfileHeadlineData(profileHeadline));
+          dispatch(setHeadlineProfileValue(profileHeadline));
+        }
       });
       const userProfileAboutRef = userProfileRef.child('profileAbout');
       userProfileAboutRef.on('value', snapshot => {
         const profileAbout = snapshot.val();
-        dispatch(addFirebaseProfileAboutData(profileAbout));
-        dispatch(setAboutProfileValue(profileAbout));
+        if (profileAbout) {
+          dispatch(addFirebaseProfileAboutData(profileAbout));
+          dispatch(setAboutProfileValue(profileAbout));
+        }
       });
     }
   });

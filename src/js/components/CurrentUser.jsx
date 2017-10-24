@@ -15,7 +15,7 @@ const CurrentUser = (props: {
   value: string,
   headlineValue: string,
   displayName: string,
-  photoURL: string,
+  profileUrl: string,
   handleChange: Function,
   handleHeadlineChange: Function,
   handleHeadlineSubmit: Function,
@@ -31,7 +31,7 @@ const CurrentUser = (props: {
     handleChange,
     handleSubmit,
     displayName,
-    photoURL,
+    profileUrl,
     headlineValue,
     handleHeadlineChange,
     handleHeadlineSubmit,
@@ -42,7 +42,6 @@ const CurrentUser = (props: {
     <div>
       <Row>
         <Col xs="12" sm="6">
-          {!photoURL && <LoadingDots />}
           <Card>
             <CardBody>
               <ProfileHeadlineInput
@@ -59,7 +58,8 @@ const CurrentUser = (props: {
               accept=".png,.gif,.jpg"
               handleImageSubmit={handleImageSubmit}
             />
-            <CardImg src={photoURL} alt={`headshot for ${displayName}`} className="profile-image" />
+            {!profileUrl && <LoadingDots />}
+            {profileUrl && <CardImg src={profileUrl} alt={`headshot for ${displayName}`} className="profile-image" />}
             <CardBody>
               <CardSubtitle>Name</CardSubtitle>
               <CardText>{displayName}</CardText>
