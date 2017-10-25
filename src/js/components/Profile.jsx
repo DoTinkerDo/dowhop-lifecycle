@@ -42,13 +42,12 @@ const Profile = (props: {
   const { displayName, profileAbout, profileHeadline, email } = selectedUser[0] || '';
   let { profileImageUrl } = selectedUser[0] || '';
 
-  profileImageUrl =
-    profileImageUrl ||
-    'https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/dowhop-icons%2Fdowhop-icon.png?alt=media&token=4ce2cb46-d5f0-4bbc-bb9d-b25ca886e634';
+  profileImageUrl = profileImageUrl || {
+    url:
+      'https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/dowhop-icons%2Fdowhop-icon.png?alt=media&token=4ce2cb46-d5f0-4bbc-bb9d-b25ca886e634'
+  };
 
-  console.log('URL ', profileImageUrl);
-
-  // Check if user is checking own profile
+  // Check if user is checking own profile with edit
   if (currentUser.uid === uid || !uid) {
     return (
       <div>
@@ -75,13 +74,14 @@ const Profile = (props: {
       </div>
     );
   }
+  // otherwise just view a profile
   return (
     <Row>
       <Col xs="12" sm="6">
-        {!profileImageUrl && <LoadingDots />}
         <Card>
           {profileHeadline && <CardTitle className="center-text profile-headline">{profileHeadline}</CardTitle>}
-          <CardImg src={profileImageUrl} alt={`headshot for ${displayName}`} />
+          {!profileImageUrl && <LoadingDots />}
+          {profileImageUrl && <CardImg src={profileImageUrl.url} alt={`headshot for ${displayName}`} />}
           <CardBody>
             <CardSubtitle>Name</CardSubtitle>
             <CardText>{displayName}</CardText>
