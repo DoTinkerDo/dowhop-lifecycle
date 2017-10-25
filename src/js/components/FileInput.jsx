@@ -21,7 +21,9 @@ type Props = {
   handleImageSubmit: Function,
   accept: string,
   placeholder: string,
-  classes: Object
+  classes: Object,
+  uid: string,
+  imageName: string
 };
 
 class FileInput extends Component<Props, { value: string }> {
@@ -36,7 +38,7 @@ class FileInput extends Component<Props, { value: string }> {
       value: e.target.value.split(/(\\|\/)/g).pop()
     });
 
-    if (this.props.handleImageSubmit) this.props.handleImageSubmit(e);
+    if (this.props.handleImageSubmit) this.props.handleImageSubmit(e, this.props.uid, this.props.imageName);
   };
 
   render() {

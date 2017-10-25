@@ -20,7 +20,7 @@ const Profile = (props: {
   headline: Object,
   headlineValue: string,
   handleImageSubmit: Function,
-  profileUrl: string
+  profileUrl: Object
 }) => {
   const {
     currentUser,
@@ -40,7 +40,7 @@ const Profile = (props: {
   const uid = props.location.search.slice(1);
   const selectedUser = filter(appUsers, user => user.uid === uid);
   const { profileImageUrl, displayName, profileAbout, profileHeadline, email } = selectedUser[0] || '';
-
+  console.log(profileImageUrl);
   if (currentUser.uid === uid || !uid) {
     return (
       <div>
@@ -55,7 +55,8 @@ const Profile = (props: {
             handleSubmit={handleSubmit}
             value={value}
             about={about}
-            profileUrl={profileUrl}
+            profileUrl={profileUrl.profileImageUrl.url}
+            imageName={profileUrl.profileImageUrl.name}
             headlineValue={headlineValue}
             handleHeadlineChange={handleHeadlineChange}
             handleHeadlineSubmit={handleHeadlineSubmit}

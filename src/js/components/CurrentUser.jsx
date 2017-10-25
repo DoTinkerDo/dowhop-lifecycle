@@ -21,7 +21,8 @@ const CurrentUser = (props: {
   handleHeadlineSubmit: Function,
   handleSubmit: Function,
   headline: Object,
-  handleImageSubmit: Function
+  handleImageSubmit: Function,
+  imageName: string
 }) => {
   const {
     uid,
@@ -36,7 +37,8 @@ const CurrentUser = (props: {
     handleHeadlineChange,
     handleHeadlineSubmit,
     headline,
-    handleImageSubmit
+    handleImageSubmit,
+    imageName
   } = props;
   return (
     <div>
@@ -53,13 +55,22 @@ const CurrentUser = (props: {
               />
             </CardBody>
             <FileInput
+              imageName={imageName}
               placeholder="Click to upload image..."
               name="profileImage"
               accept=".png,.gif,.jpg"
               handleImageSubmit={handleImageSubmit}
+              uid={uid}
             />
             {!profileUrl && <LoadingDots />}
-            {profileUrl && <CardImg src={profileUrl} alt={`headshot for ${displayName}`} className="profile-image" />}
+            {profileUrl && (
+              <CardImg
+                src={profileUrl}
+                alt={`headshot for ${displayName}`}
+                className="profile-image"
+                data-img-name={imageName}
+              />
+            )}
             <CardBody>
               <CardSubtitle>Name</CardSubtitle>
               <CardText>{displayName}</CardText>

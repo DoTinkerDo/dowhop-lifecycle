@@ -6,11 +6,11 @@
 .profile-pencil span.pencil-header {
   font-size: 80%;
   font-weight: normal;
-  color: $text-color;
   padding: 8px;
   margin-left: 5px;
   background-color: #ffffff;
   background-color: rgba(255, 255, 255, 0.2);
+  color: $text-color;
 }
 
 span.pencil-profile-image {
@@ -18,9 +18,9 @@ span.pencil-profile-image {
   bottom: -45px;
   right: 5px;
   padding: 8px;
-  background-color: #000000;
-  background-color: rgba(0, 0, 0, 0.2);
-  color: #ffffff;
+  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: $text-color;
 }
 
 .profile-pencil h4.center-text.card-title {
