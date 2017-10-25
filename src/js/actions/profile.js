@@ -10,15 +10,15 @@ import {
   SET_HEADLINE_PROFILE
 } from './actions';
 
-const userProfilesRef = database.ref('app_users');
-
-export const setAboutProfileValue = (value: string) => ({
-  type: SET_ABOUT_PROFILE,
-  payload: value
-});
+const usersProfilesRef = database.ref('app_users');
 
 export const setHeadlineProfileValue = (value: string) => ({
   type: SET_HEADLINE_PROFILE,
+  payload: value
+});
+
+export const setAboutProfileValue = (value: string) => ({
+  type: SET_ABOUT_PROFILE,
   payload: value
 });
 
@@ -31,12 +31,12 @@ export const clearHeadlineInput = () => ({
 });
 
 export const submitAboutProfile = ({ profileAbout, uid }: Object) => {
-  const userProfileAboutRef = userProfilesRef.child(uid);
+  const userProfileAboutRef = usersProfilesRef.child(uid);
   userProfileAboutRef.update({ profileAbout });
 };
 
 export const submitHeadlineProfile = ({ profileHeadline, uid }: Object) => {
-  const userProfileHeadlineRef = userProfilesRef.child(uid);
+  const userProfileHeadlineRef = usersProfilesRef.child(uid);
   userProfileHeadlineRef.update({ profileHeadline });
 };
 
@@ -53,16 +53,22 @@ export const addFirebaseProfileHeadlineData = (profileHeadline: string) => ({
 export const startListeningForUserProfileChanges = () => (dispatch: Function) => {
   auth.onAuthStateChanged(user => {
     if (user) {
-      const userProfileRef = userProfilesRef.child(user.uid);
-      const userProfileAboutRef = userProfileRef.child('profileAbout');
-      userProfileAboutRef.on('value', snapshot => {
-        const profileAbout = snapshot.val();
-        if (profileAbout) dispatch(addFirebaseProfileAboutData(profileAbout));
-      });
+      const userProfileRef = usersProfilesRef.child(user.uid);
       const userProfileHeadlineRef = userProfileRef.child('profileHeadline');
       userProfileHeadlineRef.on('value', snapshot => {
         const profileHeadline = snapshot.val();
-        if (profileHeadline) dispatch(addFirebaseProfileHeadlineData(profileHeadline));
+        if (profileHeadline) {
+          dispatch(addFirebaseProfileHeadlineData(profileHeadline));
+          dispatch(setHeadlineProfileValue(profileHeadline));
+        }
+      });
+      const userProfileAboutRef = userProfileRef.child('profileAbout');
+      userProfileAboutRef.on('value', snapshot => {
+        const profileAbout = snapshot.val();
+        if (profileAbout) {
+          dispatch(addFirebaseProfileAboutData(profileAbout));
+          dispatch(setAboutProfileValue(profileAbout));
+        }
       });
     }
   });

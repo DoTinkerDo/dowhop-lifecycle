@@ -4,6 +4,7 @@ import reducer from './reducers';
 import { startListeningToAuthChanges } from './actions/authentication';
 import startListeningForCurrentUser from './actions/current-user';
 import { startListeningForUserProfileChanges } from './actions/profile';
+import { startListeningForUserProfileImageChanges } from './actions/user-profile-image';
 import startListeningForAppUsers from './actions/app-users';
 
 // const middleware = [thunk];
@@ -34,5 +35,6 @@ store.dispatch(startListeningToAuthChanges());
 store.dispatch(startListeningForCurrentUser());
 store.dispatch(startListeningForUserProfileChanges());
 store.dispatch(startListeningForAppUsers());
+store.dispatch(startListeningForUserProfileImageChanges());
 
 export default store;

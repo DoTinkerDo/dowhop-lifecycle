@@ -18,7 +18,9 @@ const Profile = (props: {
   handleHeadlineChange: Function,
   handleHeadlineSubmit: Function,
   headline: Object,
-  headlineValue: string
+  headlineValue: string,
+  handleImageSubmit: Function,
+  profileUrl: Object
 }) => {
   const {
     currentUser,
@@ -30,13 +32,15 @@ const Profile = (props: {
     headlineValue,
     handleHeadlineChange,
     handleHeadlineSubmit,
-    headline
+    headline,
+    handleImageSubmit,
+    profileUrl
   } = props;
 
   const uid = props.location.search.slice(1);
   const selectedUser = filter(appUsers, user => user.uid === uid);
-  const { photoURL, displayName, profileAbout, profileHeadline, email } = selectedUser[0] || '';
-
+  const { profileImageUrl, displayName, profileAbout, profileHeadline, email } = selectedUser[0] || '';
+  console.log('URL ', profileImageUrl && profileImageUrl.url);
   if (currentUser.uid === uid || !uid) {
     return (
       <div>
@@ -51,11 +55,13 @@ const Profile = (props: {
             handleSubmit={handleSubmit}
             value={value}
             about={about}
-            photoURL={currentUser.photoURL}
+            profileUrl={profileUrl.profileImageUrl.url}
+            imageName={profileUrl.profileImageUrl.name}
             headlineValue={headlineValue}
             handleHeadlineChange={handleHeadlineChange}
             handleHeadlineSubmit={handleHeadlineSubmit}
             headline={headline}
+            handleImageSubmit={handleImageSubmit}
           />
         )}
       </div>
@@ -64,17 +70,17 @@ const Profile = (props: {
   return (
     <Row>
       <Col xs="12" sm="6">
-        {!photoURL && <LoadingDots />}
+        {!profileImageUrl && <LoadingDots />}
         <Card>
-          {profileHeadline && <CardTitle className="center-text">{profileHeadline}</CardTitle>}
-          <CardImg src={photoURL} alt={`headshot for ${displayName}`} />
+          {profileHeadline && <CardTitle className="center-text profile-headline">{profileHeadline}</CardTitle>}
+          <CardImg src={profileImageUrl && profileImageUrl.url} alt={`headshot for ${displayName}`} />
           <CardBody>
-            <CardSubtitle>Name:</CardSubtitle>
+            <CardSubtitle>Name</CardSubtitle>
             <CardText>{displayName}</CardText>
-            {profileAbout && <CardSubtitle>About:</CardSubtitle>}
+            {profileAbout && <CardSubtitle>About</CardSubtitle>}
             {profileAbout && <CardText>{profileAbout}</CardText>}
-            <CardSubtitle>Contact:</CardSubtitle>
-            <CardText>{email}</CardText>
+            {email && <CardSubtitle>Contact</CardSubtitle>}
+            {email && <CardText>{email}</CardText>}
           </CardBody>
         </Card>
       </Col>

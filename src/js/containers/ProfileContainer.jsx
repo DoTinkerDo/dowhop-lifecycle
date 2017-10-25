@@ -2,23 +2,34 @@
 
 import { connect } from 'react-redux';
 import Profile from '../components/Profile';
+import { uploadImageTask } from '../actions/user-profile-image';
 import {
   setAboutProfileValue,
   submitAboutProfile,
-  clearAboutInput,
-  clearHeadlineInput,
+  // clearAboutInput,
+  // clearHeadlineInput,
   setHeadlineProfileValue,
   submitHeadlineProfile
 } from '../actions/profile';
 
-const mapStateToProps = ({ authentication, currentUser, value, about, appUsers, headlineValue, headline }) => ({
+const mapStateToProps = ({
   authentication,
   currentUser,
   value,
   about,
   appUsers,
   headlineValue,
-  headline
+  headline,
+  profileUrl
+}) => ({
+  authentication,
+  currentUser,
+  value,
+  about,
+  appUsers,
+  headlineValue,
+  headline,
+  profileUrl
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
@@ -31,12 +42,16 @@ const mapDispatchToProps = (dispatch: Function) => ({
   handleSubmit(e, profileAbout, uid) {
     e.preventDefault();
     submitAboutProfile({ profileAbout, uid });
-    dispatch(clearAboutInput());
+    // dispatch(clearAboutInput());
   },
   handleHeadlineSubmit(e, profileHeadline, uid) {
     e.preventDefault();
     submitHeadlineProfile({ profileHeadline, uid });
-    dispatch(clearHeadlineInput());
+    // dispatch(clearHeadlineInput());
+  },
+  handleImageSubmit(e, uid, oldImageName) {
+    const file = e.target.files[0];
+    uploadImageTask(file, uid, oldImageName);
   }
 });
 

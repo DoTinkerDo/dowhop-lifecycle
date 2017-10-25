@@ -1,9 +1,11 @@
 // @flow
 
 import React from 'react';
-import { Col, Card, CardSubtitle, CardText, CardBody, CardImg, Form, Input, Row } from 'reactstrap';
+import { Col, Card, CardSubtitle, CardText, CardBody, CardImg, Row } from 'reactstrap';
+import FileInput from './FileInput';
 import LoadingDots from './LoadingDots';
-import ProfileInput from './ProfileInput';
+import ProfileHeadlineInput from './ProfileHeadlineInput';
+import ProfileAboutInput from './ProfileAboutInput';
 
 const CurrentUser = (props: {
   uid: string,
@@ -13,12 +15,14 @@ const CurrentUser = (props: {
   value: string,
   headlineValue: string,
   displayName: string,
-  photoURL: string,
+  profileUrl: string,
   handleChange: Function,
   handleHeadlineChange: Function,
   handleHeadlineSubmit: Function,
   handleSubmit: Function,
-  headline: Object
+  headline: Object,
+  handleImageSubmit: Function,
+  imageName: string
 }) => {
   const {
     uid,
@@ -28,44 +32,56 @@ const CurrentUser = (props: {
     handleChange,
     handleSubmit,
     displayName,
-    photoURL,
+    profileUrl,
     headlineValue,
     handleHeadlineChange,
     handleHeadlineSubmit,
-    headline
+    headline,
+    handleImageSubmit,
+    imageName
   } = props;
   return (
     <div>
       <Row>
         <Col xs="12" sm="6">
-          {!photoURL && <LoadingDots />}
           <Card>
-            <ProfileInput
-              headline={headline}
-              headlineValue={headlineValue}
-              handleHeadlineChange={handleHeadlineChange}
-              handleHeadlineSubmit={handleHeadlineSubmit}
+            <CardBody>
+              <ProfileHeadlineInput
+                headline={headline}
+                headlineValue={headlineValue}
+                handleHeadlineChange={handleHeadlineChange}
+                handleHeadlineSubmit={handleHeadlineSubmit}
+                uid={uid}
+              />
+            </CardBody>
+            <FileInput
+              imageName={imageName}
+              placeholder="Click to upload image..."
+              name="profileImage"
+              accept=".png,.gif,.jpg"
+              handleImageSubmit={handleImageSubmit}
               uid={uid}
             />
-            <CardImg src={photoURL} alt={`headshot for ${displayName}`} />
+            {!profileUrl && <LoadingDots />}
+            {profileUrl && (
+              <CardImg
+                src={profileUrl}
+                alt={`headshot for ${displayName}`}
+                className="profile-image"
+                data-img-name={imageName}
+              />
+            )}
             <CardBody>
-              <CardSubtitle>Name:</CardSubtitle>
+              <CardSubtitle>Name</CardSubtitle>
               <CardText>{displayName}</CardText>
-              <div>
-                <Form onSubmit={e => handleSubmit(e, value, uid)}>
-                  <CardSubtitle>About:</CardSubtitle>
-                  <CardText>{about && about.profileAbout}</CardText>
-                  <Input
-                    type="text"
-                    value={value}
-                    placeholder="Write your about story..."
-                    onChange={handleChange}
-                    className="profile-about-input"
-                  />
-                  <Input type="submit" hidden />
-                </Form>
-              </div>
-              <CardSubtitle>Contact:</CardSubtitle>
+              <ProfileAboutInput
+                about={about}
+                value={value}
+                handleSubmit={handleSubmit}
+                handleChange={handleChange}
+                uid={uid}
+              />
+              <CardSubtitle>Contact</CardSubtitle>
               <CardText>{email}</CardText>
             </CardBody>
           </Card>

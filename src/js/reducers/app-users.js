@@ -2,7 +2,7 @@
 
 import { ADD_USERS, UPDATE_USER, REMOVE_USER } from '../actions/actions';
 
-export default function appUsersReducer(state: Array<void> = [], action: Object) {
+export default function appUsersReducer(state: Array<Object> = [], action: Object) {
   switch (action.type) {
     case ADD_USERS:
       return [...state, action.payload];
