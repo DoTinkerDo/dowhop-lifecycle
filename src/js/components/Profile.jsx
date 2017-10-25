@@ -39,8 +39,16 @@ const Profile = (props: {
 
   const uid = props.location.search.slice(1);
   const selectedUser = filter(appUsers, user => user.uid === uid);
-  const { profileImageUrl, displayName, profileAbout, profileHeadline, email } = selectedUser[0] || '';
-  // console.log('URL ', profileImageUrl && profileImageUrl.url);
+  const { displayName, profileAbout, profileHeadline, email } = selectedUser[0] || '';
+  let { profileImageUrl } = selectedUser[0] || '';
+
+  profileImageUrl =
+    profileImageUrl ||
+    'https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/dowhop-icons%2Fdowhop-icon.png?alt=media&token=4ce2cb46-d5f0-4bbc-bb9d-b25ca886e634';
+
+  console.log('URL ', profileImageUrl);
+
+  // Check if user is checking own profile
   if (currentUser.uid === uid || !uid) {
     return (
       <div>
@@ -73,7 +81,7 @@ const Profile = (props: {
         {!profileImageUrl && <LoadingDots />}
         <Card>
           {profileHeadline && <CardTitle className="center-text profile-headline">{profileHeadline}</CardTitle>}
-          <CardImg src={profileImageUrl && profileImageUrl.url} alt={`headshot for ${displayName}`} />
+          <CardImg src={profileImageUrl} alt={`headshot for ${displayName}`} />
           <CardBody>
             <CardSubtitle>Name</CardSubtitle>
             <CardText>{displayName}</CardText>

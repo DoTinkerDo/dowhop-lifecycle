@@ -1,26 +1,14 @@
 // @flow
 
 import { database, auth, storage } from '../../firebase';
-import { SET_DEFAULT_PROFILE_IMAGE } from './actions';
+import { EDIT_PROFILE_IMAGE_URL } from './actions';
 
 const usersProfilesRef = database.ref('app_users');
 
-export const addDefaultProfileImage = (profileImageUrl: Object) => {
-  console.log('PROFILEIMAGEURL ACTION ', profileImageUrl);
-  return {
-    type: SET_DEFAULT_PROFILE_IMAGE,
-    payload: profileImageUrl
-  };
-};
-
-// export const editProfileImage = (url: string) => ({
-//   type: EDIT_PROFILE_IMAGE_URL,
-//   payload: url
-// });
-
-// export const deleteProfileImage = () => {
-//   console.log('DELETE');
-// };
+export const editProfileImage = (profileImageUrl: Object) => ({
+  type: EDIT_PROFILE_IMAGE_URL,
+  payload: profileImageUrl
+});
 
 export const uploadImageTask = (file: Object, uid: string, oldImageName: string) => {
   const fileName = `${file.name}-${Math.floor(Math.random() * 100)}`;
@@ -75,9 +63,7 @@ export const startListeningForUserProfileImageChanges = () => (dispatch: Functio
           });
         } else {
           // Check for photoImageUrl set above
-          userProfileImageRef.on('value', snapUrl =>
-            dispatch(addDefaultProfileImage({ profileImageUrl: snapUrl.val() }))
-          );
+          userProfileImageRef.on('value', snapUrl => dispatch(editProfileImage({ profileImageUrl: snapUrl.val() })));
         }
       });
     }

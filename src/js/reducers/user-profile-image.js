@@ -1,6 +1,6 @@
 // @flow
 
-import { SET_DEFAULT_PROFILE_IMAGE } from '../actions/actions';
+import { EDIT_PROFILE_IMAGE_URL } from '../actions/actions';
 
 const DEFAULT_USER_PROFILE_IMAGE_STATE = {
   profileImageUrl: {
@@ -12,7 +12,7 @@ const DEFAULT_USER_PROFILE_IMAGE_STATE = {
 
 export default function profileUrlReducer(state: Object = DEFAULT_USER_PROFILE_IMAGE_STATE, action: Object) {
   switch (action.type) {
-    case SET_DEFAULT_PROFILE_IMAGE:
+    case EDIT_PROFILE_IMAGE_URL:
       return Object.assign({}, state, {
         profileImageUrl: { url: action.payload.profileImageUrl.url, name: action.payload.profileImageUrl.name }
       });
