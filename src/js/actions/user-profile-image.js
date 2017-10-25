@@ -5,24 +5,28 @@ import { SET_DEFAULT_PROFILE_IMAGE } from './actions';
 
 const usersProfilesRef = database.ref('app_users');
 
-export const addDefaultProfileImage = (profileImageUrl: Object) => ({
-  type: SET_DEFAULT_PROFILE_IMAGE,
-  payload: profileImageUrl
-});
+export const addDefaultProfileImage = (profileImageUrl: Object) => {
+  console.log('PROFILEIMAGEURL ACTION ', profileImageUrl);
+  return {
+    type: SET_DEFAULT_PROFILE_IMAGE,
+    payload: profileImageUrl
+  };
+};
 
 // export const editProfileImage = (url: string) => ({
 //   type: EDIT_PROFILE_IMAGE_URL,
 //   payload: url
 // });
 
-export const deleteProfileImage = () => {
-  console.log('DELETE');
-};
+// export const deleteProfileImage = () => {
+//   console.log('DELETE');
+// };
 
 export const uploadImageTask = (file: Object, uid: string, oldImageName: string) => {
   const fileName = `${file.name}-${Math.floor(Math.random() * 100)}`;
   const fileNameFilePath = `userImages/${uid}/profileImage/${fileName}`;
   const uploadTask = storage.ref(fileNameFilePath).put(file, { contentType: file.type });
+
   // TODO add ui to show upload
   uploadTask.on('state_changed', snapshot => {
     const progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
@@ -43,7 +47,10 @@ export const uploadImageTask = (file: Object, uid: string, oldImageName: string)
 
   uploadTask
     .then(snapshot =>
-      usersProfilesRef.child(uid).update({ profileImageUrl: { url: snapshot.downloadURL, name: fileName } })
+      usersProfilesRef
+        .child(uid)
+        .child('profileImageUrl')
+        .update({ url: snapshot.downloadURL, name: fileName })
     )
     .then(() => {
       const filePath = `userImages/${uid}/profileImage/`;
@@ -64,12 +71,12 @@ export const startListeningForUserProfileImageChanges = () => (dispatch: Functio
         if (!snapshot.val()) {
           // Check for uid.photoURL from oAuth
           userProfilePhotoUrlRef.on('value', snap => {
-            userProfileRef.update({ profileImageUrl: { url: snap.val(), name: '' } });
+            userProfileRef.child('profileImageUrl').update({ url: snap.val(), name: '' });
           });
         } else {
           // Check for photoImageUrl set above
           userProfileImageRef.on('value', snapUrl =>
-            dispatch(addDefaultProfileImage({ url: snapUrl.val(), name: '' }))
+            dispatch(addDefaultProfileImage({ profileImageUrl: snapUrl.val() }))
           );
         }
       });

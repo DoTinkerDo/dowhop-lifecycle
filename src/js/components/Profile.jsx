@@ -40,7 +40,7 @@ const Profile = (props: {
   const uid = props.location.search.slice(1);
   const selectedUser = filter(appUsers, user => user.uid === uid);
   const { profileImageUrl, displayName, profileAbout, profileHeadline, email } = selectedUser[0] || '';
-  console.log('URL ', profileImageUrl && profileImageUrl.url);
+  // console.log('URL ', profileImageUrl && profileImageUrl.url);
   if (currentUser.uid === uid || !uid) {
     return (
       <div>

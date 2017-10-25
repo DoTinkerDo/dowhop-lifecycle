@@ -14,7 +14,7 @@ export default function profileUrlReducer(state: Object = DEFAULT_USER_PROFILE_I
   switch (action.type) {
     case SET_DEFAULT_PROFILE_IMAGE:
       return Object.assign({}, state, {
-        profileImageUrl: { url: action.payload.url.url, name: action.payload.url.name }
+        profileImageUrl: { url: action.payload.profileImageUrl.url, name: action.payload.profileImageUrl.name }
       });
     default:
       return state;
