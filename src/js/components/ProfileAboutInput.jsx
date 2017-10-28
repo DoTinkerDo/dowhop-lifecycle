@@ -1,7 +1,8 @@
 // @flow
 
 import React, { Component } from 'react';
-import { Button, CardText, CardSubtitle, Input } from 'reactstrap';
+import { CardText, CardSubtitle, Input } from 'reactstrap';
+import DoWhopButton from './DoWhopButton';
 
 type Props = {
   about: Object,
@@ -61,9 +62,7 @@ class ProfileAboutInput extends Component<Props, { isEdit: boolean, isValid: boo
           rows="6"
           valid={isValid}
         />
-        <Button className="profile-about-button" type="submit" onClick={e => this.handleClick(e, value, uid)}>
-          Save
-        </Button>
+        <DoWhopButton onClick={e => this.handleClick(e, value, uid)}>Save</DoWhopButton>
         <CardText className="edit-about-text">{about && about.profileAbout}</CardText>
       </div>
     );

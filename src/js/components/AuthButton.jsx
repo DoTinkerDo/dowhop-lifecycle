@@ -3,33 +3,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { Button, Col, Row } from 'reactstrap';
-// import injectSheet from 'react-jss';
+import { Col, Row } from 'reactstrap';
+import DoWhopButton from './DoWhopButton';
 import { logout } from '../actions/authentication';
 import LoadingDots from './LoadingDots';
-
-// const styles = {
-//   pullRight: {
-//     float: 'right !important',
-//     marginBottom: '2%'
-//   }
-// };
 
 const AuthButton = withRouter(({ history, authentication, logOut }) => (
   <Row className="float-right">
     <Col xs="12">
       {authentication.isAuthenticated ? (
-        <Button
+        <DoWhopButton
           onClick={() => {
             logOut();
             history.push('/my-profile/login');
           }}
         >
           Logout
-        </Button>
+        </DoWhopButton>
       ) : (
-        <Link to="/login">
-          <Button>Login</Button>
+        <Link to="/my-profile/login">
+          <DoWhopButton>Login</DoWhopButton>
         </Link>
       )}
       {authentication.status === 'AWAITING_AUTH_RESPONSE' && <LoadingDots />}
