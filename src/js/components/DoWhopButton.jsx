@@ -22,7 +22,9 @@ const styles = {
     },
     height: '40px',
     minHeight: '19px',
-    width: '142px'
+    width: '142px',
+    marginTop: '5px',
+    marginBotton: '5px'
   }
 };
 
