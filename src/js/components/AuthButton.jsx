@@ -5,16 +5,8 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { Col, Row } from 'reactstrap';
 import DoWhopButton from './DoWhopButton';
-// import injectSheet from 'react-jss';
 import { logout } from '../actions/authentication';
 import LoadingDots from './LoadingDots';
-
-// const styles = {
-//   pullRight: {
-//     float: 'right !important',
-//     marginBottom: '2%'
-//   }
-// };
 
 const AuthButton = withRouter(({ history, authentication, logOut }) => (
   <Row className="float-right">
@@ -29,7 +21,7 @@ const AuthButton = withRouter(({ history, authentication, logOut }) => (
           Logout
         </DoWhopButton>
       ) : (
-        <Link to="/login">
+        <Link to="/my-profile/login">
           <DoWhopButton>Login</DoWhopButton>
         </Link>
       )}

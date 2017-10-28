@@ -4,15 +4,8 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Row, Col } from 'reactstrap';
-// import injectSheet from 'react-jss';
 import FirebaseUIAuth from './FirebaseUIAuth';
 import firebase, { ui } from '../../firebase';
-
-// const styles = {
-//   margin: {
-//     marginBottom: '20%'
-//   }
-// };
 
 class Login extends Component {
   uiConfig = {
@@ -33,8 +26,7 @@ class Login extends Component {
   };
 
   render() {
-    // const { classes } = this.props;
-    const { from } = this.props.location.state || { from: { pathname: '/' } };
+    const { from } = this.props.location.state || { from: { pathname: '/my-profile' } };
     if (this.props.authentication.isAuthenticated) {
       return <Redirect to={from} />;
     }
@@ -52,5 +44,3 @@ class Login extends Component {
 const mapStateToProps = ({ authentication }) => ({ authentication });
 
 export default connect(mapStateToProps)(Login);
-
-// export default injectSheet(styles)(Login);
