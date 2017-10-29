@@ -10,9 +10,9 @@ const ProfileCard = (props: { displayName: string, photoURL: string, uid: string
     <div className="grid-card">
       <Link to={`/my-profile?${uid}`}>
         <Card>
-          <CardImg src={photoURL} alt={displayName} />
+          <CardImg src={photoURL} alt={`Headshot for ${displayName}`} />
           <CardBody>
-            <CardText>{uid}</CardText>
+            <CardText>{displayName}</CardText>
           </CardBody>
         </Card>
       </Link>
