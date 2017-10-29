@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { filter } from 'lodash';
 import { Col, Card, CardSubtitle, CardText, CardBody, CardImg, CardTitle, Row } from 'reactstrap';
 import LoadingDots from './LoadingDots';
@@ -51,6 +52,7 @@ const Profile = (props: {
   if (currentUser.uid === uid || !uid) {
     return (
       <div>
+        <Link to="/profile-index">Click Me to View All Users</Link>
         {!currentUser ? (
           <LoadingDots />
         ) : (
@@ -78,6 +80,7 @@ const Profile = (props: {
   return (
     <Row>
       <Col xs="12" sm="6">
+        <Link to="/profile-index">Click Me to View All Users</Link>
         <Card>
           {profileHeadline && <CardTitle className="center-text profile-headline">{profileHeadline}</CardTitle>}
           {!profileImageUrl && <LoadingDots />}
