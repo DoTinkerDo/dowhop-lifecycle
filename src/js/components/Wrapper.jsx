@@ -14,7 +14,9 @@ const styles = {
 const Wrapper = ({ classes, children }: Object) => (
   <Container className={classes.background}>
     <Row>
-      <AuthButton />
+      <Col className="offset-md-3">
+        <AuthButton />
+      </Col>
     </Row>
     <Row>
       <Col className="site-content">
