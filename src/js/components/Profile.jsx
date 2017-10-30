@@ -78,6 +78,7 @@ const Profile = (props: {
             handleHeadlineSubmit={handleHeadlineSubmit}
             headline={headline}
             handleImageSubmit={handleImageSubmit}
+            socialUrls={socialUrls}
           />
         )}
       </div>
