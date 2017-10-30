@@ -6,6 +6,7 @@ import { filter } from 'lodash';
 import { Col, Card, CardSubtitle, CardText, CardBody, CardImg, CardTitle, Row } from 'reactstrap';
 import LoadingDots from './LoadingDots';
 import CurrentUser from './CurrentUser';
+import SocialMediaIcons from './SocialMediaIcons';
 
 const Profile = (props: {
   currentUser: Object,
@@ -42,6 +43,12 @@ const Profile = (props: {
   const selectedUser = filter(appUsers, user => user.uid === uid);
   const { displayName, profileAbout, profileHeadline, email } = selectedUser[0] || '';
   let { profileImageUrl } = selectedUser[0] || '';
+
+  const socialUrls = {};
+  socialUrls.facebookUrl = 'https://www.facebook.com/johann.billar';
+  socialUrls.twitterUrl = '';
+  socialUrls.instagramUrl = '';
+  socialUrls.linkedInUrl = 'https://www.linkedin.com/in/johann-billar-5530002/';
 
   profileImageUrl = profileImageUrl || {
     url:
@@ -92,6 +99,7 @@ const Profile = (props: {
             {profileAbout && <CardText>{profileAbout}</CardText>}
             {email && <CardSubtitle>Contact</CardSubtitle>}
             {email && <CardText>{email}</CardText>}
+            <SocialMediaIcons socialUrls={socialUrls} />
           </CardBody>
         </Card>
       </Col>
