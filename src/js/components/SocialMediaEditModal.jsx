@@ -24,7 +24,9 @@ class SocialMediaEditModal extends Component<Props, State> {
 
   toggle = () => this.setState(prevState => ({ modal: !prevState.modal }));
 
-  handleChange = (e, site) => {
+  // TODO
+  // fix Type for site
+  handleChange = (e: SyntheticKeyboardEvent & { target: HTMLInputElement }, site: string) => {
     const URL = e.target.value;
     this.setState({
       [site]: URL
@@ -39,9 +41,9 @@ class SocialMediaEditModal extends Component<Props, State> {
           <span className="fa fa-pencil pencil-social" onClick={this.toggle} aria-hidden="true" />
         </CardSubtitle>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalBody>
-            <ModalHeader toggle={this.toggle}>Enter the URLs to your social media profiles below</ModalHeader>
-            <Form className="social-media-update-form">
+          <ModalBody className="social-media-update-form">
+            <ModalHeader toggle={this.toggle}>Enter the URLs for your social media profiles below</ModalHeader>
+            <Form>
               <FormGroup>
                 <Label for="facebook">
                   Facebook URL
