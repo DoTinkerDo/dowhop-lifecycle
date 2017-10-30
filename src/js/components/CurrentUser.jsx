@@ -7,6 +7,7 @@ import LoadingDots from './LoadingDots';
 import ProfileHeadlineInput from './ProfileHeadlineInput';
 import ProfileAboutInput from './ProfileAboutInput';
 import SocialMediaIcons from './SocialMediaIcons';
+import SocialMediaEditModal from './SocialMediaEditModal';
 
 const CurrentUser = (props: {
   uid: string,
@@ -86,14 +87,7 @@ const CurrentUser = (props: {
               />
               <CardSubtitle>Contact</CardSubtitle>
               <CardText>{email}</CardText>
-              <CardSubtitle>
-                Social Media
-                <span
-                  className="fa fa-pencil pencil-social"
-                  onClick={() => console.log('EDIT SOCIAL CLICKED')}
-                  aria-hidden="true"
-                />
-              </CardSubtitle>
+              <SocialMediaEditModal />
               <SocialMediaIcons socialUrls={socialUrls} />
             </CardBody>
           </Card>
