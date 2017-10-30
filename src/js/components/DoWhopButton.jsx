@@ -24,7 +24,7 @@ const styles = {
     minHeight: '19px',
     width: '142px',
     marginTop: '5px',
-    marginBotton: '5px'
+    marginBottom: '5px'
   }
 };
 
