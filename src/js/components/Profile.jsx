@@ -100,6 +100,7 @@ const Profile = (props: {
             {profileAbout && <CardText>{profileAbout}</CardText>}
             {email && <CardSubtitle>Contact</CardSubtitle>}
             {email && <CardText>{email}</CardText>}
+            <CardSubtitle>Social Media</CardSubtitle>
             <SocialMediaIcons socialUrls={socialUrls} />
           </CardBody>
         </Card>

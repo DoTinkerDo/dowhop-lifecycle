@@ -86,6 +86,14 @@ const CurrentUser = (props: {
               />
               <CardSubtitle>Contact</CardSubtitle>
               <CardText>{email}</CardText>
+              <CardSubtitle>
+                Social Media
+                <span
+                  className="fa fa-pencil pencil-social"
+                  onClick={() => console.log('EDIT SOCIAL CLICKED')}
+                  aria-hidden="true"
+                />
+              </CardSubtitle>
               <SocialMediaIcons socialUrls={socialUrls} />
             </CardBody>
           </Card>

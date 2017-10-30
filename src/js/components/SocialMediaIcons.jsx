@@ -2,7 +2,6 @@
 
 import React from 'react';
 import injectSheet from 'react-jss';
-import { CardSubtitle } from 'reactstrap';
 import SocialIcon from './SocialIcon';
 
 const styles = {
@@ -15,7 +14,6 @@ const SocialMediaIcons = ({ classes, socialUrls }: Object) => {
   const { facebookUrl, twitterUrl, instagramUrl, linkedInUrl } = socialUrls;
   return (
     <div className={classes.social}>
-      <CardSubtitle>Social Media</CardSubtitle>
       {!facebookUrl && <SocialIcon siteName={'fa-facebook-square'} />}
       {facebookUrl && (
         <a href={facebookUrl}>
