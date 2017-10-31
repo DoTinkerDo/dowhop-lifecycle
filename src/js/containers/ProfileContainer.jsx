@@ -3,6 +3,7 @@
 import { connect } from 'react-redux';
 import Profile from '../components/Profile';
 import { uploadImageTask } from '../actions/user-profile-image';
+import { submitProfileSocialMediaUrls } from '../actions/profile-social-media-links';
 import {
   setAboutProfileValue,
   submitAboutProfile,
@@ -20,7 +21,8 @@ const mapStateToProps = ({
   appUsers,
   headlineValue,
   headline,
-  profileUrl
+  profileUrl,
+  socialUrls
 }) => ({
   authentication,
   currentUser,
@@ -29,7 +31,8 @@ const mapStateToProps = ({
   appUsers,
   headlineValue,
   headline,
-  profileUrl
+  profileUrl,
+  socialUrls
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
@@ -52,6 +55,9 @@ const mapDispatchToProps = (dispatch: Function) => ({
   handleImageSubmit(e, uid, oldImageName) {
     const file = e.target.files[0];
     uploadImageTask(file, uid, oldImageName);
+  },
+  handleSocialMediaUrlSubmit(socialUrls, uid) {
+    submitProfileSocialMediaUrls(socialUrls, uid);
   }
 });
 

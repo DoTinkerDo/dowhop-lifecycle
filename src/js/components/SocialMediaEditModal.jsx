@@ -4,7 +4,10 @@ import React, { Component } from 'react';
 import { Form, FormGroup, Label, Input, CardSubtitle, ModalHeader, Modal, ModalBody, ModalFooter } from 'reactstrap';
 import DoWhopButton from './DoWhopButton';
 
-type Props = {};
+type Props = {
+  handleSocialMediaUrlSubmit: Function,
+  uid: string
+};
 type State = {
   modal: boolean,
   valueFB: string,
@@ -22,6 +25,8 @@ class SocialMediaEditModal extends Component<Props, State> {
     valueIN: ''
   };
 
+  props: Props;
+
   toggle = () => this.setState(prevState => ({ modal: !prevState.modal }));
 
   // TODO
@@ -31,6 +36,17 @@ class SocialMediaEditModal extends Component<Props, State> {
     this.setState({
       [site]: URL
     });
+  };
+
+  handleSubmit = () => {
+    const socialUrls = {
+      facebookUrl: this.state.valueFB,
+      twitterUrl: this.state.valueTW,
+      instagramUrl: this.state.valueIG,
+      linkedInUrl: this.state.valueIN
+    };
+    this.props.handleSocialMediaUrlSubmit(socialUrls, this.props.uid);
+    this.toggle();
   };
 
   render() {
@@ -101,7 +117,7 @@ class SocialMediaEditModal extends Component<Props, State> {
             </Form>
           </ModalBody>
           <ModalFooter>
-            <DoWhopButton onClick={this.toggle}>Save</DoWhopButton>
+            <DoWhopButton onClick={this.handleSubmit}>Save</DoWhopButton>
             <DoWhopButton onClick={this.toggle}>Cancel</DoWhopButton>
           </ModalFooter>
         </Modal>

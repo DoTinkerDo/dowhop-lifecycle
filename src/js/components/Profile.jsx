@@ -22,7 +22,9 @@ const Profile = (props: {
   headline: Object,
   headlineValue: string,
   handleImageSubmit: Function,
-  profileUrl: Object
+  profileUrl: Object,
+  socialUrls: Object,
+  handleSocialMediaUrlSubmit: Function
 }) => {
   const {
     currentUser,
@@ -36,19 +38,15 @@ const Profile = (props: {
     handleHeadlineSubmit,
     headline,
     handleImageSubmit,
-    profileUrl
+    profileUrl,
+    socialUrls,
+    handleSocialMediaUrlSubmit
   } = props;
 
   const uid = props.location.search.slice(1);
   const selectedUser = filter(appUsers, user => user.uid === uid);
   const { displayName, profileAbout, profileHeadline, email } = selectedUser[0] || '';
   let { profileImageUrl } = selectedUser[0] || '';
-
-  const socialUrls = {};
-  socialUrls.facebookUrl = 'https://www.facebook.com/johann.billar';
-  socialUrls.twitterUrl = '';
-  socialUrls.instagramUrl = '';
-  socialUrls.linkedInUrl = 'https://www.linkedin.com/in/johann-billar-5530002/';
 
   profileImageUrl = profileImageUrl || {
     url:
@@ -79,6 +77,7 @@ const Profile = (props: {
             headline={headline}
             handleImageSubmit={handleImageSubmit}
             socialUrls={socialUrls}
+            handleSocialMediaUrlSubmit={handleSocialMediaUrlSubmit}
           />
         )}
       </div>

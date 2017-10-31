@@ -25,7 +25,8 @@ const CurrentUser = (props: {
   headline: Object,
   handleImageSubmit: Function,
   imageName: string,
-  socialUrls: Object
+  socialUrls: Object,
+  handleSocialMediaUrlSubmit: Function
 }) => {
   const {
     uid,
@@ -42,7 +43,8 @@ const CurrentUser = (props: {
     headline,
     handleImageSubmit,
     imageName,
-    socialUrls
+    socialUrls,
+    handleSocialMediaUrlSubmit
   } = props;
   return (
     <div>
@@ -87,7 +89,7 @@ const CurrentUser = (props: {
               />
               <CardSubtitle>Contact</CardSubtitle>
               <CardText>{email}</CardText>
-              <SocialMediaEditModal />
+              <SocialMediaEditModal uid={uid} handleSocialMediaUrlSubmit={handleSocialMediaUrlSubmit} />
               <SocialMediaIcons socialUrls={socialUrls} />
             </CardBody>
           </Card>
