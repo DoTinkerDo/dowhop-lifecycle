@@ -11,7 +11,7 @@ const styles = {
 };
 
 const SocialMediaIcons = ({ classes, socialUrls }: Object) => {
-  const { facebookUrl, twitterUrl, instagramUrl, linkedInUrl } = socialUrls || '';
+  const { facebookUrl, twitterUrl, instagramUrl, linkedInUrl } = socialUrls;
   return (
     <div className={classes.social}>
       {!facebookUrl && <SocialIcon siteName={'fa-facebook-square'} />}
