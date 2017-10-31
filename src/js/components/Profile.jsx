@@ -24,7 +24,9 @@ const Profile = (props: {
   handleImageSubmit: Function,
   profileUrl: Object,
   socialUrls: Object,
-  handleSocialMediaUrlSubmit: Function
+  handleSocialMediaUrlSubmit: Function,
+  socialInputs: Object,
+  handleSocialUrlChange: Function
 }) => {
   const {
     currentUser,
@@ -40,7 +42,9 @@ const Profile = (props: {
     handleImageSubmit,
     profileUrl,
     socialUrls,
-    handleSocialMediaUrlSubmit
+    handleSocialMediaUrlSubmit,
+    socialInputs,
+    handleSocialUrlChange
   } = props;
 
   const uid = props.location.search.slice(1);
@@ -78,6 +82,8 @@ const Profile = (props: {
             handleImageSubmit={handleImageSubmit}
             socialUrls={socialUrls}
             handleSocialMediaUrlSubmit={handleSocialMediaUrlSubmit}
+            socialInputs={socialInputs}
+            handleSocialUrlChange={handleSocialUrlChange}
           />
         )}
       </div>

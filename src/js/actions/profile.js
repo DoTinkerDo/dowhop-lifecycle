@@ -4,8 +4,6 @@ import { database, auth } from '../../firebase';
 import {
   SET_ABOUT_PROFILE,
   ADD_FIREBASE_PROFILE_ABOUT_DATA,
-  CLEAR_ABOUT_INPUT,
-  CLEAR_PROFILE_INPUT,
   ADD_FIREBASE_PROFILE_HEADLINE_DATA,
   SET_HEADLINE_PROFILE
 } from './actions';
@@ -20,14 +18,6 @@ export const setHeadlineProfileValue = (value: string) => ({
 export const setAboutProfileValue = (value: string) => ({
   type: SET_ABOUT_PROFILE,
   payload: value
-});
-
-export const clearAboutInput = () => ({
-  type: CLEAR_ABOUT_INPUT
-});
-
-export const clearHeadlineInput = () => ({
-  type: CLEAR_PROFILE_INPUT
 });
 
 export const submitAboutProfile = ({ profileAbout, uid }: Object) => {

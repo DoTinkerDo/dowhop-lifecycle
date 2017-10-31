@@ -1,6 +1,15 @@
 // @flow
 
-import { ADD_SOCIAL_MEDIA_URLS } from '../actions/actions';
+import { ADD_SOCIAL_MEDIA_URLS, SET_SOCIAL_URL_INPUT_VALUE } from '../actions/actions';
+
+const DEFAULT_INPUT_STATE = {
+  socialInputs: {
+    valueFB: '',
+    valueTW: '',
+    valueIG: '',
+    valueIN: ''
+  }
+};
 
 const DEFAULT_SOCIAL_MEDIA_URL_STATE = {
   socialUrls: {
@@ -11,10 +20,19 @@ const DEFAULT_SOCIAL_MEDIA_URL_STATE = {
   }
 };
 
-export default function socialMediaUrlsReducer(state: Object = DEFAULT_SOCIAL_MEDIA_URL_STATE, action: Object) {
+export function setSocialUrlsInputValues(state: Object = DEFAULT_INPUT_STATE, action: Object) {
+  switch (action.type) {
+    case SET_SOCIAL_URL_INPUT_VALUE:
+      return action.socialInputs;
+    default:
+      return state;
+  }
+}
+
+export function socialMediaUrlsReducer(state: Object = DEFAULT_SOCIAL_MEDIA_URL_STATE, action: Object) {
   switch (action.type) {
     case ADD_SOCIAL_MEDIA_URLS:
-      return Object.assign({}, state, action.socialUrls);
+      return action.socialUrls;
     default:
       return state;
   }

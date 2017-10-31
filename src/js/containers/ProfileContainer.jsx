@@ -3,12 +3,10 @@
 import { connect } from 'react-redux';
 import Profile from '../components/Profile';
 import { uploadImageTask } from '../actions/user-profile-image';
-import { submitProfileSocialMediaUrls } from '../actions/profile-social-media-links';
+import { submitProfileSocialMediaUrls, handleSocialUrlChange } from '../actions/profile-social-media-links';
 import {
   setAboutProfileValue,
   submitAboutProfile,
-  // clearAboutInput,
-  // clearHeadlineInput,
   setHeadlineProfileValue,
   submitHeadlineProfile
 } from '../actions/profile';
@@ -22,7 +20,8 @@ const mapStateToProps = ({
   headlineValue,
   headline,
   profileUrl,
-  socialUrls
+  socialUrls,
+  socialInputs
 }) => ({
   authentication,
   currentUser,
@@ -32,7 +31,8 @@ const mapStateToProps = ({
   headlineValue,
   headline,
   profileUrl,
-  socialUrls
+  socialUrls,
+  socialInputs
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
@@ -45,12 +45,10 @@ const mapDispatchToProps = (dispatch: Function) => ({
   handleSubmit(e, profileAbout, uid) {
     e.preventDefault();
     submitAboutProfile({ profileAbout, uid });
-    // dispatch(clearAboutInput());
   },
   handleHeadlineSubmit(e, profileHeadline, uid) {
     e.preventDefault();
     submitHeadlineProfile({ profileHeadline, uid });
-    // dispatch(clearHeadlineInput());
   },
   handleImageSubmit(e, uid, oldImageName) {
     const file = e.target.files[0];
@@ -58,6 +56,11 @@ const mapDispatchToProps = (dispatch: Function) => ({
   },
   handleSocialMediaUrlSubmit(socialUrls, uid) {
     submitProfileSocialMediaUrls(socialUrls, uid);
+  },
+  handleSocialUrlChange(e, site) {
+    const value = e.target.value;
+
+    dispatch(setSocialUrlsInputValues(socialInputs));
   }
 });
 
