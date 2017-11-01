@@ -34,17 +34,17 @@ class SocialMediaEditModal extends Component<Props, State> {
 
   handleSubmit = () => {
     const socialUrls = {
-      facebookUrl: this.props.socialInputs.facebookUrl,
-      twitterUrl: this.props.socialInputs.twitterUrl,
-      instagramUrl: this.props.socialInputs.instagramUrl,
-      linkedInUrl: this.props.socialInputs.linkedInUrl
+      facebookUrl: this.props.socialInputs.valueFB,
+      twitterUrl: this.props.socialInputs.valueTW,
+      instagramUrl: this.props.socialInputs.valueIG,
+      linkedInUrl: this.props.socialInputs.valueIN
     };
     this.props.handleSocialMediaUrlSubmit(socialUrls, this.props.uid);
     this.toggle();
   };
 
   render() {
-    const { facebookUrl, twitterUrl, instagramUrl, linkedInUrl } = this.props.socialInputs;
+    const { valueFB, valueTW, valueIG, valueIN } = this.props.socialInputs;
     return (
       <div>
         <CardSubtitle>
@@ -61,11 +61,11 @@ class SocialMediaEditModal extends Component<Props, State> {
                   <Input
                     type="text"
                     size="sm"
-                    value={facebookUrl}
+                    value={valueFB}
                     name="social-facebook"
                     id="facebook"
                     placeholder="facebook.com/your-name"
-                    onChange={e => this.props.handleSocialUrlChange(e, 'facebookUrl')}
+                    onChange={e => this.props.handleSocialUrlChange(e, 'valueFB')}
                   />
                 </Label>
                 <br />
@@ -74,11 +74,11 @@ class SocialMediaEditModal extends Component<Props, State> {
                   <Input
                     type="text"
                     size="sm"
-                    value={twitterUrl}
+                    value={valueTW}
                     name="social-twitter"
                     id="twitter"
                     placeholder="twitter.com/your-handle"
-                    onChange={e => this.props.handleSocialUrlChange(e, 'twitterUrl')}
+                    onChange={e => this.props.handleSocialUrlChange(e, 'valueTW')}
                   />
                 </Label>
                 <br />
@@ -87,11 +87,11 @@ class SocialMediaEditModal extends Component<Props, State> {
                   <Input
                     type="text"
                     size="sm"
-                    value={instagramUrl}
+                    value={valueIG}
                     name="social-instagram"
                     id="instagram"
                     placeholder="instagram.com/your-handle"
-                    onChange={e => this.props.handleSocialUrlChange(e, 'instagramUrl')}
+                    onChange={e => this.props.handleSocialUrlChange(e, 'valueIG')}
                   />
                 </Label>
                 <br />
@@ -100,11 +100,11 @@ class SocialMediaEditModal extends Component<Props, State> {
                   <Input
                     type="text"
                     size="sm"
-                    value={linkedInUrl}
+                    value={valueIN}
                     name="social-linkedin"
                     id="linkedin"
                     placeholder="linkedin.com/in/your-profile"
-                    onChange={e => this.props.handleSocialUrlChange(e, 'linkedInUrl')}
+                    onChange={e => this.props.handleSocialUrlChange(e, 'valueIN')}
                   />
                 </Label>
                 <br />

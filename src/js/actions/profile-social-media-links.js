@@ -1,12 +1,18 @@
 // @flow
 
 import { database, auth } from '../../firebase';
-import { ADD_SOCIAL_MEDIA_URLS, SET_SOCIAL_URL_INPUT_VALUE } from './actions';
+import { ADD_SOCIAL_MEDIA_URLS, SET_SOCIAL_URL_INPUT_VALUES, SET_SOCIAL_URL_INPUT_VALUE } from './actions';
 
 const userProfilesRef = database.ref('profile');
 
-export const setSocialUrlsInputValues = (socialInputs: Object) => ({
+export const setSocialUrlInputValue = (value, site) => ({
   type: SET_SOCIAL_URL_INPUT_VALUE,
+  site,
+  value
+});
+
+export const setSocialUrlsInputValues = (socialInputs: Object) => ({
+  type: SET_SOCIAL_URL_INPUT_VALUES,
   socialInputs
 });
 
@@ -27,7 +33,13 @@ export const startListeningForProfileSocialMediaLinkChanges = () => (dispatch: F
       userProfileSocialUrlsRef.on('value', snapshot => {
         if (snapshot.val()) {
           dispatch(addSocialMediaUrls(snapshot.val()));
-          dispatch(setSocialUrlsInputValues(snapshot.val()));
+          const socialInputs = {
+            valueFB: snapshot.val().facebookUrl,
+            valueTW: snapshot.val().instagramUrl,
+            valueIG: snapshot.val().linkedInUrl,
+            valueIN: snapshot.val().twitterUrl
+          };
+          dispatch(setSocialUrlsInputValues(socialInputs));
         }
       });
     }

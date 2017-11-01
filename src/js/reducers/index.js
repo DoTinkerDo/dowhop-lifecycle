@@ -11,7 +11,7 @@ import {
 } from './profile';
 import appUsersReducer from './app-users';
 import profileUrlReducer from './user-profile-image';
-import { socialMediaUrlsReducer, setSocialUrlsInputValues } from './profile-social-media-links';
+import { socialMediaUrlsReducer, setSocialUrlInputReducer } from './profile-social-media-links';
 
 const reducer = combineReducers({
   authentication: authReducer,
@@ -23,7 +23,7 @@ const reducer = combineReducers({
   appUsers: appUsersReducer,
   profileUrl: profileUrlReducer,
   socialUrls: socialMediaUrlsReducer,
-  socialInputs: setSocialUrlsInputValues
+  socialInputs: setSocialUrlInputReducer
 });
 
 export default reducer;

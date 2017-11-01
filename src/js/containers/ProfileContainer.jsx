@@ -3,7 +3,7 @@
 import { connect } from 'react-redux';
 import Profile from '../components/Profile';
 import { uploadImageTask } from '../actions/user-profile-image';
-import { submitProfileSocialMediaUrls, handleSocialUrlChange } from '../actions/profile-social-media-links';
+import { submitProfileSocialMediaUrls, setSocialUrlInputValue } from '../actions/profile-social-media-links';
 import {
   setAboutProfileValue,
   submitAboutProfile,
@@ -58,9 +58,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
     submitProfileSocialMediaUrls(socialUrls, uid);
   },
   handleSocialUrlChange(e, site) {
-    const value = e.target.value;
-
-    dispatch(setSocialUrlsInputValues(socialInputs));
+    dispatch(setSocialUrlInputValue(e.target.value, site));
   }
 });
 
