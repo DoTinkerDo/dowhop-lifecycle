@@ -23,15 +23,6 @@ class SocialMediaEditModal extends Component<Props, State> {
 
   toggle = () => this.setState(prevState => ({ modal: !prevState.modal }));
 
-  // TODO
-  // fix Type for site
-  // handleSocialUrlChange = (e: SyntheticKeyboardEvent & { target: HTMLInputElement }, site: string) => {
-  //   const URL = e.target.value;
-  //   this.setState({
-  //     [site]: URL
-  //   });
-  // };
-
   handleSubmit = () => {
     const socialUrls = {
       facebookUrl: this.props.socialInputs.valueFB,
