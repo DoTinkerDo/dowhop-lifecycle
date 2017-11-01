@@ -66,7 +66,7 @@ const Profile = (props: {
           <LoadingDots />
         ) : (
           <CurrentUser
-            uid={currentUser.uid}
+            uid={currentUser.uid || selectedUser.uid}
             email={currentUser.email}
             displayName={currentUser.displayName}
             handleChange={handleChange}

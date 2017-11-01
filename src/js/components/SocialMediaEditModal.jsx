@@ -11,17 +11,30 @@ type Props = {
   handleSocialUrlChange: Function
 };
 type State = {
-  modal: boolean
+  modal: boolean,
+  valueFBValid: boolean,
+  valueTWValid: boolean,
+  valueIGValid: boolean,
+  valueINValid: boolean
 };
 
 class SocialMediaEditModal extends Component<Props, State> {
   state = {
-    modal: false
+    modal: false,
+    valueFBValid: true,
+    valueTWValid: true,
+    valueIGValid: true,
+    valueINValid: true
   };
 
   props: Props;
 
   toggle = () => this.setState(prevState => ({ modal: !prevState.modal }));
+
+  handleChange = (e: Object, site: string) => {
+    this.validateSocialUrl(e, site);
+    this.props.handleSocialUrlChange(e, site);
+  };
 
   handleSubmit = () => {
     const socialUrls = {
@@ -34,15 +47,28 @@ class SocialMediaEditModal extends Component<Props, State> {
     this.toggle();
   };
 
+  validateSocialUrl = (e: Object, site: string) => {
+    const urlRegEx = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/;
+    const value = e.target.value;
+    return !urlRegEx.test(value)
+      ? this.setState({
+          [`${site}Valid`]: false
+        })
+      : this.setState({
+          [`${site}Valid`]: true
+        });
+  };
+
   render() {
     const { valueFB, valueTW, valueIG, valueIN } = this.props.socialInputs;
+    const { valueFBValid, valueTWValid, valueIGValid, valueINValid, modal } = this.state;
     return (
       <div>
         <CardSubtitle>
           Social Media
           <span className="fa fa-pencil pencil-social" onClick={this.toggle} aria-hidden="true" />
         </CardSubtitle>
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        <Modal isOpen={modal} toggle={this.toggle}>
           <ModalBody className="social-media-update-form">
             <ModalHeader toggle={this.toggle}>Enter the URLs for your social media profiles below</ModalHeader>
             <Form>
@@ -55,8 +81,9 @@ class SocialMediaEditModal extends Component<Props, State> {
                     value={valueFB}
                     name="social-facebook"
                     id="facebook"
-                    placeholder="facebook.com/your-name"
-                    onChange={e => this.props.handleSocialUrlChange(e, 'valueFB')}
+                    placeholder="https://facebook.com/your-name"
+                    onChange={e => this.handleChange(e, 'valueFB')}
+                    valid={valueFBValid}
                   />
                 </Label>
                 <br />
@@ -68,8 +95,9 @@ class SocialMediaEditModal extends Component<Props, State> {
                     value={valueTW}
                     name="social-twitter"
                     id="twitter"
-                    placeholder="twitter.com/your-handle"
-                    onChange={e => this.props.handleSocialUrlChange(e, 'valueTW')}
+                    placeholder="https://twitter.com/your-handle"
+                    onChange={e => this.handleChange(e, 'valueTW')}
+                    valid={valueTWValid}
                   />
                 </Label>
                 <br />
@@ -81,8 +109,9 @@ class SocialMediaEditModal extends Component<Props, State> {
                     value={valueIG}
                     name="social-instagram"
                     id="instagram"
-                    placeholder="instagram.com/your-handle"
-                    onChange={e => this.props.handleSocialUrlChange(e, 'valueIG')}
+                    placeholder="https://instagram.com/your-handle"
+                    onChange={e => this.handleChange(e, 'valueIG')}
+                    valid={valueIGValid}
                   />
                 </Label>
                 <br />
@@ -94,8 +123,9 @@ class SocialMediaEditModal extends Component<Props, State> {
                     value={valueIN}
                     name="social-linkedin"
                     id="linkedin"
-                    placeholder="linkedin.com/in/your-profile"
-                    onChange={e => this.props.handleSocialUrlChange(e, 'valueIN')}
+                    placeholder="https://linkedin.com/in/your-profile"
+                    onChange={e => this.handleChange(e, 'valueIN')}
+                    valid={valueINValid}
                   />
                 </Label>
                 <br />
