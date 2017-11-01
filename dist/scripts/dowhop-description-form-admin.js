@@ -184,46 +184,47 @@ function registerDoWhopDescriptionCallback() {
         '<aside  class="mdl-card dowhop-selector" id="' +
         doWhopDescription.doWhopDescriptionKey +
         '" onclick="revealEditEmailForm(this)" >' +
-        '<div class="dowhop-selector-header" style="background-image: url(' +
-        imageURL +
-        ');">' +
-        '<h1>' +
-        doWhopDescription.titleDescription +
-        '</h1>' +
-        '</div>' +
-        '<div class="dowhop-selector-body mdl-layout__content">' +
-        '<h5>What?</h5>' +
-        '<p>' +
-        doWhopDescription.whatDescription +
-        '</p>' +
-        '<h5>Why?</h5>' +
-        '<p>' +
-        doWhopDescription.whyDescription +
-        '</p>' +
-        '<h5>Who?</h5>' +
-        '<p>' +
-        doWhopDescription.whoDescription +
-        '</p>' +
-        '<h5>When?</h5>' +
-        '<p>' +
-        (doWhopDescription.whenDescription || 'By request') +
-        '</p>' +
-        '<h5>Where?</h5>' +
-        '<p>' +
-        doWhopDescription.whereDescription +
-        '</p>' +
-        '<h5>How much?</h5>' +
-        '<p>' +
-        doWhopDescription.howMuchDescription +
-        '</p>' +
-        '<h5>Who is the creator?</h5>' +
-        '<p>' +
-        (doWhopDescription.creatorDescription || 'TBD') +
-        '</p>' +
-        '<h5>Who is doer?</h5>' +
-        '<p>' +
-        (doWhopDescription.doerDescription || 'TBD') +
-        '</p>' +
+        '<div class="">' + "<h2>" + doWhopDescription.titleDescription + "</h2>" 
+        // '<div class="dowhop-selector-header" style="background-image: url(' +
+        // imageURL +
+        // ');">' +
+        // '<h1>' +
+        // doWhopDescription.titleDescription +
+        // '</h1>' +
+        // '</div>' +
+        // '<div class="dowhop-selector-body mdl-layout__content">' +
+        // '<h5>What?</h5>' +
+        // '<p>' +
+        // doWhopDescription.whatDescription +
+        // '</p>' +
+        // '<h5>Why?</h5>' +
+        // '<p>' +
+        // doWhopDescription.whyDescription +
+        // '</p>' +
+        // '<h5>Who?</h5>' +
+        // '<p>' +
+        // doWhopDescription.whoDescription +
+        // '</p>' +
+        // '<h5>When?</h5>' +
+        // '<p>' +
+        // (doWhopDescription.whenDescription || 'By request') +
+        // '</p>' +
+        // '<h5>Where?</h5>' +
+        // '<p>' +
+        // doWhopDescription.whereDescription +
+        // '</p>' +
+        // '<h5>How much?</h5>' +
+        // '<p>' +
+        // doWhopDescription.howMuchDescription +
+        // '</p>' +
+        // '<h5>Who is the creator?</h5>' +
+        // '<p>' +
+        // (doWhopDescription.creatorDescription || 'TBD') +
+        // '</p>' +
+        // '<h5>Who is doer?</h5>' +
+        // '<p>' +
+        // (doWhopDescription.doerDescription || 'TBD') +
+        // '</p>' +
         '</div>' +
         '</aside>';
       doWhopPlacard.append(div);
