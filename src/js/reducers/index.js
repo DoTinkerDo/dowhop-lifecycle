@@ -7,9 +7,9 @@ import {
   setProfileAboutReducer,
   setProfileHeadlineReducer,
   profileAboutReducer,
-  profileHeadlineReducer,
-  appProfileReducer
+  profileHeadlineReducer
 } from './profile';
+import appProfileReducer from './app-profiles';
 import appUsersReducer from './app-users';
 import profileUrlReducer from './user-profile-image';
 import { socialMediaUrlsReducer, setSocialUrlInputReducer } from './profile-social-media-links';

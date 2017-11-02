@@ -5,9 +5,9 @@ import Profile from '../components/Profile';
 import { uploadImageTask } from '../actions/user-profile-image';
 import { submitProfileSocialMediaUrls, setSocialUrlInputValue } from '../actions/profile-social-media-links';
 import {
+  setHeadlineProfileValue,
   setAboutProfileValue,
   submitAboutProfile,
-  setHeadlineProfileValue,
   submitHeadlineProfile
 } from '../actions/profile';
 

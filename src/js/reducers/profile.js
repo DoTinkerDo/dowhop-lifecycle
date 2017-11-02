@@ -4,10 +4,7 @@ import {
   SET_ABOUT_PROFILE,
   ADD_FIREBASE_PROFILE_ABOUT_DATA,
   ADD_FIREBASE_PROFILE_HEADLINE_DATA,
-  SET_HEADLINE_PROFILE,
-  ADD_PROFILE,
-  UPDATE_PROFILE,
-  REMOVE_PROFILE
+  SET_HEADLINE_PROFILE
 } from '../actions/actions';
 
 const DEFAULT_INPUT_STATE = '';
@@ -45,26 +42,6 @@ export function profileAboutReducer(state: Object = DEFAULT_PROFILE_ABOUT_STATE,
   switch (action.type) {
     case ADD_FIREBASE_PROFILE_ABOUT_DATA:
       return Object.assign({}, state, { profileAbout: action.payload });
-    default:
-      return state;
-  }
-}
-
-export function appProfileReducer(state: Array<Object> = [], action: Object) {
-  switch (action.type) {
-    case ADD_PROFILE:
-      return [...state, action.payload];
-    case UPDATE_PROFILE: {
-      const idx = state.findIndex(profile => profile && profile.uid === action.metadata);
-      return [...state.slice(0, idx), action.payload, ...state.slice(idx + 1)];
-    }
-    // TODO
-    // Redux Store is updated,
-    // but UI is not updated when profile is deleted in Firebase.
-    case REMOVE_PROFILE: {
-      const idx = state.findIndex(profile => profile && profile.uid === action.metadata);
-      return [...state.slice(0, idx), ...state.slice(idx + 1)];
-    }
     default:
       return state;
   }

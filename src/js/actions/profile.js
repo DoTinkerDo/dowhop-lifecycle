@@ -10,6 +10,16 @@ import {
 
 const usersProfilesRef = database.ref('app_users');
 
+const addFirebaseProfileAboutData = (profileAbout: string) => ({
+  type: ADD_FIREBASE_PROFILE_ABOUT_DATA,
+  payload: profileAbout
+});
+
+const addFirebaseProfileHeadlineData = (profileHeadline: string) => ({
+  type: ADD_FIREBASE_PROFILE_HEADLINE_DATA,
+  payload: profileHeadline
+});
+
 export const setHeadlineProfileValue = (value: string) => ({
   type: SET_HEADLINE_PROFILE,
   payload: value
@@ -29,16 +39,6 @@ export const submitHeadlineProfile = ({ profileHeadline, uid }: Object) => {
   const userProfileHeadlineRef = usersProfilesRef.child(uid);
   userProfileHeadlineRef.update({ profileHeadline });
 };
-
-export const addFirebaseProfileAboutData = (profileAbout: string) => ({
-  type: ADD_FIREBASE_PROFILE_ABOUT_DATA,
-  payload: profileAbout
-});
-
-export const addFirebaseProfileHeadlineData = (profileHeadline: string) => ({
-  type: ADD_FIREBASE_PROFILE_HEADLINE_DATA,
-  payload: profileHeadline
-});
 
 export const startListeningForUserProfileChanges = () => (dispatch: Function) => {
   auth.onAuthStateChanged(user => {
