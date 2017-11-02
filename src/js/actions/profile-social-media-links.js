@@ -49,9 +49,9 @@ export const startListeningForProfileSocialMediaLinkChanges = () => (dispatch: F
           dispatch(addSocialMediaUrls(snapshot.val()));
           const socialInputs = {
             valueFB: snapshot.val().facebookUrl,
-            valueTW: snapshot.val().instagramUrl,
-            valueIG: snapshot.val().linkedInUrl,
-            valueIN: snapshot.val().twitterUrl
+            valueTW: snapshot.val().twitterUrl,
+            valueIG: snapshot.val().instagramUrl,
+            valueIN: snapshot.val().linkedInUrl
           };
           dispatch(setSocialUrlsInputValues(socialInputs));
         } else {
