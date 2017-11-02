@@ -7,9 +7,9 @@ import {
   ADD_SOCIAL_MEDIA_URLS,
   SET_SOCIAL_URL_INPUT_VALUES,
   SET_SOCIAL_URL_INPUT_VALUE,
-  ADD_PROFILE
-  // UPDATE_PROFILE,
-  // REMOVE_PROFILE
+  ADD_PROFILE,
+  UPDATE_PROFILE,
+  REMOVE_PROFILE
 } from './actions';
 
 const userProfilesRef = database.ref('profile');
@@ -45,23 +45,26 @@ export const submitProfileSocialMediaUrls = (socialUrls: Object, uid: string) =>
 
 const addProfile = (profile, uid) => ({
   type: ADD_PROFILE,
-  payload: {
-    profile,
-    uid
-  }
+  payload: { profile, uid }
 });
 
-// const updateProfile = (changedProfile, uid) => ({
-//   type: UPDATE_PROFILE,
-//   payload: changedProfile,
-//   metadata: uid
-// });
+const updateProfile = (profile, uid) => ({
+  type: UPDATE_PROFILE,
+  payload: { profile, uid },
+  metadata: uid
+});
 
-// const removeProfile = (removedProfile, uid) => ({
-//   type: REMOVE_PROFILE,
-//   payload: removeProfile,
-//   metadata: uid
-// });
+const removeProfile = (profile, uid) => ({
+  type: REMOVE_PROFILE,
+  payload: { profile, uid },
+  metadata: uid
+});
+
+export const startListeningForProfileChanges = () => (dispatch: Function) => {
+  userProfilesRef.on('child_added', snapshot => dispatch(addProfile(snapshot.val(), snapshot.key)));
+  userProfilesRef.on('child_changed', snapshot => dispatch(updateProfile(snapshot.val(), snapshot.key)));
+  userProfilesRef.on('child_removed', snapshot => dispatch(removeProfile(snapshot.val(), snapshot.key)));
+};
 
 export const startListeningForProfileSocialMediaLinkChanges = () => (dispatch: Function) => {
   auth.onAuthStateChanged(user => {
@@ -70,13 +73,14 @@ export const startListeningForProfileSocialMediaLinkChanges = () => (dispatch: F
       userProfileSocialUrlsRef.on('value', snapshot => {
         if (snapshot.val()) {
           dispatch(addSocialMediaUrls(snapshot.val()));
-          const socialInputs = {
-            valueFB: snapshot.val().facebookUrl,
-            valueTW: snapshot.val().twitterUrl,
-            valueIG: snapshot.val().instagramUrl,
-            valueIN: snapshot.val().linkedInUrl
-          };
-          dispatch(setSocialUrlsInputValues(socialInputs));
+          dispatch(
+            setSocialUrlsInputValues({
+              valueFB: snapshot.val().facebookUrl,
+              valueTW: snapshot.val().twitterUrl,
+              valueIG: snapshot.val().instagramUrl,
+              valueIN: snapshot.val().linkedInUrl
+            })
+          );
         } else {
           dispatch(initSocialUrlsInputValues());
           dispatch(initSocialMediaUrls());
@@ -84,8 +88,4 @@ export const startListeningForProfileSocialMediaLinkChanges = () => (dispatch: F
       });
     }
   });
-
-  userProfilesRef.on('child_added', snapshot => dispatch(addProfile(snapshot.val(), snapshot.key)));
-  // userProfilesRef.on('child_changed', snapshot => dispatch(updateProfile(snapshot.val(), snapshot.key)));
-  // userProfilesRef.on('child_removed', snapshot => dispatch(removeProfile(snapshot.val(), snapshot.key)));
 };

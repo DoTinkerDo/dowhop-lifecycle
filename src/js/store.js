@@ -6,7 +6,10 @@ import startListeningForCurrentUser from './actions/current-user';
 import { startListeningForUserProfileChanges } from './actions/profile';
 import { startListeningForUserProfileImageChanges } from './actions/user-profile-image';
 import startListeningForAppUsers from './actions/app-users';
-import { startListeningForProfileSocialMediaLinkChanges } from './actions/profile-social-media-links';
+import {
+  startListeningForProfileSocialMediaLinkChanges,
+  startListeningForProfileChanges
+} from './actions/profile-social-media-links';
 
 // const middleware = [thunk];
 // const enhancers = [];
@@ -38,5 +41,6 @@ store.dispatch(startListeningForUserProfileChanges());
 store.dispatch(startListeningForAppUsers());
 store.dispatch(startListeningForUserProfileImageChanges());
 store.dispatch(startListeningForProfileSocialMediaLinkChanges());
+store.dispatch(startListeningForProfileChanges());
 
 export default store;
