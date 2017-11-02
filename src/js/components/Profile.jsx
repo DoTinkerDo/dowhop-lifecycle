@@ -26,7 +26,8 @@ const Profile = (props: {
   socialUrls: Object,
   handleSocialMediaUrlSubmit: Function,
   socialInputs: Object,
-  handleSocialUrlChange: Function
+  handleSocialUrlChange: Function,
+  appProfiles: Object
 }) => {
   const {
     currentUser,
@@ -44,7 +45,8 @@ const Profile = (props: {
     socialUrls,
     handleSocialMediaUrlSubmit,
     socialInputs,
-    handleSocialUrlChange
+    handleSocialUrlChange,
+    appProfiles
   } = props;
 
   const uid = props.location.search.slice(1);
@@ -66,7 +68,7 @@ const Profile = (props: {
           <LoadingDots />
         ) : (
           <CurrentUser
-            uid={currentUser.uid || selectedUser.uid}
+            uid={currentUser.uid}
             email={currentUser.email}
             displayName={currentUser.displayName}
             handleChange={handleChange}
@@ -89,7 +91,11 @@ const Profile = (props: {
       </div>
     );
   }
-  // otherwise just view a profile
+
+  // Otherwise just view a profile
+  const selectedProfile = filter(appProfiles, profile => profile.uid === uid);
+  const profileWithUrls = typeof selectedProfile[0] === 'undefined' ? '' : selectedProfile[0].profile;
+
   return (
     <Row>
       <Col xs="12" sm="6">
@@ -106,7 +112,7 @@ const Profile = (props: {
             {email && <CardSubtitle>Contact</CardSubtitle>}
             {email && <CardText>{email}</CardText>}
             <CardSubtitle>Social Media</CardSubtitle>
-            <SocialMediaIcons socialUrls={socialUrls} />
+            <SocialMediaIcons socialUrls={profileWithUrls && profileWithUrls.socialUrls} />
           </CardBody>
         </Card>
       </Col>

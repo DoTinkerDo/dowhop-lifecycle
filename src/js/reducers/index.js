@@ -7,7 +7,8 @@ import {
   setProfileAboutReducer,
   setProfileHeadlineReducer,
   profileAboutReducer,
-  profileHeadlineReducer
+  profileHeadlineReducer,
+  appProfileReducer
 } from './profile';
 import appUsersReducer from './app-users';
 import profileUrlReducer from './user-profile-image';
@@ -23,7 +24,8 @@ const reducer = combineReducers({
   appUsers: appUsersReducer,
   profileUrl: profileUrlReducer,
   socialUrls: socialMediaUrlsReducer,
-  socialInputs: setSocialUrlInputReducer
+  socialInputs: setSocialUrlInputReducer,
+  appProfiles: appProfileReducer
 });
 
 export default reducer;

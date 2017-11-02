@@ -21,7 +21,8 @@ const mapStateToProps = ({
   headline,
   profileUrl,
   socialUrls,
-  socialInputs
+  socialInputs,
+  appProfiles
 }) => ({
   authentication,
   currentUser,
@@ -32,7 +33,8 @@ const mapStateToProps = ({
   headline,
   profileUrl,
   socialUrls,
-  socialInputs
+  socialInputs,
+  appProfiles
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({

@@ -6,7 +6,10 @@ import {
   INIT_SOCIAL_MEDIA_URLS,
   ADD_SOCIAL_MEDIA_URLS,
   SET_SOCIAL_URL_INPUT_VALUES,
-  SET_SOCIAL_URL_INPUT_VALUE
+  SET_SOCIAL_URL_INPUT_VALUE,
+  ADD_PROFILE
+  // UPDATE_PROFILE,
+  // REMOVE_PROFILE
 } from './actions';
 
 const userProfilesRef = database.ref('profile');
@@ -40,6 +43,26 @@ export const submitProfileSocialMediaUrls = (socialUrls: Object, uid: string) =>
   userProfileSocialUrlsRef.update({ socialUrls });
 };
 
+const addProfile = (profile, uid) => ({
+  type: ADD_PROFILE,
+  payload: {
+    profile,
+    uid
+  }
+});
+
+// const updateProfile = (changedProfile, uid) => ({
+//   type: UPDATE_PROFILE,
+//   payload: changedProfile,
+//   metadata: uid
+// });
+
+// const removeProfile = (removedProfile, uid) => ({
+//   type: REMOVE_PROFILE,
+//   payload: removeProfile,
+//   metadata: uid
+// });
+
 export const startListeningForProfileSocialMediaLinkChanges = () => (dispatch: Function) => {
   auth.onAuthStateChanged(user => {
     if (user) {
@@ -61,4 +84,8 @@ export const startListeningForProfileSocialMediaLinkChanges = () => (dispatch: F
       });
     }
   });
+
+  userProfilesRef.on('child_added', snapshot => dispatch(addProfile(snapshot.val(), snapshot.key)));
+  // userProfilesRef.on('child_changed', snapshot => dispatch(updateProfile(snapshot.val(), snapshot.key)));
+  // userProfilesRef.on('child_removed', snapshot => dispatch(removeProfile(snapshot.val(), snapshot.key)));
 };
