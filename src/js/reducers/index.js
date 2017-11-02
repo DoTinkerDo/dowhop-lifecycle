@@ -9,8 +9,10 @@ import {
   profileAboutReducer,
   profileHeadlineReducer
 } from './profile';
+import appProfileReducer from './app-profiles';
 import appUsersReducer from './app-users';
 import profileUrlReducer from './user-profile-image';
+import { socialMediaUrlsReducer, setSocialUrlInputReducer } from './profile-social-media-links';
 
 const reducer = combineReducers({
   authentication: authReducer,
@@ -20,7 +22,10 @@ const reducer = combineReducers({
   headline: profileHeadlineReducer,
   about: profileAboutReducer,
   appUsers: appUsersReducer,
-  profileUrl: profileUrlReducer
+  profileUrl: profileUrlReducer,
+  socialUrls: socialMediaUrlsReducer,
+  socialInputs: setSocialUrlInputReducer,
+  appProfiles: appProfileReducer
 });
 
 export default reducer;

@@ -24,8 +24,8 @@ class ProfileHeadlineInput extends Component<Props, { isEdit: boolean, isValid: 
   };
 
   handleChange = (e: Object) => {
-    this.props.handleHeadlineChange(e);
     this.validateInput(e);
+    this.props.handleHeadlineChange(e);
   };
 
   handleSubmit = (e: Object, headlineValue: string, uid: string) => {

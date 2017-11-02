@@ -2,8 +2,9 @@
   padding: 0 5px;
 }
 
-.profile-pencil span.pencil-about,
-.profile-pencil span.pencil-header {
+span.pencil-about,
+span.pencil-header,
+span.pencil-social {
   font-size: 80%;
   font-weight: normal;
   padding: 8px;
@@ -38,4 +39,11 @@ span.pencil-profile-image {
 input.profile-header-input,
 input.profile-about-input {
   margin: 0 auto;
+}
+
+.social-media-update-form label.form-control-label {
+  width: 100%;
+}
+.social-media-update-form h4 {
+  font-size: inherit;
 }

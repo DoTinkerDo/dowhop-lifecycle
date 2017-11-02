@@ -6,6 +6,8 @@ import FileInput from './FileInput';
 import LoadingDots from './LoadingDots';
 import ProfileHeadlineInput from './ProfileHeadlineInput';
 import ProfileAboutInput from './ProfileAboutInput';
+import SocialMediaIcons from './SocialMediaIcons';
+import SocialMediaEditModal from './SocialMediaEditModal';
 
 const CurrentUser = (props: {
   uid: string,
@@ -22,7 +24,11 @@ const CurrentUser = (props: {
   handleSubmit: Function,
   headline: Object,
   handleImageSubmit: Function,
-  imageName: string
+  imageName: string,
+  socialUrls: Object,
+  handleSocialMediaUrlSubmit: Function,
+  socialInputs: Object,
+  handleSocialUrlChange: Function
 }) => {
   const {
     uid,
@@ -38,7 +44,11 @@ const CurrentUser = (props: {
     handleHeadlineSubmit,
     headline,
     handleImageSubmit,
-    imageName
+    imageName,
+    socialUrls,
+    handleSocialMediaUrlSubmit,
+    socialInputs,
+    handleSocialUrlChange
   } = props;
   return (
     <div>
@@ -83,6 +93,13 @@ const CurrentUser = (props: {
               />
               <CardSubtitle>Contact</CardSubtitle>
               <CardText>{email}</CardText>
+              <SocialMediaEditModal
+                uid={uid}
+                handleSocialMediaUrlSubmit={handleSocialMediaUrlSubmit}
+                socialInputs={socialInputs}
+                handleSocialUrlChange={handleSocialUrlChange}
+              />
+              <SocialMediaIcons socialUrls={socialUrls} />
             </CardBody>
           </Card>
         </Col>

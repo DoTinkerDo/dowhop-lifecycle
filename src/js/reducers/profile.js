@@ -3,8 +3,6 @@
 import {
   SET_ABOUT_PROFILE,
   ADD_FIREBASE_PROFILE_ABOUT_DATA,
-  CLEAR_ABOUT_INPUT,
-  CLEAR_PROFILE_INPUT,
   ADD_FIREBASE_PROFILE_HEADLINE_DATA,
   SET_HEADLINE_PROFILE
 } from '../actions/actions';
@@ -17,8 +15,6 @@ export function setProfileHeadlineReducer(state: string = DEFAULT_INPUT_STATE, a
   switch (action.type) {
     case SET_HEADLINE_PROFILE:
       return action.payload;
-    case CLEAR_PROFILE_INPUT:
-      return '';
     default:
       return state;
   }
@@ -28,8 +24,6 @@ export function setProfileAboutReducer(state: string = DEFAULT_INPUT_STATE, acti
   switch (action.type) {
     case SET_ABOUT_PROFILE:
       return action.payload;
-    case CLEAR_ABOUT_INPUT:
-      return '';
     default:
       return state;
   }
@@ -52,4 +46,3 @@ export function profileAboutReducer(state: Object = DEFAULT_PROFILE_ABOUT_STATE,
       return state;
   }
 }
-

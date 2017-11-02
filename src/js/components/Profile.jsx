@@ -6,6 +6,7 @@ import { filter } from 'lodash';
 import { Col, Card, CardSubtitle, CardText, CardBody, CardImg, CardTitle, Row } from 'reactstrap';
 import LoadingDots from './LoadingDots';
 import CurrentUser from './CurrentUser';
+import SocialMediaIcons from './SocialMediaIcons';
 
 const Profile = (props: {
   currentUser: Object,
@@ -21,7 +22,12 @@ const Profile = (props: {
   headline: Object,
   headlineValue: string,
   handleImageSubmit: Function,
-  profileUrl: Object
+  profileUrl: Object,
+  socialUrls: Object,
+  handleSocialMediaUrlSubmit: Function,
+  socialInputs: Object,
+  handleSocialUrlChange: Function,
+  appProfiles: Object
 }) => {
   const {
     currentUser,
@@ -35,7 +41,12 @@ const Profile = (props: {
     handleHeadlineSubmit,
     headline,
     handleImageSubmit,
-    profileUrl
+    profileUrl,
+    socialUrls,
+    handleSocialMediaUrlSubmit,
+    socialInputs,
+    handleSocialUrlChange,
+    appProfiles
   } = props;
 
   const uid = props.location.search.slice(1);
@@ -71,12 +82,20 @@ const Profile = (props: {
             handleHeadlineSubmit={handleHeadlineSubmit}
             headline={headline}
             handleImageSubmit={handleImageSubmit}
+            socialUrls={socialUrls}
+            handleSocialMediaUrlSubmit={handleSocialMediaUrlSubmit}
+            socialInputs={socialInputs}
+            handleSocialUrlChange={handleSocialUrlChange}
           />
         )}
       </div>
     );
   }
-  // otherwise just view a profile
+
+  // Otherwise just view a profile
+  const selectedProfile = filter(appProfiles, profile => profile.uid === uid);
+  const profileWithUrls = typeof selectedProfile[0] === 'undefined' ? '' : selectedProfile[0].profile;
+
   return (
     <Row>
       <Col xs="12" sm="6">
@@ -92,6 +111,8 @@ const Profile = (props: {
             {profileAbout && <CardText>{profileAbout}</CardText>}
             {email && <CardSubtitle>Contact</CardSubtitle>}
             {email && <CardText>{email}</CardText>}
+            <CardSubtitle>Social Media</CardSubtitle>
+            <SocialMediaIcons socialUrls={profileWithUrls && profileWithUrls.socialUrls} />
           </CardBody>
         </Card>
       </Col>

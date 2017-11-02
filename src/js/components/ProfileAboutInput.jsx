@@ -20,9 +20,7 @@ class ProfileAboutInput extends Component<Props, { isEdit: boolean, isValid: boo
 
   props: Props;
 
-  handleEdit = () => {
-    this.setState(prevState => ({ isEdit: !prevState.isEdit }));
-  };
+  handleEdit = () => this.setState(prevState => ({ isEdit: !prevState.isEdit }));
 
   handleInputChange = (e: Object) => {
     this.props.handleChange(e);
