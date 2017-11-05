@@ -3,7 +3,11 @@
 import React, { Component } from 'react';
 import 'firebaseui/dist/firebaseui.css';
 
-class FirebaseUIAuth extends Component {
+type Props = {
+  ui: Object
+};
+
+class FirebaseUIAuth extends Component<Props> {
   componentDidMount() {
     const { ui, ...uiConfig } = this.props;
     this.ui = ui;
@@ -14,15 +18,18 @@ class FirebaseUIAuth extends Component {
     this.ui.reset();
   }
 
-  props: {
-    ui: Object
-  };
-
+  props: Props;
   ui: Object;
-  container: string;
+  container: ?HTMLDivElement;
 
   render() {
-    return <div ref={el => (this.container = el)} />;
+    return (
+      <div
+        ref={el => {
+          this.container = el;
+        }}
+      />
+    );
   }
 }
 
