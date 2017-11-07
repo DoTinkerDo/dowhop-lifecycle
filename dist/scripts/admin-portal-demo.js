@@ -10,7 +10,7 @@ function retrieveSingleDoWhop(e) {
 
   var tempRef = database.ref('/DoWhopDescriptions').child(searchTerm);
   tempRef.once('value').then((function(snap) {
-    searchResults.innerHTML = JSON.stringify(snap.val())
+    searchResults.innerText = JSON.stringify(snap.val())
   }))
 }
 
