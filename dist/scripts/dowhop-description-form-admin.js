@@ -184,7 +184,7 @@ function registerDoWhopDescriptionCallback() {
       div.innerHTML +=
         '<aside  class="mdl-card dowhop-selector" id="' +
         doWhopDescription.doWhopDescriptionKey +
-        '" onclick="revealEditEmailForm(this)" >' +
+        '">' +
         '<div class="">' + "<h2>" + doWhopDescription.titleDescription + "</h2>"
         // '<div class="dowhop-selector-header" style="background-image: url(' +
         // imageURL +
@@ -304,14 +304,17 @@ function initiateEventListenersPerDoWhop() {
     // console.log(this.id || 'NA');
     retrieveChatSentAtTime(this.id)
     // TO-DO: Reveal Edit form here. 
+    revealEditEmailForm(this);
   }
 }
 
 // Adding prototype functionality to demo last-active date-time:
+var doWhopDashboardDemo = document.getElementById('dowhop-dashboard-demo');
 
 function setMessage(data) {
     var val = data.val();
-    console.log(data.key, val.name, 'sent a message at ', val.sentAt);
+    var output = 'Re: ' + data.key + ', ' + val.name + ' sent a message at ' + val.sentAt;
+    doWhopDashboardDemo.innerText = output;
   }
 
 // function retrieveChatSentAtTime(doWhopID) {
