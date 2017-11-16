@@ -280,6 +280,7 @@ function addToMyDoWhops(node) {
     .update({ doer: true });
 }
 
+$(document).ready(initiateEventListenersPerDoWhop());
 
 // Grabbing and iterating all doWhops to add listeners:
 function initiateEventListenersPerDoWhop() {
@@ -299,9 +300,10 @@ function initiateEventListenersPerDoWhop() {
   }
 
   function addDoWhopSpecificProtocols() {
-    console.log(this)
-    console.log(this.id || 'NA');
+    // console.log(this)
+    // console.log(this.id || 'NA');
     retrieveChatSentAtTime(this.id)
+    // TO-DO: Reveal Edit form here. 
   }
 }
 
