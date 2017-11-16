@@ -284,8 +284,8 @@ function addToMyDoWhops(node) {
 function initiateEventListenersPerDoWhop() {
   var doWhopList = document.getElementsByClassName('dowhop-selector');
 
-  for (var i=0; i<doWhopList.length;i++){
-      console.log('testing',doWhopList[i])
+  for (var i=0; i<doWhopList.length; i++){
+      // console.log('testing',doWhopList[i])
       if (doWhopList[i]) {
         doWhopList[i].addEventListener('click', addDoWhopSpecificProtocols);
       }
@@ -308,7 +308,8 @@ var doWhopDashboardDemo = document.getElementById('dowhop-dashboard-demo');
 
 function setMessage(data) {
     var val = data.val();
-    var output = 'Re: ' + data.key + ', ' + val.name + ' sent a message at ' + val.sentAt;
+    var output = 'Re: ' + data.key + ',\n Last message sent at ' + val.sentAt;
+    output += '\n' + val.name + ' says >>>>> ' + val.text; 
     doWhopDashboardDemo.innerText = output;
   }
 
