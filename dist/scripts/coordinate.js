@@ -560,7 +560,7 @@ function checkDoWhopDetails(userSessionCurrentDoWhop) {
 // Saves a new message on the Firebase DB:
 FriendlyChat.prototype.saveMessage = function(e) {
   e.preventDefault();
-
+  var currentTime = moment().format('YYYY-MM-DD--HH:mm');
   // Mke sure this chat and message get sent to two appropriate places:
   var currentDoWhopID;
   var userID = person.uid;
@@ -605,7 +605,8 @@ FriendlyChat.prototype.saveMessage = function(e) {
       senderId: currentUser.uid,
       name: currentUser.displayName,
       text: messageText,
-      photoUrl: '/images/placeholder-image1.jpg'
+      photoUrl: '/images/placeholder-image1.jpg',
+      sentAt: currentTime
     });
 
     chatsRef.update({ status: true, requester: currentUser.uid, requesterName: currentUser.displayName }); // Refactoring to make it a dis-aggregated update.
@@ -624,7 +625,8 @@ FriendlyChat.prototype.saveMessage = function(e) {
         senderId: currentUser.uid,
         name: currentUser.displayName,
         text: this.messageInput.value,
-        photoUrl: currentUser.photoURL || '/images/user-icon.png'
+        photoUrl: currentUser.photoURL || '/images/user-icon.png',
+        sentAt: currentTime
       })
       .then(
         function() {
