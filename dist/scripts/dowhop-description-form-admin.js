@@ -280,8 +280,6 @@ function addToMyDoWhops(node) {
     .update({ doer: true });
 }
 
-$(document).ready(initiateEventListenersPerDoWhop());
-
 // Grabbing and iterating all doWhops to add listeners:
 function initiateEventListenersPerDoWhop() {
   var doWhopList = document.getElementsByClassName('dowhop-selector');
@@ -300,10 +298,7 @@ function initiateEventListenersPerDoWhop() {
   }
 
   function addDoWhopSpecificProtocols() {
-    // console.log(this)
-    // console.log(this.id || 'NA');
     retrieveChatSentAtTime(this.id)
-    // TO-DO: Reveal Edit form here. 
     revealEditEmailForm(this);
   }
 }
@@ -317,21 +312,4 @@ function setMessage(data) {
     doWhopDashboardDemo.innerText = output;
   }
 
-// function retrieveChatSentAtTime(doWhopID) {
-//   var selectedDoWhop = doWhopID
-//   var myRef = firebase.database().ref('messages').child(selectedDoWhop).limitToLast(1);
-//   myRef.orderByKey().on('child_added', setMessage);
-// }
-//
-// function addDoWhopSpecificProtocols() {
-//   console.log(this)
-//   console.log(this.id || 'NA');
-//   retrieveChatSentAtTime(this.id)
-// }
-
-// for (var i=0; i<doWhopList.length;i++){
-//     console.log(doWhopList[i])
-//     if (typeof doWhopList[i] !== 'undefined') {
-//       doWhopList[i].addEventListener('click', addDoWhopSpecificProtocols);
-//     }
-// }
+  $(document).ready(initiateEventListenersPerDoWhop());
