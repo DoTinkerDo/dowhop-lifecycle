@@ -32,6 +32,7 @@ var emailSubmitBtn = document.getElementById('emailSubmit');
 submitNewDoWhopBtn.addEventListener('click', submitNewDoWhopEntry);
 emailSubmitBtn.addEventListener('click', updateCreatorDoerEmails);
 
+
 function submitNewDoWhopEntry(e) {
   e.preventDefault();
 
@@ -172,7 +173,7 @@ function clearNewDoWhopEntryForm() {
 }
 
 function registerDoWhopDescriptionCallback() {
-  doWhopDescriptionsRef.on('value', function(snapshot) {
+  doWhopDescriptionsRef.once('value').then(function(snapshot) {
     var doWhopDescriptions = _.map(snapshot.val()).reverse();
     var div = document.createElement('div');
     doWhopPlacard.innerHTML = '';
@@ -183,8 +184,8 @@ function registerDoWhopDescriptionCallback() {
       div.innerHTML +=
         '<aside  class="mdl-card dowhop-selector" id="' +
         doWhopDescription.doWhopDescriptionKey +
-        '" onclick="revealEditEmailForm(this)" >' +
-        '<div class="">' + "<h2>" + doWhopDescription.titleDescription + "</h2>" 
+        '">' +
+        '<div class="">' + "<h2>" + doWhopDescription.titleDescription + "</h2>"
         // '<div class="dowhop-selector-header" style="background-image: url(' +
         // imageURL +
         // ');">' +
@@ -229,7 +230,9 @@ function registerDoWhopDescriptionCallback() {
         '</aside>';
       doWhopPlacard.append(div);
     });
-  });
+  }).then(
+    initiateEventListenersPerDoWhop
+  );
 }
 
 // Add Doer(s) or a Creator email to a DoWhopDescription
@@ -276,3 +279,38 @@ function addToMyDoWhops(node) {
     .child(node.parentElement.id)
     .update({ doer: true });
 }
+
+// Grabbing and iterating all doWhops to add listeners:
+function initiateEventListenersPerDoWhop() {
+  var doWhopList = document.getElementsByClassName('dowhop-selector');
+
+  for (var i=0; i<doWhopList.length; i++){
+      // console.log('testing',doWhopList[i])
+      if (doWhopList[i]) {
+        doWhopList[i].addEventListener('click', addDoWhopSpecificProtocols);
+      }
+  }
+
+  function retrieveChatSentAtTime(doWhopID) {
+    var selectedDoWhop = doWhopID
+    var myRef = firebase.database().ref('messages').child(selectedDoWhop).limitToLast(1);
+    myRef.orderByKey().on('child_added', setMessage);
+  }
+
+  function addDoWhopSpecificProtocols() {
+    retrieveChatSentAtTime(this.id)
+    revealEditEmailForm(this);
+  }
+}
+
+// Adding prototype functionality to demo last-active date-time:
+var doWhopDashboardDemo = document.getElementById('dowhop-dashboard-demo');
+
+function setMessage(data) {
+    var val = data.val();
+    var output = 'Re: ' + data.key + ',\n Last message sent at ' + val.sentAt;
+    output += '\n' + val.name + ' says >>>>> ' + val.text; 
+    doWhopDashboardDemo.innerText = output;
+  }
+
+  $(document).ready(initiateEventListenersPerDoWhop());
