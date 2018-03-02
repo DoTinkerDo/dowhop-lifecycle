@@ -232,6 +232,7 @@ function retrieveProfile() {
     myProfileSocialTW.alt = (appUser && appUser.profileSocialTW) || 'Twitter';
     myProfileSocialIG.alt = (appUser && appUser.profileSocialIG) || 'Instagram';
     myProfileSocialLI.alt = (appUser && appUser.profileSocialLI) || 'LinkedIn';
+    myProfileWebsite.alt = (appUser && appUser.profileWebsite) || 'Personal Website';
     myProfileAbout.innerText = (appUser && appUser.profileAbout) || 'About Me: ';
     myProfileActivity1.innerText = (appUser && appUser.profileActivity1) || '';
     myProfileActivity2.innerText = (appUser && appUser.profileActivity2) || '';
@@ -284,6 +285,10 @@ auth.onAuthStateChanged(function(user) {
       if (snap.val().profileSocialLI) {
         myProfileSocialLI.classList.add('social-hover');
         myProfileSocialLI.src = '../images/linkedin-verified.svg';
+      }
+      if (snap.val().profileWebsite) {
+        myPersonalWebsite.classList.add('social-hover');
+        myPersonalWebsite.src = '../images/web-link(1).svg';
       }
 
       currentProfile !== user.uid
