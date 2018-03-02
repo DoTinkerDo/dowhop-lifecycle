@@ -363,6 +363,23 @@ function socialMediaIG() {
     }
   });
 }
+//added function for personal site
+function socialMediaCS() {
+  currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
+  var profileRef = firebase.database().ref('app_users/' + currentProfile);
+  profileRef.on('value', function(snap) {
+    var prefix = 'http://';
+    var linkedIn = String(snap.val().profileSocialLI);
+    var link = prefix.concat(linkedIn);
+    if (checkHTTP(linkedIn)) {
+      link = linkedIn;
+    }
+    if (!snap.val().profileSocialLI) {
+    } else {
+      window.open(link, '_blank');
+    }
+  });
+}
 
 function checkHTTP(url) {
   var returnValue = true;
