@@ -30,6 +30,7 @@ var myProfileSocialFB = document.getElementById('my-profile-social-FB');
 var myProfileSocialTW = document.getElementById('my-profile-social-TW');
 var myProfileSocialIG = document.getElementById('my-profile-social-IG');
 var myProfileSocialLI = document.getElementById('my-profile-social-LI');
+var myPersonalWebsite = document.getElementById('my-personal-website');
 var myProfileAbout = document.getElementById('my-profile-about');
 var myProfilePayment = document.getElementById('my-profile-payment');
 var myProfileActivity1 = document.getElementById('my-profile-activity-1');
