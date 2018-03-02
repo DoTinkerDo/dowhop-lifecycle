@@ -364,17 +364,17 @@ function socialMediaIG() {
   });
 }
 //added function for personal site
-function socialMediaCS() {
+function personalWebsite() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
     var prefix = 'http://';
-    var linkedIn = String(snap.val().profileSocialLI);
-    var link = prefix.concat(linkedIn);
-    if (checkHTTP(linkedIn)) {
-      link = linkedIn;
+    var personalSite = String(snap.val().profileWebsite);
+    var link = prefix.concat(personalSite);
+    if (checkHTTP(personalSite)) {
+      link = personalSite;
     }
-    if (!snap.val().profileSocialLI) {
+    if (!snap.val().profileWebsite) {
     } else {
       window.open(link, '_blank');
     }
@@ -440,7 +440,7 @@ function fillInProfileForm(e) {
         document.getElementById('profile-social-LI').value = snap.val().profileSocialLI;
       }
       if (snap.val().profileWebsite) {
-        document.getElementById('profile-website').value = snap.val().profileWebsite;
+        document.getElementById('my-personal-website').value = snap.val().profileWebsite;
       }
       if (snap.val().profileActivity1) {
         document.getElementById('profile-activity-1').value = snap.val().profileActivity1;
