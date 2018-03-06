@@ -82,11 +82,11 @@ var inputImageCaptureList = document.querySelectorAll('input.image-capture');
 var inputImageCaptureArr = Array.prototype.slice.call(inputImageCaptureList);
 var profileImageFiles = [];
 
-function removeImage(){
-	database.ref('app_users/' + uid)
-	.child('profileImg')
-	.child('profilePic').remove()
-}
+// function removeImage(){
+// 	database.ref('app_users/' + uid)
+// 	.child('profileImg')
+// 	.child('profilePic').remove()
+// }
 
 // when user uploads a profile photo
 profileImgFileButton.addEventListener('change', function(e){
