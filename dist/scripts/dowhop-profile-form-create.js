@@ -50,6 +50,7 @@ editProfileButton.addEventListener('click', fillInProfileForm);
 socialButtonWeb.addEventListener('click', expandPersonalWeb);
 closingButton.addEventListener('click', closeModalUpdate);
 
+
 var activities = document.getElementsByClassName('personalAct');
 var background = document.getElementById('background-photo').src;
 
@@ -76,6 +77,34 @@ addNewActivityArr.forEach(function(addNewActivity) {
 var inputImageCaptureList = document.querySelectorAll('input.image-capture');
 var inputImageCaptureArr = Array.prototype.slice.call(inputImageCaptureList);
 var profileImageFiles = [];
+
+
+// when user uploads a profile photo
+function uploadProfilePic(){
+	$('#profilefile').on("change", function(event){
+		var file = event.target.files[0];
+	})
+	var fileName = file.name
+	var uid = auth.currentUser.uid;
+	var storageRef = storage.ref('userImages' + uid + '/profileImage' + fileName);
+	var uploadTask = storageRef.put(file);
+    // listens for image upload
+	uploadTask.on('state_changed', function(snapshot){
+
+	}, function error(err){
+		return err
+	//on success adds to database
+	},function(){
+		var postKey = database().ref('app_users/' + uid + '/profileImg').push().key;
+		var downloadURL = uploadTask.snapshot.downloadURL;
+		var updates = {};
+		var postData = {
+			url: downloadURL
+		};
+		updates['app_users' + uid + '/profileImg' + postKey] = postData;
+		database.ref().update(updates);
+	});
+}
 
 function addProfileImage() {
   if (!this.files[0].type.match('image/.*')) {
@@ -204,6 +233,7 @@ function createProfile(e) {
 
 function clearCreateProfileForm() {
   profileImageFiles = [];
+  // mainProfileImg = [];
   createProfileName.value = '';
   createProfilePhone.value = '';
   createProfileSocialFB.value = '';
@@ -227,6 +257,7 @@ function retrieveProfile() {
   var profileRef = database.ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
     var appUser = snap.val();
+	// myProfileImg.src = (appUser.profileImageURL) || '/images/profile_placeholder.png';
     myDisplayName.innerText = appUser.displayName;
     myProfileSocialFB.alt = (appUser && appUser.profileSocialFB) || 'Facebook';
     myProfileSocialTW.alt = (appUser && appUser.profileSocialTW) || 'Twitter';

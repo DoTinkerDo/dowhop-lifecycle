@@ -62,7 +62,7 @@
       <img class='background-photo' id="background-photo" src="https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/app-image-assets%2Fdowhopbanner_profile_09-22-17.jpg?alt=media&token=f2f96551-48b2-4196-9303-8862b7417e28" >
     </div>
       <div class ="my-profile-picture mdl-cell mdl-cell--8-col mdl-cell--4-col-phone">
-        <img id="my-profile-picture" src="" alt="User profile image."/>
+        <img id="my-profile-picture" src="profile_placeholder.png" alt="User profile image."/>
         <div id="my-display-name"></div>
       </div>
 
@@ -253,6 +253,22 @@
         <div class="mdl-card__title dm-close-span">
           <span class="mdl-card__title-text">Update Profile</span><div id="update-form-div-span" class="dm-close">x</div></span>
         </div>
+
+		<div class="mdl-card" style="padding:20px;">
+			<div class="mdl-card_border">
+					<div class="my-profile-picture mdl-cell mdl-cell--8-col mdl-cell--4-col-phone">
+						<img id="my-profile-default" src="images/profile_placeholder.png" alt="User profile image."/>
+					</div>
+					<div id="upload">
+						<label>
+   							<input type="file" id="profileFile">
+						</label>
+							<button type="button" id="upload-btn" onclick="uploadProfilePic()">Upload Profile pic</button>
+						<button id="default-profile-img">Remove Profile Pic</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
     <form id="create-profile-form" action="#" >
       <div class="mdl-card" style="padding:20px 20px 20px 20px;">
