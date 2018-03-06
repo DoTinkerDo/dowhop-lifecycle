@@ -41,6 +41,7 @@ img {
   position: relative;
   margin-top: 100px;
 }
+
 #my-profile-picture {
   border-radius: 50%;
   max-width: 100%;
@@ -349,6 +350,8 @@ i.link-icon {
   cursor: pointer;
   font-size: 22px;
 }
+
+
 
 .profile-location {
   margin-top: 20px;
