@@ -2,6 +2,8 @@
 
 var currentProfile;
 var createProfileForm = document.getElementById('create-profile-form');
+var profileImgFileButton = document.getElementById('profileFile');
+var removeProfileImg = document.getElementById('default-profile-img');
 var createProfileName = document.getElementById('profile-name');
 var createProfilePhone = document.getElementById('profile-phone');
 var createProfileSocialFB = document.getElementById('profile-social-FB');
@@ -25,6 +27,7 @@ var updateForm = document.getElementById('direct-update-form-div');
 var closingButton = document.getElementById('update-form-div-span');
 var editProfileButton = document.getElementById('new-edit-profile');
 var myDisplayName = document.getElementById('my-display-name');
+var myProfileImg = document.getElementById('my-profile-pic');
 var myProfileName = document.getElementById('my-profile-name');
 var myProfileSocialFB = document.getElementById('my-profile-social-FB');
 var myProfileSocialTW = document.getElementById('my-profile-social-TW');
@@ -38,11 +41,12 @@ var myProfileActivity3 = document.getElementById('my-profile-activity-3');
 var activityImage1 = document.getElementById('activity-image-1');
 var activityImage2 = document.getElementById('activity-image-2');
 var activityImage3 = document.getElementById('activity-image-3');
-var myProfilePicture = document.getElementById('my-profile-picture');
 var sendDirectMessageDiv = document.getElementById('send-direct-message-div');
+var myProfilePicture = document.getElementById('my-profile-picture');
 var myProfileSocial = document.getElementById('my-profile-social');
 
 createProfileFormBtn.addEventListener('click', createProfile);
+removeProfileImg.addEventListener('click', removeImage);
 socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
@@ -78,33 +82,39 @@ var inputImageCaptureList = document.querySelectorAll('input.image-capture');
 var inputImageCaptureArr = Array.prototype.slice.call(inputImageCaptureList);
 var profileImageFiles = [];
 
+function removeImage(){
+	database.ref('app_users/' + uid)
+	.child('profileImg')
+	.child('profilePic').remove()
+}
 
 // when user uploads a profile photo
-function uploadProfilePic(){
-	$('#profilefile').on("change", function(event){
-		var file = event.target.files[0];
-	})
-	var fileName = file.name
+profileImgFileButton.addEventListener('change', function(e){
+	var file = e.target.files[0];
+
 	var uid = auth.currentUser.uid;
-	var storageRef = storage.ref('userImages' + uid + '/profileImage' + fileName);
+	var storageRef = storage.ref('userImages/' + uid + '/profileImage/' + file.name);
+
+	if(storageRef.exists)
 	var uploadTask = storageRef.put(file);
     // listens for image upload
 	uploadTask.on('state_changed', function(snapshot){
 
 	}, function error(err){
 		return err
-	//on success adds to database
-	},function(){
-		var postKey = database().ref('app_users/' + uid + '/profileImg').push().key;
+	//on success adds to storage & database
+},function complete(){
 		var downloadURL = uploadTask.snapshot.downloadURL;
 		var updates = {};
 		var postData = {
-			url: downloadURL
+			profilePic: downloadURL
 		};
-		updates['app_users' + uid + '/profileImg' + postKey] = postData;
+		updates['app_users/' + uid + '/profileImg/'] = postData;
 		database.ref().update(updates);
+		console.log("success!")
 	});
-}
+})
+
 
 function addProfileImage() {
   if (!this.files[0].type.match('image/.*')) {
@@ -233,7 +243,6 @@ function createProfile(e) {
 
 function clearCreateProfileForm() {
   profileImageFiles = [];
-  // mainProfileImg = [];
   createProfileName.value = '';
   createProfilePhone.value = '';
   createProfileSocialFB.value = '';
@@ -259,6 +268,7 @@ function retrieveProfile() {
     var appUser = snap.val();
 	// myProfileImg.src = (appUser.profileImageURL) || '/images/profile_placeholder.png';
     myDisplayName.innerText = appUser.displayName;
+	myProfileImg.src = (appUser.profileImg.profilePic) || 'images/profile_placeholder.png';
     myProfileSocialFB.alt = (appUser && appUser.profileSocialFB) || 'Facebook';
     myProfileSocialTW.alt = (appUser && appUser.profileSocialTW) || 'Twitter';
     myProfileSocialIG.alt = (appUser && appUser.profileSocialIG) || 'Instagram';
