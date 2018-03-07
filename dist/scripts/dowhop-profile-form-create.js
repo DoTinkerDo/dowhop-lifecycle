@@ -356,7 +356,7 @@ function socialMediaLI() {
 function socialMediaIG() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
-  profileRef.once('value', function(snap) {
+  profileRef.on('value', function(snap) {
     var prefix = 'http://';
     let instagram = String(snap.val().profileSocialIG);
     var link = prefix.concat(instagram);
@@ -370,21 +370,18 @@ function socialMediaIG() {
   });
 }
 
-function myPersonalWebsite() {
+function personalWebsite() {
   currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
     var prefix = 'http://';
     let personalSite = String(snap.val().profileWebsite);
     var link = prefix.concat(personalSite);
-
     if (checkHTTP(personalSite)) {
       link = personalSite;
     }
-
     if (!snap.val().profileWebsite) {
     } else {
-      console.log(link);
       window.open(link, '_blank');
     }
   });
