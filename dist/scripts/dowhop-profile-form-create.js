@@ -8,7 +8,7 @@ var createProfileSocialFB = document.getElementById('profile-social-FB');
 var createProfileSocialTW = document.getElementById('profile-social-TW');
 var createProfileSocialIG = document.getElementById('profile-social-IG');
 var createProfileSocialLI = document.getElementById('profile-social-LI');
-var createProfileWebsite = document.getElementById('profile-website');
+var createPersonalWebsite = document.getElementById('personal-website');
 var createProfilePayment = document.getElementById('profile-payment');
 var createProfileAbout = document.getElementById('profile-about');
 var createProfileActivity1 = document.getElementById('profile-activity-1');
@@ -30,6 +30,7 @@ var myProfileSocialFB = document.getElementById('my-profile-social-FB');
 var myProfileSocialTW = document.getElementById('my-profile-social-TW');
 var myProfileSocialIG = document.getElementById('my-profile-social-IG');
 var myProfileSocialLI = document.getElementById('my-profile-social-LI');
+var myPersonalWebsite = document.getElementById('my-personal-website');
 var myProfileAbout = document.getElementById('my-profile-about');
 var myProfilePayment = document.getElementById('my-profile-payment');
 var myProfileActivity1 = document.getElementById('my-profile-activity-1');
@@ -179,8 +180,8 @@ function createProfile(e) {
   if (createProfileSocialIG.value) {
     profileRef.update({ profileSocialIG: createProfileSocialIG.value });
   }
-  if (createProfileWebsite.value) {
-    profileRef.update({ profileWebsite: createProfileWebsite.value });
+  if (createPersonalWebsite.value) {
+    profileRef.update({ profileWebsite: createPersonalWebsite.value });
   }
   if (createProfilePayment.value) {
     profileRef.update({ profilePayment: createProfilePayment.value });
@@ -210,7 +211,7 @@ function clearCreateProfileForm() {
   createProfileSocialTW.value = '';
   createProfileSocialLI.value = '';
   createProfileSocialIG.value = '';
-  createProfileWebsite.value = '';
+  createPersonalWebsite.value = '';
   createProfilePayment.value = '';
   createProfileAbout.value = '';
   createProfileActivity1.value = '';
@@ -232,6 +233,7 @@ function retrieveProfile() {
     myProfileSocialTW.alt = (appUser && appUser.profileSocialTW) || 'Twitter';
     myProfileSocialIG.alt = (appUser && appUser.profileSocialIG) || 'Instagram';
     myProfileSocialLI.alt = (appUser && appUser.profileSocialLI) || 'LinkedIn';
+    myPersonalWebsite.alt = (appUser && appUser.profileWebsite) || 'Personal Website';
     myProfileAbout.innerText = (appUser && appUser.profileAbout) || 'About Me: ';
     myProfileActivity1.innerText = (appUser && appUser.profileActivity1) || '';
     myProfileActivity2.innerText = (appUser && appUser.profileActivity2) || '';
@@ -284,6 +286,10 @@ auth.onAuthStateChanged(function(user) {
       if (snap.val().profileSocialLI) {
         myProfileSocialLI.classList.add('social-hover');
         myProfileSocialLI.src = '../images/linkedin-verified.svg';
+      }
+      if (snap.val().profileWebsite) {
+        myPersonalWebsite.classList.add('social-hover');
+        myPersonalWebsite.src = '../images/web-link-2.svg';
       }
 
       currentProfile !== user.uid
@@ -364,6 +370,26 @@ function socialMediaIG() {
   });
 }
 
+function myPersonalWebsite() {
+  currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
+  var profileRef = firebase.database().ref('app_users/' + currentProfile);
+  profileRef.on('value', function(snap) {
+    var prefix = 'http://';
+    let personalSite = String(snap.val().profileWebsite);
+    var link = prefix.concat(personalSite);
+
+    if (checkHTTP(personalSite)) {
+      link = personalSite;
+    }
+
+    if (!snap.val().profileWebsite) {
+    } else {
+      console.log(link);
+      window.open(link, '_blank');
+    }
+  });
+}
+
 function checkHTTP(url) {
   var returnValue = true;
   var https = 'http';
@@ -423,7 +449,7 @@ function fillInProfileForm(e) {
         document.getElementById('profile-social-LI').value = snap.val().profileSocialLI;
       }
       if (snap.val().profileWebsite) {
-        document.getElementById('profile-website').value = snap.val().profileWebsite;
+        document.getElementById('personal-website').value = snap.val().profileWebsite;
       }
       if (snap.val().profileActivity1) {
         document.getElementById('profile-activity-1').value = snap.val().profileActivity1;
