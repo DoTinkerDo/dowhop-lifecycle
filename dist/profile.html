@@ -62,7 +62,7 @@
       <img class='background-photo' id="background-photo" src="https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/app-image-assets%2Fdowhopbanner_profile_09-22-17.jpg?alt=media&token=f2f96551-48b2-4196-9303-8862b7417e28" >
     </div>
       <div class ="my-profile-picture mdl-cell mdl-cell--8-col mdl-cell--4-col-phone">
-        <img id="my-profile-picture" src="./images/profile_placeholder.png" alt="User profile image."/>
+        <img id="my-profile-picture" src="/images/profile_placeholder.png" alt="User profile image."/>
         <div id="my-display-name"></div>
       </div>
 
@@ -256,24 +256,19 @@
           <span class="mdl-card__title-text">Update Profile</span><div id="update-form-div-span" class="dm-close">x</div></span>
         </div>
 
-		<!-- Upload Proile Pic section -->
+		<!-- Upload Profile Pic section -->
 		<div class="mdl-card" style="padding:20px 20px 20px 20px;">
 			<div class="mdl-card_border">
 				<div class ="my-profile-picture mdl-cell mdl-cell--8-col mdl-cell--4-col-phone">
-				  <img id="my-profile-picture" src="images/profile_placeholder.png" alt="User profile image."/>
+				  <img id="profile-picture" src="images/profile_placeholder.png" alt="User profile image."/>
 				  <div id="my-display-name"></div>
 				</div>
-				<div class="mdl-card_border">
-					<div class ="my-profile-picture mdl-cell mdl-cell--8-col mdl-cell--4-col-phone">
-						<img id="my-default-profile-picture" src="images/profile_placeholder.png" alt="User profile image."/>
-						<div id="my-display-name"></div>
-					</div>
-
-	          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+	        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 				<label>Upload Photo
 					  <input type="file" id="profile-pic-upload">
 				</label>
-		</div>
+				<button class="btn btn-default" type="button" id="remove-profile-pic">Remove Profile Photo</button>
+			</div>
 
     <form id="create-profile-form" action="#" >
       <div class="mdl-card" style="padding:20px 20px 20px 20px;">

@@ -3,7 +3,7 @@
 var currentProfile;
 var createProfileForm = document.getElementById('create-profile-form');
 var profileImgFileButton = document.getElementById('profile-pic-upload');
-var removeProfileImg = document.getElementById('default-profile-img');
+var removeImgBtn = document.getElementById('remove-profile-pic');
 var createProfileName = document.getElementById('profile-name');
 var createProfilePhone = document.getElementById('profile-phone');
 var createProfileSocialFB = document.getElementById('profile-social-FB');
@@ -42,10 +42,12 @@ var activityImage1 = document.getElementById('activity-image-1');
 var activityImage2 = document.getElementById('activity-image-2');
 var activityImage3 = document.getElementById('activity-image-3');
 var sendDirectMessageDiv = document.getElementById('send-direct-message-div');
+var myProfileImg = document.getElementById('profile-picture');
 var myProfilePicture = document.getElementById('my-profile-picture');
 var myProfileSocial = document.getElementById('my-profile-social');
 
 createProfileFormBtn.addEventListener('click', createProfile);
+removeImgBtn.addEventListener('click', removeProfileImage);
 socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
@@ -81,21 +83,18 @@ var inputImageCaptureList = document.querySelectorAll('input.image-capture');
 var inputImageCaptureArr = Array.prototype.slice.call(inputImageCaptureList);
 var profileImageFiles = [];
 
-// function removeImage(){
-// 	database.ref('app_users/' + uid)
-// 	.child('profileImg')
-// 	.child('profilePic').remove()
-// }
 
-// when user uploads a profile photo
+//Adds user uploaded photo to storage and profileImg to the database for the user
 profileImgFileButton.addEventListener('change', function(e){
 	var file = e.target.files[0];
 
 	var uid = auth.currentUser.uid;
 	var storageRef = storage.ref('userImages/' + uid + '/profileImage/' + file.name);
 
+	// if the file is not an image then it cannot be uploaded
 	if(!file.type.match('image/.*')){
-
+		console.log("You can only upload image files at this time")
+	}else {
 		var uploadTask = storageRef.put(file);
 	    // listens for image upload
 		uploadTask.on('state_changed', function(snapshot){
@@ -111,13 +110,19 @@ profileImgFileButton.addEventListener('change', function(e){
 			};
 			updates['app_users/' + uid + '/profileImg/'] = postData;
 			database.ref().update(updates);
-			console.log("success!")
 		});
 	}
 })
+// When the user clicks the remove profile image button it is removed from storage and DB
+function removeProfileImage(){
+	var profileStorageRef = storage.ref('app_users/' + uid + '/profileImage/')
+	var profileRef = database.ref('app_users/' + uid + '/profileImage');
+
+	// profileStorageRef.delete()
+}
 
 
-function addProfileImage() {
+function addProfileImages() {
   if (!this.files[0].type.match('image/.*')) {
     alert('You can only add images at the moment.');
     return;
@@ -127,7 +132,7 @@ function addProfileImage() {
 }
 
 inputImageCaptureArr.forEach(function(inputImageCapture) {
-  inputImageCapture.addEventListener('change', addProfileImage);
+  inputImageCapture.addEventListener('change', addProfileImages);
 });
 
 function expandTwitter(e) {
@@ -231,7 +236,6 @@ function createProfile(e) {
   if (createProfileActivity1.value) {
     profileRef.update({ profileActivity1: createProfileActivity1.value });
   }
-
   if (createProfileActivity2.value) {
     profileRef.update({ profileActivity2: createProfileActivity2.value });
   }
@@ -269,13 +273,18 @@ function retrieveProfile() {
     var appUser = snap.val();
 
     myDisplayName.innerText = appUser.displayName;
-    // if user uploads an image display that,
-	// if photoURL but no upload display that,
-	// if neither display default
-    // if remove button is clicked display default
+    // TODO: if remove button is clicked in edit profile, display default profile image
     // TODO: make sure images are overwritten in storage not just added
-    // BUG: for activity images they are added in storage rather than overwritten
-	myProfileImg.src = (appUser.profileImg.profilePic || appUser.photoURL) || 'images/profile_placeholder.png';
+	// checks if user has uploaded an image
+	if (!appUser.profileImg && !appUser.photoURL){
+		return myProfileImg.src = '/images/profile_placeholder.png'
+	}
+	// check if user has photoURL
+	else if (!appUser.profileImg && appUser.photoURL) {
+		return myProfileImg.src = appUser.photoURL
+	} else {
+		return myProfileImg.src = appUser.profileImg.profilePic
+	}
     myProfileSocialFB.alt = (appUser && appUser.profileSocialFB) || 'Facebook';
     myProfileSocialTW.alt = (appUser && appUser.profileSocialTW) || 'Twitter';
     myProfileSocialIG.alt = (appUser && appUser.profileSocialIG) || 'Instagram';
@@ -285,16 +294,18 @@ function retrieveProfile() {
     myProfileActivity1.innerText = (appUser && appUser.profileActivity1) || '';
     myProfileActivity2.innerText = (appUser && appUser.profileActivity2) || '';
     myProfileActivity3.innerText = (appUser && appUser.profileActivity3) || '';
+	// BUG: for activity images they are added in storage rather than overwritten
     activityImage1.src =
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image1) || '/images/placeholder-image1.png';
     activityImage2.src =
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image2) || '/images/placeholder-image2.png';
     activityImage3.src =
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image3) || '/images/placeholder-image3.png';
-    myProfilePicture.src = appUser.photoURL;
+	myProfilePicture.src = myProfileImg.src
     sendDirectMessageDiv.id = appUser.uid;
   });
 }
+
 
 // For looking at someone else's profile via query parameter:
 function retrieveUrl(loc) {
