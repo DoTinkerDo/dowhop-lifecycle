@@ -9,6 +9,7 @@ var createProfileSocialTW = document.getElementById('profile-social-TW');
 var createProfileSocialIG = document.getElementById('profile-social-IG');
 var createProfileSocialLI = document.getElementById('profile-social-LI');
 var createPersonalWebsite = document.getElementById('personal-website');
+var createLocation = document.getElementById('location');
 var createProfilePayment = document.getElementById('profile-payment');
 var createProfileAbout = document.getElementById('profile-about');
 var createProfileActivity1 = document.getElementById('profile-activity-1');
@@ -31,6 +32,7 @@ var myProfileSocialTW = document.getElementById('my-profile-social-TW');
 var myProfileSocialIG = document.getElementById('my-profile-social-IG');
 var myProfileSocialLI = document.getElementById('my-profile-social-LI');
 var myPersonalWebsite = document.getElementById('my-personal-website');
+var myLocation = document.getElementById('my-location');
 var myProfileAbout = document.getElementById('my-profile-about');
 var myProfilePayment = document.getElementById('my-profile-payment');
 var myProfileActivity1 = document.getElementById('my-profile-activity-1');
@@ -122,7 +124,7 @@ function profileProgressUI() {
   profileRef.once('value').then(function(snapshot) {
     if (snapshot.val() && snapshot.val().profileProgress) {
       var profileProgress = snapshot.val().profileProgress;
-      var sections = ['verify-email', 'verify-phone', 'verify-social'];
+      var sections = ['verify-email', 'verify-phone', 'verify-social', 'location'];
       var className;
       sections.map(function(section) {
         if (profileProgress[section]) {
@@ -183,6 +185,9 @@ function createProfile(e) {
   if (createPersonalWebsite.value) {
     profileRef.update({ profileWebsite: createPersonalWebsite.value });
   }
+  if (createLocation.value) {
+    profileRef.update({ location: createLocation.value });
+  }
   if (createProfilePayment.value) {
     profileRef.update({ profilePayment: createProfilePayment.value });
   }
@@ -234,6 +239,7 @@ function retrieveProfile() {
     myProfileSocialIG.alt = (appUser && appUser.profileSocialIG) || 'Instagram';
     myProfileSocialLI.alt = (appUser && appUser.profileSocialLI) || 'LinkedIn';
     myPersonalWebsite.alt = (appUser && appUser.profileWebsite) || 'Personal Website';
+    myLocation.innerText = (appUser && appUser.location) || 'Location';
     myProfileAbout.innerText = (appUser && appUser.profileAbout) || 'About Me: ';
     myProfileActivity1.innerText = (appUser && appUser.profileActivity1) || '';
     myProfileActivity2.innerText = (appUser && appUser.profileActivity2) || '';
@@ -465,6 +471,9 @@ function fillInProfileForm(e) {
       }
       if (snap.val().email) {
         document.getElementById('account-email').value = snap.val().email;
+      }
+      if (snap.val().location) {
+        document.getElementById('location').value = snap.val().location;
       }
     }
   });
