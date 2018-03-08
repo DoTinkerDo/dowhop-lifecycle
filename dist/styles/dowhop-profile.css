@@ -316,6 +316,11 @@ img {
   width: 20px;
   margin-left: 10px;
 }
+#my-personal-website {
+  height: 20px;
+  width: 20px;
+  margin-left: 10px;
+}
 .social-media-twitter {
   min-height: 0.5px;
   min-width: 0.5px;
@@ -347,7 +352,7 @@ label > i.material-icons {
   top: -17px;
   padding-left: 10px;
   font-size: 44px;
-  fill: #606060;
+  color: #606060;
 }
 
 i.link-icon {
@@ -364,6 +369,8 @@ i.link-icon {
   cursor: pointer;
   font-size: 22px;
 }
+
+
 
 .profile-location {
   margin-top: 20px;
