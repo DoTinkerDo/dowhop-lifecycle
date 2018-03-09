@@ -261,16 +261,15 @@ function generateUserIcons(userObjectArray) {
       textOutput +=
         '<div class="user-avatar-container">' +
         "<a href='/profile?" +
-        userObject.uid +
+        	userObject.uid +
         "'>" +
         "<div class='user-avatar'>" +
         "<img class='user-avatar' src='" +
-        userObject.photoURL +
-        "'>" +
-        '</img>' +
+        	userObject.photoURL +
+        "'/>" +
         '</div>' +
         '<div class="user-handle">' +
-        userObject.displayName +
+        	userObject.displayName +
         '</div>' +
         '</a>' +
         '</div>';

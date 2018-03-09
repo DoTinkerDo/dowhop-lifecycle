@@ -3,6 +3,8 @@
 var currentProfile;
 var createProfileForm = document.getElementById('create-profile-form');
 var profileImgFileButton = document.getElementById('profile-pic-upload');
+var myProfileImg = document.getElementById('upload-picture');
+var myProfilePicture = document.getElementById('my-profile-picture');
 var removeImgBtn = document.getElementById('remove-profile-pic');
 var createProfileName = document.getElementById('profile-name');
 var createProfilePhone = document.getElementById('profile-phone');
@@ -42,8 +44,6 @@ var activityImage1 = document.getElementById('activity-image-1');
 var activityImage2 = document.getElementById('activity-image-2');
 var activityImage3 = document.getElementById('activity-image-3');
 var sendDirectMessageDiv = document.getElementById('send-direct-message-div');
-var myProfileImg = document.getElementById('profile-picture');
-var myProfilePicture = document.getElementById('my-profile-picture');
 var myProfileSocial = document.getElementById('my-profile-social');
 
 createProfileFormBtn.addEventListener('click', createProfile);
@@ -113,6 +113,28 @@ profileImgFileButton.addEventListener('change', function(e){
 		});
 	}
 })
+
+function updateProfileImages(){
+	var uid = retrieveUrl(window.location.href) || auth.currentUser.uid;
+	var userProfileImg;
+    var profileRef = database.ref('app_users/' + uid );
+    profileRef.on('value', function(snap) {
+      var appUser = snap.val();
+	  console.log("user info", appUser);
+      // checks for downloaded image
+	  if (appUser.profileImg){
+		 userProfileImg = appUser.profileImg.profilePic;
+	  }
+	  // check if user has photoURL
+	  else if (!appUser.profileImg && appUser.photoURL) {
+		  userProfileImg  = appUser.photoURL;
+	  } else {
+		  userProfileImg  = '/images/profile_placeholder.png';
+	  }
+	  console.log("this is the image", userProfileImg);
+		return userProfileImg;
+	})
+}
 // When the user clicks the remove profile image button it is removed from storage and DB
 function removeProfileImage(){
 	var profileStorageRef = storage.ref('app_users/' + uid + '/profileImage/')
@@ -122,7 +144,7 @@ function removeProfileImage(){
 }
 
 
-function addProfileImages() {
+function addProfileImage() {
   if (!this.files[0].type.match('image/.*')) {
     alert('You can only add images at the moment.');
     return;
@@ -132,7 +154,7 @@ function addProfileImages() {
 }
 
 inputImageCaptureArr.forEach(function(inputImageCapture) {
-  inputImageCapture.addEventListener('change', addProfileImages);
+  inputImageCapture.addEventListener('change', addProfileImage);
 });
 
 function expandTwitter(e) {
@@ -242,6 +264,7 @@ function createProfile(e) {
   if (createProfileActivity3.value) {
     profileRef.update({ profileActivity3: createProfileActivity3.value });
   }
+  retrieveProfile();
   clearCreateProfileForm();
   closeModalUpdate();
 }
@@ -267,24 +290,16 @@ function clearCreateProfileForm() {
 }
 
 function retrieveProfile() {
+  let userProfileImg = updateProfileImages();
+  console.log("image in retrieve Profile", userProfileImg)
   currentProfile = retrieveUrl(window.location.href) || auth.currentUser.uid;
   var profileRef = database.ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
     var appUser = snap.val();
 
-    myDisplayName.innerText = appUser.displayName;
     // TODO: if remove button is clicked in edit profile, display default profile image
     // TODO: make sure images are overwritten in storage not just added
-	// checks if user has uploaded an image
-	if (!appUser.profileImg && !appUser.photoURL){
-		return myProfileImg.src = '/images/profile_placeholder.png'
-	}
-	// check if user has photoURL
-	else if (!appUser.profileImg && appUser.photoURL) {
-		return myProfileImg.src = appUser.photoURL
-	} else {
-		return myProfileImg.src = appUser.profileImg.profilePic
-	}
+	myDisplayName.innerText = appUser.displayName;
     myProfileSocialFB.alt = (appUser && appUser.profileSocialFB) || 'Facebook';
     myProfileSocialTW.alt = (appUser && appUser.profileSocialTW) || 'Twitter';
     myProfileSocialIG.alt = (appUser && appUser.profileSocialIG) || 'Instagram';
@@ -301,7 +316,8 @@ function retrieveProfile() {
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image2) || '/images/placeholder-image2.png';
     activityImage3.src =
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image3) || '/images/placeholder-image3.png';
-	myProfilePicture.src = myProfileImg.src
+	myProfileImg.src = userProfileImg || "../images/profile_placeholder.png";
+	myProfilePicture.src = userProfileImg || "../images/profile_placeholder.png";
     sendDirectMessageDiv.id = appUser.uid;
   });
 }
@@ -323,12 +339,21 @@ function retrieveUrl(loc) {
 
 auth.onAuthStateChanged(function(user) {
   if (user) {
-    retrieveProfile();
+	retrieveProfile();
     profileProgressUI();
 
     currentProfile = retrieveUrl(window.location.href) || user.uid;
     var profileRef = firebase.database().ref('app_users/' + currentProfile);
     profileRef.on('value', function(snap) {
+	   if (snap.val().profileImg){
+		myProfilePicture.src = snap.val().profileImg.profilePic;
+	  }
+	  if (snap.val().photoURL && !snap.val().profileImg){
+		myProfilePicture.src = snap.val().photoURL;
+	  }
+	  if (!snap.val().photoURL && !snap.val().profileImg){
+		myProfilePicture.src = "../images/profile_placeholder.png"
+	  }
       if (snap.val().profileSocialFB) {
         myProfileSocialFB.classList.add('social-hover');
         myProfileSocialFB.src = '../images/facebook-logo-verified.svg';

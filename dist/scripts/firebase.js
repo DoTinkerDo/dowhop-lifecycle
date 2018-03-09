@@ -1,7 +1,7 @@
 
 
-// DoWhop Lifecycle DB:
 var config = {
+	// DoWhop Lifecycle DB:
   // apiKey: 'AIzaSyB95x1zEsSkXfaDgOVdTw7ESavk9O9geN0',
   // authDomain: 'dowhop-lifecycle.firebaseapp.com',
   // databaseURL: 'https://dowhop-lifecycle.firebaseio.com',
