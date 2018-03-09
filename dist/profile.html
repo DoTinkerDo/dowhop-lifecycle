@@ -81,7 +81,7 @@
         <!-- <i class="material-icons profile-icons">mail_outline</i> -->
         <!-- <div class="profile-data" id="my-profile-email"> -->
         <!-- </div> -->
-        <div id="send-direct-message-div" id ="send-message-div"> <!-- TWO IDS... LETS DEAL WITH THIS -->
+        <div id="send-direct-message-div">
           <button id="send-direct-message" class="btn btn-default">
             <span><i class="material-icons profile-icons" id = "inline-icons" style="padding-right: 5px; display: inline-grid" > mail_outline</i>
               <span style="display:inline-grid;padding-top:10px;">Send Message</span>
@@ -142,7 +142,7 @@
             <span class="mdl-list__item-primary-content">
               <i class="material-icons mdl-list__item-icon"></i>
               <i class="verify-icon material-icons mdl-list__item-icon">location_on</i>
-              <span>San Diego</span>
+              <span id="my-location">San Diego</span>
             </span>
           </li>
         </ul>
@@ -256,11 +256,6 @@
           <span class="mdl-card__title-text">Update Profile</span><div id="update-form-div-span" class="dm-close">x</div></span>
         </div>
 
-		<!-- <div class="mdl-card" style="padding:20px 20px 20px 20px;">
-			<div class="mdl-card_border">
-	          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<button id="profile-pic-upload" onclick="">Upload Photo</button>
-		</div> -->
 
     <form id="create-profile-form" action="#" >
       <div class="mdl-card" style="padding:20px 20px 20px 20px;">
@@ -435,7 +430,7 @@
           <!-- Adding Images -->
 
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label profile-location">
-            <input class="mdl-textfield__input" type="text" id="location" placeholder="Location" value="San Diego" readonly></input>
+            <input class="mdl-textfield__input" type="text" id="location" placeholder="Location"></input>
             <label class="mdl-textfield__label" for="profile-location">Location:</label>
             <div class="mdl-tooltip" for="profile-location">Your Location</div>
           </div>
