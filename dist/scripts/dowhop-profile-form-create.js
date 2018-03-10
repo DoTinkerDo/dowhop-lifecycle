@@ -55,7 +55,7 @@ editProfileButton.addEventListener('click', fillInProfileForm);
 socialButtonWeb.addEventListener('click', expandPersonalWeb);
 closingButton.addEventListener('click', closeModalUpdate);
 
-
+// these are connected to nothing
 var activities = document.getElementsByClassName('personalAct');
 var background = document.getElementById('background-photo').src;
 
@@ -142,7 +142,6 @@ function removeProfileImage(){
 
 	// profileStorageRef.delete()
 }
-
 
 function addProfileImage() {
   if (!this.files[0].type.match('image/.*')) {
