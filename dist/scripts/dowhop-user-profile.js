@@ -19,3 +19,28 @@ var activityImage2 = document.getElementById('activity-image-2');
 var activityImage3 = document.getElementById('activity-image-3');
 var sendDirectMessageDiv = document.getElementById('send-direct-message-div');
 var myProfileSocial = document.getElementById('my-profile-social');
+
+
+// Updates verification status of email, phone, and social
+function profileProgressUI() {
+  var uid = retrieveUrl(window.location.href) || auth.currentUser.uid;
+  var profileRef = database.ref('app_users/' + uid);
+  profileRef.once('value').then(function(snapshot) {
+    if (snapshot.val() && snapshot.val().profileProgress) {
+      var profileProgress = snapshot.val().profileProgress;
+      var sections = ['verify-email', 'verify-phone', 'verify-social'];
+      var className;
+      sections.map(function(section) {
+        if (profileProgress[section]) {
+          className = section + '-done';
+        } else {
+          className = section + '-not-done';
+        }
+        var elArr = document.getElementsByClassName(className);
+        for (var i = 0; i < elArr.length; i++) {
+          elArr[i].style.display = 'block';
+        }
+      });
+    }
+  });
+}

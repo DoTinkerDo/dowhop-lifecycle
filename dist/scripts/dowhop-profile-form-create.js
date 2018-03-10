@@ -110,7 +110,9 @@ profileImgFileButton.addEventListener('change', function(e){
 			};
 			updates['app_users/' + uid + '/profileImg/'] = postData;
 			database.ref().update(updates);
+			myProfileImg.src = downloadURL;
 		});
+
 	}
 })
 
@@ -138,7 +140,7 @@ function updateProfileImages(){
 // When the user clicks the remove profile image button it is removed from storage and DB
 function removeProfileImage(){
 	var profileStorageRef = storage.ref('app_users/' + uid + '/profileImage/')
-	var profileRef = database.ref('app_users/' + uid + '/profileImage');
+	var profileImageRef = database.ref('app_users/' + uid + '/profileImage');
 
 	// profileStorageRef.delete()
 }
@@ -298,6 +300,7 @@ function retrieveProfile() {
 
     // TODO: if remove button is clicked in edit profile, display default profile image
     // TODO: make sure images are overwritten in storage not just added
+	myProfileImg.src = userProfileImg || '../images/profile_placeholder.png';
 	myDisplayName.innerText = appUser.displayName;
     myProfileSocialFB.alt = (appUser && appUser.profileSocialFB) || 'Facebook';
     myProfileSocialTW.alt = (appUser && appUser.profileSocialTW) || 'Twitter';
@@ -315,7 +318,6 @@ function retrieveProfile() {
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image2) || '/images/placeholder-image2.png';
     activityImage3.src =
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image3) || '/images/placeholder-image3.png';
-	myProfileImg.src = userProfileImg || "../images/profile_placeholder.png";
 	myProfilePicture.src = userProfileImg || "../images/profile_placeholder.png";
     sendDirectMessageDiv.id = appUser.uid;
   });
@@ -342,7 +344,7 @@ auth.onAuthStateChanged(function(user) {
     profileProgressUI();
 
     currentProfile = retrieveUrl(window.location.href) || user.uid;
-    var profileRef = firebase.database().ref('app_users/' + currentProfile);
+    var profileRef = database.ref('app_users/' + currentProfile);
     profileRef.on('value', function(snap) {
 	   if (snap.val().profileImg){
 		myProfilePicture.src = snap.val().profileImg.profilePic;
@@ -480,6 +482,7 @@ function checkHTTP(url) {
   return true;
 }
 
+// This is not being used in this file or the profile html
 function phoneX(phone) {
   var str = '';
   var i;
@@ -502,6 +505,7 @@ function closeModalUpdate() {
   updateForm.style.display = 'none';
 }
 
+// Replaces placeholder with values in input fields from the database for the user to update
 function fillInProfileForm(e) {
   var currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
@@ -509,6 +513,15 @@ function fillInProfileForm(e) {
   updateForm.style.display = 'block';
   profileRef.once('value', function(snap) {
     if ((profileRef = currentProfile)) {
+	  if (snap.val().profileImg) {	
+		myProfileImg.src = snap.val().profileImg.profilePic;
+  	  }
+  	  if (snap.val().photoURL && !snap.val().profileImg){
+  		myProfileImg.src = snap.val().photoURL;
+  	  }
+  	  if (!snap.val().photoURL && !snap.val().profileImg){
+  		myProfileImg.src = "../images/profile_placeholder.png"
+  	  }
       if (snap.val().displayName) {
         document.getElementById('profile-name').value = snap.val().displayName;
       }

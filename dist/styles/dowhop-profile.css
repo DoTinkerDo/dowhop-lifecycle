@@ -47,6 +47,21 @@ img {
 	border: 5px solid white;
 }
 
+#upload-img-container {
+	display: inline-block;
+	background-color: #fff;
+	padding-left: 10px;
+}
+
+#upload-picture {
+	position: relative;
+	left: 40px;
+}
+
+#upload-lb, #profile-pic-upload {
+	padding-left: 60px;
+}
+
 /* #my-profile-default{
 	border-radius: 50%;
 	max-width: 100%;

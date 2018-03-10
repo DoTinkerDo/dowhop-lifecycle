@@ -44,6 +44,32 @@ socialButtonWeb.addEventListener('click', expandPersonalWeb);
 closingButton.addEventListener('click', closeModalUpdate);
 
 
+// Functions below expand when + button is clicked to show the input field on the form
+function expandTwitter(e) {
+  e.preventDefault();
+  // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
+  document.getElementById('twitter-card').removeAttribute('hidden');
+}
+
+function expandInstagram(e) {
+  e.preventDefault();
+  // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
+  document.getElementById('instagram-card').removeAttribute('hidden');
+}
+
+function expandLinkedIn(e) {
+  e.preventDefault();
+  // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
+  document.getElementById('linkedin-card').removeAttribute('hidden');
+}
+
+function expandPersonalWeb(e) {
+  e.preventDefault();
+  // Function to collapse MyDiv. So, MyDiv height become 0 px after collapsing.
+  document.getElementById('personal-web-card').removeAttribute('hidden');
+}
+
+
 
 //Adds user uploaded photo to storage and profileImg to the database for the user
 profileImgFileButton.addEventListener('change', function(e){
@@ -102,4 +128,123 @@ function removeProfileImage(){
 	var profileRef = database.ref('app_users/' + uid + '/profileImage');
 
 	// profileStorageRef.delete()
+}
+
+// Replaces placeholder with values in input fields from the database for the user to update
+function fillInProfileForm(e) {
+  var currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
+  var profileRef = firebase.database().ref('app_users/' + currentProfile);
+  updateForm.removeAttribute('hidden');
+  updateForm.style.display = 'block';
+  profileRef.once('value', function(snap) {
+    if ((profileRef = currentProfile)) {
+      if (snap.val().displayName) {
+        document.getElementById('profile-name').value = snap.val().displayName;
+      }
+      if (snap.val().profileAbout) {
+        document.getElementById('profile-about').value = snap.val().profileAbout;
+      }
+      if (snap.val().profileSocialFB) {
+        document.getElementById('profile-social-FB').value = snap.val().profileSocialFB;
+      }
+      if (snap.val().profileSocialTW) {
+        document.getElementById('profile-social-TW').value = snap.val().profileSocialTW;
+      }
+      if (snap.val().profileSocialIG) {
+        document.getElementById('profile-social-IG').value = snap.val().profileSocialIG;
+      }
+      if (snap.val().profileSocialLI) {
+        document.getElementById('profile-social-LI').value = snap.val().profileSocialLI;
+      }
+      if (snap.val().profileWebsite) {
+        document.getElementById('personal-website').value = snap.val().profileWebsite;
+      }
+      if (snap.val().profileActivity1) {
+        document.getElementById('profile-activity-1').value = snap.val().profileActivity1;
+      }
+      if (snap.val().profileActivity2) {
+        document.getElementById('profile-activity-2').value = snap.val().profileActivity2;
+      }
+      if (snap.val().profileActivity3) {
+        document.getElementById('profile-activity-3').value = snap.val().profileActivity3;
+      }
+      if (snap.val().profilePhone) {
+        document.getElementById('profile-phone').value = snap.val().profilePhone;
+      }
+      if (snap.val().profilePayment) {
+        document.getElementById('profile-payment').value = snap.val().profilePayment;
+      }
+      if (snap.val().email) {
+        document.getElementById('account-email').value = snap.val().email;
+      }
+    }
+  });
+}
+
+function createProfile(e) {
+  e.preventDefault();
+  var uid = auth.currentUser.uid;
+  var profileRef = database.ref('app_users/' + uid);
+
+  profileImageFiles.forEach(function(file, idx) {
+    var filePath = 'userImages/' + uid + '/' + 'profileActivityImages/' + file.name;
+    storage
+      .ref(filePath)
+      .put(file)
+      .then(function(snapshot) {
+        var path = snapshot.metadata.fullPath;
+        storage
+          .ref(path)
+          .getDownloadURL()
+          .then(function(url) {
+            var obj = {};
+            obj['image' + (idx + 1)] = url;
+            profileRef.child('profileActivityImageURLs').update(obj);
+          });
+      });
+  });
+
+  if (createProfileName.value) {
+    profileRef.update({ profileName: createProfileName.value });
+  }
+  if (createProfilePhone.value) {
+    profileRef.update({ profilePhone: createProfilePhone.value });
+  }
+  if (createProfileSocialFB.value) {
+    profileRef.update({ profileSocialFB: createProfileSocialFB.value });
+  }
+  if (createProfileSocialTW.value) {
+    profileRef.update({ profileSocialTW: createProfileSocialTW.value });
+  }
+  if (createProfileSocialLI.value) {
+    profileRef.update({ profileSocialLI: createProfileSocialLI.value });
+  }
+  if (createProfileSocialIG.value) {
+    profileRef.update({ profileSocialIG: createProfileSocialIG.value });
+  }
+  if (createPersonalWebsite.value) {
+    profileRef.update({ profileWebsite: createPersonalWebsite.value });
+  }
+  if (createProfilePayment.value) {
+    profileRef.update({ profilePayment: createProfilePayment.value });
+  }
+  if (createProfileAbout.value) {
+    profileRef.update({ profileAbout: createProfileAbout.value });
+  }
+  if (createProfileActivity1.value) {
+    profileRef.update({ profileActivity1: createProfileActivity1.value });
+  }
+  if (createProfileActivity2.value) {
+    profileRef.update({ profileActivity2: createProfileActivity2.value });
+  }
+  if (createProfileActivity3.value) {
+    profileRef.update({ profileActivity3: createProfileActivity3.value });
+  }
+  retrieveProfile();
+  clearCreateProfileForm();
+  closeModalUpdate();
+}
+
+function closeModalUpdate() {
+  updateForm.style.display = 'none';
 }
