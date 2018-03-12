@@ -1,4 +1,15 @@
 // DoWhop Lifecycle DB:
+// test database
+// var config = {
+//     apiKey: "AIzaSyAJEseLAB0LwiFydCOtT3VFhnBfpw43kbE",
+//     authDomain: "dowhop-test.firebaseapp.com",
+//     databaseURL: "https://dowhop-test.firebaseio.com",
+//     projectId: "dowhop-test",
+//     storageBucket: "dowhop-test.appspot.com",
+//     messagingSenderId: "1083653835496"
+
+
+// uncomment this(live database)
 var config = {
   apiKey: 'AIzaSyB95x1zEsSkXfaDgOVdTw7ESavk9O9geN0',
   authDomain: 'dowhop-lifecycle.firebaseapp.com',
