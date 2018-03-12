@@ -255,9 +255,22 @@ function renderDoWhopMainHeader(userSessionCurrentDoWhop) {
 }
 
 function generateUserIcons(userObjectArray) {
+  let uid = this.auth.currentUser.uid;
+  let userRef = this.database.ref('app_users/' + uid);	
   var textOutput = '';
+  var userImg;
+ 	console.log(userObjectArray);
   if (userObjectArray && userObjectArray.length > 0) {
     _.map(userObjectArray, function(userObject) {
+
+		if(userObject.profileImg){
+	  		userImg = userObject.profileImg.profilePic
+	  	} else if (userObject.photoURL && !userObject.profileImg.profilePic){
+	  		userImg = userObject.photoURL
+	  	} else {
+	  		"../images/profile_placeholder.png";
+	  	}
+
       textOutput +=
         '<div class="user-avatar-container">' +
         "<a href='/profile?" +
@@ -265,7 +278,7 @@ function generateUserIcons(userObjectArray) {
         "'>" +
         "<div class='user-avatar'>" +
         "<img class='user-avatar' src='" +
-        	userObject.photoURL +
+        	userImg +
         "'/>" +
         '</div>' +
         '<div class="user-handle">' +
@@ -411,9 +424,10 @@ FriendlyChat.prototype.saveMessage = function(e) {
   var currentUser = person;
   var whenDatePending = this.whenDatePending;
   var whereAddressPending = this.messageFormWherePending;
-
+  // var profileImg = 	person.profileImg.profilePic
   // For only all three attributes: Time, Date, Where:
-
+	console.log("person", person);
+	console.log("User", currentUser)
   if (this.messageFormWhenDateTimePending.value || this.messageFormWherePending.value) {
     var chatsRef = this.database.ref().child('DoWhopDescriptions/' + currentDoWhopID + '/pending/');
 
