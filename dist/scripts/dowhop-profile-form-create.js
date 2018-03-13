@@ -239,7 +239,7 @@ function retrieveProfile() {
     myProfileSocialIG.alt = (appUser && appUser.profileSocialIG) || 'Instagram';
     myProfileSocialLI.alt = (appUser && appUser.profileSocialLI) || 'LinkedIn';
     myPersonalWebsite.alt = (appUser && appUser.profileWebsite) || 'Personal Website';
-    myLocation.innerText = (appUser && appUser.location) || 'Location';
+    myLocation.innerText = (appUser && appUser.location) || 'San Diego';
     myProfileAbout.innerText = (appUser && appUser.profileAbout) || 'About Me: ';
     myProfileActivity1.innerText = (appUser && appUser.profileActivity1) || '';
     myProfileActivity2.innerText = (appUser && appUser.profileActivity2) || '';
