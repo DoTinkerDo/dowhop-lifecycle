@@ -106,9 +106,9 @@ profileImgFileButton.addEventListener('change', function(e){
 			var downloadURL = uploadTask.snapshot.downloadURL;
 			var updates = {};
 			var postData = {
-				profilePic: downloadURL
+				profileImg: downloadURL
 			};
-			updates['app_users/' + uid + '/profileImg/'] = postData;
+			updates['app_users/' + uid + '/'] = postData;
 			database.ref().update(updates);
 			myProfileImg.src = downloadURL;
 		});
@@ -228,7 +228,10 @@ function createProfile(e) {
           });
       });
   });
-
+	console.log(profileRef.child('profileImg').value);
+  // if () {
+  //   profileRef.update({ profileName: createProfileName.value });
+  // }
   if (createProfileName.value) {
     profileRef.update({ profileName: createProfileName.value });
   }
