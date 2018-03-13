@@ -297,6 +297,10 @@ auth.onAuthStateChanged(function(user) {
         myPersonalWebsite.classList.add('social-hover');
         myPersonalWebsite.src = '../images/web-link-2.svg';
       }
+      if (!snap.val().location) {
+        myLocation.innerHTML = 'San Diego';
+      }
+
 
       currentProfile !== user.uid
         ? editProfileButton.setAttribute('hidden', 'true')
