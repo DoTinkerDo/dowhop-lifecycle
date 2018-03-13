@@ -5,7 +5,7 @@ var createProfileForm = document.getElementById('create-profile-form');
 var profileImgFileButton = document.getElementById('profile-pic-upload');
 var myProfileImg = document.getElementById('upload-picture');
 var myProfilePicture = document.getElementById('my-profile-picture');
-var removeImgBtn = document.getElementById('remove-profile-pic');
+// var removeImgBtn = document.getElementById('remove-profile-pic');
 var createProfileName = document.getElementById('profile-name');
 var createProfilePhone = document.getElementById('profile-phone');
 var createProfileSocialFB = document.getElementById('profile-social-FB');
@@ -47,7 +47,7 @@ var sendDirectMessageDiv = document.getElementById('send-direct-message-div');
 var myProfileSocial = document.getElementById('my-profile-social');
 
 createProfileFormBtn.addEventListener('click', createProfile);
-removeImgBtn.addEventListener('click', removeProfileImage);
+// removeImgBtn.addEventListener('click', removeProfileImage);
 socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
@@ -138,12 +138,12 @@ function updateProfileImages(){
 	})
 }
 // When the user clicks the remove profile image button it is removed from storage and DB
-function removeProfileImage(){
-	var profileStorageRef = storage.ref('app_users/' + uid + '/profileImage/')
-	var profileImageRef = database.ref('app_users/' + uid + '/profileImage');
+// function removeProfileImage(){
+// 	var profileStorageRef = storage.ref('app_users/' + uid + '/profileImage/')
+// 	var profileImageRef = database.ref('app_users/' + uid + '/profileImage');
 
 	// profileStorageRef.delete()
-}
+// }
 
 function addProfileImage() {
   if (!this.files[0].type.match('image/.*')) {
@@ -513,7 +513,7 @@ function fillInProfileForm(e) {
   updateForm.style.display = 'block';
   profileRef.once('value', function(snap) {
     if ((profileRef = currentProfile)) {
-	  if (snap.val().profileImg) {	
+	  if (snap.val().profileImg) {
 		myProfileImg.src = snap.val().profileImg.profilePic;
   	  }
   	  if (snap.val().photoURL && !snap.val().profileImg){

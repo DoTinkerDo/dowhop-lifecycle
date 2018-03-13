@@ -256,21 +256,21 @@ function renderDoWhopMainHeader(userSessionCurrentDoWhop) {
 }
 
 function generateUserIcons(userObjectArray) {
-  let uid = this.auth.currentUser.uid;
-  let userRef = this.database.ref('app_users/' + uid);
+  // let uid = this.auth.currentUser.uid;
+  // let userRef = this.database.ref('app_users/' + uid);
   var textOutput = '';
-  var userImg;
+  // var userImg;
  	console.log(userObjectArray);
   if (userObjectArray && userObjectArray.length > 0) {
     _.map(userObjectArray, function(userObject) {
 
-		if(userObject.profileImg){
-	  		userImg = userObject.profileImg.profilePic
-	  	} else if (userObject.photoURL && !userObject.profileImg.profilePic){
-	  		userImg = userObject.photoURL
-	  	} else {
-	  		"../images/profile_placeholder.png";
-	  	}
+		// if(userObject.profileImg){
+	  	// 	userImg = userObject.profileImg.profilePic
+	  	// } else if (userObject.photoURL && !userObject.profileImg.profilePic){
+	  	// 	userImg = userObject.photoURL
+	  	// } else {
+	  	// 	"../images/profile_placeholder.png";
+	  	// }
 
       textOutput +=
         '<div class="user-avatar-container">' +
@@ -279,7 +279,7 @@ function generateUserIcons(userObjectArray) {
         "'>" +
         "<div class='user-avatar'>" +
         "<img class='user-avatar' src='" +
-        	userImg +
+        	userObject.photoURL +
         "'/>" +
         '</div>' +
         '<div class="user-handle">' +
