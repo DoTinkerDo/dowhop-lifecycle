@@ -77,6 +77,7 @@ FriendlyChat.prototype.initFirebase = function() {
   this.storage = firebase.storage();
   // Initiates Firebase auth and listen to auth state changes.
   this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this));
+  return this.auth;
 };
 
 FriendlyChat.prototype.checkForAdmin = function() {
@@ -256,7 +257,7 @@ function renderDoWhopMainHeader(userSessionCurrentDoWhop) {
 
 function generateUserIcons(userObjectArray) {
   let uid = this.auth.currentUser.uid;
-  let userRef = this.database.ref('app_users/' + uid);	
+  let userRef = this.database.ref('app_users/' + uid);
   var textOutput = '';
   var userImg;
  	console.log(userObjectArray);
