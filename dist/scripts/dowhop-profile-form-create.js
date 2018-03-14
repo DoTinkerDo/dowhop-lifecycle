@@ -89,10 +89,9 @@ var profileImageFiles = [];
 //Adds user uploaded photo to storage and profileImg to the database for the user
 profileImgFileButton.addEventListener('change', function(e){
 	var file = e.target.files[0];
- 	var profileRef = database.ref('app_users/' + uid );
 	var uid = auth.currentUser.uid;
 	var storageRef = storage.ref('userImages/' + uid + '/profileImage/' + file.name);
-
+	var userRef = database.ref('app_users/').child(uid);
 	// if the file is not an image then it cannot be uploaded
 	if(!file.type.match('image/.*')){
 		console.log("You can only upload image files at this time")
@@ -104,15 +103,11 @@ profileImgFileButton.addEventListener('change', function(e){
 		}, function error(err){
 			return err
 		//on success adds to storage & database
-		},function complete(){
+	},function complete(){
 			var downloadURL = uploadTask.snapshot.downloadURL;
-			var updates = {};
-			var postData = {
+			userRef.update({
 				profileImg: downloadURL
-			};
-			updates['app_users/' + uid + '/'] = postData;
-			profileRef.update(updates);
-			myProfileImg.src = downloadURL;
+			});
 		});
 
 	}
@@ -296,15 +291,24 @@ function clearCreateProfileForm() {
 }
 
 function retrieveProfile() {
-  let userProfileImg = updateProfileImages();
   currentProfile = retrieveUrl(window.location.href) || auth.currentUser.uid;
   var profileRef = database.ref('app_users/' + currentProfile);
+  let userImg;
   profileRef.on('value', function(snap) {
     var appUser = snap.val();
-
+	// checks for downloaded image
+	  if (appUser.profileImg){
+		 userImg = appUser.profileImg;
+	  }
+	  // check if user has photoURL
+	  else if (!appUser.profileImg && appUser.photoURL) {
+		  userImg  = appUser.photoURL;
+	  } else {
+		  userImg  = '/images/profile_placeholder.png';
+	  }
     // TODO: if remove button is clicked in edit profile, display default profile image
     // TODO: make sure images are overwritten in storage not just added
-	myProfileImg.src = userProfileImg || '../images/profile_placeholder.png';
+	myProfileImg.src = userImg || '../images/profile_placeholder.png';
 	myDisplayName.innerText = appUser.displayName;
     myProfileSocialFB.alt = (appUser && appUser.profileSocialFB) || 'Facebook';
     myProfileSocialTW.alt = (appUser && appUser.profileSocialTW) || 'Twitter';
@@ -323,7 +327,7 @@ function retrieveProfile() {
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image2) || '/images/placeholder-image2.png';
     activityImage3.src =
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image3) || '/images/placeholder-image3.png';
-	myProfilePicture.src = userProfileImg || "../images/profile_placeholder.png";
+	myProfilePicture.src = userImg || "../images/profile_placeholder.png";
     sendDirectMessageDiv.id = appUser.uid;
   });
 }
@@ -351,15 +355,15 @@ auth.onAuthStateChanged(function(user) {
     currentProfile = retrieveUrl(window.location.href) || user.uid;
     var profileRef = database.ref('app_users/' + currentProfile);
     profileRef.on('value', function(snap) {
-	   if (snap.val().profileImg){
-		myProfilePicture.src = snap.val().profileImg;
-	  }
-	  if (snap.val().photoURL && !snap.val().profileImg){
-		myProfilePicture.src = snap.val().photoURL;
-	  }
-	  if (!snap.val().photoURL && !snap.val().profileImg){
-		myProfilePicture.src = "../images/profile_placeholder.png"
-	  }
+	  //  if (snap.val().profileImg){
+		// myProfilePicture.src = snap.val().profileImg;
+	  // }
+	  // if (snap.val().photoURL && !snap.val().profileImg){
+		// myProfilePicture.src = snap.val().photoURL;
+	  // }
+	  // if (!snap.val().photoURL && !snap.val().profileImg){
+		// myProfilePicture.src = "../images/profile_placeholder.png"
+	  // }
       if (snap.val().profileSocialFB) {
         myProfileSocialFB.classList.add('social-hover');
         myProfileSocialFB.src = '../images/facebook-logo-verified.svg';
