@@ -51,8 +51,8 @@ createProfileFormBtn.addEventListener('click', createProfile);
 socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
-editProfileButton.addEventListener('click', fillInProfileForm);
 socialButtonWeb.addEventListener('click', expandPersonalWeb);
+editProfileButton.addEventListener('click', fillInProfileForm);
 closingButton.addEventListener('click', closeModalUpdate);
 
 // these are connected to nothing
@@ -87,7 +87,7 @@ var profileImageFiles = [];
 //Adds user uploaded photo to storage and profileImg to the database for the user
 profileImgFileButton.addEventListener('change', function(e){
 	var file = e.target.files[0];
-
+ 	var profileRef = database.ref('app_users/' + uid );
 	var uid = auth.currentUser.uid;
 	var storageRef = storage.ref('userImages/' + uid + '/profileImage/' + file.name);
 
@@ -109,7 +109,7 @@ profileImgFileButton.addEventListener('change', function(e){
 				profileImg: downloadURL
 			};
 			updates['app_users/' + uid + '/'] = postData;
-			database.ref().update(updates);
+			profileRef.update(updates);
 			myProfileImg.src = downloadURL;
 		});
 
@@ -133,7 +133,7 @@ function updateProfileImages(){
 	  } else {
 		  userProfileImg  = '/images/profile_placeholder.png';
 	  }
-	  console.log("this is the image", userProfileImg);
+	  // console.log("this is the image", userProfileImg);
 		return userProfileImg;
 	})
 }
@@ -142,7 +142,6 @@ function updateProfileImages(){
 // 	var profileStorageRef = storage.ref('app_users/' + uid + '/profileImage/')
 // 	var profileImageRef = database.ref('app_users/' + uid + '/profileImage');
 
-	// profileStorageRef.delete()
 // }
 
 function addProfileImage() {
@@ -265,7 +264,8 @@ function createProfile(e) {
   if (createProfileActivity3.value) {
     profileRef.update({ profileActivity3: createProfileActivity3.value });
   }
-  retrieveProfile();
+
+  updateProfileImages();
   clearCreateProfileForm();
   closeModalUpdate();
 }
@@ -292,7 +292,6 @@ function clearCreateProfileForm() {
 
 function retrieveProfile() {
   let userProfileImg = updateProfileImages();
-  console.log("image in retrieve Profile", userProfileImg)
   currentProfile = retrieveUrl(window.location.href) || auth.currentUser.uid;
   var profileRef = database.ref('app_users/' + currentProfile);
   profileRef.on('value', function(snap) {
