@@ -125,7 +125,7 @@ function updateProfileImages(){
 	  console.log("user info", appUser);
       // checks for downloaded image
 	  if (appUser.profileImg){
-		 userProfileImg = appUser.profileImg.profilePic;
+		 userProfileImg = appUser.profileImg;
 	  }
 	  // check if user has photoURL
 	  else if (!appUser.profileImg && appUser.photoURL) {
@@ -228,10 +228,7 @@ function createProfile(e) {
           });
       });
   });
-	console.log(profileRef.child('profileImg').value);
-  // if () {
-  //   profileRef.update({ profileName: createProfileName.value });
-  // }
+
   if (createProfileName.value) {
     profileRef.update({ profileName: createProfileName.value });
   }
@@ -350,7 +347,7 @@ auth.onAuthStateChanged(function(user) {
     var profileRef = database.ref('app_users/' + currentProfile);
     profileRef.on('value', function(snap) {
 	   if (snap.val().profileImg){
-		myProfilePicture.src = snap.val().profileImg.profilePic;
+		myProfilePicture.src = snap.val().profileImg;
 	  }
 	  if (snap.val().photoURL && !snap.val().profileImg){
 		myProfilePicture.src = snap.val().photoURL;
@@ -517,7 +514,7 @@ function fillInProfileForm(e) {
   profileRef.once('value', function(snap) {
     if ((profileRef = currentProfile)) {
 	  if (snap.val().profileImg) {
-		myProfileImg.src = snap.val().profileImg.profilePic;
+		myProfileImg.src = snap.val().profileImg;
   	  }
   	  if (snap.val().photoURL && !snap.val().profileImg){
   		myProfileImg.src = snap.val().photoURL;
