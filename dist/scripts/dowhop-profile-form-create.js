@@ -134,6 +134,7 @@ function updateProfileImages(){
 		return userProfileImg;
 	})
 }
+
 // When the user clicks the remove profile image button it is removed from storage and DB
 // function removeProfileImage(){
 // 	var profileStorageRef = storage.ref('app_users/' + uid + '/profileImage/')
@@ -201,6 +202,7 @@ function profileProgressUI() {
     }
   });
 }
+
 
 function createProfile(e) {
   e.preventDefault();
@@ -308,6 +310,7 @@ function retrieveProfile() {
 	  }
     // TODO: if remove button is clicked in edit profile, display default profile image
     // TODO: make sure images are overwritten in storage not just added
+
 	myProfileImg.src = userImg || '../images/profile_placeholder.png';
 	myDisplayName.innerText = appUser.displayName;
     myProfileSocialFB.alt = (appUser && appUser.profileSocialFB) || 'Facebook';
@@ -355,15 +358,7 @@ auth.onAuthStateChanged(function(user) {
     currentProfile = retrieveUrl(window.location.href) || user.uid;
     var profileRef = database.ref('app_users/' + currentProfile);
     profileRef.on('value', function(snap) {
-	  //  if (snap.val().profileImg){
-		// myProfilePicture.src = snap.val().profileImg;
-	  // }
-	  // if (snap.val().photoURL && !snap.val().profileImg){
-		// myProfilePicture.src = snap.val().photoURL;
-	  // }
-	  // if (!snap.val().photoURL && !snap.val().profileImg){
-		// myProfilePicture.src = "../images/profile_placeholder.png"
-	  // }
+
       if (snap.val().profileSocialFB) {
         myProfileSocialFB.classList.add('social-hover');
         myProfileSocialFB.src = '../images/facebook-logo-verified.svg';

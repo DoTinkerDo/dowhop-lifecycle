@@ -1,0 +1,90 @@
+
+<!-- This is for the iframe in wix login button for user when they are not logged in-->
+
+<html>
+	<head>
+		<meta charset="utf-8">
+
+		<style>
+			/* css for user-icon and login button */
+			*,
+			*:before,
+			*:after {
+				box-sizing: border-box;
+				padding:0;
+				margin:0;
+				font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
+			}
+
+			nav.nav-container {
+				margin: 20px;
+			}
+
+			nav::after {
+				content: "";
+				clear: both;
+				display: table;
+			}
+
+			.user-image {
+				display: inline-block;
+				float: left;
+				width: 30px;
+				padding: 5px;
+				margin: 8px;
+			}
+
+			.user-image > img {
+				position: fixed;
+				width: 45px;
+				height: auto;
+			}
+
+			.button {
+				float: left;
+				width: 50%;
+				margin: 10px;
+				padding: 15px;
+			}
+
+			.btn-login:link {
+				text-decoration: none;
+				font-weight: bold;
+				position: relative;
+				padding: 7px 5px;
+				color: black;
+				border: 3px solid black;
+			}
+
+			.btn-login:link:hover {
+				background-color: black;
+				color: white;
+				-webkit-transition-duration: 0.4s; /* Safari */
+    			transition-duration: 0.4s;
+			}
+
+		</style>
+
+	</head>
+
+	<body>
+		<section>
+
+			<nav class="nav-container">
+
+				<div class="user-image">
+					<img src="./images/user-icon-lg.png" alt="user-icon">
+				</div>
+
+				<div class="button">
+					<a class="btn-login" href="#">Log In</a>
+				</div>
+
+			</nav>
+
+		</section>
+
+		<script src="scripts/dowhop-profile-and-create-login.js"></script>
+
+	</body>
+</html>
