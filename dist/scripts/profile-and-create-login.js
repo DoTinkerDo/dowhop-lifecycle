@@ -43,6 +43,7 @@
   function writeUserData(user) {
     var appUsersRef = database.ref('/app_users');
     var appUserRef = appUsersRef.child(user.uid);
+	var placeholderUserPhotoURL = '/images/profile_placeholder.png';
     appUserRef.once('value').then(function(snapshot) {
       // default doWhop writes first, so this check resulted in
       // userData not being written changed set to update

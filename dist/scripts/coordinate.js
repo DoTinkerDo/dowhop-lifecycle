@@ -77,6 +77,7 @@ FriendlyChat.prototype.initFirebase = function() {
   this.storage = firebase.storage();
   // Initiates Firebase auth and listen to auth state changes.
   this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this));
+  return this.auth;
 };
 
 FriendlyChat.prototype.checkForAdmin = function() {
@@ -255,22 +256,34 @@ function renderDoWhopMainHeader(userSessionCurrentDoWhop) {
 }
 
 function generateUserIcons(userObjectArray) {
+  // let uid = this.auth.currentUser.uid;
+  // let userRef = this.database.ref('app_users/' + uid);
   var textOutput = '';
+  // var userImg;
+ 	console.log(userObjectArray);
   if (userObjectArray && userObjectArray.length > 0) {
     _.map(userObjectArray, function(userObject) {
+
+		// if(userObject.profileImg){
+	  	// 	userImg = userObject.profileImg.profilePic
+	  	// } else if (userObject.photoURL && !userObject.profileImg.profilePic){
+	  	// 	userImg = userObject.photoURL
+	  	// } else {
+	  	// 	"../images/profile_placeholder.png";
+	  	// }
+
       textOutput +=
         '<div class="user-avatar-container">' +
         "<a href='/profile?" +
-        userObject.uid +
+        	userObject.uid +
         "'>" +
         "<div class='user-avatar'>" +
         "<img class='user-avatar' src='" +
-        userObject.photoURL +
-        "'>" +
-        '</img>' +
+        	userObject.photoURL +
+        "'/>" +
         '</div>' +
         '<div class="user-handle">' +
-        userObject.displayName +
+        	userObject.displayName +
         '</div>' +
         '</a>' +
         '</div>';
@@ -412,9 +425,10 @@ FriendlyChat.prototype.saveMessage = function(e) {
   var currentUser = person;
   var whenDatePending = this.whenDatePending;
   var whereAddressPending = this.messageFormWherePending;
-
+  // var profileImg = 	person.profileImg.profilePic
   // For only all three attributes: Time, Date, Where:
-
+	console.log("person", person);
+	console.log("User", currentUser)
   if (this.messageFormWhenDateTimePending.value || this.messageFormWherePending.value) {
     var chatsRef = this.database.ref().child('DoWhopDescriptions/' + currentDoWhopID + '/pending/');
 

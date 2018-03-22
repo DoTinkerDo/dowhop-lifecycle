@@ -2,6 +2,10 @@
 
 var currentProfile;
 var createProfileForm = document.getElementById('create-profile-form');
+var profileImgFileButton = document.getElementById('profile-pic-upload');
+var myProfileImg = document.getElementById('upload-picture');
+var myProfilePicture = document.getElementById('my-profile-picture');
+// var removeImgBtn = document.getElementById('remove-profile-pic');
 var createProfileName = document.getElementById('profile-name');
 var createProfilePhone = document.getElementById('profile-phone');
 var createProfileSocialFB = document.getElementById('profile-social-FB');
@@ -41,18 +45,19 @@ var myProfileActivity3 = document.getElementById('my-profile-activity-3');
 var activityImage1 = document.getElementById('activity-image-1');
 var activityImage2 = document.getElementById('activity-image-2');
 var activityImage3 = document.getElementById('activity-image-3');
-var myProfilePicture = document.getElementById('my-profile-picture');
 var sendDirectMessageDiv = document.getElementById('send-direct-message-div');
 var myProfileSocial = document.getElementById('my-profile-social');
 
 createProfileFormBtn.addEventListener('click', createProfile);
+// removeImgBtn.addEventListener('click', removeProfileImage);
 socialButtonLinkedIn.addEventListener('click', expandLinkedIn);
 socialButtonTwitter.addEventListener('click', expandTwitter);
 socialButtonInstagram.addEventListener('click', expandInstagram);
-editProfileButton.addEventListener('click', fillInProfileForm);
 socialButtonWeb.addEventListener('click', expandPersonalWeb);
+editProfileButton.addEventListener('click', fillInProfileForm);
 closingButton.addEventListener('click', closeModalUpdate);
 
+// these are connected to nothing
 var activities = document.getElementsByClassName('personalAct');
 var background = document.getElementById('background-photo').src;
 
@@ -79,6 +84,63 @@ addNewActivityArr.forEach(function(addNewActivity) {
 var inputImageCaptureList = document.querySelectorAll('input.image-capture');
 var inputImageCaptureArr = Array.prototype.slice.call(inputImageCaptureList);
 var profileImageFiles = [];
+
+
+//Adds user uploaded photo to storage and profileImg to the database for the user
+profileImgFileButton.addEventListener('change', function(e){
+	var file = e.target.files[0];
+	var uid = auth.currentUser.uid;
+	var storageRef = storage.ref('userImages/' + uid + '/profileImage/' + file.name);
+	var userRef = database.ref('app_users/').child(uid);
+	// if the file is not an image then it cannot be uploaded
+	if(!file.type.match('image/.*')){
+		console.log("You can only upload image files at this time")
+	}else {
+		var uploadTask = storageRef.put(file);
+	    // listens for image upload
+		uploadTask.on('state_changed', function(snapshot){
+
+		}, function error(err){
+			return err
+		//on success adds to storage & database
+	},function complete(){
+			var downloadURL = uploadTask.snapshot.downloadURL;
+			userRef.update({
+				profileImg: downloadURL
+			});
+		});
+
+	}
+})
+
+function updateProfileImages(){
+	var uid = retrieveUrl(window.location.href) || auth.currentUser.uid;
+	var userProfileImg;
+    var profileRef = database.ref('app_users/' + uid );
+    profileRef.on('value', function(snap) {
+      var appUser = snap.val();
+	  console.log("user info", appUser);
+      // checks for downloaded image
+	  if (appUser.profileImg){
+		 userProfileImg = appUser.profileImg;
+	  }
+	  // check if user has photoURL
+	  else if (!appUser.profileImg && appUser.photoURL) {
+		  userProfileImg  = appUser.photoURL;
+	  } else {
+		  userProfileImg  = '/images/profile_placeholder.png';
+	  }
+	  // console.log("this is the image", userProfileImg);
+		return userProfileImg;
+	})
+}
+
+// When the user clicks the remove profile image button it is removed from storage and DB
+// function removeProfileImage(){
+// 	var profileStorageRef = storage.ref('app_users/' + uid + '/profileImage/')
+// 	var profileImageRef = database.ref('app_users/' + uid + '/profileImage');
+
+// }
 
 function addProfileImage() {
   if (!this.files[0].type.match('image/.*')) {
@@ -141,6 +203,7 @@ function profileProgressUI() {
   });
 }
 
+
 function createProfile(e) {
   e.preventDefault();
   var uid = auth.currentUser.uid;
@@ -197,13 +260,14 @@ function createProfile(e) {
   if (createProfileActivity1.value) {
     profileRef.update({ profileActivity1: createProfileActivity1.value });
   }
-
   if (createProfileActivity2.value) {
     profileRef.update({ profileActivity2: createProfileActivity2.value });
   }
   if (createProfileActivity3.value) {
     profileRef.update({ profileActivity3: createProfileActivity3.value });
   }
+
+  updateProfileImages();
   clearCreateProfileForm();
   closeModalUpdate();
 }
@@ -231,9 +295,24 @@ function clearCreateProfileForm() {
 function retrieveProfile() {
   currentProfile = retrieveUrl(window.location.href) || auth.currentUser.uid;
   var profileRef = database.ref('app_users/' + currentProfile);
+  let userImg;
   profileRef.on('value', function(snap) {
     var appUser = snap.val();
-    myDisplayName.innerText = appUser.displayName;
+	// checks for downloaded image
+	  if (appUser.profileImg){
+		 userImg = appUser.profileImg;
+	  }
+	  // check if user has photoURL
+	  else if (!appUser.profileImg && appUser.photoURL) {
+		  userImg  = appUser.photoURL;
+	  } else {
+		  userImg  = '/images/profile_placeholder.png';
+	  }
+    // TODO: if remove button is clicked in edit profile, display default profile image
+    // TODO: make sure images are overwritten in storage not just added
+
+	myProfileImg.src = userImg || '../images/profile_placeholder.png';
+	myDisplayName.innerText = appUser.displayName;
     myProfileSocialFB.alt = (appUser && appUser.profileSocialFB) || 'Facebook';
     myProfileSocialTW.alt = (appUser && appUser.profileSocialTW) || 'Twitter';
     myProfileSocialIG.alt = (appUser && appUser.profileSocialIG) || 'Instagram';
@@ -244,16 +323,18 @@ function retrieveProfile() {
     myProfileActivity1.innerText = (appUser && appUser.profileActivity1) || '';
     myProfileActivity2.innerText = (appUser && appUser.profileActivity2) || '';
     myProfileActivity3.innerText = (appUser && appUser.profileActivity3) || '';
+	// BUG: for activity images they are added in storage rather than overwritten
     activityImage1.src =
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image1) || '/images/placeholder-image1.png';
     activityImage2.src =
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image2) || '/images/placeholder-image2.png';
     activityImage3.src =
       (appUser.profileActivityImageURLs && appUser.profileActivityImageURLs.image3) || '/images/placeholder-image3.png';
-    myProfilePicture.src = appUser.photoURL;
+	myProfilePicture.src = userImg || "../images/profile_placeholder.png";
     sendDirectMessageDiv.id = appUser.uid;
   });
 }
+
 
 // For looking at someone else's profile via query parameter:
 function retrieveUrl(loc) {
@@ -271,12 +352,13 @@ function retrieveUrl(loc) {
 
 auth.onAuthStateChanged(function(user) {
   if (user) {
-    retrieveProfile();
+	retrieveProfile();
     profileProgressUI();
 
     currentProfile = retrieveUrl(window.location.href) || user.uid;
-    var profileRef = firebase.database().ref('app_users/' + currentProfile);
+    var profileRef = database.ref('app_users/' + currentProfile);
     profileRef.on('value', function(snap) {
+
       if (snap.val().profileSocialFB) {
         myProfileSocialFB.classList.add('social-hover');
         myProfileSocialFB.src = '../images/facebook-logo-verified.svg';
@@ -408,6 +490,7 @@ function checkHTTP(url) {
   return true;
 }
 
+// This is not being used in this file or the profile html
 function phoneX(phone) {
   var str = '';
   var i;
@@ -430,6 +513,7 @@ function closeModalUpdate() {
   updateForm.style.display = 'none';
 }
 
+// Replaces placeholder with values in input fields from the database for the user to update
 function fillInProfileForm(e) {
   var currentProfile = retrieveUrl(window.location.href) || firebase.auth().currentUser.uid;
   var profileRef = firebase.database().ref('app_users/' + currentProfile);
@@ -437,6 +521,15 @@ function fillInProfileForm(e) {
   updateForm.style.display = 'block';
   profileRef.once('value', function(snap) {
     if ((profileRef = currentProfile)) {
+	  if (snap.val().profileImg) {
+		myProfileImg.src = snap.val().profileImg;
+  	  }
+  	  if (snap.val().photoURL && !snap.val().profileImg){
+  		myProfileImg.src = snap.val().photoURL;
+  	  }
+  	  if (!snap.val().photoURL && !snap.val().profileImg){
+  		myProfileImg.src = "../images/profile_placeholder.png"
+  	  }
       if (snap.val().displayName) {
         document.getElementById('profile-name').value = snap.val().displayName;
       }

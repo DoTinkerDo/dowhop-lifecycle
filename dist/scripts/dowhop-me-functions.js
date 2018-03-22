@@ -1,4 +1,4 @@
-// Fnctions that will be called when user object is present and signed in.
+// Functions that will be called when user object is present and signed in.
 // (c) DoWhop.com, 2017
 
 // Tasks:
@@ -244,7 +244,7 @@ function manageMessengerImages(userSession) {
       .push({
         name: currentUser.displayName,
         imageUrl: FriendlyChat.LOADING_IMAGE_URL,
-        photoUrl: currentUser.photoURL || '/images/user-icon.png'
+        photoUrl: currentUser.profileImg.profilePic || currentUser.photoURL || '/images/user-icon.png'
       })
       .then(
         function(data) {

@@ -2,7 +2,7 @@
 //! version : 2.18.1
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
-//! momentjs.com
+//! momentjs.com Displays date and time
 
 (function(global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined'

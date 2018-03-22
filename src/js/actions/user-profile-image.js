@@ -32,7 +32,7 @@ export const uploadImageTask = (file: Object, uid: string, oldImageName: string)
   //     console.log('ERROR UPLOAD IMAGE TASK', error);
   //   }
   // });
-
+  
   uploadTask
     .then(snapshot =>
       usersProfilesRef
