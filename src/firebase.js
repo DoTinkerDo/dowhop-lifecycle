@@ -4,20 +4,20 @@ import * as firebaseui from 'firebaseui';
 // uncomment this
   // LifeCycle App
   var config = {
-  // apiKey: 'AIzaSyB95x1zEsSkXfaDgOVdTw7ESavk9O9geN0',
-  // authDomain: 'dowhop-lifecycle.firebaseapp.com',
-  // databaseURL: 'https://dowhop-lifecycle.firebaseio.com',
-  // projectId: 'dowhop-lifecycle',
-  // storageBucket: 'dowhop-lifecycle.appspot.com',
-  // messagingSenderId: '1090371045772'
+  apiKey: 'AIzaSyB95x1zEsSkXfaDgOVdTw7ESavk9O9geN0',
+  authDomain: 'dowhop-lifecycle.firebaseapp.com',
+  databaseURL: 'https://dowhop-lifecycle.firebaseio.com',
+  projectId: 'dowhop-lifecycle',
+  storageBucket: 'dowhop-lifecycle.appspot.com',
+  messagingSenderId: '1090371045772'
 
-//test database
-    apiKey: "AIzaSyAJEseLAB0LwiFydCOtT3VFhnBfpw43kbE",
-    authDomain: "dowhop-test.firebaseapp.com",
-    databaseURL: "https://dowhop-test.firebaseio.com",
-    projectId: "dowhop-test",
-    storageBucket: "dowhop-test.appspot.com",
-    messagingSenderId: "1083653835496"
+// //test database
+//     apiKey: "AIzaSyAJEseLAB0LwiFydCOtT3VFhnBfpw43kbE",
+//     authDomain: "dowhop-test.firebaseapp.com",
+//     databaseURL: "https://dowhop-test.firebaseio.com",
+//     projectId: "dowhop-test",
+//     storageBucket: "dowhop-test.appspot.com",
+//     messagingSenderId: "1083653835496"
   };
   firebase.initializeApp(config);
 

@@ -46,7 +46,7 @@
 <section class="hide-component" id="application-container">
 
 <!-- Navigation Container -->
-<header class="header-space mdl-grid">
+<!-- <header class="header-space mdl-grid">
 	<div class="nav-dropdown">
 		<img class="nav-dropbtn" id="user-icon" src="/images/user-icon.png" alt="user icon">
 		<div class="nav-dropdown-content">
@@ -55,7 +55,7 @@
 			<a class="btn-logout" href="#" onclick="logOut()">Log Out</a>
 		</div>
 	</div>
-</header>
+</header> -->
 
 <!-- Profile Container -->
 <div class='container'>
@@ -65,11 +65,16 @@
 			<img class='background-photo' id="background-photo" src="https://firebasestorage.googleapis.com/v0/b/dowhop-lifecycle.appspot.com/o/app-image-assets%2Fdowhopbanner_profile_09-22-17.jpg?alt=media&token=f2f96551-48b2-4196-9303-8862b7417e28" >
 		</div>
 		<!-- User Profile Picture  -->
-		<div class="my-profile-picture mdl-cell mdl-cell--4-col">
+		<div class="my-profile-picture mdl-cell mdl-cell--3-col">
 			<img id="my-profile-picture" src='/images/profile_placeholder.png' alt="User profile image."/>
-			<!-- User Display Name -->
-			<p id="my-display-name">My name</p>
 		</div>
+	</div>
+
+	<div class="content-grid mdl-grid">
+		<!-- User Display Name -->
+		<div class="mdl-cell mdl-cell--3-col" id="my-display-name" >My name</div>
+		<!-- div below is a spacer -->
+		<div class="mdl-cell mdl-cell--9-col"></div>
 	</div>
 
 	<div class="mdl-grid">
@@ -110,33 +115,27 @@
 
 					<li class="mdl-list__item mdl-list__item--two-line">
 						<span class="mdl-list__item-primary-content">
-							<i class="verify-status-dependent verify-phone-done check material-icons mdl-list__item-icon">done</i>
-							<i class="verify-status-dependent verify-phone-not-done material-icons mdl-list__item-icon">clear</i>
 							<i class="verify-icon material-icons mdl-list__item-icon">phone</i>
-							<span>Verify Phone</span>
-							<span id="verify-item-1" class="verify-status-dependent verify-phone-done mdl-list__item-sub-title">Verified by DoWhop</span>
-							<span id="verify-item-2" class="verify-status-dependent verify-phone-not-done mdl-list__item-sub-title">Pending Verification</span>
+							<span>Phone</span>
+							<span id="verify-item-1" class="verify-status-dependent verify-phone-done check mdl-list__item-sub-title">Verified by DoWhop</span>
+							<span id="verify-item-2" class="verify-status-dependent verify-phone-not-done  mdl-list__item-sub-title">Pending Verification</span>
 						</span>
 					</li>
 
 					<li class="mdl-list__item mdl-list__item--two-line">
 						<span class="mdl-list__item-primary-content">
-							<i class="verify-status-dependent verify-email-done check material-icons mdl-list__item-icon">done</i>
-							<i class="verify-status-dependent verify-email-not-done material-icons mdl-list__item-icon">clear</i>
 							<i class="verify-icon material-icons mdl-list__item-icon">email</i>
-							<span>Verify Email</span>
-							<span id="verify-item-3" class="verify-status-dependent verify-email-done mdl-list__item-sub-title">Verified by DoWhop</span>
+							<span>Email</span>
+							<span id="verify-item-3" class="verify-status-dependent verify-email-done check mdl-list__item-sub-title">Verified by DoWhop</span>
 							<span id="verify-item-4" class="verify-status-dependent verify-email-not-done mdl-list__item-sub-title">Pending Verification</span>
 						</span>
 					</li>
 
 					<li class="mdl-list__item mdl-list__item--two-line">
 						<span class="mdl-list__item-primary-content">
-							<i class="verify-status-dependent verify-social-done check material-icons mdl-list__item-icon">done</i>
-							<i class="verify-status-dependent verify-social-not-done material-icons mdl-list__item-icon">clear</i>
 							<i class="verify-icon material-icons mdl-list__item-icon">share</i>
-							<span>Verify Social</span>
-							<span id="verify-item-5" class="verify-status-dependent verify-social-done mdl-list__item-sub-title">Verified by DoWhop</span>
+							<span>Social</span>
+							<span id="verify-item-5" class="verify-status-dependent verify-social-done check mdl-list__item-sub-title">Verified by DoWhop</span>
 							<span id="verify-item-6" class="verify-status-dependent verify-social-not-done mdl-list__item-sub-title">Pending Verification</span>
 						</span>
 					</li>
