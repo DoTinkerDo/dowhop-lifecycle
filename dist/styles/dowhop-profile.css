@@ -92,7 +92,7 @@ img {
 	text-align: left;
 	width: 100%;
 	height: auto;
-	padding: 15px 0px 0px 30px;
+	padding: 0px 0px 0px 30px;
 	word-wrap: break-word;
 }
 
@@ -129,15 +129,16 @@ img {
 
 #my-display-name {
 	display:inline-block;
-	text-align: center;
+	text-align: left;
 	font-size: 17px;
 	font-weight: bold;
 	color: black;
-	padding: 15px;
+	padding-left: 10px;
 	margin-left: 5px;
 }
 
 #send-msg-btn{
+	font-family: 'Avenir Light', Avenir Light, Arial, sans-serif;
 	padding: 10px;
 	margin-left: 1%;
 	width: 150px;

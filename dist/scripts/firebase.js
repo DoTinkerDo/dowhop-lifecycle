@@ -12,12 +12,12 @@ var config = {
 // test database
 // var config = {
 // // Dowhop Test DB:
-	// apiKey: "AIzaSyAJEseLAB0LwiFydCOtT3VFhnBfpw43kbE",
-	// authDomain: "dowhop-test.firebaseapp.com",
-	// databaseURL: "https://dowhop-test.firebaseio.com",
-	// projectId: "dowhop-test",
-	// storageBucket: "dowhop-test.appspot.com",
-	// messagingSenderId: "1083653835496"
+// 	apiKey: "AIzaSyAJEseLAB0LwiFydCOtT3VFhnBfpw43kbE",
+// 	authDomain: "dowhop-test.firebaseapp.com",
+// 	databaseURL: "https://dowhop-test.firebaseio.com",
+// 	projectId: "dowhop-test",
+// 	storageBucket: "dowhop-test.appspot.com",
+// 	messagingSenderId: "1083653835496"
 
   // DowWhop Profile App
   // apiKey: 'AIzaSyB5yNNpFJvQs_O8VEMqIF-NmMUfsMvzHZE',

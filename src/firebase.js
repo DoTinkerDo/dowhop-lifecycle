@@ -12,12 +12,12 @@ import * as firebaseui from 'firebaseui';
   messagingSenderId: '1090371045772'
 
 // //test database
-//     apiKey: "AIzaSyAJEseLAB0LwiFydCOtT3VFhnBfpw43kbE",
-//     authDomain: "dowhop-test.firebaseapp.com",
-//     databaseURL: "https://dowhop-test.firebaseio.com",
-//     projectId: "dowhop-test",
-//     storageBucket: "dowhop-test.appspot.com",
-//     messagingSenderId: "1083653835496"
+    // apiKey: "AIzaSyAJEseLAB0LwiFydCOtT3VFhnBfpw43kbE",
+    // authDomain: "dowhop-test.firebaseapp.com",
+    // databaseURL: "https://dowhop-test.firebaseio.com",
+    // projectId: "dowhop-test",
+    // storageBucket: "dowhop-test.appspot.com",
+    // messagingSenderId: "1083653835496"
   };
   firebase.initializeApp(config);
 
